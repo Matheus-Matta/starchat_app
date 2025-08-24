@@ -3,14 +3,14 @@ import { computed, onMounted, ref, nextTick } from 'vue';
 import { useMapGetter, useStore } from 'dashboard/composables/store';
 import { FEATURE_FLAGS } from 'dashboard/featureFlags';
 
-import AssistantCard from 'dashboard/components-next/cosmo/assistant/AssistantCard.vue';
-import DeleteDialog from 'dashboard/components-next/cosmo/pageComponents/DeleteDialog.vue';
-import PageLayout from 'dashboard/components-next/cosmo/PageLayout.vue';
-import CaptainPaywall from 'dashboard/components-next/cosmo/pageComponents/Paywall.vue';
-import CreateAssistantDialog from 'dashboard/components-next/cosmo/pageComponents/assistant/CreateAssistantDialog.vue';
-import AssistantPageEmptyState from 'dashboard/components-next/cosmo/pageComponents/emptyStates/AssistantPageEmptyState.vue';
+import AssistantCard from 'dashboard/components-next/cosmos/assistant/AssistantCard.vue';
+import DeleteDialog from 'dashboard/components-next/cosmos/pageComponents/DeleteDialog.vue';
+import PageLayout from 'dashboard/components-next/cosmos/PageLayout.vue';
+import CaptainPaywall from 'dashboard/components-next/cosmos/pageComponents/Paywall.vue';
+import CreateAssistantDialog from 'dashboard/components-next/cosmos/pageComponents/assistant/CreateAssistantDialog.vue';
+import AssistantPageEmptyState from 'dashboard/components-next/cosmos/pageComponents/emptyStates/AssistantPageEmptyState.vue';
 import FeatureSpotlightPopover from 'dashboard/components-next/feature-spotlight/FeatureSpotlightPopover.vue';
-import LimitBanner from 'dashboard/components-next/cosmo/pageComponents/response/LimitBanner.vue';
+import LimitBanner from 'dashboard/components-next/cosmos/pageComponents/response/LimitBanner.vue';
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
@@ -90,8 +90,8 @@ onMounted(() => store.dispatch('captainAssistants/get'));
         :button-label="$t('CAPTAIN.HEADER_KNOW_MORE')"
         :title="$t('CAPTAIN.ASSISTANTS.EMPTY_STATE.FEATURE_SPOTLIGHT.TITLE')"
         :note="$t('CAPTAIN.ASSISTANTS.EMPTY_STATE.FEATURE_SPOTLIGHT.NOTE')"
-        fallback-thumbnail="/assets/images/dashboard/cosmo/assistant-popover-light.svg"
-        fallback-thumbnail-dark="/assets/images/dashboard/cosmo/assistant-popover-dark.svg"
+        fallback-thumbnail="/assets/images/dashboard/cosmos/assistant-popover-light.svg"
+        fallback-thumbnail-dark="/assets/images/dashboard/cosmos/assistant-popover-dark.svg"
         learn-more-url="https://chwt.app/captain-assistant"
       />
     </template>

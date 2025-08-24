@@ -1,1 +1,1 @@
-json.partial! 'api/v1/models/cosmo/scenario', scenario: @scenario
+json.partial! 'api/v1/models/cosmos/scenario', scenario: @scenario

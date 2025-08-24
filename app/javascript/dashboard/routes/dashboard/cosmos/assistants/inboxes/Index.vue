@@ -9,11 +9,11 @@ import { useRoute } from 'vue-router';
 import { FEATURE_FLAGS } from 'dashboard/featureFlags';
 
 import BackButton from 'dashboard/components/widgets/BackButton.vue';
-import DeleteDialog from 'dashboard/components-next/cosmo/pageComponents/DeleteDialog.vue';
-import PageLayout from 'dashboard/components-next/cosmo/PageLayout.vue';
-import ConnectInboxDialog from 'dashboard/components-next/cosmo/pageComponents/inbox/ConnectInboxDialog.vue';
-import InboxCard from 'dashboard/components-next/cosmo/assistant/InboxCard.vue';
-import InboxPageEmptyState from 'dashboard/components-next/cosmo/pageComponents/emptyStates/InboxPageEmptyState.vue';
+import DeleteDialog from 'dashboard/components-next/cosmos/pageComponents/DeleteDialog.vue';
+import PageLayout from 'dashboard/components-next/cosmos/PageLayout.vue';
+import ConnectInboxDialog from 'dashboard/components-next/cosmos/pageComponents/inbox/ConnectInboxDialog.vue';
+import InboxCard from 'dashboard/components-next/cosmos/assistant/InboxCard.vue';
+import InboxPageEmptyState from 'dashboard/components-next/cosmos/pageComponents/emptyStates/InboxPageEmptyState.vue';
 
 const store = useStore();
 const dialogType = ref('');

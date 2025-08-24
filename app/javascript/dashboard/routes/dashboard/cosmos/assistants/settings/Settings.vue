@@ -5,11 +5,11 @@ import { useI18n } from 'vue-i18n';
 import { useAlert } from 'dashboard/composables';
 import { useStore } from 'dashboard/composables/store';
 import { useMapGetter } from 'dashboard/composables/store';
-import SettingsPageLayout from 'dashboard/components-next/cosmo/SettingsPageLayout.vue';
-import SettingsHeader from 'dashboard/components-next/cosmo/pageComponents/settings/SettingsHeader.vue';
-import AssistantBasicSettingsForm from 'dashboard/components-next/cosmo/pageComponents/assistant/settings/AssistantBasicSettingsForm.vue';
-import AssistantSystemSettingsForm from 'dashboard/components-next/cosmo/pageComponents/assistant/settings/AssistantSystemSettingsForm.vue';
-import AssistantControlItems from 'dashboard/components-next/cosmo/pageComponents/assistant/settings/AssistantControlItems.vue';
+import SettingsPageLayout from 'dashboard/components-next/cosmos/SettingsPageLayout.vue';
+import SettingsHeader from 'dashboard/components-next/cosmos/pageComponents/settings/SettingsHeader.vue';
+import AssistantBasicSettingsForm from 'dashboard/components-next/cosmos/pageComponents/assistant/settings/AssistantBasicSettingsForm.vue';
+import AssistantSystemSettingsForm from 'dashboard/components-next/cosmos/pageComponents/assistant/settings/AssistantSystemSettingsForm.vue';
+import AssistantControlItems from 'dashboard/components-next/cosmos/pageComponents/assistant/settings/AssistantControlItems.vue';
 
 const { t } = useI18n();
 const route = useRoute();

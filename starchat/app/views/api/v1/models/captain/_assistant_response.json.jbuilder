@@ -1,7 +1,7 @@
 json.account_id resource.account_id
 json.answer resource.answer
 json.assistant do
-  json.partial! 'api/v1/models/cosmo/assistant', formats: [:json], resource: resource.assistant
+  json.partial! 'api/v1/models/cosmos/assistant', formats: [:json], resource: resource.assistant
 end
 json.created_at resource.created_at.to_i
 

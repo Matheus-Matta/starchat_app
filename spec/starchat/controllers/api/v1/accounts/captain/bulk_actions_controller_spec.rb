@@ -19,7 +19,7 @@ RSpec.describe 'Api::V1::Accounts::Captain::BulkActions', type: :request do
     JSON.parse(response.body, symbolize_names: true)
   end
 
-  describe 'POST /api/v1/accounts/:account_id/cosmo/bulk_actions' do
+  describe 'POST /api/v1/accounts/:account_id/cosmos/bulk_actions' do
     context 'when approving responses' do
       let(:valid_params) do
         {
@@ -30,7 +30,7 @@ RSpec.describe 'Api::V1::Accounts::Captain::BulkActions', type: :request do
       end
 
       it 'approves the responses and returns the updated records' do
-        post "/api/v1/accounts/#{account.id}/cosmo/bulk_actions",
+        post "/api/v1/accounts/#{account.id}/cosmos/bulk_actions",
              params: valid_params,
              headers: admin.create_new_auth_token,
              as: :json
@@ -57,7 +57,7 @@ RSpec.describe 'Api::V1::Accounts::Captain::BulkActions', type: :request do
 
       it 'deletes the responses and returns an empty array' do
         expect do
-          post "/api/v1/accounts/#{account.id}/cosmo/bulk_actions",
+          post "/api/v1/accounts/#{account.id}/cosmos/bulk_actions",
                params: delete_params,
                headers: admin.create_new_auth_token,
                as: :json
@@ -83,7 +83,7 @@ RSpec.describe 'Api::V1::Accounts::Captain::BulkActions', type: :request do
       end
 
       it 'returns unprocessable entity status' do
-        post "/api/v1/accounts/#{account.id}/cosmo/bulk_actions",
+        post "/api/v1/accounts/#{account.id}/cosmos/bulk_actions",
              params: invalid_params,
              headers: admin.create_new_auth_token,
              as: :json
@@ -107,7 +107,7 @@ RSpec.describe 'Api::V1::Accounts::Captain::BulkActions', type: :request do
       end
 
       it 'returns unprocessable entity status' do
-        post "/api/v1/accounts/#{account.id}/cosmo/bulk_actions",
+        post "/api/v1/accounts/#{account.id}/cosmos/bulk_actions",
              params: missing_params,
              headers: admin.create_new_auth_token,
              as: :json
@@ -126,7 +126,7 @@ RSpec.describe 'Api::V1::Accounts::Captain::BulkActions', type: :request do
       let(:unauthorized_user) { create(:user, account: create(:account)) }
 
       it 'returns unauthorized status' do
-        post "/api/v1/accounts/#{account.id}/cosmo/bulk_actions",
+        post "/api/v1/accounts/#{account.id}/cosmos/bulk_actions",
              params: { type: 'AssistantResponse', ids: [1], fields: { status: 'approve' } },
              headers: unauthorized_user.create_new_auth_token,
              as: :json

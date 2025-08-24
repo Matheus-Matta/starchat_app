@@ -9,12 +9,12 @@ import { useUISettings } from 'dashboard/composables/useUISettings';
 import Button from 'dashboard/components-next/button/Button.vue';
 import Input from 'dashboard/components-next/input/Input.vue';
 
-import SettingsPageLayout from 'dashboard/components-next/cosmo/SettingsPageLayout.vue';
-import SettingsHeader from 'dashboard/components-next/cosmo/pageComponents/settings/SettingsHeader.vue';
-import SuggestedScenarios from 'dashboard/components-next/cosmo/assistant/SuggestedRules.vue';
-import ScenariosCard from 'dashboard/components-next/cosmo/assistant/ScenariosCard.vue';
-import BulkSelectBar from 'dashboard/components-next/cosmo/assistant/BulkSelectBar.vue';
-import AddNewScenariosDialog from 'dashboard/components-next/cosmo/assistant/AddNewScenariosDialog.vue';
+import SettingsPageLayout from 'dashboard/components-next/cosmos/SettingsPageLayout.vue';
+import SettingsHeader from 'dashboard/components-next/cosmos/pageComponents/settings/SettingsHeader.vue';
+import SuggestedScenarios from 'dashboard/components-next/cosmos/assistant/SuggestedRules.vue';
+import ScenariosCard from 'dashboard/components-next/cosmos/assistant/ScenariosCard.vue';
+import BulkSelectBar from 'dashboard/components-next/cosmos/assistant/BulkSelectBar.vue';
+import AddNewScenariosDialog from 'dashboard/components-next/cosmos/assistant/AddNewScenariosDialog.vue';
 
 const { t } = useI18n();
 const route = useRoute();

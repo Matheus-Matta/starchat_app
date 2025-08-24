@@ -6,10 +6,10 @@ RSpec.describe 'Api::V1::Accounts::Captain::CopilotMessagesController', type: :r
   let(:copilot_thread) { create(:captain_copilot_thread, account: account, user: user) }
   let!(:copilot_message) { create(:captain_copilot_message, copilot_thread: copilot_thread, account: account) }
 
-  describe 'GET /api/v1/accounts/{account.id}/cosmo/copilot_threads/{thread.id}/copilot_messages' do
+  describe 'GET /api/v1/accounts/{account.id}/cosmos/copilot_threads/{thread.id}/copilot_messages' do
     context 'when it is an authenticated user' do
       it 'returns all messages' do
-        get "/api/v1/accounts/#{account.id}/cosmo/copilot_threads/#{copilot_thread.id}/copilot_messages",
+        get "/api/v1/accounts/#{account.id}/cosmos/copilot_threads/#{copilot_thread.id}/copilot_messages",
             headers: user.create_new_auth_token,
             as: :json
 
@@ -22,7 +22,7 @@ RSpec.describe 'Api::V1::Accounts::Captain::CopilotMessagesController', type: :r
 
     context 'when thread id is invalid' do
       it 'returns not found error' do
-        get "/api/v1/accounts/#{account.id}/cosmo/copilot_threads/999999999/copilot_messages",
+        get "/api/v1/accounts/#{account.id}/cosmos/copilot_threads/999999999/copilot_messages",
             headers: user.create_new_auth_token,
             as: :json
 
@@ -31,13 +31,13 @@ RSpec.describe 'Api::V1::Accounts::Captain::CopilotMessagesController', type: :r
     end
   end
 
-  describe 'POST /api/v1/accounts/{account.id}/cosmo/copilot_threads/{thread.id}/copilot_messages' do
+  describe 'POST /api/v1/accounts/{account.id}/cosmos/copilot_threads/{thread.id}/copilot_messages' do
     context 'when it is an authenticated user' do
       it 'creates a new message' do
         message_content = { 'content' => 'This is a test message' }
 
         expect do
-          post "/api/v1/accounts/#{account.id}/cosmo/copilot_threads/#{copilot_thread.id}/copilot_messages",
+          post "/api/v1/accounts/#{account.id}/cosmos/copilot_threads/#{copilot_thread.id}/copilot_messages",
                params: { message: message_content },
                headers: user.create_new_auth_token,
                as: :json
@@ -52,7 +52,7 @@ RSpec.describe 'Api::V1::Accounts::Captain::CopilotMessagesController', type: :r
 
     context 'when thread does not exist' do
       it 'returns not found error' do
-        post "/api/v1/accounts/#{account.id}/cosmo/copilot_threads/999999999/copilot_messages",
+        post "/api/v1/accounts/#{account.id}/cosmos/copilot_threads/999999999/copilot_messages",
              params: { message: { text: 'Test message' } },
              headers: user.create_new_auth_token,
              as: :json
@@ -66,7 +66,7 @@ RSpec.describe 'Api::V1::Accounts::Captain::CopilotMessagesController', type: :r
       let(:another_thread) { create(:captain_copilot_thread, account: account, user: another_user) }
 
       it 'returns not found error' do
-        post "/api/v1/accounts/#{account.id}/cosmo/copilot_threads/#{another_thread.id}/copilot_messages",
+        post "/api/v1/accounts/#{account.id}/cosmos/copilot_threads/#{another_thread.id}/copilot_messages",
              params: { message: { text: 'Test message' } },
              headers: user.create_new_auth_token,
              as: :json

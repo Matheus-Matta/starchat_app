@@ -10,13 +10,13 @@ import { useUISettings } from 'dashboard/composables/useUISettings';
 import Input from 'dashboard/components-next/input/Input.vue';
 import Button from 'dashboard/components-next/button/Button.vue';
 
-import SettingsPageLayout from 'dashboard/components-next/cosmo/SettingsPageLayout.vue';
-import SettingsHeader from 'dashboard/components-next/cosmo/pageComponents/settings/SettingsHeader.vue';
-import SuggestedRules from 'dashboard/components-next/cosmo/assistant/SuggestedRules.vue';
-import AddNewRulesInput from 'dashboard/components-next/cosmo/assistant/AddNewRulesInput.vue';
-import AddNewRulesDialog from 'dashboard/components-next/cosmo/assistant/AddNewRulesDialog.vue';
-import RuleCard from 'dashboard/components-next/cosmo/assistant/RuleCard.vue';
-import BulkSelectBar from 'dashboard/components-next/cosmo/assistant/BulkSelectBar.vue';
+import SettingsPageLayout from 'dashboard/components-next/cosmos/SettingsPageLayout.vue';
+import SettingsHeader from 'dashboard/components-next/cosmos/pageComponents/settings/SettingsHeader.vue';
+import SuggestedRules from 'dashboard/components-next/cosmos/assistant/SuggestedRules.vue';
+import AddNewRulesInput from 'dashboard/components-next/cosmos/assistant/AddNewRulesInput.vue';
+import AddNewRulesDialog from 'dashboard/components-next/cosmos/assistant/AddNewRulesDialog.vue';
+import RuleCard from 'dashboard/components-next/cosmos/assistant/RuleCard.vue';
+import BulkSelectBar from 'dashboard/components-next/cosmos/assistant/BulkSelectBar.vue';
 
 const { t } = useI18n();
 const route = useRoute();

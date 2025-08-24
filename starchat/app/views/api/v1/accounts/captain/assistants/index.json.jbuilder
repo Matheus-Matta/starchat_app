@@ -1,6 +1,6 @@
 json.payload do
   json.array! @assistants do |assistant|
-    json.partial! 'api/v1/models/cosmo/assistant', formats: [:json], resource: assistant
+    json.partial! 'api/v1/models/cosmos/assistant', formats: [:json], resource: assistant
   end
 end
 
