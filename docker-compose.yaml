@@ -43,7 +43,6 @@ services:
       - postgres
       - redis
       - rails
-    entrypoint: ["/usr/local/bin/entrypoints/rails.sh"]
     command: ["bundle", "exec", "sidekiq", "-C", "config/sidekiq.yml"]
 
 volumes:
