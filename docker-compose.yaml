@@ -1,46 +1,74 @@
-
 services:
   postgres:
     image: pgvector/pgvector:pg16
     restart: always
+    env_file: .env
     environment:
-      POSTGRES_DB: ${POSTGRES_DB:-chatwoot_production}
-      POSTGRES_USER: ${POSTGRES_USER:-chatwoot}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set_me}
+      POSTGRES_DB:     ${POSTGRES_DATABASE}
+      POSTGRES_USER:   ${POSTGRES_USERNAME}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
-      - db-data:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data
     ports:
-      - "5433:5432"
+      - "127.0.0.1:5433:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -h localhost -p 5432 -U ${POSTGRES_USER} -d ${POSTGRES_DB} || exit 1"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
   redis:
     image: redis:alpine
     restart: always
-    command: ["redis-server", "--appendonly", "yes", "--requirepass", "${REDIS_PASSWORD:?set_me}"]
-    environment:
-      - REDIS_PASSWORD=${REDIS_PASSWORD:?set_me}
+    command: ["sh", "-c", "redis-server --appendonly yes --requirepass \"$REDIS_PASSWORD\""]
+    env_file: .env
     volumes:
-      - redis-data:/data
+      - redis_data:/data
     ports:
-      - "6380:6379"
+      - "127.0.0.1:6380:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "${REDIS_PASSWORD}", "PING"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  base: &base
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file: .env
+    volumes:
+      - storage_data:/app/storage
+
   rails:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    <<: *base
     env_file: .env
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    volumes:
+      - storage_data:/app/storage
     ports:
-      - "3001:3001"
-    depends_on:
-      - postgres
-      - redis
+      - "127.0.0.1:3000:3000"
+    restart: unless-stopped
+    command: ["bundle", "exec", "puma", "-C", "config/puma.rb"]
+
   sidekiq:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    <<: *base
     env_file: .env
     depends_on:
-      - postgres
-      - redis
-      - rails
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    volumes:
+      - storage_data:/app/storage
+    restart: unless-stopped
     command: ["bundle", "exec", "sidekiq", "-C", "config/sidekiq.yml"]
+
 volumes:
-  db-data:
-  redis-data:
+  postgres_data:
+  redis_data:
+  storage_data:

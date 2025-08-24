@@ -20,7 +20,7 @@ Metrics/ClassLength:
 Metrics/MethodLength:
   Max: 19
   Exclude:
-    - 'starchat/lib/captain/agent.rb'
+    - 'starchat/lib/cosmos/agent.rb'
 
 RSpec/ExampleLength:
   Max: 25
@@ -86,7 +86,7 @@ Metrics/ModuleLength:
 
 Rails/HelperInstanceVariable:
   Exclude:
-    - starchat/app/helpers/captain/chat_helper.rb
+    - starchat/app/helpers/cosmos/chat_helper.rb
 
 Rails/ApplicationController:
   Exclude:
@@ -117,7 +117,7 @@ Rails/RedundantPresenceValidationOnBelongsTo:
 
 Rails/InverseOf:
   Exclude:
-    - starchat/app/models/captain/assistant.rb
+    - starchat/app/models/cosmos/assistant.rb
 
 Rails/UniqueValidationWithoutIndex:
   Exclude:

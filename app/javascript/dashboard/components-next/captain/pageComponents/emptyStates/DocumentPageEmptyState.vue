@@ -1,9 +1,9 @@
 <script setup>
 import EmptyStateLayout from 'dashboard/components-next/EmptyStateLayout.vue';
 import Button from 'dashboard/components-next/button/Button.vue';
-import DocumentCard from 'dashboard/components-next/captain/assistant/DocumentCard.vue';
+import DocumentCard from 'dashboard/components-next/cosmos/assistant/DocumentCard.vue';
 import FeatureSpotlight from 'dashboard/components-next/feature-spotlight/FeatureSpotlight.vue';
-import { documentsList } from 'dashboard/components-next/captain/pageComponents/emptyStates/captainEmptyStateContent.js';
+import { documentsList } from 'dashboard/components-next/cosmos/pageComponents/emptyStates/captainEmptyStateContent.js';
 
 const emit = defineEmits(['click']);
 
@@ -16,8 +16,8 @@ const onClick = () => {
   <FeatureSpotlight
     :title="$t('CAPTAIN.DOCUMENTS.EMPTY_STATE.FEATURE_SPOTLIGHT.TITLE')"
     :note="$t('CAPTAIN.DOCUMENTS.EMPTY_STATE.FEATURE_SPOTLIGHT.NOTE')"
-    fallback-thumbnail="/assets/images/dashboard/captain/document-light.svg"
-    fallback-thumbnail-dark="/assets/images/dashboard/captain/document-dark.svg"
+    fallback-thumbnail="/assets/images/dashboard/cosmos/document-light.svg"
+    fallback-thumbnail-dark="/assets/images/dashboard/cosmos/document-dark.svg"
     learn-more-url="https://chwt.app/captain-document"
     class="mb-8"
   />

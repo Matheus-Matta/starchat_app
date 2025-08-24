@@ -1,6 +1,6 @@
 <script setup>
 import { ref, computed, watch } from 'vue';
-import ToolsDropdown from 'dashboard/components-next/captain/assistant/ToolsDropdown.vue';
+import ToolsDropdown from 'dashboard/components-next/cosmos/assistant/ToolsDropdown.vue';
 import { useKeyboardNavigableList } from 'dashboard/composables/useKeyboardNavigableList';
 import { useMapGetter } from 'dashboard/composables/store.js';
 

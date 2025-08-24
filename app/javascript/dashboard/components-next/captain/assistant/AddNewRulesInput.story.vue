@@ -4,7 +4,7 @@ import AddNewRulesInput from './AddNewRulesInput.vue';
 
 <template>
   <Story
-    title="Captain/Assistant/AddNewRulesInput"
+    title="Cosmos/Assistant/AddNewRulesInput"
     :layout="{ type: 'grid', width: '800px' }"
   >
     <Variant title="Default">

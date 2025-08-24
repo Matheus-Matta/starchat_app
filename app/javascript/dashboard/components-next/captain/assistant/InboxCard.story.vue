@@ -1,11 +1,11 @@
 <script setup>
 import InboxCard from './InboxCard.vue';
-import { inboxes } from 'dashboard/components-next/captain/pageComponents/emptyStates/captainEmptyStateContent.js';
+import { inboxes } from 'dashboard/components-next/cosmos/pageComponents/emptyStates/captainEmptyStateContent.js';
 </script>
 
 <template>
   <Story
-    title="Captain/Assistant/InboxCard"
+    title="Cosmos/Assistant/InboxCard"
     :layout="{ type: 'grid', width: '700px' }"
   >
     <Variant title="Inbox Card">

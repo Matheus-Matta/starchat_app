@@ -4,7 +4,7 @@ import SettingsHeader from './SettingsHeader.vue';
 
 <template>
   <Story
-    title="Captain/PageComponents/SettingsHeader"
+    title="Cosmos/PageComponents/SettingsHeader"
     :layout="{ type: 'grid', width: '800px' }"
   >
     <Variant title="Default">

@@ -1,9 +1,9 @@
 <script setup>
 import EmptyStateLayout from 'dashboard/components-next/EmptyStateLayout.vue';
 import Button from 'dashboard/components-next/button/Button.vue';
-import ResponseCard from 'dashboard/components-next/captain/assistant/ResponseCard.vue';
+import ResponseCard from 'dashboard/components-next/cosmos/assistant/ResponseCard.vue';
 import FeatureSpotlight from 'dashboard/components-next/feature-spotlight/FeatureSpotlight.vue';
-import { responsesList } from 'dashboard/components-next/captain/pageComponents/emptyStates/captainEmptyStateContent.js';
+import { responsesList } from 'dashboard/components-next/cosmos/pageComponents/emptyStates/captainEmptyStateContent.js';
 
 const emit = defineEmits(['click']);
 
@@ -16,8 +16,8 @@ const onClick = () => {
   <FeatureSpotlight
     :title="$t('CAPTAIN.RESPONSES.EMPTY_STATE.FEATURE_SPOTLIGHT.TITLE')"
     :note="$t('CAPTAIN.RESPONSES.EMPTY_STATE.FEATURE_SPOTLIGHT.NOTE')"
-    fallback-thumbnail="/assets/images/dashboard/captain/faqs-light.svg"
-    fallback-thumbnail-dark="/assets/images/dashboard/captain/faqs-dark.svg"
+    fallback-thumbnail="/assets/images/dashboard/cosmos/faqs-light.svg"
+    fallback-thumbnail-dark="/assets/images/dashboard/cosmos/faqs-dark.svg"
     learn-more-url="https://chwt.app/captain-faq"
     class="mb-8"
   />

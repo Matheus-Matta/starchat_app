@@ -4,7 +4,7 @@ import AddNewRulesDialog from './AddNewRulesDialog.vue';
 
 <template>
   <Story
-    title="Captain/Assistant/AddNewRulesDialog"
+    title="Cosmos/Assistant/AddNewRulesDialog"
     :layout="{ type: 'grid', width: '800px' }"
   >
     <Variant title="Default">

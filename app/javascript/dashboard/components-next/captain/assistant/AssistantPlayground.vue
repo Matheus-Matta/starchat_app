@@ -3,7 +3,7 @@ import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import NextButton from 'dashboard/components-next/button/Button.vue';
 import MessageList from './MessageList.vue';
-import CaptainAssistant from 'dashboard/api/captain/assistant';
+import CaptainAssistant from 'dashboard/api/cosmos/assistant';
 
 const { assistantId } = defineProps({
   assistantId: {

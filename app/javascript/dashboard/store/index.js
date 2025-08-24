@@ -46,15 +46,15 @@ import teamMembers from './modules/teamMembers';
 import teams from './modules/teams';
 import userNotificationSettings from './modules/userNotificationSettings';
 import webhooks from './modules/webhooks';
-import captainAssistants from './captain/assistant';
-import captainDocuments from './captain/document';
-import captainResponses from './captain/response';
-import captainInboxes from './captain/inboxes';
-import captainBulkActions from './captain/bulkActions';
-import copilotThreads from './captain/copilotThreads';
-import copilotMessages from './captain/copilotMessages';
-import captainScenarios from './captain/scenarios';
-import captainTools from './captain/tools';
+import captainAssistants from './cosmos/assistant';
+import captainDocuments from './cosmos/document';
+import captainResponses from './cosmos/response';
+import captainInboxes from './cosmos/inboxes';
+import captainBulkActions from './cosmos/bulkActions';
+import copilotThreads from './cosmos/copilotThreads';
+import copilotMessages from './cosmos/copilotMessages';
+import captainScenarios from './cosmos/scenarios';
+import captainTools from './cosmos/tools';
 
 const plugins = [];
 

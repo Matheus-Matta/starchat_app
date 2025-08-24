@@ -1,11 +1,11 @@
 <script setup>
 import DocumentCard from './DocumentCard.vue';
-import { documentsList } from 'dashboard/components-next/captain/pageComponents/emptyStates/captainEmptyStateContent.js';
+import { documentsList } from 'dashboard/components-next/cosmos/pageComponents/emptyStates/captainEmptyStateContent.js';
 </script>
 
 <template>
   <Story
-    title="Captain/Assistant/DocumentCard"
+    title="Cosmos/Assistant/DocumentCard"
     :layout="{ type: 'grid', width: '700px' }"
   >
     <Variant title="Document Card">

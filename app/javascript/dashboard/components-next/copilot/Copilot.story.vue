@@ -47,7 +47,7 @@ const sendMessage = message => {
 
 <template>
   <Story
-    title="Captain/Copilot"
+    title="Cosmos/Copilot"
     :layout="{ type: 'grid', width: '400px', height: '800px' }"
   >
     <Copilot
