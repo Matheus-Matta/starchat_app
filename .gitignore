@@ -88,7 +88,12 @@ yarn-debug.log*
 # Vite uses dotenv and suggests to ignore local-only env files. See
 # https://vitejs.dev/guide/env-and-mode.html#env-files
 *.local
-*.identifier
+
+# Windows ADS metadata (quando copia do Windows para o WSL/NTFS)
+*:*Zone.Identifier
+*:*zone.identifier
+
+# End of .gitignore
 
 # TextEditors & AI Agents config files
 .vscode
