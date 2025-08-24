@@ -13,7 +13,7 @@ import ResponsesIndex from './responses/Index.vue';
 
 export const routes = [
   {
-    path: frontendURL('accounts/:accountId/captain/assistants'),
+    path: frontendURL('accounts/:accountId/cosmos/assistants'),
     component: AssistantIndex,
     name: 'captain_assistants_index',
     meta: {
@@ -26,7 +26,7 @@ export const routes = [
     },
   },
   {
-    path: frontendURL('accounts/:accountId/captain/assistants/:assistantId'),
+    path: frontendURL('accounts/:accountId/cosmos/assistants/:assistantId'),
     component: AssistantEdit,
     name: 'captain_assistants_edit',
     meta: {
@@ -40,7 +40,7 @@ export const routes = [
   },
   {
     path: frontendURL(
-      'accounts/:accountId/captain/assistants/:assistantId/inboxes'
+      'accounts/:accountId/cosmos/assistants/:assistantId/inboxes'
     ),
     component: AssistantInboxesIndex,
     name: 'captain_assistants_inboxes_index',
@@ -55,7 +55,7 @@ export const routes = [
   },
   {
     path: frontendURL(
-      'accounts/:accountId/captain/assistants/:assistantId/guardrails'
+      'accounts/:accountId/cosmos/assistants/:assistantId/guardrails'
     ),
     component: AssistantGuardrailsIndex,
     name: 'captain_assistants_guardrails_index',
@@ -70,7 +70,7 @@ export const routes = [
   },
   {
     path: frontendURL(
-      'accounts/:accountId/captain/assistants/:assistantId/scenarios'
+      'accounts/:accountId/cosmos/assistants/:assistantId/scenarios'
     ),
     component: AssistantScenariosIndex,
     name: 'captain_assistants_scenarios_index',
@@ -85,7 +85,7 @@ export const routes = [
   },
   {
     path: frontendURL(
-      'accounts/:accountId/captain/assistants/:assistantId/guidelines'
+      'accounts/:accountId/cosmos/assistants/:assistantId/guidelines'
     ),
     component: AssistantGuidelinesIndex,
     name: 'captain_assistants_guidelines_index',
@@ -99,7 +99,7 @@ export const routes = [
     },
   },
   {
-    path: frontendURL('accounts/:accountId/captain/documents'),
+    path: frontendURL('accounts/:accountId/cosmos/documents'),
     component: DocumentsIndex,
     name: 'captain_documents_index',
     meta: {
@@ -112,7 +112,7 @@ export const routes = [
     },
   },
   {
-    path: frontendURL('accounts/:accountId/captain/responses'),
+    path: frontendURL('accounts/:accountId/cosmos/responses'),
     component: ResponsesIndex,
     name: 'captain_responses_index',
     meta: {

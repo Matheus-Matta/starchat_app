@@ -22,7 +22,7 @@ if Rails.env.development?
       'simple_indexes' => 'false',
       'model_dir' => [
         'app/models',
-        'enterprise/app/models',
+        'starchat/app/models',
       ],
       'root_dir' => '',
       'include_version' => 'false',

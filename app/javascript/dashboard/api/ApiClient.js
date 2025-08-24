@@ -29,7 +29,7 @@ class ApiClient {
     let url = this.apiVersion;
 
     if (this.options.enterprise) {
-      url = `/enterprise${url}`;
+      url = `/starchat${url}`;
     }
 
     if (this.options.accountScoped && this.accountIdFromRoute) {

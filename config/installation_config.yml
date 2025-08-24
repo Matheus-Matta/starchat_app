@@ -42,11 +42,11 @@
   display_title: 'Brand Name'
   description: 'The name that would be used in emails and the widget'
 - name: TERMS_URL
-  value: 'https://www.starchat.com/terms-of-service'
+  value: 'https://starchat.star.dev.br/termos-de-uso/'
   display_title: 'Terms URL'
   description: 'The terms of service URL displayed in Signup Page'
 - name: PRIVACY_URL
-  value: 'https://www.starchat.com/privacy-policy'
+  value: 'https://starchat.star.dev.br/politica-de-privacidade/'
   display_title: 'Privacy URL'
   description: 'The privacy policy URL displayed in the app'
 - name: DISPLAY_MANIFEST
@@ -421,16 +421,3 @@
   description: 'The redirect URI configured in your Google OAuth app'
 ## ------ End of Configs added for Google OAuth ------ ##
 
-## ------ Configs added for Cloudflare ------ ##
-- name: CLOUDFLARE_API_KEY
-  display_title: 'Cloudflare API Key'
-  value:
-  locked: false
-  description: 'API key for Cloudflare account authentication'
-  type: secret
-- name: CLOUDFLARE_ZONE_ID
-  display_title: 'Cloudflare Zone ID'
-  value:
-  locked: false
-  description: 'Zone ID for the Cloudflare domain'
-## ------ End of Configs added for Cloudflare ------ ##

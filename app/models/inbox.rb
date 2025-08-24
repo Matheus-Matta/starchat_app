@@ -215,7 +215,6 @@ class Inbox < ApplicationRecord
   end
 
   def ensure_valid_max_assignment_limit
-    # overridden in enterprise/app/models/enterprise/inbox.rb
   end
 
   def delete_round_robin_agents

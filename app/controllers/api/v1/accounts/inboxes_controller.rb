@@ -3,6 +3,8 @@ class Api::V1::Accounts::InboxesController < Api::V1::Accounts::BaseController
   before_action :fetch_inbox, except: [:index, :create]
   before_action :fetch_agent_bot, only: [:set_agent_bot]
   before_action :validate_limit, only: [:create]
+  before_action :fetch_inbox, except: [:index, :create, :bulk_destroy]
+
   # we are already handling the authorization in fetch inbox
   before_action :check_authorization, except: [:show]
 
@@ -184,6 +186,40 @@ class Api::V1::Accounts::InboxesController < Api::V1::Accounts::BaseController
     else
       []
     end
+  end
+
+  def bulk_destroy
+    ids = Array(params[:ids]).presence || begin
+      raw = request.raw_post.presence && JSON.parse(request.raw_post) rescue {}
+      Array(raw['ids'])
+    end
+    return render json: { ok: false, error: 'IDs ausentes' }, status: :unprocessable_entity if ids.blank?
+    ids = ids.map(&:to_i).uniq
+    inboxes = policy_scope(Current.account.inboxes).where(id: ids)
+    deleted = 0
+    failed  = []
+    inboxes.find_each do |inbox|
+      begin
+        authorize inbox, :destroy? # por item
+        ::DeleteObjectJob.perform_later(inbox, Current.user, request.ip)
+        deleted += 1
+      rescue Pundit::NotAuthorizedError => e
+        failed << { id: inbox.id, error: e.message }
+      rescue StandardError => e
+        failed << { id: inbox.id, error: e.message }
+      end
+    end
+    missing = ids - inboxes.pluck(:id)
+    failed.concat(missing.map { |mid| { id: mid, error: 'not_found' } }) if missing.any?
+    status =
+      if deleted.positive? && failed.empty?
+        :ok
+      elsif deleted.positive?
+        207
+      else
+        :unprocessable_entity
+      end
+    render json: { ok: deleted.positive?, deleted: deleted, failed: failed, requested: ids.size }, status: status
   end
 end
 

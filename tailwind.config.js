@@ -22,7 +22,7 @@ const defaultSansFonts = [
 const tailwindConfig = {
   darkMode: 'class',
   content: [
-    './enterprise/app/views/**/*.html.erb',
+    './starchat/app/views/**/*.html.erb',
     './app/javascript/widget/**/*.vue',
     './app/javascript/v3/**/*.vue',
     './app/javascript/dashboard/**/*.vue',

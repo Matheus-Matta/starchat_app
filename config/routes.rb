@@ -186,6 +186,7 @@ Rails.application.routes.draw do
             post :set_agent_bot, on: :member
             delete :avatar, on: :member
             post :sync_templates, on: :member
+            delete :bulk_destroy, on: :collection
           end
           resources :inbox_members, only: [:create, :show], param: :inbox_id do
             collection do
@@ -390,26 +391,6 @@ Rails.application.routes.draw do
       end
     end
   end
-
-  # if ChatwootApp.enterprise?
-  #   namespace :enterprise, defaults: { format: 'json' } do
-  #     namespace :api do
-  #       namespace :v1 do
-  #         resources :accounts do
-  #           member do
-  #             post :checkout
-  #             post :subscription
-  #             get :limits
-  #             post :toggle_deletion
-  #           end
-  #         end
-  #       end
-  #     end
-  #
-  #     post 'webhooks/stripe', to: 'webhooks/stripe#process_payload'
-  #     post 'webhooks/firecrawl', to: 'webhooks/firecrawl#process_payload'
-  #   end
-  # end
 
   # ----------------------------------------------------------------------
   # Routes for platform APIs
