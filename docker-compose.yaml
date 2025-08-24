@@ -11,7 +11,6 @@ services:
       - db-data:/var/lib/postgresql/data
     ports:
       - "5433:5432"
-
   redis:
     image: redis:alpine
     restart: always
@@ -22,7 +21,6 @@ services:
       - redis-data:/data
     ports:
       - "6380:6379"
-
   rails:
     build:
       context: .
@@ -33,7 +31,6 @@ services:
     depends_on:
       - postgres
       - redis
-
   sidekiq:
     build:
       context: .
@@ -44,7 +41,6 @@ services:
       - redis
       - rails
     command: ["bundle", "exec", "sidekiq", "-C", "config/sidekiq.yml"]
-
 volumes:
   db-data:
   redis-data:
