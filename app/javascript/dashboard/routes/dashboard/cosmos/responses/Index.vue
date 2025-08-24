@@ -10,16 +10,16 @@ import { FEATURE_FLAGS } from 'dashboard/featureFlags';
 import Button from 'dashboard/components-next/button/Button.vue';
 import Checkbox from 'dashboard/components-next/checkbox/Checkbox.vue';
 import DropdownMenu from 'dashboard/components-next/dropdown-menu/DropdownMenu.vue';
-import DeleteDialog from 'dashboard/components-next/captain/pageComponents/DeleteDialog.vue';
-import BulkDeleteDialog from 'dashboard/components-next/captain/pageComponents/BulkDeleteDialog.vue';
-import PageLayout from 'dashboard/components-next/captain/PageLayout.vue';
-import CaptainPaywall from 'dashboard/components-next/captain/pageComponents/Paywall.vue';
-import AssistantSelector from 'dashboard/components-next/captain/pageComponents/AssistantSelector.vue';
-import ResponseCard from 'dashboard/components-next/captain/assistant/ResponseCard.vue';
-import CreateResponseDialog from 'dashboard/components-next/captain/pageComponents/response/CreateResponseDialog.vue';
-import ResponsePageEmptyState from 'dashboard/components-next/captain/pageComponents/emptyStates/ResponsePageEmptyState.vue';
+import DeleteDialog from 'dashboard/components-next/cosmo/pageComponents/DeleteDialog.vue';
+import BulkDeleteDialog from 'dashboard/components-next/cosmo/pageComponents/BulkDeleteDialog.vue';
+import PageLayout from 'dashboard/components-next/cosmo/PageLayout.vue';
+import CaptainPaywall from 'dashboard/components-next/cosmo/pageComponents/Paywall.vue';
+import AssistantSelector from 'dashboard/components-next/cosmo/pageComponents/AssistantSelector.vue';
+import ResponseCard from 'dashboard/components-next/cosmo/assistant/ResponseCard.vue';
+import CreateResponseDialog from 'dashboard/components-next/cosmo/pageComponents/response/CreateResponseDialog.vue';
+import ResponsePageEmptyState from 'dashboard/components-next/cosmo/pageComponents/emptyStates/ResponsePageEmptyState.vue';
 import FeatureSpotlightPopover from 'dashboard/components-next/feature-spotlight/FeatureSpotlightPopover.vue';
-import LimitBanner from 'dashboard/components-next/captain/pageComponents/response/LimitBanner.vue';
+import LimitBanner from 'dashboard/components-next/cosmo/pageComponents/response/LimitBanner.vue';
 
 const router = useRouter();
 const store = useStore();
@@ -275,8 +275,8 @@ onMounted(() => {
         :button-label="$t('CAPTAIN.HEADER_KNOW_MORE')"
         :title="$t('CAPTAIN.RESPONSES.EMPTY_STATE.FEATURE_SPOTLIGHT.TITLE')"
         :note="$t('CAPTAIN.RESPONSES.EMPTY_STATE.FEATURE_SPOTLIGHT.NOTE')"
-        fallback-thumbnail="/assets/images/dashboard/captain/faqs-popover-light.svg"
-        fallback-thumbnail-dark="/assets/images/dashboard/captain/faqs-popover-dark.svg"
+        fallback-thumbnail="/assets/images/dashboard/cosmo/faqs-popover-light.svg"
+        fallback-thumbnail-dark="/assets/images/dashboard/cosmo/faqs-popover-dark.svg"
         learn-more-url="https://chwt.app/captain-faq"
       />
     </template>

@@ -10,10 +10,10 @@ RSpec.describe 'Api::V1::Accounts::Captain::Scenarios', type: :request do
     JSON.parse(response.body, symbolize_names: true)
   end
 
-  describe 'GET /api/v1/accounts/{account.id}/captain/assistants/{assistant.id}/scenarios' do
+  describe 'GET /api/v1/accounts/{account.id}/cosmo/assistants/{assistant.id}/scenarios' do
     context 'when it is an un-authenticated user' do
       it 'returns unauthorized status' do
-        get "/api/v1/accounts/#{account.id}/captain/assistants/#{assistant.id}/scenarios"
+        get "/api/v1/accounts/#{account.id}/cosmo/assistants/#{assistant.id}/scenarios"
         expect(response).to have_http_status(:unauthorized)
       end
     end
@@ -21,7 +21,7 @@ RSpec.describe 'Api::V1::Accounts::Captain::Scenarios', type: :request do
     context 'when it is an agent' do
       it 'returns success status' do
         create_list(:captain_scenario, 3, assistant: assistant, account: account)
-        get "/api/v1/accounts/#{account.id}/captain/assistants/#{assistant.id}/scenarios",
+        get "/api/v1/accounts/#{account.id}/cosmo/assistants/#{assistant.id}/scenarios",
             headers: agent.create_new_auth_token,
             as: :json
 
@@ -33,7 +33,7 @@ RSpec.describe 'Api::V1::Accounts::Captain::Scenarios', type: :request do
     context 'when it is an admin' do
       it 'returns success status and scenarios' do
         create_list(:captain_scenario, 5, assistant: assistant, account: account)
-        get "/api/v1/accounts/#{account.id}/captain/assistants/#{assistant.id}/scenarios",
+        get "/api/v1/accounts/#{account.id}/cosmo/assistants/#{assistant.id}/scenarios",
             headers: admin.create_new_auth_token,
             as: :json
 
@@ -44,7 +44,7 @@ RSpec.describe 'Api::V1::Accounts::Captain::Scenarios', type: :request do
       it 'returns only enabled scenarios' do
         create(:captain_scenario, assistant: assistant, account: account, enabled: true)
         create(:captain_scenario, assistant: assistant, account: account, enabled: false)
-        get "/api/v1/accounts/#{account.id}/captain/assistants/#{assistant.id}/scenarios",
+        get "/api/v1/accounts/#{account.id}/cosmo/assistants/#{assistant.id}/scenarios",
             headers: admin.create_new_auth_token,
             as: :json
 
@@ -55,19 +55,19 @@ RSpec.describe 'Api::V1::Accounts::Captain::Scenarios', type: :request do
     end
   end
 
-  describe 'GET /api/v1/accounts/{account.id}/captain/assistants/{assistant.id}/scenarios/{id}' do
+  describe 'GET /api/v1/accounts/{account.id}/cosmo/assistants/{assistant.id}/scenarios/{id}' do
     let(:scenario) { create(:captain_scenario, assistant: assistant, account: account) }
 
     context 'when it is an un-authenticated user' do
       it 'returns unauthorized status' do
-        get "/api/v1/accounts/#{account.id}/captain/assistants/#{assistant.id}/scenarios/#{scenario.id}"
+        get "/api/v1/accounts/#{account.id}/cosmo/assistants/#{assistant.id}/scenarios/#{scenario.id}"
         expect(response).to have_http_status(:unauthorized)
       end
     end
 
     context 'when it is an agent' do
       it 'returns success status and scenario' do
-        get "/api/v1/accounts/#{account.id}/captain/assistants/#{assistant.id}/scenarios/#{scenario.id}",
+        get "/api/v1/accounts/#{account.id}/cosmo/assistants/#{assistant.id}/scenarios/#{scenario.id}",
             headers: agent.create_new_auth_token,
             as: :json
 
@@ -79,7 +79,7 @@ RSpec.describe 'Api::V1::Accounts::Captain::Scenarios', type: :request do
 
     context 'when scenario does not exist' do
       it 'returns not found status' do
-        get "/api/v1/accounts/#{account.id}/captain/assistants/#{assistant.id}/scenarios/999999",
+        get "/api/v1/accounts/#{account.id}/cosmo/assistants/#{assistant.id}/scenarios/999999",
             headers: agent.create_new_auth_token
 
         expect(response).to have_http_status(:not_found)
@@ -87,7 +87,7 @@ RSpec.describe 'Api::V1::Accounts::Captain::Scenarios', type: :request do
     end
   end
 
-  describe 'POST /api/v1/accounts/{account.id}/captain/assistants/{assistant.id}/scenarios' do
+  describe 'POST /api/v1/accounts/{account.id}/cosmo/assistants/{assistant.id}/scenarios' do
     let(:valid_attributes) do
       {
         scenario: {
@@ -102,7 +102,7 @@ RSpec.describe 'Api::V1::Accounts::Captain::Scenarios', type: :request do
 
     context 'when it is an un-authenticated user' do
       it 'returns unauthorized status' do
-        post "/api/v1/accounts/#{account.id}/captain/assistants/#{assistant.id}/scenarios",
+        post "/api/v1/accounts/#{account.id}/cosmo/assistants/#{assistant.id}/scenarios",
              params: valid_attributes
         expect(response).to have_http_status(:unauthorized)
       end
@@ -110,7 +110,7 @@ RSpec.describe 'Api::V1::Accounts::Captain::Scenarios', type: :request do
 
     context 'when it is an agent' do
       it 'returns unauthorized status' do
-        post "/api/v1/accounts/#{account.id}/captain/assistants/#{assistant.id}/scenarios",
+        post "/api/v1/accounts/#{account.id}/cosmo/assistants/#{assistant.id}/scenarios",
              params: valid_attributes,
              headers: agent.create_new_auth_token
         expect(response).to have_http_status(:unauthorized)
@@ -120,7 +120,7 @@ RSpec.describe 'Api::V1::Accounts::Captain::Scenarios', type: :request do
     context 'when it is an admin' do
       it 'creates a new scenario and returns success status' do
         expect do
-          post "/api/v1/accounts/#{account.id}/captain/assistants/#{assistant.id}/scenarios",
+          post "/api/v1/accounts/#{account.id}/cosmo/assistants/#{assistant.id}/scenarios",
                params: valid_attributes,
                headers: admin.create_new_auth_token,
                as: :json
@@ -145,7 +145,7 @@ RSpec.describe 'Api::V1::Accounts::Captain::Scenarios', type: :request do
         end
 
         it 'returns unprocessable entity status' do
-          post "/api/v1/accounts/#{account.id}/captain/assistants/#{assistant.id}/scenarios",
+          post "/api/v1/accounts/#{account.id}/cosmo/assistants/#{assistant.id}/scenarios",
                params: invalid_attributes,
                headers: admin.create_new_auth_token,
                as: :json
@@ -156,7 +156,7 @@ RSpec.describe 'Api::V1::Accounts::Captain::Scenarios', type: :request do
     end
   end
 
-  describe 'PATCH /api/v1/accounts/{account.id}/captain/assistants/{assistant.id}/scenarios/{id}' do
+  describe 'PATCH /api/v1/accounts/{account.id}/cosmo/assistants/{assistant.id}/scenarios/{id}' do
     let(:scenario) { create(:captain_scenario, assistant: assistant, account: account) }
     let(:update_attributes) do
       {
@@ -169,7 +169,7 @@ RSpec.describe 'Api::V1::Accounts::Captain::Scenarios', type: :request do
 
     context 'when it is an un-authenticated user' do
       it 'returns unauthorized status' do
-        patch "/api/v1/accounts/#{account.id}/captain/assistants/#{assistant.id}/scenarios/#{scenario.id}",
+        patch "/api/v1/accounts/#{account.id}/cosmo/assistants/#{assistant.id}/scenarios/#{scenario.id}",
               params: update_attributes
         expect(response).to have_http_status(:unauthorized)
       end
@@ -177,7 +177,7 @@ RSpec.describe 'Api::V1::Accounts::Captain::Scenarios', type: :request do
 
     context 'when it is an agent' do
       it 'returns unauthorized status' do
-        patch "/api/v1/accounts/#{account.id}/captain/assistants/#{assistant.id}/scenarios/#{scenario.id}",
+        patch "/api/v1/accounts/#{account.id}/cosmo/assistants/#{assistant.id}/scenarios/#{scenario.id}",
               params: update_attributes,
               headers: agent.create_new_auth_token
         expect(response).to have_http_status(:unauthorized)
@@ -186,7 +186,7 @@ RSpec.describe 'Api::V1::Accounts::Captain::Scenarios', type: :request do
 
     context 'when it is an admin' do
       it 'updates the scenario and returns success status' do
-        patch "/api/v1/accounts/#{account.id}/captain/assistants/#{assistant.id}/scenarios/#{scenario.id}",
+        patch "/api/v1/accounts/#{account.id}/cosmo/assistants/#{assistant.id}/scenarios/#{scenario.id}",
               params: update_attributes,
               headers: admin.create_new_auth_token,
               as: :json
@@ -206,7 +206,7 @@ RSpec.describe 'Api::V1::Accounts::Captain::Scenarios', type: :request do
         end
 
         it 'returns unprocessable entity status' do
-          patch "/api/v1/accounts/#{account.id}/captain/assistants/#{assistant.id}/scenarios/#{scenario.id}",
+          patch "/api/v1/accounts/#{account.id}/cosmo/assistants/#{assistant.id}/scenarios/#{scenario.id}",
                 params: invalid_attributes,
                 headers: admin.create_new_auth_token,
                 as: :json
@@ -217,19 +217,19 @@ RSpec.describe 'Api::V1::Accounts::Captain::Scenarios', type: :request do
     end
   end
 
-  describe 'DELETE /api/v1/accounts/{account.id}/captain/assistants/{assistant.id}/scenarios/{id}' do
+  describe 'DELETE /api/v1/accounts/{account.id}/cosmo/assistants/{assistant.id}/scenarios/{id}' do
     let!(:scenario) { create(:captain_scenario, assistant: assistant, account: account) }
 
     context 'when it is an un-authenticated user' do
       it 'returns unauthorized status' do
-        delete "/api/v1/accounts/#{account.id}/captain/assistants/#{assistant.id}/scenarios/#{scenario.id}"
+        delete "/api/v1/accounts/#{account.id}/cosmo/assistants/#{assistant.id}/scenarios/#{scenario.id}"
         expect(response).to have_http_status(:unauthorized)
       end
     end
 
     context 'when it is an agent' do
       it 'returns unauthorized status' do
-        delete "/api/v1/accounts/#{account.id}/captain/assistants/#{assistant.id}/scenarios/#{scenario.id}",
+        delete "/api/v1/accounts/#{account.id}/cosmo/assistants/#{assistant.id}/scenarios/#{scenario.id}",
                headers: agent.create_new_auth_token
         expect(response).to have_http_status(:unauthorized)
       end
@@ -238,7 +238,7 @@ RSpec.describe 'Api::V1::Accounts::Captain::Scenarios', type: :request do
     context 'when it is an admin' do
       it 'deletes the scenario and returns no content status' do
         expect do
-          delete "/api/v1/accounts/#{account.id}/captain/assistants/#{assistant.id}/scenarios/#{scenario.id}",
+          delete "/api/v1/accounts/#{account.id}/cosmo/assistants/#{assistant.id}/scenarios/#{scenario.id}",
                  headers: admin.create_new_auth_token
         end.to change(Captain::Scenario, :count).by(-1)
 
@@ -247,7 +247,7 @@ RSpec.describe 'Api::V1::Accounts::Captain::Scenarios', type: :request do
 
       context 'when scenario does not exist' do
         it 'returns not found status' do
-          delete "/api/v1/accounts/#{account.id}/captain/assistants/#{assistant.id}/scenarios/999999",
+          delete "/api/v1/accounts/#{account.id}/cosmo/assistants/#{assistant.id}/scenarios/999999",
                  headers: admin.create_new_auth_token
 
           expect(response).to have_http_status(:not_found)

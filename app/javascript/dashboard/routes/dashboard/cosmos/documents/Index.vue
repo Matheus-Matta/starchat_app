@@ -121,8 +121,8 @@ onMounted(() => {
         :button-label="$t('CAPTAIN.HEADER_KNOW_MORE')"
         :title="$t('CAPTAIN.DOCUMENTS.EMPTY_STATE.FEATURE_SPOTLIGHT.TITLE')"
         :note="$t('CAPTAIN.DOCUMENTS.EMPTY_STATE.FEATURE_SPOTLIGHT.NOTE')"
-        fallback-thumbnail="/assets/images/dashboard/captain/document-popover-light.svg"
-        fallback-thumbnail-dark="/assets/images/dashboard/captain/document-popover-dark.svg"
+        fallback-thumbnail="/assets/images/dashboard/cosmo/document-popover-light.svg"
+        fallback-thumbnail-dark="/assets/images/dashboard/cosmo/document-popover-dark.svg"
         learn-more-url="https://chwt.app/captain-document"
       />
     </template>

@@ -10,10 +10,10 @@ RSpec.describe 'Api::V1::Accounts::Captain::CopilotThreads', type: :request do
     JSON.parse(response.body, symbolize_names: true)
   end
 
-  describe 'GET /api/v1/accounts/{account.id}/captain/copilot_threads' do
+  describe 'GET /api/v1/accounts/{account.id}/cosmo/copilot_threads' do
     context 'when it is an un-authenticated user' do
       it 'does not fetch copilot threads' do
-        get "/api/v1/accounts/#{account.id}/captain/copilot_threads",
+        get "/api/v1/accounts/#{account.id}/cosmo/copilot_threads",
             as: :json
         expect(response).to have_http_status(:unauthorized)
       end
@@ -26,7 +26,7 @@ RSpec.describe 'Api::V1::Accounts::Captain::CopilotThreads', type: :request do
         # Create threads for another user (should not be included)
         create_list(:captain_copilot_thread, 2, account: account, user: admin)
 
-        get "/api/v1/accounts/#{account.id}/captain/copilot_threads",
+        get "/api/v1/accounts/#{account.id}/cosmo/copilot_threads",
             headers: agent.create_new_auth_token,
             as: :json
 
@@ -39,7 +39,7 @@ RSpec.describe 'Api::V1::Accounts::Captain::CopilotThreads', type: :request do
       it 'returns threads in descending order of creation' do
         threads = create_list(:captain_copilot_thread, 3, account: account, user: agent)
 
-        get "/api/v1/accounts/#{account.id}/captain/copilot_threads",
+        get "/api/v1/accounts/#{account.id}/cosmo/copilot_threads",
             headers: agent.create_new_auth_token,
             as: :json
 
@@ -49,13 +49,13 @@ RSpec.describe 'Api::V1::Accounts::Captain::CopilotThreads', type: :request do
     end
   end
 
-  describe 'POST /api/v1/accounts/{account.id}/captain/copilot_threads' do
+  describe 'POST /api/v1/accounts/{account.id}/cosmo/copilot_threads' do
     let(:assistant) { create(:captain_assistant, account: account) }
     let(:valid_params) { { message: 'Hello, how can you help me?', assistant_id: assistant.id, conversation_id: conversation.display_id } }
 
     context 'when it is an un-authenticated user' do
       it 'returns unauthorized' do
-        post "/api/v1/accounts/#{account.id}/captain/copilot_threads",
+        post "/api/v1/accounts/#{account.id}/cosmo/copilot_threads",
              params: valid_params,
              as: :json
 
@@ -66,7 +66,7 @@ RSpec.describe 'Api::V1::Accounts::Captain::CopilotThreads', type: :request do
     context 'when it is an authenticated user' do
       context 'with invalid params' do
         it 'returns error when message is blank' do
-          post "/api/v1/accounts/#{account.id}/captain/copilot_threads",
+          post "/api/v1/accounts/#{account.id}/cosmo/copilot_threads",
                params: { message: '', assistant_id: assistant.id },
                headers: agent.create_new_auth_token,
                as: :json
@@ -76,7 +76,7 @@ RSpec.describe 'Api::V1::Accounts::Captain::CopilotThreads', type: :request do
         end
 
         it 'returns error when assistant_id is invalid' do
-          post "/api/v1/accounts/#{account.id}/captain/copilot_threads",
+          post "/api/v1/accounts/#{account.id}/cosmo/copilot_threads",
                params: { message: 'Hello', assistant_id: 0 },
                headers: agent.create_new_auth_token,
                as: :json
@@ -91,7 +91,7 @@ RSpec.describe 'Api::V1::Accounts::Captain::CopilotThreads', type: :request do
           account.custom_attributes = { captain_responses_usage: 2 }
           account.save!
 
-          post "/api/v1/accounts/#{account.id}/captain/copilot_threads",
+          post "/api/v1/accounts/#{account.id}/cosmo/copilot_threads",
                params: valid_params,
                headers: agent.create_new_auth_token,
                as: :json
@@ -109,7 +109,7 @@ RSpec.describe 'Api::V1::Accounts::Captain::CopilotThreads', type: :request do
           account.save!
 
           expect do
-            post "/api/v1/accounts/#{account.id}/captain/copilot_threads",
+            post "/api/v1/accounts/#{account.id}/cosmo/copilot_threads",
                  params: valid_params,
                  headers: agent.create_new_auth_token,
                  as: :json
