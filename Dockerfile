@@ -1,4 +1,4 @@
-# Base Linux (Debian) + Ruby
+# pre-build stage
 FROM node:23-alpine as node
 FROM ruby:3.4.4-alpine3.21 AS pre-builder
 
@@ -7,6 +7,8 @@ ARG PNPM_VERSION="10.2.0"
 ENV NODE_VERSION=${NODE_VERSION}
 ENV PNPM_VERSION=${PNPM_VERSION}
 
+# ARG default to production settings
+# For development docker-compose file overrides ARGS
 ARG BUNDLE_WITHOUT="development:test"
 ENV BUNDLE_WITHOUT ${BUNDLE_WITHOUT}
 ENV BUNDLER_VERSION=2.5.11
@@ -22,7 +24,6 @@ ENV NODE_OPTIONS ${NODE_OPTIONS}
 
 ENV BUNDLE_PATH="/gems"
 
-# Dependências do sistema + Postgres client + Node 18 + pnpm
 RUN apk update && apk add --no-cache \
   openssl \
   tar \
@@ -57,6 +58,10 @@ WORKDIR /app
 
 COPY Gemfile Gemfile.lock ./
 
+# natively compile grpc and protobuf to support alpine musl (dialogflow-docker workflow)
+# https://github.com/googleapis/google-cloud-ruby/issues/13306
+# adding xz as nokogiri was failing to build libxml
+# https://github.com/chatwoot/chatwoot/issues/4045
 RUN apk update && apk add --no-cache build-base musl ruby-full ruby-dev gcc make musl-dev openssl openssl-dev g++ linux-headers xz vips
 RUN bundle config set --local force_ruby_platform true
 
@@ -144,6 +149,5 @@ COPY --from=pre-builder /app/.git_sha /app/.git_sha
 
 WORKDIR /app
 
+RUN chmod +x docker/entrypoints/rails.sh
 EXPOSE 3000
-ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
-CMD ["bundle", "exec", "puma", "-C", "config/puma.rb"]
