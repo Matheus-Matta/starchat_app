@@ -2,7 +2,7 @@
 import { computed, onMounted } from 'vue';
 import { useMapGetter, useStore } from 'dashboard/composables/store.js';
 import { useAccount } from 'dashboard/composables/useAccount';
-import { useCaptain } from 'dashboard/composables/useCaptain';
+import { useCosmos } from 'dashboard/composables/useCosmos';
 import { format } from 'date-fns';
 
 import BillingMeter from './components/BillingMeter.vue';
@@ -20,7 +20,7 @@ const {
   documentLimits,
   responseLimits,
   fetchLimits,
-} = useCaptain();
+} = useCosmos();
 
 const uiFlags = useMapGetter('accounts/getUIFlags');
 const store = useStore();

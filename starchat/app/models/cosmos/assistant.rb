@@ -18,7 +18,7 @@
 #
 class Cosmos::Assistant < ApplicationRecord
   include Avatarable
-  include Concerns::CaptainToolsHelpers
+  include Concerns::CosmosToolsHelpers
 
   self.table_name = 'captain_assistants'
 
@@ -26,7 +26,7 @@ class Cosmos::Assistant < ApplicationRecord
   has_many :documents, class_name: 'Cosmos::Document', dependent: :destroy_async
   has_many :responses, class_name: 'Cosmos::AssistantResponse', dependent: :destroy_async
   has_many :captain_inboxes,
-           class_name: 'CaptainInbox',
+           class_name: 'CosmosInbox',
            foreign_key: :captain_assistant_id,
            dependent: :destroy_async
   has_many :inboxes,

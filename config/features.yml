@@ -137,7 +137,7 @@
   display_name: Linear Integration
   enabled: false
 - name: captain_integration
-  display_name: Captain
+  display_name: Cosmos
   enabled: false
   premium: true
 - name: custom_roles
@@ -177,7 +177,7 @@
   display_name: Notion Integration
   enabled: false
 - name: captain_integration_v2
-  display_name: Captain V2
+  display_name: Cosmos V2
   enabled: false
   premium: true
   chatwoot_internal: true

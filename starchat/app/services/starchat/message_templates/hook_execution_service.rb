@@ -38,7 +38,7 @@ module Starchat::MessageTemplates::HookExecutionService
   def perform_handoff
     return unless conversation.pending?
 
-    Rails.logger.info("Captain limit exceeded, performing handoff mid-conversation for conversation: #{conversation.id}")
+    Rails.logger.info("Cosmos limit exceeded, performing handoff mid-conversation for conversation: #{conversation.id}")
     conversation.messages.create!(
       message_type: :outgoing,
       account_id: conversation.account.id,

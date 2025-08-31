@@ -22,7 +22,7 @@ const messages = ref([
   },
 ]);
 
-const isCaptainTyping = ref(false);
+const isCosmosTyping = ref(false);
 
 const sendMessage = message => {
   // Add user message
@@ -33,9 +33,9 @@ const sendMessage = message => {
   });
 
   // Simulate AI response
-  isCaptainTyping.value = true;
+  isCosmosTyping.value = true;
   setTimeout(() => {
-    isCaptainTyping.value = false;
+    isCosmosTyping.value = false;
     messages.value.push({
       id: messages.value.length + 1,
       role: 'assistant',
@@ -53,7 +53,7 @@ const sendMessage = message => {
     <Copilot
       :support-agent="supportAgent"
       :messages="messages"
-      :is-captain-typing="isCaptainTyping"
+      :is-captain-typing="isCosmosTyping"
       @send-message="sendMessage"
     />
   </Story>

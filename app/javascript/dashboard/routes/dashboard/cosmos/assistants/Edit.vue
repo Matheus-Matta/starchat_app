@@ -27,7 +27,7 @@ const isFeatureEnabledonAccount = useMapGetter(
 );
 const currentAccountId = useMapGetter('getCurrentAccountId');
 
-const isCaptainV2Enabled = isFeatureEnabledonAccount.value(
+const isCosmosV2Enabled = isFeatureEnabledonAccount.value(
   currentAccountId.value,
   FEATURE_FLAGS.CAPTAIN_V2
 );
@@ -49,14 +49,14 @@ const handleSubmit = async updatedAssistant => {
 };
 
 onMounted(() => {
-  if (!isAssistantAvailable.value || !isCaptainV2Enabled) {
+  if (!isAssistantAvailable.value || !isCosmosV2Enabled) {
     store.dispatch('captainAssistants/show', assistantId);
   }
 });
 </script>
 
 <template>
-  <AssistantSettings v-if="isCaptainV2Enabled" />
+  <AssistantSettings v-if="isCosmosV2Enabled" />
   <PageLayout
     v-else
     :header-title="assistant?.name"

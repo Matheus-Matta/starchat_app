@@ -3,7 +3,7 @@
 
 # ------- Premium Features ------- #
 captain:
-  name: 'Captain'
+  name: 'Cosmos'
   description: 'Enable AI-powered conversations with your customers.'
   enabled: <%= (ChatwootHub.pricing_plan != 'community') %>
   icon: 'icon-captain'

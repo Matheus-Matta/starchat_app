@@ -368,11 +368,11 @@
     },
     "CAPTAIN": {
       "TITLE": "キャプテン",
-      "DESCRIPTION": "Captain AIの使用状況とクレジットを管理する。",
+      "DESCRIPTION": "Cosmos AIの使用状況とクレジットを管理する。",
       "BUTTON_TXT": "クレジットを追加購入する",
       "DOCUMENTS": "ドキュメント",
       "RESPONSES": "応答数",
-      "UPGRADE": "Captainは無料プランでは利用できません。アシスタント、Copilotなどの機能を利用するには、プランをアップグレードしてください。"
+      "UPGRADE": "Cosmosは無料プランでは利用できません。アシスタント、Copilotなどの機能を利用するには、プランをアップグレードしてください。"
     },
     "CHAT_WITH_US": {
       "TITLE": "サポートが必要ですか？",

@@ -1,7 +1,7 @@
 <script setup>
 import { onMounted, computed } from 'vue';
 import { useAccount } from 'dashboard/composables/useAccount';
-import { useCaptain } from 'dashboard/composables/useCaptain';
+import { useCosmos } from 'dashboard/composables/useCosmos';
 import { useRouter } from 'vue-router';
 
 import Banner from 'dashboard/components-next/banner/Banner.vue';
@@ -9,7 +9,7 @@ import Banner from 'dashboard/components-next/banner/Banner.vue';
 const router = useRouter();
 const { accountId } = useAccount();
 
-const { documentLimits, fetchLimits } = useCaptain();
+const { documentLimits, fetchLimits } = useCosmos();
 
 const openBilling = () => {
   router.push({

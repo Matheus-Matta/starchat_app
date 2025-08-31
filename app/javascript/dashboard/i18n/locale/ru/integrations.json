@@ -386,10 +386,10 @@
       "MESSAGE_PLACEHOLDER": "Введите сообщение...",
       "HEADER": "Playground",
       "DESCRIPTION": "Use this playground to send messages to your assistant and check if it responds accurately, quickly, and in the tone you expect.",
-      "CREDIT_NOTE": "Messages sent here will count toward your Captain credits."
+      "CREDIT_NOTE": "Messages sent here will count toward your Cosmos credits."
     },
     "PAYWALL": {
-      "TITLE": "Обновите тарифный план, чтобы использовать Captain AI",
+      "TITLE": "Обновите тарифный план, чтобы использовать Cosmos AI",
       "AVAILABLE_ON": "Капитан недоступен на бесплатном тарифном плане.",
       "UPGRADE_PROMPT": "Обновите тарифный план, чтобы получить доступ к нашим ассистентам, copilot и другим функциям.",
       "UPGRADE_NOW": "Обновить сейчас",
@@ -400,8 +400,8 @@
       "ASK_ADMIN": "Пожалуйста, обратитесь к вашему администратору для обновления."
     },
     "BANNER": {
-      "RESPONSES": "Вы использовали более 80% лимита ответов. Чтобы продолжить использование Captain AI, пожалуйста, обновите тариф.",
-      "DOCUMENTS": "Достигнут лимит документов. Обновите тарифный план, чтобы продолжить использование Captain AI."
+      "RESPONSES": "Вы использовали более 80% лимита ответов. Чтобы продолжить использование Cosmos AI, пожалуйста, обновите тариф.",
+      "DOCUMENTS": "Достигнут лимит документов. Обновите тарифный план, чтобы продолжить использование Cosmos AI."
     },
     "FORM": {
       "CANCEL": "Отменить",
@@ -521,8 +521,8 @@
         "TITLE": "Нет доступных ассистентов",
         "SUBTITLE": "Создайте ассистента, чтобы дать быстрые и точные ответы пользователям. Он может учиться на ваших статьях из центра поддержки и прошлых диалогах.",
         "FEATURE_SPOTLIGHT": {
-          "TITLE": "Captain Assistant",
-          "NOTE": "Captain Assistant engages directly with customers, learns from your help docs and past conversations, and delivers instant, accurate responses. It handles the initial queries, providing quick resolutions before  transferring to an agent when needed."
+          "TITLE": "Cosmos Assistant",
+          "NOTE": "Cosmos Assistant engages directly with customers, learns from your help docs and past conversations, and delivers instant, accurate responses. It handles the initial queries, providing quick resolutions before  transferring to an agent when needed."
         }
       },
       "GUARDRAILS": {
@@ -660,8 +660,8 @@
         "TITLE": "Нет доступных документов",
         "SUBTITLE": "Документы используются Вашим ассистентом для создания FAQ. Вы можете импортировать документы для предоставления контекста для Вашего ассистента.",
         "FEATURE_SPOTLIGHT": {
-          "TITLE": "Captain Document",
-          "NOTE": "A document in Captain serves as a knowledge resource for the assistant. By connecting your help center or guides, Captain can analyze the content and provide accurate responses for customer inquiries."
+          "TITLE": "Cosmos Document",
+          "NOTE": "A document in Cosmos serves as a knowledge resource for the assistant. By connecting your help center or guides, Cosmos can analyze the content and provide accurate responses for customer inquiries."
         }
       }
     },
@@ -743,8 +743,8 @@
         "TITLE": "FAQ не найдены",
         "SUBTITLE": "FAQ помогают вашему ассистенту быстро и точно отвечать на вопросы клиентов. Их можно генерировать автоматически из вашего контента или добавлять вручную.",
         "FEATURE_SPOTLIGHT": {
-          "TITLE": "Captain FAQ",
-          "NOTE": "Captain FAQs detects common customer questions—whether missing from your knowledge base or frequently asked—and generates relevant FAQs to improve support. You can review each suggestion and decide whether to approve or reject it."
+          "TITLE": "Cosmos FAQ",
+          "NOTE": "Cosmos FAQs detects common customer questions—whether missing from your knowledge base or frequently asked—and generates relevant FAQs to improve support. You can review each suggestion and decide whether to approve or reject it."
         }
       }
     },

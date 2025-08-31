@@ -13,7 +13,7 @@ import DropdownMenu from 'dashboard/components-next/dropdown-menu/DropdownMenu.v
 import DeleteDialog from 'dashboard/components-next/cosmos/pageComponents/DeleteDialog.vue';
 import BulkDeleteDialog from 'dashboard/components-next/cosmos/pageComponents/BulkDeleteDialog.vue';
 import PageLayout from 'dashboard/components-next/cosmos/PageLayout.vue';
-import CaptainPaywall from 'dashboard/components-next/cosmos/pageComponents/Paywall.vue';
+import CosmosPaywall from 'dashboard/components-next/cosmos/pageComponents/Paywall.vue';
 import AssistantSelector from 'dashboard/components-next/cosmos/pageComponents/AssistantSelector.vue';
 import ResponseCard from 'dashboard/components-next/cosmos/assistant/ResponseCard.vue';
 import CreateResponseDialog from 'dashboard/components-next/cosmos/pageComponents/response/CreateResponseDialog.vue';
@@ -286,7 +286,7 @@ onMounted(() => {
     </template>
 
     <template #paywall>
-      <CaptainPaywall />
+      <CosmosPaywall />
     </template>
 
     <template #controls>

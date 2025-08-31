@@ -6,7 +6,7 @@ import { FEATURE_FLAGS } from 'dashboard/featureFlags';
 import AssistantCard from 'dashboard/components-next/cosmos/assistant/AssistantCard.vue';
 import DeleteDialog from 'dashboard/components-next/cosmos/pageComponents/DeleteDialog.vue';
 import PageLayout from 'dashboard/components-next/cosmos/PageLayout.vue';
-import CaptainPaywall from 'dashboard/components-next/cosmos/pageComponents/Paywall.vue';
+import CosmosPaywall from 'dashboard/components-next/cosmos/pageComponents/Paywall.vue';
 import CreateAssistantDialog from 'dashboard/components-next/cosmos/pageComponents/assistant/CreateAssistantDialog.vue';
 import AssistantPageEmptyState from 'dashboard/components-next/cosmos/pageComponents/emptyStates/AssistantPageEmptyState.vue';
 import FeatureSpotlightPopover from 'dashboard/components-next/feature-spotlight/FeatureSpotlightPopover.vue';
@@ -100,7 +100,7 @@ onMounted(() => store.dispatch('captainAssistants/get'));
     </template>
 
     <template #paywall>
-      <CaptainPaywall />
+      <CosmosPaywall />
     </template>
 
     <template #body>

@@ -3,7 +3,7 @@ import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import NextButton from 'dashboard/components-next/button/Button.vue';
 import MessageList from './MessageList.vue';
-import CaptainAssistant from 'dashboard/api/cosmos/assistant';
+import CosmosAssistant from 'dashboard/api/cosmos/assistant';
 
 const { assistantId } = defineProps({
   assistantId: {
@@ -43,7 +43,7 @@ const sendMessage = async () => {
 
   try {
     isLoading.value = true;
-    const { data } = await CaptainAssistant.playground({
+    const { data } = await CosmosAssistant.playground({
       assistantId,
       messageContent: currentMessage,
       messageHistory: formatMessagesForApi(),

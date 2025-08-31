@@ -21,7 +21,7 @@
 #  index_captain_scenarios_on_enabled                   (enabled)
 #
 class Cosmos::Scenario < ApplicationRecord
-  include Concerns::CaptainToolsHelpers
+  include Concerns::CosmosToolsHelpers
 
   self.table_name = 'captain_scenarios'
 
