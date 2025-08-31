@@ -1,6 +1,6 @@
 module Starchat::ActivityMessageHandler
   def automation_status_change_activity_content
-    if Current.executed_by.instance_of?(Captain::Assistant)
+    if Current.executed_by.instance_of?(Cosmos::Assistant)
       locale = Current.executed_by.account.locale
       if resolved?
         I18n.t(

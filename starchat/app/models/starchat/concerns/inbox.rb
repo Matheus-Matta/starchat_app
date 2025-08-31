@@ -5,6 +5,6 @@ module Starchat::Concerns::Inbox
     has_one :captain_inbox, dependent: :destroy, class_name: 'CaptainInbox'
     has_one :captain_assistant,
             through: :captain_inbox,
-            class_name: 'Captain::Assistant'
+            class_name: 'Cosmos::Assistant'
   end
 end

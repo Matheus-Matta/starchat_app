@@ -15,10 +15,10 @@ module Starchat::MessageTemplates::HookExecutionService
     job_args = [conversation, conversation.inbox.captain_assistant]
 
     if message.attachments.blank?
-      Captain::Conversation::ResponseBuilderJob.perform_later(*job_args)
+      Cosmos::Conversation::ResponseBuilderJob.perform_later(*job_args)
     else
       wait_time = calculate_attachment_wait_time
-      Captain::Conversation::ResponseBuilderJob.set(wait: wait_time).perform_later(*job_args)
+      Cosmos::Conversation::ResponseBuilderJob.set(wait: wait_time).perform_later(*job_args)
     end
   end
 

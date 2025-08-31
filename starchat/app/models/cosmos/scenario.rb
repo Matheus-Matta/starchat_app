@@ -25,7 +25,7 @@ class Cosmos::Scenario < ApplicationRecord
 
   self.table_name = 'captain_scenarios'
 
-  belongs_to :assistant, class_name: 'Captain::Assistant'
+  belongs_to :assistant, class_name: 'Cosmos::Assistant'
   belongs_to :account
 
   validates :title, presence: true

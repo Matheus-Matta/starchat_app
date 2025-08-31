@@ -17,7 +17,7 @@ RSpec.describe Account::ConversationsResolutionSchedulerJob, type: :job do
       it 'enqueues resolution jobs only for non-email inboxes with captain enabled' do
         expect do
           described_class.perform_now
-        end.to have_enqueued_job(Captain::InboxPendingConversationsResolutionJob)
+        end.to have_enqueued_job(Cosmos::InboxPendingConversationsResolutionJob)
           .with(regular_inbox)
           .exactly(:once)
       end
@@ -25,7 +25,7 @@ RSpec.describe Account::ConversationsResolutionSchedulerJob, type: :job do
       it 'does not enqueue resolution jobs for email inboxes even with captain enabled' do
         expect do
           described_class.perform_now
-        end.not_to have_enqueued_job(Captain::InboxPendingConversationsResolutionJob)
+        end.not_to have_enqueued_job(Cosmos::InboxPendingConversationsResolutionJob)
           .with(email_inbox)
       end
     end
@@ -36,7 +36,7 @@ RSpec.describe Account::ConversationsResolutionSchedulerJob, type: :job do
       it 'does not enqueue resolution jobs' do
         expect do
           described_class.perform_now
-        end.not_to have_enqueued_job(Captain::InboxPendingConversationsResolutionJob)
+        end.not_to have_enqueued_job(Cosmos::InboxPendingConversationsResolutionJob)
           .with(inbox_without_captain)
       end
     end

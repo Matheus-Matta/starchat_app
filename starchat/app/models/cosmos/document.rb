@@ -23,8 +23,8 @@ class Cosmos::Document < ApplicationRecord
   class LimitExceededError < StandardError; end
   self.table_name = 'captain_documents'
 
-  belongs_to :assistant, class_name: 'Captain::Assistant'
-  has_many :responses, class_name: 'Captain::AssistantResponse', dependent: :destroy, as: :documentable
+  belongs_to :assistant, class_name: 'Cosmos::Assistant'
+  has_many :responses, class_name: 'Cosmos::AssistantResponse', dependent: :destroy, as: :documentable
   belongs_to :account
 
   validates :external_link, presence: true
@@ -52,13 +52,13 @@ class Cosmos::Document < ApplicationRecord
   def enqueue_crawl_job
     return if status != 'in_progress'
 
-    Captain::Documents::CrawlJob.perform_later(self)
+    Cosmos::Documents::CrawlJob.perform_later(self)
   end
 
   def enqueue_response_builder_job
     return if status != 'available'
 
-    Captain::Documents::ResponseBuilderJob.perform_later(self)
+    Cosmos::Documents::ResponseBuilderJob.perform_later(self)
   end
 
   def update_document_usage

@@ -4,10 +4,10 @@ class ConvertDocumentToPolymorphicAssociation < ActiveRecord::Migration[7.0]
 
     # rubocop:disable Rails/SkipsModelValidations
     if ChatwootApp.enterprise?
-      Captain::AssistantResponse
+      Cosmos::AssistantResponse
         .where
         .not(document_id: nil)
-        .update_all(documentable_type: 'Captain::Document')
+        .update_all(documentable_type: 'Cosmos::Document')
     end
     # rubocop:enable Rails/SkipsModelValidations
     remove_index :captain_assistant_responses, :document_id if index_exists?(

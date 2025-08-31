@@ -23,8 +23,8 @@ class Cosmos::Assistant < ApplicationRecord
   self.table_name = 'captain_assistants'
 
   belongs_to :account
-  has_many :documents, class_name: 'Captain::Document', dependent: :destroy_async
-  has_many :responses, class_name: 'Captain::AssistantResponse', dependent: :destroy_async
+  has_many :documents, class_name: 'Cosmos::Document', dependent: :destroy_async
+  has_many :responses, class_name: 'Cosmos::AssistantResponse', dependent: :destroy_async
   has_many :captain_inboxes,
            class_name: 'CaptainInbox',
            foreign_key: :captain_assistant_id,
@@ -33,7 +33,7 @@ class Cosmos::Assistant < ApplicationRecord
            through: :captain_inboxes
   has_many :messages, as: :sender, dependent: :nullify
   has_many :copilot_threads, dependent: :destroy_async
-  has_many :scenarios, class_name: 'Captain::Scenario', dependent: :destroy_async
+  has_many :scenarios, class_name: 'Cosmos::Scenario', dependent: :destroy_async
 
   validates :name, presence: true
   validates :description, presence: true

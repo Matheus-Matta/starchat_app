@@ -25,7 +25,7 @@
 class Cosmos::AssistantResponse < ApplicationRecord
   self.table_name = 'captain_assistant_responses'
 
-  belongs_to :assistant, class_name: 'Captain::Assistant'
+  belongs_to :assistant, class_name: 'Cosmos::Assistant'
   belongs_to :account
   belongs_to :documentable, polymorphic: true, optional: true
   has_neighbors :embedding, normalize: true
@@ -45,7 +45,7 @@ class Cosmos::AssistantResponse < ApplicationRecord
   enum status: { pending: 0, approved: 1 }
 
   def self.search(query)
-    embedding = Captain::Llm::EmbeddingService.new.get_embedding(query)
+    embedding = Cosmos::Llm::EmbeddingService.new.get_embedding(query)
     nearest_neighbors(:embedding, embedding, distance: 'cosine').limit(5)
   end
 
@@ -62,6 +62,6 @@ class Cosmos::AssistantResponse < ApplicationRecord
   def update_response_embedding
     return unless saved_change_to_question? || saved_change_to_answer? || embedding.nil?
 
-    Captain::Llm::UpdateEmbeddingJob.perform_later(self, "#{question}: #{answer}")
+    Cosmos::Llm::UpdateEmbeddingJob.perform_later(self, "#{question}: #{answer}")
   end
 end

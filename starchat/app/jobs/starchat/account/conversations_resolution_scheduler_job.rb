@@ -13,7 +13,7 @@ module Starchat::Account::ConversationsResolutionSchedulerJob
 
       next if inbox.email?
 
-      Captain::InboxPendingConversationsResolutionJob.perform_later(
+      Cosmos::InboxPendingConversationsResolutionJob.perform_later(
         inbox
       )
     end
