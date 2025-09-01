@@ -55,6 +55,7 @@ import copilotThreads from './cosmos/copilotThreads';
 import copilotMessages from './cosmos/copilotMessages';
 import captainScenarios from './cosmos/scenarios';
 import captainTools from './cosmos/tools';
+import evolution from './modules/channels/evolution';
 
 const plugins = [];
 
@@ -115,6 +116,7 @@ export default createStore({
     copilotMessages,
     captainScenarios,
     captainTools,
+    evolution,
   },
   plugins,
 });

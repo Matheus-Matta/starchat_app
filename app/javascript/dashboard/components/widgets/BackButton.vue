@@ -1,5 +1,6 @@
 <script setup>
 import router from '../../routes/index';
+import { useRoute } from 'vue-router';
 const props = defineProps({
   backUrl: {
     type: [String, Object],
@@ -14,10 +15,20 @@ const props = defineProps({
     default: false,
   },
 });
-
+const route = useRoute();
 const goBack = () => {
-  if (props.backUrl !== '') {
-    router.push(props.backUrl);
+  if (props.backUrl) {
+    if (typeof props.backUrl === 'string') {
+      router.push({
+        path: props.backUrl,
+        query: { ...route.query },
+      });
+    } else {
+      router.push({
+        ...props.backUrl,
+        query: { ...route.query, ...(props.backUrl.query || {}) },
+      });
+    }
   } else {
     router.go(-1);
   }

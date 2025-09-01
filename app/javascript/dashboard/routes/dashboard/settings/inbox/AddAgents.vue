@@ -34,6 +34,10 @@ export default {
     ...mapGetters({
       agentList: 'agents/getAgents',
     }),
+
+    isEvolutionProvider() {
+      return (this.$route.query?.provider || '').toString() === 'evolution';
+    },
   },
   mounted() {
     this.$store.dispatch('agents/get');
@@ -52,6 +56,7 @@ export default {
             page: 'new',
             inbox_id: this.$route.params.inbox_id,
           },
+          query: this.isEvolutionProvider ? { provider: 'evolution' } : {},
         });
       } catch (error) {
         useAlert(error.message);
