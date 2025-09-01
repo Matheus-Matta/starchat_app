@@ -32,7 +32,7 @@ class Api::V1::Accounts::Cosmos::BulkActionsController < Api::V1::Accounts::Base
   end
 
   def handle_assistant_responses
-    responses = Current.account.captain_assistant_responses.where(id: params[:ids])
+    responses = Current.account.cosmos_::assistant_responses.where(id: params[:ids])
     return unless responses.exists?
 
     case params[:fields][:status]

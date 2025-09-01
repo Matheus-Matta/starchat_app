@@ -32,7 +32,7 @@ const controlItems = computed(() => {
       description: t(
         'CAPTAIN.ASSISTANTS.SETTINGS.CONTROL_ITEMS.OPTIONS.GUARDRAILS.DESCRIPTION'
       ),
-      routeName: 'captain_assistants_guardrails_index',
+      routeName: 'cosmos_::assistants_guardrails_index',
     },
     {
       name: t(
@@ -41,7 +41,7 @@ const controlItems = computed(() => {
       description: t(
         'CAPTAIN.ASSISTANTS.SETTINGS.CONTROL_ITEMS.OPTIONS.SCENARIOS.DESCRIPTION'
       ),
-      routeName: 'captain_assistants_scenarios_index',
+      routeName: 'cosmos_::assistants_scenarios_index',
     },
     {
       name: t(
@@ -50,7 +50,7 @@ const controlItems = computed(() => {
       description: t(
         'CAPTAIN.ASSISTANTS.SETTINGS.CONTROL_ITEMS.OPTIONS.RESPONSE_GUIDELINES.DESCRIPTION'
       ),
-      routeName: 'captain_assistants_guidelines_index',
+      routeName: 'cosmos_::assistants_guidelines_index',
     },
   ];
 });
@@ -63,9 +63,9 @@ const breadcrumbItems = computed(() => {
   return [
     {
       label: t('CAPTAIN.ASSISTANTS.SETTINGS.BREADCRUMB.ASSISTANT'),
-      routeName: 'captain_assistants_index',
+      routeName: 'cosmos_::assistants_index',
     },
-    { label: assistant.value?.name, routeName: 'captain_assistants_edit' },
+    { label: assistant.value?.name, routeName: 'cosmos_::assistants_edit' },
     ...(activeControlItem
       ? [
           {

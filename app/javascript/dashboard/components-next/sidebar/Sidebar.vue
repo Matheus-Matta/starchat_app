@@ -220,17 +220,17 @@ const menuItems = computed(() => {
         {
           name: 'Assistants',
           label: t('SIDEBAR.CAPTAIN_ASSISTANTS'),
-          to: accountScopedRoute('captain_assistants_index'),
+          to: accountScopedRoute('cosmos_::assistants_index'),
         },
         {
           name: 'Documents',
           label: t('SIDEBAR.CAPTAIN_DOCUMENTS'),
-          to: accountScopedRoute('captain_documents_index'),
+          to: accountScopedRoute('cosmos_::documents_index'),
         },
         {
           name: 'Responses',
           label: t('SIDEBAR.CAPTAIN_RESPONSES'),
-          to: accountScopedRoute('captain_responses_index'),
+          to: accountScopedRoute('cosmos_::responses_index'),
         },
       ],
     },

@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: captain_documents
+# Table name: cosmos_::documents
 #
 #  id            :bigint           not null, primary key
 #  content       :text
@@ -14,14 +14,14 @@
 #
 # Indexes
 #
-#  index_captain_documents_on_account_id                      (account_id)
-#  index_captain_documents_on_assistant_id                    (assistant_id)
-#  index_captain_documents_on_assistant_id_and_external_link  (assistant_id,external_link) UNIQUE
-#  index_captain_documents_on_status                          (status)
+#  index_cosmos_::documents_on_account_id                      (account_id)
+#  index_cosmos_::documents_on_assistant_id                    (assistant_id)
+#  index_cosmos_::documents_on_assistant_id_and_external_link  (assistant_id,external_link) UNIQUE
+#  index_cosmos_::documents_on_status                          (status)
 #
 class Cosmos::Document < ApplicationRecord
   class LimitExceededError < StandardError; end
-  self.table_name = 'captain_documents'
+  self.table_name = 'cosmos_::documents'
 
   belongs_to :assistant, class_name: 'Cosmos::Assistant'
   has_many :responses, class_name: 'Cosmos::AssistantResponse', dependent: :destroy, as: :documentable

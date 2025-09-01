@@ -37,14 +37,14 @@ const handleCreate = () => {
 
 const handleEdit = () => {
   router.push({
-    name: 'captain_assistants_edit',
+    name: 'cosmos_::assistants_edit',
     params: { assistantId: selectedAssistant.value.id },
   });
 };
 
 const handleViewConnectedInboxes = () => {
   router.push({
-    name: 'captain_assistants_inboxes_index',
+    name: 'cosmos_::assistants_inboxes_index',
     params: { assistantId: selectedAssistant.value.id },
   });
 };

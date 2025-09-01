@@ -136,7 +136,7 @@
 - name: linear_integration
   display_name: Linear Integration
   enabled: false
-- name: captain_integration
+- name: cosmos_::integration
   display_name: Cosmos
   enabled: false
   premium: true
@@ -176,7 +176,7 @@
 - name: notion_integration
   display_name: Notion Integration
   enabled: false
-- name: captain_integration_v2
+- name: cosmos_::integration_v2
   display_name: Cosmos V2
   enabled: false
   premium: true

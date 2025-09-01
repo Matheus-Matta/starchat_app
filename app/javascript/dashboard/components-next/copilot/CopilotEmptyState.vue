@@ -78,7 +78,7 @@ const handleSuggestion = opt => {
       </p>
       <router-link
         :to="{
-          name: 'captain_assistants_index',
+          name: 'cosmos_::assistants_index',
           params: { accountId: route.params.accountId },
         }"
         class="text-n-slate-11 underline hover:text-n-slate-12"

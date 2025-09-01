@@ -79,7 +79,7 @@ describe ChatwootHub do
         body: { account_email: 'test@test.com', account_id: '123', access_token: '123', assistant_id: '123' }.to_json
       )
 
-      expect(described_class.get_captain_settings(account).body).to eq(
+      expect(described_class.get_cosmos_::settings(account).body).to eq(
         {
           account_email: 'test@test.com',
           account_id: '123',

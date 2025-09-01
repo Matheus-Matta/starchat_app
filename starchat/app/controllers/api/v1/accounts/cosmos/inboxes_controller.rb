@@ -9,13 +9,13 @@ class Api::V1::Accounts::Cosmos::InboxesController < Api::V1::Accounts::BaseCont
 
   def create
     inbox = Current.account.inboxes.find(assistant_params[:inbox_id])
-    @captain_inbox = @assistant.captain_inboxes.build(inbox: inbox)
-    @captain_inbox.save!
+    @cosmos_::inbox = @assistant.cosmos_::inboxes.build(inbox: inbox)
+    @cosmos_::inbox.save!
   end
 
   def destroy
-    @captain_inbox = @assistant.captain_inboxes.find_by!(inbox_id: permitted_params[:inbox_id])
-    @captain_inbox.destroy!
+    @cosmos_::inbox = @assistant.cosmos_::inboxes.find_by!(inbox_id: permitted_params[:inbox_id])
+    @cosmos_::inbox.destroy!
     head :no_content
   end
 
@@ -26,7 +26,7 @@ class Api::V1::Accounts::Cosmos::InboxesController < Api::V1::Accounts::BaseCont
   end
 
   def account_assistants
-    @account_assistants ||= Current.account.captain_assistants
+    @account_assistants ||= Current.account.cosmos_::assistants
   end
 
   def permitted_params

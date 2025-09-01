@@ -18,9 +18,9 @@ RSpec.describe Messages::AudioTranscriptionService, type: :service do
   describe '#perform' do
     let(:service) { described_class.new(attachment) }
 
-    context 'when captain_integration feature is not enabled' do
+    context 'when cosmos_::integration feature is not enabled' do
       before do
-        account.disable_features!('captain_integration')
+        account.disable_features!('cosmos_::integration')
       end
 
       it 'returns transcription limit exceeded' do

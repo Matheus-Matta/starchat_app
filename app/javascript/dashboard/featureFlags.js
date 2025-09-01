@@ -31,14 +31,14 @@ export const FEATURE_FLAGS = {
   INBOUND_EMAILS: 'inbound_emails',
   IP_LOOKUP: 'ip_lookup',
   LINEAR: 'linear_integration',
-  CAPTAIN: 'captain_integration',
+  CAPTAIN: 'cosmos_::integration',
   CUSTOM_ROLES: 'custom_roles',
   CHATWOOT_V4: 'chatwoot_v4',
   REPORT_V4: 'report_v4',
   CHANNEL_INSTAGRAM: 'channel_instagram',
   CONTACT_CHATWOOT_SUPPORT_TEAM: 'contact_chatwoot_support_team',
   WHATSAPP_EMBEDDED_SIGNUP: 'whatsapp_embedded_signup',
-  CAPTAIN_V2: 'captain_integration_v2',
+  CAPTAIN_V2: 'cosmos_::integration_v2',
 };
 
 export const PREMIUM_FEATURES = [

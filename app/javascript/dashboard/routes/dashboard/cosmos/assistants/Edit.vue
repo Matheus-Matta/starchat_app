@@ -63,7 +63,7 @@ onMounted(() => {
     :show-pagination-footer="false"
     :is-fetching="isFetching"
     :show-know-more="false"
-    :back-url="{ name: 'captain_assistants_index' }"
+    :back-url="{ name: 'cosmos_::assistants_index' }"
   >
     <template #body>
       <div v-if="!isAssistantAvailable">

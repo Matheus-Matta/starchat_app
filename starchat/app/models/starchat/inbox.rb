@@ -8,11 +8,11 @@ module Starchat::Inbox
   end
 
   def active_bot?
-    super || captain_active?
+    super || cosmos_::active?
   end
 
-  def captain_active?
-    captain_assistant.present? && more_responses?
+  def cosmos_::active?
+    cosmos_::assistant.present? && more_responses?
   end
 
   private

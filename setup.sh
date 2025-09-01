@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Lista apenas arquivos *text* versionados que contêm "Cosmos::"
-mapfile -t files < <(git grep -Il 'Cosmos' || true)
+# Lista apenas arquivos *text* versionados que contêm "Captain::"
+mapfile -t files < <(git grep -Il 'cosmos_::' || true)
 
 if [ ${#files[@]} -eq 0 ]; then
-  echo "Nenhuma ocorrência de 'Cosmos' encontrada."
+  echo "Nenhuma ocorrência de 'cosmos_::' encontrada."
   exit 0
 fi
 
@@ -16,11 +16,11 @@ else
   SED_INPLACE=(-i '')
 fi
 
-# Substitui Cosmos:: -> Cosmos:: em cada arquivo
+# Substitui Captain:: -> Cosmos:: em cada arquivo
 for file in "${files[@]}"; do
-  sed "${SED_INPLACE[@]}" 's#Cosmos#Cosmos#g' "$file"
+  sed "${SED_INPLACE[@]}" 's#cosmos_::#cosmos_::#g' "$file"
 done
 
 # Comita as alterações
 git add "${files[@]}"
-git commit -m "chore: renomear namespace Cosmos para Cosmos"
+git commit -m "chore: renomear namespace cosmos_:: para cosmos_"

@@ -35,9 +35,9 @@ const breadcrumbItems = computed(() => {
   return [
     {
       label: t('CAPTAIN.ASSISTANTS.SETTINGS.BREADCRUMB.ASSISTANT'),
-      routeName: 'captain_assistants_index',
+      routeName: 'cosmos_::assistants_index',
     },
-    { label: assistant.value?.name, routeName: 'captain_assistants_edit' },
+    { label: assistant.value?.name, routeName: 'cosmos_::assistants_edit' },
     { label: t('CAPTAIN.ASSISTANTS.SCENARIOS.BREADCRUMB.TITLE') },
   ];
 });

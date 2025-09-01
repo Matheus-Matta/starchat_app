@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: captain_scenarios
+# Table name: cosmos_::scenarios
 #
 #  id           :bigint           not null, primary key
 #  description  :text
@@ -15,15 +15,15 @@
 #
 # Indexes
 #
-#  index_captain_scenarios_on_account_id                (account_id)
-#  index_captain_scenarios_on_assistant_id              (assistant_id)
-#  index_captain_scenarios_on_assistant_id_and_enabled  (assistant_id,enabled)
-#  index_captain_scenarios_on_enabled                   (enabled)
+#  index_cosmos_::scenarios_on_account_id                (account_id)
+#  index_cosmos_::scenarios_on_assistant_id              (assistant_id)
+#  index_cosmos_::scenarios_on_assistant_id_and_enabled  (assistant_id,enabled)
+#  index_cosmos_::scenarios_on_enabled                   (enabled)
 #
 class Cosmos::Scenario < ApplicationRecord
   include Concerns::CosmosToolsHelpers
 
-  self.table_name = 'captain_scenarios'
+  self.table_name = 'cosmos_::scenarios'
 
   belongs_to :assistant, class_name: 'Cosmos::Assistant'
   belongs_to :account

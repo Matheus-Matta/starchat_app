@@ -4,7 +4,7 @@ RSpec.describe 'Firecrawl Webhooks', type: :request do
   describe 'POST /starchat/webhooks/firecrawl?assistant_id=:assistant_id&token=:token' do
     let!(:api_key) { create(:installation_config, name: 'CAPTAIN_FIRECRAWL_API_KEY', value: 'test_api_key_123') }
     let!(:account) { create(:account) }
-    let!(:assistant) { create(:captain_assistant, account: account) }
+    let!(:assistant) { create(:cosmos_::assistant, account: account) }
 
     let(:payload_data) do
       {

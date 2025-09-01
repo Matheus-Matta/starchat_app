@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Account::ConversationsResolutionSchedulerJob, type: :job do
   let(:account) { create(:account) }
-  let(:assistant) { create(:captain_assistant, account: account) }
+  let(:assistant) { create(:cosmos_::assistant, account: account) }
 
   describe '#perform - captain resolutions' do
     context 'when handling different inbox types' do
@@ -10,8 +10,8 @@ RSpec.describe Account::ConversationsResolutionSchedulerJob, type: :job do
       let!(:email_inbox) { create(:inbox, :with_email, account: account) }
 
       before do
-        create(:captain_inbox, captain_assistant: assistant, inbox: regular_inbox)
-        create(:captain_inbox, captain_assistant: assistant, inbox: email_inbox)
+        create(:cosmos_::inbox, cosmos_::assistant: assistant, inbox: regular_inbox)
+        create(:cosmos_::inbox, cosmos_::assistant: assistant, inbox: email_inbox)
       end
 
       it 'enqueues resolution jobs only for non-email inboxes with captain enabled' do

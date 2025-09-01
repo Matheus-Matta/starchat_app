@@ -10,7 +10,7 @@ class Starchat::Billing::HandleStripeEventService
     channel_facebook
     channel_email
     channel_instagram
-    captain_integration
+    cosmos_::integration
   ].freeze
 
 

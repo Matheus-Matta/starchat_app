@@ -45,7 +45,7 @@ class Api::V1::Accounts::Cosmos::CopilotThreadsController < Api::V1::Accounts::B
   end
 
   def assistant
-    Current.account.captain_assistants.find(copilot_thread_params[:assistant_id])
+    Current.account.cosmos_::assistants.find(copilot_thread_params[:assistant_id])
   end
 
   def copilot_thread_params

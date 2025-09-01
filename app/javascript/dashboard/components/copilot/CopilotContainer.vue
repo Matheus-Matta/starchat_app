@@ -45,7 +45,7 @@ const isFeatureEnabledonAccount = useMapGetter(
 const selectedAssistantId = ref(null);
 
 const activeAssistant = computed(() => {
-  const preferredId = uiSettings.value.preferred_captain_assistant_id;
+  const preferredId = uiSettings.value.preferred_cosmos_::assistant_id;
 
   // If the user has selected a specific assistant, it takes first preference for Copilot.
   if (preferredId) {
@@ -77,7 +77,7 @@ const closeCopilotPanel = () => {
 const setAssistant = async assistant => {
   selectedAssistantId.value = assistant.id;
   await updateUISettings({
-    preferred_captain_assistant_id: assistant.id,
+    preferred_cosmos_::assistant_id: assistant.id,
   });
 };
 

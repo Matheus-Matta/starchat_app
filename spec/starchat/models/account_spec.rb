@@ -28,7 +28,7 @@ RSpec.describe Account, type: :model do
   end
 
   context 'with usage_limits' do
-    let(:captain_limits) do
+    let(:cosmos_::limits) do
       {
         :startups => { :documents => 100, :responses => 100 },
         :business => { :documents => 200, :responses => 300 },
@@ -36,7 +36,7 @@ RSpec.describe Account, type: :model do
       }.with_indifferent_access
     end
     let(:account) { create(:account, { custom_attributes: { plan_name: 'startups' } }) }
-    let(:assistant) { create(:captain_assistant, account: account) }
+    let(:assistant) { create(:cosmos_::assistant, account: account) }
 
     before do
       create(:installation_config, name: 'ACCOUNT_AGENTS_LIMIT', value: 20)
@@ -44,27 +44,27 @@ RSpec.describe Account, type: :model do
 
     describe 'when captain limits are configured' do
       before do
-        create_list(:captain_document, 3, account: account, assistant: assistant, status: :available)
-        create(:installation_config, name: 'CAPTAIN_CLOUD_PLAN_LIMITS', value: captain_limits.to_json)
+        create_list(:cosmos_::document, 3, account: account, assistant: assistant, status: :available)
+        create(:installation_config, name: 'CAPTAIN_CLOUD_PLAN_LIMITS', value: cosmos_::limits.to_json)
       end
 
       ## Document
       it 'updates document count accurately' do
         account.update_document_usage
-        expect(account.custom_attributes['captain_documents_usage']).to eq(3)
+        expect(account.custom_attributes['cosmos_::documents_usage']).to eq(3)
       end
 
       it 'handles zero documents' do
-        account.captain_documents.destroy_all
+        account.cosmos_::documents.destroy_all
         account.update_document_usage
-        expect(account.custom_attributes['captain_documents_usage']).to eq(0)
+        expect(account.custom_attributes['cosmos_::documents_usage']).to eq(0)
       end
 
       it 'reflects document limits' do
         document_limits = account.usage_limits[:captain][:documents]
 
         expect(document_limits[:consumed]).to eq 3
-        expect(document_limits[:current_available]).to eq captain_limits[:startups][:documents] - 3
+        expect(document_limits[:current_available]).to eq cosmos_::limits[:startups][:documents] - 3
       end
 
       ## Responses
@@ -73,57 +73,57 @@ RSpec.describe Account, type: :model do
 
         responses_limits = account.usage_limits[:captain][:responses]
 
-        expect(account.custom_attributes['captain_responses_usage']).to eq 1
+        expect(account.custom_attributes['cosmos_::responses_usage']).to eq 1
         expect(responses_limits[:consumed]).to eq 1
-        expect(responses_limits[:current_available]).to eq captain_limits[:startups][:responses] - 1
+        expect(responses_limits[:current_available]).to eq cosmos_::limits[:startups][:responses] - 1
       end
 
       it 'reseting responses limits updates usage_limits' do
-        account.custom_attributes['captain_responses_usage'] = 30
+        account.custom_attributes['cosmos_::responses_usage'] = 30
         account.save!
 
         responses_limits = account.usage_limits[:captain][:responses]
 
         expect(responses_limits[:consumed]).to eq 30
-        expect(responses_limits[:current_available]).to eq captain_limits[:startups][:responses] - 30
+        expect(responses_limits[:current_available]).to eq cosmos_::limits[:startups][:responses] - 30
 
         account.reset_response_usage
         responses_limits = account.usage_limits[:captain][:responses]
 
-        expect(account.custom_attributes['captain_responses_usage']).to eq 0
+        expect(account.custom_attributes['cosmos_::responses_usage']).to eq 0
         expect(responses_limits[:consumed]).to eq 0
-        expect(responses_limits[:current_available]).to eq captain_limits[:startups][:responses]
+        expect(responses_limits[:current_available]).to eq cosmos_::limits[:startups][:responses]
       end
 
       it 'returns monthly limit accurately' do
         %w[startups business enterprise].each do |plan|
           account.custom_attributes = { 'plan_name': plan }
           account.save!
-          expect(account.captain_monthly_limit).to eq captain_limits[plan]
+          expect(account.cosmos_::monthly_limit).to eq cosmos_::limits[plan]
         end
       end
 
       it 'current_available is never out of bounds' do
-        account.custom_attributes['captain_responses_usage'] = 3000
+        account.custom_attributes['cosmos_::responses_usage'] = 3000
         account.save!
 
         responses_limits = account.usage_limits[:captain][:responses]
         expect(responses_limits[:consumed]).to eq 3000
         expect(responses_limits[:current_available]).to eq 0
 
-        account.custom_attributes['captain_responses_usage'] = -100
+        account.custom_attributes['cosmos_::responses_usage'] = -100
         account.save!
 
         responses_limits = account.usage_limits[:captain][:responses]
         expect(responses_limits[:consumed]).to eq 0
-        expect(responses_limits[:current_available]).to eq captain_limits[:startups][:responses]
+        expect(responses_limits[:current_available]).to eq cosmos_::limits[:startups][:responses]
       end
     end
 
     describe 'when captain limits are not configured' do
       it 'returns default values' do
         account.custom_attributes = { 'plan_name': 'unknown' }
-        expect(account.captain_monthly_limit).to eq(
+        expect(account.cosmos_::monthly_limit).to eq(
           { documents: ChatwootApp.max_limit, responses: ChatwootApp.max_limit }.with_indifferent_access
         )
       end
@@ -131,8 +131,8 @@ RSpec.describe Account, type: :model do
 
     describe 'when limits are configured for an account' do
       before do
-        create(:installation_config, name: 'CAPTAIN_CLOUD_PLAN_LIMITS', value: captain_limits.to_json)
-        account.update(limits: { captain_documents: 5555, captain_responses: 9999 })
+        create(:installation_config, name: 'CAPTAIN_CLOUD_PLAN_LIMITS', value: cosmos_::limits.to_json)
+        account.update(limits: { cosmos_::documents: 5555, cosmos_::responses: 9999 })
       end
 
       it 'returns limits based on custom attributes' do
