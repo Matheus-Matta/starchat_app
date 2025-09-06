@@ -30,22 +30,22 @@ class Api::V1::Accounts::Cosmos::CopilotThreadsController < Api::V1::Accounts::B
   private
 
   def build_copilot_response(copilot_message)
-    if Current.account.usage_limits[:captain][:responses][:current_available].positive?
+          if Current.account.usage_limits[:cosmos][:responses][:current_available].positive?
       copilot_message.enqueue_response_job(copilot_thread_params[:conversation_id], Current.user.id)
     else
       copilot_message.copilot_thread.copilot_messages.create!(
         message_type: :assistant,
-        message: { content: I18n.t('captain.copilot_limit') }
+        message: { content: I18n.t('cosmos.copilot_limit') }
       )
     end
   end
 
   def ensure_message
-    return render_could_not_create_error(I18n.t('captain.copilot_message_required')) if copilot_thread_params[:message].blank?
+          return render_could_not_create_error(I18n.t('cosmos.copilot_message_required')) if copilot_thread_params[:message].blank?
   end
 
   def assistant
-    Current.account.captain_assistants.find(copilot_thread_params[:assistant_id])
+    Current.account.cosmos_assistants.find(copilot_thread_params[:assistant_id])
   end
 
   def copilot_thread_params

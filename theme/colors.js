@@ -1,6 +1,4 @@
 const {
-  blue,
-  blueDark,
   green,
   greenDark,
   yellow,
@@ -15,18 +13,18 @@ const {
 
 export const colors = {
   woot: {
-    25: blue.blue2,
-    50: blue.blue3,
-    75: blue.blue4,
-    100: blue.blue5,
-    200: blue.blue7,
-    300: blue.blue8,
-    400: blueDark.blue11,
-    500: blueDark.blue10,
-    600: blueDark.blue9,
-    700: blueDark.blue8,
-    800: blueDark.blue6,
-    900: blueDark.blue2,
+    25: 'rgb(241, 236, 254)',
+    50: 'rgb(233, 217, 252 )',
+    75: 'rgb(216, 180, 254 )',
+    100: 'rgb(192, 132, 252 )',
+    200: 'rgb(168,  85, 247 )',
+    300: 'rgb(81,   56, 238 )',
+    400: 'rgb(70,   48, 206 )',
+    500: 'rgb(58,   39, 175 )',
+    600: 'rgb(47,   32, 144 )',
+    700: 'rgb(36,   24, 112 )',
+    800: 'rgb(23,   15,  75 )',
+    900: 'rgb(18,   12,  60 )',
   },
   green: {
     50: greenDark.green12,
@@ -136,18 +134,18 @@ export const colors = {
     },
 
     blue: {
-      1: 'rgb(241, 236, 254 / <alpha-value>)',
-      2: 'rgb(233, 217, 252 / <alpha-value>)',
-      3: 'rgb(216, 180, 254 / <alpha-value>)',
-      4: 'rgb(192, 132, 252 / <alpha-value>)',
-      5: 'rgb(168,  85, 247 / <alpha-value>)',
-      6: 'rgb(81,   56, 238 / <alpha-value>)',
-      7: 'rgb(70,   48, 206 / <alpha-value>)',
-      8: 'rgb(58,   39, 175 / <alpha-value>)',
-      9: 'rgb(47,   32, 144 / <alpha-value>)',
-      10: 'rgb(36,   24, 112 / <alpha-value>)',
-      11: 'rgb(23,   15,  75 / <alpha-value>)',
-      12: 'rgb(18,   12,  60 / <alpha-value>)',
+      1: 'rgb(241, 236, 254 )',
+      2: 'rgb(233, 217, 252 )',
+      3: 'rgb(216, 180, 254 )',
+      4: 'rgb(192, 132, 252 )',
+      5: 'rgb(168,  85, 247 )',
+      6: 'rgb(81,   56, 238 )',
+      7: 'rgb(70,   48, 206 )',
+      8: 'rgb(58,   39, 175 )',
+      9: 'rgb(47,   32, 144 )',
+      10: 'rgb(36,   24, 112 )',
+      11: 'rgb(23,   15,  75 )',
+      12: 'rgb(18,   12,  60 )',
     },
 
     ruby: {
@@ -211,7 +209,7 @@ export const colors = {
     },
 
     black: '#000000',
-    brand: '#2781F6',
+    brand: '#5138EE',
     background: 'rgb(var(--background-color) / <alpha-value>)',
     solid: {
       1: 'rgb(var(--solid-1) / <alpha-value>)',

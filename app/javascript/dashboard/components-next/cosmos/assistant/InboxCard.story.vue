@@ -1,6 +1,6 @@
 <script setup>
 import InboxCard from './InboxCard.vue';
-import { inboxes } from 'dashboard/components-next/cosmos/pageComponents/emptyStates/captainEmptyStateContent.js';
+import { inboxes } from 'dashboard/components-next/cosmos/pageComponents/emptyStates/cosmosEmptyStateContent.js';
 </script>
 
 <template>

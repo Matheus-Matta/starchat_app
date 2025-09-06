@@ -1,6 +1,6 @@
 class Api::V1::Accounts::Cosmos::AssistantsController < Api::V1::Accounts::BaseController
   before_action :current_account
-  before_action -> { check_authorization(Captain::Assistant) }
+  before_action -> { check_authorization(Cosmos::Assistant) }
 
   before_action :set_assistant, only: [:show, :update, :destroy, :playground]
 
@@ -24,7 +24,7 @@ class Api::V1::Accounts::Cosmos::AssistantsController < Api::V1::Accounts::BaseC
   end
 
   def playground
-    response = Captain::Llm::AssistantChatService.new(assistant: @assistant).generate_response(
+    response = Cosmos::Llm::AssistantChatService.new(assistant: @assistant).generate_response(
       additional_message: params[:message_content],
       message_history: message_history
     )
@@ -33,7 +33,7 @@ class Api::V1::Accounts::Cosmos::AssistantsController < Api::V1::Accounts::BaseC
   end
 
   def tools
-    @tools = Captain::Assistant.available_agent_tools
+    @tools = Cosmos::Assistant.available_agent_tools
   end
 
   private
@@ -43,7 +43,7 @@ class Api::V1::Accounts::Cosmos::AssistantsController < Api::V1::Accounts::BaseC
   end
 
   def account_assistants
-    @account_assistants ||= Captain::Assistant.for_account(Current.account.id)
+    @account_assistants ||= Cosmos::Assistant.for_account(Current.account.id)
   end
 
   def assistant_params

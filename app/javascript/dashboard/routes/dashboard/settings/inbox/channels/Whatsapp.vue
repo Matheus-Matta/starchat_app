@@ -8,6 +8,7 @@ import ThreeSixtyDialogWhatsapp from './360DialogWhatsapp.vue';
 import CloudWhatsapp from './CloudWhatsapp.vue';
 import WhatsappEmbeddedSignup from './WhatsappEmbeddedSignup.vue';
 import { FEATURE_FLAGS } from 'dashboard/featureFlags';
+import EvolutionChannel from './Evolution.vue';
 
 const route = useRoute();
 const router = useRouter();
@@ -17,6 +18,7 @@ const store = useStore();
 const PROVIDER_TYPES = {
   WHATSAPP: 'whatsapp',
   TWILIO: 'twilio',
+  EVOLUTION: 'evolution',
   WHATSAPP_CLOUD: 'whatsapp_cloud',
   WHATSAPP_EMBEDDED: 'whatsapp_embedded',
   THREE_SIXTY_DIALOG: '360dialog',
@@ -55,6 +57,12 @@ const availableProviders = computed(() => [
     label: t('INBOX_MGMT.ADD.WHATSAPP.PROVIDERS.TWILIO'),
     description: t('INBOX_MGMT.ADD.WHATSAPP.PROVIDERS.TWILIO_DESC'),
     icon: '/assets/images/dashboard/channels/twilio.png',
+  },
+  {
+    value: PROVIDER_TYPES.EVOLUTION,
+    label: t('INBOX_MGMT.ADD.WHATSAPP.PROVIDERS.EVOLUTION'),
+    description: t('INBOX_MGMT.ADD.WHATSAPP.PROVIDERS.EVOLUTION_DESC'),
+    icon: '/assets/images/dashboard/channels/evolution.svg',
   },
 ]);
 
@@ -105,11 +113,11 @@ const shouldShowCloudWhatsapp = provider => {
         </p>
       </div>
 
-      <div class="flex gap-6 justify-start">
+      <div class="grid grid-cols-2 gap-6">
         <div
           v-for="provider in availableProviders"
           :key="provider.value"
-          class="gap-6 px-5 py-6 w-96 rounded-2xl border transition-all duration-200 cursor-pointer border-n-weak hover:bg-n-slate-3"
+          class="gap-6 px-5 py-6 w-full rounded-2xl border transition-all duration-200 cursor-pointer border-n-weak hover:bg-n-slate-3"
           @click="selectProvider(provider.value)"
         >
           <div class="flex justify-start mb-5">
@@ -148,6 +156,9 @@ const shouldShowCloudWhatsapp = provider => {
         />
         <ThreeSixtyDialogWhatsapp
           v-else-if="selectedProvider === PROVIDER_TYPES.THREE_SIXTY_DIALOG"
+        />
+        <EvolutionChannel
+          v-else-if="selectedProvider === PROVIDER_TYPES.EVOLUTION"
         />
         <CloudWhatsapp v-else />
       </div>

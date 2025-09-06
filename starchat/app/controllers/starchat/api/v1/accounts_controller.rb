@@ -65,7 +65,7 @@ class Starchat::Api::V1::AccountsController < Api::BaseController
         'allowed' => @account.usage_limits[:agents],
         'consumed' => agents(@account)
       },
-      'captain' => @account.usage_limits[:captain]
+              'cosmos' => @account.usage_limits[:cosmos]
     }
   end
 

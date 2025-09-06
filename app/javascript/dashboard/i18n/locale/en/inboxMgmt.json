@@ -17,6 +17,12 @@
         "TITLE": "Create Inbox",
         "BODY": "Authenticate your account and create an inbox."
       },
+      "QRCODE": {
+        "TITLE": "Scan the QR Code",
+        "BODY": "Use WhatsApp to scan the QR Code.",
+        "WAITING": "Waiting for QR Code...",
+        "ALT": "QR Code for WhatsApp connection"
+      },
       "AGENT": {
         "TITLE": "Add Agents",
         "BODY": "Add agents to the created inbox."
@@ -26,7 +32,34 @@
         "BODY": "You are all set to go!"
       }
     },
+    "GENERAL": {
+      "NEXT": "Next",
+      "WEBSOCKET": {
+        "LABEL": "WebSocket:",
+        "CONNECTED": "connected",
+        "DISCONNECTED": "disconnected",
+        "UNAVAILABLE": "WebSocket unavailable",
+        "ERROR": "WebSocket failed"
+      }
+    },
     "ADD": {
+      "EVOLUTION_QR":{
+        "PAIRING_CODE": "Pairing Code",
+        "GET_QRCODE": "Get Qr Code",
+        "INSTRUCTIONS": {
+          "ITEM_1": "Open WhatsApp on your phone. Connected Devices. Connect a device.",
+          "ITEM_2": "Scan the QR displayed below.",
+          "ITEM_3": "Once connected, you will be taken to the next step."
+        },
+        "STATE": {
+          "WAITING": "Waiting for QR Code",
+          "CONNECTING": "Connecting...",
+          "OPEN": "Open",
+          "CLOSE": "Closed",
+          "CONNECTED": "Connected",
+          "DISCONNECTED": "Disconnected"
+        }
+      },
       "CHANNEL_NAME": {
         "LABEL": "Inbox Name",
         "PLACEHOLDER": "Enter your inbox name (eg: Acme Inc)",
@@ -112,6 +145,46 @@
           "ERROR_MESSAGE": "We were not able to create a website channel, please try again"
         }
       },
+      "EVOLUTION": {
+          "TITLE": "Evolution API",
+          "DESC": "Create a WhatsApp inbox using your Evolution instance. Enter your instance details below and pair the device by scanning the QR code.",
+          "WARNING_TITLE": "Before you continue",
+          "WARNING_TEXT": "Using WhatsApp must comply with Meta/WhatsApp policies. Review the rules below to avoid account restrictions or bans.",
+          "WARNING_LINK_TEXT": "Read WhatsApp Business Policy",
+          "WARNING_LINK_URL": "https://www.whatsapp.com/legal/business-policy/",
+          "HINT_CONNECT_TO_SHOW_QR": "Click connect to show QrCode",
+          "FIELDS": {
+            "INBOX_NAME": {
+              "LABEL": "Inbox Name",
+              "PLACEHOLDER": "e.g. Support WhatsApp",
+              "ERROR": "Please enter a valid inbox name"
+            }
+          },
+          "STATES": {
+            "RESTART": "Restart",
+            "OPEN": "Connect",
+            "CLOSE": "Disconnect",
+            "CONNECTING": "Connecting...",
+            "DISCONNECTED": "Disconnect",
+            "CONNECTED": "You are connected!"
+          },
+          "ACTIONS": {
+            "CREATE_INBOX": "Create Evolution Channel",
+            "GENERATE_QR": "Generate QR Code",
+            "SUBSCRIBE_LIVE": "Show QR/Status live",
+            "STOP_LIVE": "Stop live"
+          },
+          "QR": {
+            "PANEL_TITLE": "Pairing QR",
+            "WAITING": "Waiting for QR code…",
+            "INSTRUCTION": "Open WhatsApp > Linked devices > Link a device, then scan the QR to connect:",
+            "INSTRUCTION_WITH_INBOX": "Open WhatsApp > Linked devices > Link a device, then scan the QR to connect to “{inboxName}”.",
+            "STATE_LABEL": "Connection state"
+          },
+          "API": {
+            "ERROR_MESSAGE": "We couldn't create the Evolution inbox. Please check your credentials and try again."
+          }
+       },
       "TWILIO": {
         "TITLE": "Twilio SMS/WhatsApp Channel",
         "DESC": "Integrate Twilio and start supporting your customers via SMS or WhatsApp.",
@@ -227,7 +300,9 @@
           "WHATSAPP_CLOUD": "WhatsApp Cloud",
           "WHATSAPP_CLOUD_DESC": "Quick setup through Meta",
           "TWILIO_DESC": "Connect via Twilio credentials",
-          "360_DIALOG": "360Dialog"
+          "360_DIALOG": "360Dialog",
+          "EVOLUTION": "Evolution",
+          "EVOLUTION_DESC": "Connect your WhatsApp with QR code"
         },
         "SELECT_PROVIDER": {
           "TITLE": "Select your API provider",
@@ -543,6 +618,7 @@
       }
     },
     "TABS": {
+      "EVOLUTION": "Evolution",
       "SETTINGS": "Settings",
       "COLLABORATORS": "Collaborators",
       "CONFIGURATION": "Configuration",
@@ -863,7 +939,8 @@
       "LINE": "Line",
       "API": "API Channel",
       "INSTAGRAM": "Instagram",
-      "VOICE": "Voice"
+      "VOICE": "Voice",
+      "EVOLUTION": "Evolution"
     }
   }
 }

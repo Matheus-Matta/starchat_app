@@ -3,7 +3,7 @@ import EmptyStateLayout from 'dashboard/components-next/EmptyStateLayout.vue';
 import Button from 'dashboard/components-next/button/Button.vue';
 import AssistantCard from 'dashboard/components-next/cosmos/assistant/AssistantCard.vue';
 import FeatureSpotlight from 'dashboard/components-next/feature-spotlight/FeatureSpotlight.vue';
-import { assistantsList } from 'dashboard/components-next/cosmos/pageComponents/emptyStates/captainEmptyStateContent.js';
+import { assistantsList } from 'dashboard/components-next/cosmos/pageComponents/emptyStates/cosmosEmptyStateContent.js';
 
 const emit = defineEmits(['click']);
 
@@ -14,16 +14,16 @@ const onClick = () => {
 
 <template>
   <FeatureSpotlight
-    :title="$t('CAPTAIN.ASSISTANTS.EMPTY_STATE.FEATURE_SPOTLIGHT.TITLE')"
-    :note="$t('CAPTAIN.ASSISTANTS.EMPTY_STATE.FEATURE_SPOTLIGHT.NOTE')"
+    :title="$t('COSMOS.ASSISTANTS.EMPTY_STATE.FEATURE_SPOTLIGHT.TITLE')"
+    :note="$t('COSMOS.ASSISTANTS.EMPTY_STATE.FEATURE_SPOTLIGHT.NOTE')"
     fallback-thumbnail="/assets/images/dashboard/cosmos/assistant-light.svg"
     fallback-thumbnail-dark="/assets/images/dashboard/cosmos/assistant-dark.svg"
-    learn-more-url="https://chwt.app/captain-assistant"
+    learn-more-url="https://chwt.app/cosmos-assistant"
     class="mb-8"
   />
   <EmptyStateLayout
-    :title="$t('CAPTAIN.ASSISTANTS.EMPTY_STATE.TITLE')"
-    :subtitle="$t('CAPTAIN.ASSISTANTS.EMPTY_STATE.SUBTITLE')"
+    :title="$t('COSMOS.ASSISTANTS.EMPTY_STATE.TITLE')"
+    :subtitle="$t('COSMOS.ASSISTANTS.EMPTY_STATE.SUBTITLE')"
     :action-perms="['administrator']"
   >
     <template #empty-state-item>
@@ -40,7 +40,7 @@ const onClick = () => {
     </template>
     <template #actions>
       <Button
-        :label="$t('CAPTAIN.ASSISTANTS.ADD_NEW')"
+        :label="$t('COSMOS.ASSISTANTS.ADD_NEW')"
         icon="i-lucide-plus"
         @click="onClick"
       />

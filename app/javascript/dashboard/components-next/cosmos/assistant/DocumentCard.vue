@@ -42,7 +42,7 @@ const [showActionsDropdown, toggleDropdown] = useToggle();
 const menuItems = computed(() => {
   const allOptions = [
     {
-      label: t('CAPTAIN.DOCUMENTS.OPTIONS.VIEW_RELATED_RESPONSES'),
+      label: t('COSMOS.DOCUMENTS.OPTIONS.VIEW_RELATED_RESPONSES'),
       value: 'viewRelatedQuestions',
       action: 'viewRelatedQuestions',
       icon: 'i-ph-tree-view-duotone',
@@ -51,7 +51,7 @@ const menuItems = computed(() => {
 
   if (checkPermissions(['administrator'])) {
     allOptions.push({
-      label: t('CAPTAIN.DOCUMENTS.OPTIONS.DELETE_DOCUMENT'),
+      label: t('COSMOS.DOCUMENTS.OPTIONS.DELETE_DOCUMENT'),
       value: 'delete',
       action: 'delete',
       icon: 'i-lucide-trash',
@@ -100,7 +100,7 @@ const handleAction = ({ action, value }) => {
       <span
         class="text-sm shrink-0 truncate text-n-slate-11 flex items-center gap-1"
       >
-        <i class="i-woot-captain" />
+        <i class="i-woot-cosmos" />
         {{ assistant?.name || '' }}
       </span>
       <span

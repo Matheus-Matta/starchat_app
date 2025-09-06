@@ -13,7 +13,7 @@ import DropdownMenu from 'dashboard/components-next/dropdown-menu/DropdownMenu.v
 import DeleteDialog from 'dashboard/components-next/cosmos/pageComponents/DeleteDialog.vue';
 import BulkDeleteDialog from 'dashboard/components-next/cosmos/pageComponents/BulkDeleteDialog.vue';
 import PageLayout from 'dashboard/components-next/cosmos/PageLayout.vue';
-import CaptainPaywall from 'dashboard/components-next/cosmos/pageComponents/Paywall.vue';
+import CosmosPaywall from 'dashboard/components-next/cosmos/pageComponents/Paywall.vue';
 import AssistantSelector from 'dashboard/components-next/cosmos/pageComponents/AssistantSelector.vue';
 import ResponseCard from 'dashboard/components-next/cosmos/assistant/ResponseCard.vue';
 import CreateResponseDialog from 'dashboard/components-next/cosmos/pageComponents/response/CreateResponseDialog.vue';
@@ -23,10 +23,10 @@ import LimitBanner from 'dashboard/components-next/cosmos/pageComponents/respons
 
 const router = useRouter();
 const store = useStore();
-const uiFlags = useMapGetter('captainResponses/getUIFlags');
-const assistants = useMapGetter('captainAssistants/getRecords');
-const responseMeta = useMapGetter('captainResponses/getMeta');
-const responses = useMapGetter('captainResponses/getRecords');
+const uiFlags = useMapGetter('cosmosResponses/getUIFlags');
+const assistants = useMapGetter('cosmosAssistants/getRecords');
+const responseMeta = useMapGetter('cosmosResponses/getMeta');
+const responses = useMapGetter('cosmosResponses/getRecords');
 const isFetching = computed(() => uiFlags.value.fetchingList);
 
 const selectedResponse = ref(null);
@@ -49,7 +49,7 @@ const shouldShowDropdown = computed(() => {
 
 const statusOptions = computed(() =>
   ['all', 'pending', 'approved'].map(key => ({
-    label: t(`CAPTAIN.RESPONSES.STATUS.${key.toUpperCase()}`),
+    label: t(`COSMOS.RESPONSES.STATUS.${key.toUpperCase()}`),
     value: key,
     action: 'filter',
   }))
@@ -65,7 +65,7 @@ const selectedStatusLabel = computed(() => {
   const status = statusOptions.value.find(
     option => option.value === selectedStatus.value
   );
-  return t('CAPTAIN.RESPONSES.FILTER.STATUS', {
+  return t('COSMOS.RESPONSES.FILTER.STATUS', {
     selected: status ? status.label : '',
   });
 });
@@ -75,14 +75,14 @@ const handleDelete = () => {
 };
 const handleAccept = async () => {
   try {
-    await store.dispatch('captainResponses/update', {
+    await store.dispatch('cosmosResponses/update', {
       id: selectedResponse.value.id,
       status: 'approved',
     });
-    useAlert(t(`CAPTAIN.RESPONSES.EDIT.APPROVE_SUCCESS_MESSAGE`));
+    useAlert(t(`COSMOS.RESPONSES.EDIT.APPROVE_SUCCESS_MESSAGE`));
   } catch (error) {
     const errorMessage =
-      error?.message || t(`CAPTAIN.RESPONSES.EDIT.ERROR_MESSAGE`);
+      error?.message || t(`COSMOS.RESPONSES.EDIT.ERROR_MESSAGE`);
     useAlert(errorMessage);
   } finally {
     selectedResponse.value = null;
@@ -138,7 +138,7 @@ const fetchResponses = (page = 1) => {
   if (selectedAssistant.value !== 'all') {
     filterParams.assistantId = selectedAssistant.value;
   }
-  store.dispatch('captainResponses/get', filterParams);
+  store.dispatch('cosmosResponses/get', filterParams);
 };
 
 // Bulk action
@@ -168,8 +168,8 @@ const bulkCheckbox = computed({
 const buildSelectedCountLabel = computed(() => {
   const count = filteredResponses.value?.length || 0;
   return bulkSelectionState.value.allSelected
-    ? t('CAPTAIN.RESPONSES.UNSELECT_ALL', { count })
-    : t('CAPTAIN.RESPONSES.SELECT_ALL', { count });
+    ? t('COSMOS.RESPONSES.UNSELECT_ALL', { count })
+    : t('COSMOS.RESPONSES.SELECT_ALL', { count });
 });
 
 const handleCardHover = (isHovered, id) => {
@@ -203,15 +203,15 @@ const fetchResponseAfterBulkAction = () => {
 const handleBulkApprove = async () => {
   try {
     await store.dispatch(
-      'captainBulkActions/handleBulkApprove',
+      'cosmosBulkActions/handleBulkApprove',
       Array.from(bulkSelectedIds.value)
     );
 
     fetchResponseAfterBulkAction();
-    useAlert(t('CAPTAIN.RESPONSES.BULK_APPROVE.SUCCESS_MESSAGE'));
+    useAlert(t('COSMOS.RESPONSES.BULK_APPROVE.SUCCESS_MESSAGE'));
   } catch (error) {
     useAlert(
-      error?.message || t('CAPTAIN.RESPONSES.BULK_APPROVE.ERROR_MESSAGE')
+      error?.message || t('COSMOS.RESPONSES.BULK_APPROVE.ERROR_MESSAGE')
     );
   }
 };
@@ -251,7 +251,7 @@ const handleAssistantFilterChange = assistant => {
 };
 
 onMounted(() => {
-  store.dispatch('captainAssistants/get');
+  store.dispatch('cosmosAssistants/get');
   fetchResponses();
 });
 </script>
@@ -261,23 +261,23 @@ onMounted(() => {
     :total-count="responseMeta.totalCount"
     :current-page="responseMeta.page"
     :button-policy="['administrator']"
-    :header-title="$t('CAPTAIN.RESPONSES.HEADER')"
-    :button-label="$t('CAPTAIN.RESPONSES.ADD_NEW')"
+    :header-title="$t('COSMOS.RESPONSES.HEADER')"
+    :button-label="$t('COSMOS.RESPONSES.ADD_NEW')"
     :is-fetching="isFetching"
     :is-empty="!filteredResponses.length"
     :show-pagination-footer="!isFetching && !!filteredResponses.length"
-    :feature-flag="FEATURE_FLAGS.CAPTAIN"
+    :feature-flag="FEATURE_FLAGS.COSMOS"
     @update:current-page="onPageChange"
     @click="handleCreate"
   >
     <template #knowMore>
       <FeatureSpotlightPopover
-        :button-label="$t('CAPTAIN.HEADER_KNOW_MORE')"
-        :title="$t('CAPTAIN.RESPONSES.EMPTY_STATE.FEATURE_SPOTLIGHT.TITLE')"
-        :note="$t('CAPTAIN.RESPONSES.EMPTY_STATE.FEATURE_SPOTLIGHT.NOTE')"
+        :button-label="$t('COSMOS.HEADER_KNOW_MORE')"
+        :title="$t('COSMOS.RESPONSES.EMPTY_STATE.FEATURE_SPOTLIGHT.TITLE')"
+        :note="$t('COSMOS.RESPONSES.EMPTY_STATE.FEATURE_SPOTLIGHT.NOTE')"
         fallback-thumbnail="/assets/images/dashboard/cosmos/faqs-popover-light.svg"
         fallback-thumbnail-dark="/assets/images/dashboard/cosmos/faqs-popover-dark.svg"
-        learn-more-url="https://chwt.app/captain-faq"
+        learn-more-url="https://chwt.app/cosmos-faq"
       />
     </template>
 
@@ -286,7 +286,7 @@ onMounted(() => {
     </template>
 
     <template #paywall>
-      <CaptainPaywall />
+      <CosmosPaywall />
     </template>
 
     <template #controls>
@@ -346,7 +346,7 @@ onMounted(() => {
               </div>
               <span class="text-sm text-n-slate-10 tabular-nums">
                 {{
-                  $t('CAPTAIN.RESPONSES.SELECTED', {
+                  $t('COSMOS.RESPONSES.SELECTED', {
                     count: bulkSelectedIds.size,
                   })
                 }}
@@ -355,7 +355,7 @@ onMounted(() => {
             <div class="h-4 w-px bg-n-strong" />
             <div class="flex gap-3 items-center">
               <Button
-                :label="$t('CAPTAIN.RESPONSES.BULK_APPROVE_BUTTON')"
+                :label="$t('COSMOS.RESPONSES.BULK_APPROVE_BUTTON')"
                 sm
                 ghost
                 icon="i-lucide-check"
@@ -364,7 +364,7 @@ onMounted(() => {
               />
               <div class="h-4 w-px bg-n-strong" />
               <Button
-                :label="$t('CAPTAIN.RESPONSES.BULK_DELETE_BUTTON')"
+                :label="$t('COSMOS.RESPONSES.BULK_DELETE_BUTTON')"
                 sm
                 ruby
                 ghost

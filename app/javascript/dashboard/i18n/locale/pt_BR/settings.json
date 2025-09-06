@@ -287,10 +287,10 @@
     "SETTINGS": "Configurações",
     "CONTACTS": "Contatos",
     "ACTIVE": "Ativo",
-    "CAPTAIN": "Capitão",
-    "CAPTAIN_ASSISTANTS": "Assistentes",
-    "CAPTAIN_DOCUMENTS": "Documentos",
-    "CAPTAIN_RESPONSES": "FAQs",
+    "COSMOS": "Capitão",
+    "COSMOS_ASSISTANTS": "Assistentes",
+    "COSMOS_DOCUMENTS": "Documentos",
+    "COSMOS_RESPONSES": "FAQs",
     "HOME": "Principal",
     "AGENTS": "Agentes",
     "AGENT_BOTS": "Robôs",
@@ -366,9 +366,9 @@
       "DESCRIPTION": "Veja suas faturas anteriores, edite seus detalhes de cobrança, ou cancele sua assinatura.",
       "BUTTON_TXT": "Ir para o portal de cobrança"
     },
-    "CAPTAIN": {
+    "COSMOS": {
       "TITLE": "Capitão",
-      "DESCRIPTION": "Gerenciar uso e créditos para o Captain AI.",
+      "DESCRIPTION": "Gerenciar uso e créditos para o Cosmos AI.",
       "BUTTON_TXT": "Comprar mais créditos",
       "DOCUMENTS": "Documentos",
       "RESPONSES": "Respostas",

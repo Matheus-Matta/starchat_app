@@ -147,6 +147,10 @@ class Inbox < ApplicationRecord
     channel_type == 'Channel::Whatsapp'
   end
 
+  def evolution?
+    channel_type == 'Channel::Evolution'
+  end
+
   def assignable_agents
     (account.users.where(id: members.select(:user_id)) + account.administrators).uniq
   end
@@ -223,6 +227,26 @@ class Inbox < ApplicationRecord
 
   def check_channel_type?
     ['Channel::Email', 'Channel::Api', 'Channel::WebWidget'].include?(channel_type)
+  end
+
+  def _stash_evolution_channel_credentials
+    return unless channel_type == 'Channel::Evolution' && channel.present?
+
+    @evo_delete_payload = {
+      instance_name: channel.try(:instance_name),
+      api_key:       channel.try(:api_key)
+    }.compact
+  end
+
+  def _enqueue_evolution_delete_if_needed
+    payload = @evo_delete_payload
+    return if payload.blank? || payload[:instance_name].blank? || payload[:api_key].blank?
+
+    Evolution::DeleteInstanceJob.perform_later(
+      base_url:     ENV.fetch('EVOLUTION_BASE_URL'),
+      api_key:      payload[:api_key],
+      instance_name: payload[:instance_name]
+    )
   end
 end
 

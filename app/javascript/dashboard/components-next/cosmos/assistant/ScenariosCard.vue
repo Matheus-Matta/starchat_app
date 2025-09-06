@@ -83,13 +83,13 @@ const v$ = useVuelidate(rules, state);
 
 const titleError = computed(() =>
   v$.value.title.$error
-    ? t('CAPTAIN.ASSISTANTS.SCENARIOS.ADD.NEW.FORM.TITLE.ERROR')
+    ? t('COSMOS.ASSISTANTS.SCENARIOS.ADD.NEW.FORM.TITLE.ERROR')
     : ''
 );
 
 const descriptionError = computed(() =>
   v$.value.description.$error
-    ? t('CAPTAIN.ASSISTANTS.SCENARIOS.ADD.NEW.FORM.DESCRIPTION.ERROR')
+    ? t('COSMOS.ASSISTANTS.SCENARIOS.ADD.NEW.FORM.DESCRIPTION.ERROR')
     : ''
 );
 
@@ -102,7 +102,7 @@ const onClickUpdate = () => {
 
 const instructionError = computed(() =>
   v$.value.instruction.$error
-    ? t('CAPTAIN.ASSISTANTS.SCENARIOS.ADD.NEW.FORM.INSTRUCTION.ERROR')
+    ? t('COSMOS.ASSISTANTS.SCENARIOS.ADD.NEW.FORM.INSTRUCTION.ERROR')
     : ''
 );
 
@@ -159,16 +159,16 @@ const renderInstruction = instruction => () =>
       </div>
       <component :is="renderInstruction(formatMessage(instruction, false))" />
       <span class="text-sm text-n-slate-11 font-medium mb-1">
-        {{ t('CAPTAIN.ASSISTANTS.SCENARIOS.ADD.SUGGESTED.TOOLS_USED') }}
+        {{ t('COSMOS.ASSISTANTS.SCENARIOS.ADD.SUGGESTED.TOOLS_USED') }}
         {{ tools?.map(tool => `@${tool}`).join(', ') }}
       </span>
     </div>
     <div v-else class="overflow-hidden flex flex-col gap-4 w-full">
       <Input
         v-model="state.title"
-        :label="t('CAPTAIN.ASSISTANTS.SCENARIOS.ADD.NEW.FORM.TITLE.LABEL')"
+        :label="t('COSMOS.ASSISTANTS.SCENARIOS.ADD.NEW.FORM.TITLE.LABEL')"
         :placeholder="
-          t('CAPTAIN.ASSISTANTS.SCENARIOS.ADD.NEW.FORM.TITLE.PLACEHOLDER')
+          t('COSMOS.ASSISTANTS.SCENARIOS.ADD.NEW.FORM.TITLE.PLACEHOLDER')
         "
         :message="titleError"
         :message-type="titleError ? 'error' : 'info'"
@@ -177,10 +177,10 @@ const renderInstruction = instruction => () =>
       <TextArea
         v-model="state.description"
         :label="
-          t('CAPTAIN.ASSISTANTS.SCENARIOS.ADD.NEW.FORM.DESCRIPTION.LABEL')
+          t('COSMOS.ASSISTANTS.SCENARIOS.ADD.NEW.FORM.DESCRIPTION.LABEL')
         "
         :placeholder="
-          t('CAPTAIN.ASSISTANTS.SCENARIOS.ADD.NEW.FORM.DESCRIPTION.PLACEHOLDER')
+          t('COSMOS.ASSISTANTS.SCENARIOS.ADD.NEW.FORM.DESCRIPTION.PLACEHOLDER')
         "
         :message="descriptionError"
         :message-type="descriptionError ? 'error' : 'info'"
@@ -189,27 +189,27 @@ const renderInstruction = instruction => () =>
       <Editor
         v-model="state.instruction"
         :label="
-          t('CAPTAIN.ASSISTANTS.SCENARIOS.ADD.NEW.FORM.INSTRUCTION.LABEL')
+          t('COSMOS.ASSISTANTS.SCENARIOS.ADD.NEW.FORM.INSTRUCTION.LABEL')
         "
         :placeholder="
-          t('CAPTAIN.ASSISTANTS.SCENARIOS.ADD.NEW.FORM.INSTRUCTION.PLACEHOLDER')
+          t('COSMOS.ASSISTANTS.SCENARIOS.ADD.NEW.FORM.INSTRUCTION.PLACEHOLDER')
         "
         :message="instructionError"
         :message-type="instructionError ? 'error' : 'info'"
         :show-character-count="false"
-        enable-captain-tools
+        enable-cosmos-tools
       />
       <div class="flex items-center gap-3">
         <Button
           faded
           slate
           sm
-          :label="t('CAPTAIN.ASSISTANTS.SCENARIOS.UPDATE.CANCEL')"
+          :label="t('COSMOS.ASSISTANTS.SCENARIOS.UPDATE.CANCEL')"
           @click="toggleEditing(false)"
         />
         <Button
           sm
-          :label="t('CAPTAIN.ASSISTANTS.SCENARIOS.UPDATE.UPDATE')"
+          :label="t('COSMOS.ASSISTANTS.SCENARIOS.UPDATE.UPDATE')"
           @click="onClickUpdate"
         />
       </div>

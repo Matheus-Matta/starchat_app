@@ -4,7 +4,7 @@ RSpec.describe CopilotThread, type: :model do
   describe 'associations' do
     it { is_expected.to belong_to(:user) }
     it { is_expected.to belong_to(:account) }
-    it { is_expected.to belong_to(:assistant).class_name('Captain::Assistant') }
+    it { is_expected.to belong_to(:assistant).class_name('Cosmos::Assistant') }
     it { is_expected.to have_many(:copilot_messages).dependent(:destroy_async) }
   end
 
@@ -15,8 +15,8 @@ RSpec.describe CopilotThread, type: :model do
   describe '#push_event_data' do
     let(:account) { create(:account) }
     let(:user) { create(:user, account: account) }
-    let(:assistant) { create(:captain_assistant, account: account) }
-    let(:copilot_thread) { create(:captain_copilot_thread, account: account, user: user, assistant: assistant, title: 'Test Thread') }
+    let(:assistant) { create(:cosmos_assistant, account: account) }
+    let(:copilot_thread) { create(:cosmos_copilot_thread, account: account, user: user, assistant: assistant, title: 'Test Thread') }
 
     it 'returns the correct event data' do
       event_data = copilot_thread.push_event_data
@@ -32,14 +32,14 @@ RSpec.describe CopilotThread, type: :model do
   describe '#previous_history' do
     let(:account) { create(:account) }
     let(:user) { create(:user, account: account) }
-    let(:assistant) { create(:captain_assistant, account: account) }
-    let(:copilot_thread) { create(:captain_copilot_thread, account: account, user: user, assistant: assistant) }
+    let(:assistant) { create(:cosmos_assistant, account: account) }
+    let(:copilot_thread) { create(:cosmos_copilot_thread, account: account, user: user, assistant: assistant) }
 
     context 'when there are messages in the thread' do
       before do
-        create(:captain_copilot_message, copilot_thread: copilot_thread, message_type: 'user', message: { 'content' => 'User message' })
-        create(:captain_copilot_message, copilot_thread: copilot_thread, message_type: 'assistant_thinking', message: { 'content' => 'Thinking...' })
-        create(:captain_copilot_message, copilot_thread: copilot_thread, message_type: 'assistant', message: { 'content' => 'Assistant message' })
+        create(:cosmos_copilot_message, copilot_thread: copilot_thread, message_type: 'user', message: { 'content' => 'User message' })
+        create(:cosmos_copilot_message, copilot_thread: copilot_thread, message_type: 'assistant_thinking', message: { 'content' => 'Thinking...' })
+        create(:cosmos_copilot_message, copilot_thread: copilot_thread, message_type: 'assistant', message: { 'content' => 'Assistant message' })
       end
 
       it 'returns only user and assistant messages in chronological order' do

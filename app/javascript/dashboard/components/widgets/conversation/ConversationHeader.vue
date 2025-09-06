@@ -72,6 +72,17 @@ const isSnoozed = computed(
   () => currentChat.value.status === wootConstants.STATUS_TYPE.SNOOZED
 );
 
+const waProfilePicUrl = computed(() => {
+  const c = currentContact;
+  return (
+    (c.value.custom_attributes &&
+      c.value.custom_attributes.wa_profile_pic_url) ||
+    (c.value.additional_attributes &&
+      c.value.additional_attributes.wa_profile_pic_url) ||
+    ''
+  );
+});
+
 const snoozedDisplayText = computed(() => {
   const { snoozed_until: snoozedUntil } = currentChat.value;
   if (snoozedUntil) {
@@ -107,6 +118,7 @@ const hasSlaPolicyId = computed(() => props.chat?.sla_policy_id);
       />
       <Thumbnail
         :src="currentContact.thumbnail"
+        :fallback-src="waProfilePicUrl"
         :username="currentContact.name"
         :status="currentContact.availability_status"
         size="32px"

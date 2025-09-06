@@ -90,6 +90,15 @@ export default {
     confirmDeleteMessage() {
       return ` ${this.contact.name}?`;
     },
+    waProfilePicUrl() {
+      const c = this.contact || {};
+      return (
+        (c.custom_attributes && c.custom_attributes.wa_profile_pic_url) ||
+        (c.additional_attributes &&
+          c.additional_attributes.wa_profile_pic_url) ||
+        ''
+      );
+    },
   },
   watch: {
     'contact.id': {
@@ -182,6 +191,7 @@ export default {
         <Thumbnail
           v-if="showAvatar"
           :src="contact.thumbnail"
+          :fallback-src="waProfilePicUrl"
           size="48px"
           :username="contact.name"
           :status="contact.availability_status"
