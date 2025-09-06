@@ -287,10 +287,10 @@
     "SETTINGS": "Ayarlar",
     "CONTACTS": "Kişiler",
     "ACTIVE": "Aktif",
-    "CAPTAIN": "Cosmos",
-    "CAPTAIN_ASSISTANTS": "Assistants",
-    "CAPTAIN_DOCUMENTS": "Documents",
-    "CAPTAIN_RESPONSES": "FAQs",
+    "COSMOS": "Cosmos",
+    "COSMOS_ASSISTANTS": "Assistants",
+    "COSMOS_DOCUMENTS": "Documents",
+    "COSMOS_RESPONSES": "FAQs",
     "HOME": "Anasayfa",
     "AGENTS": "Kullanıcılar",
     "AGENT_BOTS": "Botlar",
@@ -366,7 +366,7 @@
       "DESCRIPTION": "Önceki faturalarınızı görüntüleyin, fatura detaylarınızı düzenleyin veya aboneliğinizi iptal edin.",
       "BUTTON_TXT": "Fatura portalına git"
     },
-    "CAPTAIN": {
+    "COSMOS": {
       "TITLE": "Cosmos",
       "DESCRIPTION": "Manage usage and credits for Cosmos AI.",
       "BUTTON_TXT": "Buy more credits",

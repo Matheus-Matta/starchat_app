@@ -22,23 +22,23 @@ const store = useStore();
 const { uiSettings, updateUISettings } = useUISettings();
 const assistantId = route.params.assistantId;
 
-const uiFlags = useMapGetter('captainScenarios/getUIFlags');
+const uiFlags = useMapGetter('cosmosScenarios/getUIFlags');
 const isFetching = computed(() => uiFlags.value.fetchingList);
 const assistant = computed(() =>
-  store.getters['captainAssistants/getRecord'](Number(assistantId))
+  store.getters['cosmosAssistants/getRecord'](Number(assistantId))
 );
-const scenarios = useMapGetter('captainScenarios/getRecords');
+const scenarios = useMapGetter('cosmosScenarios/getRecords');
 
 const searchQuery = ref('');
 
 const breadcrumbItems = computed(() => {
   return [
     {
-      label: t('CAPTAIN.ASSISTANTS.SETTINGS.BREADCRUMB.ASSISTANT'),
-      routeName: 'cosmos_::assistants_index',
+      label: t('COSMOS.ASSISTANTS.SETTINGS.BREADCRUMB.ASSISTANT'),
+      routeName: 'cosmos_assistants_index',
     },
-    { label: assistant.value?.name, routeName: 'cosmos_::assistants_edit' },
-    { label: t('CAPTAIN.ASSISTANTS.SCENARIOS.BREADCRUMB.TITLE') },
+    { label: assistant.value?.name, routeName: 'cosmos_assistants_edit' },
+    { label: t('COSMOS.ASSISTANTS.SCENARIOS.BREADCRUMB.TITLE') },
   ];
 });
 
@@ -103,12 +103,12 @@ const buildSelectedCountLabel = computed(() => {
   const count = scenarios.value.length || 0;
   const isAllSelected = bulkSelectedIds.value.size === count && count > 0;
   return isAllSelected
-    ? t('CAPTAIN.ASSISTANTS.SCENARIOS.BULK_ACTION.UNSELECT_ALL', { count })
-    : t('CAPTAIN.ASSISTANTS.SCENARIOS.BULK_ACTION.SELECT_ALL', { count });
+    ? t('COSMOS.ASSISTANTS.SCENARIOS.BULK_ACTION.UNSELECT_ALL', { count })
+    : t('COSMOS.ASSISTANTS.SCENARIOS.BULK_ACTION.SELECT_ALL', { count });
 });
 
 const selectedCountLabel = computed(() => {
-  return t('CAPTAIN.ASSISTANTS.SCENARIOS.BULK_ACTION.SELECTED', {
+  return t('COSMOS.ASSISTANTS.SCENARIOS.BULK_ACTION.SELECTED', {
     count: bulkSelectedIds.value.size,
   });
 });
@@ -125,32 +125,32 @@ const getToolsFromInstruction = instruction => [
 
 const updateScenario = async scenario => {
   try {
-    await store.dispatch('captainScenarios/update', {
+    await store.dispatch('cosmosScenarios/update', {
       id: scenario.id,
       assistantId: route.params.assistantId,
       ...scenario,
       tools: getToolsFromInstruction(scenario.instruction),
     });
-    useAlert(t('CAPTAIN.ASSISTANTS.SCENARIOS.API.UPDATE.SUCCESS'));
+    useAlert(t('COSMOS.ASSISTANTS.SCENARIOS.API.UPDATE.SUCCESS'));
   } catch (error) {
     const errorMessage =
       error?.response?.message ||
-      t('CAPTAIN.ASSISTANTS.SCENARIOS.API.UPDATE.ERROR');
+      t('COSMOS.ASSISTANTS.SCENARIOS.API.UPDATE.ERROR');
     useAlert(errorMessage);
   }
 };
 
 const deleteScenario = async id => {
   try {
-    await store.dispatch('captainScenarios/delete', {
+    await store.dispatch('cosmosScenarios/delete', {
       id,
       assistantId: route.params.assistantId,
     });
-    useAlert(t('CAPTAIN.ASSISTANTS.SCENARIOS.API.DELETE.SUCCESS'));
+    useAlert(t('COSMOS.ASSISTANTS.SCENARIOS.API.DELETE.SUCCESS'));
   } catch (error) {
     const errorMessage =
       error?.response?.message ||
-      t('CAPTAIN.ASSISTANTS.SCENARIOS.API.DELETE.ERROR');
+      t('COSMOS.ASSISTANTS.SCENARIOS.API.DELETE.ERROR');
     useAlert(errorMessage);
   }
 };
@@ -160,28 +160,28 @@ const bulkDeleteScenarios = async ids => {
   const idsArray = ids || Array.from(bulkSelectedIds.value);
   await Promise.all(
     idsArray.map(id =>
-      store.dispatch('captainScenarios/delete', {
+      store.dispatch('cosmosScenarios/delete', {
         id,
         assistantId: route.params.assistantId,
       })
     )
   );
   bulkSelectedIds.value = new Set();
-  useAlert(t('CAPTAIN.ASSISTANTS.SCENARIOS.API.DELETE.SUCCESS'));
+  useAlert(t('COSMOS.ASSISTANTS.SCENARIOS.API.DELETE.SUCCESS'));
 };
 
 const addScenario = async scenario => {
   try {
-    await store.dispatch('captainScenarios/create', {
+    await store.dispatch('cosmosScenarios/create', {
       assistantId: route.params.assistantId,
       ...scenario,
       tools: getToolsFromInstruction(scenario.instruction),
     });
-    useAlert(t('CAPTAIN.ASSISTANTS.SCENARIOS.API.ADD.SUCCESS'));
+    useAlert(t('COSMOS.ASSISTANTS.SCENARIOS.API.ADD.SUCCESS'));
   } catch (error) {
     const errorMessage =
       error?.response?.message ||
-      t('CAPTAIN.ASSISTANTS.SCENARIOS.API.ADD.ERROR');
+      t('COSMOS.ASSISTANTS.SCENARIOS.API.ADD.ERROR');
     useAlert(errorMessage);
   }
 };
@@ -189,25 +189,25 @@ const addScenario = async scenario => {
 const addAllExampleScenarios = async () => {
   try {
     scenariosExample.forEach(async scenario => {
-      await store.dispatch('captainScenarios/create', {
+      await store.dispatch('cosmosScenarios/create', {
         assistantId: route.params.assistantId,
         ...scenario,
       });
     });
-    useAlert(t('CAPTAIN.ASSISTANTS.SCENARIOS.API.ADD.SUCCESS'));
+    useAlert(t('COSMOS.ASSISTANTS.SCENARIOS.API.ADD.SUCCESS'));
   } catch (error) {
     const errorMessage =
       error?.response?.message ||
-      t('CAPTAIN.ASSISTANTS.SCENARIOS.API.ADD.ERROR');
+      t('COSMOS.ASSISTANTS.SCENARIOS.API.ADD.ERROR');
     useAlert(errorMessage);
   }
 };
 
 onMounted(() => {
-  store.dispatch('captainScenarios/get', {
+  store.dispatch('cosmosScenarios/get', {
     assistantId: assistantId,
   });
-  store.dispatch('captainTools/getTools');
+  store.dispatch('cosmosTools/getTools');
 });
 </script>
 
@@ -218,12 +218,12 @@ onMounted(() => {
   >
     <template #body>
       <SettingsHeader
-        :heading="$t('CAPTAIN.ASSISTANTS.SCENARIOS.TITLE')"
-        :description="$t('CAPTAIN.ASSISTANTS.SCENARIOS.DESCRIPTION')"
+        :heading="$t('COSMOS.ASSISTANTS.SCENARIOS.TITLE')"
+        :description="$t('COSMOS.ASSISTANTS.SCENARIOS.DESCRIPTION')"
       />
       <div v-if="shouldShowSuggestedRules" class="flex mt-7 flex-col gap-4">
         <SuggestedScenarios
-          :title="$t('CAPTAIN.ASSISTANTS.SCENARIOS.ADD.SUGGESTED.TITLE')"
+          :title="$t('COSMOS.ASSISTANTS.SCENARIOS.ADD.SUGGESTED.TITLE')"
           :items="scenariosExample"
           @close="closeSuggestedRules"
           @add="addAllExampleScenarios"
@@ -235,7 +235,7 @@ onMounted(() => {
               </span>
               <Button
                 :label="
-                  $t('CAPTAIN.ASSISTANTS.SCENARIOS.ADD.SUGGESTED.ADD_SINGLE')
+                  $t('COSMOS.ASSISTANTS.SCENARIOS.ADD.SUGGESTED.ADD_SINGLE')
                 "
                 ghost
                 xs
@@ -250,7 +250,7 @@ onMounted(() => {
               </span>
               <component :is="renderInstruction(item.instruction)" />
               <span class="text-sm text-n-slate-11 font-medium mb-1">
-                {{ t('CAPTAIN.ASSISTANTS.SCENARIOS.ADD.SUGGESTED.TOOLS_USED') }}
+                {{ t('COSMOS.ASSISTANTS.SCENARIOS.ADD.SUGGESTED.TOOLS_USED') }}
                 {{ item.tools?.map(tool => `@${tool}`).join(', ') }}
               </span>
             </div>
@@ -265,7 +265,7 @@ onMounted(() => {
             :select-all-label="buildSelectedCountLabel"
             :selected-count-label="selectedCountLabel"
             :delete-label="
-              $t('CAPTAIN.ASSISTANTS.SCENARIOS.BULK_ACTION.BULK_DELETE_BUTTON')
+              $t('COSMOS.ASSISTANTS.SCENARIOS.BULK_ACTION.BULK_DELETE_BUTTON')
             "
             @bulk-delete="bulkDeleteScenarios"
           >
@@ -280,19 +280,19 @@ onMounted(() => {
             <Input
               v-model="searchQuery"
               :placeholder="
-                t('CAPTAIN.ASSISTANTS.SCENARIOS.LIST.SEARCH_PLACEHOLDER')
+                t('COSMOS.ASSISTANTS.SCENARIOS.LIST.SEARCH_PLACEHOLDER')
               "
             />
           </div>
         </div>
         <div v-if="scenarios.length === 0" class="mt-1 mb-2">
           <span class="text-n-slate-11 text-sm">
-            {{ t('CAPTAIN.ASSISTANTS.SCENARIOS.EMPTY_MESSAGE') }}
+            {{ t('COSMOS.ASSISTANTS.SCENARIOS.EMPTY_MESSAGE') }}
           </span>
         </div>
         <div v-else-if="filteredScenarios.length === 0" class="mt-1 mb-2">
           <span class="text-n-slate-11 text-sm">
-            {{ t('CAPTAIN.ASSISTANTS.SCENARIOS.SEARCH_EMPTY_MESSAGE') }}
+            {{ t('COSMOS.ASSISTANTS.SCENARIOS.SEARCH_EMPTY_MESSAGE') }}
           </span>
         </div>
         <div v-else class="flex flex-col gap-2">

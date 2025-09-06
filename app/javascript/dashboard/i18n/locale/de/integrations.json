@@ -19,7 +19,7 @@
     "DESCRIPTION": "Chatwoot integriert sich mit mehreren Tools und Diensten, um die Effizienz Ihres Teams zu verbessern. Erkunden Sie die folgende Liste, um Ihre Lieblingsapps zu konfigurieren.",
     "LEARN_MORE": "Mehr über Integrationen erfahren",
     "LOADING": "Integrationen werden abgerufen",
-    "CAPTAIN": {
+    "COSMOS": {
       "DISABLED": "Cosmos ist auf Ihrem Konto nicht aktiviert.",
       "CLICK_HERE_TO_CONFIGURE": "Hier klicken, um zu konfigurieren",
       "LOADING_CONSOLE": "Cosmos-Konsole wird geladen...",
@@ -341,7 +341,7 @@
       }
     }
   },
-  "CAPTAIN": {
+  "COSMOS": {
     "NAME": "Kapitän",
     "HEADER_KNOW_MORE": "Know more",
     "COPILOT": {

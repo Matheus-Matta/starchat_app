@@ -33,7 +33,7 @@ export default createStore({
       });
 
       // Update the response store after successful API call
-      await dispatch('captainResponses/removeBulkResponses', ids, {
+      await dispatch('cosmosResponses/removeBulkResponses', ids, {
         root: true,
       });
       return response;
@@ -47,7 +47,7 @@ export default createStore({
       });
 
       // Update response store after successful API call
-      await dispatch('captainResponses/updateBulkResponses', response, {
+      await dispatch('cosmosResponses/updateBulkResponses', response, {
         root: true,
       });
       return response;

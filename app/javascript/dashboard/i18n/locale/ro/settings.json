@@ -287,10 +287,10 @@
     "SETTINGS": "Setări",
     "CONTACTS": "Contacte",
     "ACTIVE": "Activ",
-    "CAPTAIN": "Cosmos",
-    "CAPTAIN_ASSISTANTS": "Assistants",
-    "CAPTAIN_DOCUMENTS": "Documents",
-    "CAPTAIN_RESPONSES": "FAQs",
+    "COSMOS": "Cosmos",
+    "COSMOS_ASSISTANTS": "Assistants",
+    "COSMOS_DOCUMENTS": "Documents",
+    "COSMOS_RESPONSES": "FAQs",
     "HOME": "Acasa",
     "AGENTS": "Agenți",
     "AGENT_BOTS": "Boți",
@@ -366,7 +366,7 @@
       "DESCRIPTION": "Vizualizați facturile anterioare, editați detaliile de facturare sau anulați abonamentul.",
       "BUTTON_TXT": "Accesați portalul de facturare"
     },
-    "CAPTAIN": {
+    "COSMOS": {
       "TITLE": "Cosmos",
       "DESCRIPTION": "Manage usage and credits for Cosmos AI.",
       "BUTTON_TXT": "Buy more credits",

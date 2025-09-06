@@ -30,7 +30,7 @@ class Api::V1::Accounts::Cosmos::ScenariosController < Api::V1::Accounts::BaseCo
   end
 
   def account_assistants
-    @account_assistants ||= Current.account.cosmos_::assistants
+    @account_assistants ||= Current.account.cosmos_assistants
   end
 
   def set_scenario

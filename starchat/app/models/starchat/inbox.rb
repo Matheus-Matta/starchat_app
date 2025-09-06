@@ -8,17 +8,17 @@ module Starchat::Inbox
   end
 
   def active_bot?
-    super || cosmos_::active?
+    super || cosmos_active?
   end
 
-  def cosmos_::active?
-    cosmos_::assistant.present? && more_responses?
+  def cosmos_active?
+    cosmos_assistant.present? && more_responses?
   end
 
   private
 
   def more_responses?
-    account.usage_limits[:captain][:responses][:current_available].positive?
+          account.usage_limits[:cosmos][:responses][:current_available].positive?
   end
 
   def get_agent_ids_over_assignment_limit(limit)

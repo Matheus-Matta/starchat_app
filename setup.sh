@@ -1,26 +1,26 @@
 #!/usr/bin/env bash
 set -euo pipefail
+shopt -s nullglob
 
-# Lista apenas arquivos *text* versionados que contêm "Cosmos::"
-mapfile -t files < <(git grep -Il 'Cosmos::' || true)
-
-if [ ${#files[@]} -eq 0 ]; then
-  echo "Nenhuma ocorrência de 'Cosmos::' encontrada."
-  exit 0
-fi
-
-# Detecta a flag correta de inplace do sed (GNU vs BSD/macOS)
+# detecta sed GNU vs BSD/macOS para inplace
 if sed --version >/dev/null 2>&1; then
   SED_INPLACE=(-i)
 else
   SED_INPLACE=(-i '')
 fi
 
-# Substitui Cosmos:: -> Cosmos:: em cada arquivo
-for file in "${files[@]}"; do
-  sed "${SED_INPLACE[@]}" 's#Cosmos::#Cosmos::#g' "$file"
+echo "Atualizando conteúdo dos arquivos .rb no diretório atual…"
+
+changed=0
+for f in ./*; do
+  [[ -f "$f" ]] || continue
+  if grep -q 'Cosmos::' "$f"; then
+    sed "${SED_INPLACE[@]}" 's#\bCaptain::#Cosmos::#g' "$f"
+    echo "✔ Alterado: $f"
+    ((changed++)) || true
+  fi
 done
 
-# Comita as alterações
-git add "${files[@]}"
-git commit -m "chore: renomear namespace Cosmos:: para Cosmos::"
+if [[ $changed -eq 0 ]]; then
+  echo "Nada a alterar."
+fi

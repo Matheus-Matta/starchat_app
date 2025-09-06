@@ -287,10 +287,10 @@
     "SETTINGS": "ตั้งค่า",
     "CONTACTS": "ผู้ติดต่อ",
     "ACTIVE": "ใช้งานอยู่",
-    "CAPTAIN": "Cosmos",
-    "CAPTAIN_ASSISTANTS": "Assistants",
-    "CAPTAIN_DOCUMENTS": "Documents",
-    "CAPTAIN_RESPONSES": "FAQs",
+    "COSMOS": "Cosmos",
+    "COSMOS_ASSISTANTS": "Assistants",
+    "COSMOS_DOCUMENTS": "Documents",
+    "COSMOS_RESPONSES": "FAQs",
     "HOME": "หน้าหลัก",
     "AGENTS": "พนักงาน",
     "AGENT_BOTS": "บอท",
@@ -366,7 +366,7 @@
       "DESCRIPTION": "View your previous invoices, edit your billing details, or cancel your subscription.",
       "BUTTON_TXT": "Go to the billing portal"
     },
-    "CAPTAIN": {
+    "COSMOS": {
       "TITLE": "Cosmos",
       "DESCRIPTION": "Manage usage and credits for Cosmos AI.",
       "BUTTON_TXT": "Buy more credits",

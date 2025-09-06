@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: cosmos_::assistants
+# Table name: cosmos_assistants
 #
 #  id                  :bigint           not null, primary key
 #  config              :jsonb            not null
@@ -14,23 +14,23 @@
 #
 # Indexes
 #
-#  index_cosmos_::assistants_on_account_id  (account_id)
+#  index_cosmos_assistants_on_account_id  (account_id)
 #
 class Cosmos::Assistant < ApplicationRecord
   include Avatarable
   include Concerns::CosmosToolsHelpers
 
-  self.table_name = 'cosmos_::assistants'
+  self.table_name = 'cosmos_assistants'
 
   belongs_to :account
   has_many :documents, class_name: 'Cosmos::Document', dependent: :destroy_async
   has_many :responses, class_name: 'Cosmos::AssistantResponse', dependent: :destroy_async
-  has_many :cosmos_::inboxes,
+  has_many :cosmos_inboxes,
            class_name: 'CosmosInbox',
-           foreign_key: :cosmos_::assistant_id,
+           foreign_key: :cosmos_assistant_id,
            dependent: :destroy_async
   has_many :inboxes,
-           through: :cosmos_::inboxes
+           through: :cosmos_inboxes
   has_many :messages, as: :sender, dependent: :nullify
   has_many :copilot_threads, dependent: :destroy_async
   has_many :scenarios, class_name: 'Cosmos::Scenario', dependent: :destroy_async
@@ -54,7 +54,7 @@ class Cosmos::Assistant < ApplicationRecord
       avatar_url: avatar_url.presence || default_avatar_url,
       description: description,
       created_at: created_at,
-      type: 'cosmos_::assistant'
+      type: 'cosmos_assistant'
     }
   end
 
@@ -65,7 +65,7 @@ class Cosmos::Assistant < ApplicationRecord
       avatar_url: avatar_url.presence || default_avatar_url,
       description: description,
       created_at: created_at,
-      type: 'cosmos_::assistant'
+      type: 'cosmos_assistant'
     }
   end
 

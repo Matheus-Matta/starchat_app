@@ -95,31 +95,31 @@ watch(
   <div class="flex flex-col gap-6">
     <Input
       v-model="state.name"
-      :label="t('CAPTAIN.ASSISTANTS.FORM.NAME.LABEL')"
-      :placeholder="t('CAPTAIN.ASSISTANTS.FORM.NAME.PLACEHOLDER')"
+      :label="t('COSMOS.ASSISTANTS.FORM.NAME.LABEL')"
+      :placeholder="t('COSMOS.ASSISTANTS.FORM.NAME.PLACEHOLDER')"
       :message="formErrors.name"
       :message-type="formErrors.name ? 'error' : 'info'"
     />
 
     <Input
       v-model="state.productName"
-      :label="t('CAPTAIN.ASSISTANTS.FORM.PRODUCT_NAME.LABEL')"
-      :placeholder="t('CAPTAIN.ASSISTANTS.FORM.PRODUCT_NAME.PLACEHOLDER')"
+      :label="t('COSMOS.ASSISTANTS.FORM.PRODUCT_NAME.LABEL')"
+      :placeholder="t('COSMOS.ASSISTANTS.FORM.PRODUCT_NAME.PLACEHOLDER')"
       :message="formErrors.productName"
       :message-type="formErrors.productName ? 'error' : 'info'"
     />
 
     <Editor
       v-model="state.description"
-      :label="t('CAPTAIN.ASSISTANTS.FORM.DESCRIPTION.LABEL')"
-      :placeholder="t('CAPTAIN.ASSISTANTS.FORM.DESCRIPTION.PLACEHOLDER')"
+      :label="t('COSMOS.ASSISTANTS.FORM.DESCRIPTION.LABEL')"
+      :placeholder="t('COSMOS.ASSISTANTS.FORM.DESCRIPTION.PLACEHOLDER')"
       :message="formErrors.description"
       :message-type="formErrors.description ? 'error' : 'info'"
     />
 
     <div class="flex flex-col gap-2">
       <label class="text-sm font-medium text-n-slate-12">
-        {{ t('CAPTAIN.ASSISTANTS.FORM.FEATURES.TITLE') }}
+        {{ t('COSMOS.ASSISTANTS.FORM.FEATURES.TITLE') }}
       </label>
       <div class="flex flex-col gap-2">
         <label class="flex items-center gap-2">
@@ -128,7 +128,7 @@ watch(
             type="checkbox"
             class="form-checkbox"
           />
-          {{ t('CAPTAIN.ASSISTANTS.FORM.FEATURES.ALLOW_CONVERSATION_FAQS') }}
+          {{ t('COSMOS.ASSISTANTS.FORM.FEATURES.ALLOW_CONVERSATION_FAQS') }}
         </label>
         <label class="flex items-center gap-2">
           <input
@@ -136,14 +136,14 @@ watch(
             type="checkbox"
             class="form-checkbox"
           />
-          {{ t('CAPTAIN.ASSISTANTS.FORM.FEATURES.ALLOW_MEMORIES') }}
+          {{ t('COSMOS.ASSISTANTS.FORM.FEATURES.ALLOW_MEMORIES') }}
         </label>
       </div>
     </div>
 
     <div>
       <Button
-        :label="t('CAPTAIN.ASSISTANTS.FORM.UPDATE')"
+        :label="t('COSMOS.ASSISTANTS.FORM.UPDATE')"
         @click="handleBasicInfoUpdate"
       />
     </div>

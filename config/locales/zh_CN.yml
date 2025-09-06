@@ -134,7 +134,7 @@ zh_CN:
     attachment: '附件'
     no_content: '无内容'
   conversations:
-    captain:
+    cosmos:
       handoff: '正在转接另一个客服以获得进一步协助。'
     messages:
       instagram_story_content: '%{story_sender} 会话中提到了你: '
@@ -145,7 +145,7 @@ zh_CN:
       delivery_status:
         error_code: '错误代码: %{error_code}'
     activity:
-      captain:
+      cosmos:
         resolved: '对话被系统标记为已解决, 原因是 %{user_name} 不活跃'
         open: '对话被 %{user_name} 打开'
       status:
@@ -255,7 +255,7 @@ zh_CN:
       name: 'LeadSquared'
       short_description: '与 LeadSquared CRM 同步您的联系人和对话。'
       description: '与 LeadSquared CRM 同步您的联系人和对话。 当添加新联系人时，这种集成会自动在潜在客户创建线索，并记录对话活动，为您的销售团队提供完整的上下文。'
-  captain:
+  cosmos:
     copilot_message_required: 消息是必填项
     copilot_error: '请为该收件箱连接一个助手以使用 Copilot'
     copilot_limit: '您的 Copilot 积分已用完。您可以从计费部分购买更多积分。'

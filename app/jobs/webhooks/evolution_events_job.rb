@@ -7,40 +7,41 @@ class Webhooks::EvolutionEventsJob < ApplicationJob
     @inbox = Inbox.find_by(id: inbox_id)
     return unless @inbox&.channel.is_a?(Channel::Evolution)
 
-    evt = event.to_s.tr('.', '_').downcase
-    rows = Array.wrap(data)
+    evt  = event.to_s.tr('.', '_').downcase
+    rows = Array.wrap(data).compact
+    rows = rows.reject { |r| r.respond_to?(:empty?) && r.empty? }
+    
+    puts "\n\n[EVOLUTION DATA ROWS EVENT = #{evt}]"
 
     case evt
     when 'messages_upsert'
-      rows.each do |msg|
+      rows.each do |raw|
         safely('incoming message') do
-          Evolution::IncomingMessageService.new(inbox: @inbox, raw_message: msg).perform
+          next if raw.blank?
+          Evolution::IncomingMessageService.new(
+            inbox: @inbox,
+            processed: raw
+          ).perform
         end
       end
 
     when 'messages_update'
-      statuses = rows.map do |row|
-        h = row.with_indifferent_access
-        {
-          id:     h[:keyId] || h[:messageId] || h.dig(:key, :id) || h[:id],
-          status: map_status(h[:status])
-        }.compact
-      end
-      safely('status updates') do
-        Evolution::StatusUpdateService.new(
-          inbox: @inbox,
-          raw_updates: { statuses: statuses }
-        ).perform
+      rows.each do |row|
+        safely('status update') do
+          next if row.blank?
+          Evolution::MessageStatusService.new(
+            inbox: @inbox,
+            params: row
+          ).perform
+        end
       end
 
     when 'contacts_update', 'contacts_upsert'
       safely('contact sync') do
-        Evolution::ContactSyncService.new(inbox: @inbox, list: rows).perform
-      end
-
-    when 'chats_update'
-      safely('chats warmup') do
-        Evolution::WarmupChatService.new(inbox: @inbox, list: rows).perform
+        Evolution::ContactSyncService.new(
+          inbox: @inbox,
+          list: rows
+        ).perform
       end
 
     else
@@ -49,14 +50,6 @@ class Webhooks::EvolutionEventsJob < ApplicationJob
   end
 
   private
-
-  def map_status(s)
-    case s.to_s.upcase
-    when 'DELIVERY_ACK', 'DELIVERED' then 'delivered'
-    when 'READ', 'SEEN'              then 'read'
-    else s.to_s.downcase
-    end
-  end
 
   def safely(what)
     yield

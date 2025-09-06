@@ -3,7 +3,7 @@ import CosmosToolsAPI from '../../api/cosmos/tools';
 import { throwErrorMessage } from 'dashboard/store/utils/api';
 
 const toolsStore = createStore({
-  name: 'captainTool',
+  name: 'cosmosTool',
   API: CosmosToolsAPI,
   actions: mutations => ({
     getTools: async ({ commit }) => {

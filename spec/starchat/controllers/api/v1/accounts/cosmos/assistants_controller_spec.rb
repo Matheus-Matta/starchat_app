@@ -20,7 +20,7 @@ RSpec.describe 'Api::V1::Accounts::Cosmos::Assistants', type: :request do
 
     context 'when it is an agent' do
       it 'fetches assistants for the account' do
-        create_list(:captain_assistant, 3, account: account)
+        create_list(:cosmos_assistant, 3, account: account)
         get "/api/v1/accounts/#{account.id}/cosmos/assistants",
             headers: agent.create_new_auth_token,
             as: :json
@@ -35,7 +35,7 @@ RSpec.describe 'Api::V1::Accounts::Cosmos::Assistants', type: :request do
   end
 
   describe 'GET /api/v1/accounts/{account.id}/cosmos/assistants/{id}' do
-    let(:assistant) { create(:captain_assistant, account: account) }
+    let(:assistant) { create(:cosmos_assistant, account: account) }
 
     context 'when it is an un-authenticated user' do
       it 'does not fetch the assistant' do
@@ -106,7 +106,7 @@ RSpec.describe 'Api::V1::Accounts::Cosmos::Assistants', type: :request do
   end
 
   describe 'PATCH /api/v1/accounts/{account.id}/cosmos/assistants/{id}' do
-    let(:assistant) { create(:captain_assistant, account: account) }
+    let(:assistant) { create(:cosmos_assistant, account: account) }
     let(:update_attributes) do
       {
         assistant: {
@@ -182,7 +182,7 @@ RSpec.describe 'Api::V1::Accounts::Cosmos::Assistants', type: :request do
   end
 
   describe 'DELETE /api/v1/accounts/{account.id}/cosmos/assistants/{id}' do
-    let!(:assistant) { create(:captain_assistant, account: account) }
+    let!(:assistant) { create(:cosmos_assistant, account: account) }
 
     context 'when it is an un-authenticated user' do
       it 'does not delete the assistant' do
@@ -215,7 +215,7 @@ RSpec.describe 'Api::V1::Accounts::Cosmos::Assistants', type: :request do
   end
 
   describe 'POST /api/v1/accounts/{account.id}/cosmos/assistants/{id}/playground' do
-    let(:assistant) { create(:captain_assistant, account: account) }
+    let(:assistant) { create(:cosmos_assistant, account: account) }
     let(:valid_params) do
       {
         message_content: 'Hello assistant',
@@ -238,8 +238,8 @@ RSpec.describe 'Api::V1::Accounts::Cosmos::Assistants', type: :request do
 
     context 'when it is an agent' do
       it 'generates a response' do
-        chat_service = instance_double(Captain::Llm::AssistantChatService)
-        allow(Captain::Llm::AssistantChatService).to receive(:new).with(assistant: assistant).and_return(chat_service)
+        chat_service = instance_double(Cosmos::Llm::AssistantChatService)
+        allow(Cosmos::Llm::AssistantChatService).to receive(:new).with(assistant: assistant).and_return(chat_service)
         allow(chat_service).to receive(:generate_response).and_return({ content: 'Assistant response' })
 
         post "/api/v1/accounts/#{account.id}/cosmos/assistants/#{assistant.id}/playground",
@@ -259,8 +259,8 @@ RSpec.describe 'Api::V1::Accounts::Cosmos::Assistants', type: :request do
     context 'when message_history is not provided' do
       it 'uses empty array as default' do
         params_without_history = { message_content: 'Hello assistant' }
-        chat_service = instance_double(Captain::Llm::AssistantChatService)
-        allow(Captain::Llm::AssistantChatService).to receive(:new).with(assistant: assistant).and_return(chat_service)
+        chat_service = instance_double(Cosmos::Llm::AssistantChatService)
+        allow(Cosmos::Llm::AssistantChatService).to receive(:new).with(assistant: assistant).and_return(chat_service)
         allow(chat_service).to receive(:generate_response).and_return({ content: 'Assistant response' })
 
         post "/api/v1/accounts/#{account.id}/cosmos/assistants/#{assistant.id}/playground",

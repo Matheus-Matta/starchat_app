@@ -1,13 +1,13 @@
 require 'rails_helper'
 
-RSpec.describe Captain::Tools::FirecrawlService do
+RSpec.describe Cosmos::Tools::FirecrawlService do
   let(:api_key) { 'test-api-key' }
   let(:url) { 'https://example.com' }
   let(:webhook_url) { 'https://webhook.example.com/callback' }
   let(:crawl_limit) { 15 }
 
   before do
-    create(:installation_config, name: 'CAPTAIN_FIRECRAWL_API_KEY', value: api_key)
+    create(:installation_config, name: 'COSMOS_FIRECRAWL_API_KEY', value: api_key)
   end
 
   describe '#initialize' do
@@ -19,7 +19,7 @@ RSpec.describe Captain::Tools::FirecrawlService do
 
     context 'when API key is missing' do
       before do
-        InstallationConfig.find_by(name: 'CAPTAIN_FIRECRAWL_API_KEY').destroy
+        InstallationConfig.find_by(name: 'COSMOS_FIRECRAWL_API_KEY').destroy
       end
 
       it 'raises an error' do
@@ -29,7 +29,7 @@ RSpec.describe Captain::Tools::FirecrawlService do
 
     context 'when API key is nil' do
       before do
-        InstallationConfig.find_by(name: 'CAPTAIN_FIRECRAWL_API_KEY').update(value: nil)
+        InstallationConfig.find_by(name: 'COSMOS_FIRECRAWL_API_KEY').update(value: nil)
       end
 
       it 'raises an error' do
@@ -39,7 +39,7 @@ RSpec.describe Captain::Tools::FirecrawlService do
 
     context 'when API key is empty' do
       before do
-        InstallationConfig.find_by(name: 'CAPTAIN_FIRECRAWL_API_KEY').update(value: '')
+        InstallationConfig.find_by(name: 'COSMOS_FIRECRAWL_API_KEY').update(value: '')
       end
 
       it 'raises an error' do

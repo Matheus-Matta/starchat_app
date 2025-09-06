@@ -19,7 +19,7 @@
     "DESCRIPTION": "Chatwoot 集成了多种工具和服务，以提高团队效率。浏览以下列表以配置您喜欢的应用程序。",
     "LEARN_MORE": "了解更多关于集成的信息",
     "LOADING": "正在获取集成",
-    "CAPTAIN": {
+    "COSMOS": {
       "DISABLED": "您的账户未启用 Cosmos。",
       "CLICK_HERE_TO_CONFIGURE": "点击此处配置",
       "LOADING_CONSOLE": "正在加载 Cosmos 控制台……",
@@ -341,7 +341,7 @@
       }
     }
   },
-  "CAPTAIN": {
+  "COSMOS": {
     "NAME": "Cosmos",
     "HEADER_KNOW_MORE": "了解更多",
     "COPILOT": {

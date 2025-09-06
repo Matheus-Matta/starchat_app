@@ -722,7 +722,7 @@ describe('#addMentions', () => {
       await actions.getInboxCosmosAssistantById({ commit }, 1);
       expect(commit.mock.calls).toEqual([
         [
-          types.SET_INBOX_CAPTAIN_ASSISTANT,
+          types.SET_INBOX_COSMOS_ASSISTANT,
           { id: 1, name: 'Assistant', description: 'Assistant description' },
         ],
       ]);

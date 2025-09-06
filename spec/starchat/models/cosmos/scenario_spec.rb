@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Captain::Scenario, type: :model do
+RSpec.describe Cosmos::Scenario, type: :model do
   describe 'associations' do
     it { is_expected.to belong_to(:assistant).class_name('Cosmos::Assistant') }
     it { is_expected.to belong_to(:account) }
@@ -16,12 +16,12 @@ RSpec.describe Captain::Scenario, type: :model do
 
   describe 'scopes' do
     let(:account) { create(:account) }
-    let(:assistant) { create(:captain_assistant, account: account) }
+    let(:assistant) { create(:cosmos_assistant, account: account) }
 
     describe '.enabled' do
       it 'returns only enabled scenarios' do
-        enabled_scenario = create(:captain_scenario, assistant: assistant, account: account, enabled: true)
-        disabled_scenario = create(:captain_scenario, assistant: assistant, account: account, enabled: false)
+        enabled_scenario = create(:cosmos_scenario, assistant: assistant, account: account, enabled: true)
+        disabled_scenario = create(:cosmos_scenario, assistant: assistant, account: account, enabled: false)
 
         expect(described_class.enabled).to include(enabled_scenario)
         expect(described_class.enabled).not_to include(disabled_scenario)
@@ -31,11 +31,11 @@ RSpec.describe Captain::Scenario, type: :model do
 
   describe 'callbacks' do
     let(:account) { create(:account) }
-    let(:assistant) { create(:captain_assistant, account: account) }
+    let(:assistant) { create(:cosmos_assistant, account: account) }
 
     describe 'before_save :resolve_tool_references' do
       it 'calls resolve_tool_references before saving' do
-        scenario = build(:captain_scenario, assistant: assistant, account: account)
+        scenario = build(:cosmos_scenario, assistant: assistant, account: account)
         expect(scenario).to receive(:resolve_tool_references)
         scenario.save
       end
@@ -44,7 +44,7 @@ RSpec.describe Captain::Scenario, type: :model do
 
   describe 'tool validation and population' do
     let(:account) { create(:account) }
-    let(:assistant) { create(:captain_assistant, account: account) }
+    let(:assistant) { create(:cosmos_assistant, account: account) }
 
     before do
       # Mock available tools
@@ -55,7 +55,7 @@ RSpec.describe Captain::Scenario, type: :model do
 
     describe 'validate_instruction_tools' do
       it 'is valid with valid tool references' do
-        scenario = build(:captain_scenario,
+        scenario = build(:cosmos_scenario,
                          assistant: assistant,
                          account: account,
                          instruction: 'Use [@Add Contact Note](tool://add_contact_note) to document')
@@ -64,7 +64,7 @@ RSpec.describe Captain::Scenario, type: :model do
       end
 
       it 'is invalid with invalid tool references' do
-        scenario = build(:captain_scenario,
+        scenario = build(:cosmos_scenario,
                          assistant: assistant,
                          account: account,
                          instruction: 'Use [@Invalid Tool](tool://invalid_tool) to process')
@@ -74,7 +74,7 @@ RSpec.describe Captain::Scenario, type: :model do
       end
 
       it 'is invalid with multiple invalid tools' do
-        scenario = build(:captain_scenario,
+        scenario = build(:cosmos_scenario,
                          assistant: assistant,
                          account: account,
                          instruction: 'Use [@Invalid Tool](tool://invalid_tool) and [@Another Invalid](tool://another_invalid)')
@@ -84,7 +84,7 @@ RSpec.describe Captain::Scenario, type: :model do
       end
 
       it 'is valid with no tool references' do
-        scenario = build(:captain_scenario,
+        scenario = build(:cosmos_scenario,
                          assistant: assistant,
                          account: account,
                          instruction: 'Just respond politely to the customer')
@@ -93,7 +93,7 @@ RSpec.describe Captain::Scenario, type: :model do
       end
 
       it 'is valid with blank instruction' do
-        scenario = build(:captain_scenario,
+        scenario = build(:cosmos_scenario,
                          assistant: assistant,
                          account: account,
                          instruction: '')
@@ -106,7 +106,7 @@ RSpec.describe Captain::Scenario, type: :model do
 
     describe 'resolve_tool_references' do
       it 'populates tools array with referenced tool IDs' do
-        scenario = create(:captain_scenario,
+        scenario = create(:cosmos_scenario,
                           assistant: assistant,
                           account: account,
                           instruction: 'First [@Add Contact Note](tool://add_contact_note) then [@Update Priority](tool://update_priority)')
@@ -115,7 +115,7 @@ RSpec.describe Captain::Scenario, type: :model do
       end
 
       it 'sets tools to nil when no tools are referenced' do
-        scenario = create(:captain_scenario,
+        scenario = create(:cosmos_scenario,
                           assistant: assistant,
                           account: account,
                           instruction: 'Just respond politely to the customer')
@@ -124,7 +124,7 @@ RSpec.describe Captain::Scenario, type: :model do
       end
 
       it 'handles duplicate tool references' do
-        scenario = create(:captain_scenario,
+        scenario = create(:cosmos_scenario,
                           assistant: assistant,
                           account: account,
                           instruction: 'Use [@Add Contact Note](tool://add_contact_note) and [@Add Contact Note](tool://add_contact_note) again')
@@ -133,7 +133,7 @@ RSpec.describe Captain::Scenario, type: :model do
       end
 
       it 'updates tools when instruction changes' do
-        scenario = create(:captain_scenario,
+        scenario = create(:cosmos_scenario,
                           assistant: assistant,
                           account: account,
                           instruction: 'Use [@Add Contact Note](tool://add_contact_note)')
@@ -149,13 +149,13 @@ RSpec.describe Captain::Scenario, type: :model do
   describe 'factory' do
     it 'creates a valid scenario with associations' do
       account = create(:account)
-      assistant = create(:captain_assistant, account: account)
-      scenario = build(:captain_scenario, assistant: assistant, account: account)
+      assistant = create(:cosmos_assistant, account: account)
+      scenario = build(:cosmos_scenario, assistant: assistant, account: account)
       expect(scenario).to be_valid
     end
 
     it 'creates a scenario with all required attributes' do
-      scenario = create(:captain_scenario)
+      scenario = create(:cosmos_scenario)
       expect(scenario.title).to be_present
       expect(scenario.description).to be_present
       expect(scenario.instruction).to be_present

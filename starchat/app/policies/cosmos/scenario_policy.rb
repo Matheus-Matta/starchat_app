@@ -1,4 +1,4 @@
-class Captain::ScenarioPolicy < ApplicationPolicy
+class Cosmos::ScenarioPolicy < ApplicationPolicy
   def index?
     true
   end

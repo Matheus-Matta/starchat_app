@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: cosmos_::assistant_responses
+# Table name: cosmos_assistant_responses
 #
 #  id                :bigint           not null, primary key
 #  answer            :text             not null
@@ -17,13 +17,13 @@
 # Indexes
 #
 #  idx_cap_asst_resp_on_documentable                  (documentable_id,documentable_type)
-#  index_cosmos_::assistant_responses_on_account_id    (account_id)
-#  index_cosmos_::assistant_responses_on_assistant_id  (assistant_id)
-#  index_cosmos_::assistant_responses_on_status        (status)
+#  index_cosmos_assistant_responses_on_account_id    (account_id)
+#  index_cosmos_assistant_responses_on_assistant_id  (assistant_id)
+#  index_cosmos_assistant_responses_on_status        (status)
 #  vector_idx_knowledge_entries_embedding             (embedding) USING ivfflat
 #
 class Cosmos::AssistantResponse < ApplicationRecord
-  self.table_name = 'cosmos_::assistant_responses'
+  self.table_name = 'cosmos_assistant_responses'
 
   belongs_to :assistant, class_name: 'Cosmos::Assistant'
   belongs_to :account

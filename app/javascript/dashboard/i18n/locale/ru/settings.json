@@ -287,10 +287,10 @@
     "SETTINGS": "Настройки",
     "CONTACTS": "Контакты",
     "ACTIVE": "Активные",
-    "CAPTAIN": "Капитан",
-    "CAPTAIN_ASSISTANTS": "Ассистенты",
-    "CAPTAIN_DOCUMENTS": "Документы",
-    "CAPTAIN_RESPONSES": "FAQ",
+    "COSMOS": "Капитан",
+    "COSMOS_ASSISTANTS": "Ассистенты",
+    "COSMOS_DOCUMENTS": "Документы",
+    "COSMOS_RESPONSES": "FAQ",
     "HOME": "Главная",
     "AGENTS": "Операторы",
     "AGENT_BOTS": "Боты",
@@ -366,7 +366,7 @@
       "DESCRIPTION": "Просматривайте ваши предыдущие счета, редактируйте платежные реквизиты или отмените подписку.",
       "BUTTON_TXT": "Перейти на платёжный портал"
     },
-    "CAPTAIN": {
+    "COSMOS": {
       "TITLE": "Капитан",
       "DESCRIPTION": "Управляйте использованием и кредитами для Cosmos AI.",
       "BUTTON_TXT": "Купить дополнительные кредиты",

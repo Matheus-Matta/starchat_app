@@ -19,7 +19,7 @@
     "DESCRIPTION": "Chatwoot تتكامل مع أدوات وخدمات متعددة لتحسين كفاءة فريقك. استكشف القائمة أدناه لتكوين تطبيقاتك المفضلة.",
     "LEARN_MORE": "معرفة المزيد عن التكاملات",
     "LOADING": "جاري جلب التكاملات",
-    "CAPTAIN": {
+    "COSMOS": {
       "DISABLED": "لم يتم تمكين الكابتن على حسابك.",
       "CLICK_HERE_TO_CONFIGURE": "انقر هنا للتهيئة",
       "LOADING_CONSOLE": "جار جلب وحدة التحكم بالكابتن...",
@@ -341,7 +341,7 @@
       }
     }
   },
-  "CAPTAIN": {
+  "COSMOS": {
     "NAME": "قائد",
     "HEADER_KNOW_MORE": "Know more",
     "COPILOT": {

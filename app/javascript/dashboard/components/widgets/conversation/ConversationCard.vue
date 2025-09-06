@@ -97,6 +97,7 @@ export default {
       activeInbox: 'getSelectedInbox',
       accountId: 'getCurrentAccountId',
     }),
+
     chatMetadata() {
       return this.chat.meta || {};
     },
@@ -138,11 +139,7 @@ export default {
     },
 
     showInboxName() {
-      return (
-        !this.hideInboxName &&
-        this.isInboxNameVisible &&
-        this.inboxesList.length > 1
-      );
+      return !this.hideInboxName && this.isInboxNameVisible;
     },
     inboxName() {
       const stateInbox = this.inbox;
@@ -150,6 +147,26 @@ export default {
     },
     hasSlaPolicyId() {
       return this.chat?.sla_policy_id;
+    },
+    primaryThumbSrc() {
+      const c = this.currentContact || {};
+      return (
+        c.thumbnail ||
+        c.avatar_url ||
+        (c.additional_attributes &&
+          c.additional_attributes.wa_profile_pic_url) ||
+        (c.custom_attributes && c.custom_attributes.wa_profile_pic_url) ||
+        ''
+      );
+    },
+    waProfilePicUrl() {
+      const c = this.currentContact || {};
+      return (
+        (c.custom_attributes && c.custom_attributes.wa_profile_pic_url) ||
+        (c.additional_attributes &&
+          c.additional_attributes.wa_profile_pic_url) ||
+        ''
+      );
     },
   },
   methods: {
@@ -279,7 +296,8 @@ export default {
       </label>
       <Thumbnail
         v-if="!hideThumbnail"
-        :src="currentContact.thumbnail"
+        :src="primaryThumbSrc"
+        :fallback-src="waProfilePicUrl"
         :badge="inboxBadge"
         :username="currentContact.name"
         :status="currentContact.availability_status"

@@ -35,7 +35,7 @@ class Api::V1::Accounts::Cosmos::DocumentsController < Api::V1::Accounts::BaseCo
   private
 
   def set_documents
-    @documents = Current.account.cosmos_::documents.includes(:assistant).ordered
+    @documents = Current.account.cosmos_documents.includes(:assistant).ordered
   end
 
   def set_document
@@ -43,7 +43,7 @@ class Api::V1::Accounts::Cosmos::DocumentsController < Api::V1::Accounts::BaseCo
   end
 
   def set_assistant
-    @assistant = Current.account.cosmos_::assistants.find_by(id: document_params[:assistant_id])
+    @assistant = Current.account.cosmos_assistants.find_by(id: document_params[:assistant_id])
   end
 
   def set_current_page

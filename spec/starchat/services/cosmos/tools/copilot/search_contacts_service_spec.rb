@@ -1,9 +1,9 @@
 require 'rails_helper'
 
-RSpec.describe Captain::Tools::Copilot::SearchContactsService do
+RSpec.describe Cosmos::Tools::Copilot::SearchContactsService do
   let(:account) { create(:account) }
   let(:user) { create(:user, account: account) }
-  let(:assistant) { create(:captain_assistant, account: account) }
+  let(:assistant) { create(:cosmos_assistant, account: account) }
   let(:service) { described_class.new(assistant, user: user) }
 
   describe '#name' do
@@ -46,7 +46,7 @@ RSpec.describe Captain::Tools::Copilot::SearchContactsService do
   describe '#active?' do
     context 'when user has contact_manage permission' do
       let(:user) { create(:user, account: account) }
-      let(:assistant) { create(:captain_assistant, account: account) }
+      let(:assistant) { create(:cosmos_assistant, account: account) }
       let(:custom_role) { create(:custom_role, account: account, permissions: ['contact_manage']) }
 
       before do
@@ -61,7 +61,7 @@ RSpec.describe Captain::Tools::Copilot::SearchContactsService do
 
     context 'when user does not have contact_manage permission' do
       let(:user) { create(:user, account: account) }
-      let(:assistant) { create(:captain_assistant, account: account) }
+      let(:assistant) { create(:cosmos_assistant, account: account) }
       let(:custom_role) { create(:custom_role, account: account, permissions: []) }
 
       before do

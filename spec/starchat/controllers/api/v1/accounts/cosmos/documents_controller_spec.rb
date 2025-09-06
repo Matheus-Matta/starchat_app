@@ -1,13 +1,13 @@
 require 'rails_helper'
 
-RSpec.describe 'Api::V1::Accounts::Captain::Documents', type: :request do
+RSpec.describe 'Api::V1::Accounts::Cosmos::Documents', type: :request do
   let(:account) { create(:account, custom_attributes: { plan_name: 'startups' }) }
   let(:admin) { create(:user, account: account, role: :administrator) }
   let(:agent) { create(:user, account: account, role: :agent) }
-  let(:assistant) { create(:captain_assistant, account: account) }
-  let(:assistant2) { create(:captain_assistant, account: account) }
-  let(:document) { create(:captain_document, assistant: assistant, account: account) }
-  let(:captain_limits) do
+  let(:assistant) { create(:cosmos_assistant, account: account) }
+  let(:assistant2) { create(:cosmos_assistant, account: account) }
+  let(:document) { create(:cosmos_document, assistant: assistant, account: account) }
+  let(:cosmos_limits) do
     {
       :startups => { :documents => 1, :responses => 100 }
     }.with_indifferent_access
@@ -31,7 +31,7 @@ RSpec.describe 'Api::V1::Accounts::Captain::Documents', type: :request do
     context 'when it is an agent' do
       context 'when no filters are applied' do
         before do
-          create_list(:captain_document, 30, assistant: assistant, account: account)
+          create_list(:cosmos_document, 30, assistant: assistant, account: account)
         end
 
         it 'returns the first page of documents' do
@@ -55,8 +55,8 @@ RSpec.describe 'Api::V1::Accounts::Captain::Documents', type: :request do
 
       context 'when filtering by assistant_id' do
         before do
-          create_list(:captain_document, 3, assistant: assistant, account: account)
-          create_list(:captain_document, 2, assistant: assistant2, account: account)
+          create_list(:cosmos_document, 3, assistant: assistant, account: account)
+          create_list(:cosmos_document, 2, assistant: assistant2, account: account)
         end
 
         it 'returns only documents for the specified assistant' do
@@ -69,7 +69,7 @@ RSpec.describe 'Api::V1::Accounts::Captain::Documents', type: :request do
         end
 
         it 'returns empty array when assistant has no documents' do
-          new_assistant = create(:captain_assistant, account: account)
+          new_assistant = create(:cosmos_assistant, account: account)
           get "/api/v1/accounts/#{account.id}/cosmos/documents",
               params: { assistant_id: new_assistant.id },
               headers: agent.create_new_auth_token, as: :json
@@ -82,8 +82,8 @@ RSpec.describe 'Api::V1::Accounts::Captain::Documents', type: :request do
         let(:other_account) { create(:account) }
 
         before do
-          create_list(:captain_document, 3, assistant: assistant, account: account)
-          create_list(:captain_document, 2, account: other_account)
+          create_list(:cosmos_document, 3, assistant: assistant, account: account)
+          create_list(:cosmos_document, 2, account: other_account)
         end
 
         it 'only returns documents for the current account' do
@@ -98,8 +98,8 @@ RSpec.describe 'Api::V1::Accounts::Captain::Documents', type: :request do
 
       context 'with pagination and assistant filter combined' do
         before do
-          create_list(:captain_document, 30, assistant: assistant, account: account)
-          create_list(:captain_document, 10, assistant: assistant2, account: account)
+          create_list(:cosmos_document, 30, assistant: assistant, account: account)
+          create_list(:cosmos_document, 10, assistant: assistant2, account: account)
         end
 
         it 'returns paginated results for specific assistant' do
@@ -192,7 +192,7 @@ RSpec.describe 'Api::V1::Accounts::Captain::Documents', type: :request do
             post "/api/v1/accounts/#{account.id}/cosmos/documents",
                  params: valid_attributes,
                  headers: admin.create_new_auth_token
-          end.to change(Captain::Document, :count).by(1)
+          end.to change(Cosmos::Document, :count).by(1)
         end
 
         it 'returns success status and the created document' do
@@ -220,9 +220,9 @@ RSpec.describe 'Api::V1::Accounts::Captain::Documents', type: :request do
 
       context 'with limits exceeded' do
         before do
-          create_list(:captain_document, 5, assistant: assistant, account: account)
+          create_list(:cosmos_document, 5, assistant: assistant, account: account)
 
-          create(:installation_config, name: 'CAPTAIN_CLOUD_PLAN_LIMITS', value: captain_limits.to_json)
+          create(:installation_config, name: 'cosmos_CLOUD_PLAN_LIMITS', value: cosmos_limits.to_json)
           post "/api/v1/accounts/#{account.id}/cosmos/documents",
                params: valid_attributes,
                headers: admin.create_new_auth_token
@@ -247,7 +247,7 @@ RSpec.describe 'Api::V1::Accounts::Captain::Documents', type: :request do
     end
 
     context 'when it is an agent' do
-      let!(:document_to_delete) { create(:captain_document, assistant: assistant) }
+      let!(:document_to_delete) { create(:cosmos_document, assistant: assistant) }
 
       it 'deletes the document' do
         delete "/api/v1/accounts/#{account.id}/cosmos/documents/#{document_to_delete.id}",
@@ -259,13 +259,13 @@ RSpec.describe 'Api::V1::Accounts::Captain::Documents', type: :request do
 
     context 'when it is an admin' do
       context 'when document exists' do
-        let!(:document_to_delete) { create(:captain_document, assistant: assistant) }
+        let!(:document_to_delete) { create(:cosmos_document, assistant: assistant) }
 
         it 'deletes the document' do
           expect do
             delete "/api/v1/accounts/#{account.id}/cosmos/documents/#{document_to_delete.id}",
                    headers: admin.create_new_auth_token
-          end.to change(Captain::Document, :count).by(-1)
+          end.to change(Cosmos::Document, :count).by(-1)
         end
 
         it 'returns no content status' do

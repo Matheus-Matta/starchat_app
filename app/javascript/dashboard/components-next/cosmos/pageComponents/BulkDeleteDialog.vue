@@ -28,14 +28,14 @@ const handleBulkDelete = async ids => {
 
   try {
     await store.dispatch(
-      'captainBulkActions/handleBulkDelete',
+      'cosmosBulkActions/handleBulkDelete',
       Array.from(props.bulkIds)
     );
 
     emit('deleteSuccess');
-    useAlert(t(`CAPTAIN.${i18nKey.value}.BULK_DELETE.SUCCESS_MESSAGE`));
+    useAlert(t(`COSMOS.${i18nKey.value}.BULK_DELETE.SUCCESS_MESSAGE`));
   } catch (error) {
-    useAlert(t(`CAPTAIN.${i18nKey.value}.BULK_DELETE.ERROR_MESSAGE`));
+    useAlert(t(`COSMOS.${i18nKey.value}.BULK_DELETE.ERROR_MESSAGE`));
   }
 };
 
@@ -51,9 +51,9 @@ defineExpose({ dialogRef: bulkDeleteDialogRef });
   <Dialog
     ref="bulkDeleteDialogRef"
     type="alert"
-    :title="t(`CAPTAIN.${i18nKey}.BULK_DELETE.TITLE`)"
-    :description="t(`CAPTAIN.${i18nKey}.BULK_DELETE.DESCRIPTION`)"
-    :confirm-button-label="t(`CAPTAIN.${i18nKey}.BULK_DELETE.CONFIRM`)"
+    :title="t(`COSMOS.${i18nKey}.BULK_DELETE.TITLE`)"
+    :description="t(`COSMOS.${i18nKey}.BULK_DELETE.DESCRIPTION`)"
+    :confirm-button-label="t(`COSMOS.${i18nKey}.BULK_DELETE.CONFIRM`)"
     @confirm="handleDialogConfirm"
   />
 </template>

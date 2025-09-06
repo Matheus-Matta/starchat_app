@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 # Test tool implementation
-class TestTool < Captain::Tools::BaseService
+class TestTool < Cosmos::Tools::BaseService
   attr_accessor :tool_active
 
   def initialize(assistant, user: nil)
@@ -37,8 +37,8 @@ class TestTool < Captain::Tools::BaseService
   end
 end
 
-RSpec.describe Captain::ToolRegistryService do
-  let(:assistant) { create(:captain_assistant) }
+RSpec.describe Cosmos::ToolRegistryService do
+  let(:assistant) { create(:cosmos_assistant) }
   let(:service) { described_class.new(assistant) }
 
   describe '#initialize' do
@@ -123,7 +123,7 @@ RSpec.describe Captain::ToolRegistryService do
 
     context 'when multiple tools are registered' do
       let(:another_tool_class) do
-        Class.new(Captain::Tools::BaseService) do
+        Class.new(Cosmos::Tools::BaseService) do
           def name
             'another_tool'
           end

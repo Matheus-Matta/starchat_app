@@ -76,7 +76,7 @@ module Starchat::Concerns::Article
   private
 
   def openai_api_url
-    endpoint = InstallationConfig.find_by(name: 'CAPTAIN_OPEN_AI_ENDPOINT')&.value || 'https://api.openai.com/'
+    endpoint = InstallationConfig.find_by(name: 'COSMOS_OPEN_AI_ENDPOINT')&.value || 'https://api.openai.com/'
     endpoint = endpoint.chomp('/')
     "#{endpoint}/v1/chat/completions"
   end

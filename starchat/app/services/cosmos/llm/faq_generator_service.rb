@@ -1,4 +1,4 @@
-class Captain::Llm::FaqGeneratorService < Llm::BaseOpenAiService
+class Cosmos::Llm::FaqGeneratorService < Llm::BaseOpenAiService
   def initialize(content)
     super()
     @content = content
@@ -17,7 +17,7 @@ class Captain::Llm::FaqGeneratorService < Llm::BaseOpenAiService
   attr_reader :content
 
   def chat_parameters
-    prompt = Captain::Llm::SystemPromptsService.faq_generator
+          prompt = Cosmos::Llm::SystemPromptsService.faq_generator
     {
       model: @model,
       response_format: { type: 'json_object' },

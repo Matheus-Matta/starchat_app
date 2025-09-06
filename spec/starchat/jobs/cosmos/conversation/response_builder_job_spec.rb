@@ -1,34 +1,34 @@
 require 'rails_helper'
 
-RSpec.describe Captain::Conversation::ResponseBuilderJob, type: :job do
+RSpec.describe Cosmos::Conversation::ResponseBuilderJob, type: :job do
   let(:account) { create(:account, custom_attributes: { plan_name: 'startups' }) }
   let(:inbox) { create(:inbox, account: account) }
-  let(:assistant) { create(:captain_assistant, account: account) }
-  let(:captain_inbox_association) { create(:captain_inbox, captain_assistant: assistant, inbox: inbox) }
+  let(:assistant) { create(:cosmos_assistant, account: account) }
+  let(:cosmos_inbox_association) { create(:cosmos_inbox, cosmos_assistant: assistant, inbox: inbox) }
 
   describe '#perform' do
     let(:conversation) { create(:conversation, inbox: inbox, account: account) }
-    let(:mock_llm_chat_service) { instance_double(Captain::Llm::AssistantChatService) }
+    let(:mock_llm_chat_service) { instance_double(Cosmos::Llm::AssistantChatService) }
 
     before do
       create(:message, conversation: conversation, content: 'Hello', message_type: :incoming)
 
-      allow(inbox).to receive(:captain_active?).and_return(true)
-      allow(Captain::Llm::AssistantChatService).to receive(:new).and_return(mock_llm_chat_service)
-      allow(mock_llm_chat_service).to receive(:generate_response).and_return({ 'response' => 'Hey, welcome to Captain Specs' })
+      allow(inbox).to receive(:cosmos_active?).and_return(true)
+      allow(Cosmos::Llm::AssistantChatService).to receive(:new).and_return(mock_llm_chat_service)
+      allow(mock_llm_chat_service).to receive(:generate_response).and_return({ 'response' => 'Hey, welcome to cosmos Specs' })
     end
 
     it 'generates and processes response' do
       described_class.perform_now(conversation, assistant)
       expect(conversation.messages.count).to eq(2)
       expect(conversation.messages.outgoing.count).to eq(1)
-      expect(conversation.messages.last.content).to eq('Hey, welcome to Captain Specs')
+      expect(conversation.messages.last.content).to eq('Hey, welcome to cosmos Specs')
     end
 
     it 'increments usage response' do
       described_class.perform_now(conversation, assistant)
       account.reload
-      expect(account.usage_limits[:captain][:responses][:consumed]).to eq(1)
+      expect(account.usage_limits[:cosmos][:responses][:consumed]).to eq(1)
     end
 
     context 'when message contains an image' do
@@ -59,13 +59,13 @@ RSpec.describe Captain::Conversation::ResponseBuilderJob, type: :job do
 
   describe 'retry mechanisms for image processing' do
     let(:conversation) { create(:conversation, inbox: inbox, account: account) }
-    let(:mock_llm_chat_service) { instance_double(Captain::Llm::AssistantChatService) }
-    let(:mock_message_builder) { instance_double(Captain::OpenAiMessageBuilderService) }
+    let(:mock_llm_chat_service) { instance_double(Cosmos::Llm::AssistantChatService) }
+    let(:mock_message_builder) { instance_double(Cosmos::OpenAiMessageBuilderService) }
 
     before do
       create(:message, conversation: conversation, content: 'Hello with image', message_type: :incoming)
-      allow(Captain::Llm::AssistantChatService).to receive(:new).and_return(mock_llm_chat_service)
-      allow(Captain::OpenAiMessageBuilderService).to receive(:new).with(message: anything).and_return(mock_message_builder)
+      allow(Cosmos::Llm::AssistantChatService).to receive(:new).and_return(mock_llm_chat_service)
+      allow(Cosmos::OpenAiMessageBuilderService).to receive(:new).with(message: anything).and_return(mock_message_builder)
       allow(mock_message_builder).to receive(:generate_content).and_return('Hello with image')
       allow(mock_llm_chat_service).to receive(:generate_response).and_return({ 'response' => 'Test response' })
     end

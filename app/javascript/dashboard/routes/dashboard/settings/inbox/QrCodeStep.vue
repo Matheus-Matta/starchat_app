@@ -50,7 +50,6 @@ export default {
     };
     emitter.on('evolution:qrcode_updated', this._onQR);
     emitter.on('evolution:connection_update', this._onConn);
-    console.info(this.inbox);
     if (
       this.inbox?.state &&
       String(this.inbox.state).toLowerCase() === 'open'

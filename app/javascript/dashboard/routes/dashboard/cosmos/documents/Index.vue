@@ -16,11 +16,11 @@ import LimitBanner from 'dashboard/components-next/cosmos/pageComponents/documen
 
 const store = useStore();
 
-const uiFlags = useMapGetter('captainDocuments/getUIFlags');
-const documents = useMapGetter('captainDocuments/getRecords');
-const assistants = useMapGetter('captainAssistants/getRecords');
+const uiFlags = useMapGetter('cosmosDocuments/getUIFlags');
+const documents = useMapGetter('cosmosDocuments/getRecords');
+const assistants = useMapGetter('cosmosAssistants/getRecords');
 const isFetching = computed(() => uiFlags.value.fetchingList);
-const documentsMeta = useMapGetter('captainDocuments/getMeta');
+const documentsMeta = useMapGetter('cosmosDocuments/getMeta');
 const selectedAssistant = ref('all');
 
 const selectedDocument = ref(null);
@@ -60,7 +60,7 @@ const handleCreateDialogClose = () => {
 
 const handleAction = ({ action, id }) => {
   selectedDocument.value = documents.value.find(
-    captainDocument => id === captainDocument.id
+    cosmosDocument => id === cosmosDocument.id
   );
 
   nextTick(() => {
@@ -78,7 +78,7 @@ const fetchDocuments = (page = 1) => {
   if (selectedAssistant.value !== 'all') {
     filterParams.assistantId = selectedAssistant.value;
   }
-  store.dispatch('captainDocuments/get', filterParams);
+  store.dispatch('cosmosDocuments/get', filterParams);
 };
 
 const handleAssistantFilterChange = assistant => {
@@ -96,7 +96,7 @@ const onDeleteSuccess = () => {
 
 onMounted(() => {
   if (!assistants.value.length) {
-    store.dispatch('captainAssistants/get');
+    store.dispatch('cosmosAssistants/get');
   }
   fetchDocuments();
 });
@@ -104,26 +104,26 @@ onMounted(() => {
 
 <template>
   <PageLayout
-    :header-title="$t('CAPTAIN.DOCUMENTS.HEADER')"
-    :button-label="$t('CAPTAIN.DOCUMENTS.ADD_NEW')"
+    :header-title="$t('COSMOS.DOCUMENTS.HEADER')"
+    :button-label="$t('COSMOS.DOCUMENTS.ADD_NEW')"
     :button-policy="['administrator']"
     :total-count="documentsMeta.totalCount"
     :current-page="documentsMeta.page"
     :show-pagination-footer="!isFetching && !!documents.length"
     :is-fetching="isFetching"
     :is-empty="!documents.length"
-    :feature-flag="FEATURE_FLAGS.CAPTAIN"
+    :feature-flag="FEATURE_FLAGS.COSMOS"
     @update:current-page="onPageChange"
     @click="handleCreateDocument"
   >
     <template #knowMore>
       <FeatureSpotlightPopover
-        :button-label="$t('CAPTAIN.HEADER_KNOW_MORE')"
-        :title="$t('CAPTAIN.DOCUMENTS.EMPTY_STATE.FEATURE_SPOTLIGHT.TITLE')"
-        :note="$t('CAPTAIN.DOCUMENTS.EMPTY_STATE.FEATURE_SPOTLIGHT.NOTE')"
+        :button-label="$t('COSMOS.HEADER_KNOW_MORE')"
+        :title="$t('COSMOS.DOCUMENTS.EMPTY_STATE.FEATURE_SPOTLIGHT.TITLE')"
+        :note="$t('COSMOS.DOCUMENTS.EMPTY_STATE.FEATURE_SPOTLIGHT.NOTE')"
         fallback-thumbnail="/assets/images/dashboard/cosmos/document-popover-light.svg"
         fallback-thumbnail-dark="/assets/images/dashboard/cosmos/document-popover-dark.svg"
-        learn-more-url="https://chwt.app/captain-document"
+        learn-more-url="https://chwt.app/cosmos-document"
       />
     </template>
 
@@ -164,7 +164,7 @@ onMounted(() => {
     <RelatedResponses
       v-if="showRelatedResponses"
       ref="relationQuestionDialog"
-      :captain-document="selectedDocument"
+      :cosmos-document="selectedDocument"
       @close="handleRelatedResponseClose"
     />
     <CreateDocumentDialog

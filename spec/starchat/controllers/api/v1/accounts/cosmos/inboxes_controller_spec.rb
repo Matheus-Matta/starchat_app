@@ -1,11 +1,11 @@
 require 'rails_helper'
 
-RSpec.describe 'Api::V1::Accounts::Captain::Inboxes', type: :request do
+RSpec.describe 'Api::V1::Accounts::Cosmos::Inboxes', type: :request do
   let(:account) { create(:account) }
-  let(:assistant) { create(:captain_assistant, account: account) }
+  let(:assistant) { create(:cosmos_assistant, account: account) }
   let(:inbox) { create(:inbox, account: account) }
   let(:inbox2) { create(:inbox, account: account) }
-  let!(:captain_inbox) { create(:captain_inbox, captain_assistant: assistant, inbox: inbox) }
+  let!(:cosmos_inbox) { create(:cosmos_inbox, cosmos_assistant: assistant, inbox: inbox) }
   let(:admin) { create(:user, account: account, role: :administrator) }
   let(:agent) { create(:user, account: account, role: :agent) }
 
@@ -20,7 +20,7 @@ RSpec.describe 'Api::V1::Accounts::Captain::Inboxes', type: :request do
             headers: agent.create_new_auth_token
 
         expect(response).to have_http_status(:ok)
-        expect(json_response[:payload].first[:id]).to eq(captain_inbox.inbox.id)
+        expect(json_response[:payload].first[:id]).to eq(cosmos_inbox.inbox.id)
       end
     end
 
@@ -52,12 +52,12 @@ RSpec.describe 'Api::V1::Accounts::Captain::Inboxes', type: :request do
     end
 
     context 'when user is authorized' do
-      it 'creates a new captain inbox' do
+      it 'creates a new cosmos inbox' do
         expect do
           post "/api/v1/accounts/#{account.id}/cosmos/assistants/#{assistant.id}/inboxes",
                params: valid_params,
                headers: admin.create_new_auth_token
-        end.to change(CaptainInbox, :count).by(1)
+        end.to change(CosmosInbox, :count).by(1)
 
         expect(response).to have_http_status(:success)
         expect(json_response[:id]).to eq(inbox2.id)
@@ -97,16 +97,16 @@ RSpec.describe 'Api::V1::Accounts::Captain::Inboxes', type: :request do
 
   describe 'DELETE /api/v1/accounts/cosmos/assistants/:assistant_id/inboxes/:inbox_id' do
     context 'when user is authorized' do
-      it 'deletes the captain inbox' do
+      it 'deletes the cosmos inbox' do
         expect do
           delete "/api/v1/accounts/#{account.id}/cosmos/assistants/#{assistant.id}/inboxes/#{inbox.id}",
                  headers: admin.create_new_auth_token
-        end.to change(CaptainInbox, :count).by(-1)
+        end.to change(CosmosInbox, :count).by(-1)
 
         expect(response).to have_http_status(:no_content)
       end
 
-      context 'when captain inbox does not exist' do
+      context 'when cosmos inbox does not exist' do
         it 'returns not found status' do
           delete "/api/v1/accounts/#{account.id}/cosmos/assistants/#{assistant.id}/inboxes/999999",
                  headers: admin.create_new_auth_token

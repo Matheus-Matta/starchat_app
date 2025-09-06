@@ -5,7 +5,6 @@ require 'open-uri'
 class Webhooks::EvolutionController < ActionController::API
   include Evolution::WebhookHelpers
 
-  # POST /webhooks/evolution/:inbox_id
   def process_payload
     @inbox = Inbox.find_by(id: params[:inbox_id])
     unless @inbox
@@ -26,8 +25,6 @@ class Webhooks::EvolutionController < ActionController::API
       else
         []
       end
-
-    Rails.logger.info("[Evolution] IN >> account=#{@inbox.account_id} inbox=#{@inbox.id} event=#{event} type=#{data.class.name}")
 
     case event
     when 'qrcode_updated'

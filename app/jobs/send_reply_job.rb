@@ -5,7 +5,9 @@ class SendReplyJob < ApplicationJob
     message = Message.find(message_id)
     conversation = message.conversation
     channel_name = conversation.inbox.channel.class.to_s
-
+    
+    return if message.private? && channel_name == 'Channel::Evolution'
+    
     services = {
       'Channel::TwitterProfile' => ::Twitter::SendOnTwitterService,
       'Channel::TwilioSms' => ::Twilio::SendOnTwilioService,
@@ -13,7 +15,8 @@ class SendReplyJob < ApplicationJob
       'Channel::Telegram' => ::Telegram::SendOnTelegramService,
       'Channel::Whatsapp' => ::Whatsapp::SendOnWhatsappService,
       'Channel::Sms' => ::Sms::SendOnSmsService,
-      'Channel::Instagram' => ::Instagram::SendOnInstagramService
+      'Channel::Instagram' => ::Instagram::SendOnInstagramService,
+      'Channel::Evolution' => ::Evolution::SendMessageService
     }
 
     case channel_name

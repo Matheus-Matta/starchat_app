@@ -164,24 +164,32 @@ class Api::V1::Accounts::Channels::EvolutionChannelController < Api::V1::Account
       webhook: {
         url:      webhook_url,
         byEvents: false,
-        base64:   true,
+        base64:   false,
         headers:  { 'Content-Type' => 'application/json' },
-        events:   [
-          "APPLICATION_STARTUP",
-          "MESSAGES_UPSERT",
-          "MESSAGES_UPDATE",
-          "MESSAGES_DELETE",
-          "CONNECTION_UPDATE",
-          "QRCODE_UPDATED",
-          "MESSAGES_SET",
-          "CONTACTS_UPDATE",
-          "CONTACTS_SET",
-          "CONTACTS_UPSERT"
-        ]
+        events:  get_events
+      },
+      rabbitmq: {
+        enabled: true,
+        events: get_events
       }
     }
   end
-
+  
+  def get_events
+    [
+      "APPLICATION_STARTUP",
+      "CONNECTION_UPDATE",
+      "QRCODE_UPDATED",
+      "MESSAGES_UPSERT",
+      "MESSAGES_UPDATE",
+      "MESSAGES_DELETE",
+      "MESSAGES_SET",
+      "CONTACTS_UPSERT",
+      "CONTACTS_UPDATE",
+      "CONTACTS_SET",
+    ]
+  end
+  
   def extract_qr(resp)
     h = to_hash(resp)
     q = h['qrcode'] || h.dig('data', 'qrcode') || h.dig('instance', 'qrcode') || {}

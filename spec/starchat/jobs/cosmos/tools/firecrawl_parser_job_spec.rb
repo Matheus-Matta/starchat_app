@@ -1,8 +1,8 @@
 require 'rails_helper'
 
-RSpec.describe Captain::Tools::FirecrawlParserJob, type: :job do
+RSpec.describe Cosmos::Tools::FirecrawlParserJob, type: :job do
   describe '#perform' do
-    let(:assistant) { create(:captain_assistant) }
+    let(:assistant) { create(:cosmos_assistant) }
     let(:payload) do
       {
         markdown: 'Launch Week I is here! 🚀',
@@ -29,7 +29,7 @@ RSpec.describe Captain::Tools::FirecrawlParserJob, type: :job do
     end
 
     it 'updates existing document when one exists' do
-      existing_document = create(:captain_document,
+      existing_document = create(:cosmos_document,
                                  assistant: assistant,
                                  account: assistant.account,
                                  external_link: payload[:metadata]['url'],

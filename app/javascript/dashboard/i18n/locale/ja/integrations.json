@@ -19,7 +19,7 @@
     "DESCRIPTION": "Chatwootは、チームの効率を向上させるために複数のツールやサービスと連携します。以下のリストを探索して、お気に入りのアプリを設定してください。",
     "LEARN_MORE": "連携について詳しく知る",
     "LOADING": "連携を取得中",
-    "CAPTAIN": {
+    "COSMOS": {
       "DISABLED": "Cosmosはあなたのアカウントで有効になっていません。",
       "CLICK_HERE_TO_CONFIGURE": "設定するにはここをクリック",
       "LOADING_CONSOLE": "Cosmosコンソールを読み込み中...",
@@ -341,7 +341,7 @@
       }
     }
   },
-  "CAPTAIN": {
+  "COSMOS": {
     "NAME": "キャプテン",
     "HEADER_KNOW_MORE": "Know more",
     "COPILOT": {

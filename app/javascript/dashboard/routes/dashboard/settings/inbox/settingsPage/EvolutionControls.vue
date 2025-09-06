@@ -135,7 +135,6 @@ export default {
 
     emitter.on('evolution:qrcode_updated', this._onQR);
     emitter.on('evolution:connection_update', this._onConn);
-    console.log(this.inbox, this.channel);
   },
   beforeUnmount() {
     emitter.off('WEBSOCKET_RECONNECT', this._onReconnect);
@@ -167,7 +166,6 @@ export default {
       }
     },
     async onConnect() {
-      console.log(this.channel);
       if (!this.channel?.id) return;
       this.qrcodeBase64 = '';
       this.pairingCode = '';
@@ -192,7 +190,7 @@ export default {
           this.waitingQR = false;
         }
       } catch (e) {
-        console.error('[EvolutionControls] connect erro:', e);
+        console.error('[Evolution] connect erro:', e);
         this.state = 'error';
         this.waitingQR = false;
       } finally {
@@ -201,7 +199,6 @@ export default {
     },
 
     async onDisconnect() {
-      console.log(this.channel);
       if (!this.channel?.id) return;
 
       this.isBusy = true;
@@ -216,14 +213,13 @@ export default {
         this.qrcodeBase64 = '';
         this.pairingCode = '';
       } catch (e) {
-        console.error('[EvolutionControls] disconnect erro:', e);
+        console.error('[Evolution] disconnect erro:', e);
       } finally {
         this.isBusy = false;
       }
     },
 
     async onRestart() {
-      console.log(this.channel);
       if (!this.channel?.id) return;
       this.qrcodeBase64 = '';
       this.pairingCode = '';
@@ -248,7 +244,7 @@ export default {
           this.waitingQR = false;
         }
       } catch (e) {
-        console.error('[EvolutionControls] restart erro:', e);
+        console.error('[Evolution] restart erro:', e);
         this.state = 'error';
         this.waitingQR = false;
       } finally {

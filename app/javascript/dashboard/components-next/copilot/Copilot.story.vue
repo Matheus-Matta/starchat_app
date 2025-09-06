@@ -53,7 +53,7 @@ const sendMessage = message => {
     <Copilot
       :support-agent="supportAgent"
       :messages="messages"
-      :is-captain-typing="isCosmosTyping"
+      :is-cosmos-typing="isCosmosTyping"
       @send-message="sendMessage"
     />
   </Story>

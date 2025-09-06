@@ -99,7 +99,7 @@ watch(
         :enable-variables="enableVariables"
         :enable-canned-responses="enableCannedResponses"
         :enabled-menu-options="enabledMenuOptions"
-        :enable-captain-tools="enableCosmosTools"
+        :enable-cosmos-tools="enableCosmosTools"
         @input="handleInput"
         @focus="handleFocus"
         @blur="handleBlur"

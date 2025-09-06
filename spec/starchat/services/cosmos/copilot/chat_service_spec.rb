@@ -1,17 +1,17 @@
 require 'rails_helper'
 
-RSpec.describe Captain::Copilot::ChatService do
+RSpec.describe Cosmos::Copilot::ChatService do
   let(:account) { create(:account, custom_attributes: { plan_name: 'startups' }) }
   let(:user) { create(:user, account: account) }
   let(:inbox) { create(:inbox, account: account) }
-  let(:assistant) { create(:captain_assistant, account: account) }
+  let(:assistant) { create(:cosmos_assistant, account: account) }
   let(:contact) { create(:contact, account: account) }
   let(:conversation) { create(:conversation, account: account, inbox: inbox, contact: contact) }
   let(:mock_openai_client) { instance_double(OpenAI::Client) }
-  let(:copilot_thread) { create(:captain_copilot_thread, account: account, user: user) }
+  let(:copilot_thread) { create(:cosmos_copilot_thread, account: account, user: user) }
   let!(:copilot_message) do
     create(
-      :captain_copilot_message, account: account, copilot_thread: copilot_thread
+      :cosmos_copilot_message, account: account, copilot_thread: copilot_thread
     )
   end
   let(:previous_history) { [{ role: copilot_message.message_type, content: copilot_message.message['content'] }] }
@@ -21,8 +21,8 @@ RSpec.describe Captain::Copilot::ChatService do
   end
 
   before do
-    create(:installation_config, name: 'CAPTAIN_OPEN_AI_API_KEY', value: 'test-key')
-    create(:installation_config, name: 'CAPTAIN_OPEN_AI_ENDPOINT', value: 'https://api.openai.com/')
+    create(:installation_config, name: 'COSMOS_OPEN_AI_API_KEY', value: 'test-key')
+    create(:installation_config, name: 'COSMOS_OPEN_AI_ENDPOINT', value: 'https://api.openai.com/')
     allow(OpenAI::Client).to receive(:new).and_return(mock_openai_client)
     allow(mock_openai_client).to receive(:chat).and_return({
       choices: [{ message: { content: '{ "content": "Hey" }' } }]
@@ -59,9 +59,9 @@ RSpec.describe Captain::Copilot::ChatService do
       described_class.new(assistant, config)
     end
 
-    context 'when CAPTAIN_OPEN_AI_ENDPOINT is not configured' do
+    context 'when COSMOS_OPEN_AI_ENDPOINT is not configured' do
       before do
-        InstallationConfig.find_by(name: 'CAPTAIN_OPEN_AI_ENDPOINT')&.destroy
+        InstallationConfig.find_by(name: 'COSMOS_OPEN_AI_ENDPOINT')&.destroy
       end
 
       it 'uses default OpenAI endpoint' do
@@ -77,7 +77,7 @@ RSpec.describe Captain::Copilot::ChatService do
 
     context 'when custom endpoint is configured' do
       before do
-        InstallationConfig.find_by(name: 'CAPTAIN_OPEN_AI_ENDPOINT').update!(value: 'https://custom.azure.com/')
+        InstallationConfig.find_by(name: 'COSMOS_OPEN_AI_ENDPOINT').update!(value: 'https://custom.azure.com/')
       end
 
       it 'uses custom endpoint for OpenAI client' do

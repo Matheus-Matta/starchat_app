@@ -34,4 +34,13 @@ module FileTypeHelper
       'video'
     ].include?(content_type)
   end
+
+  def content_type_for_ext(ext)
+    case ext.to_s.downcase.delete_prefix(".")
+    when "jpg", "jpeg" then "image/jpeg"
+    when "mp4"         then "video/mp4"
+    when "ogg", "opus" then "audio/ogg"
+    else                    "application/octet-stream"
+    end
+  end
 end

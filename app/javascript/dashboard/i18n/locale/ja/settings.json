@@ -287,10 +287,10 @@
     "SETTINGS": "設定",
     "CONTACTS": "連絡先",
     "ACTIVE": "有効",
-    "CAPTAIN": "キャプテン",
-    "CAPTAIN_ASSISTANTS": "アシスタント",
-    "CAPTAIN_DOCUMENTS": "ドキュメント",
-    "CAPTAIN_RESPONSES": "FAQ",
+    "COSMOS": "キャプテン",
+    "COSMOS_ASSISTANTS": "アシスタント",
+    "COSMOS_DOCUMENTS": "ドキュメント",
+    "COSMOS_RESPONSES": "FAQ",
     "HOME": "ホーム",
     "AGENTS": "担当者",
     "AGENT_BOTS": "ボット",
@@ -366,7 +366,7 @@
       "DESCRIPTION": "過去の請求書を確認したり、請求情報を編集したり、サブスクリプションをキャンセルしたりできます。",
       "BUTTON_TXT": "請求ポータルへ"
     },
-    "CAPTAIN": {
+    "COSMOS": {
       "TITLE": "キャプテン",
       "DESCRIPTION": "Cosmos AIの使用状況とクレジットを管理する。",
       "BUTTON_TXT": "クレジットを追加購入する",

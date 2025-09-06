@@ -287,10 +287,10 @@
     "SETTINGS": "Nustatymai",
     "CONTACTS": "Kontaktai",
     "ACTIVE": "Aktyvus",
-    "CAPTAIN": "Cosmos",
-    "CAPTAIN_ASSISTANTS": "Assistants",
-    "CAPTAIN_DOCUMENTS": "Documents",
-    "CAPTAIN_RESPONSES": "FAQs",
+    "COSMOS": "Cosmos",
+    "COSMOS_ASSISTANTS": "Assistants",
+    "COSMOS_DOCUMENTS": "Documents",
+    "COSMOS_RESPONSES": "FAQs",
     "HOME": "Pagrindinis",
     "AGENTS": "Agentai",
     "AGENT_BOTS": "Botai",
@@ -366,7 +366,7 @@
       "DESCRIPTION": "Peržiūrėkite ankstesnes sąskaitas faktūras, redaguokite atsiskaitymo informaciją arba atšaukite prenumeratą.",
       "BUTTON_TXT": "Eiti į mokėjimų portalą"
     },
-    "CAPTAIN": {
+    "COSMOS": {
       "TITLE": "Cosmos",
       "DESCRIPTION": "Manage usage and credits for Cosmos AI.",
       "BUTTON_TXT": "Buy more credits",

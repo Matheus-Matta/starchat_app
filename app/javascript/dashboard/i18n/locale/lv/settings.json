@@ -287,10 +287,10 @@
     "SETTINGS": "Iestatījumi",
     "CONTACTS": "Kontaktpersonas",
     "ACTIVE": "Aktīvs",
-    "CAPTAIN": "Cosmos",
-    "CAPTAIN_ASSISTANTS": "Asistenti",
-    "CAPTAIN_DOCUMENTS": "Dokumenti",
-    "CAPTAIN_RESPONSES": "Bieži uzdotie jautājumi",
+    "COSMOS": "Cosmos",
+    "COSMOS_ASSISTANTS": "Asistenti",
+    "COSMOS_DOCUMENTS": "Dokumenti",
+    "COSMOS_RESPONSES": "Bieži uzdotie jautājumi",
     "HOME": "Sākums",
     "AGENTS": "Aģenti",
     "AGENT_BOTS": "Bots",
@@ -366,7 +366,7 @@
       "DESCRIPTION": "Apskatīt iepriekšējos rēķinus, rediģēt norēķinu informāciju vai atcelt abonementu.",
       "BUTTON_TXT": "Doties uz norēķinu portālu"
     },
-    "CAPTAIN": {
+    "COSMOS": {
       "TITLE": "Cosmos",
       "DESCRIPTION": "Pārvaldīt Cosmos AI lietošanu un kredītus.",
       "BUTTON_TXT": "Iegādāties vairāk kredītu",

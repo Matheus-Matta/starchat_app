@@ -2,9 +2,9 @@ require 'rails_helper'
 
 RSpec.describe 'Firecrawl Webhooks', type: :request do
   describe 'POST /starchat/webhooks/firecrawl?assistant_id=:assistant_id&token=:token' do
-    let!(:api_key) { create(:installation_config, name: 'CAPTAIN_FIRECRAWL_API_KEY', value: 'test_api_key_123') }
+    let!(:api_key) { create(:installation_config, name: 'COSMOS_FIRECRAWL_API_KEY', value: 'test_api_key_123') }
     let!(:account) { create(:account) }
-    let!(:assistant) { create(:cosmos_::assistant, account: account) }
+    let!(:assistant) { create(:cosmos_assistant, account: account) }
 
     let(:payload_data) do
       {
@@ -104,7 +104,7 @@ RSpec.describe 'Firecrawl Webhooks', type: :request do
       end
     end
 
-    context 'when CAPTAIN_FIRECRAWL_API_KEY is not configured' do
+    context 'when COSMOS_FIRECRAWL_API_KEY is not configured' do
       before do
         api_key.destroy
       end

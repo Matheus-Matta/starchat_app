@@ -193,7 +193,7 @@ const isBotOrAgentMessage = computed(() => {
   }
 
   if (
-    [SENDER_TYPES.AGENT_BOT, SENDER_TYPES.CAPTAIN_ASSISTANT].includes(
+    [SENDER_TYPES.AGENT_BOT, SENDER_TYPES.COSMOS_ASSISTANT].includes(
       senderType
     )
   ) {
@@ -421,7 +421,7 @@ const avatarInfo = computed(() => {
   const { name, type, avatarUrl, thumbnail } = sender || {};
 
   // If sender type is agent bot, use avatarUrl
-  if ([SENDER_TYPES.AGENT_BOT, SENDER_TYPES.CAPTAIN_ASSISTANT].includes(type)) {
+  if ([SENDER_TYPES.AGENT_BOT, SENDER_TYPES.COSMOS_ASSISTANT].includes(type)) {
     return {
       name: name ?? '',
       src: avatarUrl ?? '',

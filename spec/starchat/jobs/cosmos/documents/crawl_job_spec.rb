@@ -1,25 +1,25 @@
 require 'rails_helper'
 
-RSpec.describe Captain::Documents::CrawlJob, type: :job do
-  let(:document) { create(:captain_document, external_link: 'https://example.com/page') }
+RSpec.describe Cosmos::Documents::CrawlJob, type: :job do
+  let(:document) { create(:cosmos_document, external_link: 'https://example.com/page') }
   let(:assistant_id) { document.assistant_id }
   let(:webhook_url) { Rails.application.routes.url_helpers.enterprise_webhooks_firecrawl_url }
 
   describe '#perform' do
-    context 'when CAPTAIN_FIRECRAWL_API_KEY is configured' do
-      let(:firecrawl_service) { instance_double(Captain::Tools::FirecrawlService) }
+    context 'when COSMOS_FIRECRAWL_API_KEY is configured' do
+      let(:firecrawl_service) { instance_double(Cosmos::Tools::FirecrawlService) }
       let(:account) { document.account }
       let(:token) { Digest::SHA256.hexdigest("-key#{document.assistant_id}#{document.account_id}") }
 
       before do
-        allow(Captain::Tools::FirecrawlService).to receive(:new).and_return(firecrawl_service)
+        allow(Cosmos::Tools::FirecrawlService).to receive(:new).and_return(firecrawl_service)
         allow(firecrawl_service).to receive(:perform)
-        create(:installation_config, name: 'CAPTAIN_FIRECRAWL_API_KEY', value: 'test-key')
+        create(:installation_config, name: 'COSMOS_FIRECRAWL_API_KEY', value: 'test-key')
       end
 
       context 'with account usage limits' do
         before do
-          allow(account).to receive(:usage_limits).and_return({ captain: { documents: { current_available: 20 } } })
+          allow(account).to receive(:usage_limits).and_return({ cosmos: { documents: { current_available: 20 } } })
         end
 
         it 'uses FirecrawlService with the correct crawl limit' do
@@ -35,7 +35,7 @@ RSpec.describe Captain::Documents::CrawlJob, type: :job do
 
       context 'when crawl limit exceeds maximum' do
         before do
-          allow(account).to receive(:usage_limits).and_return({ captain: { documents: { current_available: 1000 } } })
+          allow(account).to receive(:usage_limits).and_return({ cosmos: { documents: { current_available: 1000 } } })
         end
 
         it 'caps the crawl limit at 500' do
@@ -66,7 +66,7 @@ RSpec.describe Captain::Documents::CrawlJob, type: :job do
       end
     end
 
-    context 'when CAPTAIN_FIRECRAWL_API_KEY is not configured' do
+    context 'when COSMOS_FIRECRAWL_API_KEY is not configured' do
       let(:page_links) { ['https://example.com/page1', 'https://example.com/page2'] }
       let(:simple_crawler) { instance_double(Cosmos::Tools::SimplePageCrawlService) }
 
@@ -81,7 +81,7 @@ RSpec.describe Captain::Documents::CrawlJob, type: :job do
 
       it 'enqueues SimplePageCrawlParserJob for each discovered link' do
         page_links.each do |link|
-          expect(Captain::Tools::SimplePageCrawlParserJob)
+          expect(Cosmos::Tools::SimplePageCrawlParserJob)
             .to receive(:perform_later)
             .with(
               assistant_id: assistant_id,
@@ -90,7 +90,7 @@ RSpec.describe Captain::Documents::CrawlJob, type: :job do
         end
 
         # Should also crawl the original link
-        expect(Captain::Tools::SimplePageCrawlParserJob)
+        expect(Cosmos::Tools::SimplePageCrawlParserJob)
           .to receive(:perform_later)
           .with(
             assistant_id: assistant_id,

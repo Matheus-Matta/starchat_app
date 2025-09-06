@@ -19,7 +19,7 @@
     "DESCRIPTION": "O Chatwoot integra-se com várias ferramentas e serviços para melhorar a eficiência da sua equipa. Explore a lista abaixo para configurar as suas aplicações favoritas. ",
     "LEARN_MORE": "Saber mais sobre integrações",
     "LOADING": "A procurar integrações",
-    "CAPTAIN": {
+    "COSMOS": {
       "DISABLED": "Capitão não está ativo na sua conta.",
       "CLICK_HERE_TO_CONFIGURE": "Clique aqui para configurar",
       "LOADING_CONSOLE": "A carregar a consola capitão...",
@@ -341,7 +341,7 @@
       }
     }
   },
-  "CAPTAIN": {
+  "COSMOS": {
     "NAME": "Cosmos",
     "HEADER_KNOW_MORE": "Know more",
     "COPILOT": {

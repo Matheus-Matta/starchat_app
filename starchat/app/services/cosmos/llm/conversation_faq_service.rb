@@ -1,4 +1,4 @@
-class Captain::Llm::ConversationFaqService < Llm::BaseOpenAiService
+class Cosmos::Llm::ConversationFaqService < Llm::BaseOpenAiService
   DISTANCE_THRESHOLD = 0.3
 
   def initialize(assistant, conversation)
@@ -35,7 +35,7 @@ class Captain::Llm::ConversationFaqService < Llm::BaseOpenAiService
 
     faqs.each do |faq|
       combined_text = "#{faq['question']}: #{faq['answer']}"
-      embedding = Captain::Llm::EmbeddingService.new.get_embedding(combined_text)
+      embedding = Cosmos::Llm::EmbeddingService.new.get_embedding(combined_text)
       similar_faqs = find_similar_faqs(embedding)
 
       if similar_faqs.any?
@@ -90,7 +90,7 @@ class Captain::Llm::ConversationFaqService < Llm::BaseOpenAiService
 
   def chat_parameters
     account_language = @conversation.account.locale_english_name
-    prompt = Captain::Llm::SystemPromptsService.conversation_faq_generator(account_language)
+    prompt = Cosmos::Llm::SystemPromptsService.conversation_faq_generator(account_language)
 
     {
       model: @model,

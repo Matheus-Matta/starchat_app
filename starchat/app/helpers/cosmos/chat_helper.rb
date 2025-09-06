@@ -1,4 +1,4 @@
-module Captain::ChatHelper
+module Cosmos::ChatHelper
   def request_chat_completion
     log_chat_completion_request
 
@@ -55,7 +55,7 @@ module Captain::ChatHelper
   def execute_tool(function_name, arguments, tool_call_id)
     persist_message(
       {
-        content: I18n.t('captain.copilot.using_tool', function_name: function_name),
+        content: I18n.t('cosmos.copilot.using_tool', function_name: function_name),
         function_name: function_name
       },
       'assistant_thinking'
@@ -63,7 +63,7 @@ module Captain::ChatHelper
     result = @tool_registry.send(function_name, arguments)
     persist_message(
       {
-        content: I18n.t('captain.copilot.completed_tool_call', function_name: function_name),
+        content: I18n.t('cosmos.copilot.completed_tool_call', function_name: function_name),
         function_name: function_name
       },
       'assistant_thinking'
@@ -79,8 +79,8 @@ module Captain::ChatHelper
   end
 
   def process_invalid_tool_call(function_name, tool_call_id)
-    persist_message({ content: I18n.t('captain.copilot.invalid_tool_call'), function_name: function_name }, 'assistant_thinking')
-    append_tool_response(I18n.t('captain.copilot.tool_not_available'), tool_call_id)
+          persist_message({ content: I18n.t('cosmos.copilot.invalid_tool_call'), function_name: function_name }, 'assistant_thinking')
+      append_tool_response(I18n.t('cosmos.copilot.tool_not_available'), tool_call_id)
   end
 
   def append_tool_response(content, tool_call_id)

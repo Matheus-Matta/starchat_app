@@ -287,10 +287,10 @@
     "SETTINGS": "Ρυθμίσεις",
     "CONTACTS": "Επαφές",
     "ACTIVE": "Ενεργή",
-    "CAPTAIN": "Cosmos",
-    "CAPTAIN_ASSISTANTS": "Assistants",
-    "CAPTAIN_DOCUMENTS": "Documents",
-    "CAPTAIN_RESPONSES": "FAQs",
+    "COSMOS": "Cosmos",
+    "COSMOS_ASSISTANTS": "Assistants",
+    "COSMOS_DOCUMENTS": "Documents",
+    "COSMOS_RESPONSES": "FAQs",
     "HOME": "Αρχική",
     "AGENTS": "Πράκτορες",
     "AGENT_BOTS": "Bots",
@@ -366,7 +366,7 @@
       "DESCRIPTION": "Δείτε τα προηγούμενα τιμολόγια σας, επεξεργαστείτε τα στοιχεία χρέωσης ή ακυρώστε τη συνδρομή σας.",
       "BUTTON_TXT": "Μετάβαση στην πύλη χρέωσης"
     },
-    "CAPTAIN": {
+    "COSMOS": {
       "TITLE": "Cosmos",
       "DESCRIPTION": "Manage usage and credits for Cosmos AI.",
       "BUTTON_TXT": "Buy more credits",

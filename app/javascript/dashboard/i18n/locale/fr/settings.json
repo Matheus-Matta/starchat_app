@@ -287,10 +287,10 @@
     "SETTINGS": "Paramètres",
     "CONTACTS": "Contacts",
     "ACTIVE": "Actif",
-    "CAPTAIN": "Cosmos",
-    "CAPTAIN_ASSISTANTS": "Assistants",
-    "CAPTAIN_DOCUMENTS": "Documents",
-    "CAPTAIN_RESPONSES": "FAQs",
+    "COSMOS": "Cosmos",
+    "COSMOS_ASSISTANTS": "Assistants",
+    "COSMOS_DOCUMENTS": "Documents",
+    "COSMOS_RESPONSES": "FAQs",
     "HOME": "Accueil",
     "AGENTS": "Agents",
     "AGENT_BOTS": "Bots",
@@ -366,7 +366,7 @@
       "DESCRIPTION": "Visualisez vos factures précédentes, modifiez vos coordonnées de facturation ou annulez votre abonnement.",
       "BUTTON_TXT": "Accéder au portail de facturation"
     },
-    "CAPTAIN": {
+    "COSMOS": {
       "TITLE": "Cosmos",
       "DESCRIPTION": "Manage usage and credits for Cosmos AI.",
       "BUTTON_TXT": "Buy more credits",

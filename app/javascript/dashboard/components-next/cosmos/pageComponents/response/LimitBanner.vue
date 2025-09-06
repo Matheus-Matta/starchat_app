@@ -34,9 +34,9 @@ onMounted(fetchLimits);
   <Banner
     v-show="showBanner"
     color="amber"
-    :action-label="$t('CAPTAIN.PAYWALL.UPGRADE_NOW')"
+    :action-label="$t('COSMOS.PAYWALL.UPGRADE_NOW')"
     @action="openBilling"
   >
-    {{ $t('CAPTAIN.BANNER.RESPONSES') }}
+    {{ $t('COSMOS.BANNER.RESPONSES') }}
   </Banner>
 </template>

@@ -1,7 +1,7 @@
 require 'openai'
 
-class Captain::Copilot::ChatService < Llm::BaseOpenAiService
-  include Captain::ChatHelper
+class Cosmos::Copilot::ChatService < Llm::BaseOpenAiService
+  include Cosmos::ChatHelper
 
   attr_reader :assistant, :account, :user, :copilot_thread, :previous_history, :messages
 
@@ -60,21 +60,21 @@ class Captain::Copilot::ChatService < Llm::BaseOpenAiService
   end
 
   def register_tools
-    @tool_registry = Captain::ToolRegistryService.new(@assistant, user: @user)
-    @tool_registry.register_tool(Captain::Tools::SearchDocumentationService)
-    @tool_registry.register_tool(Captain::Tools::Copilot::GetArticleService)
-    @tool_registry.register_tool(Captain::Tools::Copilot::GetContactService)
-    @tool_registry.register_tool(Captain::Tools::Copilot::GetConversationService)
-    @tool_registry.register_tool(Captain::Tools::Copilot::SearchArticlesService)
-    @tool_registry.register_tool(Captain::Tools::Copilot::SearchContactsService)
-    @tool_registry.register_tool(Captain::Tools::Copilot::SearchConversationsService)
-    @tool_registry.register_tool(Captain::Tools::Copilot::SearchLinearIssuesService)
+    @tool_registry = Cosmos::ToolRegistryService.new(@assistant, user: @user)
+    @tool_registry.register_tool(Cosmos::Tools::SearchDocumentationService)
+    @tool_registry.register_tool(Cosmos::Tools::Copilot::GetArticleService)
+    @tool_registry.register_tool(Cosmos::Tools::Copilot::GetContactService)
+    @tool_registry.register_tool(Cosmos::Tools::Copilot::GetConversationService)
+    @tool_registry.register_tool(Cosmos::Tools::Copilot::SearchArticlesService)
+    @tool_registry.register_tool(Cosmos::Tools::Copilot::SearchContactsService)
+    @tool_registry.register_tool(Cosmos::Tools::Copilot::SearchConversationsService)
+    @tool_registry.register_tool(Cosmos::Tools::Copilot::SearchLinearIssuesService)
   end
 
   def system_message
     {
       role: 'system',
-      content: Captain::Llm::SystemPromptsService.copilot_response_generator(
+      content: Cosmos::Llm::SystemPromptsService.copilot_response_generator(
         @assistant.config['product_name'],
         @tool_registry.tools_summary
       )

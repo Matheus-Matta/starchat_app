@@ -1,9 +1,9 @@
 require 'rails_helper'
 
-RSpec.describe Captain::Documents::ResponseBuilderJob, type: :job do
-  let(:assistant) { create(:captain_assistant) }
-  let(:document) { create(:captain_document, assistant: assistant) }
-  let(:faq_generator) { instance_double(Captain::Llm::FaqGeneratorService) }
+RSpec.describe Cosmos::Documents::ResponseBuilderJob, type: :job do
+  let(:assistant) { create(:cosmos_assistant) }
+  let(:document) { create(:cosmos_document, assistant: assistant) }
+  let(:faq_generator) { instance_double(Cosmos::Llm::FaqGeneratorService) }
   let(:faqs) do
     [
       { 'question' => 'What is Ruby?', 'answer' => 'A programming language' },
@@ -12,7 +12,7 @@ RSpec.describe Captain::Documents::ResponseBuilderJob, type: :job do
   end
 
   before do
-    allow(Captain::Llm::FaqGeneratorService).to receive(:new)
+    allow(Cosmos::Llm::FaqGeneratorService).to receive(:new)
       .with(document.content)
       .and_return(faq_generator)
     allow(faq_generator).to receive(:generate).and_return(faqs)
@@ -21,7 +21,7 @@ RSpec.describe Captain::Documents::ResponseBuilderJob, type: :job do
   describe '#perform' do
     context 'when processing a document' do
       it 'deletes previous responses' do
-        existing_response = create(:captain_assistant_response, documentable: document)
+        existing_response = create(:cosmos_assistant_response, documentable: document)
 
         described_class.new.perform(document)
 

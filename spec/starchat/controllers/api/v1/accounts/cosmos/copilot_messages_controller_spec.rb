@@ -1,10 +1,10 @@
 require 'rails_helper'
 
-RSpec.describe 'Api::V1::Accounts::Captain::CopilotMessagesController', type: :request do
+RSpec.describe 'Api::V1::Accounts::Cosmos::CopilotMessagesController', type: :request do
   let(:account) { create(:account) }
   let(:user) { create(:user, account: account, role: :administrator) }
-  let(:copilot_thread) { create(:captain_copilot_thread, account: account, user: user) }
-  let!(:copilot_message) { create(:captain_copilot_message, copilot_thread: copilot_thread, account: account) }
+  let(:copilot_thread) { create(:cosmos_copilot_thread, account: account, user: user) }
+  let!(:copilot_message) { create(:cosmos_copilot_message, copilot_thread: copilot_thread, account: account) }
 
   describe 'GET /api/v1/accounts/{account.id}/cosmos/copilot_threads/{thread.id}/copilot_messages' do
     context 'when it is an authenticated user' do
@@ -63,7 +63,7 @@ RSpec.describe 'Api::V1::Accounts::Captain::CopilotMessagesController', type: :r
 
     context 'when thread belongs to another user' do
       let(:another_user) { create(:user, account: account) }
-      let(:another_thread) { create(:captain_copilot_thread, account: account, user: another_user) }
+      let(:another_thread) { create(:cosmos_copilot_thread, account: account, user: another_user) }
 
       it 'returns not found error' do
         post "/api/v1/accounts/#{account.id}/cosmos/copilot_threads/#{another_thread.id}/copilot_messages",

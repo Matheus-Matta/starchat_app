@@ -10,7 +10,7 @@ if resource.documentable
     json.type resource.documentable_type
 
     case resource.documentable_type
-    when 'Captain::Document'
+    when 'Cosmos::Document'
       json.id resource.documentable.id
       json.external_link resource.documentable.external_link
       json.name resource.documentable.name

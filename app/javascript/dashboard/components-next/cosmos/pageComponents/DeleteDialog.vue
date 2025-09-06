@@ -31,11 +31,11 @@ const deleteEntity = async payload => {
   if (!payload) return;
 
   try {
-    await store.dispatch(`captain${props.type}/delete`, payload);
+    await store.dispatch(`cosmos${props.type}/delete`, payload);
     emit('deleteSuccess');
-    useAlert(t(`CAPTAIN.${i18nKey.value}.DELETE.SUCCESS_MESSAGE`));
+    useAlert(t(`COSMOS.${i18nKey.value}.DELETE.SUCCESS_MESSAGE`));
   } catch (error) {
-    useAlert(t(`CAPTAIN.${i18nKey.value}.DELETE.ERROR_MESSAGE`));
+    useAlert(t(`COSMOS.${i18nKey.value}.DELETE.ERROR_MESSAGE`));
   }
 };
 
@@ -51,9 +51,9 @@ defineExpose({ dialogRef: deleteDialogRef });
   <Dialog
     ref="deleteDialogRef"
     type="alert"
-    :title="t(`CAPTAIN.${i18nKey}.DELETE.TITLE`)"
-    :description="t(`CAPTAIN.${i18nKey}.DELETE.DESCRIPTION`)"
-    :confirm-button-label="t(`CAPTAIN.${i18nKey}.DELETE.CONFIRM`)"
+    :title="t(`COSMOS.${i18nKey}.DELETE.TITLE`)"
+    :description="t(`COSMOS.${i18nKey}.DELETE.DESCRIPTION`)"
+    :confirm-button-label="t(`COSMOS.${i18nKey}.DELETE.CONFIRM`)"
     @confirm="handleDialogConfirm"
   />
 </template>

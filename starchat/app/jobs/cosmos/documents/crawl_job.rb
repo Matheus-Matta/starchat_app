@@ -1,8 +1,8 @@
-class Captain::Documents::CrawlJob < ApplicationJob
+class Cosmos::Documents::CrawlJob < ApplicationJob
   queue_as :low
 
   def perform(document)
-    if InstallationConfig.find_by(name: 'CAPTAIN_FIRECRAWL_API_KEY')&.value.present?
+    if InstallationConfig.find_by(name: 'COSMOS_FIRECRAWL_API_KEY')&.value.present?
       perform_firecrawl_crawl(document)
     else
       perform_simple_crawl(document)
@@ -11,30 +11,30 @@ class Captain::Documents::CrawlJob < ApplicationJob
 
   private
 
-  include Captain::FirecrawlHelper
+  include Cosmos::FirecrawlHelper
 
   def perform_simple_crawl(document)
-    page_links = Captain::Tools::SimplePageCrawlService.new(document.external_link).page_links
+    page_links = Cosmos::Tools::SimplePageCrawlService.new(document.external_link).page_links
 
     page_links.each do |page_link|
-      Captain::Tools::SimplePageCrawlParserJob.perform_later(
+      Cosmos::Tools::SimplePageCrawlParserJob.perform_later(
         assistant_id: document.assistant_id,
         page_link: page_link
       )
     end
 
-    Captain::Tools::SimplePageCrawlParserJob.perform_later(
+    Cosmos::Tools::SimplePageCrawlParserJob.perform_later(
       assistant_id: document.assistant_id,
       page_link: document.external_link
     )
   end
 
   def perform_firecrawl_crawl(document)
-    captain_usage_limits = document.account.usage_limits[:captain] || {}
-    document_limit = captain_usage_limits[:documents] || {}
+          cosmos_usage_limits = document.account.usage_limits[:cosmos] || {}
+      document_limit = cosmos_usage_limits[:documents] || {}
     crawl_limit = [document_limit[:current_available] || 10, 500].min
 
-    Captain::Tools::FirecrawlService
+    Cosmos::Tools::FirecrawlService
       .new
       .perform(
         document.external_link,

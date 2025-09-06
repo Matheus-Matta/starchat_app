@@ -3,5 +3,5 @@
 - audit_logs
 - response_bot
 - sla
-- cosmos_::integration
+- cosmos_integration
 - custom_roles

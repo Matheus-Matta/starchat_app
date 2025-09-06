@@ -287,10 +287,10 @@
     "SETTINGS": "Pengaturan",
     "CONTACTS": "Kontak",
     "ACTIVE": "Aktif",
-    "CAPTAIN": "Cosmos",
-    "CAPTAIN_ASSISTANTS": "Assistants",
-    "CAPTAIN_DOCUMENTS": "Documents",
-    "CAPTAIN_RESPONSES": "FAQs",
+    "COSMOS": "Cosmos",
+    "COSMOS_ASSISTANTS": "Assistants",
+    "COSMOS_DOCUMENTS": "Documents",
+    "COSMOS_RESPONSES": "FAQs",
     "HOME": "Beranda",
     "AGENTS": "Agen",
     "AGENT_BOTS": "Bot Agen",
@@ -366,7 +366,7 @@
       "DESCRIPTION": "Lihat faktur sebelumnya, edit rincian pembayaran, atau batalkan langganan Anda.",
       "BUTTON_TXT": "Buka portal pembayaran"
     },
-    "CAPTAIN": {
+    "COSMOS": {
       "TITLE": "Cosmos",
       "DESCRIPTION": "Manage usage and credits for Cosmos AI.",
       "BUTTON_TXT": "Buy more credits",

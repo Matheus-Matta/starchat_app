@@ -4,13 +4,13 @@ module Starchat::ActivityMessageHandler
       locale = Current.executed_by.account.locale
       if resolved?
         I18n.t(
-          'conversations.activity.captain.resolved',
+          'conversations.activity.cosmos.resolved',
           user_name: Current.executed_by.name,
           locale: locale
         )
       elsif open?
         I18n.t(
-          'conversations.activity.captain.open',
+          'conversations.activity.cosmos.open',
           user_name: Current.executed_by.name,
           locale: locale
         )

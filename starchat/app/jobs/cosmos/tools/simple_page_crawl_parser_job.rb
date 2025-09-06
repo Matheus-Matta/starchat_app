@@ -1,4 +1,4 @@
-class Captain::Tools::SimplePageCrawlParserJob < ApplicationJob
+class Cosmos::Tools::SimplePageCrawlParserJob < ApplicationJob
   queue_as :low
 
   def perform(assistant_id:, page_link:)
@@ -10,7 +10,7 @@ class Captain::Tools::SimplePageCrawlParserJob < ApplicationJob
       return
     end
 
-    crawler = Captain::Tools::SimplePageCrawlService.new(page_link)
+    crawler = Cosmos::Tools::SimplePageCrawlService.new(page_link)
 
     page_title = crawler.page_title || ''
     content = crawler.body_text_content || ''
@@ -29,7 +29,7 @@ class Captain::Tools::SimplePageCrawlParserJob < ApplicationJob
   private
 
   def limit_exceeded?(account)
-    limits = account.usage_limits[:captain][:documents]
+          limits = account.usage_limits[:cosmos][:documents]
     limits[:current_available].negative? || limits[:current_available].zero?
   end
 end

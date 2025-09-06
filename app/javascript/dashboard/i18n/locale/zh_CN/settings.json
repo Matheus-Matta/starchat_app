@@ -287,10 +287,10 @@
     "SETTINGS": "设置",
     "CONTACTS": "联系人",
     "ACTIVE": "状态",
-    "CAPTAIN": "Cosmos",
-    "CAPTAIN_ASSISTANTS": "助手",
-    "CAPTAIN_DOCUMENTS": "文档",
-    "CAPTAIN_RESPONSES": "常见问题",
+    "COSMOS": "Cosmos",
+    "COSMOS_ASSISTANTS": "助手",
+    "COSMOS_DOCUMENTS": "文档",
+    "COSMOS_RESPONSES": "常见问题",
     "HOME": "首页",
     "AGENTS": "客服代理",
     "AGENT_BOTS": "机器人",
@@ -366,7 +366,7 @@
       "DESCRIPTION": "查看您之前的发票，编辑您的账单详细信息或取消您的订阅。",
       "BUTTON_TXT": "前往账单门户"
     },
-    "CAPTAIN": {
+    "COSMOS": {
       "TITLE": "Cosmos",
       "DESCRIPTION": "管理 Cosmos AI 的使用和积分。",
       "BUTTON_TXT": "购买更多积分",

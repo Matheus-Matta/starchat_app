@@ -3,16 +3,16 @@ module Starchat::MessageTemplates::HookExecutionService
 
   def trigger_templates
     super
-    return unless should_process_cosmos_::response?
-    return perform_handoff unless inbox.cosmos_::active?
+    return unless should_process_cosmos_response?
+    return perform_handoff unless inbox.cosmos_active?
 
-    schedule_cosmos_::response
+    schedule_cosmos_response
   end
 
   private
 
-  def schedule_cosmos_::response
-    job_args = [conversation, conversation.inbox.cosmos_::assistant]
+  def schedule_cosmos_response
+    job_args = [conversation, conversation.inbox.cosmos_assistant]
 
     if message.attachments.blank?
       Cosmos::Conversation::ResponseBuilderJob.perform_later(*job_args)
@@ -31,8 +31,8 @@ module Starchat::MessageTemplates::HookExecutionService
     base_wait + additional_wait
   end
 
-  def should_process_cosmos_::response?
-    conversation.pending? && message.incoming? && inbox.cosmos_::assistant.present?
+  def should_process_cosmos_response?
+    conversation.pending? && message.incoming? && inbox.cosmos_assistant.present?
   end
 
   def perform_handoff

@@ -287,10 +287,10 @@
     "SETTINGS": "تنظیمات",
     "CONTACTS": "مخاطبین",
     "ACTIVE": "فعال",
-    "CAPTAIN": "Cosmos",
-    "CAPTAIN_ASSISTANTS": "Assistants",
-    "CAPTAIN_DOCUMENTS": "Documents",
-    "CAPTAIN_RESPONSES": "FAQs",
+    "COSMOS": "Cosmos",
+    "COSMOS_ASSISTANTS": "Assistants",
+    "COSMOS_DOCUMENTS": "Documents",
+    "COSMOS_RESPONSES": "FAQs",
     "HOME": "صفحه اصلی",
     "AGENTS": "ایجنت ها",
     "AGENT_BOTS": "ربات‌ها",
@@ -366,7 +366,7 @@
       "DESCRIPTION": "فاکتورهای قبلی خود را مشاهده کنید، جزئیات صورتحساب خود را ویرایش کنید یا اشتراک خود را لغو کنید.",
       "BUTTON_TXT": "برو به پورتال صورتحساب"
     },
-    "CAPTAIN": {
+    "COSMOS": {
       "TITLE": "Cosmos",
       "DESCRIPTION": "Manage usage and credits for Cosmos AI.",
       "BUTTON_TXT": "Buy more credits",

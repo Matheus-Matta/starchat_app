@@ -19,7 +19,7 @@
     "DESCRIPTION": "Chatwoot se integra con múltiples herramientas y servicios para mejorar la eficiencia de tu equipo. Explora la lista de abajo para configurar tus aplicaciones favoritas.",
     "LEARN_MORE": "Más información acerca de integraciones",
     "LOADING": "Obteniendo integraciones",
-    "CAPTAIN": {
+    "COSMOS": {
       "DISABLED": "El capitán no está habilitado en tu cuenta.",
       "CLICK_HERE_TO_CONFIGURE": "Haz clic aquí para configurar",
       "LOADING_CONSOLE": "Cargando consola del capitán...",
@@ -341,7 +341,7 @@
       }
     }
   },
-  "CAPTAIN": {
+  "COSMOS": {
     "NAME": "Capitán",
     "HEADER_KNOW_MORE": "Know more",
     "COPILOT": {

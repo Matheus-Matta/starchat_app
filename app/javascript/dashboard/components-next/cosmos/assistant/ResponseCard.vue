@@ -76,7 +76,7 @@ const statusAction = computed(() => {
   if (props.status === 'pending') {
     return [
       {
-        label: t('CAPTAIN.RESPONSES.OPTIONS.APPROVE'),
+        label: t('COSMOS.RESPONSES.OPTIONS.APPROVE'),
         value: 'approve',
         action: 'approve',
         icon: 'i-lucide-circle-check-big',
@@ -89,13 +89,13 @@ const statusAction = computed(() => {
 const menuItems = computed(() => [
   ...statusAction.value,
   {
-    label: t('CAPTAIN.RESPONSES.OPTIONS.EDIT_RESPONSE'),
+    label: t('COSMOS.RESPONSES.OPTIONS.EDIT_RESPONSE'),
     value: 'edit',
     action: 'edit',
     icon: 'i-lucide-pencil-line',
   },
   {
-    label: t('CAPTAIN.RESPONSES.OPTIONS.DELETE_RESPONSE'),
+    label: t('COSMOS.RESPONSES.OPTIONS.DELETE_RESPONSE'),
     value: 'delete',
     action: 'delete',
     icon: 'i-lucide-trash',
@@ -164,7 +164,7 @@ const handleDocumentableClick = () => {
         <span
           class="text-sm shrink-0 truncate text-n-slate-11 inline-flex items-center gap-1"
         >
-          <i class="i-woot-captain" />
+          <i class="i-woot-cosmos" />
           {{ assistant?.name || '' }}
         </span>
         <div
@@ -201,7 +201,7 @@ const handleDocumentableClick = () => {
             <i class="i-ph-chat-circle-dots text-base" />
             <span class="group-hover:underline">
               {{
-                t(`CAPTAIN.RESPONSES.DOCUMENTABLE.CONVERSATION`, {
+                t(`COSMOS.RESPONSES.DOCUMENTABLE.CONVERSATION`, {
                   id: documentable.display_id,
                 })
               }}
@@ -215,9 +215,9 @@ const handleDocumentableClick = () => {
         >
           <i
             class="i-ph-stack text-base"
-            :title="t('CAPTAIN.RESPONSES.STATUS.TITLE')"
+            :title="t('COSMOS.RESPONSES.STATUS.TITLE')"
           />
-          {{ t(`CAPTAIN.RESPONSES.STATUS.${status.toUpperCase()}`) }}
+          {{ t(`COSMOS.RESPONSES.STATUS.${status.toUpperCase()}`) }}
         </div>
       </div>
       <div

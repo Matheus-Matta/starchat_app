@@ -30,7 +30,7 @@ class Api::V1::Accounts::Cosmos::AssistantResponsesController < Api::V1::Account
   def show; end
 
   def create
-    @response = Current.account.cosmos_::assistant_responses.new(response_params)
+    @response = Current.account.cosmos_assistant_responses.new(response_params)
     @response.documentable = Current.user
     @response.save!
   end
@@ -47,11 +47,11 @@ class Api::V1::Accounts::Cosmos::AssistantResponsesController < Api::V1::Account
   private
 
   def set_assistant
-    @assistant = Current.account.cosmos_::assistants.find_by(id: params[:assistant_id])
+    @assistant = Current.account.cosmos_assistants.find_by(id: params[:assistant_id])
   end
 
   def set_responses
-    @responses = Current.account.cosmos_::assistant_responses.includes(:assistant, :documentable).ordered
+    @responses = Current.account.cosmos_assistant_responses.includes(:assistant, :documentable).ordered
   end
 
   def set_response

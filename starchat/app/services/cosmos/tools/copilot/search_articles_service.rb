@@ -1,4 +1,4 @@
-class Captain::Tools::Copilot::SearchArticlesService < Captain::Tools::BaseService
+class Cosmos::Tools::Copilot::SearchArticlesService < Cosmos::Tools::BaseService
   def name
     'search_articles'
   end

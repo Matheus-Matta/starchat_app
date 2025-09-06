@@ -1,4 +1,4 @@
-class Captain::Copilot::ResponseJob < ApplicationJob
+class Cosmos::Copilot::ResponseJob < ApplicationJob
   queue_as :default
 
   def perform(assistant:, conversation_id:, user_id:, copilot_thread_id:, message:)
@@ -15,7 +15,7 @@ class Captain::Copilot::ResponseJob < ApplicationJob
   private
 
   def generate_chat_response(assistant:, conversation_id:, user_id:, copilot_thread_id:, message:)
-    Captain::Copilot::ChatService.new(
+    Cosmos::Copilot::ChatService.new(
       assistant,
       user_id: user_id,
       copilot_thread_id: copilot_thread_id,

@@ -19,7 +19,7 @@
     "DESCRIPTION": "Chatwoot integrējas ar vairākiem rīkiem un pakalpojumiem, lai uzlabotu jūsu komandas efektivitāti. Izpētiet tālāk esošo sarakstu, lai konfigurētu savas iecienītākās lietotnes.",
     "LEARN_MORE": "Uzzināt vairāk par integrācijām",
     "LOADING": "Integrāciju iegūšana",
-    "CAPTAIN": {
+    "COSMOS": {
       "DISABLED": "Cosmos jūsu kontā nav iespējots.",
       "CLICK_HERE_TO_CONFIGURE": "Noklikšķiniet šeit, lai konfigurētu",
       "LOADING_CONSOLE": "Notiek Cosmos konsoles ielāde...",
@@ -341,7 +341,7 @@
       }
     }
   },
-  "CAPTAIN": {
+  "COSMOS": {
     "NAME": "Kapteinis",
     "HEADER_KNOW_MORE": "Know more",
     "COPILOT": {

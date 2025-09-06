@@ -17,10 +17,10 @@ const emit = defineEmits(['update']);
 const { t } = useI18n();
 const isFilterOpen = ref(false);
 
-const assistants = useMapGetter('captainAssistants/getRecords');
+const assistants = useMapGetter('cosmosAssistants/getRecords');
 const assistantOptions = computed(() => [
   {
-    label: t(`CAPTAIN.RESPONSES.FILTER.ALL_ASSISTANTS`),
+    label: t(`COSMOS.RESPONSES.FILTER.ALL_ASSISTANTS`),
     value: 'all',
     action: 'filter',
   },
@@ -35,7 +35,7 @@ const selectedAssistantLabel = computed(() => {
   const assistant = assistantOptions.value.find(
     option => option.value === props.assistantId
   );
-  return t('CAPTAIN.RESPONSES.FILTER.ASSISTANT', {
+  return t('COSMOS.RESPONSES.FILTER.ASSISTANT', {
     selected: assistant ? assistant.label : '',
   });
 });

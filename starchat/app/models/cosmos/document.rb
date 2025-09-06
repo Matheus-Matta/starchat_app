@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: cosmos_::documents
+# Table name: cosmos_documents
 #
 #  id            :bigint           not null, primary key
 #  content       :text
@@ -14,14 +14,14 @@
 #
 # Indexes
 #
-#  index_cosmos_::documents_on_account_id                      (account_id)
-#  index_cosmos_::documents_on_assistant_id                    (assistant_id)
-#  index_cosmos_::documents_on_assistant_id_and_external_link  (assistant_id,external_link) UNIQUE
-#  index_cosmos_::documents_on_status                          (status)
+#  index_cosmos_documents_on_account_id                      (account_id)
+#  index_cosmos_documents_on_assistant_id                    (assistant_id)
+#  index_cosmos_documents_on_assistant_id_and_external_link  (assistant_id,external_link) UNIQUE
+#  index_cosmos_documents_on_status                          (status)
 #
 class Cosmos::Document < ApplicationRecord
   class LimitExceededError < StandardError; end
-  self.table_name = 'cosmos_::documents'
+  self.table_name = 'cosmos_documents'
 
   belongs_to :assistant, class_name: 'Cosmos::Assistant'
   has_many :responses, class_name: 'Cosmos::AssistantResponse', dependent: :destroy, as: :documentable
@@ -70,7 +70,7 @@ class Cosmos::Document < ApplicationRecord
   end
 
   def ensure_within_plan_limit
-    limits = account.usage_limits[:captain][:documents]
+          limits = account.usage_limits[:cosmos][:documents]
     raise LimitExceededError, 'Document limit exceeded' unless limits[:current_available].positive?
   end
 end

@@ -1,4 +1,4 @@
-class Captain::OpenAiMessageBuilderService
+class Cosmos::OpenAiMessageBuilderService
   pattr_initialize [:message!]
 
   def generate_content

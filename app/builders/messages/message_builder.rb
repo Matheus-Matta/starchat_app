@@ -138,6 +138,11 @@ class Messages::MessageBuilder
     AgentBot.where(account_id: [nil, @conversation.account.id]).find_by(id: @params[:sender_id])
   end
 
+  def status_param
+    st = @params[:status]
+    st.present? ? { status: st } : {}
+  end
+
   def message_params
     {
       account_id: @conversation.account_id,
@@ -151,6 +156,6 @@ class Messages::MessageBuilder
       in_reply_to: @in_reply_to,
       echo_id: @params[:echo_id],
       source_id: @params[:source_id]
-    }.merge(external_created_at).merge(automation_rule_id).merge(campaign_id).merge(template_params)
+    }.merge(external_created_at).merge(automation_rule_id).merge(campaign_id).merge(template_params).merge(status_param)
   end
 end

@@ -1,4 +1,4 @@
-class Captain::ToolRegistryService
+class Cosmos::ToolRegistryService
   attr_reader :registered_tools, :tools
 
   def initialize(assistant, user: nil)

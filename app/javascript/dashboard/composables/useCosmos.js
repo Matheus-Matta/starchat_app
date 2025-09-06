@@ -4,29 +4,29 @@ import { useAccount } from 'dashboard/composables/useAccount';
 import { useCamelCase } from 'dashboard/composables/useTransformKeys';
 import { FEATURE_FLAGS } from 'dashboard/featureFlags';
 
-export function useCaptain() {
+export function useCosmos() {
   const store = useStore();
   const { isCloudFeatureEnabled, currentAccount } = useAccount();
 
-  const captainEnabled = computed(() => {
-    return isCloudFeatureEnabled(FEATURE_FLAGS.CAPTAIN);
+  const cosmosEnabled = computed(() => {
+    return isCloudFeatureEnabled(FEATURE_FLAGS.COSMOS);
   });
 
-  const captainLimits = computed(() => {
-    return currentAccount.value?.limits?.captain;
+  const cosmosLimits = computed(() => {
+    return currentAccount.value?.limits?.cosmos;
   });
 
   const documentLimits = computed(() => {
-    if (captainLimits.value?.documents) {
-      return useCamelCase(captainLimits.value.documents);
+    if (cosmosLimits.value?.documents) {
+      return useCamelCase(cosmosLimits.value.documents);
     }
 
     return null;
   });
 
   const responseLimits = computed(() => {
-    if (captainLimits.value?.responses) {
-      return useCamelCase(captainLimits.value.responses);
+    if (cosmosLimits.value?.responses) {
+      return useCamelCase(cosmosLimits.value.responses);
     }
 
     return null;
@@ -37,8 +37,8 @@ export function useCaptain() {
   };
 
   return {
-    captainEnabled,
-    captainLimits,
+    cosmosEnabled,
+    cosmosLimits,
     documentLimits,
     responseLimits,
     fetchLimits,

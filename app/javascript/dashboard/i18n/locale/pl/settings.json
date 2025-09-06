@@ -287,10 +287,10 @@
     "SETTINGS": "Ustawienia",
     "CONTACTS": "Kontakty",
     "ACTIVE": "Aktywne",
-    "CAPTAIN": "Cosmos",
-    "CAPTAIN_ASSISTANTS": "Assistants",
-    "CAPTAIN_DOCUMENTS": "Documents",
-    "CAPTAIN_RESPONSES": "FAQs",
+    "COSMOS": "Cosmos",
+    "COSMOS_ASSISTANTS": "Assistants",
+    "COSMOS_DOCUMENTS": "Documents",
+    "COSMOS_RESPONSES": "FAQs",
     "HOME": "Strona główna",
     "AGENTS": "Agenci",
     "AGENT_BOTS": "Boty",
@@ -366,7 +366,7 @@
       "DESCRIPTION": "Wyświetl swoje poprzednie faktury, edytuj dane rozliczeniowe lub anuluj subskrypcję.",
       "BUTTON_TXT": "Przejdź do portalu rozliczeniowego"
     },
-    "CAPTAIN": {
+    "COSMOS": {
       "TITLE": "Cosmos",
       "DESCRIPTION": "Manage usage and credits for Cosmos AI.",
       "BUTTON_TXT": "Buy more credits",

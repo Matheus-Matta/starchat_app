@@ -1,10 +1,10 @@
 require 'rails_helper'
 
-RSpec.describe Concerns::CaptainToolsHelpers, type: :concern do
+RSpec.describe Concerns::CosmosToolsHelpers, type: :concern do
   # Create a test class that includes the concern
   let(:test_class) do
     Class.new do
-      include Concerns::CaptainToolsHelpers
+      include Concerns::CosmosToolsHelpers
 
       def self.name
         'TestClass'
@@ -17,7 +17,7 @@ RSpec.describe Concerns::CaptainToolsHelpers, type: :concern do
   describe 'TOOL_REFERENCE_REGEX' do
     it 'matches tool references in text' do
       text = 'Use [@Add Contact Note](tool://add_contact_note) and [Update Priority](tool://update_priority)'
-      matches = text.scan(Concerns::CaptainToolsHelpers::TOOL_REFERENCE_REGEX)
+      matches = text.scan(Concerns::CosmosToolsHelpers::TOOL_REFERENCE_REGEX)
 
       expect(matches.flatten).to eq(%w[add_contact_note update_priority])
     end
@@ -36,7 +36,7 @@ RSpec.describe Concerns::CaptainToolsHelpers, type: :concern do
       ]
 
       invalid_formats.each do |format|
-        matches = format.scan(Concerns::CaptainToolsHelpers::TOOL_REFERENCE_REGEX)
+        matches = format.scan(Concerns::CosmosToolsHelpers::TOOL_REFERENCE_REGEX)
         expect(matches).to be_empty, "Should not match: #{format}"
       end
     end
@@ -64,7 +64,7 @@ RSpec.describe Concerns::CaptainToolsHelpers, type: :concern do
       allow(test_class).to receive(:resolve_tool_class) do |tool_id|
         case tool_id
         when 'add_contact_note'
-          Captain::Tools::AddContactNoteTool
+          Cosmos::Tools::AddContactNoteTool
         end
       end
     end
@@ -97,10 +97,10 @@ RSpec.describe Concerns::CaptainToolsHelpers, type: :concern do
   describe '.resolve_tool_class' do
     it 'resolves valid tool classes' do
       # Mock the constantize to return a class
-      stub_const('Captain::Tools::AddContactNoteTool', Class.new)
+      stub_const('Cosmos::Tools::AddContactNoteTool', Class.new)
 
       result = test_class.resolve_tool_class('add_contact_note')
-      expect(result).to eq(Captain::Tools::AddContactNoteTool)
+      expect(result).to eq(Cosmos::Tools::AddContactNoteTool)
     end
 
     it 'returns nil for invalid tool classes' do
@@ -109,10 +109,10 @@ RSpec.describe Concerns::CaptainToolsHelpers, type: :concern do
     end
 
     it 'converts snake_case to PascalCase' do
-      stub_const('Captain::Tools::AddPrivateNoteTool', Class.new)
+      stub_const('Cosmos::Tools::AddPrivateNoteTool', Class.new)
 
       result = test_class.resolve_tool_class('add_private_note')
-      expect(result).to eq(Captain::Tools::AddPrivateNoteTool)
+      expect(result).to eq(Cosmos::Tools::AddPrivateNoteTool)
     end
   end
 

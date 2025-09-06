@@ -1,13 +1,13 @@
 require 'rails_helper'
 
-RSpec.describe 'Api::V1::Accounts::Captain::BulkActions', type: :request do
+RSpec.describe 'Api::V1::Accounts::Cosmos::BulkActions', type: :request do
   let(:account) { create(:account) }
-  let(:assistant) { create(:captain_assistant, account: account) }
+  let(:assistant) { create(:cosmos_assistant, account: account) }
   let(:admin) { create(:user, account: account, role: :administrator) }
   let(:agent) { create(:user, account: account, role: :agent) }
   let!(:pending_responses) do
     create_list(
-      :captain_assistant_response,
+      :cosmos_assistant_response,
       2,
       assistant: assistant,
       account: account,

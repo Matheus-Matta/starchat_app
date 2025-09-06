@@ -2,14 +2,14 @@ module Starchat::Account::ConversationsResolutionSchedulerJob
   def perform
     super
 
-    resolve_cosmos_::conversations
+    resolve_cosmos_conversations
   end
 
   private
 
-  def resolve_cosmos_::conversations
-    CosmosInbox.all.find_each(batch_size: 100) do |cosmos_::inbox|
-      inbox = cosmos_::inbox.inbox
+  def resolve_cosmos_conversations
+    CosmosInbox.all.find_each(batch_size: 100) do |cosmos_inbox|
+      inbox = cosmos_inbox.inbox
 
       next if inbox.email?
 

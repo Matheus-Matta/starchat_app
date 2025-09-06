@@ -2,12 +2,12 @@ require 'rails_helper'
 
 RSpec.describe 'Api::V1::Accounts::Cosmos::AssistantResponses', type: :request do
   let(:account) { create(:account) }
-  let(:assistant) { create(:captain_assistant, account: account) }
-  let(:document) { create(:captain_document, assistant: assistant, account: account) }
+  let(:assistant) { create(:cosmos_assistant, account: account) }
+  let(:document) { create(:cosmos_document, assistant: assistant, account: account) }
   let(:admin) { create(:user, account: account, role: :administrator) }
   let(:agent) { create(:user, account: account, role: :agent) }
-  let(:another_assistant) { create(:captain_assistant, account: account) }
-  let(:another_document) { create(:captain_document, account: account, assistant: assistant) }
+  let(:another_assistant) { create(:cosmos_assistant, account: account) }
+  let(:another_document) { create(:cosmos_document, account: account, assistant: assistant) }
 
   def json_response
     JSON.parse(response.body, symbolize_names: true)
@@ -16,7 +16,7 @@ RSpec.describe 'Api::V1::Accounts::Cosmos::AssistantResponses', type: :request d
   describe 'GET /api/v1/accounts/:account_id/cosmos/assistant_responses' do
     context 'when no filters are applied' do
       before do
-        create_list(:captain_assistant_response, 30,
+        create_list(:cosmos_assistant_response, 30,
                     account: account,
                     assistant: assistant,
                     documentable: document)
@@ -45,11 +45,11 @@ RSpec.describe 'Api::V1::Accounts::Cosmos::AssistantResponses', type: :request d
 
     context 'when filtering by assistant_id' do
       before do
-        create_list(:captain_assistant_response, 3,
+        create_list(:cosmos_assistant_response, 3,
                     account: account,
                     assistant: assistant,
                     documentable: document)
-        create_list(:captain_assistant_response, 2,
+        create_list(:cosmos_assistant_response, 2,
                     account: account,
                     assistant: another_assistant,
                     documentable: document)
@@ -69,11 +69,11 @@ RSpec.describe 'Api::V1::Accounts::Cosmos::AssistantResponses', type: :request d
 
     context 'when filtering by document_id' do
       before do
-        create_list(:captain_assistant_response, 3,
+        create_list(:cosmos_assistant_response, 3,
                     account: account,
                     assistant: assistant,
                     documentable: document)
-        create_list(:captain_assistant_response, 2,
+        create_list(:cosmos_assistant_response, 2,
                     account: account,
                     assistant: assistant,
                     documentable: another_document)
@@ -93,7 +93,7 @@ RSpec.describe 'Api::V1::Accounts::Cosmos::AssistantResponses', type: :request d
   end
 
   describe 'GET /api/v1/accounts/:account_id/cosmos/assistant_responses/:id' do
-    let!(:response_record) { create(:captain_assistant_response, assistant: assistant, account: account) }
+    let!(:response_record) { create(:cosmos_assistant_response, assistant: assistant, account: account) }
 
     it 'returns the requested response if the user is agent or admin' do
       get "/api/v1/accounts/#{account.id}/cosmos/assistant_responses/#{response_record.id}",
@@ -154,7 +154,7 @@ RSpec.describe 'Api::V1::Accounts::Cosmos::AssistantResponses', type: :request d
   end
 
   describe 'PATCH /api/v1/accounts/:account_id/cosmos/assistant_responses/:id' do
-    let!(:response_record) { create(:captain_assistant_response, assistant: assistant) }
+    let!(:response_record) { create(:cosmos_assistant_response, assistant: assistant) }
     let(:update_params) do
       {
         assistant_response: {
@@ -198,7 +198,7 @@ RSpec.describe 'Api::V1::Accounts::Cosmos::AssistantResponses', type: :request d
   end
 
   describe 'DELETE /api/v1/accounts/:account_id/cosmos/assistant_responses/:id' do
-    let!(:response_record) { create(:captain_assistant_response, assistant: assistant) }
+    let!(:response_record) { create(:cosmos_assistant_response, assistant: assistant) }
 
     it 'deletes the response' do
       expect do

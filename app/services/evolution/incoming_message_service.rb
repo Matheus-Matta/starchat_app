@@ -1,112 +1,82 @@
-# app/services/evolution/incoming_message_service.rb
 # frozen_string_literal: true
-require 'base64'
-require 'stringio'
-require 'mime/types'
+require 'securerandom'
 
-class Evolution::IncomingMessageService
-  def initialize(inbox:, raw_message:)
-    @inbox = inbox
-    @raw   = raw_message.with_indifferent_access
-  end
+class Evolution::IncomingMessageService < Evolution::MessageBaseService
+  attr_reader :payload
 
   def perform
-    return unless @inbox && @inbox.account&.active?
+    @payload = processed_params.is_a?(Hash) ? processed_params : {}
+    return if @payload.blank?
 
-    from_me    = !!@raw.dig(:key, :fromMe)
-    remote_jid = Evolution::WaUtils.extract_remote_jid(@raw)
-    return unless Evolution::WaUtils.phone_jid?(remote_jid)
-
-    push_name  = Evolution::WaUtils.extract_push_name(@raw)
-    pic_url    = Evolution::WaUtils.profile_pic_url(@raw)
-
-    contact_inbox, contact = Evolution::WaUtils.find_or_create_contact_inbox!(
-      account:    @inbox.account,
-      inbox:      @inbox,
-      remote_jid: remote_jid,
-      push_name:  push_name,
-      profile_pic: pic_url
-    )
-
-    conversation = Evolution::WaUtils.find_or_open_conversation!(
-      account: @inbox.account,
-      inbox:   @inbox,
-      contact_inbox: contact_inbox
-    )
-
-    source_id = @raw.dig(:key, :id).presence
-    return if source_id.present? && Message.exists?(inbox_id: @inbox.id, source_id: source_id)
-
-    text, attachment_attrs = extract_payload(@raw)
-
-    msg = conversation.messages.build(
-      account_id:   conversation.account_id,
-      inbox_id:     conversation.inbox_id,
-      message_type: (from_me ? :outgoing : :incoming),
-      content:      text,
-      content_type: 'text',
-      sender:       (from_me ? nil : contact),
-      source_id:    source_id,
-      created_at:   timestamp_from(@raw[:timestamp] || @raw[:messageTimestamp])
-    )
-    msg.save!
-
-    attach_base64!(msg, **attachment_attrs) if attachment_attrs.present?
-    msg
+    ensure_contact_from_message!(@payload)
+    @conversation = Evolution::ConversationEnsurer.ensure!(inbox:, contact_inbox: @contact_inbox)
+    create_message
   end
 
   private
 
-  def extract_payload(raw)
-    text =
-      raw.dig(:message, :conversation) ||
-      raw.dig(:message, :extendedTextMessage, :text) ||
-      raw[:text] ||
-      raw[:caption]
+  def create_message
 
-    media_info =
-      raw.dig(:message, :imageMessage)    ||
-      raw.dig(:message, :videoMessage)    ||
-      raw.dig(:message, :documentMessage) ||
-      raw.dig(:message, :audioMessage)    ||
-      {}
+    source_id = (@payload.dig('key', 'id') || @payload['messageId']).to_s
+    if ::Message.exists?(inbox_id: inbox.id, source_id: source_id)
+      return
+    end
 
-    base64   = media_info[:base64]   || raw[:base64]
-    mimetype = media_info[:mimetype] || raw[:mimetype]
-    filename = media_info[:fileName] || raw[:fileName]
-    caption  = media_info[:caption]  || raw[:caption]
+    if Evolution::MessageReaction.apply!(
+        inbox_id:   inbox.id,
+        payload:    @payload,
+        author_name: (@contact&.name.presence || @payload['pushName'])
+      )
+      return
+    end
 
-    attachment_attrs =
-      if base64.present? && mimetype.present?
-        { base64: base64, mimetype: mimetype, filename: (filename.presence || default_filename_for(mimetype)), caption: caption }
-      else
-        {}
+    outgoing = Evolution::MessageHelpers.from_me?(@payload)
+    text     = extract_text(@payload).to_s
+
+    attached = attach_from_payload!(@message ||= temp_message_shell(outgoing, source_id), @payload)
+
+    if text.blank? && !attached
+      return
+    end
+
+    @message.content = text
+    Evolution::MessageReplyTo.apply!(@message, @payload)
+
+    if @message.save
+      @message.attachments.each do |att|
+        blob = att.file.blob
       end
-
-    [text, attachment_attrs]
+    else
+    end
   end
 
-  def default_filename_for(mime)
-    ext = MIME::Types[mime].first&.preferred_extension || 'bin'
-    "file.#{ext}"
-  rescue
-    'file.bin'
+  def temp_message_shell(outgoing, source_id)
+    attrs = {
+      content:                 '', 
+      account_id:              inbox.account_id,
+      inbox_id:                inbox.id,
+      message_type:            outgoing ? :outgoing : :incoming,
+      source_id:               source_id,
+      in_reply_to_external_id: nil
+    }
+    outgoing ? @conversation.messages.build(attrs) :
+               @conversation.messages.build(attrs.merge(sender: @contact))
   end
 
-  def attach_base64!(message, base64:, mimetype:, filename:, caption: nil)
-    data = Base64.decode64(base64.to_s)
-    io   = StringIO.new(data)
-    io.set_encoding(Encoding::BINARY)
-
-    attachment = message.attachments.build(account_id: @inbox.account_id)
-    attachment.file.attach(io: io, filename: filename, content_type: mimetype)
-    attachment.save!
-
-    message.update!(content: caption) if caption.present? && message.content.to_s.blank?
+  def extract_media_debug(p)
+    p.dig('message', 'audioMessage') ||
+      p.dig('message', 'videoMessage') ||
+      p.dig('message', 'imageMessage') ||
+      p.dig('message', 'documentMessage')
   end
 
-  def timestamp_from(ts)
-    return Time.zone.at(ts.to_i) if ts.present?
-    Time.zone.now
+  def extract_text(p)
+    p.dig('message', 'conversation') ||
+      p.dig('message', 'extendedTextMessage', 'text') ||
+      p.dig('message', 'imageMessage', 'caption') ||
+      p.dig('message', 'videoMessage', 'caption') ||
+      p.dig('message', 'documentMessage', 'caption') ||
+      ''
   end
+
 end

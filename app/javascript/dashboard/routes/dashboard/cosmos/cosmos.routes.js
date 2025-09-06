@@ -15,10 +15,10 @@ export const routes = [
   {
     path: frontendURL('accounts/:accountId/cosmos/assistants'),
     component: AssistantIndex,
-    name: 'captain_assistants_index',
+    name: 'cosmos_assistants_index',
     meta: {
       permissions: ['administrator', 'agent'],
-      featureFlag: FEATURE_FLAGS.CAPTAIN,
+      featureFlag: FEATURE_FLAGS.COSMOS,
       installationTypes: [
         INSTALLATION_TYPES.CLOUD,
         INSTALLATION_TYPES.ENTERPRISE,
@@ -28,10 +28,10 @@ export const routes = [
   {
     path: frontendURL('accounts/:accountId/cosmos/assistants/:assistantId'),
     component: AssistantEdit,
-    name: 'captain_assistants_edit',
+    name: 'cosmos_assistants_edit',
     meta: {
       permissions: ['administrator', 'agent'],
-      featureFlag: FEATURE_FLAGS.CAPTAIN,
+      featureFlag: FEATURE_FLAGS.COSMOS,
       installationTypes: [
         INSTALLATION_TYPES.CLOUD,
         INSTALLATION_TYPES.ENTERPRISE,
@@ -43,10 +43,10 @@ export const routes = [
       'accounts/:accountId/cosmos/assistants/:assistantId/inboxes'
     ),
     component: AssistantInboxesIndex,
-    name: 'captain_assistants_inboxes_index',
+    name: 'cosmos_assistants_inboxes_index',
     meta: {
       permissions: ['administrator', 'agent'],
-      featureFlag: FEATURE_FLAGS.CAPTAIN,
+      featureFlag: FEATURE_FLAGS.COSMOS,
       installationTypes: [
         INSTALLATION_TYPES.CLOUD,
         INSTALLATION_TYPES.ENTERPRISE,
@@ -58,10 +58,10 @@ export const routes = [
       'accounts/:accountId/cosmos/assistants/:assistantId/guardrails'
     ),
     component: AssistantGuardrailsIndex,
-    name: 'captain_assistants_guardrails_index',
+    name: 'cosmos_assistants_guardrails_index',
     meta: {
       permissions: ['administrator', 'agent'],
-      featureFlag: FEATURE_FLAGS.CAPTAIN,
+      featureFlag: FEATURE_FLAGS.COSMOS,
       installationTypes: [
         INSTALLATION_TYPES.CLOUD,
         INSTALLATION_TYPES.ENTERPRISE,
@@ -73,10 +73,10 @@ export const routes = [
       'accounts/:accountId/cosmos/assistants/:assistantId/scenarios'
     ),
     component: AssistantScenariosIndex,
-    name: 'captain_assistants_scenarios_index',
+    name: 'cosmos_assistants_scenarios_index',
     meta: {
       permissions: ['administrator', 'agent'],
-      featureFlag: FEATURE_FLAGS.CAPTAIN,
+      featureFlag: FEATURE_FLAGS.COSMOS,
       installationTypes: [
         INSTALLATION_TYPES.CLOUD,
         INSTALLATION_TYPES.ENTERPRISE,
@@ -88,10 +88,10 @@ export const routes = [
       'accounts/:accountId/cosmos/assistants/:assistantId/guidelines'
     ),
     component: AssistantGuidelinesIndex,
-    name: 'captain_assistants_guidelines_index',
+    name: 'cosmos_assistants_guidelines_index',
     meta: {
       permissions: ['administrator', 'agent'],
-      featureFlag: FEATURE_FLAGS.CAPTAIN,
+      featureFlag: FEATURE_FLAGS.COSMOS,
       installationTypes: [
         INSTALLATION_TYPES.CLOUD,
         INSTALLATION_TYPES.ENTERPRISE,
@@ -101,10 +101,10 @@ export const routes = [
   {
     path: frontendURL('accounts/:accountId/cosmos/documents'),
     component: DocumentsIndex,
-    name: 'captain_documents_index',
+    name: 'cosmos_documents_index',
     meta: {
       permissions: ['administrator', 'agent'],
-      featureFlag: FEATURE_FLAGS.CAPTAIN,
+      featureFlag: FEATURE_FLAGS.COSMOS,
       installationTypes: [
         INSTALLATION_TYPES.CLOUD,
         INSTALLATION_TYPES.ENTERPRISE,
@@ -114,10 +114,10 @@ export const routes = [
   {
     path: frontendURL('accounts/:accountId/cosmos/responses'),
     component: ResponsesIndex,
-    name: 'captain_responses_index',
+    name: 'cosmos_responses_index',
     meta: {
       permissions: ['administrator', 'agent'],
-      featureFlag: FEATURE_FLAGS.CAPTAIN,
+      featureFlag: FEATURE_FLAGS.COSMOS,
       installationTypes: [
         INSTALLATION_TYPES.CLOUD,
         INSTALLATION_TYPES.ENTERPRISE,

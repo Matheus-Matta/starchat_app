@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Api::V1::Accounts::Captain::CopilotThreads', type: :request do
+RSpec.describe 'Api::V1::Accounts::Cosmos::CopilotThreads', type: :request do
   let(:account) { create(:account) }
   let(:admin) { create(:user, account: account, role: :administrator) }
   let(:agent) { create(:user, account: account, role: :agent) }
@@ -22,9 +22,9 @@ RSpec.describe 'Api::V1::Accounts::Captain::CopilotThreads', type: :request do
     context 'when it is an authenticated user' do
       it 'fetches copilot threads for the current user' do
         # Create threads for the current agent
-        create_list(:captain_copilot_thread, 3, account: account, user: agent)
+        create_list(:cosmos_copilot_thread, 3, account: account, user: agent)
         # Create threads for another user (should not be included)
-        create_list(:captain_copilot_thread, 2, account: account, user: admin)
+        create_list(:cosmos_copilot_thread, 2, account: account, user: admin)
 
         get "/api/v1/accounts/#{account.id}/cosmos/copilot_threads",
             headers: agent.create_new_auth_token,
@@ -37,7 +37,7 @@ RSpec.describe 'Api::V1::Accounts::Captain::CopilotThreads', type: :request do
       end
 
       it 'returns threads in descending order of creation' do
-        threads = create_list(:captain_copilot_thread, 3, account: account, user: agent)
+        threads = create_list(:cosmos_copilot_thread, 3, account: account, user: agent)
 
         get "/api/v1/accounts/#{account.id}/cosmos/copilot_threads",
             headers: agent.create_new_auth_token,
@@ -50,7 +50,7 @@ RSpec.describe 'Api::V1::Accounts::Captain::CopilotThreads', type: :request do
   end
 
   describe 'POST /api/v1/accounts/{account.id}/cosmos/copilot_threads' do
-    let(:assistant) { create(:captain_assistant, account: account) }
+    let(:assistant) { create(:cosmos_assistant, account: account) }
     let(:valid_params) { { message: 'Hello, how can you help me?', assistant_id: assistant.id, conversation_id: conversation.display_id } }
 
     context 'when it is an un-authenticated user' do
@@ -87,8 +87,8 @@ RSpec.describe 'Api::V1::Accounts::Captain::CopilotThreads', type: :request do
 
       context 'with valid params' do
         it 'returns error when usage limit is exceeded' do
-          account.limits = { captain_responses: 2 }
-          account.custom_attributes = { captain_responses_usage: 2 }
+          account.limits = { cosmos_responses: 2 }
+          account.custom_attributes = { cosmos_responses_usage: 2 }
           account.save!
 
           post "/api/v1/accounts/#{account.id}/cosmos/copilot_threads",
@@ -104,8 +104,8 @@ RSpec.describe 'Api::V1::Accounts::Captain::CopilotThreads', type: :request do
         end
 
         it 'creates a new copilot thread with initial message' do
-          account.limits = { captain_responses: 2 }
-          account.custom_attributes = { captain_responses_usage: 0 }
+          account.limits = { cosmos_responses: 2 }
+          account.custom_attributes = { cosmos_responses_usage: 0 }
           account.save!
 
           expect do
@@ -126,7 +126,7 @@ RSpec.describe 'Api::V1::Accounts::Captain::CopilotThreads', type: :request do
           message = thread.copilot_messages.last
           expect(message.message).to eq({ 'content' => valid_params[:message] })
 
-          expect(Captain::Copilot::ResponseJob).to have_been_enqueued.with(
+          expect(Cosmos::Copilot::ResponseJob).to have_been_enqueued.with(
             assistant: assistant,
             conversation_id: valid_params[:conversation_id],
             user_id: agent.id,

@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-RSpec.describe Captain::Tools::SearchDocumentationService do
-  let(:assistant) { create(:captain_assistant) }
+RSpec.describe Cosmos::Tools::SearchDocumentationService do
+  let(:assistant) { create(:cosmos_assistant) }
   let(:service) { described_class.new(assistant) }
   let(:question) { 'How to create a new account?' }
   let(:answer) { 'You can create a new account by clicking on the Sign Up button.' }
@@ -39,7 +39,7 @@ RSpec.describe Captain::Tools::SearchDocumentationService do
   describe '#execute' do
     let!(:response) do
       create(
-        :captain_assistant_response,
+        :cosmos_assistant_response,
         assistant: assistant,
         question: question,
         answer: answer,
@@ -47,7 +47,7 @@ RSpec.describe Captain::Tools::SearchDocumentationService do
       )
     end
 
-    let(:documentable) { create(:captain_document, external_link: external_link) }
+    let(:documentable) { create(:cosmos_document, external_link: external_link) }
 
     context 'when matching responses exist' do
       before do

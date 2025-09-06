@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.describe CopilotMessage, type: :model do
   let(:account) { create(:account) }
   let(:user) { create(:user, account: account) }
-  let(:assistant) { create(:cosmos_::assistant, account: account) }
-  let(:copilot_thread) { create(:cosmos_::copilot_thread, account: account, user: user, assistant: assistant) }
+  let(:assistant) { create(:cosmos_assistant, account: account) }
+  let(:copilot_thread) { create(:cosmos_copilot_thread, account: account, user: user, assistant: assistant) }
 
   describe 'validations' do
     it { is_expected.to validate_presence_of(:message_type) }
@@ -14,12 +14,12 @@ RSpec.describe CopilotMessage, type: :model do
   describe 'callbacks' do
     let(:account) { create(:account) }
     let(:user) { create(:user, account: account) }
-    let(:assistant) { create(:cosmos_::assistant, account: account) }
-    let(:copilot_thread) { create(:cosmos_::copilot_thread, account: account, user: user, assistant: assistant) }
+    let(:assistant) { create(:cosmos_assistant, account: account) }
+    let(:copilot_thread) { create(:cosmos_copilot_thread, account: account, user: user, assistant: assistant) }
 
     describe '#ensure_account' do
       it 'sets the account from the copilot thread before validation' do
-        message = build(:cosmos_::copilot_message, copilot_thread: copilot_thread, account: nil)
+        message = build(:cosmos_copilot_message, copilot_thread: copilot_thread, account: nil)
         message.valid?
         expect(message.account).to eq(copilot_thread.account)
       end
@@ -27,7 +27,7 @@ RSpec.describe CopilotMessage, type: :model do
 
     describe '#broadcast_message' do
       it 'dispatches COPILOT_MESSAGE_CREATED event after create' do
-        message = build(:cosmos_::copilot_message, copilot_thread: copilot_thread)
+        message = build(:cosmos_copilot_message, copilot_thread: copilot_thread)
 
         expect(Rails.configuration.dispatcher).to receive(:dispatch)
           .with('copilot.message.created', anything, copilot_message: message)
@@ -40,11 +40,11 @@ RSpec.describe CopilotMessage, type: :model do
   describe '#push_event_data' do
     let(:account) { create(:account) }
     let(:user) { create(:user, account: account) }
-    let(:assistant) { create(:cosmos_::assistant, account: account) }
-    let(:copilot_thread) { create(:cosmos_::copilot_thread, account: account, user: user, assistant: assistant) }
+    let(:assistant) { create(:cosmos_assistant, account: account) }
+    let(:copilot_thread) { create(:cosmos_copilot_thread, account: account, user: user, assistant: assistant) }
     let(:message_content) { { 'content' => 'Test message' } }
     let(:copilot_message) do
-      create(:cosmos_::copilot_message,
+      create(:cosmos_copilot_message,
              copilot_thread: copilot_thread,
              message_type: 'user',
              message: message_content)

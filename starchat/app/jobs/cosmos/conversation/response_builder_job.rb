@@ -1,4 +1,4 @@
-class Captain::Conversation::ResponseBuilderJob < ApplicationJob
+class Cosmos::Conversation::ResponseBuilderJob < ApplicationJob
   MAX_MESSAGE_LENGTH = 10_000
   retry_on ActiveStorage::FileNotFoundError, attempts: 3, wait: 2.seconds
   retry_on Faraday::BadRequestError, attempts: 3, wait: 2.seconds
@@ -26,14 +26,14 @@ class Captain::Conversation::ResponseBuilderJob < ApplicationJob
   delegate :account, :inbox, to: :@conversation
 
   def generate_and_process_response
-    @response = Captain::Llm::AssistantChatService.new(assistant: @assistant).generate_response(
+    @response = Cosmos::Llm::AssistantChatService.new(assistant: @assistant).generate_response(
       message_history: collect_previous_messages
     )
 
     return process_action('handoff') if handoff_requested?
 
     create_messages
-    Rails.logger.info("[CAPTAIN][ResponseBuilderJob] Incrementing response usage for #{account.id}")
+          Rails.logger.info("[COSMOS][ResponseBuilderJob] Incrementing response usage for #{account.id}")
     account.increment_response_usage
   end
 
@@ -55,7 +55,7 @@ class Captain::Conversation::ResponseBuilderJob < ApplicationJob
   end
 
   def prepare_multimodal_message_content(message)
-    Captain::OpenAiMessageBuilderService.new(message: message).generate_content
+    Cosmos::OpenAiMessageBuilderService.new(message: message).generate_content
   end
 
   def handoff_requested?
@@ -73,7 +73,7 @@ class Captain::Conversation::ResponseBuilderJob < ApplicationJob
   end
 
   def create_handoff_message
-    create_outgoing_message(@assistant.config['handoff_message'].presence || I18n.t('conversations.captain.handoff'))
+          create_outgoing_message(@assistant.config['handoff_message'].presence || I18n.t('conversations.cosmos.handoff'))
   end
 
   def create_messages
