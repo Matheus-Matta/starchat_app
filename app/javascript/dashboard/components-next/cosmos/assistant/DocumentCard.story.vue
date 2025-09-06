@@ -1,6 +1,6 @@
 <script setup>
 import DocumentCard from './DocumentCard.vue';
-import { documentsList } from 'dashboard/components-next/cosmos/pageComponents/emptyStates/captainEmptyStateContent.js';
+import { documentsList } from 'dashboard/components-next/cosmos/pageComponents/emptyStates/cosmosEmptyStateContent.js';
 </script>
 
 <template>

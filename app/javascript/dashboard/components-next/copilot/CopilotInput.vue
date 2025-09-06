@@ -17,7 +17,7 @@ const sendMessage = () => {
     <input
       v-model="message"
       type="text"
-      :placeholder="$t('CAPTAIN.COPILOT.SEND_MESSAGE')"
+      :placeholder="$t('COSMOS.COPILOT.SEND_MESSAGE')"
       class="w-full reset-base bg-n-alpha-3 ltr:pl-4 ltr:pr-12 rtl:pl-12 rtl:pr-4 py-3 text-n-slate-11 text-sm border border-n-weak rounded-lg focus:outline-none focus:ring-1 focus:ring-n-blue-11 focus:border-n-blue-11"
       @keyup.enter="sendMessage"
     />

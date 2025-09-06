@@ -16,10 +16,10 @@ const route = useRoute();
 const store = useStore();
 const { t } = useI18n();
 const assistantId = route.params.assistantId;
-const uiFlags = useMapGetter('captainAssistants/getUIFlags');
+const uiFlags = useMapGetter('cosmosAssistants/getUIFlags');
 const isFetching = computed(() => uiFlags.value.fetchingItem);
 const assistant = computed(() =>
-  store.getters['captainAssistants/getRecord'](Number(assistantId))
+  store.getters['cosmosAssistants/getRecord'](Number(assistantId))
 );
 
 const isFeatureEnabledonAccount = useMapGetter(
@@ -27,47 +27,47 @@ const isFeatureEnabledonAccount = useMapGetter(
 );
 const currentAccountId = useMapGetter('getCurrentAccountId');
 
-const isCaptainV2Enabled = isFeatureEnabledonAccount.value(
+const isCosmosV2Enabled = isFeatureEnabledonAccount.value(
   currentAccountId.value,
-  FEATURE_FLAGS.CAPTAIN_V2
+  FEATURE_FLAGS.COSMOS_V2
 );
 
 const isAssistantAvailable = computed(() => !!assistant.value?.id);
 
 const handleSubmit = async updatedAssistant => {
   try {
-    await store.dispatch('captainAssistants/update', {
+    await store.dispatch('cosmosAssistants/update', {
       id: assistantId,
       ...updatedAssistant,
     });
-    useAlert(t('CAPTAIN.ASSISTANTS.EDIT.SUCCESS_MESSAGE'));
+    useAlert(t('COSMOS.ASSISTANTS.EDIT.SUCCESS_MESSAGE'));
   } catch (error) {
     const errorMessage =
-      error?.message || t('CAPTAIN.ASSISTANTS.EDIT.ERROR_MESSAGE');
+      error?.message || t('COSMOS.ASSISTANTS.EDIT.ERROR_MESSAGE');
     useAlert(errorMessage);
   }
 };
 
 onMounted(() => {
-  if (!isAssistantAvailable.value || !isCaptainV2Enabled) {
-    store.dispatch('captainAssistants/show', assistantId);
+  if (!isAssistantAvailable.value || !isCosmosV2Enabled) {
+    store.dispatch('cosmosAssistants/show', assistantId);
   }
 });
 </script>
 
 <template>
-  <AssistantSettings v-if="isCaptainV2Enabled" />
+  <AssistantSettings v-if="isCosmosV2Enabled" />
   <PageLayout
     v-else
     :header-title="assistant?.name"
     :show-pagination-footer="false"
     :is-fetching="isFetching"
     :show-know-more="false"
-    :back-url="{ name: 'captain_assistants_index' }"
+    :back-url="{ name: 'cosmos_assistants_index' }"
   >
     <template #body>
       <div v-if="!isAssistantAvailable">
-        {{ t('CAPTAIN.ASSISTANTS.EDIT.NOT_FOUND') }}
+        {{ t('COSMOS.ASSISTANTS.EDIT.NOT_FOUND') }}
       </div>
       <div v-else class="flex gap-4 h-full">
         <div class="flex-1 lg:overflow-auto pr-4 h-full md:h-auto">

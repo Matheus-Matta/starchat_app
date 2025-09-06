@@ -21,8 +21,8 @@ const { uiSettings, updateUISettings } = useUISettings();
 const { width: windowWidth } = useWindowSize();
 
 const currentUser = useMapGetter('getCurrentUser');
-const assistants = useMapGetter('captainAssistants/getRecords');
-const uiFlags = useMapGetter('captainAssistants/getUIFlags');
+const assistants = useMapGetter('cosmosAssistants/getRecords');
+const uiFlags = useMapGetter('cosmosAssistants/getUIFlags');
 const inboxAssistant = useMapGetter('getCopilotAssistant');
 const currentChat = useMapGetter('getSelectedChat');
 
@@ -45,7 +45,7 @@ const isFeatureEnabledonAccount = useMapGetter(
 const selectedAssistantId = ref(null);
 
 const activeAssistant = computed(() => {
-  const preferredId = uiSettings.value.preferred_captain_assistant_id;
+  const preferredId = uiSettings.value.preferred_cosmos_assistant_id;
 
   // If the user has selected a specific assistant, it takes first preference for Copilot.
   if (preferredId) {
@@ -77,17 +77,17 @@ const closeCopilotPanel = () => {
 const setAssistant = async assistant => {
   selectedAssistantId.value = assistant.id;
   await updateUISettings({
-    preferred_captain_assistant_id: assistant.id,
+    preferred_cosmos_assistant_id: assistant.id,
   });
 };
 
 const shouldShowCopilotPanel = computed(() => {
-  const isCaptainEnabled = isFeatureEnabledonAccount.value(
+  const isCosmosEnabled = isFeatureEnabledonAccount.value(
     currentAccountId.value,
-    FEATURE_FLAGS.CAPTAIN
+    FEATURE_FLAGS.COSMOS
   );
   const { is_copilot_panel_open: isCopilotPanelOpen } = uiSettings.value;
-  return isCaptainEnabled && isCopilotPanelOpen && !uiFlags.value.fetchingList;
+  return isCosmosEnabled && isCopilotPanelOpen && !uiFlags.value.fetchingList;
 });
 
 const handleReset = () => {
@@ -113,7 +113,7 @@ const sendMessage = async message => {
 };
 
 onMounted(() => {
-  store.dispatch('captainAssistants/get');
+  store.dispatch('cosmosAssistants/get');
 });
 </script>
 

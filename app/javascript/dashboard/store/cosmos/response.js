@@ -1,9 +1,9 @@
-import CaptainResponseAPI from 'dashboard/api/cosmos/response';
+import CosmosResponseAPI from 'dashboard/api/cosmos/response';
 import { createStore } from './storeFactory';
 
 export default createStore({
-  name: 'CaptainResponse',
-  API: CaptainResponseAPI,
+  name: 'CosmosResponse',
+  API: CosmosResponseAPI,
   actions: mutations => ({
     removeBulkResponses: ({ commit, state }, ids) => {
       const updatedRecords = state.records.filter(

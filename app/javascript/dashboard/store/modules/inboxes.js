@@ -11,6 +11,7 @@ import AnalyticsHelper from '../../helper/AnalyticsHelper';
 import camelcaseKeys from 'camelcase-keys';
 import { ACCOUNT_EVENTS } from '../../helper/AnalyticsHelper/events';
 import { channelActions, buildInboxData } from './inboxes/channelActions';
+import EvolutionChannel from '../../api/channel/EvolutionChannel';
 
 export const state = {
   records: [],
@@ -202,6 +203,27 @@ export const actions = {
     } catch (error) {
       commit(types.default.SET_INBOXES_UI_FLAG, { isCreating: false });
       throw new Error(error);
+    }
+  },
+  createEvolutionChannel: async ({ commit }, params) => {
+    commit(types.default.SET_INBOXES_UI_FLAG, { isCreating: true });
+    try {
+      const { data } = await EvolutionChannel.create(params);
+
+      const inbox = data?.inbox || data;
+      if (!inbox?.id) throw new Error('Resposta sem inbox.id');
+
+      commit(types.default.ADD_INBOXES, inbox);
+      sendAnalyticsEvent('evolution');
+      return inbox;
+    } catch (error) {
+      const errorMessage =
+        error?.response?.data?.message ||
+        error?.message ||
+        'Erro ao criar o Evolution Channel';
+      throw new Error(errorMessage);
+    } finally {
+      commit(types.default.SET_INBOXES_UI_FLAG, { isCreating: false });
     }
   },
   createWhatsAppEmbeddedSignup: async ({ commit }, params) => {

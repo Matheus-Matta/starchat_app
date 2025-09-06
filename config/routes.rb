@@ -51,7 +51,7 @@ Rails.application.routes.draw do
           resources :agents, only: [:index, :create, :update, :destroy] do
             post :bulk_create, on: :collection
           end
-          namespace :captain do
+          namespace :cosmos do
             resources :assistants do
               member do
                 post :playground
@@ -101,6 +101,13 @@ Rails.application.routes.draw do
           resources :dashboard_apps, only: [:index, :show, :create, :update, :destroy]
           namespace :channels do
             resource :twilio_channel, only: [:create]
+            resources :evolution_channel, only: [:create, :show, :update, :destroy], path: 'evolution_channel', controller: 'evolution_channel' do
+                member do
+                  post :connect
+                  post :restart
+                  post :disconnect
+                end
+        end
           end
           resources :conversations, only: [:index, :create, :show, :update, :destroy] do
             collection do
@@ -473,6 +480,7 @@ Rails.application.routes.draw do
   post 'webhooks/whatsapp/:phone_number', to: 'webhooks/whatsapp#process_payload'
   get 'webhooks/instagram', to: 'webhooks/instagram#verify'
   post 'webhooks/instagram', to: 'webhooks/instagram#events'
+  post 'webhooks/evolution/:inbox_id', to: 'webhooks/evolution#process_payload'
 
   namespace :twitter do
     resource :callback, only: [:show]
@@ -557,4 +565,8 @@ Rails.application.routes.draw do
   # ----------------------------------------------------------------------
   # Routes for testing
   resources :widget_tests, only: [:index] unless Rails.env.production?
+
+
+
 end
+

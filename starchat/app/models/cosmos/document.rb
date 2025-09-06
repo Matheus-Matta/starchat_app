@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: captain_documents
+# Table name: cosmos_documents
 #
 #  id            :bigint           not null, primary key
 #  content       :text
@@ -14,17 +14,17 @@
 #
 # Indexes
 #
-#  index_captain_documents_on_account_id                      (account_id)
-#  index_captain_documents_on_assistant_id                    (assistant_id)
-#  index_captain_documents_on_assistant_id_and_external_link  (assistant_id,external_link) UNIQUE
-#  index_captain_documents_on_status                          (status)
+#  index_cosmos_documents_on_account_id                      (account_id)
+#  index_cosmos_documents_on_assistant_id                    (assistant_id)
+#  index_cosmos_documents_on_assistant_id_and_external_link  (assistant_id,external_link) UNIQUE
+#  index_cosmos_documents_on_status                          (status)
 #
 class Cosmos::Document < ApplicationRecord
   class LimitExceededError < StandardError; end
-  self.table_name = 'captain_documents'
+  self.table_name = 'cosmos_documents'
 
-  belongs_to :assistant, class_name: 'Captain::Assistant'
-  has_many :responses, class_name: 'Captain::AssistantResponse', dependent: :destroy, as: :documentable
+  belongs_to :assistant, class_name: 'Cosmos::Assistant'
+  has_many :responses, class_name: 'Cosmos::AssistantResponse', dependent: :destroy, as: :documentable
   belongs_to :account
 
   validates :external_link, presence: true
@@ -52,13 +52,13 @@ class Cosmos::Document < ApplicationRecord
   def enqueue_crawl_job
     return if status != 'in_progress'
 
-    Captain::Documents::CrawlJob.perform_later(self)
+    Cosmos::Documents::CrawlJob.perform_later(self)
   end
 
   def enqueue_response_builder_job
     return if status != 'available'
 
-    Captain::Documents::ResponseBuilderJob.perform_later(self)
+    Cosmos::Documents::ResponseBuilderJob.perform_later(self)
   end
 
   def update_document_usage
@@ -70,7 +70,7 @@ class Cosmos::Document < ApplicationRecord
   end
 
   def ensure_within_plan_limit
-    limits = account.usage_limits[:captain][:documents]
+          limits = account.usage_limits[:cosmos][:documents]
     raise LimitExceededError, 'Document limit exceeded' unless limits[:current_available].positive?
   end
 end

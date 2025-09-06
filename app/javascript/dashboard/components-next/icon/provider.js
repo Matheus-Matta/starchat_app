@@ -14,6 +14,7 @@ export function useChannelIcon(inbox) {
     'Channel::Whatsapp': 'i-ri-whatsapp-fill',
     'Channel::Instagram': 'i-ri-instagram-fill',
     'Channel::Voice': 'i-ri-phone-fill',
+    'Channel::Evolution': 'i-ri-whatsapp-fill',
   };
 
   const providerIconMap = {

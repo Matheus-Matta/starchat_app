@@ -17,6 +17,7 @@ import GreetingsEditor from 'shared/components/GreetingsEditor.vue';
 import ConfigurationPage from './settingsPage/ConfigurationPage.vue';
 import CustomerSatisfactionPage from './settingsPage/CustomerSatisfactionPage.vue';
 import CollaboratorsPage from './settingsPage/CollaboratorsPage.vue';
+import EvolutionControls from './settingsPage/EvolutionControls.vue';
 import WidgetBuilder from './WidgetBuilder.vue';
 import BotConfiguration from './components/BotConfiguration.vue';
 import { FEATURE_FLAGS } from '../../../../featureFlags';
@@ -30,6 +31,7 @@ export default {
   components: {
     BotConfiguration,
     CollaboratorsPage,
+    EvolutionControls,
     ConfigurationPage,
     CustomerSatisfactionPage,
     FacebookReauthorize,
@@ -104,6 +106,14 @@ export default {
       }
       return '';
     },
+    isEvolutionInbox() {
+      const ib = this.inbox || {};
+      return (
+        ib.channel === 'evolution' ||
+        ib.provider === 'evolution' ||
+        ib.channel_type === 'Channel::Evolution'
+      );
+    },
     tabs() {
       let visibleToAllChannelTabs = [
         {
@@ -137,7 +147,15 @@ export default {
           },
         ];
       }
-
+      if (this.isEvolutionInbox) {
+        visibleToAllChannelTabs = [
+          ...visibleToAllChannelTabs,
+          {
+            key: 'evolution',
+            name: this.$t('INBOX_MGMT.TABS.EVOLUTION') || 'Evolution',
+          },
+        ];
+      }
       if (
         this.isATwilioChannel ||
         this.isALineChannel ||
@@ -174,7 +192,6 @@ export default {
     inbox() {
       return this.$store.getters['inboxes/getInbox'](this.currentInboxId);
     },
-
     inboxName() {
       if (this.isATwilioSMSChannel || this.isATwilioWhatsAppChannel) {
         return `${this.inbox.name} (${
@@ -796,9 +813,11 @@ export default {
           />
         </SettingsSection>
       </div>
-
       <div v-if="selectedTabKey === 'collaborators'" class="mx-8">
         <CollaboratorsPage :inbox="inbox" />
+      </div>
+      <div v-if="selectedTabKey === 'evolution'">
+        <EvolutionControls :inbox="inbox" />
       </div>
       <div v-if="selectedTabKey === 'configuration'">
         <ConfigurationPage :inbox="inbox" />

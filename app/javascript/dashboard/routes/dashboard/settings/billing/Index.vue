@@ -2,7 +2,7 @@
 import { computed, onMounted } from 'vue';
 import { useMapGetter, useStore } from 'dashboard/composables/store.js';
 import { useAccount } from 'dashboard/composables/useAccount';
-import { useCaptain } from 'dashboard/composables/useCaptain';
+import { useCosmos } from 'dashboard/composables/useCosmos';
 import { format } from 'date-fns';
 
 import BillingMeter from './components/BillingMeter.vue';
@@ -15,12 +15,12 @@ import ButtonV4 from 'next/button/Button.vue';
 
 const { currentAccount } = useAccount();
 const {
-  captainEnabled,
-  captainLimits,
+  cosmosEnabled,
+  cosmosLimits,
   documentLimits,
   responseLimits,
   fetchLimits,
-} = useCaptain();
+} = useCosmos();
 
 const uiFlags = useMapGetter('accounts/getUIFlags');
 const store = useStore();
@@ -126,36 +126,36 @@ onMounted(fetchAccountDetails);
           </div>
         </BillingCard>
         <BillingCard
-          v-if="captainEnabled"
-          :title="$t('BILLING_SETTINGS.CAPTAIN.TITLE')"
-          :description="$t('BILLING_SETTINGS.CAPTAIN.DESCRIPTION')"
+          v-if="cosmosEnabled"
+          :title="$t('BILLING_SETTINGS.COSMOS.TITLE')"
+          :description="$t('BILLING_SETTINGS.COSMOS.DESCRIPTION')"
         >
           <template #action>
             <ButtonV4 sm faded slate disabled>
-              {{ $t('BILLING_SETTINGS.CAPTAIN.BUTTON_TXT') }}
+              {{ $t('BILLING_SETTINGS.COSMOS.BUTTON_TXT') }}
             </ButtonV4>
           </template>
-          <div v-if="captainLimits && responseLimits" class="px-5">
+          <div v-if="cosmosLimits && responseLimits" class="px-5">
             <BillingMeter
-              :title="$t('BILLING_SETTINGS.CAPTAIN.RESPONSES')"
+              :title="$t('BILLING_SETTINGS.COSMOS.RESPONSES')"
               v-bind="responseLimits"
             />
           </div>
-          <div v-if="captainLimits && documentLimits" class="px-5">
+          <div v-if="cosmosLimits && documentLimits" class="px-5">
             <BillingMeter
-              :title="$t('BILLING_SETTINGS.CAPTAIN.DOCUMENTS')"
+              :title="$t('BILLING_SETTINGS.COSMOS.DOCUMENTS')"
               v-bind="documentLimits"
             />
           </div>
         </BillingCard>
         <BillingCard
           v-else
-          :title="$t('BILLING_SETTINGS.CAPTAIN.TITLE')"
-          :description="$t('BILLING_SETTINGS.CAPTAIN.UPGRADE')"
+          :title="$t('BILLING_SETTINGS.COSMOS.TITLE')"
+          :description="$t('BILLING_SETTINGS.COSMOS.UPGRADE')"
         >
           <template #action>
             <ButtonV4 sm solid slate @click="onClickBillingPortal">
-              {{ $t('CAPTAIN.PAYWALL.UPGRADE_NOW') }}
+              {{ $t('COSMOS.PAYWALL.UPGRADE_NOW') }}
             </ButtonV4>
           </template>
         </BillingCard>

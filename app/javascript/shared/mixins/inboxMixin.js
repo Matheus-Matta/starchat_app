@@ -15,6 +15,7 @@ export const INBOX_FEATURE_MAP = {
     INBOX_TYPES.WHATSAPP,
     INBOX_TYPES.TELEGRAM,
     INBOX_TYPES.API,
+    INBOX_TYPES.EVOLUTION,
   ],
   [INBOX_FEATURES.REPLY_TO_OUTGOING]: [
     INBOX_TYPES.WEB,
@@ -22,6 +23,7 @@ export const INBOX_FEATURE_MAP = {
     INBOX_TYPES.WHATSAPP,
     INBOX_TYPES.TELEGRAM,
     INBOX_TYPES.API,
+    INBOX_TYPES.EVOLUTION,
   ],
 };
 
@@ -62,6 +64,9 @@ export default {
     },
     isATelegramChannel() {
       return this.channelType === INBOX_TYPES.TELEGRAM;
+    },
+    isAEvolutionChannel() {
+      return this.channelType === INBOX_TYPES.EVOLUTION;
     },
     isAVoiceChannel() {
       return this.channelType === INBOX_TYPES.VOICE;
@@ -121,7 +126,8 @@ export default {
     isAWhatsAppChannel() {
       return (
         this.channelType === INBOX_TYPES.WHATSAPP ||
-        this.isATwilioWhatsAppChannel
+        this.isATwilioWhatsAppChannel ||
+        this.isAEvolutionChannel
       );
     },
     isAnInstagramChannel() {

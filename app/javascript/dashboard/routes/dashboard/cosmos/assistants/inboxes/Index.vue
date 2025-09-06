@@ -18,12 +18,12 @@ import InboxPageEmptyState from 'dashboard/components-next/cosmos/pageComponents
 const store = useStore();
 const dialogType = ref('');
 const route = useRoute();
-const assistantUiFlags = useMapGetter('captainAssistants/getUIFlags');
-const uiFlags = useMapGetter('captainInboxes/getUIFlags');
+const assistantUiFlags = useMapGetter('cosmosAssistants/getUIFlags');
+const uiFlags = useMapGetter('cosmosInboxes/getUIFlags');
 const isFetchingAssistant = computed(() => assistantUiFlags.value.fetchingItem);
 const isFetching = computed(() => uiFlags.value.fetchingList);
 
-const captainInboxes = useMapGetter('captainInboxes/getRecords');
+const cosmosInboxes = useMapGetter('cosmosInboxes/getRecords');
 
 const selectedInbox = ref(null);
 const disconnectInboxDialog = ref(null);
@@ -39,7 +39,7 @@ const handleCreate = () => {
   nextTick(() => connectInboxDialog.value.dialogRef.open());
 };
 const handleAction = ({ action, id }) => {
-  selectedInbox.value = captainInboxes.value.find(inbox => id === inbox.id);
+  selectedInbox.value = cosmosInboxes.value.find(inbox => id === inbox.id);
   nextTick(() => {
     if (action === 'delete') {
       handleDelete();
@@ -55,12 +55,12 @@ const handleCreateClose = () => {
 const getters = useStoreGetters();
 const assistantId = Number(route.params.assistantId);
 const assistant = computed(() =>
-  getters['captainAssistants/getRecord'].value(assistantId)
+  getters['cosmosAssistants/getRecord'].value(assistantId)
 );
-onBeforeMount(() => store.dispatch('captainAssistants/show', assistantId));
+onBeforeMount(() => store.dispatch('cosmosAssistants/show', assistantId));
 
 onMounted(() =>
-  store.dispatch('captainInboxes/get', {
+  store.dispatch('cosmosInboxes/get', {
     assistantId: assistantId,
   })
 );
@@ -68,12 +68,12 @@ onMounted(() =>
 
 <template>
   <PageLayout
-    :button-label="$t('CAPTAIN.INBOXES.ADD_NEW')"
+    :button-label="$t('COSMOS.INBOXES.ADD_NEW')"
     :button-policy="['administrator']"
     :is-fetching="isFetchingAssistant || isFetching"
-    :is-empty="!captainInboxes.length"
+    :is-empty="!cosmosInboxes.length"
     :show-pagination-footer="false"
-    :feature-flag="FEATURE_FLAGS.CAPTAIN"
+    :feature-flag="FEATURE_FLAGS.COSMOS"
     @click="handleCreate"
   >
     <template v-if="!isFetchingAssistant" #headerTitle>
@@ -84,7 +84,7 @@ onMounted(() =>
         >
           {{ assistant.name }}
           <span class="i-lucide-chevron-right text-xl text-n-slate-10" />
-          {{ $t('CAPTAIN.INBOXES.HEADER') }}
+          {{ $t('COSMOS.INBOXES.HEADER') }}
         </span>
       </div>
     </template>
@@ -96,10 +96,10 @@ onMounted(() =>
     <template #body>
       <div class="flex flex-col gap-4">
         <InboxCard
-          v-for="captainInbox in captainInboxes"
-          :id="captainInbox.id"
-          :key="captainInbox.id"
-          :inbox="captainInbox"
+          v-for="cosmosInbox in cosmosInboxes"
+          :id="cosmosInbox.id"
+          :key="cosmosInbox.id"
+          :inbox="cosmosInbox"
           @action="handleAction"
         />
       </div>

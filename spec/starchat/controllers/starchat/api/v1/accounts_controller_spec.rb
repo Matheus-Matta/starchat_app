@@ -98,7 +98,7 @@ RSpec.describe '', type: :request do
                 'consumed' => account.users.count
               },
               'conversation' => {},
-              'captain' => {
+              'cosmos' => {
                 'documents' => { 'consumed' => 0, 'current_available' => ChatwootApp.max_limit, 'total_count' => ChatwootApp.max_limit },
                 'responses' => { 'consumed' => 0, 'current_available' => ChatwootApp.max_limit, 'total_count' => ChatwootApp.max_limit }
               },

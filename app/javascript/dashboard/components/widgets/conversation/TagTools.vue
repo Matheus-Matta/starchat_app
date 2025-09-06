@@ -13,7 +13,7 @@ const props = defineProps({
 
 const emit = defineEmits(['selectTool']);
 
-const tools = useMapGetter('captainTools/getRecords');
+const tools = useMapGetter('cosmosTools/getRecords');
 
 const selectedIndex = ref(0);
 

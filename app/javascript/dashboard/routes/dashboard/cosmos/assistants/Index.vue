@@ -6,7 +6,7 @@ import { FEATURE_FLAGS } from 'dashboard/featureFlags';
 import AssistantCard from 'dashboard/components-next/cosmos/assistant/AssistantCard.vue';
 import DeleteDialog from 'dashboard/components-next/cosmos/pageComponents/DeleteDialog.vue';
 import PageLayout from 'dashboard/components-next/cosmos/PageLayout.vue';
-import CaptainPaywall from 'dashboard/components-next/cosmos/pageComponents/Paywall.vue';
+import CosmosPaywall from 'dashboard/components-next/cosmos/pageComponents/Paywall.vue';
 import CreateAssistantDialog from 'dashboard/components-next/cosmos/pageComponents/assistant/CreateAssistantDialog.vue';
 import AssistantPageEmptyState from 'dashboard/components-next/cosmos/pageComponents/emptyStates/AssistantPageEmptyState.vue';
 import FeatureSpotlightPopover from 'dashboard/components-next/feature-spotlight/FeatureSpotlightPopover.vue';
@@ -17,8 +17,8 @@ const router = useRouter();
 
 const store = useStore();
 const dialogType = ref('');
-const uiFlags = useMapGetter('captainAssistants/getUIFlags');
-const assistants = useMapGetter('captainAssistants/getRecords');
+const uiFlags = useMapGetter('cosmosAssistants/getUIFlags');
+const assistants = useMapGetter('cosmosAssistants/getRecords');
 const isFetching = computed(() => uiFlags.value.fetchingList);
 
 const selectedAssistant = ref(null);
@@ -37,14 +37,14 @@ const handleCreate = () => {
 
 const handleEdit = () => {
   router.push({
-    name: 'captain_assistants_edit',
+    name: 'cosmos_assistants_edit',
     params: { assistantId: selectedAssistant.value.id },
   });
 };
 
 const handleViewConnectedInboxes = () => {
   router.push({
-    name: 'captain_assistants_inboxes_index',
+    name: 'cosmos_assistants_inboxes_index',
     params: { assistantId: selectedAssistant.value.id },
   });
 };
@@ -71,28 +71,28 @@ const handleCreateClose = () => {
   selectedAssistant.value = null;
 };
 
-onMounted(() => store.dispatch('captainAssistants/get'));
+onMounted(() => store.dispatch('cosmosAssistants/get'));
 </script>
 
 <template>
   <PageLayout
-    :header-title="$t('CAPTAIN.ASSISTANTS.HEADER')"
-    :button-label="$t('CAPTAIN.ASSISTANTS.ADD_NEW')"
+    :header-title="$t('COSMOS.ASSISTANTS.HEADER')"
+    :button-label="$t('COSMOS.ASSISTANTS.ADD_NEW')"
     :button-policy="['administrator']"
     :show-pagination-footer="false"
     :is-fetching="isFetching"
     :is-empty="!assistants.length"
-    :feature-flag="FEATURE_FLAGS.CAPTAIN"
+    :feature-flag="FEATURE_FLAGS.COSMOS"
     @click="handleCreate"
   >
     <template #knowMore>
       <FeatureSpotlightPopover
-        :button-label="$t('CAPTAIN.HEADER_KNOW_MORE')"
-        :title="$t('CAPTAIN.ASSISTANTS.EMPTY_STATE.FEATURE_SPOTLIGHT.TITLE')"
-        :note="$t('CAPTAIN.ASSISTANTS.EMPTY_STATE.FEATURE_SPOTLIGHT.NOTE')"
+        :button-label="$t('COSMOS.HEADER_KNOW_MORE')"
+        :title="$t('COSMOS.ASSISTANTS.EMPTY_STATE.FEATURE_SPOTLIGHT.TITLE')"
+        :note="$t('COSMOS.ASSISTANTS.EMPTY_STATE.FEATURE_SPOTLIGHT.NOTE')"
         fallback-thumbnail="/assets/images/dashboard/cosmos/assistant-popover-light.svg"
         fallback-thumbnail-dark="/assets/images/dashboard/cosmos/assistant-popover-dark.svg"
-        learn-more-url="https://chwt.app/captain-assistant"
+        learn-more-url="https://chwt.app/cosmos-assistant"
       />
     </template>
     <template #emptyState>
@@ -100,7 +100,7 @@ onMounted(() => store.dispatch('captainAssistants/get'));
     </template>
 
     <template #paywall>
-      <CaptainPaywall />
+      <CosmosPaywall />
     </template>
 
     <template #body>

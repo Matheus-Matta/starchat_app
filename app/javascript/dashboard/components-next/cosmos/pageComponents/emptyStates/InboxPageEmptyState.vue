@@ -2,7 +2,7 @@
 import EmptyStateLayout from 'dashboard/components-next/EmptyStateLayout.vue';
 import Button from 'dashboard/components-next/button/Button.vue';
 import InboxCard from 'dashboard/components-next/cosmos/assistant/InboxCard.vue';
-import { inboxes } from 'dashboard/components-next/cosmos/pageComponents/emptyStates/captainEmptyStateContent.js';
+import { inboxes } from 'dashboard/components-next/cosmos/pageComponents/emptyStates/cosmosEmptyStateContent.js';
 
 const emit = defineEmits(['click']);
 
@@ -13,8 +13,8 @@ const onClick = () => {
 
 <template>
   <EmptyStateLayout
-    :title="$t('CAPTAIN.INBOXES.EMPTY_STATE.TITLE')"
-    :subtitle="$t('CAPTAIN.INBOXES.EMPTY_STATE.SUBTITLE')"
+    :title="$t('COSMOS.INBOXES.EMPTY_STATE.TITLE')"
+    :subtitle="$t('COSMOS.INBOXES.EMPTY_STATE.SUBTITLE')"
     :action-perms="['administrator']"
   >
     <template #empty-state-item>
@@ -29,7 +29,7 @@ const onClick = () => {
     </template>
     <template #actions>
       <Button
-        :label="$t('CAPTAIN.INBOXES.ADD_NEW')"
+        :label="$t('COSMOS.INBOXES.ADD_NEW')"
         icon="i-lucide-plus"
         @click="onClick"
       />

@@ -1,6 +1,6 @@
 class Api::V1::Accounts::Cosmos::BulkActionsController < Api::V1::Accounts::BaseController
   before_action :current_account
-  before_action -> { check_authorization(Captain::Assistant) }
+  before_action -> { check_authorization(Cosmos::Assistant) }
   before_action :validate_params
   before_action :type_matches?
 
@@ -32,7 +32,7 @@ class Api::V1::Accounts::Cosmos::BulkActionsController < Api::V1::Accounts::Base
   end
 
   def handle_assistant_responses
-    responses = Current.account.captain_assistant_responses.where(id: params[:ids])
+    responses = Current.account.cosmos_assistant_responses.where(id: params[:ids])
     return unless responses.exists?
 
     case params[:fields][:status]
