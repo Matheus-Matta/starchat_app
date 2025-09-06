@@ -17,6 +17,12 @@
         "TITLE": "Criar Caixa de Entrada",
         "BODY": "Autenticar sua conta e criar uma caixa de entrada."
       },
+      "QRCODE": {
+        "TITLE": "Escaneie o Qr Code",
+        "BODY": "Use o WhatsApp para escanear o Qr Code.",
+        "WAITING": "Aguardando QR Code...",
+        "ALT": "QR Code para conexão do WhatsApp"
+      },
       "AGENT": {
         "TITLE": "Adicionar Agentes",
         "BODY": "Adicionar agentes à caixa de entrada criada."
@@ -26,7 +32,34 @@
         "BODY": "Está tudo pronto para começar!"
       }
     },
-    "ADD": {
+    "GENERAL": {
+      "NEXT": "Avançar",
+      "WEBSOCKET": {
+        "LABEL": "WebSocket:",
+        "CONNECTED": "conectado",
+        "DISCONNECTED": "desconectado",
+        "UNAVAILABLE": "WebSocket indisponível",
+        "ERROR": "Falha no WebSocket"
+      }
+    },
+    "ADD": { 
+      "EVOLUTION_QR": {
+        "PAIRING_CODE": "Código de pareamento",
+        "GET_QRCODE": "Gerar Qr Code",
+        "INSTRUCTIONS": {
+          "ITEM_1": "Abra o WhatsApp no celular > Dispositivos Conectados > Conectar um dispositivo.",
+          "ITEM_2": "Escaneie o QR exibido à abaixo.",
+          "ITEM_3": "Assim que conectar, você será levado ao próximo passo."
+        },
+        "STATE": {
+          "WAITING": "Aguardando QR Code",
+          "CONNECTING": "Conectando...",
+          "OPEN": "Aberto",
+          "CLOSE": "Fechado",
+          "CONNECTED": "Conectado",
+          "DISCONNECTED": "Desconectado"
+        }
+      },
       "CHANNEL_NAME": {
         "LABEL": "Nome da Caixa de Entrada",
         "PLACEHOLDER": "Digite o nome da caixa de entrada (ex: Acme Inc)",
@@ -110,6 +143,46 @@
         "SUBMIT_BUTTON": "Criar caixa de entrada",
         "API": {
           "ERROR_MESSAGE": "Não conseguimos criar um canal de site, por favor, tente novamente"
+        }
+      },
+      "EVOLUTION": {
+        "TITLE": "API Evolution",
+        "DESC": "Crie uma caixa de entrada WhatsApp usando sua instância Evolution. Insira os detalhes da instância abaixo e pareie o dispositivo escaneando o QR code.",
+        "WARNING_TITLE": "Antes de continuar",
+        "WARNING_TEXT": "O uso do WhatsApp deve estar em conformidade com as políticas da Meta/WhatsApp. Revise as regras abaixo para evitar restrições ou banimentos de conta.",
+        "WARNING_LINK_TEXT": "Leia a Política de Negócios do WhatsApp",
+        "WARNING_LINK_URL": "https://www.whatsapp.com/legal/business-policy/",
+        "HINT_CONNECT_TO_SHOW_QR": "Clique em conectar para exibir o QrCode",
+        "FIELDS": {
+          "INBOX_NAME": {
+            "LABEL": "Nome da Caixa de Entrada",
+            "PLACEHOLDER": "ex: Suporte WhatsApp",
+            "ERROR": "Por favor, insira um nome de caixa de entrada válido"
+          }
+        },
+        "STATES": {
+          "RESTART": "Reiniciar",
+          "OPEN": "Conectado",
+          "CLOSE": "Desconectar",
+          "CONNECTING": "Conectando...",
+          "DISCONNECTED": "Desconectado",
+          "CONNECTED": "Você está conectado!"
+        },
+        "ACTIONS": {
+          "CREATE_INBOX": "Criar Canal Evolution",
+          "GENERATE_QR": "Gerar QR Code",
+          "SUBSCRIBE_LIVE": "Mostrar QR/Status ao vivo",
+          "STOP_LIVE": "Parar ao vivo"
+        },
+        "QR": {
+          "PANEL_TITLE": "Pareamento QR",
+          "WAITING": "Aguardando QR code…",
+          "INSTRUCTION": "Abra o WhatsApp > Dispositivos vinculados > Vincular um dispositivo, depois escaneie o QR para conectar:",
+          "INSTRUCTION_WITH_INBOX": "Abra o WhatsApp > Dispositivos vinculados > Vincular um dispositivo, depois escaneie o QR para conectar à “{inboxName}”.",
+          "STATE_LABEL": "Estado da conexão"
+        },
+        "API": {
+          "ERROR_MESSAGE": "Não foi possível criar a caixa de entrada Evolution. Verifique suas credenciais e tente novamente."
         }
       },
       "TWILIO": {
@@ -225,9 +298,11 @@
           "WHATSAPP_EMBEDDED": "WhatsApp Business",
           "TWILIO": "Twilio",
           "WHATSAPP_CLOUD": "Cloud do WhatsApp",
-          "WHATSAPP_CLOUD_DESC": "Quick setup through Meta",
-          "TWILIO_DESC": "Connect via Twilio credentials",
-          "360_DIALOG": "360Dialog"
+          "WHATSAPP_CLOUD_DESC": "Configuração rápida via Meta",
+          "TWILIO_DESC": "Conectar usando credenciais Twilio",
+          "360_DIALOG": "360Dialog",
+          "EVOLUTION": "Evolution",
+          "EVOLUTION_DESC": "Conecte seu WhatsApp com QR code"
         },
         "SELECT_PROVIDER": {
           "TITLE": "Select your API provider",
@@ -543,6 +618,7 @@
       }
     },
     "TABS": {
+      "EVOLUTION": "Evolution",
       "SETTINGS": "Configurações",
       "COLLABORATORS": "Agentes",
       "CONFIGURATION": "Configuração",
@@ -863,7 +939,8 @@
       "LINE": "Line",
       "API": "Canal da API",
       "INSTAGRAM": "Instagram",
-      "VOICE": "Voice"
+      "VOICE": "Voice",
+      "EVOLUTION": "Evolution"
     }
   }
 }

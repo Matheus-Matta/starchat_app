@@ -81,23 +81,23 @@ watch(
   <div class="flex flex-col gap-6">
     <Editor
       v-model="state.handoffMessage"
-      :label="t('CAPTAIN.ASSISTANTS.FORM.HANDOFF_MESSAGE.LABEL')"
-      :placeholder="t('CAPTAIN.ASSISTANTS.FORM.HANDOFF_MESSAGE.PLACEHOLDER')"
+      :label="t('COSMOS.ASSISTANTS.FORM.HANDOFF_MESSAGE.LABEL')"
+      :placeholder="t('COSMOS.ASSISTANTS.FORM.HANDOFF_MESSAGE.PLACEHOLDER')"
       :message="formErrors.handoffMessage"
       :message-type="formErrors.handoffMessage ? 'error' : 'info'"
     />
 
     <Editor
       v-model="state.resolutionMessage"
-      :label="t('CAPTAIN.ASSISTANTS.FORM.RESOLUTION_MESSAGE.LABEL')"
-      :placeholder="t('CAPTAIN.ASSISTANTS.FORM.RESOLUTION_MESSAGE.PLACEHOLDER')"
+      :label="t('COSMOS.ASSISTANTS.FORM.RESOLUTION_MESSAGE.LABEL')"
+      :placeholder="t('COSMOS.ASSISTANTS.FORM.RESOLUTION_MESSAGE.PLACEHOLDER')"
       :message="formErrors.resolutionMessage"
       :message-type="formErrors.resolutionMessage ? 'error' : 'info'"
     />
 
     <div class="flex flex-col gap-2">
       <label class="text-sm font-medium text-n-slate-12">
-        {{ t('CAPTAIN.ASSISTANTS.FORM.TEMPERATURE.LABEL') }}
+        {{ t('COSMOS.ASSISTANTS.FORM.TEMPERATURE.LABEL') }}
       </label>
       <div class="flex items-center gap-4">
         <input
@@ -111,13 +111,13 @@ watch(
         <span class="text-sm text-n-slate-12">{{ state.temperature }}</span>
       </div>
       <p class="text-sm text-n-slate-11 italic">
-        {{ t('CAPTAIN.ASSISTANTS.FORM.TEMPERATURE.DESCRIPTION') }}
+        {{ t('COSMOS.ASSISTANTS.FORM.TEMPERATURE.DESCRIPTION') }}
       </p>
     </div>
 
     <div>
       <Button
-        :label="t('CAPTAIN.ASSISTANTS.FORM.UPDATE')"
+        :label="t('COSMOS.ASSISTANTS.FORM.UPDATE')"
         @click="handleSystemMessagesUpdate"
       />
     </div>

@@ -27,7 +27,7 @@ const emit = defineEmits(['submit']);
 const { t } = useI18n();
 
 const formState = {
-  uiFlags: useMapGetter('captainAssistants/getUIFlags'),
+  uiFlags: useMapGetter('cosmosAssistants/getUIFlags'),
 };
 
 const initialState = {
@@ -173,30 +173,30 @@ watch(
   <form class="flex flex-col gap-4" @submit.prevent="handleSubmit">
     <!-- Basic Information Section -->
     <Accordion
-      :title="t('CAPTAIN.ASSISTANTS.FORM.SECTIONS.BASIC_INFO')"
+      :title="t('COSMOS.ASSISTANTS.FORM.SECTIONS.BASIC_INFO')"
       is-open
     >
       <div class="flex flex-col gap-4 pt-4">
         <Input
           v-model="state.name"
-          :label="t('CAPTAIN.ASSISTANTS.FORM.NAME.LABEL')"
-          :placeholder="t('CAPTAIN.ASSISTANTS.FORM.NAME.PLACEHOLDER')"
+          :label="t('COSMOS.ASSISTANTS.FORM.NAME.LABEL')"
+          :placeholder="t('COSMOS.ASSISTANTS.FORM.NAME.PLACEHOLDER')"
           :message="formErrors.name"
           :message-type="formErrors.name ? 'error' : 'info'"
         />
 
         <Editor
           v-model="state.description"
-          :label="t('CAPTAIN.ASSISTANTS.FORM.DESCRIPTION.LABEL')"
-          :placeholder="t('CAPTAIN.ASSISTANTS.FORM.DESCRIPTION.PLACEHOLDER')"
+          :label="t('COSMOS.ASSISTANTS.FORM.DESCRIPTION.LABEL')"
+          :placeholder="t('COSMOS.ASSISTANTS.FORM.DESCRIPTION.PLACEHOLDER')"
           :message="formErrors.description"
           :message-type="formErrors.description ? 'error' : 'info'"
         />
 
         <Input
           v-model="state.productName"
-          :label="t('CAPTAIN.ASSISTANTS.FORM.PRODUCT_NAME.LABEL')"
-          :placeholder="t('CAPTAIN.ASSISTANTS.FORM.PRODUCT_NAME.PLACEHOLDER')"
+          :label="t('COSMOS.ASSISTANTS.FORM.PRODUCT_NAME.LABEL')"
+          :placeholder="t('COSMOS.ASSISTANTS.FORM.PRODUCT_NAME.PLACEHOLDER')"
           :message="formErrors.productName"
           :message-type="formErrors.productName ? 'error' : 'info'"
         />
@@ -207,18 +207,18 @@ watch(
             :loading="isLoading"
             @click="handleBasicInfoUpdate"
           >
-            {{ t('CAPTAIN.ASSISTANTS.FORM.UPDATE') }}
+            {{ t('COSMOS.ASSISTANTS.FORM.UPDATE') }}
           </Button>
         </div>
       </div>
     </Accordion>
 
     <!-- Instructions Section -->
-    <Accordion :title="t('CAPTAIN.ASSISTANTS.FORM.SECTIONS.INSTRUCTIONS')">
+    <Accordion :title="t('COSMOS.ASSISTANTS.FORM.SECTIONS.INSTRUCTIONS')">
       <div class="flex flex-col gap-4">
         <Editor
           v-model="state.instructions"
-          :placeholder="t('CAPTAIN.ASSISTANTS.FORM.INSTRUCTIONS.PLACEHOLDER')"
+          :placeholder="t('COSMOS.ASSISTANTS.FORM.INSTRUCTIONS.PLACEHOLDER')"
           :message="formErrors.instructions"
           :max-length="20000"
           :message-type="formErrors.instructions ? 'error' : 'info'"
@@ -226,7 +226,7 @@ watch(
 
         <div class="flex flex-col gap-2 mt-4">
           <label class="text-sm font-medium text-n-slate-12">
-            {{ t('CAPTAIN.ASSISTANTS.FORM.TEMPERATURE.LABEL') }}
+            {{ t('COSMOS.ASSISTANTS.FORM.TEMPERATURE.LABEL') }}
           </label>
           <div class="flex items-center gap-4">
             <input
@@ -240,14 +240,14 @@ watch(
             <span class="text-sm text-n-slate-12">{{ state.temperature }}</span>
           </div>
           <p class="text-sm text-n-slate-11 italic">
-            {{ t('CAPTAIN.ASSISTANTS.FORM.TEMPERATURE.DESCRIPTION') }}
+            {{ t('COSMOS.ASSISTANTS.FORM.TEMPERATURE.DESCRIPTION') }}
           </p>
         </div>
         <div class="flex justify-end">
           <Button
             size="small"
             :loading="isLoading"
-            :label="t('CAPTAIN.ASSISTANTS.FORM.UPDATE')"
+            :label="t('COSMOS.ASSISTANTS.FORM.UPDATE')"
             @click="handleInstructionsUpdate"
           />
         </div>
@@ -255,13 +255,13 @@ watch(
     </Accordion>
 
     <!-- Greeting Messages Section -->
-    <Accordion :title="t('CAPTAIN.ASSISTANTS.FORM.SECTIONS.SYSTEM_MESSAGES')">
+    <Accordion :title="t('COSMOS.ASSISTANTS.FORM.SECTIONS.SYSTEM_MESSAGES')">
       <div class="flex flex-col gap-4 pt-4">
         <Editor
           v-model="state.handoffMessage"
-          :label="t('CAPTAIN.ASSISTANTS.FORM.HANDOFF_MESSAGE.LABEL')"
+          :label="t('COSMOS.ASSISTANTS.FORM.HANDOFF_MESSAGE.LABEL')"
           :placeholder="
-            t('CAPTAIN.ASSISTANTS.FORM.HANDOFF_MESSAGE.PLACEHOLDER')
+            t('COSMOS.ASSISTANTS.FORM.HANDOFF_MESSAGE.PLACEHOLDER')
           "
           :message="formErrors.handoffMessage"
           :message-type="formErrors.handoffMessage ? 'error' : 'info'"
@@ -269,9 +269,9 @@ watch(
 
         <Editor
           v-model="state.resolutionMessage"
-          :label="t('CAPTAIN.ASSISTANTS.FORM.RESOLUTION_MESSAGE.LABEL')"
+          :label="t('COSMOS.ASSISTANTS.FORM.RESOLUTION_MESSAGE.LABEL')"
           :placeholder="
-            t('CAPTAIN.ASSISTANTS.FORM.RESOLUTION_MESSAGE.PLACEHOLDER')
+            t('COSMOS.ASSISTANTS.FORM.RESOLUTION_MESSAGE.PLACEHOLDER')
           "
           :message="formErrors.resolutionMessage"
           :message-type="formErrors.resolutionMessage ? 'error' : 'info'"
@@ -281,7 +281,7 @@ watch(
           <Button
             size="small"
             :loading="isLoading"
-            :label="t('CAPTAIN.ASSISTANTS.FORM.UPDATE')"
+            :label="t('COSMOS.ASSISTANTS.FORM.UPDATE')"
             @click="handleSystemMessagesUpdate"
           />
         </div>
@@ -289,11 +289,11 @@ watch(
     </Accordion>
 
     <!-- Features Section -->
-    <Accordion :title="t('CAPTAIN.ASSISTANTS.FORM.SECTIONS.FEATURES')">
+    <Accordion :title="t('COSMOS.ASSISTANTS.FORM.SECTIONS.FEATURES')">
       <div class="flex flex-col gap-4 pt-4">
         <div class="flex flex-col gap-2">
           <label class="text-sm font-medium text-n-slate-12">
-            {{ t('CAPTAIN.ASSISTANTS.FORM.FEATURES.TITLE') }}
+            {{ t('COSMOS.ASSISTANTS.FORM.FEATURES.TITLE') }}
           </label>
           <div class="flex flex-col gap-2">
             <label class="flex items-center gap-2">
@@ -303,7 +303,7 @@ watch(
                 class="form-checkbox"
               />
               {{
-                t('CAPTAIN.ASSISTANTS.FORM.FEATURES.ALLOW_CONVERSATION_FAQS')
+                t('COSMOS.ASSISTANTS.FORM.FEATURES.ALLOW_CONVERSATION_FAQS')
               }}
             </label>
             <label class="flex items-center gap-2">
@@ -312,7 +312,7 @@ watch(
                 type="checkbox"
                 class="form-checkbox"
               />
-              {{ t('CAPTAIN.ASSISTANTS.FORM.FEATURES.ALLOW_MEMORIES') }}
+              {{ t('COSMOS.ASSISTANTS.FORM.FEATURES.ALLOW_MEMORIES') }}
             </label>
           </div>
         </div>
@@ -321,7 +321,7 @@ watch(
           <Button
             size="small"
             :loading="isLoading"
-            :label="t('CAPTAIN.ASSISTANTS.FORM.UPDATE')"
+            :label="t('COSMOS.ASSISTANTS.FORM.UPDATE')"
             @click="handleFeaturesUpdate"
           />
         </div>

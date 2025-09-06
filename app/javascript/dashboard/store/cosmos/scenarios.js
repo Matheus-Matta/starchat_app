@@ -1,15 +1,15 @@
-import CaptainScenarios from 'dashboard/api/cosmos/scenarios';
+import CosmosScenarios from 'dashboard/api/cosmos/scenarios';
 import { createStore } from './storeFactory';
 import { throwErrorMessage } from 'dashboard/store/utils/api';
 
 export default createStore({
-  name: 'CaptainScenario',
-  API: CaptainScenarios,
+  name: 'CosmosScenario',
+  API: CosmosScenarios,
   actions: mutations => ({
     update: async ({ commit }, { id, assistantId, ...updateObj }) => {
       commit(mutations.SET_UI_FLAG, { updatingItem: true });
       try {
-        const response = await CaptainScenarios.update(
+        const response = await CosmosScenarios.update(
           { id, assistantId },
           updateObj
         );
@@ -25,7 +25,7 @@ export default createStore({
     delete: async ({ commit }, { id, assistantId }) => {
       commit(mutations.SET_UI_FLAG, { deletingItem: true });
       try {
-        await CaptainScenarios.delete({ id, assistantId });
+        await CosmosScenarios.delete({ id, assistantId });
         commit(mutations.DELETE, id);
         commit(mutations.SET_UI_FLAG, { deletingItem: false });
         return id;

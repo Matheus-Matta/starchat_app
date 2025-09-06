@@ -287,10 +287,10 @@
     "SETTINGS": "Iestatījumi",
     "CONTACTS": "Kontaktpersonas",
     "ACTIVE": "Aktīvs",
-    "CAPTAIN": "Captain",
-    "CAPTAIN_ASSISTANTS": "Asistenti",
-    "CAPTAIN_DOCUMENTS": "Dokumenti",
-    "CAPTAIN_RESPONSES": "Bieži uzdotie jautājumi",
+    "COSMOS": "Cosmos",
+    "COSMOS_ASSISTANTS": "Asistenti",
+    "COSMOS_DOCUMENTS": "Dokumenti",
+    "COSMOS_RESPONSES": "Bieži uzdotie jautājumi",
     "HOME": "Sākums",
     "AGENTS": "Aģenti",
     "AGENT_BOTS": "Bots",
@@ -366,13 +366,13 @@
       "DESCRIPTION": "Apskatīt iepriekšējos rēķinus, rediģēt norēķinu informāciju vai atcelt abonementu.",
       "BUTTON_TXT": "Doties uz norēķinu portālu"
     },
-    "CAPTAIN": {
-      "TITLE": "Captain",
-      "DESCRIPTION": "Pārvaldīt Captain AI lietošanu un kredītus.",
+    "COSMOS": {
+      "TITLE": "Cosmos",
+      "DESCRIPTION": "Pārvaldīt Cosmos AI lietošanu un kredītus.",
       "BUTTON_TXT": "Iegādāties vairāk kredītu",
       "DOCUMENTS": "Dokumenti",
       "RESPONSES": "Atbildes",
-      "UPGRADE": "Captain nav pieejams bezmaksas abonementā. Modernizējiet abonementu tūlīt, lai piekļūtu asistentiem un copilot."
+      "UPGRADE": "Cosmos nav pieejams bezmaksas abonementā. Modernizējiet abonementu tūlīt, lai piekļūtu asistentiem un copilot."
     },
     "CHAT_WITH_US": {
       "TITLE": "Nepieciešama palīdzība?",

@@ -74,7 +74,7 @@ export default {
     showAudioTranscriptionConfig() {
       return this.isFeatureEnabledonAccount(
         this.accountId,
-        FEATURE_FLAGS.CAPTAIN
+        FEATURE_FLAGS.COSMOS
       );
     },
     languagesSortedByCode() {

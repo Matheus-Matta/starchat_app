@@ -257,9 +257,9 @@ RSpec.describe Integrations::Openai::ProcessorService do
     context 'when testing endpoint configuration' do
       let(:event) { { 'name' => 'rephrase', 'data' => { 'content' => 'test message' } } }
 
-      context 'when CAPTAIN_OPEN_AI_ENDPOINT is not configured' do
+      context 'when COSMOS_OPEN_AI_ENDPOINT is not configured' do
         it 'uses default OpenAI endpoint' do
-          InstallationConfig.find_by(name: 'CAPTAIN_OPEN_AI_ENDPOINT')&.destroy
+          InstallationConfig.find_by(name: 'COSMOS_OPEN_AI_ENDPOINT')&.destroy
 
           stub_request(:post, 'https://api.openai.com/v1/chat/completions')
             .with(body: anything, headers: expected_headers)
@@ -270,9 +270,9 @@ RSpec.describe Integrations::Openai::ProcessorService do
         end
       end
 
-      context 'when CAPTAIN_OPEN_AI_ENDPOINT is configured' do
+      context 'when COSMOS_OPEN_AI_ENDPOINT is configured' do
         before do
-          create(:installation_config, name: 'CAPTAIN_OPEN_AI_ENDPOINT', value: 'https://custom.azure.com/')
+          create(:installation_config, name: 'COSMOS_OPEN_AI_ENDPOINT', value: 'https://custom.azure.com/')
         end
 
         it 'uses custom endpoint' do
@@ -285,9 +285,9 @@ RSpec.describe Integrations::Openai::ProcessorService do
         end
       end
 
-      context 'when CAPTAIN_OPEN_AI_ENDPOINT has trailing slash' do
+      context 'when COSMOS_OPEN_AI_ENDPOINT has trailing slash' do
         before do
-          create(:installation_config, name: 'CAPTAIN_OPEN_AI_ENDPOINT', value: 'https://custom.azure.com/')
+          create(:installation_config, name: 'COSMOS_OPEN_AI_ENDPOINT', value: 'https://custom.azure.com/')
         end
 
         it 'properly handles trailing slash' do

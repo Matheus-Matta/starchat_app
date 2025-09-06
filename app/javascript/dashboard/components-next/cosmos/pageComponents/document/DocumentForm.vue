@@ -14,8 +14,8 @@ const emit = defineEmits(['submit', 'cancel']);
 const { t } = useI18n();
 
 const formState = {
-  uiFlags: useMapGetter('captainDocuments/getUIFlags'),
-  assistants: useMapGetter('captainAssistants/getRecords'),
+  uiFlags: useMapGetter('cosmosDocuments/getUIFlags'),
+  assistants: useMapGetter('cosmosAssistants/getRecords'),
 };
 
 const initialState = {
@@ -43,7 +43,7 @@ const isLoading = computed(() => formState.uiFlags.value.creatingItem);
 
 const getErrorMessage = (field, errorKey) => {
   return v$.value[field].$error
-    ? t(`CAPTAIN.DOCUMENTS.FORM.${errorKey}.ERROR`)
+    ? t(`COSMOS.DOCUMENTS.FORM.${errorKey}.ERROR`)
     : '';
 };
 
@@ -73,21 +73,21 @@ const handleSubmit = async () => {
   <form class="flex flex-col gap-4" @submit.prevent="handleSubmit">
     <Input
       v-model="state.url"
-      :label="t('CAPTAIN.DOCUMENTS.FORM.URL.LABEL')"
-      :placeholder="t('CAPTAIN.DOCUMENTS.FORM.URL.PLACEHOLDER')"
+      :label="t('COSMOS.DOCUMENTS.FORM.URL.LABEL')"
+      :placeholder="t('COSMOS.DOCUMENTS.FORM.URL.PLACEHOLDER')"
       :message="formErrors.url"
       :message-type="formErrors.url ? 'error' : 'info'"
     />
     <div class="flex flex-col gap-1">
       <label for="assistant" class="mb-0.5 text-sm font-medium text-n-slate-12">
-        {{ t('CAPTAIN.DOCUMENTS.FORM.ASSISTANT.LABEL') }}
+        {{ t('COSMOS.DOCUMENTS.FORM.ASSISTANT.LABEL') }}
       </label>
       <ComboBox
         id="assistant"
         v-model="state.assistantId"
         :options="assistantList"
         :has-error="!!formErrors.assistantId"
-        :placeholder="t('CAPTAIN.DOCUMENTS.FORM.ASSISTANT.PLACEHOLDER')"
+        :placeholder="t('COSMOS.DOCUMENTS.FORM.ASSISTANT.PLACEHOLDER')"
         class="[&>div>button]:bg-n-alpha-black2 [&>div>button:not(.focused)]:dark:outline-n-weak [&>div>button:not(.focused)]:hover:!outline-n-slate-6"
         :message="formErrors.assistantId"
       />
@@ -98,13 +98,13 @@ const handleSubmit = async () => {
         type="button"
         variant="faded"
         color="slate"
-        :label="t('CAPTAIN.FORM.CANCEL')"
+        :label="t('COSMOS.FORM.CANCEL')"
         class="w-full bg-n-alpha-2 text-n-blue-text hover:bg-n-alpha-3"
         @click="handleCancel"
       />
       <Button
         type="submit"
-        :label="t('CAPTAIN.FORM.CREATE')"
+        :label="t('COSMOS.FORM.CREATE')"
         class="w-full"
         :is-loading="isLoading"
         :disabled="isLoading"

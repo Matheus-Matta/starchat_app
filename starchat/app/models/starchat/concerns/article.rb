@@ -11,7 +11,7 @@ module Starchat::Concerns::Article
     add_article_embedding_association
 
     def self.vector_search(params)
-      embedding = Captain::Llm::EmbeddingService.new.get_embedding(params['query'])
+      embedding = Cosmos::Llm::EmbeddingService.new.get_embedding(params['query'])
       records = joins(
         :category
       ).search_by_category_slug(
@@ -76,7 +76,7 @@ module Starchat::Concerns::Article
   private
 
   def openai_api_url
-    endpoint = InstallationConfig.find_by(name: 'CAPTAIN_OPEN_AI_ENDPOINT')&.value || 'https://api.openai.com/'
+    endpoint = InstallationConfig.find_by(name: 'COSMOS_OPEN_AI_ENDPOINT')&.value || 'https://api.openai.com/'
     endpoint = endpoint.chomp('/')
     "#{endpoint}/v1/chat/completions"
   end

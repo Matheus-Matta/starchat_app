@@ -117,9 +117,14 @@ export const useInbox = () => {
   const isAWhatsAppChannel = computed(() => {
     return (
       channelType.value === INBOX_TYPES.WHATSAPP ||
+      isAEvolutionChannel ||
       isATwilioWhatsAppChannel.value
     );
   });
+
+  const isAEvolutionChannel = computed(
+    () => channelType.value === 'Channel::Evolution'
+  );
 
   const isAnInstagramChannel = computed(() => {
     return channelType.value === INBOX_TYPES.INSTAGRAM;

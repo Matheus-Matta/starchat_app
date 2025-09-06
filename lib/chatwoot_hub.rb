@@ -6,7 +6,7 @@ class ChatwootHub
   PUSH_NOTIFICATION_URL = "#{BASE_URL}/send_push".freeze
   EVENTS_URL = "#{BASE_URL}/events".freeze
   BILLING_URL = "#{BASE_URL}/billing".freeze
-  CAPTAIN_ACCOUNTS_URL = "#{BASE_URL}/instance_captain_accounts".freeze
+  COSMOS_ACCOUNTS_URL = "#{BASE_URL}/instance_cosmos_accounts".freeze
 
   def self.installation_identifier
     identifier = InstallationConfig.find_by(name: 'INSTALLATION_IDENTIFIER')&.value
@@ -96,13 +96,13 @@ class ChatwootHub
     ChatwootExceptionTracker.new(e).capture_exception
   end
 
-  def self.get_captain_settings(account)
+  def self.get_cosmos_settings(account)
     info = {
       installation_identifier: installation_identifier,
       chatwoot_account_id: account.id,
       account_name: account.name
     }
-    HTTParty.post(CAPTAIN_ACCOUNTS_URL,
+    HTTParty.post(COSMOS_ACCOUNTS_URL,
                   body: info.to_json,
                   headers: { 'Content-Type' => 'application/json', 'Accept' => 'application/json' })
   end

@@ -3,22 +3,22 @@ module Starchat::MessageTemplates::HookExecutionService
 
   def trigger_templates
     super
-    return unless should_process_captain_response?
-    return perform_handoff unless inbox.captain_active?
+    return unless should_process_cosmos_response?
+    return perform_handoff unless inbox.cosmos_active?
 
-    schedule_captain_response
+    schedule_cosmos_response
   end
 
   private
 
-  def schedule_captain_response
-    job_args = [conversation, conversation.inbox.captain_assistant]
+  def schedule_cosmos_response
+    job_args = [conversation, conversation.inbox.cosmos_assistant]
 
     if message.attachments.blank?
-      Captain::Conversation::ResponseBuilderJob.perform_later(*job_args)
+      Cosmos::Conversation::ResponseBuilderJob.perform_later(*job_args)
     else
       wait_time = calculate_attachment_wait_time
-      Captain::Conversation::ResponseBuilderJob.set(wait: wait_time).perform_later(*job_args)
+      Cosmos::Conversation::ResponseBuilderJob.set(wait: wait_time).perform_later(*job_args)
     end
   end
 
@@ -31,14 +31,14 @@ module Starchat::MessageTemplates::HookExecutionService
     base_wait + additional_wait
   end
 
-  def should_process_captain_response?
-    conversation.pending? && message.incoming? && inbox.captain_assistant.present?
+  def should_process_cosmos_response?
+    conversation.pending? && message.incoming? && inbox.cosmos_assistant.present?
   end
 
   def perform_handoff
     return unless conversation.pending?
 
-    Rails.logger.info("Captain limit exceeded, performing handoff mid-conversation for conversation: #{conversation.id}")
+    Rails.logger.info("Cosmos limit exceeded, performing handoff mid-conversation for conversation: #{conversation.id}")
     conversation.messages.create!(
       message_type: :outgoing,
       account_id: conversation.account.id,

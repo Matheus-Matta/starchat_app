@@ -8,12 +8,24 @@ export default {
     ...mapGetters({
       globalConfig: 'globalConfig/get',
     }),
+    isEvolutionProvider() {
+      return (
+        String(this.$route?.query?.provider || '').toLowerCase() === 'evolution'
+      );
+    },
     createFlowSteps() {
-      const steps = ['CHANNEL', 'INBOX', 'AGENT', 'FINISH'];
+      const base = ['CHANNEL', 'INBOX', 'AGENT', 'FINISH'];
+
+      const steps = [...base];
+      if (this.isEvolutionProvider) {
+        const insertAfter = steps.indexOf('INBOX');
+        steps.splice(insertAfter + 1, 0, 'QRCODE');
+      }
 
       const routes = {
         CHANNEL: 'settings_inbox_new',
         INBOX: 'settings_inboxes_page_channel',
+        QRCODE: 'settings_inboxes_qrcode',
         AGENT: 'settings_inboxes_add_agents',
         FINISH: 'settings_inbox_finish',
       };

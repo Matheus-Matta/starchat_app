@@ -213,24 +213,24 @@ const menuItems = computed(() => {
       ],
     },
     {
-      name: 'Captain',
-      icon: 'i-woot-captain',
-      label: t('SIDEBAR.CAPTAIN'),
+      name: 'Cosmos',
+      icon: 'i-woot-cosmos',
+      label: t('SIDEBAR.COSMOS'),
       children: [
         {
           name: 'Assistants',
-          label: t('SIDEBAR.CAPTAIN_ASSISTANTS'),
-          to: accountScopedRoute('captain_assistants_index'),
+          label: t('SIDEBAR.COSMOS_ASSISTANTS'),
+          to: accountScopedRoute('cosmos_assistants_index'),
         },
         {
           name: 'Documents',
-          label: t('SIDEBAR.CAPTAIN_DOCUMENTS'),
-          to: accountScopedRoute('captain_documents_index'),
+          label: t('SIDEBAR.COSMOS_DOCUMENTS'),
+          to: accountScopedRoute('cosmos_documents_index'),
         },
         {
           name: 'Responses',
-          label: t('SIDEBAR.CAPTAIN_RESPONSES'),
-          to: accountScopedRoute('captain_responses_index'),
+          label: t('SIDEBAR.COSMOS_RESPONSES'),
+          to: accountScopedRoute('cosmos_responses_index'),
         },
       ],
     },

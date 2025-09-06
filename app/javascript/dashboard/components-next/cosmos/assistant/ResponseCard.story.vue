@@ -1,6 +1,6 @@
 <script setup>
 import ResponseCard from './ResponseCard.vue';
-import { responsesList } from 'dashboard/components-next/cosmos/pageComponents/emptyStates/captainEmptyStateContent.js';
+import { responsesList } from 'dashboard/components-next/cosmos/pageComponents/emptyStates/cosmosEmptyStateContent.js';
 </script>
 
 <template>
