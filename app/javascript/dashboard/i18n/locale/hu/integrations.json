@@ -345,10 +345,10 @@
     "NAME": "Cosmos",
     "HEADER_KNOW_MORE": "Know more",
     "COPILOT": {
-      "TITLE": "Copilot",
+      "TITLE": "Cosmos",
       "TRY_THESE_PROMPTS": "Try these prompts",
-      "PANEL_TITLE": "Get started with Copilot",
-      "KICK_OFF_MESSAGE": "Need a quick summary, want to check past conversations, or draft a better reply? Copilot’s here to speed things up.",
+      "PANEL_TITLE": "Get started with Cosmos",
+      "KICK_OFF_MESSAGE": "Need a quick summary, want to check past conversations, or draft a better reply? Cosmos’s here to speed things up.",
       "SEND_MESSAGE": "Üzenet elküldése...",
       "EMPTY_MESSAGE": "There was an error generating the response. Please try again.",
       "LOADER": "Cosmos is thinking",
@@ -391,12 +391,12 @@
     "PAYWALL": {
       "TITLE": "Upgrade to use Cosmos AI",
       "AVAILABLE_ON": "Cosmos is not available on the free plan.",
-      "UPGRADE_PROMPT": "Upgrade your plan to get access to our assistants, copilot and more.",
+      "UPGRADE_PROMPT": "Upgrade your plan to get access to our assistants, cosmos and more.",
       "UPGRADE_NOW": "Upgrade now",
       "CANCEL_ANYTIME": "You can change or cancel your plan anytime"
     },
     "ENTERPRISE_PAYWALL": {
-      "UPGRADE_PROMPT": "Upgrade your plan to get access to our assistants, copilot and more.",
+      "UPGRADE_PROMPT": "Upgrade your plan to get access to our assistants, cosmos and more.",
       "ASK_ADMIN": "Please reach out to your administrator for the upgrade."
     },
     "BANNER": {

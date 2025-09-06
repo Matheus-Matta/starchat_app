@@ -345,10 +345,10 @@
     "NAME": "Cosmos",
     "HEADER_KNOW_MORE": "了解更多",
     "COPILOT": {
-      "TITLE": "Copilot",
+      "TITLE": "Cosmos",
       "TRY_THESE_PROMPTS": "尝试这些提示信息",
-      "PANEL_TITLE": "开始使用 Copilot",
-      "KICK_OFF_MESSAGE": "需要快速摘要、回顾过往对话，或是优化回复内容？Copilot 可助您一臂之力，全面提升工作效率。",
+      "PANEL_TITLE": "开始使用 Cosmos",
+      "KICK_OFF_MESSAGE": "需要快速摘要、回顾过往对话，或是优化回复内容？Cosmos 可助您一臂之力，全面提升工作效率。",
       "SEND_MESSAGE": "发送消息...",
       "EMPTY_MESSAGE": "生成响应时出错。请重试。",
       "LOADER": "Cosmos 正在思考",

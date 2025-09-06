@@ -347,8 +347,8 @@
     "COPILOT": {
       "TITLE": "Kopilots",
       "TRY_THESE_PROMPTS": "Pamēģiniet",
-      "PANEL_TITLE": "Get started with Copilot",
-      "KICK_OFF_MESSAGE": "Need a quick summary, want to check past conversations, or draft a better reply? Copilot’s here to speed things up.",
+      "PANEL_TITLE": "Get started with Cosmos",
+      "KICK_OFF_MESSAGE": "Need a quick summary, want to check past conversations, or draft a better reply? Cosmos’s here to speed things up.",
       "SEND_MESSAGE": "Sūtīt ziņojumu...",
       "EMPTY_MESSAGE": "There was an error generating the response. Please try again.",
       "LOADER": "Kapteinis domā",
@@ -391,12 +391,12 @@
     "PAYWALL": {
       "TITLE": "Modernizējiet abonementu, lai izmantotu Cosmos AI",
       "AVAILABLE_ON": "Cosmos nav pieejams bezmaksas abonementā.",
-      "UPGRADE_PROMPT": "Modernizējiet savu abonementu, lai iegūtu piekļuvi viruālajiem asistentiem un copilot.",
+      "UPGRADE_PROMPT": "Modernizējiet savu abonementu, lai iegūtu piekļuvi viruālajiem asistentiem un cosmos.",
       "UPGRADE_NOW": "Pāriet uz maksas versiju tagad",
       "CANCEL_ANYTIME": "Jūs varat jebkurā laikā mainīt vai atcelt savu versiju"
     },
     "ENTERPRISE_PAYWALL": {
-      "UPGRADE_PROMPT": "Modernizējiet savu abonementu, lai iegūtu piekļuvi viruālajiem asistentiem un copilot.",
+      "UPGRADE_PROMPT": "Modernizējiet savu abonementu, lai iegūtu piekļuvi viruālajiem asistentiem un cosmos.",
       "ASK_ADMIN": "Lai pārietu uz maksas versiju, lūdzu sazinieties ar savu administratoru."
     },
     "BANNER": {
