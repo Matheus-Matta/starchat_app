@@ -345,10 +345,10 @@
     "NAME": "Kapitän",
     "HEADER_KNOW_MORE": "Know more",
     "COPILOT": {
-      "TITLE": "Copilot",
+      "TITLE": "Cosmos",
       "TRY_THESE_PROMPTS": "Probiere diese Prompts",
-      "PANEL_TITLE": "Get started with Copilot",
-      "KICK_OFF_MESSAGE": "Need a quick summary, want to check past conversations, or draft a better reply? Copilot’s here to speed things up.",
+      "PANEL_TITLE": "Get started with Cosmos",
+      "KICK_OFF_MESSAGE": "Need a quick summary, want to check past conversations, or draft a better reply? Cosmos’s here to speed things up.",
       "SEND_MESSAGE": "Nachricht senden...",
       "EMPTY_MESSAGE": "There was an error generating the response. Please try again.",
       "LOADER": "Cosmos denkt nach",
@@ -391,12 +391,12 @@
     "PAYWALL": {
       "TITLE": "Upgrade auf Cosmos AI",
       "AVAILABLE_ON": "Cosmos is not available on the free plan.",
-      "UPGRADE_PROMPT": "Tarif upgraden, um Zugang zu unseren Assistenten, Copilot und mehr zu erhalten.",
+      "UPGRADE_PROMPT": "Tarif upgraden, um Zugang zu unseren Assistenten, Cosmos und mehr zu erhalten.",
       "UPGRADE_NOW": "Jetzt upgraden",
       "CANCEL_ANYTIME": "Sie können Ihr Paket jederzeit ändern oder kündigen"
     },
     "ENTERPRISE_PAYWALL": {
-      "UPGRADE_PROMPT": "Tarif upgraden, um Zugang zu unseren Assistenten, Copilot und mehr zu erhalten.",
+      "UPGRADE_PROMPT": "Tarif upgraden, um Zugang zu unseren Assistenten, Cosmos und mehr zu erhalten.",
       "ASK_ADMIN": "Bitte kontaktieren Sie Ihren Administrator für das Upgrade."
     },
     "BANNER": {

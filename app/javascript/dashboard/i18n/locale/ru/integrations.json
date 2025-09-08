@@ -345,10 +345,10 @@
     "NAME": "Капитан",
     "HEADER_KNOW_MORE": "Know more",
     "COPILOT": {
-      "TITLE": "Copilot",
+      "TITLE": "Cosmos",
       "TRY_THESE_PROMPTS": "Попробуйте эти запросы",
-      "PANEL_TITLE": "Get started with Copilot",
-      "KICK_OFF_MESSAGE": "Need a quick summary, want to check past conversations, or draft a better reply? Copilot’s here to speed things up.",
+      "PANEL_TITLE": "Get started with Cosmos",
+      "KICK_OFF_MESSAGE": "Need a quick summary, want to check past conversations, or draft a better reply? Cosmos’s here to speed things up.",
       "SEND_MESSAGE": "Отправить сообщение...",
       "EMPTY_MESSAGE": "There was an error generating the response. Please try again.",
       "LOADER": "Капитан думает",
@@ -391,12 +391,12 @@
     "PAYWALL": {
       "TITLE": "Обновите тарифный план, чтобы использовать Cosmos AI",
       "AVAILABLE_ON": "Капитан недоступен на бесплатном тарифном плане.",
-      "UPGRADE_PROMPT": "Обновите тарифный план, чтобы получить доступ к нашим ассистентам, copilot и другим функциям.",
+      "UPGRADE_PROMPT": "Обновите тарифный план, чтобы получить доступ к нашим ассистентам, cosmos и другим функциям.",
       "UPGRADE_NOW": "Обновить сейчас",
       "CANCEL_ANYTIME": "Вы можете изменить или отменить ваш тарифный план в любое время"
     },
     "ENTERPRISE_PAYWALL": {
-      "UPGRADE_PROMPT": "Обновите тарифный план, чтобы получить доступ к нашим ассистентам, copilot и другим функциям.",
+      "UPGRADE_PROMPT": "Обновите тарифный план, чтобы получить доступ к нашим ассистентам, cosmos и другим функциям.",
       "ASK_ADMIN": "Пожалуйста, обратитесь к вашему администратору для обновления."
     },
     "BANNER": {

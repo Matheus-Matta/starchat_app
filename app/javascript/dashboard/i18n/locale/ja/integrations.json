@@ -347,8 +347,8 @@
     "COPILOT": {
       "TITLE": "コパイロット",
       "TRY_THESE_PROMPTS": "これらのプロンプトを試してください",
-      "PANEL_TITLE": "Get started with Copilot",
-      "KICK_OFF_MESSAGE": "Need a quick summary, want to check past conversations, or draft a better reply? Copilot’s here to speed things up.",
+      "PANEL_TITLE": "Get started with Cosmos",
+      "KICK_OFF_MESSAGE": "Need a quick summary, want to check past conversations, or draft a better reply? Cosmos’s here to speed things up.",
       "SEND_MESSAGE": "メッセージを送信...",
       "EMPTY_MESSAGE": "There was an error generating the response. Please try again.",
       "LOADER": "Cosmosが考え中",
@@ -391,12 +391,12 @@
     "PAYWALL": {
       "TITLE": "アップグレードしてCosmos AIを利用する",
       "AVAILABLE_ON": "Cosmosは無料プランでは利用できません。",
-      "UPGRADE_PROMPT": "アシスタント、Copilotなどにアクセスするには、プランをアップグレードしてください。",
+      "UPGRADE_PROMPT": "アシスタント、Cosmosなどにアクセスするには、プランをアップグレードしてください。",
       "UPGRADE_NOW": "今すぐアップグレード",
       "CANCEL_ANYTIME": "プランはいつでも変更またはキャンセルできます"
     },
     "ENTERPRISE_PAYWALL": {
-      "UPGRADE_PROMPT": "アシスタント、Copilotなどにアクセスするには、プランをアップグレードしてください。",
+      "UPGRADE_PROMPT": "アシスタント、Cosmosなどにアクセスするには、プランをアップグレードしてください。",
       "ASK_ADMIN": "管理者にアップグレードを依頼してください。"
     },
     "BANNER": {

@@ -215,7 +215,7 @@ const menuItems = computed(() => {
     {
       name: 'Cosmos',
       icon: 'i-woot-cosmos',
-      label: t('SIDEBAR.COSMOS'),
+      label: 'Cosmos',
       children: [
         {
           name: 'Assistants',
