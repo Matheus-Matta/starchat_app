@@ -160,6 +160,9 @@ importers:
       opus-recorder:
         specifier: ^8.0.5
         version: 8.0.5
+      overmind:
+        specifier: ^28.0.4
+        version: 28.0.4
       semver:
         specifier: 7.6.3
         version: 7.6.3
@@ -1780,6 +1783,9 @@ packages:
   '@types/mdurl@2.0.0':
     resolution: {integrity: sha512-RGdgjQUZba5p6QEFAVx2OGb8rQDL/cPRG7GiedRzMcJ1tYnUANBncjbSB1NRGwbvjcPeikRABz2nshyPk1bhWg==}
 
+  '@types/node@10.17.60':
+    resolution: {integrity: sha512-F0KIgDJfy2nA3zMLmWGKxcH2ZVEtCZXHHdOQs2gSaQ27+lNeEfGxzkIw90aXswATX7AZ33tahPbzy6KAfUreVw==}
+
   '@types/node@22.7.0':
     resolution: {integrity: sha512-MOdOibwBs6KW1vfqz2uKMlxq5xAfAZ98SZjO8e3XnAbFnTJtAspqhWk7hrdSAs9/Y14ZWMiy7/MxMUzAOadYEw==}
 
@@ -2140,6 +2146,9 @@ packages:
 
   balanced-match@1.0.2:
     resolution: {integrity: sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==}
+
+  betsy@1.0.2:
+    resolution: {integrity: sha512-yt/OUTbSeCRj4uwbDnjTbnWgrLsgBl1nzJLdZH2eOtrf3SDH7svdoTMWOvTFhUdIM86pY6k21o/4SCIT6RYjig==}
 
   binary-extensions@2.2.0:
     resolution: {integrity: sha512-jDctJ/IVQbZoJykoeHbhXpOlNBqGNcwXJKJog42E5HDPUwQTSdjCHdihjj0DlnheQ7blbT6dHOafNAiS8ooQKA==}
@@ -3303,6 +3312,10 @@ packages:
     resolution: {integrity: sha512-lJJV/5dYS+RcL8uQdBDW9c9uWFLLBNRyFhnAKXw5tVqLlKZ4RMGZKv+YQ/IA3OhD+RpbJa1LLFM1FQPGyIXvOA==}
     engines: {node: '>=12'}
 
+  is-plain-obj@3.0.0:
+    resolution: {integrity: sha512-gwsOE28k+23GP1B6vFl1oVh/WOzmawBrKwo5Ev6wMKzPkaXaCDIQKzLnvsA42DRlbVTWorkgTKIviAKCWkfUwA==}
+    engines: {node: '>=10'}
+
   is-potential-custom-element-name@1.0.1:
     resolution: {integrity: sha512-bCYeRA2rVibKZd+s2625gGnGF/t7DSqDs4dP7CrLA1m7jKWz6pps0LpYLJN8Q64HtmPKJ1hrN3nzPNKFEKOUiQ==}
 
@@ -3866,6 +3879,9 @@ packages:
   orderedmap@2.1.0:
     resolution: {integrity: sha512-/pIFexOm6S70EPdznemIz3BQZoJ4VTFrhqzu0ACBqBgeLsLxq8e6Jim63ImIfwW/zAD1AlXpRMlOv3aghmo4dA==}
 
+  overmind@28.0.4:
+    resolution: {integrity: sha512-yxr1Ki1hJGoWCNfO6gk/Vem2frck1ky7cD4aEsVJkzwqjzjCPm5j3h6aTetzEHQ3oU4v0RJVXVWbF+COd8G/Qw==}
+
   p-limit@3.1.0:
     resolution: {integrity: sha512-TYOanM3wGwNGsZN2cVTYPArw454xnXj5qmWF1bEoAc4+cU/ol7GVh7odevjp1FNHduHc3KZMcFduxU5Xc6uJRQ==}
     engines: {node: '>=10'}
@@ -4271,6 +4287,9 @@ packages:
 
   proxy-from-env@1.1.0:
     resolution: {integrity: sha512-D+zkORCbA9f1tdWRK0RaCR3GPv50cMxcrz4X8k5LTSUD1Dkw47mKJEZQNunItRTkWwgtaUSo1RVFRIG9ZXiFYg==}
+
+  proxy-state-tree@6.3.1:
+    resolution: {integrity: sha512-NjLXO7vUvMkilFEV1sj9BIqAmnDdi2MMreIeJFfwn6KZi6uYf/GYPzi1vs44vRdT+08DZ5n1i/9N09EVLZSyGw==}
 
   psl@1.9.0:
     resolution: {integrity: sha512-E/ZsdU4HLs/68gYzgGTkMicWTLPdAftJLfJFlLUAAKZGkStNU72sZjT66SnMDVOfOWY/YAoiD7Jxa9iHvngcag==}
@@ -4713,6 +4732,9 @@ packages:
 
   tsconfig-paths@3.15.0:
     resolution: {integrity: sha512-2Ac2RgzDe/cn48GvOe3M+o82pEFewD3UPbyoUHHdKasHwJKjds4fLXWf/Ux5kATBKN20oaFGu+jbElp1pos0mg==}
+
+  tslib@1.14.1:
+    resolution: {integrity: sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==}
 
   tslib@2.6.2:
     resolution: {integrity: sha512-AEYxH93jGFPn/a2iVAwW87VuUIkR1FVUKB77NwMF7nBTDkDrrT/Hpt/IrCJ0QXhW27jTBDcf5ZY7w6RiqTMw2Q==}
@@ -6794,6 +6816,8 @@ snapshots:
 
   '@types/mdurl@2.0.0': {}
 
+  '@types/node@10.17.60': {}
+
   '@types/node@22.7.0':
     dependencies:
       undici-types: 6.19.8
@@ -7280,6 +7304,11 @@ snapshots:
       - debug
 
   balanced-match@1.0.2: {}
+
+  betsy@1.0.2:
+    dependencies:
+      '@types/node': 10.17.60
+      tslib: 1.14.1
 
   binary-extensions@2.2.0: {}
 
@@ -8648,6 +8677,8 @@ snapshots:
 
   is-path-inside@4.0.0: {}
 
+  is-plain-obj@3.0.0: {}
+
   is-potential-custom-element-name@1.0.1: {}
 
   is-regex@1.1.4:
@@ -9272,6 +9303,13 @@ snapshots:
 
   orderedmap@2.1.0: {}
 
+  overmind@28.0.4:
+    dependencies:
+      betsy: 1.0.2
+      is-plain-obj: 3.0.0
+      proxy-state-tree: 6.3.1
+      tslib: 2.8.1
+
   p-limit@3.1.0:
     dependencies:
       yocto-queue: 0.1.0
@@ -9724,6 +9762,8 @@ snapshots:
   proto-list@1.2.4: {}
 
   proxy-from-env@1.1.0: {}
+
+  proxy-state-tree@6.3.1: {}
 
   psl@1.9.0: {}
 
@@ -10224,6 +10264,8 @@ snapshots:
       json5: 1.0.2
       minimist: 1.2.8
       strip-bom: 3.0.0
+
+  tslib@1.14.1: {}
 
   tslib@2.6.2: {}
 

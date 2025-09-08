@@ -13,14 +13,6 @@ const onClick = () => {
 </script>
 
 <template>
-  <FeatureSpotlight
-    :title="$t('COSMOS.ASSISTANTS.EMPTY_STATE.FEATURE_SPOTLIGHT.TITLE')"
-    :note="$t('COSMOS.ASSISTANTS.EMPTY_STATE.FEATURE_SPOTLIGHT.NOTE')"
-    fallback-thumbnail="/assets/images/dashboard/cosmos/assistant-light.svg"
-    fallback-thumbnail-dark="/assets/images/dashboard/cosmos/assistant-dark.svg"
-    learn-more-url="https://chwt.app/cosmos-assistant"
-    class="mb-8"
-  />
   <EmptyStateLayout
     :title="$t('COSMOS.ASSISTANTS.EMPTY_STATE.TITLE')"
     :subtitle="$t('COSMOS.ASSISTANTS.EMPTY_STATE.SUBTITLE')"
