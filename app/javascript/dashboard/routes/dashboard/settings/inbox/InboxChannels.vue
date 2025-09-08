@@ -1,9 +1,14 @@
 <script>
 import { mapGetters } from 'vuex';
-import globalConfigMixin from 'shared/mixins/globalConfigMixin';
+import { useBranding } from 'shared/composables/useBranding';
 
 export default {
-  mixins: [globalConfigMixin],
+  setup() {
+    const { replaceInstallationName } = useBranding();
+    return {
+      replaceInstallationName,
+    };
+  },
   computed: {
     ...mapGetters({
       globalConfig: 'globalConfig/get',
@@ -41,10 +46,7 @@ export default {
     items() {
       return this.createFlowSteps.map(item => ({
         ...item,
-        body: this.useInstallationName(
-          item.body,
-          this.globalConfig.installationName
-        ),
+        body: this.replaceInstallationName(item.body),
       }));
     },
   },
