@@ -1,4 +1,4 @@
-module Enterprise::Concerns::AssignmentPolicy
+module Starchat::Concerns::AssignmentPolicy
   extend ActiveSupport::Concern
 
   included do
