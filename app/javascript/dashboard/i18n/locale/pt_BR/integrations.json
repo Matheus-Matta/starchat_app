@@ -345,10 +345,10 @@
     "NAME": "Capitão",
     "HEADER_KNOW_MORE": "Know more",
     "COPILOT": {
-      "TITLE": "Cosmoso",
+      "TITLE": "Cosmos",
       "TRY_THESE_PROMPTS": "Experimente estes comandos",
-      "PANEL_TITLE": "Comece a usar o Cosmoso",
-      "KICK_OFF_MESSAGE": "Precisa de um resumo rápido, quer verificar conversas passadas ou redigir uma resposta melhor? O Cosmoso está aqui para acelerar as coisas.",
+      "PANEL_TITLE": "Comece a usar o Cosmos",
+      "KICK_OFF_MESSAGE": "Precisa de um resumo rápido, quer verificar conversas passadas ou redigir uma resposta melhor? O Cosmos está aqui para acelerar as coisas.",
       "SEND_MESSAGE": "Enviar mensagem...",
       "EMPTY_MESSAGE": "Houve um erro ao gerar a resposta. Por favor, tente novamente.",
       "LOADER": "Capitão está pensando",

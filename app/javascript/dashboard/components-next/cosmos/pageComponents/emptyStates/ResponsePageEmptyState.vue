@@ -2,7 +2,6 @@
 import EmptyStateLayout from 'dashboard/components-next/EmptyStateLayout.vue';
 import Button from 'dashboard/components-next/button/Button.vue';
 import ResponseCard from 'dashboard/components-next/cosmos/assistant/ResponseCard.vue';
-import FeatureSpotlight from 'dashboard/components-next/feature-spotlight/FeatureSpotlight.vue';
 import { responsesList } from 'dashboard/components-next/cosmos/pageComponents/emptyStates/cosmosEmptyStateContent.js';
 
 const emit = defineEmits(['click']);
@@ -13,14 +12,6 @@ const onClick = () => {
 </script>
 
 <template>
-  <FeatureSpotlight
-    :title="$t('COSMOS.RESPONSES.EMPTY_STATE.FEATURE_SPOTLIGHT.TITLE')"
-    :note="$t('COSMOS.RESPONSES.EMPTY_STATE.FEATURE_SPOTLIGHT.NOTE')"
-    fallback-thumbnail="/assets/images/dashboard/cosmos/faqs-light.svg"
-    fallback-thumbnail-dark="/assets/images/dashboard/cosmos/faqs-dark.svg"
-    learn-more-url="https://chwt.app/cosmos-faq"
-    class="mb-8"
-  />
   <EmptyStateLayout
     :title="$t('COSMOS.RESPONSES.EMPTY_STATE.TITLE')"
     :subtitle="$t('COSMOS.RESPONSES.EMPTY_STATE.SUBTITLE')"
