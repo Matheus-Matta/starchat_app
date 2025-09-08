@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 {
   "COMPONENTS": {
     "FILE_BUBBLE": {
@@ -141,7 +140,6 @@
     "REPLY_TO": "Respondendo a:"
   }
 }
-=======
 {
   "COMPONENTS": {
     "FILE_BUBBLE": {
@@ -289,4 +287,3 @@
     "REPLY_TO": "Respondendo a:"
   }
 }
->>>>>>> v4.5.0
