@@ -118,6 +118,17 @@ const messagePreviewClass = computed(() => {
   ];
 });
 
+const waProfilePicUrl = computed(() => {
+  const c = currentContact.value || {};
+  const ca = c.custom_attributes || {};
+  const aa = c.additional_attributes || {};
+  return (
+    (ca.wa_profile_pic_url && String(ca.wa_profile_pic_url).trim()) ||
+    (aa.wa_profile_pic_url && String(aa.wa_profile_pic_url).trim()) ||
+    ''
+  );
+});
+
 const conversationPath = computed(() => {
   return frontendURL(
     conversationUrl({
@@ -248,6 +259,7 @@ const deleteConversation = () => {
         v-if="!hideThumbnail"
         :name="currentContact.name"
         :src="currentContact.thumbnail"
+        :fallback-src="waProfilePicUrl"
         :size="32"
         :status="currentContact.availability_status"
         :inbox="inbox"

@@ -12,6 +12,10 @@ const props = defineProps({
     type: String,
     default: '',
   },
+  fallbackSrc: {
+    type: String,
+    default: '',
+  },
   name: {
     type: String,
     required: true,
@@ -53,6 +57,9 @@ const emit = defineEmits(['upload', 'delete']);
 const { t } = useI18n();
 
 const isImageValid = ref(true);
+const triedFallback = ref(false);
+const currentSrc = ref(props.src || props.fallbackSrc || '');
+
 const fileInput = ref(null);
 
 const AVATAR_COLORS = {
@@ -145,6 +152,16 @@ const initialsStyles = computed(() => ({
 }));
 
 const invalidateCurrentImage = () => {
+  if (
+    props.fallbackSrc &&
+    !triedFallback.value &&
+    currentSrc.value !== props.fallbackSrc
+  ) {
+    triedFallback.value = true;
+    isImageValid.value = true;
+    currentSrc.value = props.fallbackSrc;
+    return;
+  }
   isImageValid.value = false;
 };
 
@@ -176,8 +193,16 @@ const handleDismiss = event => {
 
 watch(
   () => props.src,
-  () => {
+  val => {
+    triedFallback.value = false;
     isImageValid.value = true;
+    currentSrc.value = val || props.fallbackSrc || '';
+  }
+);
+watch(
+  () => props.fallbackSrc,
+  val => {
+    if (!currentSrc.value) currentSrc.value = val || '';
   }
 );
 </script>
@@ -229,8 +254,8 @@ watch(
     >
       <!-- Avatar Content -->
       <img
-        v-if="src && isImageValid"
-        :src="src"
+        v-if="currentSrc && isImageValid"
+        :src="currentSrc"
         :alt="name"
         @error="invalidateCurrentImage"
       />

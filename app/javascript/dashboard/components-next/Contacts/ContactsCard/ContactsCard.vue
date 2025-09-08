@@ -15,6 +15,7 @@ const props = defineProps({
   name: { type: String, default: '' },
   email: { type: String, default: '' },
   additionalAttributes: { type: Object, default: () => ({}) },
+  customAttributes: { type: Object, default: () => ({}) },
   phoneNumber: { type: String, default: '' },
   thumbnail: { type: String, default: '' },
   availabilityStatus: { type: String, default: null },
@@ -88,6 +89,14 @@ const onClickExpand = () => {
 };
 
 const onClickViewDetails = () => emit('showContact', props.id);
+
+const waProfilePicUrl = computed(() => {
+  const aa = props.additionalAttributes || {};
+  const ca = props.customAttributes || {};
+  const w1 = aa.wa_profile_pic_url || aa.waProfilePicUrl || aa.waProfilePicURL;
+  const w2 = ca.wa_profile_pic_url || ca.waProfilePicUrl || ca.waProfilePicURL;
+  return String(w1 || w2 || '').trim();
+});
 </script>
 
 <template>
@@ -96,6 +105,7 @@ const onClickViewDetails = () => emit('showContact', props.id);
       <Avatar
         :name="name"
         :src="thumbnail"
+        :fallback-src="waProfilePicUrl"
         :size="48"
         :status="availabilityStatus"
         hide-offline-status
