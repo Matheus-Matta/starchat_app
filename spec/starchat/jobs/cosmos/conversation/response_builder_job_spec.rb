@@ -9,6 +9,7 @@ RSpec.describe Cosmos::Conversation::ResponseBuilderJob, type: :job do
   describe '#perform' do
     let(:conversation) { create(:conversation, inbox: inbox, account: account) }
     let(:mock_llm_chat_service) { instance_double(Cosmos::Llm::AssistantChatService) }
+    let(:mock_agent_runner_service) { instance_double(Cosmos::Assistant::AgentRunnerService) }
 
     before do
       create(:message, conversation: conversation, content: 'Hello', message_type: :incoming)
@@ -16,19 +17,35 @@ RSpec.describe Cosmos::Conversation::ResponseBuilderJob, type: :job do
       allow(inbox).to receive(:cosmos_active?).and_return(true)
       allow(Cosmos::Llm::AssistantChatService).to receive(:new).and_return(mock_llm_chat_service)
       allow(mock_llm_chat_service).to receive(:generate_response).and_return({ 'response' => 'Hey, welcome to cosmos Specs' })
+      allow(Cosmos::Assistant::AgentRunnerService).to receive(:new).and_return(mock_agent_runner_service)
+      allow(mock_agent_runner_service).to receive(:generate_response).and_return({ 'response' => 'Hey, welcome to Cosmos V2' })
     end
+
+    context 'when Cosmos_v2 is disabled' do
+      before do
+        allow(account).to receive(:feature_enabled?).and_return(false)
+        allow(account).to receive(:feature_enabled?).with('cosmos_integration_v2').and_return(false)
+      end
+
+      it 'uses Cosmos::Llm::AssistantChatService' do
+        expect(Cosmos::Llm::AssistantChatService).to receive(:new).with(assistant: assistant)
+        expect(Cosmos::Assistant::AgentRunnerService).not_to receive(:new)
+
+        described_class.perform_now(conversation, assistant)
+        expect(conversation.messages.last.content).to eq('Hey, welcome to Cosmos Specs')
+      end
 
     it 'generates and processes response' do
       described_class.perform_now(conversation, assistant)
       expect(conversation.messages.count).to eq(2)
       expect(conversation.messages.outgoing.count).to eq(1)
-      expect(conversation.messages.last.content).to eq('Hey, welcome to cosmos Specs')
+      expect(conversation.messages.last.content).to eq('Hey, welcome to Cosmos Specs')
     end
 
     it 'increments usage response' do
       described_class.perform_now(conversation, assistant)
       account.reload
-      expect(account.usage_limits[:cosmos][:responses][:consumed]).to eq(1)
+      expect(account.usage_limits[:Cosmos][:responses][:consumed]).to eq(1)
     end
 
     context 'when message contains an image' do

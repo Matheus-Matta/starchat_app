@@ -148,7 +148,7 @@ export const getInboxClassByType = (type, phoneNumber) => {
   }
 };
 
-export const getInboxIconByType = (type, phoneNumber, variant = 'fill') => {
+export const getInboxIconByType = (type, medium, variant = 'fill') => {
   const iconMap =
     variant === 'fill' ? INBOX_ICON_MAP_FILL : INBOX_ICON_MAP_LINE;
   const defaultIcon =
@@ -157,9 +157,9 @@ export const getInboxIconByType = (type, phoneNumber, variant = 'fill') => {
   // Special case for Twilio (whatsapp and sms)
   if (
     type === INBOX_TYPES.TWILIO &&
-    INBOX_TYPES.EVOLUTION &&
-    phoneNumber?.startsWith('whatsapp')
-  ) {
+    type === INBOX_TYPES.EVOLUTION &&
+    medium === 'whatsapp')
+   {
     return iconMap[INBOX_TYPES.WHATSAPP];
   }
 
