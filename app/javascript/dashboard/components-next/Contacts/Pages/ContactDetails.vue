@@ -4,6 +4,7 @@ import { useI18n } from 'vue-i18n';
 import { useStore, useMapGetter } from 'dashboard/composables/store';
 import { useAlert } from 'dashboard/composables';
 import { dynamicTime } from 'shared/helpers/timeHelper';
+import { watch } from 'vue';
 
 import Avatar from 'dashboard/components-next/avatar/Avatar.vue';
 import Button from 'dashboard/components-next/button/Button.vue';
@@ -20,13 +21,42 @@ const props = defineProps({
 
 const emit = defineEmits(['goToContactsList']);
 
+// Declare refs before usage in watch
+const contactData = ref({});
+const avatarUrl = ref('');
+const waProfilePicUrl = computed(() => {
+  const c = contactData.value ?? {};
+  const aa = c.additional_attributes || c.additionalAttributes || {};
+  const ca = c.custom_attributes || c.customAttributes || {};
+
+  const url =
+    aa.wa_profile_pic_url ||
+    aa.waProfilePicUrl ||
+    aa.waProfilePicURL ||
+    ca.wa_profile_pic_url ||
+    ca.waProfilePicUrl ||
+    ca.waProfilePicURL ||
+    '';
+
+  return typeof url === 'string' ? url.trim() : '';
+});
+
+watch(
+  () => props.selectedContact,
+  val => {
+    if (!val) return;
+    contactData.value = { ...val };
+    avatarUrl.value = '';
+  },
+  { immediate: true }
+);
+
 const { t } = useI18n();
 const store = useStore();
 
 const confirmDeleteContactDialogRef = ref(null);
 
 const avatarFile = ref(null);
-const avatarUrl = ref('');
 
 const contactsFormRef = ref(null);
 
@@ -34,8 +64,6 @@ const uiFlags = useMapGetter('contacts/getUIFlags');
 const isUpdating = computed(() => uiFlags.value.isUpdating);
 
 const isFormInvalid = computed(() => contactsFormRef.value?.isFormInvalid);
-
-const contactData = ref({});
 
 const getInitialContactData = () => {
   if (!props.selectedContact) return {};
@@ -59,7 +87,10 @@ const lastActivityAt = computed(() => {
 });
 
 const avatarSrc = computed(() => {
-  return avatarUrl.value ? avatarUrl.value : contactData.value?.thumbnail;
+  const manual = (avatarUrl.value || '').trim();
+  const thumb = (contactData.value?.thumbnail || '').trim();
+
+  return manual || thumb || waProfilePicUrl.value || '';
 });
 
 const handleFormUpdate = updatedData => {
@@ -124,6 +155,7 @@ const handleAvatarDelete = async () => {
     <div class="flex flex-col items-start gap-3">
       <Avatar
         :src="avatarSrc || ''"
+        :fallback-src="waProfilePicUrl"
         :name="selectedContact?.name || ''"
         :size="72"
         allow-upload

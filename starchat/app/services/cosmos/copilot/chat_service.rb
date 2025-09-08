@@ -76,7 +76,8 @@ class Cosmos::Copilot::ChatService < Llm::BaseOpenAiService
       role: 'system',
       content: Cosmos::Llm::SystemPromptsService.copilot_response_generator(
         @assistant.config['product_name'],
-        @tool_registry.tools_summary
+        @tool_registry.tools_summary,
+        @assistant.config
       )
     }
   end
