@@ -300,6 +300,15 @@ Rails.application.routes.draw do
                 delete :destroy
               end
             end
+            resource :typebot, controller: 'typebot', only: [] do
+              collection do
+                post :create     
+                put  :update      
+                delete :destroy  
+                post :send_message
+                post :webhook
+              end
+            end
           end
           resources :working_hours, only: [:update]
 

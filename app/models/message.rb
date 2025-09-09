@@ -131,6 +131,8 @@ class Message < ApplicationRecord
 
   after_update_commit :dispatch_update_event
 
+  after_commit :dispatch_integration_events, on: :create
+  
   def channel_token
     @token ||= inbox.channel.try(:page_access_token)
   end
@@ -405,6 +407,17 @@ class Message < ApplicationRecord
     # rubocop:disable Rails/SkipsModelValidations
     conversation.update_columns(last_activity_at: created_at)
     # rubocop:enable Rails/SkipsModelValidations
+  end
+
+  def dispatch_integration_events
+    return unless incoming?
+    return unless conversation&.inbox_id && conversation&.account_id
+    hooks = Integrations::Hook.enabled
+              .where(account_id: conversation.account_id, inbox_id: conversation.inbox_id, app_id: 'typebot')
+    event = { name: 'message_created', data: { message_id: id } }
+    hooks.find_each do |hook|
+      Integrations::Typebot::ProcessEventJob.perform_later(hook.id, event)
+    end
   end
 end
 

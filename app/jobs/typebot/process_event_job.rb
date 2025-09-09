@@ -1,0 +1,11 @@
+class Typebot::ProcessEventJob < ApplicationJob
+  queue_as :integrations 
+
+  def perform(hook_id, event_hash)
+    hook  = Integrations::Hook.find_by(id: hook_id, app_id: 'typebot')
+    return unless hook
+
+    event = event_hash.deep_symbolize_keys
+    Integrations::Typebot::ProcessorService.new(hook: hook, event: event).perform
+  end
+end

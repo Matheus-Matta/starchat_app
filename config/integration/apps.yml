@@ -284,3 +284,45 @@ leadsquared:
       'conversation_activity_score',
       'transcript_activity_score',
     ]
+
+typebot:
+  id: typebot
+  logo: typebot.png             
+  i18n_key: typebot               
+  hook_type: inbox
+  allow_multiple_hooks: true
+  settings_json_schema:
+    {
+      'type': 'object',
+      'properties':
+        {
+          'share_url': { 'type': 'string', 'format': 'uri' },
+          'api_token': { 'type': 'string' },
+          'session_ttl_seconds': { 'type': 'integer', 'minimum': 60 },
+        },
+      'required': ['share_url', 'api_token'],
+      'additionalProperties': false,
+    }
+  settings_form_schema:
+    [
+      {
+        'label': 'Typebot Share URL',
+        'type': 'text',
+        'name': 'share_url',
+        'placeholder': 'https://type-view.seu.dominio/slug-do-bot',
+        'validation': 'required|url',
+      },
+      {
+        'label': 'API Token do Typebot',
+        'type': 'password',
+        'name': 'api_token',
+        'validation': 'required',
+      },
+      {
+        'label': 'Expiração do fluxo (segundos)',
+        'type': 'number',
+        'name': 'session_ttl_seconds',
+        'placeholder': '86400',
+      },
+    ]
+  visible_properties: ['share_url','session_ttl_seconds']
