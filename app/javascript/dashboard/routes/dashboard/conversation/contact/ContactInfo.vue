@@ -88,19 +88,29 @@ export default {
         ...(socialProfiles || {}),
       };
     },
-    // Delete Modal
+
     confirmDeleteMessage() {
       return ` ${this.contact.name}?`;
     },
+
     waProfilePicUrl() {
       const c = this.contact || {};
-      return (
-        (c.custom_attributes && c.custom_attributes.wa_profile_pic_url) ||
-        (c.additional_attributes &&
-          c.additional_attributes.wa_profile_pic_url) ||
-        ''
-      );
+      const aa = c.additional_attributes || c.additionalAttributes || {};
+      const ca = c.custom_attributes || c.customAttributes || {};
+      const url =
+        aa.wa_profile_pic_url ||
+        aa.waProfilePicUrl ||
+        aa.waProfilePicURL ||
+        ca.wa_profile_pic_url ||
+        ca.waProfilePicUrl ||
+        ca.waProfilePicURL ||
+        '';
+      return typeof url === 'string' ? url.trim() : '';
     },
+  },
+  avatarSrc() {
+    const t = (this.contact?.thumbnail || '').trim();
+    return t || this.waProfilePicUrl || '';
   },
   watch: {
     'contact.id': {
@@ -192,7 +202,8 @@ export default {
       <div class="flex flex-row justify-between">
         <Thumbnail
           v-if="showAvatar"
-          :src="contact.thumbnail"
+          :key="`${contact.id}`"
+          :src="avatarSrc"
           :fallback-src="waProfilePicUrl"
           size="48px"
           :username="contact.name"
