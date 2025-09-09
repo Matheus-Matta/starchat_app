@@ -57,7 +57,7 @@
     },
     "SIDEBAR_DESCRIPTION": {
       "DIALOGFLOW": "Dialogflow é uma plataforma de processamento de linguagem natural para a construção de interfaces conversais. Integrá-lo com {installationName} permite que os bots lidem primeiro com consultas e transfiram para os agentes quando necessário. Ele ajuda a qualificar leads e reduzir a carga de trabalho dos agentes respondendo às FAQ. Para adicionar um fluxo de diálogo (Dialogflow), crie uma Conta de Serviço no Google Console e compartilhe as credenciais. Consulte sua documentação para obter detalhes",
-      "TYPEBOT": "Conecte fluxos do Typebot ao Chatwoot para automatizar a triagem e transferir clientes a agentes quando preciso. Informe a URL de compartilhamento, selecione o Inbox e defina o tempo de expiração da sessão. As mensagens dos clientes seguem para o Typebot em tempo real e as respostas retornam no painel como mensagens do bot."
+      "TYPEBOT": "Conecte fluxos do Typebot ao Starchats para automatizar a triagem e transferir clientes a agentes quando preciso. Informe a URL de compartilhamento, selecione o Inbox e defina o tempo de expiração da sessão. As mensagens dos clientes seguem para o Typebot em tempo real e as respostas retornam no painel como mensagens do bot."
     }
   }
 }
