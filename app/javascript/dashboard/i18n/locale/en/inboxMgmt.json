@@ -43,7 +43,7 @@
       }
     },
     "ADD": {
-      "EVOLUTION_QR":{
+      "EVOLUTION_QR": {
         "PAIRING_CODE": "Pairing Code",
         "GET_QRCODE": "Get Qr Code",
         "INSTRUCTIONS": {
@@ -146,45 +146,45 @@
         }
       },
       "EVOLUTION": {
-          "TITLE": "Evolution API",
-          "DESC": "Create a WhatsApp inbox using your Evolution instance. Enter your instance details below and pair the device by scanning the QR code.",
-          "WARNING_TITLE": "Before you continue",
-          "WARNING_TEXT": "Using WhatsApp must comply with Meta/WhatsApp policies. Review the rules below to avoid account restrictions or bans.",
-          "WARNING_LINK_TEXT": "Read WhatsApp Business Policy",
-          "WARNING_LINK_URL": "https://www.whatsapp.com/legal/business-policy/",
-          "HINT_CONNECT_TO_SHOW_QR": "Click connect to show QrCode",
-          "FIELDS": {
-            "INBOX_NAME": {
-              "LABEL": "Inbox Name",
-              "PLACEHOLDER": "e.g. Support WhatsApp",
-              "ERROR": "Please enter a valid inbox name"
-            }
-          },
-          "STATES": {
-            "RESTART": "Restart",
-            "OPEN": "Connect",
-            "CLOSE": "Disconnect",
-            "CONNECTING": "Connecting...",
-            "DISCONNECTED": "Disconnect",
-            "CONNECTED": "You are connected!"
-          },
-          "ACTIONS": {
-            "CREATE_INBOX": "Create Evolution Channel",
-            "GENERATE_QR": "Generate QR Code",
-            "SUBSCRIBE_LIVE": "Show QR/Status live",
-            "STOP_LIVE": "Stop live"
-          },
-          "QR": {
-            "PANEL_TITLE": "Pairing QR",
-            "WAITING": "Waiting for QR code…",
-            "INSTRUCTION": "Open WhatsApp > Linked devices > Link a device, then scan the QR to connect:",
-            "INSTRUCTION_WITH_INBOX": "Open WhatsApp > Linked devices > Link a device, then scan the QR to connect to “{inboxName}”.",
-            "STATE_LABEL": "Connection state"
-          },
-          "API": {
-            "ERROR_MESSAGE": "We couldn't create the Evolution inbox. Please check your credentials and try again."
+        "TITLE": "Evolution API",
+        "DESC": "Create a WhatsApp inbox using your Evolution instance. Enter your instance details below and pair the device by scanning the QR code.",
+        "WARNING_TITLE": "Before you continue",
+        "WARNING_TEXT": "Using WhatsApp must comply with Meta/WhatsApp policies. Review the rules below to avoid account restrictions or bans.",
+        "WARNING_LINK_TEXT": "Read WhatsApp Business Policy",
+        "WARNING_LINK_URL": "https://www.whatsapp.com/legal/business-policy/",
+        "HINT_CONNECT_TO_SHOW_QR": "Click connect to show QrCode",
+        "FIELDS": {
+          "INBOX_NAME": {
+            "LABEL": "Inbox Name",
+            "PLACEHOLDER": "e.g. Support WhatsApp",
+            "ERROR": "Please enter a valid inbox name"
           }
-       },
+        },
+        "STATES": {
+          "RESTART": "Restart",
+          "OPEN": "Connect",
+          "CLOSE": "Disconnect",
+          "CONNECTING": "Connecting...",
+          "DISCONNECTED": "Disconnect",
+          "CONNECTED": "You are connected!"
+        },
+        "ACTIONS": {
+          "CREATE_INBOX": "Create Evolution Channel",
+          "GENERATE_QR": "Generate QR Code",
+          "SUBSCRIBE_LIVE": "Show QR/Status live",
+          "STOP_LIVE": "Stop live"
+        },
+        "QR": {
+          "PANEL_TITLE": "Pairing QR",
+          "WAITING": "Waiting for QR code…",
+          "INSTRUCTION": "Open WhatsApp > Linked devices > Link a device, then scan the QR to connect:",
+          "INSTRUCTION_WITH_INBOX": "Open WhatsApp > Linked devices > Link a device, then scan the QR to connect to “{inboxName}”.",
+          "STATE_LABEL": "Connection state"
+        },
+        "API": {
+          "ERROR_MESSAGE": "We couldn't create the Evolution inbox. Please check your credentials and try again."
+        }
+      },
       "TWILIO": {
         "TITLE": "Twilio SMS/WhatsApp Channel",
         "DESC": "Integrate Twilio and start supporting your customers via SMS or WhatsApp.",
@@ -920,7 +920,7 @@
         "AGENT_MESSAGE": "Hello"
       },
       "BRANDING_TEXT": "Powered by Starchats",
-      "SCRIPT_SETTINGS": "\n      window.chatwootSettings = {options};"
+      "SCRIPT_SETTINGS": "\n      window.starchatsSettings = {options};"
     },
     "EMAIL_PROVIDERS": {
       "MICROSOFT": "Microsoft",

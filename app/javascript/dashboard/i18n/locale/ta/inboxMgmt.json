@@ -844,7 +844,7 @@
         "AGENT_MESSAGE": "Hello"
       },
       "BRANDING_TEXT": "சாட்வுட் மூலம் இயக்கபடுகிறது",
-      "SCRIPT_SETTINGS": "\n      window.chatwootSettings = {options};"
+      "SCRIPT_SETTINGS": "\n      window.starchatsSettings = {options};"
     },
     "EMAIL_PROVIDERS": {
       "MICROSOFT": "Microsoft",

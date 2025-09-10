@@ -844,7 +844,7 @@
         "AGENT_MESSAGE": "Merhaba"
       },
       "BRANDING_TEXT": "Starchats tarafından desteklenmektedir",
-      "SCRIPT_SETTINGS": "\nwindow.chatwootSettings = {options};"
+      "SCRIPT_SETTINGS": "\nwindow.starchatsSettings = {options};"
     },
     "EMAIL_PROVIDERS": {
       "MICROSOFT": "Microsoft",

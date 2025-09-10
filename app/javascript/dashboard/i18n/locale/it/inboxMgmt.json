@@ -844,7 +844,7 @@
         "AGENT_MESSAGE": "Ciao"
       },
       "BRANDING_TEXT": "Offerto da Starchats",
-      "SCRIPT_SETTINGS": "\n      window.chatwootSettings = {options};"
+      "SCRIPT_SETTINGS": "\n      window.starchatsSettings = {options};"
     },
     "EMAIL_PROVIDERS": {
       "MICROSOFT": "Microsoft",

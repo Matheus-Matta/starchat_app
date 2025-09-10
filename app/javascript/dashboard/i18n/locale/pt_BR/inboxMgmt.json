@@ -42,7 +42,7 @@
         "ERROR": "Falha no WebSocket"
       }
     },
-    "ADD": { 
+    "ADD": {
       "EVOLUTION_QR": {
         "PAIRING_CODE": "Código de pareamento",
         "GET_QRCODE": "Gerar Qr Code",
@@ -938,7 +938,7 @@
         "AGENT_MESSAGE": "Olá"
       },
       "BRANDING_TEXT": "Desenvolvido por Starchats",
-      "SCRIPT_SETTINGS": "\n      window.chatwootSettings = {options};"
+      "SCRIPT_SETTINGS": "\n      window.starchatsSettings = {options};"
     },
     "EMAIL_PROVIDERS": {
       "MICROSOFT": "Microsoft",

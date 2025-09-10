@@ -391,7 +391,7 @@
         "SLUG": {
           "LABEL": "スラッグ",
           "PLACEHOLDER": "URL用のカテゴリーのスラッグ",
-          "HELP_TEXT": "app.chatwoot.com/hc/my-portal/en-US/categories/my-slug",
+          "HELP_TEXT": "app.starchats.com/hc/my-portal/en-US/categories/my-slug",
           "ERROR": "スラッグが必須です"
         },
         "DESCRIPTION": {
@@ -422,7 +422,7 @@
         "SLUG": {
           "LABEL": "スラッグ",
           "PLACEHOLDER": "URL用のカテゴリーのスラッグ",
-          "HELP_TEXT": "app.chatwoot.com/hc/my-portal/en-US/categories/my-slug",
+          "HELP_TEXT": "app.starchats.com/hc/my-portal/en-US/categories/my-slug",
           "ERROR": "スラッグが必須です"
         },
         "DESCRIPTION": {
@@ -606,7 +606,7 @@
             "LABEL": "スラッグ",
             "PLACEHOLDER": "URL用のカテゴリーのスラッグ",
             "ERROR": "スラッグが必須です",
-            "HELP_TEXT": "app.chatwoot.com/hc/{portalSlug}/{localeCode}/categories/{categorySlug}"
+            "HELP_TEXT": "app.starchats.com/hc/{portalSlug}/{localeCode}/categories/{categorySlug}"
           },
           "DESCRIPTION": {
             "LABEL": "説明",
@@ -761,7 +761,7 @@
           },
           "DNS_CONFIGURATION_DIALOG": {
             "HEADER": "DNS設定",
-            "DESCRIPTION": "DNSプロバイダーのアカウントにログインし、サブドメインのCNAMEレコードをchatwoot.helpにポイントするように追加してください。",
+            "DESCRIPTION": "DNSプロバイダーのアカウントにログインし、サブドメインのCNAMEレコードをstarchats.helpにポイントするように追加してください。",
             "HELP_TEXT": "これが完了したら、自動生成されたSSL証明書のリクエストのためにサポートに連絡できます。",
             "CONFIRM_BUTTON_LABEL": "了解しました！"
           }
