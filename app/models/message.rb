@@ -415,7 +415,9 @@ class Message < ApplicationRecord
     hooks = Integrations::Hook.enabled
               .where(account_id: conversation.account_id, inbox_id: conversation.inbox_id, app_id: 'typebot')
     event = { name: 'message_created', data: { message_id: id } }
+    puts "[dispatch_integration_events] hooks count: #{hooks.count}, event: #{event.inspect}"
     hooks.find_each do |hook|
+      puts "[dispatch_integration_events] Enqueuing ProcessEventJob for hook_id: #{hook.id}"
       Integrations::Typebot::ProcessEventJob.perform_later(hook.id, event)
     end
   end

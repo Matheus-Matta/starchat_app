@@ -70,7 +70,7 @@ class Integrations::Hook < ApplicationRecord
     when 'openai'
       Integrations::Openai::ProcessorService.new(hook: self, event: event).perform if app_id == 'openai'
     when 'typebot'
-      Typebot::ProcessEventJob.perform_later(id, event.deep_stringify_keys)
+      Integrations::Typebot::ProcessEventJob.perform_later(id, event.deep_stringify_keys)
     else
       { error: 'No processor found' }
     end

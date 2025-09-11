@@ -219,7 +219,7 @@ pt_BR:
     dyte:
       name: 'Dyte'
       short_description: 'Iniciar chamadas de vídeo/voz com clientes diretamente do Starchats.'
-      description: 'Dyte é um produto que integra as funcionalidades de áudio e vídeo em sua aplicação. Com esta integração, os seus agentes podem iniciar chamadas de vídeo/voz com seus clientes diretamente do chatwoot.'
+      description: 'Dyte é um produto que integra as funcionalidades de áudio e vídeo em sua aplicação. Com esta integração, os seus agentes podem iniciar chamadas de vídeo/voz com seus clientes diretamente do Starchats.'
       meeting_name: '%{agent_name} começou a reunião'
     slack:
       name: 'Slack'

@@ -287,42 +287,58 @@ leadsquared:
 
 typebot:
   id: typebot
-  logo: typebot.png             
-  i18n_key: typebot               
+  logo: typebot.png
+  i18n_key: typebot
   hook_type: inbox
+  action: /typebot
   allow_multiple_hooks: true
   settings_json_schema:
     {
       'type': 'object',
       'properties':
         {
-          'share_url': { 'type': 'string', 'format': 'uri' },
+          'base_url': { 'type': 'string', 'format': 'uri' },
+          'public_id': { 'type': 'string' },
           'api_token': { 'type': 'string' },
-          'session_ttl_seconds': { 'type': 'integer', 'minimum': 60 },
+          'session_ttl_seconds': {
+            'anyOf': [
+              { 'type': 'integer', 'minimum': 60 },
+              { 'type': 'string', 'pattern': '^[0-9]+$' }
+            ]
+          }
         },
-      'required': ['share_url', 'api_token'],
-      'additionalProperties': false,
+      'required': ['base_url','public_id','api_token'],
+      'additionalProperties': false
     }
   settings_form_schema:
     [
       {
-        'label': 'Typebot Share URL',
+        'label': 'Typebot Base URL',
         'type': 'text',
-        'name': 'share_url',
-        'placeholder': 'https://type-view.seu.dominio/slug-do-bot',
-        'validation': 'required|url',
+        'name': 'base_url',
+        'placeholder': 'https://type-view.seudominio.com',
+        'validation': 'required|url'
+      },
+      {
+        'label': 'Typebot Public ID',
+        'type': 'text',
+        'name': 'public_id',
+        'placeholder': 'ex: cal-com-2ysx6d3',
+        'validation': 'required'
       },
       {
         'label': 'API Token do Typebot',
         'type': 'password',
         'name': 'api_token',
-        'validation': 'required',
+        'validation': 'required'
       },
       {
         'label': 'Expiração do fluxo (segundos)',
         'type': 'number',
         'name': 'session_ttl_seconds',
         'placeholder': '86400',
-      },
+        'default': 86400,
+        'validation': 'min:10'
+      }
     ]
-  visible_properties: ['share_url','session_ttl_seconds']
+  visible_properties: ['base_url','public_id','session_ttl_seconds']

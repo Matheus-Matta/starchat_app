@@ -30,6 +30,7 @@
   - active_storage_analysis
   - active_storage_purge
   - action_mailbox_incineration
+  - integrations
 
 # you can override concurrency based on environment
 production:

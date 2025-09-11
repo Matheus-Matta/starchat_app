@@ -1,12 +1,12 @@
 {
   "openapi": "3.0.4",
   "info": {
-    "title": "Chatwoot",
-    "description": "This is the API documentation for Chatwoot server.",
+    "title": "Starchats",
+    "description": "This is the API documentation for Starchats server.",
     "version": "1.1.0",
-    "termsOfService": "https://www.chatwoot.com/terms-of-service/",
+    "termsOfService": "https://www.starchats.com/terms-of-service/",
     "contact": {
-      "email": "hello@chatwoot.com"
+      "email": "hello@starchats.com"
     },
     "license": {
       "name": "MIT License",
@@ -15,7 +15,7 @@
   },
   "servers": [
     {
-      "url": "https://app.chatwoot.com/"
+      "url": "https://app.starchats.com/"
     }
   ],
   "paths": {
@@ -3824,9 +3824,9 @@
                     {
                       "id": 4,
                       "color": "#1F93FF",
-                      "custom_domain": "chatwoot.help",
+                      "custom_domain": "starchats.help",
                       "header_text": "Handbook",
-                      "homepage_link": "https://www.chatwoot.com",
+                      "homepage_link": "https://www.starchats.com",
                       "name": "Handbook",
                       "page_title": "Handbook",
                       "slug": "handbook",
@@ -3845,11 +3845,11 @@
                         "id": 37,
                         "avatar_url": "https://example.com/avatar.png",
                         "channel_id": 1,
-                        "name": "Chatwoot",
+                        "name": "Starchats",
                         "channel_type": "Channel::WebWidget",
                         "greeting_enabled": true,
                         "widget_color": "#1F93FF",
-                        "website_url": "chatwoot.com"
+                        "website_url": "starchats.com"
                       },
                       "logo": {
                         "id": 19399916,
@@ -3945,17 +3945,17 @@
                         }
                       ]
                     },
-                    "custom_domain": "chatwoot.help",
+                    "custom_domain": "starchats.help",
                     "header_text": "Handbook",
-                    "homepage_link": "https://www.chatwoot.com",
+                    "homepage_link": "https://www.starchats.com",
                     "name": "Handbook",
                     "slug": "handbook",
                     "page_title": "Handbook",
                     "account_id": 123,
                     "inbox": {
                       "id": 123,
-                      "name": "Chatwoot",
-                      "website_url": "chatwoot.com",
+                      "name": "Starchats",
+                      "website_url": "starchats.com",
                       "channel_type": "Channel::WebWidget",
                       "avatar_url": "https://example.com/avatar.png",
                       "widget_color": "#1F93FF",
@@ -3971,7 +3971,7 @@
                       "enable_email_collect": true,
                       "csat_survey_enabled": true,
                       "timezone": "America/Los_Angeles",
-                      "business_name": "Chatwoot",
+                      "business_name": "Starchats",
                       "hmac_mandatory": true
                     },
                     "logo": {
@@ -4358,7 +4358,7 @@
         ],
         "operationId": "newConversation",
         "summary": "Create New Conversation",
-        "description": "Creating a conversation in chatwoot requires a source id. \n\n Learn more about source_id: https://www.chatwoot.com/hc/user-guide/articles/1677839703-how-to-create-an-api-channel-inbox#send-messages-to-the-api-channel",
+        "description": "Creating a conversation in starchats requires a source id. \n\n Learn more about source_id: https://www.starchats.com/hc/user-guide/articles/1677839703-how-to-create-an-api-channel-inbox#send-messages-to-the-api-channel",
         "security": [
           {
             "userApiKey": []
@@ -8595,7 +8595,7 @@
               "busy",
               "offline"
             ],
-            "description": "The availability status of the agent computed by Chatwoot."
+            "description": "The availability status of the agent computed by Starchats."
           },
           "auto_offline": {
             "type": "boolean",
@@ -9119,7 +9119,7 @@
             "properties": {
               "latest_chatwoot_version": {
                 "type": "string",
-                "description": "Latest version of Chatwoot available",
+                "description": "Latest version of Starchats available",
                 "example": "3.0.0"
               },
               "subscribed_features": {
@@ -9362,7 +9362,7 @@
           },
           "pubsub_token": {
             "type": "string",
-            "description": "The token to be used to connect to chatwoot websocket"
+            "description": "The token to be used to connect to starchats websocket"
           }
         }
       },
@@ -10089,7 +10089,7 @@
                     "type": "object",
                     "description": "The processed param values for template variables in template",
                     "example": {
-                      "1": "Chatwoot"
+                      "1": "Starchats"
                     }
                   }
                 }
@@ -10661,7 +10661,7 @@
           "custom_domain": {
             "type": "string",
             "description": "Custom domain to display help center.",
-            "example": "chatwoot.help"
+            "example": "starchats.help"
           },
           "header_text": {
             "type": "string",
@@ -10671,7 +10671,7 @@
           "homepage_link": {
             "type": "string",
             "description": "link to main dashboard",
-            "example": "https://www.chatwoot.com/"
+            "example": "https://www.starchats.com/"
           },
           "name": {
             "type": "string",
@@ -12090,7 +12090,7 @@
         "schema": {
           "type": "string"
         },
-        "description": "Id of the session for which the conversation is created.\n\n\n\n Source Ids can be obtained through contactable inboxes API or via generated.<br/><br/>Website: Chatwoot generated string which can be obtained from webhook events. <br/> Phone Channels(Twilio): Phone number in e164 format <br/> Email Channels: Contact Email address <br/> API Channel: Any Random String"
+        "description": "Id of the session for which the conversation is created.\n\n\n\n Source Ids can be obtained through contactable inboxes API or via generated.<br/><br/>Website: Starchats generated string which can be obtained from webhook events. <br/> Phone Channels(Twilio): Phone number in e164 format <br/> Email Channels: Contact Email address <br/> API Channel: Any Random String"
       },
       "contact_sort_param": {
         "in": "query",
