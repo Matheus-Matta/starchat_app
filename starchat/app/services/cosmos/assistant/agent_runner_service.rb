@@ -1,6 +1,6 @@
 require 'agents'
 
-class Captain::Assistant::AgentRunnerService
+class Cosmos::Assistant::AgentRunnerService
   CONVERSATION_STATE_ATTRIBUTES = %i[
     id display_id inbox_id contact_id status priority
     label_list custom_attributes additional_attributes
@@ -30,7 +30,7 @@ class Captain::Assistant::AgentRunnerService
     # when running the agent runner service in a rake task, the conversation might not have an account associated
     # for regular production usage, it will run just fine
     ChatwootExceptionTracker.new(e, account: @conversation&.account).capture_exception
-    Rails.logger.error "[Captain V2] AgentRunnerService error: #{e.message}"
+    Rails.logger.error "[Cosmos V2] AgentRunnerService error: #{e.message}"
     Rails.logger.error e.backtrace.join("\n")
 
     error_response(e.message)
@@ -73,7 +73,7 @@ class Captain::Assistant::AgentRunnerService
 
   # Response formatting methods
   def process_agent_result(result)
-    Rails.logger.info "[Captain V2] Agent result: #{result.inspect}"
+    Rails.logger.info "[Cosmos V2] Agent result: #{result.inspect}"
     format_response(result.output)
   end
 
@@ -131,7 +131,7 @@ class Captain::Assistant::AgentRunnerService
     runner.on_agent_thinking do |*args|
       @callbacks[:on_agent_thinking].call(*args)
     rescue StandardError => e
-      Rails.logger.warn "[Captain] Callback error for agent_thinking: #{e.message}"
+      Rails.logger.warn "[Cosmos] Callback error for agent_thinking: #{e.message}"
     end
   end
 
@@ -139,7 +139,7 @@ class Captain::Assistant::AgentRunnerService
     runner.on_tool_start do |*args|
       @callbacks[:on_tool_start].call(*args)
     rescue StandardError => e
-      Rails.logger.warn "[Captain] Callback error for tool_start: #{e.message}"
+      Rails.logger.warn "[Cosmos] Callback error for tool_start: #{e.message}"
     end
   end
 
@@ -147,7 +147,7 @@ class Captain::Assistant::AgentRunnerService
     runner.on_tool_complete do |*args|
       @callbacks[:on_tool_complete].call(*args)
     rescue StandardError => e
-      Rails.logger.warn "[Captain] Callback error for tool_complete: #{e.message}"
+      Rails.logger.warn "[Cosmos] Callback error for tool_complete: #{e.message}"
     end
   end
 
@@ -155,7 +155,7 @@ class Captain::Assistant::AgentRunnerService
     runner.on_agent_handoff do |*args|
       @callbacks[:on_agent_handoff].call(*args)
     rescue StandardError => e
-      Rails.logger.warn "[Captain] Callback error for agent_handoff: #{e.message}"
+      Rails.logger.warn "[Cosmos] Callback error for agent_handoff: #{e.message}"
     end
   end
 end
