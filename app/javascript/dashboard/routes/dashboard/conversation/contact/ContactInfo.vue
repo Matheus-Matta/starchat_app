@@ -11,6 +11,7 @@ import ContactMergeModal from 'dashboard/modules/contact/ContactMergeModal.vue';
 import ComposeConversation from 'dashboard/components-next/NewConversation/ComposeConversation.vue';
 import { BUS_EVENTS } from 'shared/constants/busEvents';
 import NextButton from 'dashboard/components-next/button/Button.vue';
+import VoiceCallButton from 'dashboard/components-next/Contacts/VoiceCallButton.vue';
 
 import {
   isAConversationRoute,
@@ -28,6 +29,7 @@ export default {
     ComposeConversation,
     SocialIcons,
     ContactMergeModal,
+    VoiceCallButton,
   },
   props: {
     contact: {
@@ -86,19 +88,29 @@ export default {
         ...(socialProfiles || {}),
       };
     },
-    // Delete Modal
+
     confirmDeleteMessage() {
       return ` ${this.contact.name}?`;
     },
+
     waProfilePicUrl() {
       const c = this.contact || {};
-      return (
-        (c.custom_attributes && c.custom_attributes.wa_profile_pic_url) ||
-        (c.additional_attributes &&
-          c.additional_attributes.wa_profile_pic_url) ||
-        ''
-      );
+      const aa = c.additional_attributes || c.additionalAttributes || {};
+      const ca = c.custom_attributes || c.customAttributes || {};
+      const url =
+        aa.wa_profile_pic_url ||
+        aa.waProfilePicUrl ||
+        aa.waProfilePicURL ||
+        ca.wa_profile_pic_url ||
+        ca.waProfilePicUrl ||
+        ca.waProfilePicURL ||
+        '';
+      return typeof url === 'string' ? url.trim() : '';
     },
+  },
+  avatarSrc() {
+    const t = (this.contact?.thumbnail || '').trim();
+    return t || this.waProfilePicUrl || '';
   },
   watch: {
     'contact.id': {
@@ -190,7 +202,8 @@ export default {
       <div class="flex flex-row justify-between">
         <Thumbnail
           v-if="showAvatar"
-          :src="contact.thumbnail"
+          :key="`${contact.id}`"
+          :src="avatarSrc"
           :fallback-src="waProfilePicUrl"
           size="48px"
           :username="contact.name"
@@ -286,6 +299,14 @@ export default {
             />
           </template>
         </ComposeConversation>
+        <VoiceCallButton
+          :phone="contact.phone_number"
+          icon="i-ri-phone-fill"
+          size="sm"
+          :tooltip-label="$t('CONTACT_PANEL.CALL')"
+          slate
+          faded
+        />
         <NextButton
           v-tooltip.top-end="$t('EDIT_CONTACT.BUTTON_LABEL')"
           icon="i-ph-pencil-simple"
