@@ -61,3 +61,6 @@ RAILS_ENV=production bundle exec rails server -b 0.0.0.0 -p 3000
 
 # 13. Iniciar o Sidekiq
 RAILS_ENV=production bundle exec sidekiq -e production -C config/sidekiq.yml
+
+#14. compilar web
+RAILS_ENV=production bundle exec rake assets:precompile

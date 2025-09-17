@@ -175,10 +175,7 @@ watch(
 <template>
   <form class="flex flex-col gap-4" @submit.prevent="handleSubmit">
     <!-- Basic Information Section -->
-    <Accordion
-      :title="t('COSMOS.ASSISTANTS.FORM.SECTIONS.BASIC_INFO')"
-      is-open
-    >
+    <Accordion :title="t('COSMOS.ASSISTANTS.FORM.SECTIONS.BASIC_INFO')" is-open>
       <div class="flex flex-col gap-4 pt-4">
         <Input
           v-model="state.name"
@@ -263,9 +260,7 @@ watch(
         <Editor
           v-model="state.handoffMessage"
           :label="t('COSMOS.ASSISTANTS.FORM.HANDOFF_MESSAGE.LABEL')"
-          :placeholder="
-            t('COSMOS.ASSISTANTS.FORM.HANDOFF_MESSAGE.PLACEHOLDER')
-          "
+          :placeholder="t('COSMOS.ASSISTANTS.FORM.HANDOFF_MESSAGE.PLACEHOLDER')"
           :message="formErrors.handoffMessage"
           :message-type="formErrors.handoffMessage ? 'error' : 'info'"
         />
@@ -304,9 +299,7 @@ watch(
                 v-model="state.features.conversationFaqs"
                 type="checkbox"
               />
-              {{
-                t('COSMOS.ASSISTANTS.FORM.FEATURES.ALLOW_CONVERSATION_FAQS')
-              }}
+              {{ t('COSMOS.ASSISTANTS.FORM.FEATURES.ALLOW_CONVERSATION_FAQS') }}
             </label>
             <label class="flex items-center gap-2">
               <input v-model="state.features.memories" type="checkbox" />
@@ -314,7 +307,7 @@ watch(
             </label>
             <label class="flex items-center gap-2">
               <input v-model="state.features.citations" type="checkbox" />
-              {{ t('CAPTAIN.ASSISTANTS.FORM.FEATURES.ALLOW_CITATIONS') }}
+              {{ t('COSMOS.ASSISTANTS.FORM.FEATURES.ALLOW_CITATIONS') }}
             </label>
           </div>
         </div>
