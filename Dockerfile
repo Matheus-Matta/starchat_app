@@ -80,11 +80,15 @@ COPY . /app
 # https://github.com/chatwoot/chatwoot/issues/701
 RUN mkdir -p /app/log
 
-# generate production assets if production environment
+## --- BUILD DE FRONT (VITE) E ASSETS RAILS (produção) ---
 RUN if [ "$RAILS_ENV" = "production" ]; then \
-  SECRET_KEY_BASE=precompile_placeholder RAILS_LOG_TO_STDOUT=enabled  \
-  && rm -rf spec node_modules tmp/cache; \
-  fi
+  export SECRET_KEY_BASE=precompile_placeholder RAILS_LOG_TO_STDOUT=enabled NODE_ENV=production; \
+  bundle exec rake vite:build && \
+  bundle exec rake assets:precompile; \
+fi
+
+# Limpeza (após o build, para manter o manifest e reduzir a imagem)
+RUN rm -rf spec node_modules tmp/cache
 
 # Generate .git_sha file with current commit hash
 RUN git rev-parse HEAD > /app/.git_sha
@@ -143,7 +147,6 @@ RUN if [ "$RAILS_ENV" != "production" ]; then \
 
 COPY --from=pre-builder /gems/ /gems/
 COPY --from=pre-builder /app /app
-
 # Copy .git_sha file from pre-builder stage
 COPY --from=pre-builder /app/.git_sha /app/.git_sha
 
