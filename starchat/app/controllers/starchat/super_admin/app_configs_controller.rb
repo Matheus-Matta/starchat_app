@@ -2,8 +2,7 @@ module Starchat::SuperAdmin::AppConfigsController
   private
 
   def allowed_configs
-    return super if ChatwootHub.pricing_plan == 'Enterprise'
-
+    
     case @config
     when 'custom_branding'
       @allowed_configs = custom_branding_options
