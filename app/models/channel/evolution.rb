@@ -31,8 +31,7 @@ class Channel::Evolution < ApplicationRecord
 
   # Callbacks
   after_create_commit        :assign_instance_name!
-  after_commit               :configure_webhook_if_needed, on: %i[create update]
-  after_destroy_commit       :enqueue_delete_job
+  after_destroy_commit       :cleanup_evolution_instance
   before_save                :touch_state_timestamp, if: :will_save_change_to_state?
 
   # API esperada pelo Chatwoot
@@ -64,41 +63,39 @@ class Channel::Evolution < ApplicationRecord
     safe_update_column(:instance_name, generated_instance_name)
   end
 
-  def configure_webhook_if_needed
-    return unless webhook_configurable?
-
-    url = computed_webhook_url
-    return if url.blank?
-
-    # Sempre tenta “upsert” no Evolution (idempotente), e só grava se mudou
-    evo_client.set_webhook(instance_name, url)
-    safe_update_column(:webhook_url, url) if webhook_url != url
-  rescue StandardError => e
-    log_evo_error("falha na configuração do webhook", e)
-  end
-
-  def enqueue_delete_job
+  def cleanup_evolution_instance
     return unless deletable_instance?
 
-    Evolution::DeleteInstanceJob.perform_later(
-      base_url:      ENV.fetch('EVOLUTION_BASE_URL'),
-      api_key:       api_key,
-      instance_name: instance_name
+    client = Evolution::Client.new(
+      base_url: ENV.fetch('EVOLUTION_BASE_URL'),
+      api_key:  api_key.presence || ENV['EVOLUTION_API_KEY']
     )
-  end
 
-  # ===== Predicados/derivados =====
+    begin
+      client.logout_instance(instance_name)
+    rescue => e
+      Rails.logger.warn("[Evolution] logout before delete failed channel=#{id} instance=#{instance_name}: #{e.class} #{e.message}")
+    end
 
-  def generated_instance_name
-    "#{INSTANCE_NAME_PREFIX}acc#{account_id}-ch#{id}"
-  end
+    begin
+      client.delete_instance(instance_name)
+    rescue => e
+      if e.respond_to?(:status) && e.status.to_i == 404
+        Rails.logger.info("[Evolution] instance already deleted channel=#{id} instance=#{instance_name}")
+      else
+        Rails.logger.error("[Evolution] delete_instance failed channel=#{id} instance=#{instance_name}: #{e.class} #{e.message}")
+      end
+    end
 
-  def webhook_configurable?
-    api_key.present? && instance_name.present? && inbox.present?
+    true
   end
 
   def deletable_instance?
     api_key.present? && instance_name.present?
+  end
+
+  def generated_instance_name
+    "#{INSTANCE_NAME_PREFIX}acc#{account_id}-ch#{id}"
   end
 
   def computed_webhook_url
@@ -123,27 +120,14 @@ class Channel::Evolution < ApplicationRecord
     nil
   end
 
-  def evo_client
-    Evolution::Client.new(
-      base_url: ENV.fetch('EVOLUTION_BASE_URL'),
-      api_key:
-        api_key.presence || ENV['EVOLUTION_API_KEY']
-    )
-  end
-
-  # ===== Infra pequenas =====
-
   def touch_state_timestamp
     self.state_updated_at = Time.current
   end
 
-  # evita writes desnecessários e validações
   def safe_update_column(attr, value)
     return if value.nil? || self[attr] == value
 
-    # rubocop:disable Rails/SkipsModelValidations
     update_column(attr, value)
-    # rubocop:enable Rails/SkipsModelValidations
   end
 
   def log_evo_error(msg, error)
