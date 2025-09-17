@@ -287,7 +287,7 @@
     "SETTINGS": "Configurações",
     "CONTACTS": "Contatos",
     "ACTIVE": "Ativo",
-    "COSMOS": "Capitão",
+    "COSMOS": "Cosmos",
     "COSMOS_ASSISTANTS": "Assistentes",
     "COSMOS_DOCUMENTS": "Documentos",
     "COSMOS_RESPONSES": "FAQs",
@@ -367,12 +367,12 @@
       "BUTTON_TXT": "Ir para o portal de cobrança"
     },
     "COSMOS": {
-      "TITLE": "Capitão",
+      "TITLE": "Cosmos",
       "DESCRIPTION": "Gerenciar uso e créditos para o Cosmos AI.",
       "BUTTON_TXT": "Comprar mais créditos",
       "DOCUMENTS": "Documentos",
       "RESPONSES": "Respostas",
-      "UPGRADE": "O capitão não está disponível no plano gratuito, faça o upgrade para ter acesso aos assistentes, co-piloto e muito mais."
+      "UPGRADE": "O Cosmos não está disponível no plano gratuito, faça o upgrade para ter acesso aos assistentes, co-piloto e muito mais."
     },
     "CHAT_WITH_US": {
       "TITLE": "Precisa de ajuda?",
