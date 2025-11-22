@@ -5,30 +5,6 @@ import { useRoute } from 'vue-router';
 import { useMapGetter } from 'dashboard/composables/store';
 import { useBranding } from 'shared/composables/useBranding';
 
-export default {
-  setup() {
-    const { replaceInstallationName } = useBranding();
-    return {
-      replaceInstallationName,
-    };
-  },
-  computed: {
-    ...mapGetters({
-      globalConfig: 'globalConfig/get',
-    }),
-    isEvolutionProvider() {
-      return (
-        String(this.$route?.query?.provider || '').toLowerCase() === 'evolution'
-      );
-    },
-    createFlowSteps() {
-      const base = ['CHANNEL', 'INBOX', 'AGENT', 'FINISH'];
-
-      const steps = [...base];
-      if (this.isEvolutionProvider) {
-        const insertAfter = steps.indexOf('INBOX');
-        steps.splice(insertAfter + 1, 0, 'QRCODE');
-      }
 import PageHeader from '../SettingsSubPageHeader.vue';
 import Icon from 'next/icon/Icon.vue';
 
@@ -55,39 +31,39 @@ const ALL_CHANNEL_ICONS = [
 ];
 
 const createFlowSteps = computed(() => {
-  const steps = ['CHANNEL', 'INBOX', 'AGENT', 'FINISH'];
+  const base = ['CHANNEL', 'INBOX', 'AGENT', 'FINISH'];
+  const steps = [...base];
 
-      const routes = {
-        CHANNEL: 'settings_inbox_new',
-        INBOX: 'settings_inboxes_page_channel',
-        AGENT: 'settings_inboxes_add_agents',
-        FINISH: 'settings_inbox_finish',
-      };
+  const provider = String(route.query?.provider || '').toLowerCase();
 
-  return steps.map(step => {
-    return {
-      title: t(`INBOX_MGMT.CREATE_FLOW.${step}.TITLE`),
-      body: t(`INBOX_MGMT.CREATE_FLOW.${step}.BODY`),
-      route: routes[step],
-    };
-  });
+  if (provider === 'evolution') {
+    const index = steps.indexOf('INBOX');
+    if (index !== -1 && !steps.includes('QRCODE')) {
+      steps.splice(index + 1, 0, 'QRCODE');
+    }
+  }
+
+  const routes = {
+    CHANNEL: 'settings_inbox_new',
+    INBOX: 'settings_inboxes_page_channel',
+    QRCODE: 'settings_inboxes_qrcode',
+    AGENT: 'settings_inboxes_add_agents',
+    FINISH: 'settings_inbox_finish',
+  };
+
+  return steps.map(step => ({
+    title: t(`INBOX_MGMT.CREATE_FLOW.${step}.TITLE`),
+    body: t(`INBOX_MGMT.CREATE_FLOW.${step}.BODY`),
+    route: routes[step],
+  }));
 });
 
-const isFirstStep = computed(() => {
-  return route.name === 'settings_inbox_new';
-});
-
-const isFinishStep = computed(() => {
-  return route.name === 'settings_inbox_finish';
-});
+const isFirstStep = computed(() => route.name === 'settings_inbox_new');
+const isFinishStep = computed(() => route.name === 'settings_inbox_finish');
 
 const pageTitle = computed(() => {
-  if (isFirstStep.value) {
-    return t('INBOX_MGMT.ADD.AUTH.TITLE');
-  }
-  if (isFinishStep.value) {
-    return t('INBOX_MGMT.ADD.AUTH.TITLE_FINISH');
-  }
+  if (isFirstStep.value) return t('INBOX_MGMT.ADD.AUTH.TITLE');
+  if (isFinishStep.value) return t('INBOX_MGMT.ADD.AUTH.TITLE_FINISH');
   return t('INBOX_MGMT.ADD.AUTH.TITLE_NEXT');
 });
 
@@ -102,6 +78,7 @@ const items = computed(() => {
 <template>
   <div class="mx-2 flex flex-col gap-6 mb-8">
     <PageHeader class="block lg:hidden !mb-0" :header-title="pageTitle" />
+
     <div class="hidden lg:grid grid-cols-1 lg:grid-cols-8 items-center gap-2">
       <div class="col-span-2 w-full" />
       <div class="flex items-center gap-2 col-span-6 ltr:ml-8 rtl:mr-8">
@@ -114,6 +91,7 @@ const items = computed(() => {
         </div>
       </div>
     </div>
+
     <div
       class="grid grid-cols-1 lg:grid-cols-8 lg:divide-x lg:divide-n-weak rounded-xl border border-n-weak min-h-[52rem]"
     >
@@ -122,6 +100,7 @@ const items = computed(() => {
         :global-config="globalConfig"
         :items="items"
       />
+
       <div class="col-span-6 overflow-hidden">
         <router-view />
       </div>

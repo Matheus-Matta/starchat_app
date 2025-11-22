@@ -2,6 +2,7 @@
 import { computed } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useI18n, I18nT } from 'vue-i18n';
+
 import Twilio from './Twilio.vue';
 import ThreeSixtyDialogWhatsapp from './360DialogWhatsapp.vue';
 import CloudWhatsapp from './CloudWhatsapp.vue';
@@ -50,16 +51,12 @@ const availableProviders = computed(() => [
     icon: 'i-woot-twilio',
   },
   {
-    value: PROVIDER_TYPES.EVOLUTION,
-    label: t('INBOX_MGMT.ADD.WHATSAPP.PROVIDERS.EVOLUTION'),
+    key: PROVIDER_TYPES.EVOLUTION,
+    title: t('INBOX_MGMT.ADD.WHATSAPP.PROVIDERS.EVOLUTION'),
     description: t('INBOX_MGMT.ADD.WHATSAPP.PROVIDERS.EVOLUTION_DESC'),
-    icon: '/assets/images/dashboard/channels/evolution.svg',
-  },
-  {
-    value: PROVIDER_TYPES.EVOLUTION,
-    label: t('INBOX_MGMT.ADD.WHATSAPP.PROVIDERS.EVOLUTION'),
-    description: t('INBOX_MGMT.ADD.WHATSAPP.PROVIDERS.EVOLUTION_DESC'),
-    icon: '/assets/images/dashboard/channels/evolution.svg',
+    // se o ChannelSelector aceitar apenas ícones (tipo i-woot-*)
+    // você pode trocar por um ícone customizado depois
+    icon: 'i-woot-whatsapp',
   },
 ]);
 
@@ -85,6 +82,7 @@ const handleManualLinkClick = () => {
 
 <template>
   <div class="overflow-auto col-span-6 p-6 w-full h-full">
+    <!-- 1) Tela de seleção do provider -->
     <div v-if="showProviderSelection">
       <div class="mb-10 text-left">
         <h1 class="mb-2 text-lg font-medium text-slate-12">
@@ -107,9 +105,10 @@ const handleManualLinkClick = () => {
       </div>
     </div>
 
+    <!-- 2) Tela de configuração do provider -->
     <div v-else-if="showConfiguration">
       <div class="px-6 py-5 rounded-2xl border border-n-weak">
-        <!-- Show embedded signup if app ID is configured -->
+        <!-- Embedded signup (quando tem appId configurado) -->
         <div
           v-if="
             hasWhatsappAppId && selectedProvider === PROVIDER_TYPES.WHATSAPP
@@ -117,7 +116,7 @@ const handleManualLinkClick = () => {
         >
           <WhatsappEmbeddedSignup />
 
-          <!-- Manual setup fallback option -->
+          <!-- Link para modo manual -->
           <div class="pt-6 mt-6 border-t border-n-weak">
             <I18nT
               keypath="INBOX_MGMT.ADD.WHATSAPP.EMBEDDED_SIGNUP.MANUAL_FALLBACK"
@@ -141,10 +140,10 @@ const handleManualLinkClick = () => {
           </div>
         </div>
 
-        <!-- Show manual setup -->
+        <!-- Configuração Manual (Cloud Whatsapp) -->
         <CloudWhatsapp v-else-if="shouldShowCloudWhatsapp(selectedProvider)" />
 
-        <!-- Other providers -->
+        <!-- Outros providers -->
         <Twilio
           v-else-if="selectedProvider === PROVIDER_TYPES.TWILIO"
           type="whatsapp"
@@ -155,6 +154,7 @@ const handleManualLinkClick = () => {
         <EvolutionChannel
           v-else-if="selectedProvider === PROVIDER_TYPES.EVOLUTION"
         />
+
         <CloudWhatsapp v-else />
       </div>
     </div>

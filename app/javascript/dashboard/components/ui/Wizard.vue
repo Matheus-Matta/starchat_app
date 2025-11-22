@@ -50,7 +50,7 @@ const steps = computed(() =>
           v-if="!step.isOver"
           :key="'num-' + step.index"
           class="text-xs font-bold transition-colors duration-300"
-          :class="step.isActive ? 'text-n-blue-11' : 'text-n-slate-11'"
+          :class="step.isActive ? 'text-n-blue-text' : 'text-n-slate-11'"
         >
           {{ step.index + 1 }}
         </span>
@@ -67,7 +67,7 @@ const steps = computed(() =>
         <div class="flex items-center">
           <h3
             class="text-sm font-medium overflow-hidden whitespace-nowrap mt-0.5 text-ellipsis leading-tight"
-            :class="step.isActive ? 'text-n-blue-11' : 'text-n-slate-12'"
+            :class="step.isActive ? 'text-n-blue-text' : 'text-n-slate-12'"
           >
             {{ step.title }}
           </h3>

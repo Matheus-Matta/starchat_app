@@ -1,4 +1,4 @@
-module Enterprise::DeviseOverrides::OmniauthCallbacksController
+module Starchat::DeviseOverrides::OmniauthCallbacksController
   def saml
     # Call parent's omniauth_success which handles the auth
     omniauth_success

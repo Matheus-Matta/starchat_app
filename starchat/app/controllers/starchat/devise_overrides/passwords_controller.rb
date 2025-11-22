@@ -1,4 +1,4 @@
-module Enterprise::DeviseOverrides::PasswordsController
+module Starchat::DeviseOverrides::PasswordsController
   include SamlAuthenticationHelper
 
   def create

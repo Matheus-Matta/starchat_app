@@ -323,18 +323,8 @@
           },
           "API_KEY_SECRET": {
             "LABEL": "API Key Secret",
-<<<<<<< HEAD
-            "PLACEHOLDER": "Enter your Twilio API Key Secret",
-            "REQUIRED": "API Key Secret is required"
-          },
-          "TWIML_APP_SID": {
-            "LABEL": "TwiML App SID",
-            "PLACEHOLDER": "Enter your Twilio TwiML App SID (starts with AP)",
-            "REQUIRED": "TwiML App SID is required"
-=======
             "PLACEHOLDER": "Inserisci il tuo API Key Secret Twilio",
             "REQUIRED": "API Key Secret richiesto"
->>>>>>> tags/v4.6.0
           }
         },
         "CONFIGURATION": {

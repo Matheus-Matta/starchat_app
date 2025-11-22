@@ -157,15 +157,12 @@
             "DELETE_SUCCESS": "Portal deleted successfully",
             "DELETE_ERROR": "Error while deleting portal"
           }
-<<<<<<< HEAD
-=======
         },
         "SEND_CNAME_INSTRUCTIONS": {
           "API": {
             "SUCCESS_MESSAGE": "Udhëzimet për CNAME u dërguan me sukses",
             "ERROR_MESSAGE": "Gabim gjatë dërgimit të udhëzimeve për CNAME"
           }
->>>>>>> tags/v4.6.0
         }
       },
       "EDIT": {
@@ -735,11 +732,7 @@
         "HOME_PAGE_LINK": {
           "LABEL": "Home page link",
           "PLACEHOLDER": "Portal home page link",
-<<<<<<< HEAD
-          "ERROR": "Invalid URL. The Home page link must start with 'http://' or 'https://'."
-=======
           "ERROR": "Shkruani një URL të vlefshme. Lidhja e faqes kryesore duhet të fillojë me 'http://' ose 'https://'."
->>>>>>> tags/v4.6.0
         },
         "SLUG": {
           "LABEL": "Slug",
@@ -760,21 +753,15 @@
           "HEADER": "Custom domain",
           "LABEL": "Custom domain:",
           "DESCRIPTION": "You can host your portal on a custom domain. For instance, if your website is yourdomain.com and you want your portal available at docs.yourdomain.com, simply enter that in this field.",
-<<<<<<< HEAD
-=======
           "STATUS_DESCRIPTION": "Portali juaj i personalizuar do të fillojë të funksionojë sapo të verifikohet.",
->>>>>>> tags/v4.6.0
           "PLACEHOLDER": "Portal custom domain",
           "EDIT_BUTTON": "Edit custom domain",
           "ADD_BUTTON": "Add custom domain",
-<<<<<<< HEAD
-=======
           "STATUS": {
             "LIVE": "Live",
             "PENDING": "Në pritje të verifikimit",
             "ERROR": "Verifikimi dështoi"
           },
->>>>>>> tags/v4.6.0
           "DIALOG": {
             "ADD_HEADER": "Add custom domain",
             "EDIT_HEADER": "Edit custom domain",
@@ -782,20 +769,12 @@
             "EDIT_CONFIRM_BUTTON_LABEL": "Update domain",
             "LABEL": "Custom domain",
             "PLACEHOLDER": "Portal custom domain",
-<<<<<<< HEAD
-            "ERROR": "Custom domain is required"
-=======
             "ERROR": "Custom domain is required",
             "FORMAT_ERROR": "Ju lutemi shkruani një URL të vlefshme të domain-it, p.sh. docs.yourdomain.com"
->>>>>>> tags/v4.6.0
           },
           "DNS_CONFIGURATION_DIALOG": {
             "HEADER": "DNS configuration",
             "DESCRIPTION": "Log in to the account you have with your DNS provider, and add a CNAME record for subdomain pointing to chatwoot.help",
-<<<<<<< HEAD
-            "HELP_TEXT": "Once this is done, you can reach out to our support to request for the auto-generated SSL certificate.",
-            "CONFIRM_BUTTON_LABEL": "Got it!"
-=======
             "COPY": "CNAME u kopjua me sukses",
             "SEND_INSTRUCTIONS": {
               "HEADER": "Dërgo udhëzimet",
@@ -804,7 +783,6 @@
               "ERROR": "Shkruani një adresë emaili të vlefshme",
               "SEND_BUTTON": "Send"
             }
->>>>>>> tags/v4.6.0
           }
         },
         "DELETE_PORTAL": {

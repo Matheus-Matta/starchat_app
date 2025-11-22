@@ -130,14 +130,9 @@
     "EVENTS": {
       "CONVERSATION_CREATED": "Conversation Created",
       "CONVERSATION_UPDATED": "Conversation Updated",
-<<<<<<< HEAD
-      "MESSAGE_CREATED": "Message Created",
-      "CONVERSATION_OPENED": "Conversation Opened"
-=======
       "MESSAGE_CREATED": "Mesazhi u krijua",
       "CONVERSATION_RESOLVED": "Biseda u zgjidh",
       "CONVERSATION_OPENED": "Biseda u hap"
->>>>>>> tags/v4.6.0
     },
     "ACTIONS": {
       "ASSIGN_AGENT": "Cakto te një agjent",
