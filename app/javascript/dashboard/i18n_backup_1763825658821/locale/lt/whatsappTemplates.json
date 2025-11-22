@@ -1,0 +1,29 @@
+{
+    "WHATSAPP_TEMPLATES": {
+        "MODAL": {
+            "TITLE": "Whatsapp Šablonai",
+            "SUBTITLE": "Pasirinkite WhatsApp šabloną, kurį norite siųsti",
+            "TEMPLATE_SELECTED_SUBTITLE": "Apdoroti {templateName}"
+        },
+        "PICKER": {
+            "SEARCH_PLACEHOLDER": "Ieškoti šablonų",
+            "NO_TEMPLATES_FOUND": "Šablonų nerasta",
+            "NO_TEMPLATES_AVAILABLE": "No WhatsApp templates available. Click refresh to sync templates from WhatsApp.",
+            "REFRESH_BUTTON": "Refresh templates",
+            "REFRESH_SUCCESS": "Templates refresh initiated. It may take a couple of minutes to update.",
+            "REFRESH_ERROR": "Failed to refresh templates. Please try again.",
+            "LABELS": {
+                "LANGUAGE": "Kalba",
+                "TEMPLATE_BODY": "Šablono tekstas",
+                "CATEGORY": "Kategorija"
+            }
+        },
+        "PARSER": {
+            "VARIABLES_LABEL": "Kintamieji",
+            "VARIABLE_PLACEHOLDER": "Įveskite {variable} reikšmę",
+            "GO_BACK_LABEL": "Grįžti",
+            "SEND_MESSAGE_LABEL": "Išsiųsti pranešimą",
+            "FORM_ERROR_MESSAGE": "Prieš siųsdami užpildykite visus kintamuosius"
+        }
+    }
+}

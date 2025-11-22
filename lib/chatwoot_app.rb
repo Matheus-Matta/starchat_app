@@ -36,4 +36,8 @@ module ChatwootApp
       %w[]
     end
   end
+
+  def self.advanced_search_allowed?
+    enterprise? && ENV.fetch('OPENSEARCH_URL', nil).present?
+  end
 end

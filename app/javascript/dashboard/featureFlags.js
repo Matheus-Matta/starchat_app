@@ -1,6 +1,7 @@
 export const FEATURE_FLAGS = {
   AGENT_BOTS: 'agent_bots',
   AGENT_MANAGEMENT: 'agent_management',
+  ASSIGNMENT_V2: 'assignment_v2',
   AUTO_RESOLVE_CONVERSATIONS: 'auto_resolve_conversations',
   AUTOMATIONS: 'automations',
   CAMPAIGNS: 'campaigns',
@@ -37,6 +38,7 @@ export const FEATURE_FLAGS = {
   REPORT_V4: 'report_v4',
   CHANNEL_INSTAGRAM: 'channel_instagram',
   CONTACT_CHATWOOT_SUPPORT_TEAM: 'contact_chatwoot_support_team',
+  SAML: 'saml',
   WHATSAPP_EMBEDDED_SIGNUP: 'whatsapp_embedded_signup',
   COSMOS_V2: 'cosmos_integration_v2',
 };

@@ -1,0 +1,3 @@
+[merge "keepBoth"]
+    name = keep both sides of merge
+    driver = cat %A %B > %A

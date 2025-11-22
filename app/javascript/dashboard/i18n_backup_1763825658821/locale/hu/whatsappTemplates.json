@@ -1,0 +1,29 @@
+{
+    "WHATSAPP_TEMPLATES": {
+        "MODAL": {
+            "TITLE": "Whatsapp sablonok",
+            "SUBTITLE": "Válaszd ki a Whatsapp sablont",
+            "TEMPLATE_SELECTED_SUBTITLE": "Feldolgozás: {templateName}"
+        },
+        "PICKER": {
+            "SEARCH_PLACEHOLDER": "Sablon keresése",
+            "NO_TEMPLATES_FOUND": "Nem található sablon erre:",
+            "NO_TEMPLATES_AVAILABLE": "No WhatsApp templates available. Click refresh to sync templates from WhatsApp.",
+            "REFRESH_BUTTON": "Refresh templates",
+            "REFRESH_SUCCESS": "Templates refresh initiated. It may take a couple of minutes to update.",
+            "REFRESH_ERROR": "Failed to refresh templates. Please try again.",
+            "LABELS": {
+                "LANGUAGE": "Nyelv",
+                "TEMPLATE_BODY": "Sablon törzse",
+                "CATEGORY": "Kategória"
+            }
+        },
+        "PARSER": {
+            "VARIABLES_LABEL": "Változók",
+            "VARIABLE_PLACEHOLDER": "Add meg a {variable} értékét",
+            "GO_BACK_LABEL": "Vissza",
+            "SEND_MESSAGE_LABEL": "Üzenet küldése",
+            "FORM_ERROR_MESSAGE": "Kérlek add meg az összes változó értékét küldés előtt"
+        }
+    }
+}

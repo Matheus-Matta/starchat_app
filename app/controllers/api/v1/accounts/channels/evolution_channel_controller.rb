@@ -1,5 +1,4 @@
 require 'timeout'
-
 class Api::V1::Accounts::Channels::EvolutionChannelController < Api::V1::Accounts::BaseController
   before_action :load_channel, only: %i[show connect restart disconnect]
 
@@ -238,7 +237,7 @@ class Api::V1::Accounts::Channels::EvolutionChannelController < Api::V1::Account
   def evo_client(channel = nil, api_key: nil)
     Evolution::Client.new(
       base_url: ENV.fetch('EVOLUTION_BASE_URL'),
-      api_key:  ENV['EVOLUTION_API_KEY']
+      api_key:  ENV.fetch('EVOLUTION_API_KEY')
     )
   end
 

@@ -1,0 +1,29 @@
+{
+    "WHATSAPP_TEMPLATES": {
+        "MODAL": {
+            "TITLE": "قوالب الواتساب",
+            "SUBTITLE": "حدد القالب الذي تريد إرساله",
+            "TEMPLATE_SELECTED_SUBTITLE": "معالجة {templateName}"
+        },
+        "PICKER": {
+            "SEARCH_PLACEHOLDER": "نماذج البحث",
+            "NO_TEMPLATES_FOUND": "لم يتم العثور على قوالب",
+            "NO_TEMPLATES_AVAILABLE": "No WhatsApp templates available. Click refresh to sync templates from WhatsApp.",
+            "REFRESH_BUTTON": "Refresh templates",
+            "REFRESH_SUCCESS": "Templates refresh initiated. It may take a couple of minutes to update.",
+            "REFRESH_ERROR": "Failed to refresh templates. Please try again.",
+            "LABELS": {
+                "LANGUAGE": "اللغة",
+                "TEMPLATE_BODY": "نص القالب",
+                "CATEGORY": "الفئة"
+            }
+        },
+        "PARSER": {
+            "VARIABLES_LABEL": "المتغيرات",
+            "VARIABLE_PLACEHOLDER": "أدخل قيمة {variable}",
+            "GO_BACK_LABEL": "العودة للخلف",
+            "SEND_MESSAGE_LABEL": "إرسال الرسالة",
+            "FORM_ERROR_MESSAGE": "يرجى ملء جميع المتغيرات قبل الإرسال"
+        }
+    }
+}
