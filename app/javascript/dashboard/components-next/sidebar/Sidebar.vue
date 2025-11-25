@@ -232,6 +232,11 @@ const menuItems = computed(() => {
           label: t('SIDEBAR.COSMOS_RESPONSES'),
           to: accountScopedRoute('cosmos_responses_index'),
         },
+        {
+          name: 'Tools',
+          label: t('SIDEBAR.COSMOS_TOOLS'),
+          to: accountScopedRoute('cosmos_tools_index'),
+        },
       ],
     },
     {

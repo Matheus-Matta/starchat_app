@@ -1,12 +1,12 @@
 require 'rails_helper'
 
-RSpec.describe Captain::Document, type: :model do
+RSpec.describe Cosmos::Document, type: :model do
   let(:account) { create(:account) }
-  let(:assistant) { create(:captain_assistant, account: account) }
+  let(:assistant) { create(:cosmos_assistant, account: account) }
 
   describe 'PDF support' do
     let(:pdf_document) do
-      doc = build(:captain_document, assistant: assistant, account: account)
+      doc = build(:cosmos_document, assistant: assistant, account: account)
       doc.pdf_file.attach(
         io: StringIO.new('PDF content'),
         filename: 'test.pdf',
@@ -22,7 +22,7 @@ RSpec.describe Captain::Document, type: :model do
       end
 
       it 'validates PDF file size' do
-        doc = build(:captain_document, assistant: assistant, account: account)
+        doc = build(:cosmos_document, assistant: assistant, account: account)
         doc.pdf_file.attach(
           io: StringIO.new('x' * 11.megabytes),
           filename: 'large.pdf',
@@ -30,7 +30,7 @@ RSpec.describe Captain::Document, type: :model do
         )
         doc.external_link = nil
         expect(doc).not_to be_valid
-        expect(doc.errors[:pdf_file]).to include(I18n.t('captain.documents.pdf_size_error'))
+        expect(doc.errors[:pdf_file]).to include(I18n.t('cosmos.documents.pdf_size_error'))
       end
     end
 
@@ -40,12 +40,12 @@ RSpec.describe Captain::Document, type: :model do
       end
 
       it 'returns true for .pdf external links' do
-        doc = build(:captain_document, external_link: 'https://example.com/document.pdf')
+        doc = build(:cosmos_document, external_link: 'https://example.com/document.pdf')
         expect(doc.pdf_document?).to be true
       end
 
       it 'returns false for non-PDF documents' do
-        doc = build(:captain_document, external_link: 'https://example.com')
+        doc = build(:cosmos_document, external_link: 'https://example.com')
         expect(doc.pdf_document?).to be false
       end
     end
@@ -59,7 +59,7 @@ RSpec.describe Captain::Document, type: :model do
       end
 
       it 'returns external_link for web documents' do
-        doc = create(:captain_document, external_link: 'https://example.com')
+        doc = create(:cosmos_document, external_link: 'https://example.com')
         expect(doc.display_url).to eq('https://example.com')
       end
     end

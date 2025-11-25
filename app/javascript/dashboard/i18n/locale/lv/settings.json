@@ -358,10 +358,10 @@
       "INFO_SHORT": "Automātiski atzīmēt bezsaistē, kad neizmantojat lietotni."
     },
     "DOCS": "Lasīt dokumentus",
-    "CAPTAIN": "Captain",
-    "CAPTAIN_ASSISTANTS": "Asistenti",
-    "CAPTAIN_DOCUMENTS": "Dokumenti",
-    "CAPTAIN_RESPONSES": "Bieži uzdotie jautājumi",
+    "COSMOS": "Cosmos",
+    "COSMOS_ASSISTANTS": "Asistenti",
+    "COSMOS_DOCUMENTS": "Dokumenti",
+    "COSMOS_RESPONSES": "Bieži uzdotie jautājumi",
     "AGENT_ASSIGNMENT": "Agent Assignment"
   },
   "BILLING_SETTINGS": {
@@ -393,13 +393,13 @@
       "BUTTON_TXT": "Tērzēt ar mums"
     },
     "NO_BILLING_USER": "Jūsu norēķinu konts tiek konfigurēts. Lūdzu, atsvaidziniet lapu un mēģiniet vēlreiz.",
-    "CAPTAIN": {
-      "TITLE": "Captain",
-      "DESCRIPTION": "Pārvaldīt Captain AI lietošanu un kredītus.",
+    "COSMOS": {
+      "TITLE": "Cosmos",
+      "DESCRIPTION": "Pārvaldīt Cosmos AI lietošanu un kredītus.",
       "BUTTON_TXT": "Iegādāties vairāk kredītu",
       "DOCUMENTS": "Dokumenti",
       "RESPONSES": "Atbildes",
-      "UPGRADE": "Captain nav pieejams bezmaksas abonementā. Modernizējiet abonementu tūlīt, lai piekļūtu asistentiem un copilot."
+      "UPGRADE": "Cosmos nav pieejams bezmaksas abonementā. Modernizējiet abonementu tūlīt, lai piekļūtu asistentiem un copilot."
     }
   },
   "CREATE_ACCOUNT": {

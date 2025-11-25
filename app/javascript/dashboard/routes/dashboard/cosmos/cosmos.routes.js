@@ -10,6 +10,7 @@ import AssistantGuidelinesIndex from './assistants/guidelines/Index.vue';
 import AssistantScenariosIndex from './assistants/scenarios/Index.vue';
 import DocumentsIndex from './documents/Index.vue';
 import ResponsesIndex from './responses/Index.vue';
+import CustomToolsIndex from './tools/Index.vue';
 
 export const routes = [
   {
@@ -118,6 +119,19 @@ export const routes = [
     meta: {
       permissions: ['administrator', 'agent'],
       featureFlag: FEATURE_FLAGS.COSMOS,
+      installationTypes: [
+        INSTALLATION_TYPES.CLOUD,
+        INSTALLATION_TYPES.ENTERPRISE,
+      ],
+    },
+  },
+  {
+    path: frontendURL('accounts/:accountId/cosmos/tools'),
+    component: CustomToolsIndex,
+    name: 'cosmos_tools_index',
+    meta: {
+      permissions: ['administrator', 'agent'],
+      featureFlag: FEATURE_FLAGS.COSMOS_V2,
       installationTypes: [
         INSTALLATION_TYPES.CLOUD,
         INSTALLATION_TYPES.ENTERPRISE,

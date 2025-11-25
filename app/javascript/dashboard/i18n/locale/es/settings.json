@@ -358,10 +358,10 @@
       "INFO_SHORT": "Marcar automáticamente sin conexión cuando no está usando la aplicación."
     },
     "DOCS": "Leer documentos",
-    "CAPTAIN": "Capitán",
-    "CAPTAIN_ASSISTANTS": "Asistentes",
-    "CAPTAIN_DOCUMENTS": "Documentos",
-    "CAPTAIN_RESPONSES": "Preguntas frecuentes",
+    "COSMOS": "Capitán",
+    "COSMOS_ASSISTANTS": "Asistentes",
+    "COSMOS_DOCUMENTS": "Documentos",
+    "COSMOS_RESPONSES": "Preguntas frecuentes",
     "AGENT_ASSIGNMENT": "Agent Assignment"
   },
   "BILLING_SETTINGS": {
@@ -393,13 +393,13 @@
       "BUTTON_TXT": "Chatea con nosotros"
     },
     "NO_BILLING_USER": "Tu cuenta de facturación está siendo configurada. Por favor, actualiza la página e inténtalo de nuevo.",
-    "CAPTAIN": {
+    "COSMOS": {
       "TITLE": "Capitán",
-      "DESCRIPTION": "Gestione el uso y los créditos para Captain AI.",
+      "DESCRIPTION": "Gestione el uso y los créditos para Cosmos AI.",
       "BUTTON_TXT": "Comprar más créditos",
       "DOCUMENTS": "Documentos",
       "RESPONSES": "Respuestas",
-      "UPGRADE": "Captain no está disponible en el plan gratuito, actualice su suscripción ahora para tener acceso a asistentes, copilot y más."
+      "UPGRADE": "Cosmos no está disponible en el plan gratuito, actualice su suscripción ahora para tener acceso a asistentes, copilot y más."
     }
   },
   "CREATE_ACCOUNT": {

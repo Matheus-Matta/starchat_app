@@ -57,6 +57,8 @@ import copilotThreads from './cosmos/copilotThreads';
 import copilotMessages from './cosmos/copilotMessages';
 import cosmosScenarios from './cosmos/scenarios';
 import cosmosTools from './cosmos/tools';
+import cosmosCustomTools from './cosmos/customTools';
+
 import evolution from './modules/channels/evolution';
 
 const plugins = [];
@@ -120,6 +122,7 @@ export default createStore({
     copilotMessages,
     cosmosScenarios,
     cosmosTools,
+    cosmosCustomTools,
     evolution,
   },
   plugins,

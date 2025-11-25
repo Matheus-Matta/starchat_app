@@ -358,10 +358,10 @@
       "INFO_SHORT": "当您不使用应用程序时自动标记离线。"
     },
     "DOCS": "阅读文档",
-    "CAPTAIN": "Captain",
-    "CAPTAIN_ASSISTANTS": "助手",
-    "CAPTAIN_DOCUMENTS": "文档",
-    "CAPTAIN_RESPONSES": "常见问题",
+    "COSMOS": "Cosmos",
+    "COSMOS_ASSISTANTS": "助手",
+    "COSMOS_DOCUMENTS": "文档",
+    "COSMOS_RESPONSES": "常见问题",
     "AGENT_ASSIGNMENT": "Agent Assignment"
   },
   "BILLING_SETTINGS": {
@@ -393,13 +393,13 @@
       "BUTTON_TXT": "联系我们"
     },
     "NO_BILLING_USER": "您的计费账户正在配置中。请刷新页面并重试。",
-    "CAPTAIN": {
-      "TITLE": "Captain",
-      "DESCRIPTION": "管理 Captain AI 的使用和积分。",
+    "COSMOS": {
+      "TITLE": "Cosmos",
+      "DESCRIPTION": "管理 Cosmos AI 的使用和积分。",
       "BUTTON_TXT": "购买更多积分",
       "DOCUMENTS": "文档",
       "RESPONSES": "常见问题",
-      "UPGRADE": "Captain 在免费计划中不可用，立即升级以获取助手、副驾驶等更多功能。"
+      "UPGRADE": "Cosmos 在免费计划中不可用，立即升级以获取助手、副驾驶等更多功能。"
     }
   },
   "CREATE_ACCOUNT": {

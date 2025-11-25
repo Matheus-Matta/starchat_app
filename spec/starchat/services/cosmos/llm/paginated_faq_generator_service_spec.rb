@@ -1,8 +1,8 @@
 require 'rails_helper'
 require 'custom_exceptions/pdf_processing_error'
 
-RSpec.describe Captain::Llm::PaginatedFaqGeneratorService do
-  let(:document) { create(:captain_document) }
+RSpec.describe Cosmos::Llm::PaginatedFaqGeneratorService do
+  let(:document) { create(:cosmos_document) }
   let(:service) { described_class.new(document, pages_per_chunk: 5) }
   let(:openai_client) { instance_double(OpenAI::Client) }
 
@@ -10,7 +10,7 @@ RSpec.describe Captain::Llm::PaginatedFaqGeneratorService do
     # Mock OpenAI configuration
     installation_config = instance_double(InstallationConfig, value: 'test-api-key')
     allow(InstallationConfig).to receive(:find_by!)
-      .with(name: 'CAPTAIN_OPEN_AI_API_KEY')
+      .with(name: 'COSMOS_OPEN_AI_API_KEY')
       .and_return(installation_config)
 
     allow(OpenAI::Client).to receive(:new).and_return(openai_client)

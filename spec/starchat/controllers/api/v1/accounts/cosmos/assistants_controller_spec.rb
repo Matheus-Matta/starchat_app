@@ -116,11 +116,11 @@ RSpec.describe 'Api::V1::Accounts::Cosmos::Assistants', type: :request do
         attributes_with_disabled_citation[:assistant][:config][:feature_citation] = false
 
         expect do
-          post "/api/v1/accounts/#{account.id}/captain/assistants",
+          post "/api/v1/accounts/#{account.id}/cosmos/assistants",
                params: attributes_with_disabled_citation,
                headers: admin.create_new_auth_token,
                as: :json
-        end.to change(Captain::Assistant, :count).by(1)
+        end.to change(Cosmos::Assistant, :count).by(1)
 
         expect(json_response[:config][:feature_citation]).to be(false)
         expect(response).to have_http_status(:success)
@@ -208,7 +208,7 @@ RSpec.describe 'Api::V1::Accounts::Cosmos::Assistants', type: :request do
       it 'updates feature_citation config' do
         assistant.update!(config: { 'feature_citation' => true })
 
-        patch "/api/v1/accounts/#{account.id}/captain/assistants/#{assistant.id}",
+        patch "/api/v1/accounts/#{account.id}/cosmos/assistants/#{assistant.id}",
               params: { assistant: { config: { feature_citation: false } } },
               headers: admin.create_new_auth_token,
               as: :json
