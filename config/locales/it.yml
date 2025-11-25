@@ -517,7 +517,7 @@ it:
     attachment: 'Attachment'
     no_content: 'No content'
   conversations:
-    captain:
+    cosmos:
       handoff: 'Trasferimento ad un altro agente per ulteriore assistenza.'
     messages:
       instagram_story_content: '%{story_sender} ti ha menzionato nella storia: '
@@ -528,7 +528,7 @@ it:
       delivery_status:
         error_code: 'Error code: %{error_code}'
     activity:
-      captain:
+      cosmos:
         resolved: 'La conversazione è stata segnata risolta da %{user_name} a causa di inattività'
         open: 'Conversation was marked open by %{user_name}'
       status:
@@ -629,8 +629,8 @@ it:
       description: 'Create issues in Linear directly from your conversation window. Alternatively, link existing Linear issues for a more streamlined and efficient issue tracking process.'
     notion:
       name: 'Notion'
-      short_description: 'Integra database, documenti e pagine direttamente con Captain.'
-      description: 'Collega il tuo spazio di lavoro Notion per consentire al Captain di accedere e generare risposte intelligenti utilizzando i contenuti dai tuoi database, documenti, e pagine per fornire più assistenza clienti contestuale.'
+      short_description: 'Integra database, documenti e pagine direttamente con Cosmos.'
+      description: 'Collega il tuo spazio di lavoro Notion per consentire al Cosmos di accedere e generare risposte intelligenti utilizzando i contenuti dai tuoi database, documenti, e pagine per fornire più assistenza clienti contestuale.'
     shopify:
       name: 'Shopify'
       short_description: 'Access order details and customer data from your Shopify store.'
@@ -639,7 +639,7 @@ it:
       name: 'LeadSquared'
       short_description: 'Sync your contacts and conversations with LeadSquared CRM.'
       description: 'Sync your contacts and conversations with LeadSquared CRM. This integration automatically creates leads in LeadSquared when new contacts are added, and logs conversation activity to provide your sales team with complete context.'
-  captain:
+  cosmos:
     copilot_message_required: Il messaggio è obbligatorio
     copilot_error: 'Please connect an assistant to this inbox to use Copilot'
     copilot_limit: 'You are out of Copilot credits. You can buy more credits from the billing section.'

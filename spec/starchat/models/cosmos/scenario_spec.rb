@@ -104,8 +104,8 @@ RSpec.describe Cosmos::Scenario, type: :model do
       end
 
       it 'is valid with custom tool references' do
-        create(:captain_custom_tool, account: account, slug: 'custom_fetch-order')
-        scenario = build(:captain_scenario,
+        create(:cosmos_custom_tool, account: account, slug: 'custom_fetch-order')
+        scenario = build(:cosmos_scenario,
                          assistant: assistant,
                          account: account,
                          instruction: 'Use [@Fetch Order](tool://custom_fetch-order) to get order details')
@@ -115,8 +115,8 @@ RSpec.describe Cosmos::Scenario, type: :model do
 
       it 'is invalid with custom tool from different account' do
         other_account = create(:account)
-        create(:captain_custom_tool, account: other_account, slug: 'custom_fetch-order')
-        scenario = build(:captain_scenario,
+        create(:cosmos_custom_tool, account: other_account, slug: 'custom_fetch-order')
+        scenario = build(:cosmos_scenario,
                          assistant: assistant,
                          account: account,
                          instruction: 'Use [@Fetch Order](tool://custom_fetch-order) to get order details')
@@ -126,8 +126,8 @@ RSpec.describe Cosmos::Scenario, type: :model do
       end
 
       it 'is invalid with disabled custom tool' do
-        create(:captain_custom_tool, account: account, slug: 'custom_fetch-order', enabled: false)
-        scenario = build(:captain_scenario,
+        create(:cosmos_custom_tool, account: account, slug: 'custom_fetch-order', enabled: false)
+        scenario = build(:cosmos_scenario,
                          assistant: assistant,
                          account: account,
                          instruction: 'Use [@Fetch Order](tool://custom_fetch-order) to get order details')
@@ -137,8 +137,8 @@ RSpec.describe Cosmos::Scenario, type: :model do
       end
 
       it 'is valid with mixed static and custom tool references' do
-        create(:captain_custom_tool, account: account, slug: 'custom_fetch-order')
-        scenario = build(:captain_scenario,
+        create(:cosmos_custom_tool, account: account, slug: 'custom_fetch-order')
+        scenario = build(:cosmos_scenario,
                          assistant: assistant,
                          account: account,
                          instruction: 'Use [@Add Note](tool://add_contact_note) and [@Fetch Order](tool://custom_fetch-order)')
@@ -191,7 +191,7 @@ RSpec.describe Cosmos::Scenario, type: :model do
 
   describe 'custom tool integration' do
     let(:account) { create(:account) }
-    let(:assistant) { create(:captain_assistant, account: account) }
+    let(:assistant) { create(:cosmos_assistant, account: account) }
 
     before do
       allow(described_class).to receive(:built_in_tool_ids).and_return(%w[add_contact_note])
@@ -203,9 +203,9 @@ RSpec.describe Cosmos::Scenario, type: :model do
 
     describe '#resolved_tools' do
       it 'includes custom tool metadata' do
-        create(:captain_custom_tool, account: account, slug: 'custom_fetch-order',
+        create(:cosmos_custom_tool, account: account, slug: 'custom_fetch-order',
                                      title: 'Fetch Order', description: 'Gets order details')
-        scenario = create(:captain_scenario,
+        scenario = create(:cosmos_scenario,
                           assistant: assistant,
                           account: account,
                           instruction: 'Use [@Fetch Order](tool://custom_fetch-order)')
@@ -218,8 +218,8 @@ RSpec.describe Cosmos::Scenario, type: :model do
       end
 
       it 'includes both static and custom tools' do
-        create(:captain_custom_tool, account: account, slug: 'custom_fetch-order')
-        scenario = create(:captain_scenario,
+        create(:cosmos_custom_tool, account: account, slug: 'custom_fetch-order')
+        scenario = create(:cosmos_scenario,
                           assistant: assistant,
                           account: account,
                           instruction: 'Use [@Add Note](tool://add_contact_note) and [@Fetch Order](tool://custom_fetch-order)')
@@ -230,8 +230,8 @@ RSpec.describe Cosmos::Scenario, type: :model do
       end
 
       it 'excludes disabled custom tools' do
-        custom_tool = create(:captain_custom_tool, account: account, slug: 'custom_fetch-order', enabled: true)
-        scenario = create(:captain_scenario,
+        custom_tool = create(:cosmos_custom_tool, account: account, slug: 'custom_fetch-order', enabled: true)
+        scenario = create(:cosmos_scenario,
                           assistant: assistant,
                           account: account,
                           instruction: 'Use [@Fetch Order](tool://custom_fetch-order)')
@@ -245,17 +245,17 @@ RSpec.describe Cosmos::Scenario, type: :model do
 
     describe '#resolve_tool_instance' do
       it 'returns HttpTool instance for custom tools' do
-        create(:captain_custom_tool, account: account, slug: 'custom_fetch-order')
-        scenario = create(:captain_scenario, assistant: assistant, account: account)
+        create(:cosmos_custom_tool, account: account, slug: 'custom_fetch-order')
+        scenario = create(:cosmos_scenario, assistant: assistant, account: account)
 
         tool_metadata = { id: 'custom_fetch-order', custom: true }
         tool_instance = scenario.send(:resolve_tool_instance, tool_metadata)
-        expect(tool_instance).to be_a(Captain::Tools::HttpTool)
+        expect(tool_instance).to be_a(Cosmos::Tools::HttpTool)
       end
 
       it 'returns nil for disabled custom tools' do
-        create(:captain_custom_tool, account: account, slug: 'custom_fetch-order', enabled: false)
-        scenario = create(:captain_scenario, assistant: assistant, account: account)
+        create(:cosmos_custom_tool, account: account, slug: 'custom_fetch-order', enabled: false)
+        scenario = create(:cosmos_scenario, assistant: assistant, account: account)
 
         tool_metadata = { id: 'custom_fetch-order', custom: true }
         tool_instance = scenario.send(:resolve_tool_instance, tool_metadata)
@@ -263,7 +263,7 @@ RSpec.describe Cosmos::Scenario, type: :model do
       end
 
       it 'returns static tool instance for non-custom tools' do
-        scenario = create(:captain_scenario, assistant: assistant, account: account)
+        scenario = create(:cosmos_scenario, assistant: assistant, account: account)
         allow(described_class).to receive(:resolve_tool_class).with('add_contact_note').and_return(
           Class.new do
             def initialize(_assistant); end
@@ -273,26 +273,26 @@ RSpec.describe Cosmos::Scenario, type: :model do
         tool_metadata = { id: 'add_contact_note' }
         tool_instance = scenario.send(:resolve_tool_instance, tool_metadata)
         expect(tool_instance).not_to be_nil
-        expect(tool_instance).not_to be_a(Captain::Tools::HttpTool)
+        expect(tool_instance).not_to be_a(Cosmos::Tools::HttpTool)
       end
     end
 
     describe '#agent_tools' do
       it 'returns array of tool instances including custom tools' do
-        create(:captain_custom_tool, account: account, slug: 'custom_fetch-order')
-        scenario = create(:captain_scenario,
+        create(:cosmos_custom_tool, account: account, slug: 'custom_fetch-order')
+        scenario = create(:cosmos_scenario,
                           assistant: assistant,
                           account: account,
                           instruction: 'Use [@Fetch Order](tool://custom_fetch-order)')
 
         tools = scenario.send(:agent_tools)
         expect(tools.length).to eq(1)
-        expect(tools.first).to be_a(Captain::Tools::HttpTool)
+        expect(tools.first).to be_a(Cosmos::Tools::HttpTool)
       end
 
       it 'excludes disabled custom tools from execution' do
-        custom_tool = create(:captain_custom_tool, account: account, slug: 'custom_fetch-order', enabled: true)
-        scenario = create(:captain_scenario,
+        custom_tool = create(:cosmos_custom_tool, account: account, slug: 'custom_fetch-order', enabled: true)
+        scenario = create(:cosmos_scenario,
                           assistant: assistant,
                           account: account,
                           instruction: 'Use [@Fetch Order](tool://custom_fetch-order)')
@@ -304,8 +304,8 @@ RSpec.describe Cosmos::Scenario, type: :model do
       end
 
       it 'returns mixed static and custom tool instances' do
-        create(:captain_custom_tool, account: account, slug: 'custom_fetch-order')
-        scenario = create(:captain_scenario,
+        create(:cosmos_custom_tool, account: account, slug: 'custom_fetch-order')
+        scenario = create(:cosmos_scenario,
                           assistant: assistant,
                           account: account,
                           instruction: 'Use [@Add Note](tool://add_contact_note) and [@Fetch Order](tool://custom_fetch-order)')
@@ -318,7 +318,7 @@ RSpec.describe Cosmos::Scenario, type: :model do
 
         tools = scenario.send(:agent_tools)
         expect(tools.length).to eq(2)
-        expect(tools.last).to be_a(Captain::Tools::HttpTool)
+        expect(tools.last).to be_a(Cosmos::Tools::HttpTool)
       end
     end
   end

@@ -323,7 +323,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_10_03_091242) do
     t.index ["account_id"], name: "index_cosmos_assistants_on_account_id"
   end
 
-  create_table "captain_custom_tools", force: :cascade do |t|
+  create_table "cosmos_custom_tools", force: :cascade do |t|
     t.bigint "account_id", null: false
     t.string "slug", null: false
     t.string "title", null: false
@@ -338,8 +338,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_10_03_091242) do
     t.boolean "enabled", default: true, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["account_id", "slug"], name: "index_captain_custom_tools_on_account_id_and_slug", unique: true
-    t.index ["account_id"], name: "index_captain_custom_tools_on_account_id"
+    t.index ["account_id", "slug"], name: "index_cosmos_custom_tools_on_account_id_and_slug", unique: true
+    t.index ["account_id"], name: "index_cosmos_custom_tools_on_account_id"
   end
 
   create_table "cosmos_documents", force: :cascade do |t|
@@ -352,10 +352,10 @@ ActiveRecord::Schema[7.1].define(version: 2025_10_03_091242) do
     t.datetime "updated_at", null: false
     t.integer "status", default: 0, null: false
     t.jsonb "metadata", default: {}
-    t.index ["account_id"], name: "index_captain_documents_on_account_id"
-    t.index ["assistant_id", "external_link"], name: "index_captain_documents_on_assistant_id_and_external_link", unique: true
-    t.index ["assistant_id"], name: "index_captain_documents_on_assistant_id"
-    t.index ["status"], name: "index_captain_documents_on_status"
+    t.index ["account_id"], name: "index_cosmos_documents_on_account_id"
+    t.index ["assistant_id", "external_link"], name: "index_cosmos_documents_on_assistant_id_and_external_link", unique: true
+    t.index ["assistant_id"], name: "index_cosmos_documents_on_assistant_id"
+    t.index ["status"], name: "index_cosmos_documents_on_status"
   end
 
   create_table "cosmos_inboxes", force: :cascade do |t|

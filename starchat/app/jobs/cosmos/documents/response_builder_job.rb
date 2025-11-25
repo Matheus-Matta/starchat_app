@@ -26,11 +26,11 @@ class Cosmos::Documents::ResponseBuilderJob < ApplicationJob
   end
 
   def generate_standard_faqs(document)
-    Captain::Llm::FaqGeneratorService.new(document.content, document.account.locale_english_name).generate
+    Cosmos::Llm::FaqGeneratorService.new(document.content, document.account.locale_english_name).generate
   end
 
   def build_paginated_service(document, options)
-    Captain::Llm::PaginatedFaqGeneratorService.new(
+    Cosmos::Llm::PaginatedFaqGeneratorService.new(
       document,
       pages_per_chunk: options[:pages_per_chunk],
       max_pages: options[:max_pages],
@@ -73,6 +73,6 @@ class Cosmos::Documents::ResponseBuilderJob < ApplicationJob
       documentable: document
     )
   rescue ActiveRecord::RecordInvalid => e
-    Rails.logger.error I18n.t('captain.documents.response_creation_error', error: e.message)
+    Rails.logger.error I18n.t('cosmos.documents.response_creation_error', error: e.message)
   end
 end

@@ -338,7 +338,7 @@ onMounted(() => {
           </div>
           <Input
             v-model="searchQuery"
-            :placeholder="$t('CAPTAIN.RESPONSES.SEARCH_PLACEHOLDER')"
+            :placeholder="$t('COSMOS.RESPONSES.SEARCH_PLACEHOLDER')"
             class="w-64"
             size="sm"
             autofocus

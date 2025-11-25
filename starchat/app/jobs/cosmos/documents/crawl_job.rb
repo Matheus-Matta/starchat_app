@@ -16,7 +16,7 @@ class Cosmos::Documents::CrawlJob < ApplicationJob
   include Cosmos::FirecrawlHelper
 
   def perform_pdf_processing(document)
-    Captain::Llm::PdfProcessingService.new(document).process
+    Cosmos::Llm::PdfProcessingService.new(document).process
     document.update!(status: :available)
   rescue StandardError => e
     Rails.logger.error I18n.t('cosmos.documents.pdf_processing_failed', document_id: document.id, error: e.message)

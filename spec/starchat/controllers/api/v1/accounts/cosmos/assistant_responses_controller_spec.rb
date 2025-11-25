@@ -225,30 +225,30 @@ end
 =======
 require 'rails_helper'
 
-RSpec.describe 'Api::V1::Accounts::Captain::AssistantResponses', type: :request do
+RSpec.describe 'Api::V1::Accounts::Cosmos::AssistantResponses', type: :request do
   let(:account) { create(:account) }
-  let(:assistant) { create(:captain_assistant, account: account) }
-  let(:document) { create(:captain_document, assistant: assistant, account: account) }
+  let(:assistant) { create(:cosmos_assistant, account: account) }
+  let(:document) { create(:cosmos_document, assistant: assistant, account: account) }
   let(:admin) { create(:user, account: account, role: :administrator) }
   let(:agent) { create(:user, account: account, role: :agent) }
-  let(:another_assistant) { create(:captain_assistant, account: account) }
-  let(:another_document) { create(:captain_document, account: account, assistant: assistant) }
+  let(:another_assistant) { create(:cosmos_assistant, account: account) }
+  let(:another_document) { create(:cosmos_document, account: account, assistant: assistant) }
 
   def json_response
     JSON.parse(response.body, symbolize_names: true)
   end
 
-  describe 'GET /api/v1/accounts/:account_id/captain/assistant_responses' do
+  describe 'GET /api/v1/accounts/:account_id/cosmos/assistant_responses' do
     context 'when no filters are applied' do
       before do
-        create_list(:captain_assistant_response, 30,
+        create_list(:cosmos_assistant_response, 30,
                     account: account,
                     assistant: assistant,
                     documentable: document)
       end
 
       it 'returns first page of responses with default pagination' do
-        get "/api/v1/accounts/#{account.id}/captain/assistant_responses",
+        get "/api/v1/accounts/#{account.id}/cosmos/assistant_responses",
             headers: agent.create_new_auth_token,
             as: :json
 
@@ -257,7 +257,7 @@ RSpec.describe 'Api::V1::Accounts::Captain::AssistantResponses', type: :request 
       end
 
       it 'returns second page of responses' do
-        get "/api/v1/accounts/#{account.id}/captain/assistant_responses",
+        get "/api/v1/accounts/#{account.id}/cosmos/assistant_responses",
             params: { page: 2 },
             headers: agent.create_new_auth_token,
             as: :json
@@ -270,18 +270,18 @@ RSpec.describe 'Api::V1::Accounts::Captain::AssistantResponses', type: :request 
 
     context 'when filtering by assistant_id' do
       before do
-        create_list(:captain_assistant_response, 3,
+        create_list(:cosmos_assistant_response, 3,
                     account: account,
                     assistant: assistant,
                     documentable: document)
-        create_list(:captain_assistant_response, 2,
+        create_list(:cosmos_assistant_response, 2,
                     account: account,
                     assistant: another_assistant,
                     documentable: document)
       end
 
       it 'returns only responses for the specified assistant' do
-        get "/api/v1/accounts/#{account.id}/captain/assistant_responses",
+        get "/api/v1/accounts/#{account.id}/cosmos/assistant_responses",
             params: { assistant_id: assistant.id },
             headers: agent.create_new_auth_token,
             as: :json
@@ -294,18 +294,18 @@ RSpec.describe 'Api::V1::Accounts::Captain::AssistantResponses', type: :request 
 
     context 'when filtering by document_id' do
       before do
-        create_list(:captain_assistant_response, 3,
+        create_list(:cosmos_assistant_response, 3,
                     account: account,
                     assistant: assistant,
                     documentable: document)
-        create_list(:captain_assistant_response, 2,
+        create_list(:cosmos_assistant_response, 2,
                     account: account,
                     assistant: assistant,
                     documentable: another_document)
       end
 
       it 'returns only responses for the specified document' do
-        get "/api/v1/accounts/#{account.id}/captain/assistant_responses",
+        get "/api/v1/accounts/#{account.id}/cosmos/assistant_responses",
             params: { document_id: document.id },
             headers: agent.create_new_auth_token,
             as: :json
@@ -318,12 +318,12 @@ RSpec.describe 'Api::V1::Accounts::Captain::AssistantResponses', type: :request 
 
     context 'when searching' do
       before do
-        create(:captain_assistant_response,
+        create(:cosmos_assistant_response,
                account: account,
                assistant: assistant,
                question: 'How to reset password?',
                answer: 'Click forgot password')
-        create(:captain_assistant_response,
+        create(:cosmos_assistant_response,
                account: account,
                assistant: assistant,
                question: 'How to change email?',
@@ -331,7 +331,7 @@ RSpec.describe 'Api::V1::Accounts::Captain::AssistantResponses', type: :request 
       end
 
       it 'finds responses by question text' do
-        get "/api/v1/accounts/#{account.id}/captain/assistant_responses",
+        get "/api/v1/accounts/#{account.id}/cosmos/assistant_responses",
             params: { search: 'password' },
             headers: agent.create_new_auth_token,
             as: :json
@@ -342,7 +342,7 @@ RSpec.describe 'Api::V1::Accounts::Captain::AssistantResponses', type: :request 
       end
 
       it 'finds responses by answer text' do
-        get "/api/v1/accounts/#{account.id}/captain/assistant_responses",
+        get "/api/v1/accounts/#{account.id}/cosmos/assistant_responses",
             params: { search: 'settings' },
             headers: agent.create_new_auth_token,
             as: :json
@@ -353,7 +353,7 @@ RSpec.describe 'Api::V1::Accounts::Captain::AssistantResponses', type: :request 
       end
 
       it 'returns empty when no matches' do
-        get "/api/v1/accounts/#{account.id}/captain/assistant_responses",
+        get "/api/v1/accounts/#{account.id}/cosmos/assistant_responses",
             params: { search: 'nonexistent' },
             headers: agent.create_new_auth_token,
             as: :json
@@ -364,11 +364,11 @@ RSpec.describe 'Api::V1::Accounts::Captain::AssistantResponses', type: :request 
     end
   end
 
-  describe 'GET /api/v1/accounts/:account_id/captain/assistant_responses/:id' do
-    let!(:response_record) { create(:captain_assistant_response, assistant: assistant, account: account) }
+  describe 'GET /api/v1/accounts/:account_id/cosmos/assistant_responses/:id' do
+    let!(:response_record) { create(:cosmos_assistant_response, assistant: assistant, account: account) }
 
     it 'returns the requested response if the user is agent or admin' do
-      get "/api/v1/accounts/#{account.id}/captain/assistant_responses/#{response_record.id}",
+      get "/api/v1/accounts/#{account.id}/cosmos/assistant_responses/#{response_record.id}",
           headers: agent.create_new_auth_token,
           as: :json
 
@@ -379,7 +379,7 @@ RSpec.describe 'Api::V1::Accounts::Captain::AssistantResponses', type: :request 
     end
   end
 
-  describe 'POST /api/v1/accounts/:account_id/captain/assistant_responses' do
+  describe 'POST /api/v1/accounts/:account_id/cosmos/assistant_responses' do
     let(:valid_params) do
       {
         assistant_response: {
@@ -392,11 +392,11 @@ RSpec.describe 'Api::V1::Accounts::Captain::AssistantResponses', type: :request 
 
     it 'creates a new response if the user is an admin' do
       expect do
-        post "/api/v1/accounts/#{account.id}/captain/assistant_responses",
+        post "/api/v1/accounts/#{account.id}/cosmos/assistant_responses",
              params: valid_params,
              headers: admin.create_new_auth_token,
              as: :json
-      end.to change(Captain::AssistantResponse, :count).by(1)
+      end.to change(Cosmos::AssistantResponse, :count).by(1)
 
       expect(response).to have_http_status(:success)
 
@@ -415,7 +415,7 @@ RSpec.describe 'Api::V1::Accounts::Captain::AssistantResponses', type: :request 
       end
 
       it 'returns unprocessable entity status' do
-        post "/api/v1/accounts/#{account.id}/captain/assistant_responses",
+        post "/api/v1/accounts/#{account.id}/cosmos/assistant_responses",
              params: invalid_params,
              headers: admin.create_new_auth_token,
              as: :json
@@ -425,8 +425,8 @@ RSpec.describe 'Api::V1::Accounts::Captain::AssistantResponses', type: :request 
     end
   end
 
-  describe 'PATCH /api/v1/accounts/:account_id/captain/assistant_responses/:id' do
-    let!(:response_record) { create(:captain_assistant_response, assistant: assistant) }
+  describe 'PATCH /api/v1/accounts/:account_id/cosmos/assistant_responses/:id' do
+    let!(:response_record) { create(:cosmos_assistant_response, assistant: assistant) }
     let(:update_params) do
       {
         assistant_response: {
@@ -437,7 +437,7 @@ RSpec.describe 'Api::V1::Accounts::Captain::AssistantResponses', type: :request 
     end
 
     it 'updates the response if the user is an admin' do
-      patch "/api/v1/accounts/#{account.id}/captain/assistant_responses/#{response_record.id}",
+      patch "/api/v1/accounts/#{account.id}/cosmos/assistant_responses/#{response_record.id}",
             params: update_params,
             headers: admin.create_new_auth_token,
             as: :json
@@ -459,7 +459,7 @@ RSpec.describe 'Api::V1::Accounts::Captain::AssistantResponses', type: :request 
       end
 
       it 'returns unprocessable entity status' do
-        patch "/api/v1/accounts/#{account.id}/captain/assistant_responses/#{response_record.id}",
+        patch "/api/v1/accounts/#{account.id}/cosmos/assistant_responses/#{response_record.id}",
               params: invalid_params,
               headers: admin.create_new_auth_token,
               as: :json
@@ -469,22 +469,22 @@ RSpec.describe 'Api::V1::Accounts::Captain::AssistantResponses', type: :request 
     end
   end
 
-  describe 'DELETE /api/v1/accounts/:account_id/captain/assistant_responses/:id' do
-    let!(:response_record) { create(:captain_assistant_response, assistant: assistant) }
+  describe 'DELETE /api/v1/accounts/:account_id/cosmos/assistant_responses/:id' do
+    let!(:response_record) { create(:cosmos_assistant_response, assistant: assistant) }
 
     it 'deletes the response' do
       expect do
-        delete "/api/v1/accounts/#{account.id}/captain/assistant_responses/#{response_record.id}",
+        delete "/api/v1/accounts/#{account.id}/cosmos/assistant_responses/#{response_record.id}",
                headers: admin.create_new_auth_token,
                as: :json
-      end.to change(Captain::AssistantResponse, :count).by(-1)
+      end.to change(Cosmos::AssistantResponse, :count).by(-1)
 
       expect(response).to have_http_status(:no_content)
     end
 
     context 'with invalid id' do
       it 'returns not found' do
-        delete "/api/v1/accounts/#{account.id}/captain/assistant_responses/0",
+        delete "/api/v1/accounts/#{account.id}/cosmos/assistant_responses/0",
                headers: admin.create_new_auth_token,
                as: :json
 
@@ -493,4 +493,4 @@ RSpec.describe 'Api::V1::Accounts::Captain::AssistantResponses', type: :request 
     end
   end
 end
->>>>>>> tags/v4.6.0:spec/enterprise/controllers/api/v1/accounts/captain/assistant_responses_controller_spec.rb
+>>>>>>> tags/v4.6.0:spec/enterprise/controllers/api/v1/accounts/cosmos/assistant_responses_controller_spec.rb

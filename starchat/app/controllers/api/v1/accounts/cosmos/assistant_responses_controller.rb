@@ -55,7 +55,7 @@ class Api::V1::Accounts::Cosmos::AssistantResponsesController < Api::V1::Account
     if permitted_params[:document_id].present?
       base_query = base_query.where(
         documentable_id: permitted_params[:document_id],
-        documentable_type: 'Captain::Document'
+        documentable_type: 'Cosmos::Document'
       )
     end
 

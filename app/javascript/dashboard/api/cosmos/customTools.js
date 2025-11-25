@@ -1,9 +1,9 @@
 /* global axios */
 import ApiClient from '../ApiClient';
 
-class CaptainCustomTools extends ApiClient {
+class CosmosCustomTools extends ApiClient {
   constructor() {
-    super('captain/custom_tools', { accountScoped: true });
+    super('cosmos/custom_tools', { accountScoped: true });
   }
 
   get({ page = 1, searchKey } = {}) {
@@ -33,4 +33,4 @@ class CaptainCustomTools extends ApiClient {
   }
 }
 
-export default new CaptainCustomTools();
+export default new CosmosCustomTools();

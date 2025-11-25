@@ -1,6 +1,6 @@
 json.account_id resource.account_id
 json.assistant do
-  json.partial! 'api/v1/models/captain/assistant', formats: [:json], resource: resource.assistant
+  json.partial! 'api/v1/models/cosmos/assistant', formats: [:json], resource: resource.assistant
 end
 json.content resource.content
 json.content_type resource.content_type

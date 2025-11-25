@@ -3,6 +3,7 @@ import { mapGetters } from 'vuex';
 import { shouldBeUrl } from 'shared/helpers/Validators';
 import { useAlert } from 'dashboard/composables';
 import { useVuelidate } from '@vuelidate/core';
+import Avatar from 'next/avatar/Avatar.vue';
 import SettingIntroBanner from 'dashboard/components/widgets/SettingIntroBanner.vue';
 import SettingsSection from '../../../../components/SettingsSection.vue';
 import inboxMixin from 'shared/mixins/inboxMixin';
@@ -28,6 +29,7 @@ import SenderNameExamplePreview from './components/SenderNameExamplePreview.vue'
 import NextButton from 'dashboard/components-next/button/Button.vue';
 import { INBOX_TYPES } from 'dashboard/helper/inbox';
 import { WIDGET_BUILDER_EDITOR_MENU_OPTIONS } from 'dashboard/constants/editor';
+import { getInboxIconByType } from 'dashboard/helper/inbox';
 import Editor from 'dashboard/components-next/Editor/Editor.vue';
 
 export default {
@@ -49,6 +51,7 @@ export default {
     GoogleReauthorize,
     NextButton,
     InstagramReauthorize,
+    WhatsappReauthorize,
     DuplicateInboxBanner,
     Editor,
     Avatar,
@@ -93,15 +96,19 @@ export default {
       uiFlags: 'inboxes/getUIFlags',
       portals: 'portals/allPortals',
     }),
+
     selectedTabKey() {
       return this.tabs[this.selectedTabIndex]?.key;
     },
+
+    // TUA LÓGICA, mas com guard pra não quebrar se inbox ainda não existe
     shouldShowWhatsAppConfiguration() {
-      return !!(
-        this.isAWhatsAppCloudChannel &&
-        this.inbox.provider_config?.source !== 'embedded_signup'
-      );
+      if (!this.isAWhatsAppCloudChannel) return false;
+      const inbox = this.inbox || {};
+      const source = inbox.provider_config?.source;
+      return source !== 'embedded_signup';
     },
+
     whatsAppAPIProviderName() {
       if (this.isAWhatsAppCloudChannel) {
         return this.$t('INBOX_MGMT.ADD.WHATSAPP.PROVIDERS.WHATSAPP_CLOUD');
@@ -114,6 +121,8 @@ export default {
       }
       return '';
     },
+
+    // NOVO: detecção de Evolution
     isEvolutionInbox() {
       const ib = this.inbox || {};
       return (
@@ -122,6 +131,7 @@ export default {
         ib.channel_type === 'Channel::Evolution'
       );
     },
+
     tabs() {
       let visibleToAllChannelTabs = [
         {
@@ -161,6 +171,8 @@ export default {
           },
         ];
       }
+
+      // NOVO: aba Evolution
       if (this.isEvolutionInbox) {
         visibleToAllChannelTabs = [
           ...visibleToAllChannelTabs,
@@ -170,12 +182,13 @@ export default {
           },
         ];
       }
+
       if (
         this.isATwilioChannel ||
         this.isALineChannel ||
         this.isAPIInbox ||
         this.isAVoiceChannel ||
-        (this.isAnEmailChannel && !this.inbox.provider) ||
+        (this.isAnEmailChannel && !this.inbox?.provider) ||
         this.shouldShowWhatsAppConfiguration ||
         this.isAWebWidgetInbox
       ) {
@@ -199,6 +212,7 @@ export default {
           },
         ];
       }
+
       if (this.shouldShowWhatsAppConfiguration) {
         visibleToAllChannelTabs = [
           ...visibleToAllChannelTabs,
@@ -211,12 +225,21 @@ export default {
 
       return visibleToAllChannelTabs;
     },
+
     currentInboxId() {
       return this.$route.params.inboxId;
     },
+
     inbox() {
       return this.$store.getters['inboxes/getInbox'](this.currentInboxId);
     },
+
+    inboxIcon() {
+      if (!this.inbox) return '';
+      const { medium, channel_type: type } = this.inbox;
+      return getInboxIconByType(type, medium);
+    },
+
     inboxName() {
       if (this.isATwilioSMSChannel || this.isATwilioWhatsAppChannel) {
         return `${this.inbox.name} (${
@@ -231,6 +254,7 @@ export default {
       }
       return this.inbox.name;
     },
+
     canLocktoSingleConversation() {
       return (
         this.isASmsInbox ||
@@ -240,18 +264,21 @@ export default {
         this.isATelegramChannel
       );
     },
+
     inboxNameLabel() {
       if (this.isAWebWidgetInbox) {
         return this.$t('INBOX_MGMT.ADD.WEBSITE_NAME.LABEL');
       }
       return this.$t('INBOX_MGMT.ADD.CHANNEL_NAME.LABEL');
     },
+
     inboxNamePlaceHolder() {
       if (this.isAWebWidgetInbox) {
         return this.$t('INBOX_MGMT.ADD.WEBSITE_NAME.PLACEHOLDER');
       }
       return this.$t('INBOX_MGMT.ADD.CHANNEL_NAME.PLACEHOLDER');
     },
+
     textAreaChannels() {
       if (
         this.isATwilioChannel ||
@@ -261,11 +288,14 @@ export default {
         return true;
       return false;
     },
+
     instagramUnauthorized() {
-      return this.isAnInstagramChannel && this.inbox.reauthorization_required;
+      return this.isAnInstagramChannel && this.inbox?.reauthorization_required;
     },
+
     // Check if a instagram inbox exists with the same instagram_id
     hasDuplicateInstagramInbox() {
+      if (!this.inbox) return false;
       const instagramId = this.inbox.instagram_id;
       const instagramInbox =
         this.$store.getters['inboxes/getInstagramInboxByInstagramId'](
@@ -274,32 +304,38 @@ export default {
 
       return this.inbox.channel_type === INBOX_TYPES.FB && instagramInbox;
     },
+
     microsoftUnauthorized() {
-      return this.isAMicrosoftInbox && this.inbox.reauthorization_required;
+      return this.isAMicrosoftInbox && this.inbox?.reauthorization_required;
     },
+
     facebookUnauthorized() {
-      return this.isAFacebookInbox && this.inbox.reauthorization_required;
+      return this.isAFacebookInbox && this.inbox?.reauthorization_required;
     },
+
     googleUnauthorized() {
       const isLegacyInbox = ['imap.gmail.com', 'imap.google.com'].includes(
-        this.inbox.imap_address
+        this.inbox?.imap_address
       );
 
       return (
         (this.isAGoogleInbox || isLegacyInbox) &&
-        this.inbox.reauthorization_required
+        this.inbox?.reauthorization_required
       );
     },
+
     isEmbeddedSignupWhatsApp() {
-      return this.inbox.provider_config?.source === 'embedded_signup';
+      return this.inbox?.provider_config?.source === 'embedded_signup';
     },
+
     whatsappUnauthorized() {
       return (
         this.isAWhatsAppCloudChannel &&
         this.isEmbeddedSignupWhatsApp &&
-        this.inbox.reauthorization_required
+        this.inbox?.reauthorization_required
       );
     },
+
     whatsappRegistrationIncomplete() {
       if (
         !this.healthData ||
@@ -337,6 +373,7 @@ export default {
     fetchPortals() {
       this.$store.dispatch('portals/index');
     },
+
     async fetchHealthData() {
       if (!this.inbox) return;
 
@@ -355,12 +392,14 @@ export default {
         this.isLoadingHealth = false;
       }
     },
+
     handleFeatureFlag(e) {
       this.selectedFeatureFlags = this.toggleInput(
         this.selectedFeatureFlags,
         e.target.value
       );
     },
+
     toggleInput(selected, current) {
       if (selected.includes(current)) {
         const newSelectedFlags = selected.filter(flag => flag !== current);
@@ -368,9 +407,22 @@ export default {
       }
       return [...selected, current];
     },
+
+    // DE VOLTA do código original: atualiza avatar ao trocar de aba
+    refreshAvatarUrlOnTabChange(index) {
+      if (
+        this.inbox &&
+        ['inbox_settings', 'widgetBuilder'].includes(this.tabs[index]?.key)
+      ) {
+        this.avatarUrl = this.inbox.avatar_url;
+      }
+    },
+
     onTabChange(selectedTabIndex) {
       this.selectedTabIndex = selectedTabIndex;
+      this.refreshAvatarUrlOnTabChange(selectedTabIndex);
     },
+
     fetchInboxSettings() {
       this.selectedTabIndex = 0;
       this.selectedAgents = [];
@@ -400,6 +452,7 @@ export default {
           : '';
       });
     },
+
     async updateInbox() {
       try {
         const payload = {
@@ -437,10 +490,12 @@ export default {
         useAlert(error.message || this.$t('INBOX_MGMT.EDIT.API.ERROR_MESSAGE'));
       }
     },
+
     handleImageUpload({ file, url }) {
       this.avatarFile = file;
       this.avatarUrl = url;
     },
+
     async handleAvatarDelete() {
       try {
         await this.$store.dispatch(
@@ -458,9 +513,11 @@ export default {
         );
       }
     },
+
     toggleSenderNameType(key) {
       this.senderNameType = key;
     },
+
     onClickShowBusinessNameInput() {
       this.showBusinessNameInput = !this.showBusinessNameInput;
       if (this.showBusinessNameInput) {
@@ -518,6 +575,7 @@ export default {
         :content="$t('INBOX_MGMT.ADD.INSTAGRAM.DUPLICATE_INBOX_BANNER')"
         class="mx-8 mt-5"
       />
+
       <div v-if="selectedTabKey === 'inbox_settings'" class="mx-8">
         <SettingsSection
           :title="$t('INBOX_MGMT.SETTINGS_POPUP.INBOX_UPDATE_TITLE')"
@@ -833,6 +891,7 @@ export default {
             </label>
           </div>
         </SettingsSection>
+
         <SettingsSection
           v-if="isAWebWidgetInbox || isAnEmailChannel"
           :title="$t('INBOX_MGMT.EDIT.SENDER_NAME_SECTION.TITLE')"
@@ -881,6 +940,7 @@ export default {
             </div>
           </div>
         </SettingsSection>
+
         <SettingsSection :show-border="false">
           <NextButton
             v-if="isAPIInbox"
@@ -900,30 +960,39 @@ export default {
           />
         </SettingsSection>
       </div>
+
       <div v-if="selectedTabKey === 'collaborators'" class="mx-8">
         <CollaboratorsPage :inbox="inbox" />
       </div>
+
       <div v-if="selectedTabKey === 'evolution'">
         <EvolutionControls :inbox="inbox" />
       </div>
+
       <div v-if="selectedTabKey === 'configuration'">
         <ConfigurationPage :inbox="inbox" />
       </div>
+
       <div v-if="selectedTabKey === 'csat'">
         <CustomerSatisfactionPage :inbox="inbox" />
       </div>
+
       <div v-if="selectedTabKey === 'preChatForm'">
         <PreChatFormSettings :inbox="inbox" />
       </div>
+
       <div v-if="selectedTabKey === 'businesshours'">
         <WeeklyAvailability :inbox="inbox" />
       </div>
+
       <div v-if="selectedTabKey === 'widgetBuilder'">
         <WidgetBuilder :inbox="inbox" />
       </div>
+
       <div v-if="selectedTabKey === 'botConfiguration'">
         <BotConfiguration :inbox="inbox" />
       </div>
+
       <div v-if="selectedTabKey === 'whatsappHealth'">
         <AccountHealth :health-data="healthData" />
       </div>

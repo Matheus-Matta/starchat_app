@@ -234,8 +234,8 @@ const menuItems = computed(() => {
         },
         {
           name: 'Tools',
-          label: t('SIDEBAR.CAPTAIN_TOOLS'),
-          to: accountScopedRoute('captain_tools_index'),
+          label: t('SIDEBAR.COSMOS_TOOLS'),
+          to: accountScopedRoute('cosmos_tools_index'),
         },
       ],
     },

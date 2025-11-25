@@ -178,11 +178,11 @@
 - name: COSMOS_FIRECRAWL_API_KEY
 - name: COSMOS_EMBEDDING_MODEL
   display_title: 'Embedding Model (optional)'
-  description: 'The embedding model configured for use in Captain AI. Default: text-embedding-3-small'
+  description: 'The embedding model configured for use in Cosmos AI. Default: text-embedding-3-small'
   locked: false
 - name: COSMOS_EMBEDDING_MODEL
   display_title: 'Embedding Model (optional)'
-  description: 'The embedding model configured for use in Captain AI. Default: text-embedding-3-small'
+  description: 'The embedding model configured for use in Cosmos AI. Default: text-embedding-3-small'
   locked: false
 - name: COSMOS_FIRECRAWL_API_KEY
   display_title: 'FireCrawl API Key (optional)'

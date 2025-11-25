@@ -52,8 +52,8 @@ const assistantList = computed(() =>
 );
 
 const documentTypeOptions = [
-  { value: 'url', label: t('CAPTAIN.DOCUMENTS.FORM.TYPE.URL') },
-  { value: 'pdf', label: t('CAPTAIN.DOCUMENTS.FORM.TYPE.PDF') },
+  { value: 'url', label: t('COSMOS.DOCUMENTS.FORM.TYPE.URL') },
+  { value: 'pdf', label: t('COSMOS.DOCUMENTS.FORM.TYPE.PDF') },
 ];
 
 const v$ = useVuelidate(validationRules, state);
@@ -80,13 +80,13 @@ const handleFileChange = event => {
   const file = event.target.files[0];
   if (file) {
     if (file.type !== 'application/pdf') {
-      useAlert(t('CAPTAIN.DOCUMENTS.FORM.PDF_FILE.INVALID_TYPE'));
+      useAlert(t('COSMOS.DOCUMENTS.FORM.PDF_FILE.INVALID_TYPE'));
       event.target.value = '';
       return;
     }
     if (file.size > MAX_FILE_SIZE) {
       // 10MB
-      useAlert(t('CAPTAIN.DOCUMENTS.FORM.PDF_FILE.TOO_LARGE'));
+      useAlert(t('COSMOS.DOCUMENTS.FORM.PDF_FILE.TOO_LARGE'));
       event.target.value = '';
       return;
     }
@@ -140,7 +140,7 @@ const handleSubmit = async () => {
         for="documentType"
         class="mb-0.5 text-sm font-medium text-n-slate-12"
       >
-        {{ t('CAPTAIN.DOCUMENTS.FORM.TYPE.LABEL') }}
+        {{ t('COSMOS.DOCUMENTS.FORM.TYPE.LABEL') }}
       </label>
       <ComboBox
         id="documentType"
@@ -161,7 +161,7 @@ const handleSubmit = async () => {
 
     <div v-if="state.documentType === 'pdf'" class="flex flex-col gap-2">
       <label class="text-sm font-medium text-n-slate-12">
-        {{ t('CAPTAIN.DOCUMENTS.FORM.PDF_FILE.LABEL') }}
+        {{ t('COSMOS.DOCUMENTS.FORM.PDF_FILE.LABEL') }}
       </label>
       <div class="relative">
         <input
@@ -190,14 +190,14 @@ const handleSubmit = async () => {
                   {{
                     state.pdfFile
                       ? state.pdfFile.name
-                      : t('CAPTAIN.DOCUMENTS.FORM.PDF_FILE.CHOOSE_FILE')
+                      : t('COSMOS.DOCUMENTS.FORM.PDF_FILE.CHOOSE_FILE')
                   }}
                 </p>
                 <p class="m-0 text-xs text-n-slate-11">
                   {{
                     state.pdfFile
                       ? `${(state.pdfFile.size / 1024 / 1024).toFixed(2)} MB`
-                      : t('CAPTAIN.DOCUMENTS.FORM.PDF_FILE.HELP_TEXT')
+                      : t('COSMOS.DOCUMENTS.FORM.PDF_FILE.HELP_TEXT')
                   }}
                 </p>
               </div>
@@ -214,8 +214,8 @@ const handleSubmit = async () => {
 
     <Input
       v-model="state.name"
-      :label="t('CAPTAIN.DOCUMENTS.FORM.NAME.LABEL')"
-      :placeholder="t('CAPTAIN.DOCUMENTS.FORM.NAME.PLACEHOLDER')"
+      :label="t('COSMOS.DOCUMENTS.FORM.NAME.LABEL')"
+      :placeholder="t('COSMOS.DOCUMENTS.FORM.NAME.PLACEHOLDER')"
     />
 
     <div class="flex flex-col gap-1">

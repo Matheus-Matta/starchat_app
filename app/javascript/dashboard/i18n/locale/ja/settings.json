@@ -358,10 +358,10 @@
       "INFO_SHORT": "使用していない場合、自動的にオフラインにします。"
     },
     "DOCS": "ドキュメントを読む",
-    "CAPTAIN": "キャプテン",
-    "CAPTAIN_ASSISTANTS": "アシスタント",
-    "CAPTAIN_DOCUMENTS": "ドキュメント",
-    "CAPTAIN_RESPONSES": "FAQ",
+    "COSMOS": "キャプテン",
+    "COSMOS_ASSISTANTS": "アシスタント",
+    "COSMOS_DOCUMENTS": "ドキュメント",
+    "COSMOS_RESPONSES": "FAQ",
     "AGENT_ASSIGNMENT": "Agent Assignment"
   },
   "BILLING_SETTINGS": {
@@ -393,13 +393,13 @@
       "BUTTON_TXT": "チャットをする"
     },
     "NO_BILLING_USER": "請求アカウントを設定中です。ページを更新してもう一度お試しください。",
-    "CAPTAIN": {
+    "COSMOS": {
       "TITLE": "キャプテン",
-      "DESCRIPTION": "Captain AIの使用状況とクレジットを管理する。",
+      "DESCRIPTION": "Cosmos AIの使用状況とクレジットを管理する。",
       "BUTTON_TXT": "クレジットを追加購入する",
       "DOCUMENTS": "ドキュメント",
       "RESPONSES": "応答数",
-      "UPGRADE": "Captainは無料プランでは利用できません。アシスタント、Copilotなどの機能を利用するには、プランをアップグレードしてください。"
+      "UPGRADE": "Cosmosは無料プランでは利用できません。アシスタント、Copilotなどの機能を利用するには、プランをアップグレードしてください。"
     }
   },
   "CREATE_ACCOUNT": {
