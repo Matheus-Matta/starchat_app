@@ -39,6 +39,7 @@ export const FEATURE_FLAGS = {
   CHANNEL_INSTAGRAM: 'channel_instagram',
   CONTACT_CHATWOOT_SUPPORT_TEAM: 'contact_chatwoot_support_team',
   SAML: 'saml',
+  QUOTED_EMAIL_REPLY: 'quoted_email_reply',
   WHATSAPP_EMBEDDED_SIGNUP: 'whatsapp_embedded_signup',
   COSMOS_V2: 'cosmos_integration_v2',
 };
@@ -50,4 +51,5 @@ export const PREMIUM_FEATURES = [
   FEATURE_FLAGS.AUDIT_LOGS,
   FEATURE_FLAGS.HELP_CENTER,
   FEATURE_FLAGS.COSMOS_V2,
+  FEATURE_FLAGS.SAML,
 ];

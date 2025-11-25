@@ -33,7 +33,8 @@ class Api::V1::Accounts::Cosmos::AssistantsController < Api::V1::Accounts::BaseC
   end
 
   def tools
-    @tools = Cosmos::Assistant.available_agent_tools
+    assistant = Cosmos::Assistant.new(account: Current.account)
+    @tools = assistant.available_agent_tools
   end
 
   private
