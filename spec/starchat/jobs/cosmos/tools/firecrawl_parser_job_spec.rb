@@ -1,8 +1,8 @@
 require 'rails_helper'
 
-RSpec.describe Cosmos::Tools::FirecrawlParserJob, type: :job do
+RSpec.describe Captain::Tools::FirecrawlParserJob, type: :job do
   describe '#perform' do
-    let(:assistant) { create(:cosmos_assistant) }
+    let(:assistant) { create(:captain_assistant) }
     let(:payload) do
       {
         markdown: 'Launch Week I is here! 🚀',
@@ -23,16 +23,16 @@ RSpec.describe Cosmos::Tools::FirecrawlParserJob, type: :job do
       expect(document).to have_attributes(
         content: payload[:markdown],
         name: payload[:metadata]['title'],
-        external_link: payload[:metadata]['url'],
+        external_link: 'https://www.firecrawl.dev',
         status: 'available'
       )
     end
 
     it 'updates existing document when one exists' do
-      existing_document = create(:cosmos_document,
+      existing_document = create(:captain_document,
                                  assistant: assistant,
                                  account: assistant.account,
-                                 external_link: payload[:metadata]['url'],
+                                 external_link: 'https://www.firecrawl.dev',
                                  content: 'old content',
                                  name: 'old title',
                                  status: :in_progress)
@@ -42,7 +42,9 @@ RSpec.describe Cosmos::Tools::FirecrawlParserJob, type: :job do
       end.not_to change(assistant.documents, :count)
 
       existing_document.reload
+      # Payload URL ends with '/', but we persist the canonical URL without it.
       expect(existing_document).to have_attributes(
+        external_link: 'https://www.firecrawl.dev',
         content: payload[:markdown],
         name: payload[:metadata]['title'],
         status: 'available'
@@ -51,7 +53,7 @@ RSpec.describe Cosmos::Tools::FirecrawlParserJob, type: :job do
 
     context 'when an error occurs' do
       it 'raises an error with a descriptive message' do
-        allow(Cosmos::Assistant).to receive(:find).and_raise(ActiveRecord::RecordNotFound)
+        allow(Captain::Assistant).to receive(:find).and_raise(ActiveRecord::RecordNotFound)
 
         expect do
           described_class.perform_now(assistant_id: -1, payload: payload)

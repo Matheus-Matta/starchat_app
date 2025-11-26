@@ -8,8 +8,10 @@ module Starchat::SuperAdmin::AppConfigsController
       @allowed_configs = custom_branding_options
     when 'internal'
       @allowed_configs = internal_config_options
-    when 'cosmos'
-      @allowed_configs = cosmos_config_options
+    when 'captain'
+      @allowed_configs = captain_config_options
+    when 'saml'
+      @allowed_configs = saml_config_options
     else
       super
     end
@@ -44,5 +46,9 @@ module Starchat::SuperAdmin::AppConfigsController
       COSMOS_EMBEDDING_MODEL
       COSMOS_FIRECRAWL_API_KEY
     ]
+  end
+
+  def saml_config_options
+    %w[ENABLE_SAML_SSO_LOGIN]
   end
 end

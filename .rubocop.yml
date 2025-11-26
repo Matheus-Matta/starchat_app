@@ -23,7 +23,7 @@ Metrics/MethodLength:
     - 'starchat/lib/cosmos/agent.rb'
 
 RSpec/ExampleLength:
-  Max: 25
+  Max: 50
 
 Style/Documentation:
   Enabled: false

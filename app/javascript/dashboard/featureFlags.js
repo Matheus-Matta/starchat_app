@@ -42,6 +42,7 @@ export const FEATURE_FLAGS = {
   QUOTED_EMAIL_REPLY: 'quoted_email_reply',
   WHATSAPP_EMBEDDED_SIGNUP: 'whatsapp_embedded_signup',
   COSMOS_V2: 'cosmos_integration_v2',
+  COMPANIES: 'companies',
 };
 
 export const PREMIUM_FEATURES = [

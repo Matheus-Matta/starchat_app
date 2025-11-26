@@ -1,23 +1,63 @@
 <script setup>
+import { useAccount } from 'dashboard/composables/useAccount';
 import EmptyStateLayout from 'dashboard/components-next/EmptyStateLayout.vue';
 import Button from 'dashboard/components-next/button/Button.vue';
-import ResponseCard from 'dashboard/components-next/cosmos/assistant/ResponseCard.vue';
+import ResponseCard from 'dashboard/components-next/cosmos/response/ResponseCard.vue';
+import FeatureSpotlight from 'dashboard/components-next/feature-spotlight/FeatureSpotlight.vue';
 import { responsesList } from 'dashboard/components-next/cosmos/pageComponents/emptyStates/cosmosEmptyStateContent.js';
 
-const emit = defineEmits(['click']);
+import { computed } from 'vue';
+
+const props = defineProps({
+  variant: {
+    type: String,
+    default: 'approved',
+    validator: value => ['approved', 'pending'].includes(value),
+  },
+  hasActiveFilters: {
+    type: Boolean,
+    default: false,
+  },
+});
+
+const emit = defineEmits(['click', 'clearFilters']);
+
+const isApproved = computed(() => props.variant === 'approved');
+const isPending = computed(() => props.variant === 'pending');
+
+const { isOnChatwootCloud } = useAccount();
 
 const onClick = () => {
   emit('click');
 };
+
+const onClearFilters = () => {
+  emit('clearFilters');
+};
 </script>
 
 <template>
+  <FeatureSpotlight
+    v-if="isApproved"
+    :title="$t('COSMOS.RESPONSES.EMPTY_STATE.FEATURE_SPOTLIGHT.TITLE')"
+    :note="$t('COSMOS.RESPONSES.EMPTY_STATE.FEATURE_SPOTLIGHT.NOTE')"
+    fallback-thumbnail="/assets/images/dashboard/cosmos/faqs-light.svg"
+    fallback-thumbnail-dark="/assets/images/dashboard/cosmos/faqs-dark.svg"
+    learn-more-url="https://app.starchats.com.br/captain-faq"
+    :hide-actions="!isOnChatwootCloud"
+    class="mb-8"
+  />
   <EmptyStateLayout
-    :title="$t('COSMOS.RESPONSES.EMPTY_STATE.TITLE')"
-    :subtitle="$t('COSMOS.RESPONSES.EMPTY_STATE.SUBTITLE')"
+    :title="
+      isPending
+        ? $t('CAPTAIN.RESPONSES.EMPTY_STATE.NO_PENDING_TITLE')
+        : $t('COSMOS.RESPONSES.EMPTY_STATE.TITLE')
+    "
+    :subtitle="isApproved ? $t('COSMOS.RESPONSES.EMPTY_STATE.SUBTITLE') : ''"
     :action-perms="['administrator']"
+    :show-backdrop="isApproved"
   >
-    <template #empty-state-item>
+    <template v-if="isApproved" #empty-state-item>
       <div class="grid grid-cols-1 gap-4 p-px overflow-hidden">
         <ResponseCard
           v-for="(response, index) in responsesList.slice(0, 5)"
@@ -33,11 +73,21 @@ const onClick = () => {
       </div>
     </template>
     <template #actions>
-      <Button
-        :label="$t('COSMOS.RESPONSES.ADD_NEW')"
-        icon="i-lucide-plus"
-        @click="onClick"
-      />
+      <div class="flex flex-col items-center gap-3">
+        <Button
+          v-if="isApproved"
+          :label="$t('COSMOS.RESPONSES.ADD_NEW')"
+          icon="i-lucide-plus"
+          @click="onClick"
+        />
+        <Button
+          v-else-if="isPending && hasActiveFilters"
+          :label="$t('COSMOS.RESPONSES.EMPTY_STATE.CLEAR_SEARCH')"
+          variant="link"
+          size="sm"
+          @click="onClearFilters"
+        />
+      </div>
     </template>
   </EmptyStateLayout>
 </template>

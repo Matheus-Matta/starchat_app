@@ -1,15 +1,15 @@
 require 'rails_helper'
 
-RSpec.describe Cosmos::Tools::SimplePageCrawlParserJob, type: :job do
+RSpec.describe Captain::Tools::SimplePageCrawlParserJob, type: :job do
   describe '#perform' do
-    let(:assistant) { create(:cosmos_assistant) }
-    let(:page_link) { 'https://example.com/page' }
+    let(:assistant) { create(:captain_assistant) }
+    let(:page_link) { 'https://example.com/page/' }
     let(:page_title) { 'Example Page Title' }
     let(:content) { 'Some page content here' }
-    let(:crawler) { instance_double(Cosmos::Tools::SimplePageCrawlService) }
+    let(:crawler) { instance_double(Captain::Tools::SimplePageCrawlService) }
 
     before do
-      allow(Cosmos::Tools::SimplePageCrawlService).to receive(:new)
+      allow(Captain::Tools::SimplePageCrawlService).to receive(:new)
         .with(page_link)
         .and_return(crawler)
 
@@ -24,16 +24,16 @@ RSpec.describe Cosmos::Tools::SimplePageCrawlParserJob, type: :job do
         end.to change(assistant.documents, :count).by(1)
 
         document = assistant.documents.last
-        expect(document.external_link).to eq(page_link)
+        expect(document.external_link).to eq('https://example.com/page')
         expect(document.name).to eq(page_title)
         expect(document.content).to eq(content)
         expect(document.status).to eq('available')
       end
 
       it 'updates existing document if one exists' do
-        existing_document = create(:cosmos_document,
+        existing_document = create(:captain_document,
                                    assistant: assistant,
-                                   external_link: page_link,
+                                   external_link: 'https://example.com/page',
                                    name: 'Old Title',
                                    content: 'Old content')
 

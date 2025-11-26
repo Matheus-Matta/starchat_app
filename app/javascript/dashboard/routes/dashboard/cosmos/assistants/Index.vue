@@ -1,69 +1,29 @@
 <script setup>
-import { computed, onMounted, ref, nextTick } from 'vue';
-import { useMapGetter, useStore } from 'dashboard/composables/store';
-import { FEATURE_FLAGS } from 'dashboard/featureFlags';
-
-import AssistantCard from 'dashboard/components-next/cosmos/assistant/AssistantCard.vue';
-import DeleteDialog from 'dashboard/components-next/cosmos/pageComponents/DeleteDialog.vue';
-import PageLayout from 'dashboard/components-next/cosmos/PageLayout.vue';
-import CosmosPaywall from 'dashboard/components-next/cosmos/pageComponents/Paywall.vue';
-import CreateAssistantDialog from 'dashboard/components-next/cosmos/pageComponents/assistant/CreateAssistantDialog.vue';
-import AssistantPageEmptyState from 'dashboard/components-next/cosmos/pageComponents/emptyStates/AssistantPageEmptyState.vue';
-import FeatureSpotlightPopover from 'dashboard/components-next/feature-spotlight/FeatureSpotlightPopover.vue';
-import LimitBanner from 'dashboard/components-next/cosmos/pageComponents/response/LimitBanner.vue';
+import { computed, ref, nextTick } from 'vue';
 import { useRouter } from 'vue-router';
+import { useMapGetter } from 'dashboard/composables/store';
+import { FEATURE_FLAGS } from 'dashboard/featureFlags';
+import { useAccount } from 'dashboard/composables/useAccount';
 
-const router = useRouter();
+import PageLayout from 'dashboard/components-next/captain/PageLayout.vue';
+import CaptainPaywall from 'dashboard/components-next/captain/pageComponents/Paywall.vue';
+import CreateAssistantDialog from 'dashboard/components-next/captain/pageComponents/assistant/CreateAssistantDialog.vue';
+import AssistantPageEmptyState from 'dashboard/components-next/captain/pageComponents/emptyStates/AssistantPageEmptyState.vue';
+import FeatureSpotlightPopover from 'dashboard/components-next/feature-spotlight/FeatureSpotlightPopover.vue';
 
-const store = useStore();
+const { isOnChatwootCloud } = useAccount();
+
 const dialogType = ref('');
-const uiFlags = useMapGetter('cosmosAssistants/getUIFlags');
-const assistants = useMapGetter('cosmosAssistants/getRecords');
+const uiFlags = useMapGetter('captainAssistants/getUIFlags');
 const isFetching = computed(() => uiFlags.value.fetchingList);
 
 const selectedAssistant = ref(null);
-const deleteAssistantDialog = ref(null);
-
-const handleDelete = () => {
-  deleteAssistantDialog.value.dialogRef.open();
-};
-
 const createAssistantDialog = ref(null);
+const router = useRouter();
 
 const handleCreate = () => {
   dialogType.value = 'create';
   nextTick(() => createAssistantDialog.value.dialogRef.open());
-};
-
-const handleEdit = () => {
-  router.push({
-    name: 'cosmos_assistants_edit',
-    params: { assistantId: selectedAssistant.value.id },
-  });
-};
-
-const handleViewConnectedInboxes = () => {
-  router.push({
-    name: 'cosmos_assistants_inboxes_index',
-    params: { assistantId: selectedAssistant.value.id },
-  });
-};
-
-const handleAction = ({ action, id }) => {
-  selectedAssistant.value = assistants.value.find(
-    assistant => id === assistant.id
-  );
-  nextTick(() => {
-    if (action === 'delete') {
-      handleDelete();
-    }
-    if (action === 'edit') {
-      handleEdit();
-    }
-    if (action === 'viewConnectedInboxes') {
-      handleViewConnectedInboxes();
-    }
-  });
 };
 
 const handleCreateClose = () => {
@@ -71,28 +31,38 @@ const handleCreateClose = () => {
   selectedAssistant.value = null;
 };
 
-onMounted(() => store.dispatch('cosmosAssistants/get'));
+const handleAfterCreate = newAssistant => {
+  // Navigate directly to documents page with the new assistant ID
+  if (newAssistant?.id) {
+    router.push({
+      name: 'captain_assistants_responses_index',
+      params: {
+        accountId: router.currentRoute.value.params.accountId,
+        assistantId: newAssistant.id,
+      },
+    });
+  }
+};
 </script>
 
 <template>
   <PageLayout
-    :header-title="$t('COSMOS.ASSISTANTS.HEADER')"
-    :button-label="$t('COSMOS.ASSISTANTS.ADD_NEW')"
-    :button-policy="['administrator']"
+    :header-title="$t('CAPTAIN.ASSISTANTS.HEADER')"
     :show-pagination-footer="false"
     :is-fetching="isFetching"
-    :is-empty="!assistants.length"
-    :feature-flag="FEATURE_FLAGS.COSMOS"
+    :feature-flag="FEATURE_FLAGS.CAPTAIN"
+    is-empty
     @click="handleCreate"
   >
     <template #knowMore>
       <FeatureSpotlightPopover
-        :button-label="$t('COSMOS.HEADER_KNOW_MORE')"
-        :title="$t('COSMOS.ASSISTANTS.EMPTY_STATE.FEATURE_SPOTLIGHT.TITLE')"
-        :note="$t('COSMOS.ASSISTANTS.EMPTY_STATE.FEATURE_SPOTLIGHT.NOTE')"
-        fallback-thumbnail="/assets/images/dashboard/cosmos/assistant-popover-light.svg"
-        fallback-thumbnail-dark="/assets/images/dashboard/cosmos/assistant-popover-dark.svg"
-        learn-more-url="https://chwt.app/cosmos-assistant"
+        :button-label="$t('CAPTAIN.HEADER_KNOW_MORE')"
+        :title="$t('CAPTAIN.ASSISTANTS.EMPTY_STATE.FEATURE_SPOTLIGHT.TITLE')"
+        :note="$t('CAPTAIN.ASSISTANTS.EMPTY_STATE.FEATURE_SPOTLIGHT.NOTE')"
+        :hide-actions="!isOnChatwootCloud"
+        fallback-thumbnail="/assets/images/dashboard/captain/assistant-popover-light.svg"
+        fallback-thumbnail-dark="/assets/images/dashboard/captain/assistant-popover-dark.svg"
+        learn-more-url="https://chwt.app/captain-assistant"
       />
     </template>
     <template #emptyState>
@@ -103,36 +73,13 @@ onMounted(() => store.dispatch('cosmosAssistants/get'));
       <CosmosPaywall />
     </template>
 
-    <template #body>
-      <LimitBanner class="mb-5" />
-
-      <div class="flex flex-col gap-4">
-        <AssistantCard
-          v-for="assistant in assistants"
-          :id="assistant.id"
-          :key="assistant.id"
-          :name="assistant.name"
-          :description="assistant.description"
-          :updated-at="assistant.updated_at || assistant.created_at"
-          :created-at="assistant.created_at"
-          @action="handleAction"
-        />
-      </div>
-    </template>
-
-    <DeleteDialog
-      v-if="selectedAssistant"
-      ref="deleteAssistantDialog"
-      :entity="selectedAssistant"
-      type="Assistants"
-    />
-
     <CreateAssistantDialog
       v-if="dialogType"
       ref="createAssistantDialog"
       :type="dialogType"
       :selected-assistant="selectedAssistant"
       @close="handleCreateClose"
+      @created="handleAfterCreate"
     />
   </PageLayout>
 </template>
