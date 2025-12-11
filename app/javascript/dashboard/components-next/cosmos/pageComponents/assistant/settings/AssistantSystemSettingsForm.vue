@@ -21,8 +21,8 @@ const emit = defineEmits(['submit']);
 const { t } = useI18n();
 const { isCloudFeatureEnabled } = useAccount();
 
-const isCaptainV2Enabled = computed(() =>
-  isCloudFeatureEnabled(FEATURE_FLAGS.CAPTAIN_V2)
+const isCosmosV2Enabled = computed(() =>
+  isCloudFeatureEnabled(FEATURE_FLAGS.COSMOS_V2)
 );
 
 const initialState = {
@@ -66,7 +66,7 @@ const handleSystemMessagesUpdate = async () => {
     v$.value.resolutionMessage.$validate(),
   ];
 
-  if (!isCaptainV2Enabled.value) {
+  if (!isCosmosV2Enabled.value) {
     validations.push(v$.value.instructions.$validate());
   }
 
@@ -84,7 +84,7 @@ const handleSystemMessagesUpdate = async () => {
     },
   };
 
-  if (!isCaptainV2Enabled.value) {
+  if (!isCosmosV2Enabled.value) {
     payload.config.instructions = state.instructions;
   }
 
@@ -119,10 +119,10 @@ watch(
     />
 
     <Editor
-      v-if="!isCaptainV2Enabled"
+      v-if="!isCosmosV2Enabled"
       v-model="state.instructions"
-      :label="t('CAPTAIN.ASSISTANTS.FORM.INSTRUCTIONS.LABEL')"
-      :placeholder="t('CAPTAIN.ASSISTANTS.FORM.INSTRUCTIONS.PLACEHOLDER')"
+      :label="t('COSMOS.ASSISTANTS.FORM.INSTRUCTIONS.LABEL')"
+      :placeholder="t('COSMOS.ASSISTANTS.FORM.INSTRUCTIONS.PLACEHOLDER')"
       :message="formErrors.instructions"
       :max-length="20000"
       :message-type="formErrors.instructions ? 'error' : 'info'"

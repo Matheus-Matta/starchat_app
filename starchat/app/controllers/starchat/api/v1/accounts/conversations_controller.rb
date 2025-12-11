@@ -1,8 +1,8 @@
-module Enterprise::Api::V1::Accounts::ConversationsController
+module Starchat::Api::V1::Accounts::ConversationsController
   extend ActiveSupport::Concern
 
   def inbox_assistant
-    assistant = @conversation.inbox.captain_assistant
+    assistant = @conversation.inbox.cosmos_assistant
 
     if assistant
       render json: { assistant: { id: assistant.id, name: assistant.name } }

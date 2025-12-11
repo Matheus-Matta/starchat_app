@@ -10,8 +10,8 @@ import BackButton from 'dashboard/components/widgets/BackButton.vue';
 import PaginationFooter from 'dashboard/components-next/pagination/PaginationFooter.vue';
 import Spinner from 'dashboard/components-next/spinner/Spinner.vue';
 import Policy from 'dashboard/components/policy.vue';
-import AssistantSwitcher from 'dashboard/components-next/captain/pageComponents/switcher/AssistantSwitcher.vue';
-import CreateAssistantDialog from 'dashboard/components-next/captain/pageComponents/assistant/CreateAssistantDialog.vue';
+import AssistantSwitcher from 'dashboard/components-next/cosmos/pageComponents/switcher/AssistantSwitcher.vue';
+import CreateAssistantDialog from 'dashboard/components-next/cosmos/pageComponents/assistant/CreateAssistantDialog.vue';
 
 const props = defineProps({
   currentPage: {
@@ -78,8 +78,8 @@ const { shouldShowPaywall } = usePolicy();
 const showAssistantSwitcherDropdown = ref(false);
 const createAssistantDialogRef = ref(null);
 
-const assistants = useMapGetter('captainAssistants/getRecords');
-const uiFlags = useMapGetter('captainAssistants/getUIFlags');
+const assistants = useMapGetter('cosmosAssistants/getRecords');
+const uiFlags = useMapGetter('cosmosAssistants/getUIFlags');
 
 const currentAssistantId = computed(() => route.params.assistantId);
 const isFetchingAssistants = computed(() => uiFlags.value?.fetchingList);
@@ -88,7 +88,7 @@ const activeAssistantName = computed(() => {
   return (
     assistants.value?.find(
       assistant => assistant.id === Number(currentAssistantId.value)
-    )?.name || t('CAPTAIN.ASSISTANT_SWITCHER.NEW_ASSISTANT')
+    )?.name || t('COSMOS.ASSISTANT_SWITCHER.NEW_ASSISTANT')
   );
 });
 
@@ -185,14 +185,14 @@ const handleCreateAssistant = () => {
             <div
               v-if="!showPaywall && buttonLabel"
               v-on-clickaway="() => emit('close')"
-              class="relative group/captain-button"
+              class="relative group/cosmos-button"
             >
               <Policy :permissions="buttonPolicy">
                 <Button
                   :label="buttonLabel"
                   icon="i-lucide-plus"
                   size="sm"
-                  class="group-hover/captain-button:brightness-110"
+                  class="group-hover/cosmos-button:brightness-110"
                   @click="handleButtonClick"
                 />
               </Policy>

@@ -1,4 +1,4 @@
-class Enterprise::AutoAssignment::BalancedSelector
+class Starchat::AutoAssignment::BalancedSelector
   pattr_initialize [:inbox!]
 
   def select_agent(available_agents)

@@ -1,4 +1,4 @@
-module Enterprise::ConversationPolicy
+module Starchat::ConversationPolicy
   def show?
     return false unless super
     return true unless custom_role_permissions?

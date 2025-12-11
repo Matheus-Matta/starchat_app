@@ -5,13 +5,13 @@ import { useRoute } from 'vue-router';
 import { FEATURE_FLAGS } from 'dashboard/featureFlags';
 import { useAccount } from 'dashboard/composables/useAccount';
 
-import DeleteDialog from 'dashboard/components-next/captain/pageComponents/DeleteDialog.vue';
-import DocumentCard from 'dashboard/components-next/captain/assistant/DocumentCard.vue';
-import PageLayout from 'dashboard/components-next/captain/PageLayout.vue';
-import CaptainPaywall from 'dashboard/components-next/captain/pageComponents/Paywall.vue';
-import RelatedResponses from 'dashboard/components-next/captain/pageComponents/document/RelatedResponses.vue';
-import CreateDocumentDialog from 'dashboard/components-next/captain/pageComponents/document/CreateDocumentDialog.vue';
-import DocumentPageEmptyState from 'dashboard/components-next/captain/pageComponents/emptyStates/DocumentPageEmptyState.vue';
+import DeleteDialog from 'dashboard/components-next/cosmos/pageComponents/DeleteDialog.vue';
+import DocumentCard from 'dashboard/components-next/cosmos/assistant/DocumentCard.vue';
+import PageLayout from 'dashboard/components-next/cosmos/PageLayout.vue';
+import CosmosPaywall from 'dashboard/components-next/cosmos/pageComponents/Paywall.vue';
+import RelatedResponses from 'dashboard/components-next/cosmos/pageComponents/document/RelatedResponses.vue';
+import CreateDocumentDialog from 'dashboard/components-next/cosmos/pageComponents/document/CreateDocumentDialog.vue';
+import DocumentPageEmptyState from 'dashboard/components-next/cosmos/pageComponents/emptyStates/DocumentPageEmptyState.vue';
 import FeatureSpotlightPopover from 'dashboard/components-next/feature-spotlight/FeatureSpotlightPopover.vue';
 import LimitBanner from 'dashboard/components-next/cosmos/pageComponents/document/LimitBanner.vue';
 
@@ -19,10 +19,10 @@ const route = useRoute();
 const store = useStore();
 
 const { isOnChatwootCloud } = useAccount();
-const uiFlags = useMapGetter('captainDocuments/getUIFlags');
-const documents = useMapGetter('captainDocuments/getRecords');
+const uiFlags = useMapGetter('cosmosDocuments/getUIFlags');
+const documents = useMapGetter('cosmosDocuments/getRecords');
 const isFetching = computed(() => uiFlags.value.fetchingList);
-const documentsMeta = useMapGetter('captainDocuments/getMeta');
+const documentsMeta = useMapGetter('cosmosDocuments/getMeta');
 
 const selectedAssistantId = computed(() => Number(route.params.assistantId));
 
@@ -75,7 +75,7 @@ const fetchDocuments = (page = 1) => {
   if (selectedAssistantId.value) {
     filterParams.assistantId = selectedAssistantId.value;
   }
-  store.dispatch('captainDocuments/get', filterParams);
+  store.dispatch('cosmosDocuments/get', filterParams);
 };
 
 const onPageChange = page => fetchDocuments(page);
@@ -123,7 +123,7 @@ onMounted(() => {
     </template>
 
     <template #paywall>
-      <CaptainPaywall />
+      <CosmosPaywall />
     </template>
 
     <template #body>

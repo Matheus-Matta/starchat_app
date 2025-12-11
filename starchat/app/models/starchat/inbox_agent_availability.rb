@@ -1,4 +1,4 @@
-module Enterprise::InboxAgentAvailability
+module Starchat::InboxAgentAvailability
   extend ActiveSupport::Concern
 
   def member_ids_with_assignment_capacity
@@ -26,6 +26,6 @@ module Enterprise::InboxAgentAvailability
   end
 
   def capacity_service
-    @capacity_service ||= Enterprise::AutoAssignment::CapacityService.new
+    @capacity_service ||= Starchat::AutoAssignment::CapacityService.new
   end
 end

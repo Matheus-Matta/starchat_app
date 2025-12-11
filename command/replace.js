@@ -3,28 +3,23 @@
 const fs = require('fs').promises;
 const path = require('path');
 
-// Diretório base: passado como argumento ou o diretório atual
 const ROOT_DIR = process.argv[2] || process.cwd();
-
-// Se quiser realmente tentar em TODOS os arquivos, mude para true
 const PROCESS_ALL_FILES = false;
 
-// Extensões de texto mais comuns (quando PROCESS_ALL_FILES = false)
 const TEXT_EXTS = new Set([
   '.js',
   '.ts',
   '.jsx',
   '.tsx',
   '.rb',
-  '.jbuilder',
   '.json',
   '.html',
+  '.eml',
   '.htm',
   '.css',
   '.scss',
   '.sass',
   '.less',
-  '.md',
   '.txt',
   '.yml',
   '.yaml',
@@ -39,12 +34,12 @@ async function walk(dir) {
   for (const entry of entries) {
     const fullPath = path.join(dir, entry.name);
 
-    // pula algumas pastas chatas
     if (entry.isDirectory()) {
       if (['node_modules', '.git', '.idea', '.vscode'].includes(entry.name))
         continue;
       await walk(fullPath);
-    } else if (shouldProcess(fullPath)) {
+    } else if (entry.isFile() && shouldProcess(fullPath)) {
+      console.log('Verificando:', fullPath);
       await replaceInFile(fullPath);
     }
   }
@@ -61,7 +56,12 @@ async function replaceInFile(filePath) {
   try {
     content = await fs.readFile(filePath, 'utf8');
   } catch (err) {
-    console.warn('Não consegui ler (pulei):', filePath);
+    console.warn(
+      'Não consegui ler (pulei):',
+      filePath,
+      '-',
+      err.code || err.message
+    );
     return;
   }
 

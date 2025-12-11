@@ -1,4 +1,4 @@
-class Api::V1::Accounts::AgentCapacityPoliciesController < Api::V1::Accounts::EnterpriseAccountsController
+class Api::V1::Accounts::AgentCapacityPoliciesController < Api::V1::Accounts::StarchatAccountsController
   before_action :check_authorization
   before_action :fetch_policy, only: [:show, :update, :destroy]
 

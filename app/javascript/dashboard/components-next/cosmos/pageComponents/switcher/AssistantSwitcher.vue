@@ -14,7 +14,7 @@ const route = useRoute();
 const router = useRouter();
 const store = useStore();
 
-const assistants = useMapGetter('captainAssistants/getRecords');
+const assistants = useMapGetter('cosmosAssistants/getRecords');
 
 const currentAssistantId = computed(() => route.params.assistantId);
 
@@ -24,33 +24,33 @@ const isAssistantActive = assistant => {
 
 const fetchDataForRoute = async (routeName, assistantId) => {
   const dataFetchMap = {
-    captain_assistants_responses_index: async () => {
-      await store.dispatch('captainResponses/get', { assistantId });
-      await store.dispatch('captainResponses/fetchPendingCount', assistantId);
+    cosmos_assistants_responses_index: async () => {
+      await store.dispatch('cosmosResponses/get', { assistantId });
+      await store.dispatch('cosmosResponses/fetchPendingCount', assistantId);
     },
-    captain_assistants_responses_pending: async () => {
-      await store.dispatch('captainResponses/get', {
+    cosmos_assistants_responses_pending: async () => {
+      await store.dispatch('cosmosResponses/get', {
         assistantId,
         status: 'pending',
       });
     },
-    captain_assistants_documents_index: async () => {
-      await store.dispatch('captainDocuments/get', { assistantId });
+    cosmos_assistants_documents_index: async () => {
+      await store.dispatch('cosmosDocuments/get', { assistantId });
     },
-    captain_assistants_scenarios_index: async () => {
-      await store.dispatch('captainScenarios/get', { assistantId });
+    cosmos_assistants_scenarios_index: async () => {
+      await store.dispatch('cosmosScenarios/get', { assistantId });
     },
-    captain_assistants_playground_index: () => {
+    cosmos_assistants_playground_index: () => {
       // Playground doesn't need pre-fetching, it loads on interaction
     },
-    captain_assistants_inboxes_index: async () => {
-      await store.dispatch('captainInboxes/get', { assistantId });
+    cosmos_assistants_inboxes_index: async () => {
+      await store.dispatch('cosmosInboxes/get', { assistantId });
     },
-    captain_tools_index: async () => {
-      await store.dispatch('captainCustomTools/get', { page: 1 });
+    cosmos_tools_index: async () => {
+      await store.dispatch('cosmosCustomTools/get', { page: 1 });
     },
-    captain_assistants_settings_index: async () => {
-      await store.dispatch('captainAssistants/show', assistantId);
+    cosmos_assistants_settings_index: async () => {
+      await store.dispatch('cosmosAssistants/show', assistantId);
     },
   };
 
@@ -65,7 +65,7 @@ const handleAssistantChange = async assistant => {
 
   const currentRouteName = route.name;
   const targetRouteName =
-    currentRouteName || 'captain_assistants_responses_index';
+    currentRouteName || 'cosmos_assistants_responses_index';
 
   await fetchDataForRoute(targetRouteName, assistant.id);
 
@@ -98,15 +98,15 @@ const openCreateAssistantDialog = () => {
           <h2
             class="text-base font-medium cursor-pointer text-n-slate-12 w-fit hover:underline"
           >
-            {{ t('CAPTAIN.ASSISTANT_SWITCHER.ASSISTANTS') }}
+            {{ t('COSMOS.ASSISTANT_SWITCHER.ASSISTANTS') }}
           </h2>
         </div>
         <p class="text-sm text-n-slate-11">
-          {{ t('CAPTAIN.ASSISTANT_SWITCHER.SWITCH_ASSISTANT') }}
+          {{ t('COSMOS.ASSISTANT_SWITCHER.SWITCH_ASSISTANT') }}
         </p>
       </div>
       <Button
-        :label="t('CAPTAIN.ASSISTANT_SWITCHER.NEW_ASSISTANT')"
+        :label="t('COSMOS.ASSISTANT_SWITCHER.NEW_ASSISTANT')"
         color="slate"
         icon="i-lucide-plus"
         size="sm"
@@ -141,7 +141,7 @@ const openCreateAssistantDialog = () => {
     </div>
     <div v-else class="flex flex-col items-center gap-2 px-4 py-3">
       <p class="text-sm text-n-slate-11">
-        {{ t('CAPTAIN.ASSISTANT_SWITCHER.EMPTY_LIST') }}
+        {{ t('COSMOS.ASSISTANT_SWITCHER.EMPTY_LIST') }}
       </p>
     </div>
   </div>

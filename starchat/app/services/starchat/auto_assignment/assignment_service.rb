@@ -1,4 +1,4 @@
-module Enterprise::AutoAssignment::AssignmentService
+module Starchat::AutoAssignment::AssignmentService
   private
 
   # Override assignment config to use policy if available
@@ -26,7 +26,7 @@ module Enterprise::AutoAssignment::AssignmentService
   def filter_agents_by_capacity(agents)
     return agents unless capacity_filtering_enabled?
 
-    capacity_service = Enterprise::AutoAssignment::CapacityService.new
+    capacity_service = Starchat::AutoAssignment::CapacityService.new
     agents.select { |agent_member| capacity_service.agent_has_capacity?(agent_member.user, inbox) }
   end
 
@@ -40,7 +40,7 @@ module Enterprise::AutoAssignment::AssignmentService
   end
 
   def balanced_selector
-    @balanced_selector ||= Enterprise::AutoAssignment::BalancedSelector.new(inbox: inbox)
+    @balanced_selector ||= Starchat::AutoAssignment::BalancedSelector.new(inbox: inbox)
   end
 
   def policy

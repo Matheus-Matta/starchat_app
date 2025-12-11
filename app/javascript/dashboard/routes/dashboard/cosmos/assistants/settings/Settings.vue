@@ -13,13 +13,13 @@ import SettingsHeader from 'dashboard/components-next/cosmos/pageComponents/sett
 import AssistantBasicSettingsForm from 'dashboard/components-next/cosmos/pageComponents/assistant/settings/AssistantBasicSettingsForm.vue';
 import AssistantSystemSettingsForm from 'dashboard/components-next/cosmos/pageComponents/assistant/settings/AssistantSystemSettingsForm.vue';
 import AssistantControlItems from 'dashboard/components-next/cosmos/pageComponents/assistant/settings/AssistantControlItems.vue';
-import DeleteDialog from 'dashboard/components-next/captain/pageComponents/DeleteDialog.vue';
+import DeleteDialog from 'dashboard/components-next/cosmos/pageComponents/DeleteDialog.vue';
 
 const { t } = useI18n();
 const { isCloudFeatureEnabled } = useAccount();
 
-const isCaptainV2Enabled = computed(() =>
-  isCloudFeatureEnabled(FEATURE_FLAGS.CAPTAIN_V2)
+const isCosmosV2Enabled = computed(() =>
+  isCloudFeatureEnabled(FEATURE_FLAGS.COSMOS_V2)
 );
 const route = useRoute();
 const router = useRouter();
@@ -28,7 +28,7 @@ const store = useStore();
 const deleteAssistantDialog = ref(null);
 
 const uiFlags = useMapGetter('cosmosAssistants/getUIFlags');
-const assistants = useMapGetter('captainAssistants/getRecords');
+const assistants = useMapGetter('cosmosAssistants/getRecords');
 const isFetching = computed(() => uiFlags.value.fetchingItem);
 const assistantId = computed(() => Number(route.params.assistantId));
 const assistant = computed(() =>
@@ -86,7 +86,7 @@ const handleDeleteSuccess = () => {
     // Navigate to the first available assistant's settings
     const nextAssistant = remainingAssistants[0];
     router.push({
-      name: 'captain_assistants_settings_index',
+      name: 'cosmos_assistants_settings_index',
       params: {
         accountId: route.params.accountId,
         assistantId: nextAssistant.id,
@@ -95,7 +95,7 @@ const handleDeleteSuccess = () => {
   } else {
     // No assistants left, redirect to create assistant page
     router.push({
-      name: 'captain_assistants_create_index',
+      name: 'cosmos_assistants_create_index',
       params: { accountId: route.params.accountId },
     });
   }
@@ -109,13 +109,13 @@ const handleDeleteSuccess = () => {
     :show-know-more="false"
     :class="{
       '[&>header>div]:max-w-[80rem] [&>main>div]:max-w-[80rem]':
-        isCaptainV2Enabled,
+        isCosmosV2Enabled,
     }"
   >
     <template #body>
       <div
         class="gap-6 lg:gap-16 pb-8"
-        :class="{ 'grid grid-cols-2': isCaptainV2Enabled }"
+        :class="{ 'grid grid-cols-2': isCosmosV2Enabled }"
       >
         <div class="flex flex-col gap-6">
           <div class="flex flex-col gap-6">
@@ -147,16 +147,16 @@ const handleDeleteSuccess = () => {
           <div class="flex items-end justify-between w-full gap-4">
             <div class="flex flex-col gap-2">
               <h6 class="text-n-slate-12 text-base font-medium">
-                {{ t('CAPTAIN.ASSISTANTS.SETTINGS.DELETE.TITLE') }}
+                {{ t('COSMOS.ASSISTANTS.SETTINGS.DELETE.TITLE') }}
               </h6>
               <span class="text-n-slate-11 text-sm">
-                {{ t('CAPTAIN.ASSISTANTS.SETTINGS.DELETE.DESCRIPTION') }}
+                {{ t('COSMOS.ASSISTANTS.SETTINGS.DELETE.DESCRIPTION') }}
               </span>
             </div>
             <div class="flex-shrink-0">
               <Button
                 :label="
-                  t('CAPTAIN.ASSISTANTS.SETTINGS.DELETE.BUTTON_TEXT', {
+                  t('COSMOS.ASSISTANTS.SETTINGS.DELETE.BUTTON_TEXT', {
                     assistantName: assistant.name,
                   })
                 "
@@ -167,7 +167,7 @@ const handleDeleteSuccess = () => {
             </div>
           </div>
         </div>
-        <div v-if="isCaptainV2Enabled" class="flex flex-col gap-6">
+        <div v-if="isCosmosV2Enabled" class="flex flex-col gap-6">
           <SettingsHeader
             :heading="t('COSMOS.ASSISTANTS.SETTINGS.CONTROL_ITEMS.TITLE')"
             :description="

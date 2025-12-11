@@ -12,7 +12,7 @@ const { uiSettings } = useUISettings();
 const route = useRoute();
 
 const assistants = computed(
-  () => store.getters['captainAssistants/getRecords']
+  () => store.getters['cosmosAssistants/getRecords']
 );
 
 const isAssistantPresent = assistantId => {
@@ -46,25 +46,25 @@ const routeToLastActiveAssistant = () => {
 
   // No assistants found, redirect to create page
   if (!params) {
-    return routeToView('captain_assistants_create_index', {
+    return routeToView('cosmos_assistants_create_index', {
       accountId: route.params.accountId,
     });
   }
 
   const { navigationPath } = route.params;
   const isAValidRoute = [
-    'captain_assistants_responses_index', // Faq page
-    'captain_assistants_documents_index', // Document page
-    'captain_assistants_scenarios_index', // Scenario page
-    'captain_assistants_playground_index', // Playground page
-    'captain_assistants_inboxes_index', // Inboxes page
-    'captain_tools_index', // Tools page
-    'captain_assistants_settings_index', // Settings page
+    'cosmos_assistants_responses_index', // Faq page
+    'cosmos_assistants_documents_index', // Document page
+    'cosmos_assistants_scenarios_index', // Scenario page
+    'cosmos_assistants_playground_index', // Playground page
+    'cosmos_assistants_inboxes_index', // Inboxes page
+    'cosmos_tools_index', // Tools page
+    'cosmos_assistants_settings_index', // Settings page
   ].includes(navigationPath);
 
   const navigateTo = isAValidRoute
     ? navigationPath
-    : 'captain_assistants_responses_index';
+    : 'cosmos_assistants_responses_index';
 
   return routeToView(navigateTo, {
     accountId: route.params.accountId,
@@ -73,7 +73,7 @@ const routeToLastActiveAssistant = () => {
 };
 
 const performRouting = async () => {
-  await store.dispatch('captainAssistants/get');
+  await store.dispatch('cosmosAssistants/get');
   nextTick(() => routeToLastActiveAssistant());
 };
 

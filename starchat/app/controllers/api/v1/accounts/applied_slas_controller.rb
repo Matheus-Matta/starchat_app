@@ -1,4 +1,4 @@
-class Api::V1::Accounts::AppliedSlasController < Api::V1::Accounts::EnterpriseAccountsController
+class Api::V1::Accounts::AppliedSlasController < Api::V1::Accounts::StarchatAccountsController
   include Sift
   include DateRangeHelper
 

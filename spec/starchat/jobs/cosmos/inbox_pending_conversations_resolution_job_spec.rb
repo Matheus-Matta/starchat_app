@@ -1,16 +1,16 @@
 require 'rails_helper'
 
-RSpec.describe Captain::InboxPendingConversationsResolutionJob, type: :job do
+RSpec.describe Cosmos::InboxPendingConversationsResolutionJob, type: :job do
   let!(:inbox) { create(:inbox) }
 
   let!(:resolvable_pending_conversation) { create(:conversation, inbox: inbox, last_activity_at: 2.hours.ago, status: :pending) }
   let!(:recent_pending_conversation) { create(:conversation, inbox: inbox, last_activity_at: 10.minutes.ago, status: :pending) }
   let!(:open_conversation) { create(:conversation, inbox: inbox, last_activity_at: 1.hour.ago, status: :open) }
 
-  let!(:captain_assistant) { create(:captain_assistant, account: inbox.account) }
+  let!(:cosmos_assistant) { create(:cosmos_assistant, account: inbox.account) }
 
   before do
-    create(:captain_inbox, inbox: inbox, captain_assistant: captain_assistant)
+    create(:cosmos_inbox, inbox: inbox, cosmos_assistant: cosmos_assistant)
     stub_const('Limits::BULK_ACTIONS_LIMIT', 2)
     inbox.reload
   end
@@ -30,7 +30,7 @@ RSpec.describe Captain::InboxPendingConversationsResolutionJob, type: :job do
 
   it 'creates exactly one outgoing message with configured content' do
     custom_message = 'This is a custom resolution message.'
-    captain_assistant.update!(config: { 'resolution_message' => custom_message })
+    cosmos_assistant.update!(config: { 'resolution_message' => custom_message })
 
     expect do
       described_class.perform_now(inbox)
@@ -41,7 +41,7 @@ RSpec.describe Captain::InboxPendingConversationsResolutionJob, type: :job do
   end
 
   it 'creates an outgoing message with default auto resolution message if not configured' do
-    captain_assistant.update!(config: {})
+    cosmos_assistant.update!(config: {})
 
     described_class.perform_now(inbox)
     outgoing_message = resolvable_pending_conversation.messages.outgoing.last
@@ -50,9 +50,9 @@ RSpec.describe Captain::InboxPendingConversationsResolutionJob, type: :job do
     )
   end
 
-  it 'adds the correct activity message after resolution by Captain' do
+  it 'adds the correct activity message after resolution by Cosmos' do
     described_class.perform_now(inbox)
-    expected_content = I18n.t('conversations.activity.captain.resolved', user_name: captain_assistant.name)
+    expected_content = I18n.t('conversations.activity.cosmos.resolved', user_name: cosmos_assistant.name)
     expect(Conversations::ActivityMessageJob)
       .to have_been_enqueued.with(
         resolvable_pending_conversation,

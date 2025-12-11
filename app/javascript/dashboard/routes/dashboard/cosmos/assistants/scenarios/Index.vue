@@ -26,7 +26,7 @@ const assistantId = computed(() => Number(route.params.assistantId));
 
 const uiFlags = useMapGetter('cosmosScenarios/getUIFlags');
 const isFetching = computed(() => uiFlags.value.fetchingList);
-const scenarios = useMapGetter('captainScenarios/getRecords');
+const scenarios = useMapGetter('cosmosScenarios/getRecords');
 
 const searchQuery = ref('');
 
@@ -191,7 +191,7 @@ onMounted(() => {
 
 <template>
   <PageLayout
-    :header-title="$t('CAPTAIN.DOCUMENTS.HEADER')"
+    :header-title="$t('COSMOS.DOCUMENTS.HEADER')"
     :is-fetching="isFetching"
     :show-know-more="false"
     :show-pagination-footer="false"

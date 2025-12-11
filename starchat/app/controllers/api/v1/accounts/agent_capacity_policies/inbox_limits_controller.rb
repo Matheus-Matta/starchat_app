@@ -1,4 +1,4 @@
-class Api::V1::Accounts::AgentCapacityPolicies::InboxLimitsController < Api::V1::Accounts::EnterpriseAccountsController
+class Api::V1::Accounts::AgentCapacityPolicies::InboxLimitsController < Api::V1::Accounts::StarchatAccountsController
   before_action -> { check_authorization(AgentCapacityPolicy) }
   before_action :fetch_policy
   before_action :fetch_inbox, only: [:create]

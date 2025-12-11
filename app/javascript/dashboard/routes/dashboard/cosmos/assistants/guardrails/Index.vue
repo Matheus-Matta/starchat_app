@@ -37,7 +37,7 @@ const newDialogRule = ref('');
 const guardrailsContent = computed(() => assistant.value?.guardrails || []);
 
 const backUrl = computed(() => ({
-  name: 'captain_assistants_settings_index',
+  name: 'cosmos_assistants_settings_index',
   params: {
     accountId: route.params.accountId,
     assistantId: assistantId.value,
@@ -174,7 +174,7 @@ const addAllExample = () => {
 
 <template>
   <PageLayout
-    :header-title="$t('CAPTAIN.ASSISTANTS.GUARDRAILS.TITLE')"
+    :header-title="$t('COSMOS.ASSISTANTS.GUARDRAILS.TITLE')"
     :is-fetching="isFetching"
     :back-url="backUrl"
     :show-know-more="false"

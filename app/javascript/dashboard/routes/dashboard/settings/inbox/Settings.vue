@@ -408,13 +408,12 @@ export default {
       return [...selected, current];
     },
 
-    // DE VOLTA do código original: atualiza avatar ao trocar de aba
     refreshAvatarUrlOnTabChange(index) {
       // Refresh avatar URL on tab change from inbox-settings and widget-builder tabs, to ensure real-time updates
       if (
         this.inbox &&
         ['inbox-settings', 'widget-builder'].includes(this.tabs[index].key)
-      )
+      ) {
         this.avatarUrl = this.inbox.avatar_url;
       }
     },

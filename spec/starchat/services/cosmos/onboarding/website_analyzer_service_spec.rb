@@ -1,14 +1,14 @@
 require 'rails_helper'
 
-RSpec.describe Captain::Onboarding::WebsiteAnalyzerService do
+RSpec.describe Cosmos::Onboarding::WebsiteAnalyzerService do
   let(:website_url) { 'https://example.com' }
   let(:service) { described_class.new(website_url) }
-  let(:mock_crawler) { instance_double(Captain::Tools::SimplePageCrawlService) }
+  let(:mock_crawler) { instance_double(Cosmos::Tools::SimplePageCrawlService) }
   let(:mock_client) { instance_double(OpenAI::Client) }
 
   before do
-    create(:installation_config, name: 'CAPTAIN_OPEN_AI_API_KEY', value: 'test-key')
-    allow(Captain::Tools::SimplePageCrawlService).to receive(:new).and_return(mock_crawler)
+    create(:installation_config, name: 'COSMOS_OPEN_AI_API_KEY', value: 'test-key')
+    allow(Cosmos::Tools::SimplePageCrawlService).to receive(:new).and_return(mock_crawler)
     allow(service).to receive(:client).and_return(mock_client)
     allow(service).to receive(:model).and_return('gpt-3.5-turbo')
   end

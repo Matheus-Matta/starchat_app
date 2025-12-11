@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Enterprise::AutoAssignment::CapacityService, type: :service do
+RSpec.describe Starchat::AutoAssignment::CapacityService, type: :service do
   let(:account) { create(:account) }
   let(:inbox) { create(:inbox, account: account, enable_auto_assignment: true) }
 

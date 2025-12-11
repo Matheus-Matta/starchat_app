@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Enterprise::AutoAssignment::BalancedSelector do
+RSpec.describe Starchat::AutoAssignment::BalancedSelector do
   let(:account) { create(:account) }
   let(:inbox) { create(:inbox, account: account) }
   let(:selector) { described_class.new(inbox: inbox) }

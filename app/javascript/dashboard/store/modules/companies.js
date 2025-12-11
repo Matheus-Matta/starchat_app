@@ -1,5 +1,5 @@
 import CompanyAPI from 'dashboard/api/companies';
-import { createStore } from 'dashboard/store/captain/storeFactory';
+import { createStore } from 'dashboard/store/cosmos/storeFactory';
 import camelcaseKeys from 'camelcase-keys';
 
 export default createStore({

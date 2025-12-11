@@ -20,7 +20,7 @@ const onClick = () => {
     :note="$t('COSMOS.DOCUMENTS.EMPTY_STATE.FEATURE_SPOTLIGHT.NOTE')"
     fallback-thumbnail="/assets/images/dashboard/cosmos/document-light.svg"
     fallback-thumbnail-dark="/assets/images/dashboard/cosmos/document-dark.svg"
-    learn-more-url="https://chwt.app/captain-document"
+    learn-more-url="https://starchats.com.br/cosmos-document"
     :hide-actions="!isOnChatwootCloud"
     class="mb-8"
   />

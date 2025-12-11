@@ -57,7 +57,7 @@ onMounted(() =>
 
 <template>
   <PageLayout
-    :header-title="$t('CAPTAIN.INBOXES.HEADER')"
+    :header-title="$t('COSMOS.INBOXES.HEADER')"
     :button-label="$t('COSMOS.INBOXES.ADD_NEW')"
     :button-policy="['administrator']"
     :is-fetching="isFetchingAssistant || isFetching"

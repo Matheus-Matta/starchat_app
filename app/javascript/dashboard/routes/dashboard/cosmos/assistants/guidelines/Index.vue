@@ -39,7 +39,7 @@ const guidelinesContent = computed(
 );
 
 const backUrl = computed(() => ({
-  name: 'captain_assistants_settings_index',
+  name: 'cosmos_assistants_settings_index',
   params: {
     accountId: route.params.accountId,
     assistantId: assistantId.value,
@@ -181,7 +181,7 @@ const addAllExample = async () => {
 
 <template>
   <PageLayout
-    :header-title="$t('CAPTAIN.ASSISTANTS.RESPONSE_GUIDELINES.TITLE')"
+    :header-title="$t('COSMOS.ASSISTANTS.RESPONSE_GUIDELINES.TITLE')"
     :is-fetching="isFetching"
     :back-url="backUrl"
     :show-know-more="false"

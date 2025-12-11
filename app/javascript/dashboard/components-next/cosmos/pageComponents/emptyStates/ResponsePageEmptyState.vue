@@ -2,7 +2,7 @@
 import { useAccount } from 'dashboard/composables/useAccount';
 import EmptyStateLayout from 'dashboard/components-next/EmptyStateLayout.vue';
 import Button from 'dashboard/components-next/button/Button.vue';
-import ResponseCard from 'dashboard/components-next/cosmos/response/ResponseCard.vue';
+import ResponseCard from 'dashboard/components-next/cosmos/assistant/ResponseCard.vue';
 import FeatureSpotlight from 'dashboard/components-next/feature-spotlight/FeatureSpotlight.vue';
 import { responsesList } from 'dashboard/components-next/cosmos/pageComponents/emptyStates/cosmosEmptyStateContent.js';
 
@@ -43,14 +43,14 @@ const onClearFilters = () => {
     :note="$t('COSMOS.RESPONSES.EMPTY_STATE.FEATURE_SPOTLIGHT.NOTE')"
     fallback-thumbnail="/assets/images/dashboard/cosmos/faqs-light.svg"
     fallback-thumbnail-dark="/assets/images/dashboard/cosmos/faqs-dark.svg"
-    learn-more-url="https://app.starchats.com.br/captain-faq"
+    learn-more-url="https://starchats.com.br/cosmos-faq"
     :hide-actions="!isOnChatwootCloud"
     class="mb-8"
   />
   <EmptyStateLayout
     :title="
       isPending
-        ? $t('CAPTAIN.RESPONSES.EMPTY_STATE.NO_PENDING_TITLE')
+        ? $t('COSMOS.RESPONSES.EMPTY_STATE.NO_PENDING_TITLE')
         : $t('COSMOS.RESPONSES.EMPTY_STATE.TITLE')
     "
     :subtitle="isApproved ? $t('COSMOS.RESPONSES.EMPTY_STATE.SUBTITLE') : ''"

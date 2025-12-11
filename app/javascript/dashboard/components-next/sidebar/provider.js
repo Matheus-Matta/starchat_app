@@ -62,11 +62,15 @@ export function useSidebarContext() {
   };
 
   const isAllowed = to => {
-    const permissions = resolvePermissions(to);
-    const featureFlag = resolveFeatureFlag(to);
-    const installationType = resolveInstallationType(to);
-
-    return shouldShow(featureFlag, permissions, installationType);
+    try {
+      const permissions = resolvePermissions(to);
+      const featureFlag = resolveFeatureFlag(to);
+      const installationType = resolveInstallationType(to);
+      return shouldShow(featureFlag, permissions, installationType);
+    } catch (error) {
+      console.error('Erro em isAllowed / policy:', error);
+      return true;
+    }
   };
 
   return {

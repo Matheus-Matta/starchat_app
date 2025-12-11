@@ -1,4 +1,4 @@
-class Api::V1::Accounts::ReportingEventsController < Api::V1::Accounts::EnterpriseAccountsController
+class Api::V1::Accounts::ReportingEventsController < Api::V1::Accounts::StarchatAccountsController
   include DateRangeHelper
 
   RESULTS_PER_PAGE = 25

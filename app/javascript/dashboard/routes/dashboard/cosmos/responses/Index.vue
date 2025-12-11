@@ -9,14 +9,14 @@ import { useAccount } from 'dashboard/composables/useAccount';
 
 import Banner from 'dashboard/components-next/banner/Banner.vue';
 import Input from 'dashboard/components-next/input/Input.vue';
-import BulkSelectBar from 'dashboard/components-next/captain/assistant/BulkSelectBar.vue';
-import DeleteDialog from 'dashboard/components-next/captain/pageComponents/DeleteDialog.vue';
-import BulkDeleteDialog from 'dashboard/components-next/captain/pageComponents/BulkDeleteDialog.vue';
-import PageLayout from 'dashboard/components-next/captain/PageLayout.vue';
-import CaptainPaywall from 'dashboard/components-next/captain/pageComponents/Paywall.vue';
-import ResponseCard from 'dashboard/components-next/captain/assistant/ResponseCard.vue';
-import CreateResponseDialog from 'dashboard/components-next/captain/pageComponents/response/CreateResponseDialog.vue';
-import ResponsePageEmptyState from 'dashboard/components-next/captain/pageComponents/emptyStates/ResponsePageEmptyState.vue';
+import BulkSelectBar from 'dashboard/components-next/cosmos/assistant/BulkSelectBar.vue';
+import DeleteDialog from 'dashboard/components-next/cosmos/pageComponents/DeleteDialog.vue';
+import BulkDeleteDialog from 'dashboard/components-next/cosmos/pageComponents/BulkDeleteDialog.vue';
+import PageLayout from 'dashboard/components-next/cosmos/PageLayout.vue';
+import CosmosPaywall from 'dashboard/components-next/cosmos/pageComponents/Paywall.vue';
+import ResponseCard from 'dashboard/components-next/cosmos/assistant/ResponseCard.vue';
+import CreateResponseDialog from 'dashboard/components-next/cosmos/pageComponents/response/CreateResponseDialog.vue';
+import ResponsePageEmptyState from 'dashboard/components-next/cosmos/pageComponents/emptyStates/ResponsePageEmptyState.vue';
 import FeatureSpotlightPopover from 'dashboard/components-next/feature-spotlight/FeatureSpotlightPopover.vue';
 import LimitBanner from 'dashboard/components-next/cosmos/pageComponents/response/LimitBanner.vue';
 
@@ -24,9 +24,9 @@ const router = useRouter();
 const route = useRoute();
 const store = useStore();
 const { isOnChatwootCloud } = useAccount();
-const uiFlags = useMapGetter('captainResponses/getUIFlags');
-const responseMeta = useMapGetter('captainResponses/getMeta');
-const responses = useMapGetter('captainResponses/getRecords');
+const uiFlags = useMapGetter('cosmosResponses/getUIFlags');
+const responseMeta = useMapGetter('cosmosResponses/getMeta');
+const responses = useMapGetter('cosmosResponses/getRecords');
 const isFetching = computed(() => uiFlags.value.fetchingList);
 
 const selectedResponse = ref(null);
@@ -41,7 +41,7 @@ const createDialog = ref(null);
 
 const selectedAssistantId = computed(() => Number(route.params.assistantId));
 
-const pendingCount = useMapGetter('captainResponses/getPendingCount');
+const pendingCount = useMapGetter('cosmosResponses/getPendingCount');
 
 const handleDelete = () => {
   deleteDialog.value.dialogRef.open();
@@ -108,7 +108,7 @@ const fetchResponses = (page = 1) => {
   // Update URL with current filters
   updateURLWithFilters(page, searchQuery.value);
 
-  store.dispatch('captainResponses/get', filterParams);
+  store.dispatch('cosmosResponses/get', filterParams);
 };
 
 // Bulk action
@@ -119,12 +119,12 @@ const buildSelectedCountLabel = computed(() => {
   const count = responses.value?.length || 0;
   const isAllSelected = bulkSelectedIds.value.size === count && count > 0;
   return isAllSelected
-    ? t('CAPTAIN.RESPONSES.UNSELECT_ALL', { count })
-    : t('CAPTAIN.RESPONSES.SELECT_ALL', { count });
+    ? t('COSMOS.RESPONSES.UNSELECT_ALL', { count })
+    : t('COSMOS.RESPONSES.SELECT_ALL', { count });
 });
 
 const selectedCountLabel = computed(() => {
-  return t('CAPTAIN.RESPONSES.SELECTED', {
+  return t('COSMOS.RESPONSES.SELECTED', {
     count: bulkSelectedIds.value.size,
   });
 });
@@ -190,13 +190,13 @@ const initializeFromURL = () => {
 };
 
 const navigateToPendingFAQs = () => {
-  router.push({ name: 'captain_assistants_responses_pending' });
+  router.push({ name: 'cosmos_assistants_responses_pending' });
 };
 
 onMounted(() => {
   initializeFromURL();
   store.dispatch(
-    'captainResponses/fetchPendingCount',
+    'cosmosResponses/fetchPendingCount',
     selectedAssistantId.value
   );
 });
@@ -212,19 +212,19 @@ onMounted(() => {
     :is-fetching="isFetching"
     :is-empty="!responses.length"
     :show-pagination-footer="!isFetching && !!responses.length"
-    :feature-flag="FEATURE_FLAGS.CAPTAIN"
+    :feature-flag="FEATURE_FLAGS.COSMOS"
     @update:current-page="onPageChange"
     @click="handleCreate"
   >
     <template #knowMore>
       <FeatureSpotlightPopover
-        :button-label="$t('CAPTAIN.HEADER_KNOW_MORE')"
-        :title="$t('CAPTAIN.RESPONSES.EMPTY_STATE.FEATURE_SPOTLIGHT.TITLE')"
-        :note="$t('CAPTAIN.RESPONSES.EMPTY_STATE.FEATURE_SPOTLIGHT.NOTE')"
+        :button-label="$t('COSMOS.HEADER_KNOW_MORE')"
+        :title="$t('COSMOS.RESPONSES.EMPTY_STATE.FEATURE_SPOTLIGHT.TITLE')"
+        :note="$t('COSMOS.RESPONSES.EMPTY_STATE.FEATURE_SPOTLIGHT.NOTE')"
         :hide-actions="!isOnChatwootCloud"
-        fallback-thumbnail="/assets/images/dashboard/captain/faqs-popover-light.svg"
-        fallback-thumbnail-dark="/assets/images/dashboard/captain/faqs-popover-dark.svg"
-        learn-more-url="https://chwt.app/captain-faq"
+        fallback-thumbnail="/assets/images/dashboard/cosmos/faqs-popover-light.svg"
+        fallback-thumbnail-dark="/assets/images/dashboard/cosmos/faqs-popover-dark.svg"
+        learn-more-url="https://chwt.app/cosmos-faq"
       />
     </template>
 
@@ -235,7 +235,7 @@ onMounted(() => {
       >
         <Input
           v-model="searchQuery"
-          :placeholder="$t('CAPTAIN.RESPONSES.SEARCH_PLACEHOLDER')"
+          :placeholder="$t('COSMOS.RESPONSES.SEARCH_PLACEHOLDER')"
           class="w-64"
           size="sm"
           type="search"
@@ -251,7 +251,7 @@ onMounted(() => {
         :all-items="responses"
         :select-all-label="buildSelectedCountLabel"
         :selected-count-label="selectedCountLabel"
-        :delete-label="$t('CAPTAIN.RESPONSES.BULK_DELETE_BUTTON')"
+        :delete-label="$t('COSMOS.RESPONSES.BULK_DELETE_BUTTON')"
         class="w-fit"
         :class="{
           'mb-2': bulkSelectedIds.size > 0,
@@ -274,10 +274,10 @@ onMounted(() => {
         v-if="pendingCount > 0"
         color="blue"
         class="mb-4 -mt-3"
-        :action-label="$t('CAPTAIN.RESPONSES.PENDING_BANNER.ACTION')"
+        :action-label="$t('COSMOS.RESPONSES.PENDING_BANNER.ACTION')"
         @action="navigateToPendingFAQs"
       >
-        {{ $t('CAPTAIN.RESPONSES.PENDING_BANNER.TITLE') }}
+        {{ $t('COSMOS.RESPONSES.PENDING_BANNER.TITLE') }}
       </Banner>
 
       <div class="flex flex-col gap-4">

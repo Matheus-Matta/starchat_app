@@ -217,7 +217,7 @@ const handleDocumentableClick = () => {
             v-if="status === 'approved'"
             class="text-sm shrink-0 truncate text-n-slate-11 inline-flex items-center gap-1"
           >
-            <Icon icon="i-woot-captain" class="size-3.5" />
+            <Icon icon="i-woot-cosmos" class="size-3.5" />
             {{ assistant?.name || '' }}
           </span>
           <div

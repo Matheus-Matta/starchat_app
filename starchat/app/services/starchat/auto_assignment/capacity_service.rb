@@ -1,4 +1,4 @@
-class Enterprise::AutoAssignment::CapacityService
+class Starchat::AutoAssignment::CapacityService
   def agent_has_capacity?(user, inbox)
     # Get the account_user for this specific account
     account_user = user.account_users.find_by(account: inbox.account)

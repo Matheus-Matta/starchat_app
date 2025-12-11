@@ -1,8 +1,8 @@
 <script setup>
 import { computed } from 'vue';
 import { useRoute } from 'vue-router';
-import PageLayout from 'dashboard/components-next/captain/PageLayout.vue';
-import AssistantPlayground from 'dashboard/components-next/captain/assistant/AssistantPlayground.vue';
+import PageLayout from 'dashboard/components-next/cosmos/PageLayout.vue';
+import AssistantPlayground from 'dashboard/components-next/cosmos/assistant/AssistantPlayground.vue';
 
 const route = useRoute();
 const assistantId = computed(() => Number(route.params.assistantId));

@@ -4,8 +4,8 @@ import { createStore } from './storeFactory';
 const SET_PENDING_COUNT = 'SET_PENDING_COUNT';
 
 export default createStore({
-  name: 'CaptainResponse',
-  API: CaptainResponseAPI,
+  name: 'CosmosResponse',
+  API: CosmosResponseAPI,
   getters: {
     getPendingCount: state => state.meta.pendingCount || 0,
   },
@@ -43,7 +43,7 @@ export default createStore({
     },
     fetchPendingCount: async ({ commit }, assistantId) => {
       try {
-        const response = await CaptainResponseAPI.get({
+        const response = await CosmosResponseAPI.get({
           status: 'pending',
           page: 1,
           assistantId,
