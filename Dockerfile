@@ -90,6 +90,6 @@ WORKDIR /app
 COPY --from=builder /gems /gems
 COPY --from=builder /app /app
 
-RUN chmod +x docker/entrypoint.sh
+RUN chmod +x docker/entrypoints/rails.sh
 
 EXPOSE 3000
