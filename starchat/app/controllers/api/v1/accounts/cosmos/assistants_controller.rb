@@ -25,11 +25,13 @@ class Api::V1::Accounts::Cosmos::AssistantsController < Api::V1::Accounts::BaseC
 
   def playground
     response = Cosmos::Llm::AssistantChatService.new(assistant: @assistant).generate_response(
-      additional_message: params[:message_content],
+      additional_message: playground_params[:message_content],
       message_history: message_history
     )
 
     render json: response
+  rescue StandardError => e
+    render json: { error: e.message }, status: :unprocessable_entity
   end
 
   def tools
@@ -48,24 +50,23 @@ class Api::V1::Accounts::Cosmos::AssistantsController < Api::V1::Accounts::BaseC
   end
 
   def assistant_params
-    permitted = params.require(:assistant).permit(:name, :description,
-                                                  config: [
-                                                    :product_name, :feature_faq, :feature_memory, :feature_citation,
-                                                    :welcome_message, :handoff_message, :resolution_message,
-                                                    :instructions, :temperature
-                                                  ])
-
-    # Handle array parameters separately to allow partial updates
-    permitted[:response_guidelines] = params[:assistant][:response_guidelines] if params[:assistant].key?(:response_guidelines)
-
-    permitted[:guardrails] = params[:assistant][:guardrails] if params[:assistant].key?(:guardrails)
-
-    permitted
+    params.require(:assistant).permit(
+      :name, :description,
+      config: [
+        :product_name, :feature_faq, :feature_memory, :feature_citation,
+        :welcome_message, :handoff_message, :resolution_message,
+        :instructions, :temperature
+      ],
+      response_guidelines: [],
+      guardrails: []
+    )
   end
 
   def playground_params
     params.require(:assistant).permit(:message_content, message_history: [:role, :content])
   end
+
+
 
   def message_history
     (playground_params[:message_history] || []).map { |message| { role: message[:role], content: message[:content] } }

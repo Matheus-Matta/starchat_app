@@ -20,10 +20,10 @@
     "LEARN_MORE": "Saber mais sobre integrações",
     "LOADING": "A procurar integrações",
     "COSMOS": {
-      "DISABLED": "Capitão não está ativo na sua conta.",
+      "DISABLED": "Cosmos não está ativo na sua conta.",
       "CLICK_HERE_TO_CONFIGURE": "Clique aqui para configurar",
-      "LOADING_CONSOLE": "A carregar a consola capitão...",
-      "FAILED_TO_LOAD_CONSOLE": "Falha ao carregar consola capitão. Por favor, atualize e tente novamente."
+      "LOADING_CONSOLE": "A carregar a consola cosmos...",
+      "FAILED_TO_LOAD_CONSOLE": "Falha ao carregar consola cosmos. Por favor, atualize e tente novamente."
     },
     "WEBHOOK": {
       "SUBSCRIBED_EVENTS": "Eventos subscritos",

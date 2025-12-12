@@ -16,11 +16,11 @@
 #
 # Indexes
 #
-#  idx_cap_asst_resp_on_documentable                  (documentable_id,documentable_type)
+#  idx_cap_asst_resp_on_documentable                 (documentable_id,documentable_type)
 #  index_cosmos_assistant_responses_on_account_id    (account_id)
 #  index_cosmos_assistant_responses_on_assistant_id  (assistant_id)
 #  index_cosmos_assistant_responses_on_status        (status)
-#  vector_idx_knowledge_entries_embedding             (embedding) USING ivfflat
+#  vector_idx_knowledge_entries_embedding            (embedding) USING ivfflat
 #
 class Cosmos::AssistantResponse < ApplicationRecord
   self.table_name = 'cosmos_assistant_responses'

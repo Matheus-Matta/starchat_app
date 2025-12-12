@@ -57,7 +57,7 @@ docker pull redis:latest
 docker run -d --name chatwoot-redis --restart unless-stopped -p 6379:6379 redis:latest
 
 # 12. Iniciar o servidor Rails (Puma)
-RAILS_ENV=production bundle exec rails server -b 0.0.0.0 -p 3000
+RAILS_ENV=production bundle exec rails server -b 0.0.0.0 -p 3001
 
 # 13. Iniciar o Sidekiq
 RAILS_ENV=production bundle exec sidekiq -e production -C config/sidekiq.yml

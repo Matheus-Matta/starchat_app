@@ -13,43 +13,48 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     ports:
-      - "127.0.0.1:5432:5432"
+      - '5432:5432'
+    networks:
+      - app_network
 
   redis:
     image: redis:latest
     restart: always
-    command: ["sh", "-c", "redis-server --appendonly yes --requirepass \"$REDIS_PASSWORD\""]
+    command:
+      [
+        'sh',
+        '-c',
+        'redis-server --appendonly yes --requirepass "$REDIS_PASSWORD"',
+      ]
     env_file: .env
     volumes:
       - redis_data:/data
     ports:
-      - "127.0.0.1:6379:6379"
-  evolution:
-    image: atendai/evolution-api:latest
-    restart: always
-    ports:
-      - "127.0.0.1:8080:8080"
-    environment:
-      # chave de API que o Chatwoot vai usar
-      SERVER_KEY: "4S2plar81Zm8DGF4hzrewesP"
-
-      # porta interna da API
-      SERVER_PORT: "8080"
-
-      # desabilita painel ou configura credenciais, opcional
-      DASHBOARD: "true"
-      DASHBOARD_USER: "admin"
-      DASHBOARD_PASSWORD: "admin123"
-
-      # URL base pública que o Evolution vai usar nas callbacks (webhook) – pode pôr a mesma do FRONTEND_URL, não impacta dev local se você tiver tunel ou ignorar
-      # INSTANCE_WEBHOOK_LIMIT: "0"  # etc, se precisar
-    volumes:
-      - evolution_data:/evolution/storage
+      - '6379:6379'
     networks:
       - app_network
+
+  evolution:
+    image: evoapicloud/evolution-api:latest
+    restart: always
+    depends_on:
+      - postgres
+      - redis
+    ports:
+      - '8080:8080'
+    env_file:
+      - .env.evolution
+    volumes:
+      - evolution_data:/evolution/instances
+    networks:
+      - app_network
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+
 volumes:
   postgres_data:
   redis_data:
+  evolution_data:
 
 networks:
   app_network:
