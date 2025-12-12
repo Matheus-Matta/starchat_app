@@ -65,6 +65,8 @@ class Evolution::SendMessageService
             quoted: quoted
           )
         else
+          base64_data = encode_blob_base64(att.file.blob)
+
           mediatype = case kind
                       when :image then 'image'
                       when :video then 'video'
@@ -72,7 +74,7 @@ class Evolution::SendMessageService
                       end
           opts = { mimetype: mimetype, quoted: quoted }
           opts[:file_name] = fname if mediatype == 'document'
-          resp = client.send_media(instance, number: number, mediatype: mediatype, media: url, **opts)
+          resp = client.send_media(instance, number: number, mediatype: mediatype, media: base64_data, **opts)
         end
 
         persist_message_id_from(resp)

@@ -85,7 +85,7 @@ module Evolution
     end
 
     def send_media(instance, number:, mediatype:, media:, mimetype:, caption: nil, file_name: nil, quoted: nil, delay: 0)
-      raise Error, "invalid media URL" unless media.is_a?(String) && media.start_with?("http")
+      # raise Error, "invalid media URL" unless media.is_a?(String) && media.start_with?("http")
 
       body = {
         number:    normalize_number(number),

@@ -34,6 +34,7 @@ class Evolution::IncomingMessageService < Evolution::MessageBaseService
     text     = extract_text(@payload).to_s
 
     attached = attach_from_payload!(@message ||= temp_message_shell(outgoing, source_id), @payload)
+    Rails.logger.info("[EVOLUTION INCOMING] attached=#{attached.inspect}")
 
     if text.blank? && !attached
       return

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_10_03_091242) do
+ActiveRecord::Schema[7.1].define(version: 2025_11_14_173609) do
   # These extensions should be enabled to support this database
   enable_extension "pg_stat_statements"
   enable_extension "pg_trgm"
@@ -293,97 +293,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_10_03_091242) do
     t.datetime "updated_at", precision: nil, null: false
   end
 
-  create_table "cosmos_assistant_responses", force: :cascade do |t|
-    t.string "question", null: false
-    t.text "answer", null: false
-    t.vector "embedding", limit: 1536
-    t.bigint "assistant_id", null: false
-    t.bigint "documentable_id"
-    t.bigint "account_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "status", default: 1, null: false
-    t.string "documentable_type"
-    t.index ["account_id"], name: "index_cosmos_assistant_responses_on_account_id"
-    t.index ["assistant_id"], name: "index_cosmos_assistant_responses_on_assistant_id"
-    t.index ["documentable_id", "documentable_type"], name: "idx_cap_asst_resp_on_documentable"
-    t.index ["embedding"], name: "vector_idx_knowledge_entries_embedding", using: :ivfflat
-    t.index ["status"], name: "index_cosmos_assistant_responses_on_status"
-  end
-
-  create_table "cosmos_assistants", force: :cascade do |t|
-    t.string "name", null: false
-    t.bigint "account_id", null: false
-    t.string "description"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.jsonb "config", default: {}, null: false
-    t.jsonb "response_guidelines", default: []
-    t.jsonb "guardrails", default: []
-    t.index ["account_id"], name: "index_cosmos_assistants_on_account_id"
-  end
-
-  create_table "cosmos_custom_tools", force: :cascade do |t|
-    t.bigint "account_id", null: false
-    t.string "slug", null: false
-    t.string "title", null: false
-    t.text "description"
-    t.string "http_method", default: "GET", null: false
-    t.text "endpoint_url", null: false
-    t.text "request_template"
-    t.text "response_template"
-    t.string "auth_type", default: "none"
-    t.jsonb "auth_config", default: {}
-    t.jsonb "param_schema", default: []
-    t.boolean "enabled", default: true, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["account_id", "slug"], name: "index_cosmos_custom_tools_on_account_id_and_slug", unique: true
-    t.index ["account_id"], name: "index_cosmos_custom_tools_on_account_id"
-  end
-
-  create_table "cosmos_documents", force: :cascade do |t|
-    t.string "name"
-    t.string "external_link", null: false
-    t.text "content"
-    t.bigint "assistant_id", null: false
-    t.bigint "account_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "status", default: 0, null: false
-    t.jsonb "metadata", default: {}
-    t.index ["account_id"], name: "index_cosmos_documents_on_account_id"
-    t.index ["assistant_id", "external_link"], name: "index_cosmos_documents_on_assistant_id_and_external_link", unique: true
-    t.index ["assistant_id"], name: "index_cosmos_documents_on_assistant_id"
-    t.index ["status"], name: "index_cosmos_documents_on_status"
-  end
-
-  create_table "cosmos_inboxes", force: :cascade do |t|
-    t.bigint "cosmos_assistant_id", null: false
-    t.bigint "inbox_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["cosmos_assistant_id", "inbox_id"], name: "index_cosmos_inboxes_on_cosmos_assistant_id_and_inbox_id", unique: true
-    t.index ["cosmos_assistant_id"], name: "index_cosmos_inboxes_on_cosmos_assistant_id"
-    t.index ["inbox_id"], name: "index_cosmos_inboxes_on_inbox_id"
-  end
-
-  create_table "cosmos_scenarios", force: :cascade do |t|
-    t.string "title"
-    t.text "description"
-    t.text "instruction"
-    t.jsonb "tools", default: []
-    t.boolean "enabled", default: true, null: false
-    t.bigint "assistant_id", null: false
-    t.bigint "account_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["account_id"], name: "index_cosmos_scenarios_on_account_id"
-    t.index ["assistant_id", "enabled"], name: "index_cosmos_scenarios_on_assistant_id_and_enabled"
-    t.index ["assistant_id"], name: "index_cosmos_scenarios_on_assistant_id"
-    t.index ["enabled"], name: "index_cosmos_scenarios_on_enabled"
-  end
-
   create_table "categories", force: :cascade do |t|
     t.integer "account_id", null: false
     t.integer "portal_id", null: false
@@ -577,15 +486,16 @@ ActiveRecord::Schema[7.1].define(version: 2025_10_03_091242) do
     t.bigint "account_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "contacts_count"
+    t.index ["account_id", "domain"], name: "index_companies_on_account_and_domain", unique: true, where: "(domain IS NOT NULL)"
     t.index ["account_id"], name: "index_companies_on_account_id"
-    t.index ["domain", "account_id"], name: "index_companies_on_domain_and_account_id"
     t.index ["name", "account_id"], name: "index_companies_on_name_and_account_id"
   end
 
   create_table "contact_inboxes", force: :cascade do |t|
     t.bigint "contact_id"
     t.bigint "inbox_id"
-    t.string "source_id", null: false
+    t.text "source_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "hmac_verified", default: false
@@ -667,6 +577,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_10_03_091242) do
     t.bigint "sla_policy_id"
     t.datetime "waiting_since"
     t.text "cached_label_list"
+    t.bigint "assignee_agent_bot_id"
     t.index ["account_id", "display_id"], name: "index_conversations_on_account_id_and_display_id", unique: true
     t.index ["account_id", "id"], name: "index_conversations_on_id_and_account_id"
     t.index ["account_id", "inbox_id", "status", "assignee_id"], name: "conv_acid_inbid_stat_asgnid_idx"
@@ -676,6 +587,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_10_03_091242) do
     t.index ["contact_id"], name: "index_conversations_on_contact_id"
     t.index ["contact_inbox_id"], name: "index_conversations_on_contact_inbox_id"
     t.index ["first_reply_created_at"], name: "index_conversations_on_first_reply_created_at"
+    t.index ["identifier", "account_id"], name: "index_conversations_on_identifier_and_account_id"
     t.index ["inbox_id"], name: "index_conversations_on_inbox_id"
     t.index ["priority"], name: "index_conversations_on_priority"
     t.index ["status", "account_id"], name: "index_conversations_on_status_and_account_id"
@@ -706,6 +618,97 @@ ActiveRecord::Schema[7.1].define(version: 2025_10_03_091242) do
     t.index ["account_id"], name: "index_copilot_threads_on_account_id"
     t.index ["assistant_id"], name: "index_copilot_threads_on_assistant_id"
     t.index ["user_id"], name: "index_copilot_threads_on_user_id"
+  end
+
+  create_table "cosmos_assistant_responses", force: :cascade do |t|
+    t.string "question", null: false
+    t.text "answer", null: false
+    t.vector "embedding", limit: 1536
+    t.bigint "assistant_id", null: false
+    t.bigint "documentable_id"
+    t.bigint "account_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "status", default: 1, null: false
+    t.string "documentable_type"
+    t.index ["account_id"], name: "index_cosmos_assistant_responses_on_account_id"
+    t.index ["assistant_id"], name: "index_cosmos_assistant_responses_on_assistant_id"
+    t.index ["documentable_id", "documentable_type"], name: "idx_cap_asst_resp_on_documentable"
+    t.index ["embedding"], name: "vector_idx_knowledge_entries_embedding", using: :ivfflat
+    t.index ["status"], name: "index_cosmos_assistant_responses_on_status"
+  end
+
+  create_table "cosmos_assistants", force: :cascade do |t|
+    t.string "name", null: false
+    t.bigint "account_id", null: false
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.jsonb "config", default: {}, null: false
+    t.jsonb "response_guidelines", default: []
+    t.jsonb "guardrails", default: []
+    t.index ["account_id"], name: "index_cosmos_assistants_on_account_id"
+  end
+
+  create_table "cosmos_custom_tools", force: :cascade do |t|
+    t.bigint "account_id", null: false
+    t.string "slug", null: false
+    t.string "title", null: false
+    t.text "description"
+    t.string "http_method", default: "GET", null: false
+    t.text "endpoint_url", null: false
+    t.text "request_template"
+    t.text "response_template"
+    t.string "auth_type", default: "none"
+    t.jsonb "auth_config", default: {}
+    t.jsonb "param_schema", default: []
+    t.boolean "enabled", default: true, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id", "slug"], name: "index_cosmos_custom_tools_on_account_id_and_slug", unique: true
+    t.index ["account_id"], name: "index_cosmos_custom_tools_on_account_id"
+  end
+
+  create_table "cosmos_documents", force: :cascade do |t|
+    t.string "name"
+    t.string "external_link", null: false
+    t.text "content"
+    t.bigint "assistant_id", null: false
+    t.bigint "account_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "status", default: 0, null: false
+    t.jsonb "metadata", default: {}
+    t.index ["account_id"], name: "index_cosmos_documents_on_account_id"
+    t.index ["assistant_id", "external_link"], name: "index_cosmos_documents_on_assistant_id_and_external_link", unique: true
+    t.index ["assistant_id"], name: "index_cosmos_documents_on_assistant_id"
+    t.index ["status"], name: "index_cosmos_documents_on_status"
+  end
+
+  create_table "cosmos_inboxes", force: :cascade do |t|
+    t.bigint "cosmos_assistant_id", null: false
+    t.bigint "inbox_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["cosmos_assistant_id", "inbox_id"], name: "index_cosmos_inboxes_on_cosmos_assistant_id_and_inbox_id", unique: true
+    t.index ["cosmos_assistant_id"], name: "index_cosmos_inboxes_on_cosmos_assistant_id"
+    t.index ["inbox_id"], name: "index_cosmos_inboxes_on_inbox_id"
+  end
+
+  create_table "cosmos_scenarios", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.text "instruction"
+    t.jsonb "tools", default: []
+    t.boolean "enabled", default: true, null: false
+    t.bigint "assistant_id", null: false
+    t.bigint "account_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_cosmos_scenarios_on_account_id"
+    t.index ["assistant_id", "enabled"], name: "index_cosmos_scenarios_on_assistant_id_and_enabled"
+    t.index ["assistant_id"], name: "index_cosmos_scenarios_on_assistant_id"
+    t.index ["enabled"], name: "index_cosmos_scenarios_on_enabled"
   end
 
   create_table "csat_survey_responses", force: :cascade do |t|
@@ -1229,6 +1232,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_10_03_091242) do
     t.datetime "updated_at", null: false
     t.integer "webhook_type", default: 0
     t.jsonb "subscriptions", default: ["conversation_status_changed", "conversation_updated", "conversation_created", "contact_created", "contact_updated", "message_created", "message_updated", "webwidget_triggered"]
+    t.string "name"
     t.index ["account_id", "url"], name: "index_webhooks_on_account_id_and_url", unique: true
   end
 

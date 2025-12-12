@@ -15,15 +15,30 @@ module Evolution
       type, media = Evolution::MediaSelector.pick_first_media(payload)
       return false unless type && media
 
-      # dados principais
       raw_url    = media['url'] || media['directPath']
       url        = Evolution::MediaSelector.normalize_wa_media_url(raw_url)
       media_key  = media['mediaKey']
       mimetype   = media['mimetype'].to_s
       filename   = suggested_filename_from_payload_like_wa(type, mimetype)
 
-      # 1) Tenta fluxo .enc (precisa de url + media_key)
+      # 1) Preferência: base64 (no payload OU dentro de media)
+      b64 = extract_any_base64(payload)
+      b64 ||= media['base64'] if media.is_a?(Hash) && media['base64'].present?
+
+      if b64.present?
+        Rails.logger.info "[MediaAttach] Found Base64. Processing..."
+        blob = download_for_base64(
+          b64,
+          filename:     filename,
+          content_type: mimetype.presence,
+          identify:     false
+        )
+        return attach_blob!(message, blob)
+      end
+
+      # 2) Fallback: fluxo .enc (url + media_key)
       if url.present? && media_key.present?
+        Rails.logger.info "[MediaAttach] Trying .enc download from #{url}..."
         blob = download_for_whatsapp_enc(
           url:          url,
           media_key:    media_key,
@@ -31,17 +46,6 @@ module Evolution
           filename:     filename,
           content_type: mimetype,
           headers:      {},            # ajuste se houver Auth
-          identify:     false
-        )
-        return attach_blob!(message, blob)
-      end
-
-      # 2) Fallback: base64 no payload (jpegThumbnail, base64, etc)
-      if (b64 = extract_any_base64(payload)).present?
-        blob = download_for_base64(
-          b64,
-          filename:     filename,
-          content_type: mimetype.presence,
           identify:     false
         )
         return attach_blob!(message, blob)
@@ -56,13 +60,26 @@ module Evolution
     private
 
     def extract_any_base64(p)
-      p.dig('message', 'base64') ||
-        p['base64'] ||
+      p['base64'] ||
+        p.dig('message', 'base64') ||
+
         p.dig('message', 'imageMessage', 'base64') ||
         p.dig('message', 'videoMessage', 'base64') ||
         p.dig('message', 'audioMessage', 'base64') ||
         p.dig('message', 'documentMessage', 'base64') ||
-        p['jpegThumbnail'] || p.dig('imageMessage', 'jpegThumbnail')
+
+        p.dig('message', 'imageMessage', 'data') ||
+        p.dig('message', 'videoMessage', 'data') ||
+        p.dig('message', 'audioMessage', 'data') ||
+        p.dig('message', 'documentMessage', 'data') ||
+        p.dig('message', 'imageMessage', 'file') ||
+        p.dig('message', 'videoMessage', 'file') ||
+        p.dig('message', 'audioMessage', 'file') ||
+        p.dig('message', 'documentMessage', 'file') ||
+
+        p['jpegThumbnail'] ||
+        p.dig('message', 'imageMessage', 'jpegThumbnail') ||
+        p.dig('imageMessage', 'jpegThumbnail')
     end
 
     def suggested_filename_from_payload_like_wa(type, mimetype)
