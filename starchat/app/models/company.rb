@@ -2,19 +2,20 @@
 #
 # Table name: companies
 #
-#  id          :bigint           not null, primary key
-#  description :text
-#  domain      :string
-#  name        :string           not null
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
-#  account_id  :bigint           not null
+#  id             :bigint           not null, primary key
+#  contacts_count :integer
+#  description    :text
+#  domain         :string
+#  name           :string           not null
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  account_id     :bigint           not null
 #
 # Indexes
 #
-#  index_companies_on_account_id             (account_id)
-#  index_companies_on_domain_and_account_id  (domain,account_id)
-#  index_companies_on_name_and_account_id    (name,account_id)
+#  index_companies_on_account_and_domain   (account_id,domain) UNIQUE WHERE (domain IS NOT NULL)
+#  index_companies_on_account_id           (account_id)
+#  index_companies_on_name_and_account_id  (name,account_id)
 #
 class Company < ApplicationRecord
   include Avatarable

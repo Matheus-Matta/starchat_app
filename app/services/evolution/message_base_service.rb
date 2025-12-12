@@ -4,9 +4,9 @@
 class Evolution::MessageBaseService < Whatsapp::IncomingMessageBaseService
   
   include FileTypeHelper
-  include ::DownloadForBase64
   include ::DownloadForWhatsappEnc
-
+  
+  include Evolution::DownloadForBase64
   include Evolution::MediaAttach
   include Evolution::MessageReplyTo
   include Evolution::ConversationEnsurer
