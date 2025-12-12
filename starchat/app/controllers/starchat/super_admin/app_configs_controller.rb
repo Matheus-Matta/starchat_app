@@ -8,8 +8,8 @@ module Starchat::SuperAdmin::AppConfigsController
       @allowed_configs = custom_branding_options
     when 'internal'
       @allowed_configs = internal_config_options
-          when 'cosmos'
-        @allowed_configs = %w[COSMOS_OPEN_AI_API_KEY COSMOS_OPEN_AI_MODEL COSMOS_OPEN_AI_ENDPOINT COSMOS_FIRECRAWL_API_KEY]
+    when 'cosmos'
+      @allowed_configs = cosmos_config_options
     else
       super
     end
@@ -32,7 +32,17 @@ module Starchat::SuperAdmin::AppConfigsController
 
   def internal_config_options
     %w[CHATWOOT_INBOX_TOKEN CHATWOOT_INBOX_HMAC_KEY ANALYTICS_TOKEN CLEARBIT_API_KEY DASHBOARD_SCRIPTS INACTIVE_WHATSAPP_NUMBERS BLOCKED_EMAIL_DOMAINS
-               COSMOS_CLOUD_PLAN_LIMITS ACCOUNT_SECURITY_NOTIFICATION_WEBHOOK_URL CHATWOOT_INSTANCE_ADMIN_EMAIL
-       OG_IMAGE_CDN_URL OG_IMAGE_CLIENT_REF]
+       SKIP_INCOMING_BCC_PROCESSING COSMOS_CLOUD_PLAN_LIMITS ACCOUNT_SECURITY_NOTIFICATION_WEBHOOK_URL CHATWOOT_INSTANCE_ADMIN_EMAIL
+       OG_IMAGE_CDN_URL OG_IMAGE_CLIENT_REF CLOUDFLARE_API_KEY CLOUDFLARE_ZONE_ID]
+  end
+
+  def cosmos_config_options
+    %w[
+      COSMOS_OPEN_AI_API_KEY
+      COSMOS_OPEN_AI_MODEL
+      COSMOS_OPEN_AI_ENDPOINT
+      COSMOS_EMBEDDING_MODEL
+      COSMOS_FIRECRAWL_API_KEY
+    ]
   end
 end

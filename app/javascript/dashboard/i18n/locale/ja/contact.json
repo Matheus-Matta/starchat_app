@@ -50,6 +50,11 @@
       "CONTACT_LABELS": "連絡先ラベル",
       "PREVIOUS_CONVERSATIONS": "以前の会話",
       "NO_RECORDS_FOUND": "属性が見つかりません"
+    },
+    "CALL": "Call",
+    "CALL_UNDER_DEVELOPMENT": "Calling is under development",
+    "VOICE_INBOX_PICKER": {
+      "TITLE": "Choose a voice inbox"
     }
   },
   "EDIT_CONTACT": {
@@ -608,6 +613,15 @@
       "ACTION_BUTTONS": {
         "DISCARD": "破棄",
         "SEND": "送信 ({keyCode})"
+      },
+      "TWILIO_OPTIONS": {
+        "LABEL": "テンプレートを選択",
+        "SEARCH_PLACEHOLDER": "テンプレートを検索",
+        "EMPTY_STATE": "テンプレートが見つかりません。",
+        "TEMPLATE_PARSER": {
+          "BACK": "戻る",
+          "SEND_MESSAGE": "メッセージを送信"
+        }
       }
     }
   }

@@ -1,0 +1,5 @@
+*.json merge=keepBoth
+*.js merge=keepBoth
+*.yml merge=keepBoth
+*.yaml merge=keepBoth
+app/javascript/dashboard/i18n/** merge=union

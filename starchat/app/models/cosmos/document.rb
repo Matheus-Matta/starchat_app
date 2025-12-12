@@ -5,6 +5,7 @@
 #  id            :bigint           not null, primary key
 #  content       :text
 #  external_link :string           not null
+#  metadata      :jsonb
 #  name          :string
 #  status        :integer          default("in_progress"), not null
 #  created_at    :datetime         not null
@@ -61,6 +62,12 @@ class Cosmos::Document < ApplicationRecord
     Cosmos::Documents::ResponseBuilderJob.perform_later(self)
   end
 
+  def should_enqueue_response_builder?
+    # Only enqueue when status changes to available
+    # Avoid re-enqueueing when metadata is updated by the job itself
+    saved_change_to_status? && status == 'available'
+  end
+
   def update_document_usage
     account.update_document_usage
   end
@@ -71,6 +78,29 @@ class Cosmos::Document < ApplicationRecord
 
   def ensure_within_plan_limit
           limits = account.usage_limits[:cosmos][:documents]
-    raise LimitExceededError, 'Document limit exceeded' unless limits[:current_available].positive?
+    raise LimitExceededError, I18n.t('cosmos.documents.limit_exceeded') unless limits[:current_available].positive?
+  end
+
+  def validate_pdf_format
+    return unless pdf_file.attached?
+
+    errors.add(:pdf_file, I18n.t('cosmos.documents.pdf_format_error')) unless pdf_file.blob.content_type == 'application/pdf'
+  end
+
+  def validate_file_attachment
+    return unless pdf_file.attached?
+
+    return unless pdf_file.blob.byte_size > 10.megabytes
+
+    errors.add(:pdf_file, I18n.t('cosmos.documents.pdf_size_error'))
+  end
+
+  def set_external_link_for_pdf
+    return unless pdf_file.attached? && external_link.blank?
+
+    # Set a unique external_link for PDF files
+    # Format: PDF: filename_timestamp (without extension)
+    timestamp = Time.current.strftime('%Y%m%d%H%M%S')
+    self.external_link = "PDF: #{pdf_file.filename.base}_#{timestamp}"
   end
 end

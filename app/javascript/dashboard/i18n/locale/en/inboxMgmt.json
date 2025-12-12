@@ -43,7 +43,7 @@
       }
     },
     "ADD": {
-      "EVOLUTION_QR":{
+      "EVOLUTION_QR": {
         "PAIRING_CODE": "Pairing Code",
         "GET_QRCODE": "Get Qr Code",
         "INSTRUCTIONS": {
@@ -146,45 +146,45 @@
         }
       },
       "EVOLUTION": {
-          "TITLE": "Evolution API",
-          "DESC": "Create a WhatsApp inbox using your Evolution instance. Enter your instance details below and pair the device by scanning the QR code.",
-          "WARNING_TITLE": "Before you continue",
-          "WARNING_TEXT": "Using WhatsApp must comply with Meta/WhatsApp policies. Review the rules below to avoid account restrictions or bans.",
-          "WARNING_LINK_TEXT": "Read WhatsApp Business Policy",
-          "WARNING_LINK_URL": "https://www.whatsapp.com/legal/business-policy/",
-          "HINT_CONNECT_TO_SHOW_QR": "Click connect to show QrCode",
-          "FIELDS": {
-            "INBOX_NAME": {
-              "LABEL": "Inbox Name",
-              "PLACEHOLDER": "e.g. Support WhatsApp",
-              "ERROR": "Please enter a valid inbox name"
-            }
-          },
-          "STATES": {
-            "RESTART": "Restart",
-            "OPEN": "Connect",
-            "CLOSE": "Disconnect",
-            "CONNECTING": "Connecting...",
-            "DISCONNECTED": "Disconnect",
-            "CONNECTED": "You are connected!"
-          },
-          "ACTIONS": {
-            "CREATE_INBOX": "Create Evolution Channel",
-            "GENERATE_QR": "Generate QR Code",
-            "SUBSCRIBE_LIVE": "Show QR/Status live",
-            "STOP_LIVE": "Stop live"
-          },
-          "QR": {
-            "PANEL_TITLE": "Pairing QR",
-            "WAITING": "Waiting for QR code…",
-            "INSTRUCTION": "Open WhatsApp > Linked devices > Link a device, then scan the QR to connect:",
-            "INSTRUCTION_WITH_INBOX": "Open WhatsApp > Linked devices > Link a device, then scan the QR to connect to “{inboxName}”.",
-            "STATE_LABEL": "Connection state"
-          },
-          "API": {
-            "ERROR_MESSAGE": "We couldn't create the Evolution inbox. Please check your credentials and try again."
+        "TITLE": "Evolution API",
+        "DESC": "Create a WhatsApp inbox using your Evolution instance. Enter your instance details below and pair the device by scanning the QR code.",
+        "WARNING_TITLE": "Before you continue",
+        "WARNING_TEXT": "Using WhatsApp must comply with Meta/WhatsApp policies. Review the rules below to avoid account restrictions or bans.",
+        "WARNING_LINK_TEXT": "Read WhatsApp Business Policy",
+        "WARNING_LINK_URL": "https://www.whatsapp.com/legal/business-policy/",
+        "HINT_CONNECT_TO_SHOW_QR": "Click connect to show QrCode",
+        "FIELDS": {
+          "INBOX_NAME": {
+            "LABEL": "Inbox Name",
+            "PLACEHOLDER": "e.g. Support WhatsApp",
+            "ERROR": "Please enter a valid inbox name"
           }
-       },
+        },
+        "STATES": {
+          "RESTART": "Restart",
+          "OPEN": "Connect",
+          "CLOSE": "Disconnect",
+          "CONNECTING": "Connecting...",
+          "DISCONNECTED": "Disconnect",
+          "CONNECTED": "You are connected!"
+        },
+        "ACTIONS": {
+          "CREATE_INBOX": "Create Evolution Channel",
+          "GENERATE_QR": "Generate QR Code",
+          "SUBSCRIBE_LIVE": "Show QR/Status live",
+          "STOP_LIVE": "Stop live"
+        },
+        "QR": {
+          "PANEL_TITLE": "Pairing QR",
+          "WAITING": "Waiting for QR code…",
+          "INSTRUCTION": "Open WhatsApp > Linked devices > Link a device, then scan the QR to connect:",
+          "INSTRUCTION_WITH_INBOX": "Open WhatsApp > Linked devices > Link a device, then scan the QR to connect to “{inboxName}”.",
+          "STATE_LABEL": "Connection state"
+        },
+        "API": {
+          "ERROR_MESSAGE": "We couldn't create the Evolution inbox. Please check your credentials and try again."
+        }
+      },
       "TWILIO": {
         "TITLE": "Twilio SMS/WhatsApp Channel",
         "DESC": "Integrate Twilio and start supporting your customers via SMS or WhatsApp.",
@@ -347,13 +347,17 @@
         },
         "SUBMIT_BUTTON": "Create WhatsApp Channel",
         "EMBEDDED_SIGNUP": {
-          "TITLE": "Quick Setup with Meta",
-          "DESC": "You will be redirected to Meta to log into your WhatsApp Business account. Having admin access will help make the setup smooth and easy.",
+          "TITLE": "Quick setup with Meta",
+          "DESC": "Use the WhatsApp Embedded Signup flow to quickly connect new numbers. You will be redirected to Meta to log into your WhatsApp Business account. Having admin access will help make the setup smooth and easy.",
           "BENEFITS": {
             "TITLE": "Benefits of Embedded Signup:",
             "EASY_SETUP": "No manual configuration required",
             "SECURE_AUTH": "Secure OAuth based authentication",
             "AUTO_CONFIG": "Automatic webhook and phone number configuration"
+          },
+          "LEARN_MORE": {
+            "TEXT": "To learn more about integrated signup, pricing, and limitations, visit {link}.",
+            "LINK_TEXT": "this link"
           },
           "SUBMIT_BUTTON": "Connect with WhatsApp Business",
           "AUTH_PROCESSING": "Authenticating with Meta",
@@ -366,7 +370,9 @@
           "INVALID_BUSINESS_DATA": "Invalid business data received from Facebook. Please try again.",
           "SIGNUP_ERROR": "Signup error occurred",
           "AUTH_NOT_COMPLETED": "Authentication not completed. Please restart the process.",
-          "SUCCESS_FALLBACK": "WhatsApp Business Account has been successfully configured"
+          "SUCCESS_FALLBACK": "WhatsApp Business Account has been successfully configured",
+          "MANUAL_FALLBACK": "If your number is already connected to the WhatsApp Business Platform (API), or if you’re a tech provider onboarding your own number, please use the {link} flow",
+          "MANUAL_LINK_TEXT": "manual setup flow"
         },
         "API": {
           "ERROR_MESSAGE": "We were not able to save the WhatsApp channel"
@@ -400,12 +406,13 @@
             "LABEL": "API Key Secret",
             "PLACEHOLDER": "Enter your Twilio API Key Secret",
             "REQUIRED": "API Key Secret is required"
-          },
-          "TWIML_APP_SID": {
-            "LABEL": "TwiML App SID",
-            "PLACEHOLDER": "Enter your Twilio TwiML App SID (starts with AP)",
-            "REQUIRED": "TwiML App SID is required"
           }
+        },
+        "CONFIGURATION": {
+          "TWILIO_VOICE_URL_TITLE": "Twilio Voice URL",
+          "TWILIO_VOICE_URL_SUBTITLE": "Configure this URL as the Voice URL on your Twilio phone number and TwiML App.",
+          "TWILIO_STATUS_URL_TITLE": "Twilio Status Callback URL",
+          "TWILIO_STATUS_URL_SUBTITLE": "Configure this URL as the Status Callback URL on your Twilio phone number."
         },
         "SUBMIT_BUTTON": "Create Voice Channel",
         "API": {
@@ -493,7 +500,51 @@
       },
       "AUTH": {
         "TITLE": "Choose a channel",
-        "DESC": "Chatwoot supports live-chat widgets, Facebook Messenger, WhatsApp, Emails, etc., as channels. If you want to build a custom channel, you can create it using the API channel. To get started, choose one of the channels below."
+        "DESC": "Chatwoot supports live-chat widgets, Facebook Messenger, WhatsApp, Emails, etc., as channels. If you want to build a custom channel, you can create it using the API channel. To get started, choose one of the channels below.",
+        "TITLE_NEXT": "Complete the setup",
+        "TITLE_FINISH": "Voilà!",
+        "CHANNEL": {
+          "WEBSITE": {
+            "TITLE": "Website",
+            "DESCRIPTION": "Create a live-chat widget"
+          },
+          "FACEBOOK": {
+            "TITLE": "Facebook",
+            "DESCRIPTION": "Connect your Facebook page"
+          },
+          "WHATSAPP": {
+            "TITLE": "WhatsApp",
+            "DESCRIPTION": "Support your customers on WhatsApp"
+          },
+          "EMAIL": {
+            "TITLE": "Email",
+            "DESCRIPTION": "Connect with Gmail, Outlook, or other providers"
+          },
+          "SMS": {
+            "TITLE": "SMS",
+            "DESCRIPTION": "Integrate SMS channel with Twilio or bandwidth"
+          },
+          "API": {
+            "TITLE": "API",
+            "DESCRIPTION": "Make a custom channel using our API"
+          },
+          "TELEGRAM": {
+            "TITLE": "Telegram",
+            "DESCRIPTION": "Configure Telegram channel using Bot token"
+          },
+          "LINE": {
+            "TITLE": "Line",
+            "DESCRIPTION": "Integrate your Line channel"
+          },
+          "INSTAGRAM": {
+            "TITLE": "Instagram",
+            "DESCRIPTION": "Connect your instagram account"
+          },
+          "VOICE": {
+            "TITLE": "Voice",
+            "DESCRIPTION": "Integrate with Twilio Voice"
+          }
+        }
       },
       "AGENTS": {
         "TITLE": "Agents",
@@ -547,7 +598,10 @@
       "MESSAGE": "You can now engage with your customers through your new Channel. Happy supporting",
       "BUTTON_TEXT": "Take me there",
       "MORE_SETTINGS": "More settings",
-      "WEBSITE_SUCCESS": "You have successfully finished creating a website channel. Copy the code shown below and paste it on your website. Next time a customer use the live chat, the conversation will automatically appear on your inbox."
+      "WEBSITE_SUCCESS": "You have successfully finished creating a website channel. Copy the code shown below and paste it on your website. Next time a customer use the live chat, the conversation will automatically appear on your inbox.",
+      "WHATSAPP_QR_INSTRUCTION": "Scan the QR code above to quickly test your WhatsApp inbox",
+      "MESSENGER_QR_INSTRUCTION": "Scan the QR code above to quickly test your Facebook Messenger inbox",
+      "TELEGRAM_QR_INSTRUCTION": "Scan the QR code above to quickly test your Telegram inbox"
     },
     "REAUTH": "Reauthorize",
     "VIEW": "View",
@@ -923,9 +977,18 @@
       "SCRIPT_SETTINGS": "\n      window.chatwootSettings = {options};"
     },
     "EMAIL_PROVIDERS": {
-      "MICROSOFT": "Microsoft",
-      "GOOGLE": "Google",
-      "OTHER_PROVIDERS": "Other Providers"
+      "MICROSOFT": {
+        "TITLE": "Microsoft",
+        "DESCRIPTION": "Connect with Microsoft"
+      },
+      "GOOGLE": {
+        "TITLE": "Google",
+        "DESCRIPTION": "Connect with Google"
+      },
+      "OTHER_PROVIDERS": {
+        "TITLE": "Other Providers",
+        "DESCRIPTION": "Connect with Other Providers"
+      }
     },
     "CHANNELS": {
       "MESSENGER": "Messenger",

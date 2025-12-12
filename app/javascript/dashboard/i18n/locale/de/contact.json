@@ -50,6 +50,11 @@
       "CONTACT_LABELS": "Kontakt-Labels",
       "PREVIOUS_CONVERSATIONS": "Vorherige Konversationen",
       "NO_RECORDS_FOUND": "Keine Attribute gefunden"
+    },
+    "CALL": "Anruf",
+    "CALL_UNDER_DEVELOPMENT": "Calling is under development",
+    "VOICE_INBOX_PICKER": {
+      "TITLE": "Choose a voice inbox"
     }
   },
   "EDIT_CONTACT": {
@@ -608,6 +613,15 @@
       "ACTION_BUTTONS": {
         "DISCARD": "Verwerfen",
         "SEND": "Senden ({keyCode})"
+      },
+      "TWILIO_OPTIONS": {
+        "LABEL": "Vorlage auswählen",
+        "SEARCH_PLACEHOLDER": "Vorlagen suchen",
+        "EMPTY_STATE": "Keine Vorlagen gefunden",
+        "TEMPLATE_PARSER": {
+          "BACK": "Zurück",
+          "SEND_MESSAGE": "Nachricht senden"
+        }
       }
     }
   }

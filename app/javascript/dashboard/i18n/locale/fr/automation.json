@@ -40,13 +40,13 @@
       }
     },
     "LIST": {
+      "404": "Aucune règle d'automatisation trouvée",
       "TABLE_HEADER": {
         "NAME": "Nom",
         "DESCRIPTION": "Description",
         "ACTIVE": "Actif",
         "CREATED_ON": "Créé le"
-      },
-      "404": "Aucune règle d'automatisation trouvée"
+      }
     },
     "DELETE": {
       "TITLE": "Supprimer la règle d'automatisation",
@@ -131,6 +131,7 @@
       "CONVERSATION_CREATED": "Conversation créée",
       "CONVERSATION_UPDATED": "Conversation mise à jour",
       "MESSAGE_CREATED": "Message créé",
+      "CONVERSATION_RESOLVED": "Conversation terminée",
       "CONVERSATION_OPENED": "Conversation ouverte"
     },
     "ACTIONS": {
@@ -152,8 +153,8 @@
       "OPEN_CONVERSATION": "Ouvrir la conversation"
     },
     "MESSAGE_TYPES": {
-      "INCOMING": "Incoming Message",
-      "OUTGOING": "Outgoing Message"
+      "INCOMING": "Boite de réception",
+      "OUTGOING": "Message envoyé"
     },
     "PRIORITY_TYPES": {
       "NONE": "Aucun",

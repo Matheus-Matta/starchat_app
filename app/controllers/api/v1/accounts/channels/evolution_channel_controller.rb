@@ -1,5 +1,4 @@
 require 'timeout'
-
 class Api::V1::Accounts::Channels::EvolutionChannelController < Api::V1::Accounts::BaseController
   before_action :load_channel, only: %i[show connect restart disconnect]
 
@@ -199,7 +198,6 @@ class Api::V1::Accounts::Channels::EvolutionChannelController < Api::V1::Account
       MESSAGES_UPDATE
       MESSAGES_DELETE
       MESSAGES_SET
-      CONTACTS_UPSERT
       CONTACTS_UPDATE
       CONTACTS_SET
     ]
@@ -237,8 +235,10 @@ class Api::V1::Accounts::Channels::EvolutionChannelController < Api::V1::Account
 
   def evo_client(channel = nil, api_key: nil)
     Evolution::Client.new(
-      base_url: ENV.fetch('EVOLUTION_BASE_URL'),
-      api_key:  ENV['EVOLUTION_API_KEY']
+      base_url:     ENV.fetch('EVOLUTION_BASE_URL'),
+      api_key:      ENV.fetch('EVOLUTION_API_KEY'),
+      open_timeout: Integer(ENV.fetch('EVOLUTION_HTTP_OPEN_TIMEOUT', 180)),
+      read_timeout: Integer(ENV.fetch('EVOLUTION_HTTP_READ_TIMEOUT', 180))
     )
   end
 

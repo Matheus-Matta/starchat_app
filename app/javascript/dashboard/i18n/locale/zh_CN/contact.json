@@ -50,6 +50,11 @@
       "CONTACT_LABELS": "联系人标签",
       "PREVIOUS_CONVERSATIONS": "上一次对话",
       "NO_RECORDS_FOUND": "未找到属性"
+    },
+    "CALL": "呼叫",
+    "CALL_UNDER_DEVELOPMENT": "Calling is under development",
+    "VOICE_INBOX_PICKER": {
+      "TITLE": "Choose a voice inbox"
     }
   },
   "EDIT_CONTACT": {
@@ -608,6 +613,15 @@
       "ACTION_BUTTONS": {
         "DISCARD": "丢弃",
         "SEND": "发送 ({keyCode})"
+      },
+      "TWILIO_OPTIONS": {
+        "LABEL": "选择模板",
+        "SEARCH_PLACEHOLDER": "搜索模板",
+        "EMPTY_STATE": "未找到模板",
+        "TEMPLATE_PARSER": {
+          "BACK": "返回",
+          "SEND_MESSAGE": "发送消息"
+        }
       }
     }
   }

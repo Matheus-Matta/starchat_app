@@ -2,7 +2,9 @@ import { createStore } from 'vuex';
 
 import accounts from './modules/accounts';
 import agentBots from './modules/agentBots';
+import agentCapacityPolicies from './modules/agentCapacityPolicies';
 import agents from './modules/agents';
+import assignmentPolicies from './modules/assignmentPolicies';
 import articles from './modules/helpCenterArticles';
 import attributes from './modules/attributes';
 import auditlogs from './modules/auditlogs';
@@ -55,6 +57,8 @@ import copilotThreads from './cosmos/copilotThreads';
 import copilotMessages from './cosmos/copilotMessages';
 import cosmosScenarios from './cosmos/scenarios';
 import cosmosTools from './cosmos/tools';
+import cosmosCustomTools from './cosmos/customTools';
+
 import evolution from './modules/channels/evolution';
 
 const plugins = [];
@@ -63,7 +67,9 @@ export default createStore({
   modules: {
     accounts,
     agentBots,
+    agentCapacityPolicies,
     agents,
+    assignmentPolicies,
     articles,
     attributes,
     auditlogs,
@@ -116,6 +122,7 @@ export default createStore({
     copilotMessages,
     cosmosScenarios,
     cosmosTools,
+    cosmosCustomTools,
     evolution,
   },
   plugins,
