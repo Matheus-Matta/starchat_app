@@ -67,12 +67,15 @@ COPY . /app
 
 RUN mkdir -p /app/log
 
+## --- BUILD DE FRONT (VITE) E ASSETS RAILS (produção) ---
 RUN if [ "$RAILS_ENV" = "production" ]; then \
-      SECRET_KEY_BASE=precompile_placeholder RAILS_LOG_TO_STDOUT=enabled \
-      bundle exec rails assets:precompile && \
-      pnpm run build && \
-      rm -rf spec node_modules tmp/cache; \
-    fi
+  export SECRET_KEY_BASE=precompile_placeholder RAILS_LOG_TO_STDOUT=enabled NODE_ENV=production; \
+  bundle exec rake vite:build && \
+  bundle exec rake assets:precompile; \
+fi
+
+# Limpeza (após o build, para manter o manifest e reduzir a imagem)
+RUN rm -rf spec node_modules tmp/cache
 
 RUN git rev-parse HEAD > /app/.git_sha || echo unknown > /app/.git_sha
 
