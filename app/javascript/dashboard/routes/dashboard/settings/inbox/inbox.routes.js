@@ -10,7 +10,7 @@ import InboxChannel from './InboxChannels.vue';
 import ChannelList from './ChannelList.vue';
 import AddAgents from './AddAgents.vue';
 import FinishSetup from './FinishSetup.vue';
-
+import QrCodeStep from './QrCodeStep.vue';
 export default {
   routes: [
     {
@@ -91,10 +91,19 @@ export default {
               },
               component: AddAgents,
             },
+            {
+              path: ':inbox_id/qrcode',
+              name: 'settings_inboxes_qrcode',
+              meta: {
+                featureFlag: FEATURE_FLAGS.INBOX_MANAGEMENT,
+                permissions: ['administrator'],
+              },
+              component: QrCodeStep,
+            },
           ],
         },
         {
-          path: ':inboxId',
+          path: ':inboxId/:tab?',
           name: 'settings_inbox_show',
           component: Settings,
           meta: {

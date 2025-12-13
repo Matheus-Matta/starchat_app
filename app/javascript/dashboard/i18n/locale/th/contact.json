@@ -50,6 +50,11 @@
       "CONTACT_LABELS": "ป้ายกำกับผู้ติดต่อ",
       "PREVIOUS_CONVERSATIONS": "การสนทนาก่อนหน้า",
       "NO_RECORDS_FOUND": "ไม่พบข้อมูล"
+    },
+    "CALL": "Call",
+    "CALL_UNDER_DEVELOPMENT": "Calling is under development",
+    "VOICE_INBOX_PICKER": {
+      "TITLE": "Choose a voice inbox"
     }
   },
   "EDIT_CONTACT": {
@@ -608,6 +613,15 @@
       "ACTION_BUTTONS": {
         "DISCARD": "Discard",
         "SEND": "Send ({keyCode})"
+      },
+      "TWILIO_OPTIONS": {
+        "LABEL": "Select template",
+        "SEARCH_PLACEHOLDER": "Search templates",
+        "EMPTY_STATE": "No templates found",
+        "TEMPLATE_PARSER": {
+          "BACK": "Go back",
+          "SEND_MESSAGE": "ส่วข้อความ"
+        }
       }
     }
   }

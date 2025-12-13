@@ -8,7 +8,7 @@
     "SEARCH_404": "Não há itens correspondentes a esta consulta.",
     "PAYWALL": {
       "TITLE": "Atualize para criar funções personalizadas",
-      "AVAILABLE_ON": "O recurso de função personalizada está disponível apenas nos planos \"Business\" e \"Enterprise\".",
+      "AVAILABLE_ON": "O recurso de função personalizada está disponível apenas nos planos \"Business\" e \"Starchats\".",
       "UPGRADE_PROMPT": "Faça upgrade do seu plano para obter acesso a recursos avançados, como gestão de equipas, automações, atributos personalizados e muito mais.",
       "UPGRADE_NOW": "Fazer upgrade agora",
       "CANCEL_ANYTIME": "Pode alterar ou cancelar o plano a qualquer momento"
@@ -31,6 +31,7 @@
     },
     "PERMISSIONS": {
       "CONVERSATION_MANAGE": "Manage all conversations",
+      "CONVERSATION_TEAM_MANAGE": "Manage team conversations and those assigned to them",
       "CONVERSATION_UNASSIGNED_MANAGE": "Manage unassigned conversations and those assigned to them",
       "CONVERSATION_PARTICIPATING_MANAGE": "Manage participating conversations and those assigned to them",
       "CONTACT_MANAGE": "Manage contacts",
@@ -54,7 +55,7 @@
       },
       "CANCEL_BUTTON_TEXT": "Cancelar",
       "API": {
-        "ERROR_MESSAGE": "Não foi possível conectar ao servidor Woot. Por favor, tente novamente."
+        "ERROR_MESSAGE": "Não foi possível conectar ao servidor Starchat. Por favor, tente novamente."
       }
     },
     "ADD": {
@@ -78,7 +79,7 @@
       "BUTTON_TEXT": "Excluir",
       "API": {
         "SUCCESS_MESSAGE": "Função personalizada excluída com sucesso.",
-        "ERROR_MESSAGE": "Não foi possível conectar ao servidor Woot. Por favor, tente novamente."
+        "ERROR_MESSAGE": "Não foi possível conectar ao servidor Starchat. Por favor, tente novamente."
       },
       "CONFIRM": {
         "TITLE": "Confirmar exclusão",

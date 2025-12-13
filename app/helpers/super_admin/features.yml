@@ -2,12 +2,26 @@
 # No need to replicate the same values in two places
 
 # ------- Premium Features ------- #
-captain:
-  name: 'Captain'
+cosmos:
+  name: 'Cosmos'
   description: 'Enable AI-powered conversations with your customers.'
   enabled: <%= (ChatwootHub.pricing_plan != 'community') %>
-  icon: 'icon-captain'
-  config_key: 'captain'
+  icon: 'icon-cosmos'
+  config_key: 'cosmos'
+  enterprise: true
+saml:
+  name: 'SAML SSO'
+  description: 'Configuration for controlling SAML Single Sign-On availability'
+  enabled: <%= ChatwootApp.enterprise? %>
+  icon: 'icon-lock-line'
+  config_key: 'saml'
+  enterprise: true
+saml:
+  name: 'SAML SSO'
+  description: 'Configuration for controlling SAML Single Sign-On availability'
+  enabled: <%= ChatwootApp.enterprise? %>
+  icon: 'icon-lock-line'
+  config_key: 'saml'
   enterprise: true
 custom_branding:
   name: 'Custom Branding'

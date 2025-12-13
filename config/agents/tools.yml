@@ -1,5 +1,5 @@
-######  Captain Agent Tools Configuration #######
-# id: Tool identifier used to resolve the class (Captain::Tools::{PascalCase(id)}Tool)
+######  Cosmos Agent Tools Configuration #######
+# id: Tool identifier used to resolve the class (Cosmos::Tools::{PascalCase(id)}Tool)
 # title: Human-readable tool name for frontend display
 # description: Brief description of what the tool does
 # icon: Icon name for frontend display (frontend icon system)
@@ -24,3 +24,13 @@
   title: 'Add Label to Conversation'
   description: 'Add a label to a conversation'
   icon: 'tag'
+
+- id: faq_lookup
+  title: 'FAQ Lookup'
+  description: 'Search FAQ responses using semantic similarity'
+  icon: 'search'
+
+- id: handoff
+  title: 'Handoff to Human'
+  description: 'Hand off the conversation to a human agent'
+  icon: 'user-switch'

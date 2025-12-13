@@ -50,16 +50,17 @@ const inboxName = computed(() => {
 
 const menuItems = computed(() => [
   {
-    label: t('CAPTAIN.INBOXES.OPTIONS.DISCONNECT'),
+    label: t('COSMOS.INBOXES.OPTIONS.DISCONNECT'),
     value: 'delete',
     action: 'delete',
     icon: 'i-lucide-trash',
   },
 ]);
 
-const icon = computed(() =>
-  getInboxIconByType(props.inbox.channel_type, '', 'outline')
-);
+const icon = computed(() => {
+  const { medium, channel_type: type } = props.inbox;
+  return getInboxIconByType(type, medium, 'outline');
+});
 
 const handleAction = ({ action, value }) => {
   toggleDropdown(false);

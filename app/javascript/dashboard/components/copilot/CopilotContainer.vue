@@ -1,9 +1,11 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue';
+import { useAlert } from 'dashboard/composables';
 import { useStore } from 'dashboard/composables/store';
 import Copilot from 'dashboard/components-next/copilot/Copilot.vue';
 import { useMapGetter } from 'dashboard/composables/store';
 import { useUISettings } from 'dashboard/composables/useUISettings';
+import { useConfig } from 'dashboard/composables/useConfig';
 import { useWindowSize } from '@vueuse/core';
 import { vOnClickOutside } from '@vueuse/components';
 import { FEATURE_FLAGS } from 'dashboard/featureFlags';
@@ -18,11 +20,12 @@ defineProps({
 
 const store = useStore();
 const { uiSettings, updateUISettings } = useUISettings();
+const { isEnterprise } = useConfig();
 const { width: windowWidth } = useWindowSize();
 
 const currentUser = useMapGetter('getCurrentUser');
-const assistants = useMapGetter('captainAssistants/getRecords');
-const uiFlags = useMapGetter('captainAssistants/getUIFlags');
+const assistants = useMapGetter('cosmosAssistants/getRecords');
+const uiFlags = useMapGetter('cosmosAssistants/getUIFlags');
 const inboxAssistant = useMapGetter('getCopilotAssistant');
 const currentChat = useMapGetter('getSelectedChat');
 
@@ -45,7 +48,7 @@ const isFeatureEnabledonAccount = useMapGetter(
 const selectedAssistantId = ref(null);
 
 const activeAssistant = computed(() => {
-  const preferredId = uiSettings.value.preferred_captain_assistant_id;
+  const preferredId = uiSettings.value.preferred_cosmos_assistant_id;
 
   // If the user has selected a specific assistant, it takes first preference for Copilot.
   if (preferredId) {
@@ -77,17 +80,20 @@ const closeCopilotPanel = () => {
 const setAssistant = async assistant => {
   selectedAssistantId.value = assistant.id;
   await updateUISettings({
-    preferred_captain_assistant_id: assistant.id,
+    preferred_cosmos_assistant_id: assistant.id,
   });
 };
 
 const shouldShowCopilotPanel = computed(() => {
-  const isCaptainEnabled = isFeatureEnabledonAccount.value(
+  if (!isEnterprise) {
+    return false;
+  }
+  const isCosmosEnabled = isFeatureEnabledonAccount.value(
     currentAccountId.value,
-    FEATURE_FLAGS.CAPTAIN
+    FEATURE_FLAGS.COSMOS
   );
   const { is_copilot_panel_open: isCopilotPanelOpen } = uiSettings.value;
-  return isCaptainEnabled && isCopilotPanelOpen && !uiFlags.value.fetchingList;
+  return isCosmosEnabled && isCopilotPanelOpen && !uiFlags.value.fetchingList;
 });
 
 const handleReset = () => {
@@ -95,25 +101,31 @@ const handleReset = () => {
 };
 
 const sendMessage = async message => {
-  if (selectedCopilotThreadId.value) {
-    await store.dispatch('copilotMessages/create', {
-      assistant_id: activeAssistant.value.id,
-      conversation_id: currentChat.value?.id,
-      threadId: selectedCopilotThreadId.value,
-      message,
-    });
-  } else {
-    const response = await store.dispatch('copilotThreads/create', {
-      assistant_id: activeAssistant.value.id,
-      conversation_id: currentChat.value?.id,
-      message,
-    });
-    selectedCopilotThreadId.value = response.id;
+  try {
+    if (selectedCopilotThreadId.value) {
+      await store.dispatch('copilotMessages/create', {
+        assistant_id: activeAssistant.value.id,
+        conversation_id: currentChat.value?.id,
+        threadId: selectedCopilotThreadId.value,
+        message,
+      });
+    } else {
+      const response = await store.dispatch('copilotThreads/create', {
+        assistant_id: activeAssistant.value.id,
+        conversation_id: currentChat.value?.id,
+        message,
+      });
+      selectedCopilotThreadId.value = response.id;
+    }
+  } catch (error) {
+    useAlert(error.message);
   }
 };
 
 onMounted(() => {
-  store.dispatch('captainAssistants/get');
+  if (isEnterprise) {
+    store.dispatch('cosmosAssistants/get');
+  }
 });
 </script>
 

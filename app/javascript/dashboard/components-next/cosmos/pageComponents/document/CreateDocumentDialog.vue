@@ -3,27 +3,34 @@ import { ref } from 'vue';
 import { useStore } from 'dashboard/composables/store';
 import { useAlert } from 'dashboard/composables';
 import { useI18n } from 'vue-i18n';
+import { parseAPIErrorResponse } from 'dashboard/store/utils/api';
 
 import Dialog from 'dashboard/components-next/dialog/Dialog.vue';
 import DocumentForm from './DocumentForm.vue';
+
+defineProps({
+  assistantId: {
+    type: Number,
+    required: true,
+  },
+});
 
 const emit = defineEmits(['close']);
 const { t } = useI18n();
 const store = useStore();
 
 const dialogRef = ref(null);
-const documentForm = ref(null);
 
-const i18nKey = 'CAPTAIN.DOCUMENTS.CREATE';
+const i18nKey = 'COSMOS.DOCUMENTS.CREATE';
 
 const handleSubmit = async newDocument => {
   try {
-    await store.dispatch('captainDocuments/create', newDocument);
+    await store.dispatch('cosmosDocuments/create', newDocument);
     useAlert(t(`${i18nKey}.SUCCESS_MESSAGE`));
     dialogRef.value.close();
   } catch (error) {
     const errorMessage =
-      error?.response?.message || t(`${i18nKey}.ERROR_MESSAGE`);
+      parseAPIErrorResponse(error) || t(`${i18nKey}.ERROR_MESSAGE`);
     useAlert(errorMessage);
   }
 };
@@ -43,13 +50,13 @@ defineExpose({ dialogRef });
   <Dialog
     ref="dialogRef"
     :title="$t(`${i18nKey}.TITLE`)"
-    :description="$t('CAPTAIN.DOCUMENTS.FORM_DESCRIPTION')"
+    :description="$t('COSMOS.DOCUMENTS.FORM_DESCRIPTION')"
     :show-cancel-button="false"
     :show-confirm-button="false"
     @close="handleClose"
   >
     <DocumentForm
-      ref="documentForm"
+      :assistant-id="assistantId"
       @submit="handleSubmit"
       @cancel="handleCancel"
     />

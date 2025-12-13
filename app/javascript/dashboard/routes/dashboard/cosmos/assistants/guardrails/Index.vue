@@ -10,7 +10,7 @@ import { useUISettings } from 'dashboard/composables/useUISettings';
 import Input from 'dashboard/components-next/input/Input.vue';
 import Button from 'dashboard/components-next/button/Button.vue';
 
-import SettingsPageLayout from 'dashboard/components-next/cosmos/SettingsPageLayout.vue';
+import PageLayout from 'dashboard/components-next/cosmos/PageLayout.vue';
 import SettingsHeader from 'dashboard/components-next/cosmos/pageComponents/settings/SettingsHeader.vue';
 import SuggestedRules from 'dashboard/components-next/cosmos/assistant/SuggestedRules.vue';
 import AddNewRulesInput from 'dashboard/components-next/cosmos/assistant/AddNewRulesInput.vue';
@@ -23,29 +23,26 @@ const route = useRoute();
 const store = useStore();
 const { uiSettings, updateUISettings } = useUISettings();
 
-const assistantId = route.params.assistantId;
-const uiFlags = useMapGetter('captainAssistants/getUIFlags');
+const uiFlags = useMapGetter('cosmosAssistants/getUIFlags');
+const assistantId = computed(() => Number(route.params.assistantId));
 const isFetching = computed(() => uiFlags.value.fetchingItem);
 const assistant = computed(() =>
-  store.getters['captainAssistants/getRecord'](Number(assistantId))
+  store.getters['cosmosAssistants/getRecord'](assistantId.value)
 );
 
 const searchQuery = ref('');
 const newInlineRule = ref('');
 const newDialogRule = ref('');
 
-const breadcrumbItems = computed(() => {
-  return [
-    {
-      label: t('CAPTAIN.ASSISTANTS.SETTINGS.BREADCRUMB.ASSISTANT'),
-      routeName: 'captain_assistants_index',
-    },
-    { label: assistant.value?.name, routeName: 'captain_assistants_edit' },
-    { label: t('CAPTAIN.ASSISTANTS.GUARDRAILS.BREADCRUMB.TITLE') },
-  ];
-});
-
 const guardrailsContent = computed(() => assistant.value?.guardrails || []);
+
+const backUrl = computed(() => ({
+  name: 'cosmos_assistants_settings_index',
+  params: {
+    accountId: route.params.accountId,
+    assistantId: assistantId.value,
+  },
+}));
 
 const displayGuardrails = computed(() =>
   guardrailsContent.value.map((c, idx) => ({ id: idx, content: c }))
@@ -101,19 +98,19 @@ const buildSelectedCountLabel = computed(() => {
   const count = displayGuardrails.value.length || 0;
   const isAllSelected = bulkSelectedIds.value.size === count && count > 0;
   return isAllSelected
-    ? t('CAPTAIN.ASSISTANTS.GUARDRAILS.BULK_ACTION.UNSELECT_ALL', { count })
-    : t('CAPTAIN.ASSISTANTS.GUARDRAILS.BULK_ACTION.SELECT_ALL', { count });
+    ? t('COSMOS.ASSISTANTS.GUARDRAILS.BULK_ACTION.UNSELECT_ALL', { count })
+    : t('COSMOS.ASSISTANTS.GUARDRAILS.BULK_ACTION.SELECT_ALL', { count });
 });
 
 const selectedCountLabel = computed(() => {
-  return t('CAPTAIN.ASSISTANTS.GUARDRAILS.BULK_ACTION.SELECTED', {
+  return t('COSMOS.ASSISTANTS.GUARDRAILS.BULK_ACTION.SELECTED', {
     count: bulkSelectedIds.value.size,
   });
 });
 
 const saveGuardrails = async list => {
-  await store.dispatch('captainAssistants/update', {
-    id: assistantId,
+  await store.dispatch('cosmosAssistants/update', {
+    id: assistantId.value,
     assistant: { guardrails: list },
   });
 };
@@ -122,9 +119,9 @@ const addGuardrail = async content => {
   try {
     const newGuardrails = [...guardrailsContent.value, content];
     await saveGuardrails(newGuardrails);
-    useAlert(t('CAPTAIN.ASSISTANTS.GUARDRAILS.API.ADD.SUCCESS'));
+    useAlert(t('COSMOS.ASSISTANTS.GUARDRAILS.API.ADD.SUCCESS'));
   } catch (error) {
-    useAlert(t('CAPTAIN.ASSISTANTS.GUARDRAILS.API.ADD.ERROR'));
+    useAlert(t('COSMOS.ASSISTANTS.GUARDRAILS.API.ADD.ERROR'));
   }
 };
 
@@ -133,9 +130,9 @@ const editGuardrail = async ({ id, content }) => {
     const updated = [...guardrailsContent.value];
     updated[id] = content;
     await saveGuardrails(updated);
-    useAlert(t('CAPTAIN.ASSISTANTS.GUARDRAILS.API.UPDATE.SUCCESS'));
+    useAlert(t('COSMOS.ASSISTANTS.GUARDRAILS.API.UPDATE.SUCCESS'));
   } catch {
-    useAlert(t('CAPTAIN.ASSISTANTS.GUARDRAILS.API.UPDATE.ERROR'));
+    useAlert(t('COSMOS.ASSISTANTS.GUARDRAILS.API.UPDATE.ERROR'));
   }
 };
 
@@ -143,9 +140,9 @@ const deleteGuardrail = async id => {
   try {
     const updated = guardrailsContent.value.filter((_, idx) => idx !== id);
     await saveGuardrails(updated);
-    useAlert(t('CAPTAIN.ASSISTANTS.GUARDRAILS.API.DELETE.SUCCESS'));
+    useAlert(t('COSMOS.ASSISTANTS.GUARDRAILS.API.DELETE.SUCCESS'));
   } catch {
-    useAlert(t('CAPTAIN.ASSISTANTS.GUARDRAILS.API.DELETE.ERROR'));
+    useAlert(t('COSMOS.ASSISTANTS.GUARDRAILS.API.DELETE.ERROR'));
   }
 };
 
@@ -157,9 +154,9 @@ const bulkDeleteGuardrails = async () => {
     );
     await saveGuardrails(updated);
     bulkSelectedIds.value.clear();
-    useAlert(t('CAPTAIN.ASSISTANTS.GUARDRAILS.API.DELETE.SUCCESS'));
+    useAlert(t('COSMOS.ASSISTANTS.GUARDRAILS.API.DELETE.SUCCESS'));
   } catch {
-    useAlert(t('CAPTAIN.ASSISTANTS.GUARDRAILS.API.DELETE.ERROR'));
+    useAlert(t('COSMOS.ASSISTANTS.GUARDRAILS.API.DELETE.ERROR'));
   }
 };
 
@@ -170,24 +167,28 @@ const addAllExample = () => {
     const newGuardrails = [...guardrailsContent.value, ...exampleContents];
     saveGuardrails(newGuardrails);
   } catch {
-    useAlert(t('CAPTAIN.ASSISTANTS.GUARDRAILS.API.ADD.ERROR'));
+    useAlert(t('COSMOS.ASSISTANTS.GUARDRAILS.API.ADD.ERROR'));
   }
 };
 </script>
 
 <template>
-  <SettingsPageLayout
-    :breadcrumb-items="breadcrumbItems"
+  <PageLayout
+    :header-title="$t('COSMOS.ASSISTANTS.GUARDRAILS.TITLE')"
     :is-fetching="isFetching"
+    :back-url="backUrl"
+    :show-know-more="false"
+    :show-pagination-footer="false"
+    :show-assistant-switcher="false"
   >
     <template #body>
       <SettingsHeader
-        :heading="$t('CAPTAIN.ASSISTANTS.GUARDRAILS.TITLE')"
-        :description="$t('CAPTAIN.ASSISTANTS.GUARDRAILS.DESCRIPTION')"
+        :heading="$t('COSMOS.ASSISTANTS.GUARDRAILS.TITLE')"
+        :description="$t('COSMOS.ASSISTANTS.GUARDRAILS.DESCRIPTION')"
       />
       <div v-if="shouldShowSuggestedRules" class="flex mt-7 flex-col gap-4">
         <SuggestedRules
-          :title="$t('CAPTAIN.ASSISTANTS.GUARDRAILS.ADD.SUGGESTED.TITLE')"
+          :title="$t('COSMOS.ASSISTANTS.GUARDRAILS.ADD.SUGGESTED.TITLE')"
           :items="guardrailsExample"
           @add="addAllExample"
           @close="closeSuggestedRules"
@@ -199,7 +200,7 @@ const addAllExample = () => {
               </span>
               <Button
                 :label="
-                  $t('CAPTAIN.ASSISTANTS.GUARDRAILS.ADD.SUGGESTED.ADD_SINGLE')
+                  $t('COSMOS.ASSISTANTS.GUARDRAILS.ADD.SUGGESTED.ADD_SINGLE')
                 "
                 ghost
                 xs
@@ -219,7 +220,7 @@ const addAllExample = () => {
             :select-all-label="buildSelectedCountLabel"
             :selected-count-label="selectedCountLabel"
             :delete-label="
-              $t('CAPTAIN.ASSISTANTS.GUARDRAILS.BULK_ACTION.BULK_DELETE_BUTTON')
+              $t('COSMOS.ASSISTANTS.GUARDRAILS.BULK_ACTION.BULK_DELETE_BUTTON')
             "
             @bulk-delete="bulkDeleteGuardrails"
           >
@@ -227,21 +228,19 @@ const addAllExample = () => {
               <AddNewRulesDialog
                 v-model="newDialogRule"
                 :placeholder="
-                  t('CAPTAIN.ASSISTANTS.GUARDRAILS.ADD.NEW.PLACEHOLDER')
+                  t('COSMOS.ASSISTANTS.GUARDRAILS.ADD.NEW.PLACEHOLDER')
                 "
-                :button-label="t('CAPTAIN.ASSISTANTS.GUARDRAILS.ADD.NEW.TITLE')"
+                :button-label="t('COSMOS.ASSISTANTS.GUARDRAILS.ADD.NEW.TITLE')"
                 :confirm-label="
-                  t('CAPTAIN.ASSISTANTS.GUARDRAILS.ADD.NEW.CREATE')
+                  t('COSMOS.ASSISTANTS.GUARDRAILS.ADD.NEW.CREATE')
                 "
-                :cancel-label="
-                  t('CAPTAIN.ASSISTANTS.GUARDRAILS.ADD.NEW.CANCEL')
-                "
+                :cancel-label="t('COSMOS.ASSISTANTS.GUARDRAILS.ADD.NEW.CANCEL')"
                 @add="addGuardrail"
               />
               <!-- Will enable this feature in future -->
               <!-- <div class="h-4 w-px bg-n-strong" />
               <Button
-                :label="t('CAPTAIN.ASSISTANTS.GUARDRAILS.ADD.NEW.TEST_ALL')"
+                :label="t('COSMOS.ASSISTANTS.GUARDRAILS.ADD.NEW.TEST_ALL')"
                 xs
                 ghost
                 slate
@@ -256,19 +255,19 @@ const addAllExample = () => {
             <Input
               v-model="searchQuery"
               :placeholder="
-                t('CAPTAIN.ASSISTANTS.GUARDRAILS.LIST.SEARCH_PLACEHOLDER')
+                t('COSMOS.ASSISTANTS.GUARDRAILS.LIST.SEARCH_PLACEHOLDER')
               "
             />
           </div>
         </div>
         <div v-if="displayGuardrails.length === 0" class="mt-1 mb-2">
           <span class="text-n-slate-11 text-sm">
-            {{ t('CAPTAIN.ASSISTANTS.GUARDRAILS.EMPTY_MESSAGE') }}
+            {{ t('COSMOS.ASSISTANTS.GUARDRAILS.EMPTY_MESSAGE') }}
           </span>
         </div>
         <div v-else-if="filteredGuardrails.length === 0" class="mt-1 mb-2">
           <span class="text-n-slate-11 text-sm">
-            {{ t('CAPTAIN.ASSISTANTS.GUARDRAILS.SEARCH_EMPTY_MESSAGE') }}
+            {{ t('COSMOS.ASSISTANTS.GUARDRAILS.SEARCH_EMPTY_MESSAGE') }}
           </span>
         </div>
         <div v-else class="flex flex-col gap-2">
@@ -290,12 +289,12 @@ const addAllExample = () => {
         <AddNewRulesInput
           v-model="newInlineRule"
           :placeholder="
-            t('CAPTAIN.ASSISTANTS.GUARDRAILS.ADD.SUGGESTED.PLACEHOLDER')
+            t('COSMOS.ASSISTANTS.GUARDRAILS.ADD.SUGGESTED.PLACEHOLDER')
           "
-          :label="t('CAPTAIN.ASSISTANTS.GUARDRAILS.ADD.SUGGESTED.SAVE')"
+          :label="t('COSMOS.ASSISTANTS.GUARDRAILS.ADD.SUGGESTED.SAVE')"
           @add="addGuardrail"
         />
       </div>
     </template>
-  </SettingsPageLayout>
+  </PageLayout>
 </template>

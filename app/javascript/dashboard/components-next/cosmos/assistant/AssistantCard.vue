@@ -38,7 +38,7 @@ const [showActionsDropdown, toggleDropdown] = useToggle();
 const menuItems = computed(() => {
   const allOptions = [
     {
-      label: t('CAPTAIN.ASSISTANTS.OPTIONS.VIEW_CONNECTED_INBOXES'),
+      label: t('COSMOS.ASSISTANTS.OPTIONS.VIEW_CONNECTED_INBOXES'),
       value: 'viewConnectedInboxes',
       action: 'viewConnectedInboxes',
       icon: 'i-lucide-link',
@@ -48,13 +48,13 @@ const menuItems = computed(() => {
   if (checkPermissions(['administrator'])) {
     allOptions.push(
       {
-        label: t('CAPTAIN.ASSISTANTS.OPTIONS.EDIT_ASSISTANT'),
+        label: t('COSMOS.ASSISTANTS.OPTIONS.EDIT_ASSISTANT'),
         value: 'edit',
         action: 'edit',
         icon: 'i-lucide-pencil-line',
       },
       {
-        label: t('CAPTAIN.ASSISTANTS.OPTIONS.DELETE_ASSISTANT'),
+        label: t('COSMOS.ASSISTANTS.OPTIONS.DELETE_ASSISTANT'),
         value: 'delete',
         action: 'delete',
         icon: 'i-lucide-trash',
@@ -76,12 +76,11 @@ const handleAction = ({ action, value }) => {
 <template>
   <CardLayout>
     <div class="flex justify-between w-full gap-1">
-      <router-link
-        :to="{ name: 'captain_assistants_edit', params: { assistantId: id } }"
-        class="text-base text-n-slate-12 line-clamp-1 hover:underline transition-colors"
+      <h6
+        class="text-base font-normal text-n-slate-12 line-clamp-1 hover:underline transition-colors"
       >
         {{ name }}
-      </router-link>
+      </h6>
       <div class="flex items-center gap-2">
         <div
           v-on-clickaway="() => toggleDropdown(false)"

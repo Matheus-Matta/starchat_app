@@ -73,7 +73,7 @@ const props = defineProps({
   updateSelectionWith: { type: String, default: '' },
   enableVariables: { type: Boolean, default: false },
   enableCannedResponses: { type: Boolean, default: true },
-  enableCaptainTools: { type: Boolean, default: false },
+  enableCosmosTools: { type: Boolean, default: false },
   variables: { type: Object, default: () => ({}) },
   enabledMenuOptions: { type: Array, default: () => [] },
   signature: { type: String, default: '' },
@@ -225,13 +225,13 @@ const plugins = computed(() => {
       trigger: '@',
       showMenu: showToolsMenu,
       searchTerm: toolSearchKey,
-      isAllowed: () => props.enableCaptainTools,
+      isAllowed: () => props.enableCosmosTools,
     }),
     createSuggestionPlugin({
       trigger: '@',
       showMenu: showUserMentions,
       searchTerm: mentionSearchKey,
-      isAllowed: () => props.isPrivate || !props.enableCaptainTools,
+      isAllowed: () => props.isPrivate || !props.enableCosmosTools,
     }),
     createSuggestionPlugin({
       trigger: '/',
@@ -274,7 +274,7 @@ watch(showVariables, updatedValue => {
   emit('toggleVariablesMenu', !props.isPrivate && updatedValue);
 });
 watch(showToolsMenu, updatedValue => {
-  emit('toggleToolsMenu', props.enableCaptainTools && updatedValue);
+  emit('toggleToolsMenu', props.enableCosmosTools && updatedValue);
 });
 
 function focusEditorInputField(pos = 'end') {
@@ -302,7 +302,16 @@ function isBodyEmpty(content) {
 }
 
 function handleEmptyBodyWithSignature() {
-  const { schema, tr } = state;
+  const { schema, tr, doc } = state;
+
+  const isEmptyParagraph = node =>
+    node && node.type === schema.nodes.paragraph && node.content.size === 0;
+
+  // Check if empty paragraph already exists to prevent duplicates when toggling signatures
+  if (isEmptyParagraph(doc.firstChild)) {
+    focusEditorInputField('start');
+    return;
+  }
 
   // create a paragraph node and
   // start a transaction to append it at the end

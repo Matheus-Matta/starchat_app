@@ -20,11 +20,11 @@ const store = useStore();
 const dialogRef = ref(null);
 const connectForm = ref(null);
 
-const i18nKey = 'CAPTAIN.INBOXES.CREATE';
+const i18nKey = 'COSMOS.INBOXES.CREATE';
 
 const handleSubmit = async payload => {
   try {
-    await store.dispatch('captainInboxes/create', payload);
+    await store.dispatch('cosmosInboxes/create', payload);
     useAlert(t(`${i18nKey}.SUCCESS_MESSAGE`));
     dialogRef.value.close();
   } catch (error) {
@@ -49,7 +49,7 @@ defineExpose({ dialogRef });
     ref="dialogRef"
     type="create"
     :title="$t(`${i18nKey}.TITLE`)"
-    :description="$t('CAPTAIN.INBOXES.FORM_DESCRIPTION')"
+    :description="$t('COSMOS.INBOXES.FORM_DESCRIPTION')"
     :show-cancel-button="false"
     :show-confirm-button="false"
     @close="handleClose"

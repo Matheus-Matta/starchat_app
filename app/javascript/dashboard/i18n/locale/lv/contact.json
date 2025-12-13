@@ -50,6 +50,11 @@
       "CONTACT_LABELS": "Kontaktpersonu Etiķetes",
       "PREVIOUS_CONVERSATIONS": "Iepriekšējās Sarunas",
       "NO_RECORDS_FOUND": "Īpašības nav atrastas"
+    },
+    "CALL": "Call",
+    "CALL_UNDER_DEVELOPMENT": "Calling is under development",
+    "VOICE_INBOX_PICKER": {
+      "TITLE": "Choose a voice inbox"
     }
   },
   "EDIT_CONTACT": {
@@ -608,6 +613,15 @@
       "ACTION_BUTTONS": {
         "DISCARD": "Izmest",
         "SEND": "Sūtīt ({keyCode})"
+      },
+      "TWILIO_OPTIONS": {
+        "LABEL": "Izvēlieties veidni",
+        "SEARCH_PLACEHOLDER": "Meklēt veidnes",
+        "EMPTY_STATE": "Nav atrasta neviena veidne",
+        "TEMPLATE_PARSER": {
+          "BACK": "Atgriezties",
+          "SEND_MESSAGE": "Sūtīt ziņojumu"
+        }
       }
     }
   }

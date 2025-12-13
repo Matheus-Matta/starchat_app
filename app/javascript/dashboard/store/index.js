@@ -2,7 +2,9 @@ import { createStore } from 'vuex';
 
 import accounts from './modules/accounts';
 import agentBots from './modules/agentBots';
+import agentCapacityPolicies from './modules/agentCapacityPolicies';
 import agents from './modules/agents';
+import assignmentPolicies from './modules/assignmentPolicies';
 import articles from './modules/helpCenterArticles';
 import attributes from './modules/attributes';
 import auditlogs from './modules/auditlogs';
@@ -12,6 +14,7 @@ import bulkActions from './modules/bulkActions';
 import campaigns from './modules/campaigns';
 import cannedResponse from './modules/cannedResponse';
 import categories from './modules/helpCenterCategories';
+import companies from './modules/companies';
 import contactConversations from './modules/contactConversations';
 import contactLabels from './modules/contactLabels';
 import contactNotes from './modules/contactNotes';
@@ -46,15 +49,18 @@ import teamMembers from './modules/teamMembers';
 import teams from './modules/teams';
 import userNotificationSettings from './modules/userNotificationSettings';
 import webhooks from './modules/webhooks';
-import captainAssistants from './cosmos/assistant';
-import captainDocuments from './cosmos/document';
-import captainResponses from './cosmos/response';
-import captainInboxes from './cosmos/inboxes';
-import captainBulkActions from './cosmos/bulkActions';
+import cosmosAssistants from './cosmos/assistant';
+import cosmosDocuments from './cosmos/document';
+import cosmosResponses from './cosmos/response';
+import cosmosInboxes from './cosmos/inboxes';
+import cosmosBulkActions from './cosmos/bulkActions';
 import copilotThreads from './cosmos/copilotThreads';
 import copilotMessages from './cosmos/copilotMessages';
-import captainScenarios from './cosmos/scenarios';
-import captainTools from './cosmos/tools';
+import cosmosScenarios from './cosmos/scenarios';
+import cosmosTools from './cosmos/tools';
+import cosmosCustomTools from './cosmos/customTools';
+
+import evolution from './modules/channels/evolution';
 
 const plugins = [];
 
@@ -62,7 +68,9 @@ export default createStore({
   modules: {
     accounts,
     agentBots,
+    agentCapacityPolicies,
     agents,
+    assignmentPolicies,
     articles,
     attributes,
     auditlogs,
@@ -72,6 +80,7 @@ export default createStore({
     campaigns,
     cannedResponse,
     categories,
+    companies,
     contactConversations,
     contactLabels,
     contactNotes,
@@ -106,15 +115,17 @@ export default createStore({
     teams,
     userNotificationSettings,
     webhooks,
-    captainAssistants,
-    captainDocuments,
-    captainResponses,
-    captainInboxes,
-    captainBulkActions,
+    cosmosAssistants,
+    cosmosDocuments,
+    cosmosResponses,
+    cosmosInboxes,
+    cosmosBulkActions,
     copilotThreads,
     copilotMessages,
-    captainScenarios,
-    captainTools,
+    cosmosScenarios,
+    cosmosTools,
+    cosmosCustomTools,
+    evolution,
   },
   plugins,
 });

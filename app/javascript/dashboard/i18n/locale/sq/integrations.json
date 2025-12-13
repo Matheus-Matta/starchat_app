@@ -19,11 +19,11 @@
     "DESCRIPTION": "Chatwoot integrates with multiple tools and services to improve your team's efficiency. Explore the list below to configure your favorite apps.",
     "LEARN_MORE": "Learn more about integrations",
     "LOADING": "Fetching integrations",
-    "CAPTAIN": {
-      "DISABLED": "Captain is not enabled on your account.",
+    "COSMOS": {
+      "DISABLED": "Cosmos is not enabled on your account.",
       "CLICK_HERE_TO_CONFIGURE": "Click here to configure",
-      "LOADING_CONSOLE": "Loading Captain Console...",
-      "FAILED_TO_LOAD_CONSOLE": "Failed to load Captain Console. Please refresh and try again."
+      "LOADING_CONSOLE": "Loading Cosmos Console...",
+      "FAILED_TO_LOAD_CONSOLE": "Failed to load Cosmos Console. Please refresh and try again."
     },
     "WEBHOOK": {
       "SUBSCRIBED_EVENTS": "Subscribed Events",
@@ -341,17 +341,17 @@
       }
     }
   },
-  "CAPTAIN": {
-    "NAME": "Captain",
+  "COSMOS": {
+    "NAME": "Cosmos",
     "HEADER_KNOW_MORE": "Know more",
     "COPILOT": {
-      "TITLE": "Copilot",
+      "TITLE": "Cosmos",
       "TRY_THESE_PROMPTS": "Try these prompts",
-      "PANEL_TITLE": "Get started with Copilot",
-      "KICK_OFF_MESSAGE": "Need a quick summary, want to check past conversations, or draft a better reply? Copilot’s here to speed things up.",
+      "PANEL_TITLE": "Get started with Cosmos",
+      "KICK_OFF_MESSAGE": "Need a quick summary, want to check past conversations, or draft a better reply? Cosmos’s here to speed things up.",
       "SEND_MESSAGE": "Send message...",
       "EMPTY_MESSAGE": "There was an error generating the response. Please try again.",
-      "LOADER": "Captain is thinking",
+      "LOADER": "Cosmos is thinking",
       "YOU": "Ju",
       "USE": "Use this",
       "RESET": "Reset",
@@ -386,22 +386,22 @@
       "MESSAGE_PLACEHOLDER": "Shkruani mesazhin tuaj...",
       "HEADER": "Playground",
       "DESCRIPTION": "Use this playground to send messages to your assistant and check if it responds accurately, quickly, and in the tone you expect.",
-      "CREDIT_NOTE": "Messages sent here will count toward your Captain credits."
+      "CREDIT_NOTE": "Messages sent here will count toward your Cosmos credits."
     },
     "PAYWALL": {
-      "TITLE": "Upgrade to use Captain AI",
-      "AVAILABLE_ON": "Captain is not available on the free plan.",
-      "UPGRADE_PROMPT": "Upgrade your plan to get access to our assistants, copilot and more.",
+      "TITLE": "Upgrade to use Cosmos AI",
+      "AVAILABLE_ON": "Cosmos is not available on the free plan.",
+      "UPGRADE_PROMPT": "Upgrade your plan to get access to our assistants, cosmos and more.",
       "UPGRADE_NOW": "Upgrade now",
       "CANCEL_ANYTIME": "You can change or cancel your plan anytime"
     },
     "ENTERPRISE_PAYWALL": {
-      "UPGRADE_PROMPT": "Upgrade your plan to get access to our assistants, copilot and more.",
+      "UPGRADE_PROMPT": "Upgrade your plan to get access to our assistants, cosmos and more.",
       "ASK_ADMIN": "Please reach out to your administrator for the upgrade."
     },
     "BANNER": {
-      "RESPONSES": "You've used over 80% of your response limit. To continue using Captain AI, please upgrade.",
-      "DOCUMENTS": "Document limit reached. Upgrade to continue using Captain AI."
+      "RESPONSES": "You've used over 80% of your response limit. To continue using Cosmos AI, please upgrade.",
+      "DOCUMENTS": "Document limit reached. Upgrade to continue using Cosmos AI."
     },
     "FORM": {
       "CANCEL": "Cancel",
@@ -466,7 +466,7 @@
           "PLACEHOLDER": "Enter resolution message"
         },
         "INSTRUCTIONS": {
-          "LABEL": "Instructions",
+          "LABEL": "Udhëzime",
           "PLACEHOLDER": "Enter instructions for the assistant"
         },
         "FEATURES": {
@@ -491,7 +491,7 @@
         },
         "SYSTEM_SETTINGS": {
           "TITLE": "System settings",
-          "DESCRIPTION": "Customize what the assistant says when ending a conversation or transferring to a human."
+          "DESCRIPTION": "Përshtatni se çfarë thotë asistenti kur përfundon një bisedë ose kur e transferon te një agjent."
         },
         "CONTROL_ITEMS": {
           "TITLE": "The Fun Stuff",
@@ -521,20 +521,20 @@
         "TITLE": "No assistants available",
         "SUBTITLE": "Create an assistant to provide quick and accurate responses to your users. It can learn from your help articles and past conversations.",
         "FEATURE_SPOTLIGHT": {
-          "TITLE": "Captain Assistant",
-          "NOTE": "Captain Assistant engages directly with customers, learns from your help docs and past conversations, and delivers instant, accurate responses. It handles the initial queries, providing quick resolutions before  transferring to an agent when needed."
+          "TITLE": "Cosmos Assistant",
+          "NOTE": "Cosmos Assistant engages directly with customers, learns from your help docs and past conversations, and delivers instant, accurate responses. It handles the initial queries, providing quick resolutions before  transferring to an agent when needed."
         }
       },
       "GUARDRAILS": {
-        "TITLE": "Guardrails",
-        "DESCRIPTION": "Keeps things on track—only the kinds of questions you want your assistant to answer, nothing off-limits or off-topic.",
+        "TITLE": "Kufizime",
+        "DESCRIPTION": "I mban gjërat në vijë—vetëm llojet e pyetjeve që dëshironi që asistenti juaj t’u përgjigjet, asgjë e ndaluar apo jashtë teme.",
         "BREADCRUMB": {
-          "TITLE": "Guardrails"
+          "TITLE": "Kufizime"
         },
         "BULK_ACTION": {
           "SELECTED": "{count} item selected | {count} items selected",
-          "SELECT_ALL": "Select all ({count})",
-          "UNSELECT_ALL": "Unselect all ({count})",
+          "SELECT_ALL": "Zgjidh të gjitha ({count})",
+          "UNSELECT_ALL": "Hiq përzgjedhjen nga të gjitha ({count})",
           "BULK_DELETE_BUTTON": "Delete"
         },
         "ADD": {
@@ -549,7 +549,7 @@
             "TITLE": "Add a guardrail",
             "CREATE": "Create",
             "CANCEL": "Cancel",
-            "PLACEHOLDER": "Type in another guardrail...",
+            "PLACEHOLDER": "Shkruani një kufizim tjetër...",
             "TEST_ALL": "Test all"
           }
         },
@@ -574,30 +574,30 @@
       },
       "RESPONSE_GUIDELINES": {
         "TITLE": "Response Guidelines",
-        "DESCRIPTION": "The vibe and structure of your assistant’s replies—clear and friendly? Short and snappy? Detailed and formal?",
+        "DESCRIPTION": "Stili dhe struktura e përgjigjeve të asistentit tuaj—të qarta dhe miqësore? Të shkurtra dhe koncize? Të detajuara dhe formale?",
         "BREADCRUMB": {
-          "TITLE": "Response Guidelines"
+          "TITLE": "Udhëzime për përgjigjet"
         },
         "BULK_ACTION": {
-          "SELECTED": "{count} item selected | {count} items selected",
-          "SELECT_ALL": "Select all ({count})",
-          "UNSELECT_ALL": "Unselect all ({count})",
+          "SELECTED": "{count, plural, one {{count} element i përzgjedhur} other {{count} elemente të përzgjedhura}}",
+          "SELECT_ALL": "Zgjidh të gjitha ({count})",
+          "UNSELECT_ALL": "Hiq përzgjedhjen nga të gjitha ({count})",
           "BULK_DELETE_BUTTON": "Delete"
         },
         "ADD": {
           "SUGGESTED": {
             "TITLE": "Example response guidelines",
-            "ADD": "Add all",
-            "ADD_SINGLE": "Add this",
-            "SAVE": "Add and save (↵)",
+            "ADD": "Shto të gjitha",
+            "ADD_SINGLE": "Shto këtë",
+            "SAVE": "Shto dhe ruaj (↵)",
             "PLACEHOLDER": "Type in another response guideline..."
           },
           "NEW": {
             "TITLE": "Add a response guideline",
             "CREATE": "Create",
             "CANCEL": "Cancel",
-            "PLACEHOLDER": "Type in another response guideline...",
-            "TEST_ALL": "Test all"
+            "PLACEHOLDER": "Shkruani një udhëzim tjetër për përgjigjet...",
+            "TEST_ALL": "Testo të gjitha"
           }
         },
         "LIST": {
@@ -618,6 +618,73 @@
             "ERROR": "There was an error deleting response guidelines, please try again."
           }
         }
+      },
+      "SCENARIOS": {
+        "TITLE": "Skenarë",
+        "DESCRIPTION": "Jepini asistentit pak kontekst—si p.sh. “çfarë të bëjë kur një përdorues ngec” ose “si të veprojë gjatë një kërkese për rimbursim”.",
+        "BREADCRUMB": {
+          "TITLE": "Skenarë"
+        },
+        "BULK_ACTION": {
+          "SELECTED": "{count, plural, one {{count} element i përzgjedhur} other {{count} elemente të përzgjedhura}}",
+          "SELECT_ALL": "Zgjidh të gjitha ({count})",
+          "UNSELECT_ALL": "Hiq përzgjedhjen nga të gjitha ({count})",
+          "BULK_DELETE_BUTTON": "Delete"
+        },
+        "ADD": {
+          "SUGGESTED": {
+            "TITLE": "Example scenarios",
+            "ADD": "Shto të gjitha",
+            "ADD_SINGLE": "Shto këtë",
+            "TOOLS_USED": "Tools used :"
+          },
+          "NEW": {
+            "CREATE": "Add a scenario",
+            "TITLE": "Create a scenario",
+            "FORM": {
+              "TITLE": {
+                "LABEL": "Title",
+                "PLACEHOLDER": "Enter a name for the scenario",
+                "ERROR": "Scenario name is required"
+              },
+              "DESCRIPTION": {
+                "LABEL": "Description",
+                "PLACEHOLDER": "Describe how and where this scenario will be used",
+                "ERROR": "Scenario description is required"
+              },
+              "INSTRUCTION": {
+                "LABEL": "How to handle",
+                "PLACEHOLDER": "Describe how and where this scenario will be handled",
+                "ERROR": "Scenario content is required"
+              },
+              "CREATE": "Create",
+              "CANCEL": "Cancel"
+            }
+          }
+        },
+        "UPDATE": {
+          "CANCEL": "Cancel",
+          "UPDATE": "Update changes"
+        },
+        "LIST": {
+          "SEARCH_PLACEHOLDER": "Search..."
+        },
+        "EMPTY_MESSAGE": "No scenarios found. Create or add examples to begin.",
+        "SEARCH_EMPTY_MESSAGE": "No scenarios found for this search.",
+        "API": {
+          "ADD": {
+            "SUCCESS": "Scenarios added successfully",
+            "ERROR": "There was an error adding scenarios, please try again."
+          },
+          "UPDATE": {
+            "SUCCESS": "Scenarios updated successfully",
+            "ERROR": "There was an error updating scenarios, please try again."
+          },
+          "DELETE": {
+            "SUCCESS": "Scenarios deleted successfully",
+            "ERROR": "There was an error deleting scenarios, please try again."
+          }
+        }
       }
     },
     "DOCUMENTS": {
@@ -634,10 +701,27 @@
         "ERROR_MESSAGE": "There was an error creating the document, please try again."
       },
       "FORM": {
+        "TYPE": {
+          "LABEL": "Document Type",
+          "URL": "URL",
+          "PDF": "PDF File"
+        },
         "URL": {
           "LABEL": "URL",
           "PLACEHOLDER": "Enter the URL of the document",
           "ERROR": "Please provide a valid URL for the document"
+        },
+        "PDF_FILE": {
+          "LABEL": "PDF File",
+          "CHOOSE_FILE": "Choose PDF file",
+          "ERROR": "Please select a PDF file",
+          "HELP_TEXT": "Maximum file size: 10MB",
+          "INVALID_TYPE": "Please select a valid PDF file",
+          "TOO_LARGE": "File size exceeds 10MB limit"
+        },
+        "NAME": {
+          "LABEL": "Document Name (Optional)",
+          "PLACEHOLDER": "Enter a name for the document"
         },
         "ASSISTANT": {
           "LABEL": "Assistant",
@@ -660,8 +744,8 @@
         "TITLE": "No documents available",
         "SUBTITLE": "Documents are used by your assistant to generate FAQs. You can import documents to provide context for your assistant.",
         "FEATURE_SPOTLIGHT": {
-          "TITLE": "Captain Document",
-          "NOTE": "A document in Captain serves as a knowledge resource for the assistant. By connecting your help center or guides, Captain can analyze the content and provide accurate responses for customer inquiries."
+          "TITLE": "Cosmos Document",
+          "NOTE": "A document in Cosmos serves as a knowledge resource for the assistant. By connecting your help center or guides, Cosmos can analyze the content and provide accurate responses for customer inquiries."
         }
       }
     },
@@ -743,8 +827,8 @@
         "TITLE": "No FAQs Found",
         "SUBTITLE": "FAQs help your assistant provide quick and accurate answers to questions from your customers. They can be generated automatically from your content or can be added manually.",
         "FEATURE_SPOTLIGHT": {
-          "TITLE": "Captain FAQ",
-          "NOTE": "Captain FAQs detects common customer questions—whether missing from your knowledge base or frequently asked—and generates relevant FAQs to improve support. You can review each suggestion and decide whether to approve or reject it."
+          "TITLE": "Cosmos FAQ",
+          "NOTE": "Cosmos FAQs detects common customer questions—whether missing from your knowledge base or frequently asked—and generates relevant FAQs to improve support. You can review each suggestion and decide whether to approve or reject it."
         }
       }
     },

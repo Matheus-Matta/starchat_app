@@ -6,10 +6,11 @@ import { picoSearch } from '@scmmishra/pico-search';
 import { useStore, useMapGetter } from 'dashboard/composables/store';
 import { useAlert } from 'dashboard/composables';
 import { useUISettings } from 'dashboard/composables/useUISettings';
+import { useMessageFormatter } from 'shared/composables/useMessageFormatter';
 import Button from 'dashboard/components-next/button/Button.vue';
 import Input from 'dashboard/components-next/input/Input.vue';
 
-import SettingsPageLayout from 'dashboard/components-next/cosmos/SettingsPageLayout.vue';
+import PageLayout from 'dashboard/components-next/cosmos/PageLayout.vue';
 import SettingsHeader from 'dashboard/components-next/cosmos/pageComponents/settings/SettingsHeader.vue';
 import SuggestedScenarios from 'dashboard/components-next/cosmos/assistant/SuggestedRules.vue';
 import ScenariosCard from 'dashboard/components-next/cosmos/assistant/ScenariosCard.vue';
@@ -20,57 +21,34 @@ const { t } = useI18n();
 const route = useRoute();
 const store = useStore();
 const { uiSettings, updateUISettings } = useUISettings();
-const assistantId = route.params.assistantId;
+const { formatMessage } = useMessageFormatter();
+const assistantId = computed(() => Number(route.params.assistantId));
 
-const uiFlags = useMapGetter('captainScenarios/getUIFlags');
+const uiFlags = useMapGetter('cosmosScenarios/getUIFlags');
 const isFetching = computed(() => uiFlags.value.fetchingList);
-const assistant = computed(() =>
-  store.getters['captainAssistants/getRecord'](Number(assistantId))
-);
-const scenarios = useMapGetter('captainScenarios/getRecords');
+const scenarios = useMapGetter('cosmosScenarios/getRecords');
 
 const searchQuery = ref('');
 
-const breadcrumbItems = computed(() => {
-  return [
-    {
-      label: t('CAPTAIN.ASSISTANTS.SETTINGS.BREADCRUMB.ASSISTANT'),
-      routeName: 'captain_assistants_index',
-    },
-    { label: assistant.value?.name, routeName: 'captain_assistants_edit' },
-    { label: t('CAPTAIN.ASSISTANTS.SCENARIOS.BREADCRUMB.TITLE') },
-  ];
-});
-
-const TOOL_LINK_REGEX = /\[([^\]]+)]\(tool:\/\/.+?\)/g;
+const LINK_INSTRUCTION_CLASS =
+  '[&_a[href^="tool://"]]:text-n-iris-11 [&_a:not([href^="tool://"])]:text-n-slate-12 [&_a]:pointer-events-none [&_a]:cursor-default';
 
 const renderInstruction = instruction => () =>
   h('span', {
-    class: 'text-sm text-n-slate-12 py-4',
-    innerHTML: instruction.replace(
-      TOOL_LINK_REGEX,
-      (_, title) =>
-        `<span class="text-n-iris-11 font-medium">@${title.replace(/^@/, '')}</span>`
-    ),
+    class: `text-sm text-n-slate-12 py-4 prose prose-sm min-w-0 break-words ${LINK_INSTRUCTION_CLASS}`,
+    innerHTML: instruction,
   });
 
 // Suggested example scenarios for quick add
 const scenariosExample = [
   {
     id: 1,
-    title: 'Refund Order',
-    description: 'User encountered a technical issue or error message.',
+    title: 'Prospective Buyer',
+    description:
+      'Handle customers who are showing interest in purchasing a license',
     instruction:
-      'Ask for steps to reproduce + browser/app version. Use [Known Issues](tool://known_issues) to check if it’s a known bug. File with [Create Bug Report](tool://bug_report_create) if new.',
-    tools: ['create_bug_report', 'known_issues'],
-  },
-  {
-    id: 2,
-    title: 'Product Recommendation',
-    description: 'User is unsure which product or service to choose.',
-    instruction:
-      'Ask 2–3 clarifying questions. Use [Product Match](tool://product_match[user_needs]) and suggest 2–3 options with pros/cons. Link to compare page if available.',
-    tools: ['product_match[user_needs]'],
+      'If someone is interested in purchasing a license, ask them for following:\n\n1. How many licenses are they willing to purchase?\n2. Are they migrating from another platform?\n. Once these details are collected, do the following steps\n1. add a private note to with the information you collected using [Add Private Note](tool://add_private_note)\n2. Add label "sales" to the contact using [Add Label to Conversation](tool://add_label_to_conversation)\n3. Reply saying "one of us will reach out soon" and provide an estimated timeline for the response and [Handoff to Human](tool://handoff)',
+    tools: ['add_private_note', 'add_label_to_conversation', 'handoff'],
   },
 ];
 
@@ -103,12 +81,12 @@ const buildSelectedCountLabel = computed(() => {
   const count = scenarios.value.length || 0;
   const isAllSelected = bulkSelectedIds.value.size === count && count > 0;
   return isAllSelected
-    ? t('CAPTAIN.ASSISTANTS.SCENARIOS.BULK_ACTION.UNSELECT_ALL', { count })
-    : t('CAPTAIN.ASSISTANTS.SCENARIOS.BULK_ACTION.SELECT_ALL', { count });
+    ? t('COSMOS.ASSISTANTS.SCENARIOS.BULK_ACTION.UNSELECT_ALL', { count })
+    : t('COSMOS.ASSISTANTS.SCENARIOS.BULK_ACTION.SELECT_ALL', { count });
 });
 
 const selectedCountLabel = computed(() => {
-  return t('CAPTAIN.ASSISTANTS.SCENARIOS.BULK_ACTION.SELECTED', {
+  return t('COSMOS.ASSISTANTS.SCENARIOS.BULK_ACTION.SELECTED', {
     count: bulkSelectedIds.value.size,
   });
 });
@@ -125,32 +103,32 @@ const getToolsFromInstruction = instruction => [
 
 const updateScenario = async scenario => {
   try {
-    await store.dispatch('captainScenarios/update', {
+    await store.dispatch('cosmosScenarios/update', {
       id: scenario.id,
-      assistantId: route.params.assistantId,
+      assistantId: assistantId.value,
       ...scenario,
       tools: getToolsFromInstruction(scenario.instruction),
     });
-    useAlert(t('CAPTAIN.ASSISTANTS.SCENARIOS.API.UPDATE.SUCCESS'));
+    useAlert(t('COSMOS.ASSISTANTS.SCENARIOS.API.UPDATE.SUCCESS'));
   } catch (error) {
     const errorMessage =
       error?.response?.message ||
-      t('CAPTAIN.ASSISTANTS.SCENARIOS.API.UPDATE.ERROR');
+      t('COSMOS.ASSISTANTS.SCENARIOS.API.UPDATE.ERROR');
     useAlert(errorMessage);
   }
 };
 
 const deleteScenario = async id => {
   try {
-    await store.dispatch('captainScenarios/delete', {
+    await store.dispatch('cosmosScenarios/delete', {
       id,
-      assistantId: route.params.assistantId,
+      assistantId: assistantId.value,
     });
-    useAlert(t('CAPTAIN.ASSISTANTS.SCENARIOS.API.DELETE.SUCCESS'));
+    useAlert(t('COSMOS.ASSISTANTS.SCENARIOS.API.DELETE.SUCCESS'));
   } catch (error) {
     const errorMessage =
       error?.response?.message ||
-      t('CAPTAIN.ASSISTANTS.SCENARIOS.API.DELETE.ERROR');
+      t('COSMOS.ASSISTANTS.SCENARIOS.API.DELETE.ERROR');
     useAlert(errorMessage);
   }
 };
@@ -160,28 +138,28 @@ const bulkDeleteScenarios = async ids => {
   const idsArray = ids || Array.from(bulkSelectedIds.value);
   await Promise.all(
     idsArray.map(id =>
-      store.dispatch('captainScenarios/delete', {
+      store.dispatch('cosmosScenarios/delete', {
         id,
-        assistantId: route.params.assistantId,
+        assistantId: assistantId.value,
       })
     )
   );
   bulkSelectedIds.value = new Set();
-  useAlert(t('CAPTAIN.ASSISTANTS.SCENARIOS.API.DELETE.SUCCESS'));
+  useAlert(t('COSMOS.ASSISTANTS.SCENARIOS.API.DELETE.SUCCESS'));
 };
 
 const addScenario = async scenario => {
   try {
-    await store.dispatch('captainScenarios/create', {
-      assistantId: route.params.assistantId,
+    await store.dispatch('cosmosScenarios/create', {
+      assistantId: assistantId.value,
       ...scenario,
       tools: getToolsFromInstruction(scenario.instruction),
     });
-    useAlert(t('CAPTAIN.ASSISTANTS.SCENARIOS.API.ADD.SUCCESS'));
+    useAlert(t('COSMOS.ASSISTANTS.SCENARIOS.API.ADD.SUCCESS'));
   } catch (error) {
     const errorMessage =
       error?.response?.message ||
-      t('CAPTAIN.ASSISTANTS.SCENARIOS.API.ADD.ERROR');
+      t('COSMOS.ASSISTANTS.SCENARIOS.API.ADD.ERROR');
     useAlert(errorMessage);
   }
 };
@@ -189,41 +167,43 @@ const addScenario = async scenario => {
 const addAllExampleScenarios = async () => {
   try {
     scenariosExample.forEach(async scenario => {
-      await store.dispatch('captainScenarios/create', {
-        assistantId: route.params.assistantId,
+      await store.dispatch('cosmosScenarios/create', {
+        assistantId: assistantId.value,
         ...scenario,
       });
     });
-    useAlert(t('CAPTAIN.ASSISTANTS.SCENARIOS.API.ADD.SUCCESS'));
+    useAlert(t('COSMOS.ASSISTANTS.SCENARIOS.API.ADD.SUCCESS'));
   } catch (error) {
     const errorMessage =
       error?.response?.message ||
-      t('CAPTAIN.ASSISTANTS.SCENARIOS.API.ADD.ERROR');
+      t('COSMOS.ASSISTANTS.SCENARIOS.API.ADD.ERROR');
     useAlert(errorMessage);
   }
 };
 
 onMounted(() => {
-  store.dispatch('captainScenarios/get', {
-    assistantId: assistantId,
+  store.dispatch('cosmosScenarios/get', {
+    assistantId: assistantId.value,
   });
-  store.dispatch('captainTools/getTools');
+  store.dispatch('cosmosTools/getTools');
 });
 </script>
 
 <template>
-  <SettingsPageLayout
-    :breadcrumb-items="breadcrumbItems"
+  <PageLayout
+    :header-title="$t('COSMOS.DOCUMENTS.HEADER')"
     :is-fetching="isFetching"
+    :show-know-more="false"
+    :show-pagination-footer="false"
   >
     <template #body>
       <SettingsHeader
-        :heading="$t('CAPTAIN.ASSISTANTS.SCENARIOS.TITLE')"
-        :description="$t('CAPTAIN.ASSISTANTS.SCENARIOS.DESCRIPTION')"
+        :heading="$t('COSMOS.ASSISTANTS.SCENARIOS.TITLE')"
+        :description="$t('COSMOS.ASSISTANTS.SCENARIOS.DESCRIPTION')"
       />
       <div v-if="shouldShowSuggestedRules" class="flex mt-7 flex-col gap-4">
         <SuggestedScenarios
-          :title="$t('CAPTAIN.ASSISTANTS.SCENARIOS.ADD.SUGGESTED.TITLE')"
+          :title="$t('COSMOS.ASSISTANTS.SCENARIOS.ADD.SUGGESTED.TITLE')"
           :items="scenariosExample"
           @close="closeSuggestedRules"
           @add="addAllExampleScenarios"
@@ -235,7 +215,7 @@ onMounted(() => {
               </span>
               <Button
                 :label="
-                  $t('CAPTAIN.ASSISTANTS.SCENARIOS.ADD.SUGGESTED.ADD_SINGLE')
+                  $t('COSMOS.ASSISTANTS.SCENARIOS.ADD.SUGGESTED.ADD_SINGLE')
                 "
                 ghost
                 xs
@@ -248,9 +228,11 @@ onMounted(() => {
               <span class="text-sm text-n-slate-11 mt-2">
                 {{ item.description }}
               </span>
-              <component :is="renderInstruction(item.instruction)" />
+              <component
+                :is="renderInstruction(formatMessage(item.instruction, false))"
+              />
               <span class="text-sm text-n-slate-11 font-medium mb-1">
-                {{ t('CAPTAIN.ASSISTANTS.SCENARIOS.ADD.SUGGESTED.TOOLS_USED') }}
+                {{ t('COSMOS.ASSISTANTS.SCENARIOS.ADD.SUGGESTED.TOOLS_USED') }}
                 {{ item.tools?.map(tool => `@${tool}`).join(', ') }}
               </span>
             </div>
@@ -265,7 +247,7 @@ onMounted(() => {
             :select-all-label="buildSelectedCountLabel"
             :selected-count-label="selectedCountLabel"
             :delete-label="
-              $t('CAPTAIN.ASSISTANTS.SCENARIOS.BULK_ACTION.BULK_DELETE_BUTTON')
+              $t('COSMOS.ASSISTANTS.SCENARIOS.BULK_ACTION.BULK_DELETE_BUTTON')
             "
             @bulk-delete="bulkDeleteScenarios"
           >
@@ -280,19 +262,19 @@ onMounted(() => {
             <Input
               v-model="searchQuery"
               :placeholder="
-                t('CAPTAIN.ASSISTANTS.SCENARIOS.LIST.SEARCH_PLACEHOLDER')
+                t('COSMOS.ASSISTANTS.SCENARIOS.LIST.SEARCH_PLACEHOLDER')
               "
             />
           </div>
         </div>
         <div v-if="scenarios.length === 0" class="mt-1 mb-2">
           <span class="text-n-slate-11 text-sm">
-            {{ t('CAPTAIN.ASSISTANTS.SCENARIOS.EMPTY_MESSAGE') }}
+            {{ t('COSMOS.ASSISTANTS.SCENARIOS.EMPTY_MESSAGE') }}
           </span>
         </div>
         <div v-else-if="filteredScenarios.length === 0" class="mt-1 mb-2">
           <span class="text-n-slate-11 text-sm">
-            {{ t('CAPTAIN.ASSISTANTS.SCENARIOS.SEARCH_EMPTY_MESSAGE') }}
+            {{ t('COSMOS.ASSISTANTS.SCENARIOS.SEARCH_EMPTY_MESSAGE') }}
           </span>
         </div>
         <div v-else class="flex flex-col gap-2">
@@ -316,5 +298,5 @@ onMounted(() => {
         </div>
       </div>
     </template>
-  </SettingsPageLayout>
+  </PageLayout>
 </template>

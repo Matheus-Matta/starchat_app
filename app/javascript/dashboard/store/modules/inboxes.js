@@ -11,6 +11,7 @@ import AnalyticsHelper from '../../helper/AnalyticsHelper';
 import camelcaseKeys from 'camelcase-keys';
 import { ACCOUNT_EVENTS } from '../../helper/AnalyticsHelper/events';
 import { channelActions, buildInboxData } from './inboxes/channelActions';
+import EvolutionChannel from '../../api/channel/EvolutionChannel';
 
 export const state = {
   records: [],
@@ -29,6 +30,9 @@ export const getters = {
   getInboxes($state) {
     return $state.records;
   },
+  getAllInboxes($state) {
+    return camelcaseKeys($state.records, { deep: true });
+  },
   getWhatsAppTemplates: $state => inboxId => {
     const [inbox] = $state.records.filter(
       record => record.id === Number(inboxId)
@@ -44,15 +48,57 @@ export const getters = {
     const messagesTemplates =
       whatsAppMessageTemplates || apiInboxMessageTemplates;
 
-    // filtering out the whatsapp templates with media
-    if (messagesTemplates instanceof Array) {
-      return messagesTemplates.filter(template => {
-        return !template.components.some(
-          i => i.format === 'IMAGE' || i.format === 'VIDEO'
-        );
-      });
+    return messagesTemplates;
+  },
+  getFilteredWhatsAppTemplates: $state => inboxId => {
+    const [inbox] = $state.records.filter(
+      record => record.id === Number(inboxId)
+    );
+
+    const {
+      message_templates: whatsAppMessageTemplates,
+      additional_attributes: additionalAttributes,
+    } = inbox || {};
+
+    const { message_templates: apiInboxMessageTemplates } =
+      additionalAttributes || {};
+    const templates = whatsAppMessageTemplates || apiInboxMessageTemplates;
+
+    if (!templates || !Array.isArray(templates)) {
+      return [];
     }
-    return [];
+
+    return templates.filter(template => {
+      // Ensure template has required properties
+      if (!template || !template.status || !template.components) {
+        return false;
+      }
+
+      // Only show approved templates
+      if (template.status.toLowerCase() !== 'approved') {
+        return false;
+      }
+
+      // Filter out authentication templates
+      if (template.category === 'AUTHENTICATION') {
+        return false;
+      }
+
+      // Filter out interactive templates (LIST, PRODUCT, CATALOG), location templates, and call permission templates
+      const hasUnsupportedComponents = template.components.some(
+        component =>
+          ['LIST', 'PRODUCT', 'CATALOG', 'CALL_PERMISSION_REQUEST'].includes(
+            component.type
+          ) ||
+          (component.type === 'HEADER' && component.format === 'LOCATION')
+      );
+
+      if (hasUnsupportedComponents) {
+        return false;
+      }
+
+      return true;
+    });
   },
   getNewConversationInboxes($state) {
     return $state.records.filter(inbox => {
@@ -202,6 +248,27 @@ export const actions = {
     } catch (error) {
       commit(types.default.SET_INBOXES_UI_FLAG, { isCreating: false });
       throw new Error(error);
+    }
+  },
+  createEvolutionChannel: async ({ commit }, params) => {
+    commit(types.default.SET_INBOXES_UI_FLAG, { isCreating: true });
+    try {
+      const { data } = await EvolutionChannel.create(params);
+
+      const inbox = data?.inbox || data;
+      if (!inbox?.id) throw new Error('Resposta sem inbox.id');
+
+      commit(types.default.ADD_INBOXES, inbox);
+      sendAnalyticsEvent('evolution');
+      return inbox;
+    } catch (error) {
+      const errorMessage =
+        error?.response?.data?.message ||
+        error?.message ||
+        'Erro ao criar o Evolution Channel';
+      throw new Error(errorMessage);
+    } finally {
+      commit(types.default.SET_INBOXES_UI_FLAG, { isCreating: false });
     }
   },
   createWhatsAppEmbeddedSignup: async ({ commit }, params) => {

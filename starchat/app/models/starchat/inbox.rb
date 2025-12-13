@@ -8,21 +8,27 @@ module Starchat::Inbox
   end
 
   def active_bot?
-    super || captain_active?
+    super || cosmos_active?
   end
 
-  def captain_active?
-    captain_assistant.present? && more_responses?
+  def cosmos_active?
+    cosmos_assistant.present? && more_responses?
   end
 
   private
 
   def more_responses?
-    account.usage_limits[:captain][:responses][:current_available].positive?
+          account.usage_limits[:cosmos][:responses][:current_available].positive?
   end
 
   def get_agent_ids_over_assignment_limit(limit)
-    conversations.open.select(:assignee_id).group(:assignee_id).having("count(*) >= #{limit.to_i}").filter_map(&:assignee_id)
+    conversations
+      .open
+      .where(account_id: account_id)
+      .select(:assignee_id)
+      .group(:assignee_id)
+      .having("count(*) >= #{limit.to_i}")
+      .filter_map(&:assignee_id)
   end
 
   def ensure_valid_max_assignment_limit

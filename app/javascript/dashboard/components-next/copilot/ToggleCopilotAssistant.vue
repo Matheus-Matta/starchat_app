@@ -26,7 +26,7 @@ const { t } = useI18n();
 const activeAssistantLabel = computed(() => {
   return props.activeAssistant
     ? props.activeAssistant.name
-    : t('CAPTAIN.COPILOT.SELECT_ASSISTANT');
+    : t('COSMOS.COPILOT.SELECT_ASSISTANT');
 });
 </script>
 
@@ -36,7 +36,7 @@ const activeAssistantLabel = computed(() => {
       <template #trigger="{ toggle, isOpen }">
         <Button
           :label="activeAssistantLabel"
-          icon="i-woot-captain"
+          icon="i-woot-cosmos"
           ghost
           slate
           xs
@@ -45,7 +45,7 @@ const activeAssistantLabel = computed(() => {
         />
       </template>
       <DropdownBody class="bottom-9 min-w-64 z-50" strong>
-        <DropdownSection class="max-h-80 overflow-scroll">
+        <DropdownSection class="[&>ul]:max-h-80">
           <DropdownItem
             v-for="assistant in assistants"
             :key="assistant.id"

@@ -1,27 +1,30 @@
 <script setup>
 import { computed, onMounted, ref, nextTick } from 'vue';
 import { useMapGetter, useStore } from 'dashboard/composables/store';
+import { useRoute } from 'vue-router';
 import { FEATURE_FLAGS } from 'dashboard/featureFlags';
+import { useAccount } from 'dashboard/composables/useAccount';
 
 import DeleteDialog from 'dashboard/components-next/cosmos/pageComponents/DeleteDialog.vue';
 import DocumentCard from 'dashboard/components-next/cosmos/assistant/DocumentCard.vue';
 import PageLayout from 'dashboard/components-next/cosmos/PageLayout.vue';
-import CaptainPaywall from 'dashboard/components-next/cosmos/pageComponents/Paywall.vue';
+import CosmosPaywall from 'dashboard/components-next/cosmos/pageComponents/Paywall.vue';
 import RelatedResponses from 'dashboard/components-next/cosmos/pageComponents/document/RelatedResponses.vue';
 import CreateDocumentDialog from 'dashboard/components-next/cosmos/pageComponents/document/CreateDocumentDialog.vue';
-import AssistantSelector from 'dashboard/components-next/cosmos/pageComponents/AssistantSelector.vue';
 import DocumentPageEmptyState from 'dashboard/components-next/cosmos/pageComponents/emptyStates/DocumentPageEmptyState.vue';
 import FeatureSpotlightPopover from 'dashboard/components-next/feature-spotlight/FeatureSpotlightPopover.vue';
 import LimitBanner from 'dashboard/components-next/cosmos/pageComponents/document/LimitBanner.vue';
 
+const route = useRoute();
 const store = useStore();
 
-const uiFlags = useMapGetter('captainDocuments/getUIFlags');
-const documents = useMapGetter('captainDocuments/getRecords');
-const assistants = useMapGetter('captainAssistants/getRecords');
+const { isOnChatwootCloud } = useAccount();
+const uiFlags = useMapGetter('cosmosDocuments/getUIFlags');
+const documents = useMapGetter('cosmosDocuments/getRecords');
 const isFetching = computed(() => uiFlags.value.fetchingList);
-const documentsMeta = useMapGetter('captainDocuments/getMeta');
-const selectedAssistant = ref('all');
+const documentsMeta = useMapGetter('cosmosDocuments/getMeta');
+
+const selectedAssistantId = computed(() => Number(route.params.assistantId));
 
 const selectedDocument = ref(null);
 const deleteDocumentDialog = ref(null);
@@ -34,12 +37,6 @@ const showRelatedResponses = ref(false);
 const showCreateDialog = ref(false);
 const createDocumentDialog = ref(null);
 const relationQuestionDialog = ref(null);
-
-const shouldShowAssistantSelector = computed(() => {
-  if (assistants.value.length === 0) return false;
-
-  return !isFetching.value;
-});
 
 const handleShowRelatedDocument = () => {
   showRelatedResponses.value = true;
@@ -60,7 +57,7 @@ const handleCreateDialogClose = () => {
 
 const handleAction = ({ action, id }) => {
   selectedDocument.value = documents.value.find(
-    captainDocument => id === captainDocument.id
+    cosmosDocument => id === cosmosDocument.id
   );
 
   nextTick(() => {
@@ -75,15 +72,10 @@ const handleAction = ({ action, id }) => {
 const fetchDocuments = (page = 1) => {
   const filterParams = { page };
 
-  if (selectedAssistant.value !== 'all') {
-    filterParams.assistantId = selectedAssistant.value;
+  if (selectedAssistantId.value) {
+    filterParams.assistantId = selectedAssistantId.value;
   }
-  store.dispatch('captainDocuments/get', filterParams);
-};
-
-const handleAssistantFilterChange = assistant => {
-  selectedAssistant.value = assistant;
-  fetchDocuments();
+  store.dispatch('cosmosDocuments/get', filterParams);
 };
 
 const onPageChange = page => fetchDocuments(page);
@@ -95,35 +87,34 @@ const onDeleteSuccess = () => {
 };
 
 onMounted(() => {
-  if (!assistants.value.length) {
-    store.dispatch('captainAssistants/get');
-  }
   fetchDocuments();
 });
 </script>
 
 <template>
   <PageLayout
-    :header-title="$t('CAPTAIN.DOCUMENTS.HEADER')"
-    :button-label="$t('CAPTAIN.DOCUMENTS.ADD_NEW')"
+    :header-title="$t('COSMOS.DOCUMENTS.HEADER')"
+    :button-label="$t('COSMOS.DOCUMENTS.ADD_NEW')"
     :button-policy="['administrator']"
     :total-count="documentsMeta.totalCount"
     :current-page="documentsMeta.page"
     :show-pagination-footer="!isFetching && !!documents.length"
     :is-fetching="isFetching"
     :is-empty="!documents.length"
-    :feature-flag="FEATURE_FLAGS.CAPTAIN"
+    :show-know-more="false"
+    :feature-flag="FEATURE_FLAGS.COSMOS"
     @update:current-page="onPageChange"
     @click="handleCreateDocument"
   >
     <template #knowMore>
       <FeatureSpotlightPopover
-        :button-label="$t('CAPTAIN.HEADER_KNOW_MORE')"
-        :title="$t('CAPTAIN.DOCUMENTS.EMPTY_STATE.FEATURE_SPOTLIGHT.TITLE')"
-        :note="$t('CAPTAIN.DOCUMENTS.EMPTY_STATE.FEATURE_SPOTLIGHT.NOTE')"
+        :button-label="$t('COSMOS.HEADER_KNOW_MORE')"
+        :title="$t('COSMOS.DOCUMENTS.EMPTY_STATE.FEATURE_SPOTLIGHT.TITLE')"
+        :note="$t('COSMOS.DOCUMENTS.EMPTY_STATE.FEATURE_SPOTLIGHT.NOTE')"
+        :hide-actions="!isOnChatwootCloud"
         fallback-thumbnail="/assets/images/dashboard/cosmos/document-popover-light.svg"
         fallback-thumbnail-dark="/assets/images/dashboard/cosmos/document-popover-dark.svg"
-        learn-more-url="https://chwt.app/captain-document"
+        learn-more-url="https://chwt.app/cosmos-document"
       />
     </template>
 
@@ -132,16 +123,7 @@ onMounted(() => {
     </template>
 
     <template #paywall>
-      <CaptainPaywall />
-    </template>
-
-    <template #controls>
-      <div v-if="shouldShowAssistantSelector" class="mb-4 -mt-3 flex gap-3">
-        <AssistantSelector
-          :assistant-id="selectedAssistant"
-          @update="handleAssistantFilterChange"
-        />
-      </div>
+      <CosmosPaywall />
     </template>
 
     <template #body>
@@ -164,12 +146,13 @@ onMounted(() => {
     <RelatedResponses
       v-if="showRelatedResponses"
       ref="relationQuestionDialog"
-      :captain-document="selectedDocument"
+      :cosmos-document="selectedDocument"
       @close="handleRelatedResponseClose"
     />
     <CreateDocumentDialog
       v-if="showCreateDialog"
       ref="createDocumentDialog"
+      :assistant-id="selectedAssistantId"
       @close="handleCreateDialogClose"
     />
     <DeleteDialog

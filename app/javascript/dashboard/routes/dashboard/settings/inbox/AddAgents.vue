@@ -34,6 +34,10 @@ export default {
     ...mapGetters({
       agentList: 'agents/getAgents',
     }),
+
+    isEvolutionProvider() {
+      return (this.$route.query?.provider || '').toString() === 'evolution';
+    },
   },
   mounted() {
     this.$store.dispatch('agents/get');
@@ -52,6 +56,7 @@ export default {
             page: 'new',
             inbox_id: this.$route.params.inbox_id,
           },
+          query: this.isEvolutionProvider ? { provider: 'evolution' } : {},
         });
       } catch (error) {
         useAlert(error.message);
@@ -63,9 +68,7 @@ export default {
 </script>
 
 <template>
-  <div
-    class="border border-n-weak bg-n-solid-1 rounded-t-lg border-b-0 h-full w-full p-6 col-span-6 overflow-auto"
-  >
+  <div class="h-full w-full p-6 col-span-6">
     <form class="flex flex-wrap flex-col mx-0" @submit.prevent="addAgents()">
       <div class="w-full">
         <PageHeader

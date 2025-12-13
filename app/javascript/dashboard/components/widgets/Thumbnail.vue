@@ -1,60 +1,27 @@
 <script>
-/**
- * Thumbnail Component
- * Src - source for round image
- * Size - Size of the thumbnail
- * Badge - Chat source indication { fb / telegram }
- * Username - Username for avatar
- */
 import Avatar from './Avatar.vue';
 import { removeEmoji } from 'shared/helpers/emoji';
 
 export default {
-  components: {
-    Avatar,
-  },
+  components: { Avatar },
   props: {
-    src: {
-      type: String,
-      default: '',
-    },
-    size: {
-      type: String,
-      default: '40px',
-    },
-    badge: {
-      type: String,
-      default: '',
-    },
-    username: {
-      type: String,
-      default: '',
-    },
-    status: {
-      type: String,
-      default: '',
-    },
-    hasBorder: {
-      type: Boolean,
-      default: false,
-    },
-    shouldShowStatusAlways: {
-      type: Boolean,
-      default: false,
-    },
-    title: {
-      type: String,
-      default: '',
-    },
-    variant: {
-      type: String,
-      default: 'circle',
-    },
+    src: { type: String, default: '' },
+    fallbackSrc: { type: String, default: '' }, // <- NOVO
+    size: { type: String, default: '40px' },
+    badge: { type: String, default: '' },
+    username: { type: String, default: '' },
+    status: { type: String, default: '' },
+    hasBorder: { type: Boolean, default: false },
+    shouldShowStatusAlways: { type: Boolean, default: false },
+    title: { type: String, default: '' },
+    variant: { type: String, default: 'circle' },
   },
   data() {
     return {
       hasImageLoaded: false,
       imgError: false,
+      triedFallback: false, // <- NOVO
+      currentSrc: this.src || this.fallbackSrc || '', // <- NOVO
     };
   },
   computed: {
@@ -72,10 +39,11 @@ export default {
       return {
         instagram_direct_message: 'instagram-dm',
         facebook: 'messenger',
-        'twitter-tweet': 'twitter-tweet',
-        'twitter-dm': 'twitter-dm',
         whatsapp: 'whatsapp',
         sms: 'sms',
+        'twitter-tweet': 'twitter-tweet',
+        'twitter-dm': 'twitter-dm',
+        'Channel::Evolution': 'whatsapp',
         'Channel::Line': 'line',
         'Channel::Telegram': 'telegram',
         'Channel::WebWidget': '',
@@ -83,9 +51,11 @@ export default {
     },
     badgeStyle() {
       const size = Math.floor(this.avatarSize / 3);
-      const badgeSize = `${size + 2}px`;
-      const borderRadius = `${size / 2}px`;
-      return { width: badgeSize, height: badgeSize, borderRadius };
+      return {
+        width: `${size + 2}px`,
+        height: `${size + 2}px`,
+        borderRadius: `${size / 2}px`,
+      };
     },
     statusStyle() {
       const statusSize = `${this.avatarSize / 4}px`;
@@ -104,24 +74,37 @@ export default {
       return `user-thumbnail-box ${boxClass}`;
     },
     shouldShowImage() {
-      if (!this.src) {
-        return false;
-      }
-      if (this.hasImageLoaded) {
-        return !this.imgError;
-      }
+      if (!this.currentSrc) return false;
+      if (this.hasImageLoaded) return !this.imgError;
       return false;
     },
   },
   watch: {
-    src(value, oldValue) {
-      if (value !== oldValue && this.imgError) {
-        this.imgError = false;
-      }
+    src(newVal) {
+      // reset quando trocar a fonte
+      this.triedFallback = false;
+      this.imgError = false;
+      this.hasImageLoaded = false;
+      this.currentSrc = newVal || this.fallbackSrc || '';
+    },
+    fallbackSrc(newVal) {
+      if (!this.currentSrc) this.currentSrc = newVal || '';
     },
   },
   methods: {
     onImgError() {
+      if (
+        this.fallbackSrc &&
+        !this.triedFallback &&
+        this.currentSrc !== this.fallbackSrc
+      ) {
+        // Tenta fallback uma única vez
+        this.triedFallback = true;
+        this.imgError = false;
+        this.hasImageLoaded = false;
+        this.currentSrc = this.fallbackSrc;
+        return;
+      }
       this.imgError = true;
     },
     onImgLoad() {
@@ -137,11 +120,10 @@ export default {
     :style="{ height: size, width: size }"
     :title="title"
   >
-    <!-- Using v-show instead of v-if to avoid flickering as v-if removes dom elements.  -->
     <slot>
       <img
         v-show="shouldShowImage"
-        :src="src"
+        :src="currentSrc"
         draggable="false"
         :class="thumbnailClass"
         @load="onImgLoad"

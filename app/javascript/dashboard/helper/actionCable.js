@@ -11,6 +11,7 @@ class ActionCableConnector extends BaseActionCableConnector {
   constructor(app, pubsubToken) {
     const { websocketURL = '' } = window.chatwootConfig || {};
     super(app, pubsubToken, websocketURL);
+    this.qrTimeout = null;
     this.CancelTyping = [];
     this.events = {
       'message.created': this.onMessageCreated,
@@ -34,6 +35,8 @@ class ActionCableConnector extends BaseActionCableConnector {
       'conversation.updated': this.onConversationUpdated,
       'account.cache_invalidated': this.onCacheInvalidate,
       'copilot.message.created': this.onCopilotMessageCreated,
+      'evolution.qrcode_updated': this.onEvolutionQRCodeUpdated,
+      'evolution.connection_update': this.onEvolutionConnectionUpdate,
     };
   }
 
@@ -199,6 +202,17 @@ class ActionCableConnector extends BaseActionCableConnector {
     this.app.$store.dispatch('labels/revalidate', { newKey: keys.label });
     this.app.$store.dispatch('inboxes/revalidate', { newKey: keys.inbox });
     this.app.$store.dispatch('teams/revalidate', { newKey: keys.team });
+  };
+
+  onEvolutionQRCodeUpdated = data => {
+    if (this.qrTimeout) clearTimeout(this.qrTimeout);
+    this.qrTimeout = setTimeout(() => {
+      emitter.emit('evolution:qrcode_updated', data);
+    }, 2000);
+  };
+
+  onEvolutionConnectionUpdate = data => {
+    emitter.emit('evolution:connection_update', data);
   };
 }
 

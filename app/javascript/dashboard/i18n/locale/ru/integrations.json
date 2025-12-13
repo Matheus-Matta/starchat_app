@@ -19,7 +19,7 @@
     "DESCRIPTION": "Chatwoot интегрируется с несколькими инструментами и сервисами, чтобы повысить эффективность вашей команды. Изучите список ниже, чтобы настроить ваши любимые приложения.",
     "LEARN_MORE": "Узнать больше об интеграциях",
     "LOADING": "Получение интеграций",
-    "CAPTAIN": {
+    "COSMOS": {
       "DISABLED": "Капитан не включен на вашем аккаунте.",
       "CLICK_HERE_TO_CONFIGURE": "Нажмите здесь, чтобы настроить",
       "LOADING_CONSOLE": "Загрузка консоли Капитана...",
@@ -341,14 +341,14 @@
       }
     }
   },
-  "CAPTAIN": {
+  "COSMOS": {
     "NAME": "Капитан",
     "HEADER_KNOW_MORE": "Know more",
     "COPILOT": {
-      "TITLE": "Copilot",
+      "TITLE": "Cosmos",
       "TRY_THESE_PROMPTS": "Попробуйте эти запросы",
-      "PANEL_TITLE": "Get started with Copilot",
-      "KICK_OFF_MESSAGE": "Need a quick summary, want to check past conversations, or draft a better reply? Copilot’s here to speed things up.",
+      "PANEL_TITLE": "Get started with Cosmos",
+      "KICK_OFF_MESSAGE": "Need a quick summary, want to check past conversations, or draft a better reply? Cosmos’s here to speed things up.",
       "SEND_MESSAGE": "Отправить сообщение...",
       "EMPTY_MESSAGE": "There was an error generating the response. Please try again.",
       "LOADER": "Капитан думает",
@@ -386,22 +386,22 @@
       "MESSAGE_PLACEHOLDER": "Введите сообщение...",
       "HEADER": "Playground",
       "DESCRIPTION": "Use this playground to send messages to your assistant and check if it responds accurately, quickly, and in the tone you expect.",
-      "CREDIT_NOTE": "Messages sent here will count toward your Captain credits."
+      "CREDIT_NOTE": "Messages sent here will count toward your Cosmos credits."
     },
     "PAYWALL": {
-      "TITLE": "Обновите тарифный план, чтобы использовать Captain AI",
+      "TITLE": "Обновите тарифный план, чтобы использовать Cosmos AI",
       "AVAILABLE_ON": "Капитан недоступен на бесплатном тарифном плане.",
-      "UPGRADE_PROMPT": "Обновите тарифный план, чтобы получить доступ к нашим ассистентам, copilot и другим функциям.",
+      "UPGRADE_PROMPT": "Обновите тарифный план, чтобы получить доступ к нашим ассистентам, cosmos и другим функциям.",
       "UPGRADE_NOW": "Обновить сейчас",
       "CANCEL_ANYTIME": "Вы можете изменить или отменить ваш тарифный план в любое время"
     },
     "ENTERPRISE_PAYWALL": {
-      "UPGRADE_PROMPT": "Обновите тарифный план, чтобы получить доступ к нашим ассистентам, copilot и другим функциям.",
+      "UPGRADE_PROMPT": "Обновите тарифный план, чтобы получить доступ к нашим ассистентам, cosmos и другим функциям.",
       "ASK_ADMIN": "Пожалуйста, обратитесь к вашему администратору для обновления."
     },
     "BANNER": {
-      "RESPONSES": "Вы использовали более 80% лимита ответов. Чтобы продолжить использование Captain AI, пожалуйста, обновите тариф.",
-      "DOCUMENTS": "Достигнут лимит документов. Обновите тарифный план, чтобы продолжить использование Captain AI."
+      "RESPONSES": "Вы использовали более 80% лимита ответов. Чтобы продолжить использование Cosmos AI, пожалуйста, обновите тариф.",
+      "DOCUMENTS": "Достигнут лимит документов. Обновите тарифный план, чтобы продолжить использование Cosmos AI."
     },
     "FORM": {
       "CANCEL": "Отменить",
@@ -521,8 +521,8 @@
         "TITLE": "Нет доступных ассистентов",
         "SUBTITLE": "Создайте ассистента, чтобы дать быстрые и точные ответы пользователям. Он может учиться на ваших статьях из центра поддержки и прошлых диалогах.",
         "FEATURE_SPOTLIGHT": {
-          "TITLE": "Captain Assistant",
-          "NOTE": "Captain Assistant engages directly with customers, learns from your help docs and past conversations, and delivers instant, accurate responses. It handles the initial queries, providing quick resolutions before  transferring to an agent when needed."
+          "TITLE": "Cosmos Assistant",
+          "NOTE": "Cosmos Assistant engages directly with customers, learns from your help docs and past conversations, and delivers instant, accurate responses. It handles the initial queries, providing quick resolutions before  transferring to an agent when needed."
         }
       },
       "GUARDRAILS": {
@@ -634,10 +634,27 @@
         "ERROR_MESSAGE": "Произошла ошибка при создании документа, пожалуйста, попробуйте еще раз."
       },
       "FORM": {
+        "TYPE": {
+          "LABEL": "Document Type",
+          "URL": "URL",
+          "PDF": "PDF File"
+        },
         "URL": {
           "LABEL": "URL",
           "PLACEHOLDER": "Введите URL документа",
           "ERROR": "Пожалуйста, укажите корректный URL для документа"
+        },
+        "PDF_FILE": {
+          "LABEL": "PDF File",
+          "CHOOSE_FILE": "Choose PDF file",
+          "ERROR": "Please select a PDF file",
+          "HELP_TEXT": "Maximum file size: 10MB",
+          "INVALID_TYPE": "Please select a valid PDF file",
+          "TOO_LARGE": "File size exceeds 10MB limit"
+        },
+        "NAME": {
+          "LABEL": "Document Name (Optional)",
+          "PLACEHOLDER": "Enter a name for the document"
         },
         "ASSISTANT": {
           "LABEL": "Ассистент",
@@ -660,8 +677,8 @@
         "TITLE": "Нет доступных документов",
         "SUBTITLE": "Документы используются Вашим ассистентом для создания FAQ. Вы можете импортировать документы для предоставления контекста для Вашего ассистента.",
         "FEATURE_SPOTLIGHT": {
-          "TITLE": "Captain Document",
-          "NOTE": "A document in Captain serves as a knowledge resource for the assistant. By connecting your help center or guides, Captain can analyze the content and provide accurate responses for customer inquiries."
+          "TITLE": "Cosmos Document",
+          "NOTE": "A document in Cosmos serves as a knowledge resource for the assistant. By connecting your help center or guides, Cosmos can analyze the content and provide accurate responses for customer inquiries."
         }
       }
     },
@@ -743,8 +760,8 @@
         "TITLE": "FAQ не найдены",
         "SUBTITLE": "FAQ помогают вашему ассистенту быстро и точно отвечать на вопросы клиентов. Их можно генерировать автоматически из вашего контента или добавлять вручную.",
         "FEATURE_SPOTLIGHT": {
-          "TITLE": "Captain FAQ",
-          "NOTE": "Captain FAQs detects common customer questions—whether missing from your knowledge base or frequently asked—and generates relevant FAQs to improve support. You can review each suggestion and decide whether to approve or reject it."
+          "TITLE": "Cosmos FAQ",
+          "NOTE": "Cosmos FAQs detects common customer questions—whether missing from your knowledge base or frequently asked—and generates relevant FAQs to improve support. You can review each suggestion and decide whether to approve or reject it."
         }
       }
     },

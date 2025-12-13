@@ -1,6 +1,6 @@
 class Api::V1::Accounts::Cosmos::InboxesController < Api::V1::Accounts::BaseController
   before_action :current_account
-  before_action -> { check_authorization(Captain::Assistant) }
+  before_action -> { check_authorization(Cosmos::Assistant) }
 
   before_action :set_assistant
   def index
@@ -9,13 +9,13 @@ class Api::V1::Accounts::Cosmos::InboxesController < Api::V1::Accounts::BaseCont
 
   def create
     inbox = Current.account.inboxes.find(assistant_params[:inbox_id])
-    @captain_inbox = @assistant.captain_inboxes.build(inbox: inbox)
-    @captain_inbox.save!
+    @cosmos_inbox = @assistant.cosmos_inboxes.build(inbox: inbox)
+    @cosmos_inbox.save!
   end
 
   def destroy
-    @captain_inbox = @assistant.captain_inboxes.find_by!(inbox_id: permitted_params[:inbox_id])
-    @captain_inbox.destroy!
+    @cosmos_inbox = @assistant.cosmos_inboxes.find_by!(inbox_id: permitted_params[:inbox_id])
+    @cosmos_inbox.destroy!
     head :no_content
   end
 
@@ -26,7 +26,7 @@ class Api::V1::Accounts::Cosmos::InboxesController < Api::V1::Accounts::BaseCont
   end
 
   def account_assistants
-    @account_assistants ||= Current.account.captain_assistants
+    @account_assistants ||= Current.account.cosmos_assistants
   end
 
   def permitted_params

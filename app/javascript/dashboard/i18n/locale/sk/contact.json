@@ -50,6 +50,11 @@
       "CONTACT_LABELS": "Označenia kontaktov",
       "PREVIOUS_CONVERSATIONS": "Prechádzajúce konverzácie",
       "NO_RECORDS_FOUND": "Žiadne atribúty neboli nájdené"
+    },
+    "CALL": "Call",
+    "CALL_UNDER_DEVELOPMENT": "Calling is under development",
+    "VOICE_INBOX_PICKER": {
+      "TITLE": "Choose a voice inbox"
     }
   },
   "EDIT_CONTACT": {
@@ -608,6 +613,15 @@
       "ACTION_BUTTONS": {
         "DISCARD": "Discard",
         "SEND": "Send ({keyCode})"
+      },
+      "TWILIO_OPTIONS": {
+        "LABEL": "Select template",
+        "SEARCH_PLACEHOLDER": "Search templates",
+        "EMPTY_STATE": "No templates found",
+        "TEMPLATE_PARSER": {
+          "BACK": "Go back",
+          "SEND_MESSAGE": "Poslať správu"
+        }
       }
     }
   }

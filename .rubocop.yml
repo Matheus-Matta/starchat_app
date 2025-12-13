@@ -23,7 +23,7 @@ Metrics/MethodLength:
     - 'starchat/lib/cosmos/agent.rb'
 
 RSpec/ExampleLength:
-  Max: 25
+  Max: 50
 
 Style/Documentation:
   Enabled: false
@@ -123,7 +123,7 @@ Rails/UniqueValidationWithoutIndex:
   Exclude:
     - app/models/canned_response.rb
     - app/models/telegram_bot.rb
-    - starchat/app/models/captain_inbox.rb
+    - starchat/app/models/cosmos_inbox.rb
     - 'app/models/channel/twitter_profile.rb'
     - 'app/models/webhook.rb'
     - 'app/models/contact.rb'

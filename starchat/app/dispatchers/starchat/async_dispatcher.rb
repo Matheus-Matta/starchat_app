@@ -1,7 +1,7 @@
 module Starchat::AsyncDispatcher
   def listeners
     super + [
-      CaptainListener.instance
+      CosmosListener.instance
     ]
   end
 end

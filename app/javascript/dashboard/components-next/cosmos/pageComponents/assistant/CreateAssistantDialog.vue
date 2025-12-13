@@ -18,7 +18,7 @@ const props = defineProps({
     validator: value => ['create', 'edit'].includes(value),
   },
 });
-const emit = defineEmits(['close']);
+const emit = defineEmits(['close', 'created']);
 const { t } = useI18n();
 const store = useStore();
 
@@ -26,17 +26,27 @@ const dialogRef = ref(null);
 const assistantForm = ref(null);
 
 const updateAssistant = assistantDetails =>
-  store.dispatch('captainAssistants/update', {
+  store.dispatch('cosmosAssistants/update', {
     id: props.selectedAssistant.id,
     ...assistantDetails,
   });
 
 const i18nKey = computed(
-  () => `CAPTAIN.ASSISTANTS.${props.type.toUpperCase()}`
+  () => `COSMOS.ASSISTANTS.${props.type.toUpperCase()}`
 );
 
-const createAssistant = assistantDetails =>
-  store.dispatch('captainAssistants/create', assistantDetails);
+const createAssistant = async assistantDetails => {
+  try {
+    const newAssistant = await store.dispatch(
+      'cosmosAssistants/create',
+      assistantDetails
+    );
+    emit('created', newAssistant);
+  } catch (error) {
+    const errorMessage = error?.message || t(`${i18nKey.value}.ERROR_MESSAGE`);
+    useAlert(errorMessage);
+  }
+};
 
 const handleSubmit = async updatedAssistant => {
   try {
@@ -69,7 +79,7 @@ defineExpose({ dialogRef });
     ref="dialogRef"
     type="edit"
     :title="t(`${i18nKey}.TITLE`)"
-    :description="t('CAPTAIN.ASSISTANTS.FORM_DESCRIPTION')"
+    :description="t('COSMOS.ASSISTANTS.FORM_DESCRIPTION')"
     :show-cancel-button="false"
     :show-confirm-button="false"
     overflow-y-auto

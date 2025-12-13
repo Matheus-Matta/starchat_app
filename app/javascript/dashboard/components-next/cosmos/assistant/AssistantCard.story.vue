@@ -1,6 +1,6 @@
 <script setup>
 import AssistantCard from './AssistantCard.vue';
-import { assistantsList } from 'dashboard/components-next/cosmos/pageComponents/emptyStates/captainEmptyStateContent.js';
+import { assistantsList } from 'dashboard/components-next/cosmos/pageComponents/emptyStates/cosmosEmptyStateContent.js';
 </script>
 
 <template>

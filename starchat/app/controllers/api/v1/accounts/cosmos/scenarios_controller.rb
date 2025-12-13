@@ -1,6 +1,6 @@
 class Api::V1::Accounts::Cosmos::ScenariosController < Api::V1::Accounts::BaseController
   before_action :current_account
-  before_action -> { check_authorization(Captain::Scenario) }
+  before_action -> { check_authorization(Cosmos::Scenario) }
   before_action :set_assistant
   before_action :set_scenario, only: [:show, :update, :destroy]
 
@@ -30,7 +30,7 @@ class Api::V1::Accounts::Cosmos::ScenariosController < Api::V1::Accounts::BaseCo
   end
 
   def account_assistants
-    @account_assistants ||= Current.account.captain_assistants
+    @account_assistants ||= Current.account.cosmos_assistants
   end
 
   def set_scenario

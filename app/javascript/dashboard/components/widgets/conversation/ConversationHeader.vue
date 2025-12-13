@@ -6,7 +6,7 @@ import { useElementSize } from '@vueuse/core';
 import BackButton from '../BackButton.vue';
 import InboxName from '../InboxName.vue';
 import MoreActions from './MoreActions.vue';
-import Thumbnail from '../Thumbnail.vue';
+import Avatar from 'next/avatar/Avatar.vue';
 import SLACardLabel from './components/SLACardLabel.vue';
 import wootConstants from 'dashboard/constants/globals';
 import { conversationListPageURL } from 'dashboard/helper/URLHelper';
@@ -15,26 +15,20 @@ import { useInbox } from 'dashboard/composables/useInbox';
 import { useI18n } from 'vue-i18n';
 
 const props = defineProps({
-  chat: {
-    type: Object,
-    default: () => ({}),
-  },
-  showBackButton: {
-    type: Boolean,
-    default: false,
-  },
+  chat: { type: Object, default: () => ({}) },
+  showBackButton: { type: Boolean, default: false },
 });
 
 const { t } = useI18n();
 const store = useStore();
 const route = useRoute();
+
 const conversationHeader = ref(null);
 const { width } = useElementSize(conversationHeader);
 const { isAWebWidgetInbox } = useInbox();
 
 const currentChat = computed(() => store.getters.getSelectedChat);
 const accountId = computed(() => store.getters.getCurrentAccountId);
-
 const chatMetadata = computed(() => props.chat.meta);
 
 const backButtonUrl = computed(() => {
@@ -47,6 +41,7 @@ const backButtonUrl = computed(() => {
     conversation_through_mentions: 'mention',
     conversation_through_unattended: 'unattended',
   };
+
   return conversationListPageURL({
     accountId: accountId.value,
     inboxId,
@@ -58,14 +53,12 @@ const backButtonUrl = computed(() => {
 });
 
 const isHMACVerified = computed(() => {
-  if (!isAWebWidgetInbox.value) {
-    return true;
-  }
-  return chatMetadata.value.hmac_verified;
+  if (!isAWebWidgetInbox.value) return true;
+  return chatMetadata.value?.hmac_verified;
 });
 
-const currentContact = computed(() =>
-  store.getters['contacts/getContact'](props.chat.meta.sender.id)
+const currentContact = computed(
+  () => store.getters['contacts/getContact'](props.chat?.meta?.sender?.id) || {}
 );
 
 const isSnoozed = computed(
@@ -73,7 +66,7 @@ const isSnoozed = computed(
 );
 
 const snoozedDisplayText = computed(() => {
-  const { snoozed_until: snoozedUntil } = currentChat.value;
+  const { snoozed_until: snoozedUntil } = currentChat.value || {};
   if (snoozedUntil) {
     return `${t('CONVERSATION.HEADER.SNOOZED_UNTIL')} ${snoozedReopenTime(snoozedUntil)}`;
   }
@@ -81,15 +74,38 @@ const snoozedDisplayText = computed(() => {
 });
 
 const inbox = computed(() => {
-  const { inbox_id: inboxId } = props.chat;
+  const { inbox_id: inboxId } = props.chat || {};
   return store.getters['inboxes/getInbox'](inboxId);
 });
 
 const hasMultipleInboxes = computed(
-  () => store.getters['inboxes/getInboxes'].length > 1
+  () => (store.getters['inboxes/getInboxes'] || []).length > 1
 );
 
 const hasSlaPolicyId = computed(() => props.chat?.sla_policy_id);
+
+// ---- FALLBACK (WA) + SRC NORMALIZADO ----
+const waProfilePicUrl = computed(() => {
+  const c = currentContact.value || {};
+  const aa = c.additional_attributes || c.additionalAttributes || {};
+  const ca = c.custom_attributes || c.customAttributes || {};
+
+  const url =
+    aa.wa_profile_pic_url ||
+    aa.waProfilePicUrl ||
+    aa.waProfilePicURL ||
+    ca.wa_profile_pic_url ||
+    ca.waProfilePicUrl ||
+    ca.waProfilePicURL ||
+    '';
+
+  return typeof url === 'string' ? url.trim() : '';
+});
+
+const primaryAvatarSrc = computed(() => {
+  const thumb = (currentContact.value?.thumbnail || '').trim();
+  return thumb || waProfilePicUrl.value || '';
+});
 </script>
 
 <template>
@@ -105,12 +121,15 @@ const hasSlaPolicyId = computed(() => props.chat?.sla_policy_id);
         :back-url="backButtonUrl"
         class="ltr:mr-2 rtl:ml-2"
       />
-      <Thumbnail
-        :src="currentContact.thumbnail"
-        :username="currentContact.name"
+      <Avatar
+        :key="`${props.chat?.id || ''}-${currentContact.id || ''}`"
+        :name="currentContact.name"
+        :src="primaryAvatarSrc"
+        :fallback-src="waProfilePicUrl"
+        :size="32"
         :status="currentContact.availability_status"
-        size="32px"
-        class="flex-shrink-0"
+        hide-offline-status
+        rounded-full
       />
       <div
         class="flex flex-col items-start min-w-0 ml-2 overflow-hidden rtl:ml-0 rtl:mr-2"
@@ -140,6 +159,7 @@ const hasSlaPolicyId = computed(() => props.chat?.sla_policy_id);
         </div>
       </div>
     </div>
+
     <div
       class="flex flex-row items-center justify-start xl:justify-end flex-shrink-0 gap-2 w-full xl:w-auto header-actions-wrap"
     >

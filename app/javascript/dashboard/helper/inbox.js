@@ -11,6 +11,7 @@ export const INBOX_TYPES = {
   SMS: 'Channel::Sms',
   INSTAGRAM: 'Channel::Instagram',
   VOICE: 'Channel::Voice',
+  EVOLUTION: 'Channel::Evolution',
 };
 
 const INBOX_ICON_MAP_FILL = {
@@ -18,6 +19,7 @@ const INBOX_ICON_MAP_FILL = {
   [INBOX_TYPES.FB]: 'i-ri-messenger-fill',
   [INBOX_TYPES.TWITTER]: 'i-ri-twitter-x-fill',
   [INBOX_TYPES.WHATSAPP]: 'i-ri-whatsapp-fill',
+  [INBOX_TYPES.EVOLUTION]: 'i-ri-whatsapp-fill',
   [INBOX_TYPES.API]: 'i-ri-cloudy-fill',
   [INBOX_TYPES.EMAIL]: 'i-ri-mail-fill',
   [INBOX_TYPES.TELEGRAM]: 'i-ri-telegram-fill',
@@ -33,6 +35,7 @@ const INBOX_ICON_MAP_LINE = {
   [INBOX_TYPES.FB]: 'i-ri-messenger-line',
   [INBOX_TYPES.TWITTER]: 'i-ri-twitter-x-line',
   [INBOX_TYPES.WHATSAPP]: 'i-ri-whatsapp-line',
+  [INBOX_TYPES.EVOLUTION]: 'i-ri-whatsapp-line',
   [INBOX_TYPES.API]: 'i-ri-cloudy-line',
   [INBOX_TYPES.EMAIL]: 'i-ri-mail-line',
   [INBOX_TYPES.TELEGRAM]: 'i-ri-telegram-line',
@@ -77,6 +80,9 @@ export const getReadableInboxByType = (type, phoneNumber) => {
     case INBOX_TYPES.WHATSAPP:
       return 'whatsapp';
 
+    case INBOX_TYPES.EVOLUTION:
+      return 'whatsapp';
+
     case INBOX_TYPES.API:
       return 'api';
 
@@ -116,6 +122,9 @@ export const getInboxClassByType = (type, phoneNumber) => {
     case INBOX_TYPES.WHATSAPP:
       return 'brand-whatsapp';
 
+    case INBOX_TYPES.EVOLUTION:
+      return 'brand-whatsapp';
+
     case INBOX_TYPES.API:
       return 'cloud';
 
@@ -139,14 +148,18 @@ export const getInboxClassByType = (type, phoneNumber) => {
   }
 };
 
-export const getInboxIconByType = (type, phoneNumber, variant = 'fill') => {
+export const getInboxIconByType = (type, medium, variant = 'fill') => {
   const iconMap =
     variant === 'fill' ? INBOX_ICON_MAP_FILL : INBOX_ICON_MAP_LINE;
   const defaultIcon =
     variant === 'fill' ? DEFAULT_ICON_FILL : DEFAULT_ICON_LINE;
 
   // Special case for Twilio (whatsapp and sms)
-  if (type === INBOX_TYPES.TWILIO && phoneNumber?.startsWith('whatsapp')) {
+  if (
+    type === INBOX_TYPES.TWILIO &&
+    type === INBOX_TYPES.EVOLUTION &&
+    medium === 'whatsapp')
+   {
     return iconMap[INBOX_TYPES.WHATSAPP];
   }
 

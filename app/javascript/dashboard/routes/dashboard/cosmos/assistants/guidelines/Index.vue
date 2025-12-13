@@ -10,7 +10,7 @@ import { useUISettings } from 'dashboard/composables/useUISettings';
 import Input from 'dashboard/components-next/input/Input.vue';
 import Button from 'dashboard/components-next/button/Button.vue';
 
-import SettingsPageLayout from 'dashboard/components-next/cosmos/SettingsPageLayout.vue';
+import PageLayout from 'dashboard/components-next/cosmos/PageLayout.vue';
 import SettingsHeader from 'dashboard/components-next/cosmos/pageComponents/settings/SettingsHeader.vue';
 import SuggestedRules from 'dashboard/components-next/cosmos/assistant/SuggestedRules.vue';
 import AddNewRulesInput from 'dashboard/components-next/cosmos/assistant/AddNewRulesInput.vue';
@@ -23,31 +23,28 @@ const route = useRoute();
 const store = useStore();
 const { uiSettings, updateUISettings } = useUISettings();
 
-const assistantId = route.params.assistantId;
-const uiFlags = useMapGetter('captainAssistants/getUIFlags');
+const uiFlags = useMapGetter('cosmosAssistants/getUIFlags');
+const assistantId = computed(() => Number(route.params.assistantId));
 const isFetching = computed(() => uiFlags.value.fetchingItem);
 const assistant = computed(() =>
-  store.getters['captainAssistants/getRecord'](Number(assistantId))
+  store.getters['cosmosAssistants/getRecord'](assistantId.value)
 );
 
 const searchQuery = ref('');
 const newInlineRule = ref('');
 const newDialogRule = ref('');
 
-const breadcrumbItems = computed(() => {
-  return [
-    {
-      label: t('CAPTAIN.ASSISTANTS.SETTINGS.BREADCRUMB.ASSISTANT'),
-      routeName: 'captain_assistants_index',
-    },
-    { label: assistant.value?.name, routeName: 'captain_assistants_edit' },
-    { label: t('CAPTAIN.ASSISTANTS.RESPONSE_GUIDELINES.TITLE') },
-  ];
-});
-
 const guidelinesContent = computed(
   () => assistant.value?.response_guidelines || []
 );
+
+const backUrl = computed(() => ({
+  name: 'cosmos_assistants_settings_index',
+  params: {
+    accountId: route.params.accountId,
+    assistantId: assistantId.value,
+  },
+}));
 
 const displayGuidelines = computed(() =>
   guidelinesContent.value.map((c, idx) => ({ id: idx, content: c }))
@@ -103,23 +100,23 @@ const buildSelectedCountLabel = computed(() => {
   const count = displayGuidelines.value.length || 0;
   const isAllSelected = bulkSelectedIds.value.size === count && count > 0;
   return isAllSelected
-    ? t('CAPTAIN.ASSISTANTS.RESPONSE_GUIDELINES.BULK_ACTION.UNSELECT_ALL', {
+    ? t('COSMOS.ASSISTANTS.RESPONSE_GUIDELINES.BULK_ACTION.UNSELECT_ALL', {
         count,
       })
-    : t('CAPTAIN.ASSISTANTS.RESPONSE_GUIDELINES.BULK_ACTION.SELECT_ALL', {
+    : t('COSMOS.ASSISTANTS.RESPONSE_GUIDELINES.BULK_ACTION.SELECT_ALL', {
         count,
       });
 });
 
 const selectedCountLabel = computed(() => {
-  return t('CAPTAIN.ASSISTANTS.RESPONSE_GUIDELINES.BULK_ACTION.SELECTED', {
+  return t('COSMOS.ASSISTANTS.RESPONSE_GUIDELINES.BULK_ACTION.SELECTED', {
     count: bulkSelectedIds.value.size,
   });
 });
 
 const saveGuidelines = async list => {
-  await store.dispatch('captainAssistants/update', {
-    id: assistantId,
+  await store.dispatch('cosmosAssistants/update', {
+    id: assistantId.value,
     assistant: { response_guidelines: list },
   });
 };
@@ -128,9 +125,9 @@ const addGuideline = async content => {
   try {
     const updated = [...guidelinesContent.value, content];
     await saveGuidelines(updated);
-    useAlert(t('CAPTAIN.ASSISTANTS.RESPONSE_GUIDELINES.API.ADD.SUCCESS'));
+    useAlert(t('COSMOS.ASSISTANTS.RESPONSE_GUIDELINES.API.ADD.SUCCESS'));
   } catch {
-    useAlert(t('CAPTAIN.ASSISTANTS.RESPONSE_GUIDELINES.API.ADD.ERROR'));
+    useAlert(t('COSMOS.ASSISTANTS.RESPONSE_GUIDELINES.API.ADD.ERROR'));
   }
 };
 
@@ -139,9 +136,9 @@ const editGuideline = async ({ id, content }) => {
     const updated = [...guidelinesContent.value];
     updated[id] = content;
     await saveGuidelines(updated);
-    useAlert(t('CAPTAIN.ASSISTANTS.RESPONSE_GUIDELINES.API.UPDATE.SUCCESS'));
+    useAlert(t('COSMOS.ASSISTANTS.RESPONSE_GUIDELINES.API.UPDATE.SUCCESS'));
   } catch {
-    useAlert(t('CAPTAIN.ASSISTANTS.RESPONSE_GUIDELINES.API.UPDATE.ERROR'));
+    useAlert(t('COSMOS.ASSISTANTS.RESPONSE_GUIDELINES.API.UPDATE.ERROR'));
   }
 };
 
@@ -149,9 +146,9 @@ const deleteGuideline = async id => {
   try {
     const updated = guidelinesContent.value.filter((_, idx) => idx !== id);
     await saveGuidelines(updated);
-    useAlert(t('CAPTAIN.ASSISTANTS.RESPONSE_GUIDELINES.API.DELETE.SUCCESS'));
+    useAlert(t('COSMOS.ASSISTANTS.RESPONSE_GUIDELINES.API.DELETE.SUCCESS'));
   } catch {
-    useAlert(t('CAPTAIN.ASSISTANTS.RESPONSE_GUIDELINES.API.DELETE.ERROR'));
+    useAlert(t('COSMOS.ASSISTANTS.RESPONSE_GUIDELINES.API.DELETE.ERROR'));
   }
 };
 
@@ -163,9 +160,9 @@ const bulkDeleteGuidelines = async () => {
     );
     await saveGuidelines(updated);
     bulkSelectedIds.value.clear();
-    useAlert(t('CAPTAIN.ASSISTANTS.RESPONSE_GUIDELINES.API.DELETE.SUCCESS'));
+    useAlert(t('COSMOS.ASSISTANTS.RESPONSE_GUIDELINES.API.DELETE.SUCCESS'));
   } catch {
-    useAlert(t('CAPTAIN.ASSISTANTS.RESPONSE_GUIDELINES.API.DELETE.ERROR'));
+    useAlert(t('COSMOS.ASSISTANTS.RESPONSE_GUIDELINES.API.DELETE.ERROR'));
   }
 };
 
@@ -175,26 +172,30 @@ const addAllExample = async () => {
     const exampleContents = guidelinesExample.map(example => example.content);
     const newGuidelines = [...guidelinesContent.value, ...exampleContents];
     await saveGuidelines(newGuidelines);
-    useAlert(t('CAPTAIN.ASSISTANTS.RESPONSE_GUIDELINES.API.ADD.SUCCESS'));
+    useAlert(t('COSMOS.ASSISTANTS.RESPONSE_GUIDELINES.API.ADD.SUCCESS'));
   } catch {
-    useAlert(t('CAPTAIN.ASSISTANTS.RESPONSE_GUIDELINES.API.ADD.ERROR'));
+    useAlert(t('COSMOS.ASSISTANTS.RESPONSE_GUIDELINES.API.ADD.ERROR'));
   }
 };
 </script>
 
 <template>
-  <SettingsPageLayout
-    :breadcrumb-items="breadcrumbItems"
+  <PageLayout
+    :header-title="$t('COSMOS.ASSISTANTS.RESPONSE_GUIDELINES.TITLE')"
     :is-fetching="isFetching"
+    :back-url="backUrl"
+    :show-know-more="false"
+    :show-pagination-footer="false"
+    :show-assistant-switcher="false"
   >
     <template #body>
       <SettingsHeader
-        :heading="t('CAPTAIN.ASSISTANTS.RESPONSE_GUIDELINES.TITLE')"
-        :description="t('CAPTAIN.ASSISTANTS.RESPONSE_GUIDELINES.DESCRIPTION')"
+        :heading="t('COSMOS.ASSISTANTS.RESPONSE_GUIDELINES.TITLE')"
+        :description="t('COSMOS.ASSISTANTS.RESPONSE_GUIDELINES.DESCRIPTION')"
       />
       <div v-if="shouldShowSuggestedRules" class="flex mt-7 flex-col gap-4">
         <SuggestedRules
-          :title="t('CAPTAIN.ASSISTANTS.RESPONSE_GUIDELINES.TITLE')"
+          :title="t('COSMOS.ASSISTANTS.RESPONSE_GUIDELINES.TITLE')"
           :items="guidelinesExample"
           @add="addAllExample"
           @close="closeSuggestedRules"
@@ -207,7 +208,7 @@ const addAllExample = async () => {
               <Button
                 :label="
                   t(
-                    'CAPTAIN.ASSISTANTS.RESPONSE_GUIDELINES.ADD.SUGGESTED.ADD_SINGLE'
+                    'COSMOS.ASSISTANTS.RESPONSE_GUIDELINES.ADD.SUGGESTED.ADD_SINGLE'
                   )
                 "
                 ghost
@@ -229,7 +230,7 @@ const addAllExample = async () => {
             :selected-count-label="selectedCountLabel"
             :delete-label="
               $t(
-                'CAPTAIN.ASSISTANTS.RESPONSE_GUIDELINES.BULK_ACTION.BULK_DELETE_BUTTON'
+                'COSMOS.ASSISTANTS.RESPONSE_GUIDELINES.BULK_ACTION.BULK_DELETE_BUTTON'
               )
             "
             @bulk-delete="bulkDeleteGuidelines"
@@ -238,18 +239,16 @@ const addAllExample = async () => {
               <AddNewRulesDialog
                 v-model="newDialogRule"
                 :placeholder="
-                  t(
-                    'CAPTAIN.ASSISTANTS.RESPONSE_GUIDELINES.ADD.NEW.PLACEHOLDER'
-                  )
+                  t('COSMOS.ASSISTANTS.RESPONSE_GUIDELINES.ADD.NEW.PLACEHOLDER')
                 "
                 :button-label="
-                  t('CAPTAIN.ASSISTANTS.RESPONSE_GUIDELINES.ADD.NEW.TITLE')
+                  t('COSMOS.ASSISTANTS.RESPONSE_GUIDELINES.ADD.NEW.TITLE')
                 "
                 :confirm-label="
-                  t('CAPTAIN.ASSISTANTS.RESPONSE_GUIDELINES.ADD.NEW.CREATE')
+                  t('COSMOS.ASSISTANTS.RESPONSE_GUIDELINES.ADD.NEW.CREATE')
                 "
                 :cancel-label="
-                  t('CAPTAIN.ASSISTANTS.RESPONSE_GUIDELINES.ADD.NEW.CANCEL')
+                  t('COSMOS.ASSISTANTS.RESPONSE_GUIDELINES.ADD.NEW.CANCEL')
                 "
                 @add="addGuideline"
               />
@@ -257,7 +256,7 @@ const addAllExample = async () => {
               <!-- <div class="h-4 w-px bg-n-strong" />
               <Button
                 :label="
-                  t('CAPTAIN.ASSISTANTS.RESPONSE_GUIDELINES.ADD.NEW.TEST_ALL')
+                  t('COSMOS.ASSISTANTS.RESPONSE_GUIDELINES.ADD.NEW.TEST_ALL')
                 "
                 sm
                 ghost
@@ -273,7 +272,7 @@ const addAllExample = async () => {
               v-model="searchQuery"
               :placeholder="
                 t(
-                  'CAPTAIN.ASSISTANTS.RESPONSE_GUIDELINES.LIST.SEARCH_PLACEHOLDER'
+                  'COSMOS.ASSISTANTS.RESPONSE_GUIDELINES.LIST.SEARCH_PLACEHOLDER'
                 )
               "
             />
@@ -281,13 +280,13 @@ const addAllExample = async () => {
         </div>
         <div v-if="displayGuidelines.length === 0" class="mt-1 mb-2">
           <span class="text-n-slate-11 text-sm">
-            {{ t('CAPTAIN.ASSISTANTS.RESPONSE_GUIDELINES.EMPTY_MESSAGE') }}
+            {{ t('COSMOS.ASSISTANTS.RESPONSE_GUIDELINES.EMPTY_MESSAGE') }}
           </span>
         </div>
         <div v-else-if="filteredGuidelines.length === 0" class="mt-1 mb-2">
           <span class="text-n-slate-11 text-sm">
             {{
-              t('CAPTAIN.ASSISTANTS.RESPONSE_GUIDELINES.SEARCH_EMPTY_MESSAGE')
+              t('COSMOS.ASSISTANTS.RESPONSE_GUIDELINES.SEARCH_EMPTY_MESSAGE')
             }}
           </span>
         </div>
@@ -310,16 +309,12 @@ const addAllExample = async () => {
         <AddNewRulesInput
           v-model="newInlineRule"
           :placeholder="
-            t(
-              'CAPTAIN.ASSISTANTS.RESPONSE_GUIDELINES.ADD.SUGGESTED.PLACEHOLDER'
-            )
+            t('COSMOS.ASSISTANTS.RESPONSE_GUIDELINES.ADD.SUGGESTED.PLACEHOLDER')
           "
-          :label="
-            t('CAPTAIN.ASSISTANTS.RESPONSE_GUIDELINES.ADD.SUGGESTED.SAVE')
-          "
+          :label="t('COSMOS.ASSISTANTS.RESPONSE_GUIDELINES.ADD.SUGGESTED.SAVE')"
           @add="addGuideline"
         />
       </div>
     </template>
-  </SettingsPageLayout>
+  </PageLayout>
 </template>

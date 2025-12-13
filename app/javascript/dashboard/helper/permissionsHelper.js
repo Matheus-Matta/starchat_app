@@ -7,7 +7,9 @@ export const hasPermissions = (
   );
 };
 
-export const getCurrentAccount = ({ accounts } = {}, accountId = null) => {
+export const getCurrentAccount = (user, accountId = null) => {
+  const { accounts } = user || {};
+  if (!accounts) return undefined;
   return accounts.find(account => Number(account.id) === Number(accountId));
 };
 

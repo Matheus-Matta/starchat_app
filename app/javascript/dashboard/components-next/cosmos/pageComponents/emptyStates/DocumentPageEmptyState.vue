@@ -1,11 +1,13 @@
 <script setup>
+import { useAccount } from 'dashboard/composables/useAccount';
 import EmptyStateLayout from 'dashboard/components-next/EmptyStateLayout.vue';
 import Button from 'dashboard/components-next/button/Button.vue';
 import DocumentCard from 'dashboard/components-next/cosmos/assistant/DocumentCard.vue';
 import FeatureSpotlight from 'dashboard/components-next/feature-spotlight/FeatureSpotlight.vue';
-import { documentsList } from 'dashboard/components-next/cosmos/pageComponents/emptyStates/captainEmptyStateContent.js';
+import { documentsList } from 'dashboard/components-next/cosmos/pageComponents/emptyStates/cosmosEmptyStateContent.js';
 
 const emit = defineEmits(['click']);
+const { isOnChatwootCloud } = useAccount();
 
 const onClick = () => {
   emit('click');
@@ -14,16 +16,17 @@ const onClick = () => {
 
 <template>
   <FeatureSpotlight
-    :title="$t('CAPTAIN.DOCUMENTS.EMPTY_STATE.FEATURE_SPOTLIGHT.TITLE')"
-    :note="$t('CAPTAIN.DOCUMENTS.EMPTY_STATE.FEATURE_SPOTLIGHT.NOTE')"
+    :title="$t('COSMOS.DOCUMENTS.EMPTY_STATE.FEATURE_SPOTLIGHT.TITLE')"
+    :note="$t('COSMOS.DOCUMENTS.EMPTY_STATE.FEATURE_SPOTLIGHT.NOTE')"
     fallback-thumbnail="/assets/images/dashboard/cosmos/document-light.svg"
     fallback-thumbnail-dark="/assets/images/dashboard/cosmos/document-dark.svg"
-    learn-more-url="https://chwt.app/captain-document"
+    learn-more-url="https://starchats.com.br/cosmos-document"
+    :hide-actions="!isOnChatwootCloud"
     class="mb-8"
   />
   <EmptyStateLayout
-    :title="$t('CAPTAIN.DOCUMENTS.EMPTY_STATE.TITLE')"
-    :subtitle="$t('CAPTAIN.DOCUMENTS.EMPTY_STATE.SUBTITLE')"
+    :title="$t('COSMOS.DOCUMENTS.EMPTY_STATE.TITLE')"
+    :subtitle="$t('COSMOS.DOCUMENTS.EMPTY_STATE.SUBTITLE')"
     :action-perms="['administrator']"
   >
     <template #empty-state-item>
@@ -41,7 +44,7 @@ const onClick = () => {
     </template>
     <template #actions>
       <Button
-        :label="$t('CAPTAIN.DOCUMENTS.ADD_NEW')"
+        :label="$t('COSMOS.DOCUMENTS.ADD_NEW')"
         icon="i-lucide-plus"
         @click="onClick"
       />

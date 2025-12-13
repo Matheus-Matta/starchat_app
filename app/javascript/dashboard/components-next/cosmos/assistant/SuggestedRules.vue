@@ -35,7 +35,7 @@ const onClickClose = () => {
         <h5 class="text-sm font-medium text-n-slate-11">{{ title }}</h5>
         <span class="h-3 w-px bg-n-weak" />
         <Button
-          :label="t('CAPTAIN.ASSISTANTS.GUARDRAILS.ADD.SUGGESTED.ADD')"
+          :label="t('COSMOS.ASSISTANTS.GUARDRAILS.ADD.SUGGESTED.ADD')"
           ghost
           xs
           slate
