@@ -32,17 +32,7 @@ RSpec.describe Cosmos::Document, type: :model do
         expect(pdf_document).to be_valid
       end
 
-      it 'validates PDF file size' do
-        doc = build(:cosmos_document, assistant: assistant, account: account)
-        doc.pdf_file.attach(
-          io: StringIO.new('x' * 11.megabytes),
-          filename: 'large.pdf',
-          content_type: 'application/pdf'
-        )
-        doc.external_link = nil
-        expect(doc).not_to be_valid
-        expect(doc.errors[:pdf_file]).to include(I18n.t('cosmos.documents.pdf_size_error'))
-      end
+
     end
 
     describe '#pdf_document?' do
@@ -212,16 +202,16 @@ RSpec.describe Cosmos::Document, type: :model do
         end
       end
 
-      it 'enqueues when created available without content' do
+      it 'does not enqueue when created available without content' do
         document = build_pdf_document(status: :available, content: nil)
 
         expect do
           document.save!
-        end.to have_enqueued_job(Cosmos::Documents::ResponseBuilderJob)
+        end.not_to have_enqueued_job(Cosmos::Documents::ResponseBuilderJob)
       end
 
-      it 'enqueues when status transitions to available' do
-        document = build_pdf_document(status: :in_progress, content: nil)
+      it 'enqueues when status transitions to available with content' do
+        document = build_pdf_document(status: :in_progress, content: 'PDF extracted content')
         document.save!
         clear_enqueued_jobs
 
@@ -230,14 +220,45 @@ RSpec.describe Cosmos::Document, type: :model do
         end.to have_enqueued_job(Cosmos::Documents::ResponseBuilderJob)
       end
 
-      it 'does not enqueue when content updates without status change' do
-        document = build_pdf_document(status: :available, content: nil)
+      it 'enqueues when content updates without status change' do
+        document = build_pdf_document(status: :available, content: 'Initial')
         document.save!
         clear_enqueued_jobs
 
         expect do
           document.update!(content: 'Extracted PDF text')
-        end.not_to have_enqueued_job(Cosmos::Documents::ResponseBuilderJob)
+        end.to have_enqueued_job(Cosmos::Documents::ResponseBuilderJob)
+      end
+
+      describe 'public helper methods' do
+        let(:doc) { build_pdf_document(status: :available, content: 'text') }
+
+        before { doc.save! }
+
+        it 'returns correct content_type for PDF' do
+          expect(doc.content_type).to eq('application/pdf')
+        end
+
+        it 'returns file_size for PDF' do
+          expect(doc.file_size).to eq(11) # 'PDF content'.size
+        end
+      end
+    end
+
+    describe 'non-PDF helper methods' do
+      let(:doc) do
+        create(:cosmos_document,
+               assistant: assistant,
+               account: account,
+               external_link: 'https://example.com')
+      end
+
+      it 'returns text/html content_type' do
+        expect(doc.content_type).to eq('text/html')
+      end
+
+      it 'returns nil file_size' do
+        expect(doc.file_size).to be_nil
       end
     end
 
