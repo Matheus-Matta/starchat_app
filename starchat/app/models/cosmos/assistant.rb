@@ -72,6 +72,6 @@ class Cosmos::Assistant < ApplicationRecord
   private
 
   def default_avatar_url
-    "#{ENV.fetch('FRONTEND_URL', nil)}/assets/images/dashboard/cosmos/logo.svg"
+    "#{ENV.fetch('FRONTEND_URL', nil)}/brand-assets/logo.png"
   end
 end
