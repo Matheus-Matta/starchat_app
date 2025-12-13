@@ -344,6 +344,12 @@
   "COSMOS": {
     "NAME": "Cosmos",
     "HEADER_KNOW_MORE": "Know more",
+    "ASSISTANT_SWITCHER": {
+      "ASSISTANTS": "Assistants",
+      "SWITCH_ASSISTANT": "Switch between assistants",
+      "NEW_ASSISTANT": "Create Assistant",
+      "EMPTY_LIST": "No assistants found, please create one to get started"
+    },
     "COPILOT": {
       "TITLE": "Cosmos",
       "TRY_THESE_PROMPTS": "Experimente estes comandos",
@@ -398,6 +404,12 @@
     "ENTERPRISE_PAYWALL": {
       "UPGRADE_PROMPT": "Atualize seu plano para ter acesso aos nossos assistentes, cosmosos e muito mais.",
       "ASK_ADMIN": "Entre em contato com seu administrador para fazer a atualização."
+    },
+    "ASSISTANT_SWITCHER": {
+      "ASSISTANTS": "Assistente",
+      "SWITCH_ASSISTANT": "Trocar de assistente",
+      "NEW_ASSISTANT": "Criar assistente",
+      "EMPTY_LIST": "Nenhum assistente disponivel, Crie um antes de começar"
     },
     "BANNER": {
       "RESPONSES": "Você usou mais de 80% do seu limite de respostas. Para continuar usando o Cosmos AI, faça o upgrade.",

@@ -341,6 +341,12 @@
   "COSMOS": {
     "NAME": "Cosmos",
     "HEADER_KNOW_MORE": "Know more",
+    "ASSISTANT_SWITCHER": {
+      "ASSISTANTS": "Assistants",
+      "SWITCH_ASSISTANT": "Switch between assistants",
+      "NEW_ASSISTANT": "Create Assistant",
+      "EMPTY_LIST": "No assistants found, please create one to get started"
+    },
     "COPILOT": {
       "TITLE": "Cosmos",
       "TRY_THESE_PROMPTS": "Try these prompts",
@@ -395,6 +401,12 @@
     "ENTERPRISE_PAYWALL": {
       "UPGRADE_PROMPT": "Upgrade your plan to get access to our assistants, cosmos and more.",
       "ASK_ADMIN": "Please reach out to your administrator for the upgrade."
+    },
+    "ASSISTANT_SWITCHER": {
+      "ASSISTANTS": "Assistants",
+      "SWITCH_ASSISTANT": "Switch assistant",
+      "NEW_ASSISTANT": "Create Assistant",
+      "EMPTY_LIST": "No assistants found, please create one to get started"
     },
     "BANNER": {
       "RESPONSES": "You've used over 80% of your response limit. To continue using Cosmos AI, please upgrade.",

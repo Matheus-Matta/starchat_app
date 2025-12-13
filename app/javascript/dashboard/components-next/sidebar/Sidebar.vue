@@ -235,19 +235,36 @@ const menuItems = computed(() => {
           }),
         },
         {
-          name: 'Documents',
-          label: t('SIDEBAR.COSMOS_DOCUMENTS'),
-          to: accountScopedRoute('cosmos_documents_index'),
+          name: 'Playground',
+          label: t('SIDEBAR.COSMOS_PLAYGROUND'),
+          activeOn: ['cosmos_assistants_playground_index'],
+          to: accountScopedRoute('cosmos_assistants_index', {
+            navigationPath: 'cosmos_assistants_playground_index',
+          }),
         },
         {
-          name: 'Responses',
-          label: t('SIDEBAR.COSMOS_RESPONSES'),
-          to: accountScopedRoute('cosmos_responses_index'),
+          name: 'Documents',
+          label: t('SIDEBAR.COSMOS_DOCUMENTS'),
+          activeOn: ['cosmos_assistants_documents_index'],
+          to: accountScopedRoute('cosmos_assistants_index', {
+            navigationPath: 'cosmos_assistants_documents_index',
+          }),
+        },
+        {
+          name: 'Scenarios',
+          label: t('SIDEBAR.COSMOS_SCENARIOS'),
+          activeOn: ['cosmos_assistants_scenarios_index'],
+          to: accountScopedRoute('cosmos_assistants_index', {
+            navigationPath: 'cosmos_assistants_scenarios_index',
+          }),
         },
         {
           name: 'Tools',
           label: t('SIDEBAR.COSMOS_TOOLS'),
-          to: accountScopedRoute('cosmos_tools_index'),
+          activeOn: ['cosmos_tools_index'],
+          to: accountScopedRoute('cosmos_assistants_index', {
+            navigationPath: 'cosmos_tools_index',
+          }),
         },
       ],
     },

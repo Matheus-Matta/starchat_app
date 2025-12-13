@@ -28,10 +28,14 @@ class Cosmos::Document < ApplicationRecord
   has_many :responses, class_name: 'Cosmos::AssistantResponse', dependent: :destroy, as: :documentable
   belongs_to :account
 
+  has_one_attached :pdf_file
+
   validates :external_link, presence: true
   validates :external_link, uniqueness: { scope: :assistant_id }
   validates :content, length: { maximum: 200_000 }
+  
   before_validation :ensure_account_id
+  before_validation :set_external_link_for_pdf
 
   enum status: {
     in_progress: 0,
@@ -47,6 +51,21 @@ class Cosmos::Document < ApplicationRecord
 
   scope :for_account, ->(account_id) { where(account_id: account_id) }
   scope :for_assistant, ->(assistant_id) { where(assistant_id: assistant_id) }
+
+  def content_type
+    return pdf_file.blob.content_type if pdf_file.attached?
+    'text/html'
+  end
+
+  def display_url
+    return external_link unless pdf_file.attached?
+    external_link.presence || pdf_file.filename.to_s
+  end
+
+  def file_size
+    return pdf_file.blob.byte_size if pdf_file.attached?
+    nil
+  end
 
   private
 
