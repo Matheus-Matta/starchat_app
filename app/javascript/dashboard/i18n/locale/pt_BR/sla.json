@@ -8,7 +8,7 @@
     "LOADING": "Buscando SLAs",
     "PAYWALL": {
       "TITLE": "Atualize para criar SLAs",
-      "AVAILABLE_ON": "O recurso SLA está disponível apenas nos planos Business e Enterprise.",
+      "AVAILABLE_ON": "O recurso SLA está disponível apenas nos planos Business e Starchats.",
       "UPGRADE_PROMPT": "Atualize seu plano para obter acesso a recursos avançados como gerenciamento de time, automações, atributos personalizados e muito mais.",
       "UPGRADE_NOW": "Atualizar agora",
       "CANCEL_ANYTIME": "Você pode alterar ou cancelar seu plano a qualquer momento"
@@ -21,9 +21,9 @@
     "LIST": {
       "404": "Não há SLAs disponíveis nesta conta.",
       "EMPTY": {
-        "TITLE_1": "Enterprise P0",
+        "TITLE_1": "Starchats P0",
         "DESC_1": "Questões levantadas por clientes empresariais que requerem atenção imediata.",
-        "TITLE_2": "Enterprise P1",
+        "TITLE_2": "Starchats P1",
         "DESC_2": "Questões levantadas por clientes empresariais que precisam ser reconhecidas rapidamente."
       },
       "BUSINESS_HOURS_ON": "Horários de funcionamento",

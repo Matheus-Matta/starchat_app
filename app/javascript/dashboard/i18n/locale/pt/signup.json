@@ -4,13 +4,13 @@
     "TITLE": "Cadastrar",
     "TESTIMONIAL_HEADER": "Tudo que precisa é um passo para avançar",
     "TESTIMONIAL_CONTENT": "Está a um passo de fidelizar os seus clientes, mantê-los e encontrar novos.",
-    "TERMS_ACCEPT": "Ao criar uma conta, concorda com os nossos <a href=\"https://www.chatwoot.com/terms\">Termos & Condições</a> e <a href=\"https://www.chatwoot.com/privacy-policy\">Política de privacidade</a>",
+    "TERMS_ACCEPT": "Ao criar uma conta, concorda com os nossos <a href=\"https://www.starchat.com/terms\">Termos & Condições</a> e <a href=\"https://www.starchat.com/privacy-policy\">Política de privacidade</a>",
     "OAUTH": {
       "GOOGLE_SIGNUP": "Inscrever-se com conta Google"
     },
     "COMPANY_NAME": {
       "LABEL": "Nome da empresa",
-      "PLACEHOLDER": "Enter your company name. eg: Wayne Enterprises",
+      "PLACEHOLDER": "Enter your company name. eg: Starchat Demos",
       "ERROR": "Company name is too short"
     },
     "FULL_NAME": {
@@ -36,7 +36,7 @@
     },
     "API": {
       "SUCCESS_MESSAGE": "Registro Bem Sucedido",
-      "ERROR_MESSAGE": "Não foi possível conectar ao servidor Woot, por favor tente novamente mais tarde"
+      "ERROR_MESSAGE": "Não foi possível conectar ao servidor Starchat, por favor tente novamente mais tarde"
     },
     "SUBMIT": "Criar conta",
     "HAVE_AN_ACCOUNT": "Já tem uma conta?"

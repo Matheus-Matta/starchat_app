@@ -37,7 +37,7 @@
       },
       "INTERFACE_SECTION": {
         "TITLE": "Interface",
-        "NOTE": "Personalize a aparência do seu painel do Chatwoot.",
+        "NOTE": "Personalize a aparência do seu painel do Starchat.",
         "FONT_SIZE": {
           "TITLE": "Tamanho da fonte",
           "NOTE": "Ajuste o tamanho do texto do painel com base na sua preferência.",
@@ -358,10 +358,6 @@
       "INFO_SHORT": "Marcar off-line automaticamente quando não estiver usando o aplicativo."
     },
     "DOCS": "Ler documentos",
-    "COSMOS": "Capitão",
-    "COSMOS_ASSISTANTS": "Assistentes",
-    "COSMOS_DOCUMENTS": "Documentos",
-    "COSMOS_RESPONSES": "FAQs",
     "AGENT_ASSIGNMENT": "Agent Assignment"
   },
   "BILLING_SETTINGS": {
@@ -392,15 +388,7 @@
       "DESCRIPTION": "Você está com algum problema de cobrança? Nós estamos aqui para ajudar.",
       "BUTTON_TXT": "Fale conosco no chat"
     },
-    "NO_BILLING_USER": "A sua conta de cobrança está sendo configurada. Atualize a página e tente novamente.",
-    "COSMOS": {
-      "TITLE": "Capitão",
-      "DESCRIPTION": "Gerenciar uso e créditos para o Cosmos AI.",
-      "BUTTON_TXT": "Comprar mais créditos",
-      "DOCUMENTS": "Documentos",
-      "RESPONSES": "Respostas",
-      "UPGRADE": "O capitão não está disponível no plano gratuito, faça o upgrade para ter acesso aos assistentes, co-piloto e muito mais."
-    }
+    "NO_BILLING_USER": "A sua conta de cobrança está sendo configurada. Atualize a página e tente novamente."
   },
   "CREATE_ACCOUNT": {
     "NO_ACCOUNT_WARNING": "Ah oh! Não conseguimos encontrar nenhuma conta. Por favor, crie uma nova conta para continuar.",
@@ -409,7 +397,7 @@
     "API": {
       "SUCCESS_MESSAGE": "Conta criada com sucesso",
       "EXIST_MESSAGE": "Esta conta já existe",
-      "ERROR_MESSAGE": "Não foi possível conectar ao servidor Woot, por favor tente novamente mais tarde"
+      "ERROR_MESSAGE": "Não foi possível conectar ao servidor Starchat, por favor tente novamente mais tarde"
     },
     "FORM": {
       "NAME": {
