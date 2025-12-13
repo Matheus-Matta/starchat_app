@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe C::Tools::FaqLookupTool, type: :model do
+RSpec.describe Cosmos::Tools::FaqLookupTool, type: :model do
   let(:account) { create(:account) }
   let(:assistant) { create(:cosmos_assistant, account: account) }
   let(:tool) { described_class.new(assistant) }
