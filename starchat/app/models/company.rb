@@ -25,10 +25,14 @@ class Company < ApplicationRecord
     with: /\A[a-zA-Z0-9]([a-zA-Z0-9-]*[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9-]*[a-zA-Z0-9])?)+\z/,
     message: I18n.t('errors.companies.domain.invalid')
   }
+  validates :domain, uniqueness: { scope: :account_id }, if: -> { domain.present? }
   validates :description, length: { maximum: Limits::COMPANY_DESCRIPTION_LENGTH_LIMIT }
 
   belongs_to :account
   has_many :contacts, dependent: :nullify
 
   scope :ordered_by_name, -> { order(:name) }
+  scope :search_by_name_or_domain, lambda { |query|
+    where('name ILIKE :search OR domain ILIKE :search', search: "%#{query.strip}%")
+  }
 end

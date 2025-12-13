@@ -1,0 +1,5 @@
+class AddNameToWebhooks < ActiveRecord::Migration[7.1]
+  def change
+    add_column :webhooks, :name, :string, null: true unless column_exists?(:webhooks, :name)
+  end
+end

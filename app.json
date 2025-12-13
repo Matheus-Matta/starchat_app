@@ -1,7 +1,7 @@
 {
   "name": "starchats",
   "description": "starchats is a customer support tool for instant messaging channels",
-  "website": "https://www.starchats.com/",
+  "website": "https://www.starchats.com.br/",
   "repository": "https://github.com/starchats/starchats",
   "logo": "https://app.starchats.com/brand-assets/logo_thumbnail.svg",
   "keywords": [
@@ -36,6 +36,10 @@
     "REDIS_OPENSSL_VERIFY_MODE":{
       "description": "OpenSSL verification mode for Redis connections. ref https://help.heroku.com/HC0F8CUS/redis-connection-issues",
       "value": "none"
+    },
+    "NODE_OPTIONS": {
+      "description": "Increase V8 heap for Vite build to avoid OOM",
+      "value": "--max-old-space-size=4096"
     }
   },
   "formation": {

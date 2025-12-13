@@ -28,10 +28,15 @@ class Cosmos::Document < ApplicationRecord
   has_many :responses, class_name: 'Cosmos::AssistantResponse', dependent: :destroy, as: :documentable
   belongs_to :account
 
+  has_one_attached :pdf_file
+
   validates :external_link, presence: true
   validates :external_link, uniqueness: { scope: :assistant_id }
   validates :content, length: { maximum: 200_000 }
+  
   before_validation :ensure_account_id
+  before_validation :set_external_link_for_pdf
+  before_validation :normalize_external_link
 
   enum status: {
     in_progress: 0,
@@ -42,13 +47,45 @@ class Cosmos::Document < ApplicationRecord
   after_create_commit :enqueue_crawl_job
   after_create_commit :update_document_usage
   after_destroy :update_document_usage
-  after_commit :enqueue_response_builder_job
+  after_commit :enqueue_response_builder_job, on: [:create, :update]
   scope :ordered, -> { order(created_at: :desc) }
 
   scope :for_account, ->(account_id) { where(account_id: account_id) }
   scope :for_assistant, ->(assistant_id) { where(assistant_id: assistant_id) }
 
+  def content_type
+    return pdf_file.blob.content_type if pdf_file.attached?
+    'text/html'
+  end
+
+  def display_url
+    return external_link unless pdf_file.attached?
+    external_link.presence || pdf_file.filename.to_s
+  end
+
+  def file_size
+    return pdf_file.blob.byte_size if pdf_file.attached?
+    nil
+  end
+
+  def pdf_document?
+    pdf_file.attached? || external_link&.to_s&.downcase&.end_with?('.pdf')
+  end
+
+  def store_openai_file_id(file_id)
+    metadata['openai_file_id'] = file_id
+    save!
+  end
+
+  def openai_file_id
+    metadata['openai_file_id']
+  end
+
   private
+
+  def normalize_external_link
+    self.external_link = external_link&.chomp('/') if external_link.present?
+  end
 
   def enqueue_crawl_job
     return if status != 'in_progress'
@@ -57,15 +94,17 @@ class Cosmos::Document < ApplicationRecord
   end
 
   def enqueue_response_builder_job
-    return if status != 'available'
+    return unless should_enqueue_response_builder?
 
     Cosmos::Documents::ResponseBuilderJob.perform_later(self)
   end
 
   def should_enqueue_response_builder?
-    # Only enqueue when status changes to available
-    # Avoid re-enqueueing when metadata is updated by the job itself
-    saved_change_to_status? && status == 'available'
+    return false unless status == 'available'
+    return false if content.blank?
+
+    # Enqueue if status changed to available OR content changed while available
+    saved_change_to_status? || saved_change_to_content?
   end
 
   def update_document_usage

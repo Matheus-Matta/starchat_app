@@ -5,7 +5,7 @@ import SLAEmptyState from './components/SLAEmptyState.vue';
 import SLAHeader from './components/SLAHeader.vue';
 import SLAListItem from './components/SLAListItem.vue';
 import SLAListItemLoading from './components/SLAListItemLoading.vue';
-import SLAPaywallEnterprise from './components/SLAPaywallEnterprise.vue';
+import SLAPaywallEnterprise from './components/SLAPaywallStarchat.vue';
 
 import { mapGetters } from 'vuex';
 import { convertSecondsToTimeUnit } from '@chatwoot/utils';

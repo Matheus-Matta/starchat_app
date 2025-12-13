@@ -178,7 +178,7 @@ class Api::V1::Accounts::Channels::EvolutionChannelController < Api::V1::Account
         enabled:  true,
         url:      webhook_url,
         byEvents: false,   
-        base64:   false,
+        base64:   true,
         headers:  { 'Content-Type' => 'application/json' },
         events:   get_events
       },
@@ -236,7 +236,7 @@ class Api::V1::Accounts::Channels::EvolutionChannelController < Api::V1::Account
   def evo_client(channel = nil, api_key: nil)
     Evolution::Client.new(
       base_url:     ENV.fetch('EVOLUTION_BASE_URL'),
-      api_key:      ENV.fetch('EVOLUTION_API_KEY'),
+      api_key:      channel&.api_key.presence || api_key.presence || ENV.fetch('EVOLUTION_API_KEY'),
       open_timeout: Integer(ENV.fetch('EVOLUTION_HTTP_OPEN_TIMEOUT', 180)),
       read_timeout: Integer(ENV.fetch('EVOLUTION_HTTP_READ_TIMEOUT', 180))
     )

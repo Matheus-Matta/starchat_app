@@ -1,5 +1,27 @@
 # frozen_string_literal: true
 
+# == Schema Information
+#
+# Table name: channel_evolution
+#
+#  id               :bigint           not null, primary key
+#  api_key          :string
+#  instance_name    :string
+#  provider_config  :jsonb            not null
+#  state            :string           default("disconnected"), not null
+#  state_updated_at :datetime
+#  webhook_secret   :string
+#  webhook_url      :string
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  account_id       :integer          not null
+#
+# Indexes
+#
+#  index_channel_evolution_on_account_id     (account_id)
+#  index_channel_evolution_on_instance_name  (instance_name) UNIQUE
+#  index_channel_evolution_on_state          (state)
+#
 class Channel::Evolution < ApplicationRecord
   include Channelable
 

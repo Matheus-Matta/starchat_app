@@ -1,8 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Cosmos::InboxPendingConversationsResolutionJob, type: :job do
-  include ActiveJob::TestHelper
-
   let!(:inbox) { create(:inbox) }
 
   let!(:resolvable_pending_conversation) { create(:conversation, inbox: inbox, last_activity_at: 2.hours.ago, status: :pending) }
@@ -14,6 +12,7 @@ RSpec.describe Cosmos::InboxPendingConversationsResolutionJob, type: :job do
   before do
     create(:cosmos_inbox, inbox: inbox, cosmos_assistant: cosmos_assistant)
     stub_const('Limits::BULK_ACTIONS_LIMIT', 2)
+    inbox.reload
   end
 
   it 'queues the job' do
@@ -22,7 +21,7 @@ RSpec.describe Cosmos::InboxPendingConversationsResolutionJob, type: :job do
   end
 
   it 'resolves only the eligible pending conversations' do
-    perform_enqueued_jobs { described_class.perform_later(inbox) }
+    described_class.perform_now(inbox)
 
     expect(resolvable_pending_conversation.reload.status).to eq('resolved')
     expect(recent_pending_conversation.reload.status).to eq('pending')
@@ -34,7 +33,7 @@ RSpec.describe Cosmos::InboxPendingConversationsResolutionJob, type: :job do
     cosmos_assistant.update!(config: { 'resolution_message' => custom_message })
 
     expect do
-      perform_enqueued_jobs { described_class.perform_later(inbox) }
+      described_class.perform_now(inbox)
     end.to change { resolvable_pending_conversation.messages.outgoing.reload.count }.by(1)
 
     outgoing_message = resolvable_pending_conversation.messages.outgoing.last
@@ -44,7 +43,7 @@ RSpec.describe Cosmos::InboxPendingConversationsResolutionJob, type: :job do
   it 'creates an outgoing message with default auto resolution message if not configured' do
     cosmos_assistant.update!(config: {})
 
-    perform_enqueued_jobs { described_class.perform_later(inbox) }
+    described_class.perform_now(inbox)
     outgoing_message = resolvable_pending_conversation.messages.outgoing.last
     expect(outgoing_message.content).to eq(
       I18n.t('conversations.activity.auto_resolution_message')
@@ -52,11 +51,17 @@ RSpec.describe Cosmos::InboxPendingConversationsResolutionJob, type: :job do
   end
 
   it 'adds the correct activity message after resolution by Cosmos' do
-    perform_enqueued_jobs { described_class.perform_later(inbox) }
-    activity_message = resolvable_pending_conversation.messages.activity.last
-    expect(activity_message).not_to be_nil
-    expect(activity_message.content).to eq(
-      I18n.t('conversations.activity.Cosmos.resolved', user_name: cosmos_assistant.name)
-    )
+    described_class.perform_now(inbox)
+    expected_content = I18n.t('conversations.activity.cosmos.resolved', user_name: cosmos_assistant.name)
+    expect(Conversations::ActivityMessageJob)
+      .to have_been_enqueued.with(
+        resolvable_pending_conversation,
+        {
+          account_id: resolvable_pending_conversation.account_id,
+          inbox_id: resolvable_pending_conversation.inbox_id,
+          message_type: :activity,
+          content: expected_content
+        }
+      )
   end
 end

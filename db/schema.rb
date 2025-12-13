@@ -355,6 +355,22 @@ ActiveRecord::Schema[7.1].define(version: 2025_11_14_173609) do
     t.index ["forward_to_email"], name: "index_channel_email_on_forward_to_email", unique: true
   end
 
+  create_table "channel_evolution", force: :cascade do |t|
+    t.integer "account_id", null: false
+    t.string "instance_name"
+    t.string "api_key"
+    t.string "webhook_url"
+    t.string "webhook_secret"
+    t.jsonb "provider_config", default: {}, null: false
+    t.string "state", default: "disconnected", null: false
+    t.datetime "state_updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_channel_evolution_on_account_id"
+    t.index ["instance_name"], name: "index_channel_evolution_on_instance_name", unique: true
+    t.index ["state"], name: "index_channel_evolution_on_state"
+  end
+
   create_table "channel_facebook_pages", id: :serial, force: :cascade do |t|
     t.string "page_id", null: false
     t.string "user_access_token", null: false

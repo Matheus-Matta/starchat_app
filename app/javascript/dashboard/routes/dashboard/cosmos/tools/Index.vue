@@ -86,7 +86,8 @@ onMounted(() => {
     :show-pagination-footer="!isFetching && !!customTools.length"
     :is-fetching="isFetching"
     :is-empty="!customTools.length"
-    :feature-flag="FEATURE_FLAGS.Cosmos_V2"
+    :feature-flag="FEATURE_FLAGS.COSMOS_V2"
+    :show-know-more="false"
     @update:current-page="onPageChange"
     @click="openCreateDialog"
   >

@@ -56,7 +56,7 @@ class Cosmos::Scenario < ApplicationRecord
   private
 
   def agent_name
-    "#{title} Agent".titleize
+    "#{title} Agent".parameterize(separator: '_')
   end
 
   def agent_tools

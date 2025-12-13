@@ -10,8 +10,12 @@ class Cosmos::Conversation::ResponseBuilderJob < ApplicationJob
 
     Current.executed_by = @assistant
 
-    ActiveRecord::Base.transaction do
-      generate_and_process_response
+    if cosmos_v2_enabled?
+      generate_response_with_v2
+    else
+      ActiveRecord::Base.transaction do
+        generate_and_process_response
+      end
     end
   rescue StandardError => e
     raise e if e.is_a?(ActiveStorage::FileNotFoundError) || e.is_a?(Faraday::BadRequestError)
@@ -26,16 +30,20 @@ class Cosmos::Conversation::ResponseBuilderJob < ApplicationJob
   delegate :account, :inbox, to: :@conversation
 
   def generate_and_process_response
-    @response = if cosmos_v2_enabled?
-                  Cosmos::Assistant::AgentRunnerService.new(assistant: @assistant, conversation: @conversation).generate_response(
-                    message_history: collect_previous_messages
-                  )
-                else
-                  Cosmos::Llm::AssistantChatService.new(assistant: @assistant).generate_response(
-                    message_history: collect_previous_messages
-                  )
-                end
+    @response = Cosmos::Llm::AssistantChatService.new(assistant: @assistant).generate_response(
+      message_history: collect_previous_messages
+    )
+    process_response
+  end
 
+  def generate_response_with_v2
+    @response = Cosmos::Assistant::AgentRunnerService.new(assistant: @assistant, conversation: @conversation).generate_response(
+      message_history: collect_previous_messages
+    )
+    process_response
+  end
+
+  def process_response
     return process_action('handoff') if handoff_requested?
 
     create_messages
@@ -123,6 +131,6 @@ class Cosmos::Conversation::ResponseBuilderJob < ApplicationJob
   end
 
   def cosmos_v2_enabled?
-    return account.feature_enabled?('cosmos_integration_v2')
+    account.feature_enabled?('cosmos_integration_v2')
   end
 end

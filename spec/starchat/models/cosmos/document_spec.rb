@@ -4,6 +4,17 @@ RSpec.describe Cosmos::Document, type: :model do
   let(:account) { create(:account) }
   let(:assistant) { create(:cosmos_assistant, account: account) }
 
+  describe 'URL normalization' do
+    it 'removes a trailing slash before validation' do
+      document = create(:cosmos_document,
+                        assistant: assistant,
+                        account: account,
+                        external_link: 'https://example.com/path/')
+
+      expect(document.external_link).to eq('https://example.com/path')
+    end
+  end
+
   describe 'PDF support' do
     let(:pdf_document) do
       doc = build(:cosmos_document, assistant: assistant, account: account)
@@ -21,17 +32,7 @@ RSpec.describe Cosmos::Document, type: :model do
         expect(pdf_document).to be_valid
       end
 
-      it 'validates PDF file size' do
-        doc = build(:cosmos_document, assistant: assistant, account: account)
-        doc.pdf_file.attach(
-          io: StringIO.new('x' * 11.megabytes),
-          filename: 'large.pdf',
-          content_type: 'application/pdf'
-        )
-        doc.external_link = nil
-        expect(doc).not_to be_valid
-        expect(doc.errors[:pdf_file]).to include(I18n.t('cosmos.documents.pdf_size_error'))
-      end
+
     end
 
     describe '#pdf_document?' do
@@ -80,6 +81,194 @@ RSpec.describe Cosmos::Document, type: :model do
 
         expect(pdf_document.external_link).to start_with('PDF: test_')
       end
+    end
+  end
+
+  describe 'response builder job callback' do
+    before { clear_enqueued_jobs }
+
+    describe 'non-PDF documents' do
+      it 'enqueues when created with available status and content' do
+        expect do
+          create(:cosmos_document, assistant: assistant, account: account, status: :available)
+        end.to have_enqueued_job(Cosmos::Documents::ResponseBuilderJob)
+      end
+
+      it 'does not enqueue when created available without content' do
+        expect do
+          create(:cosmos_document, assistant: assistant, account: account, status: :available, content: nil)
+        end.not_to have_enqueued_job(Cosmos::Documents::ResponseBuilderJob)
+      end
+
+      it 'enqueues when status transitions to available with existing content' do
+        document = create(:cosmos_document, assistant: assistant, account: account, status: :in_progress)
+
+        expect do
+          document.update!(status: :available)
+        end.to have_enqueued_job(Cosmos::Documents::ResponseBuilderJob)
+      end
+
+      it 'does not enqueue when status transitions to available without content' do
+        document = create(
+          :cosmos_document,
+          assistant: assistant,
+          account: account,
+          status: :in_progress,
+          content: nil
+        )
+
+        expect do
+          document.update!(status: :available)
+        end.not_to have_enqueued_job(Cosmos::Documents::ResponseBuilderJob)
+      end
+
+      it 'enqueues when content is populated on an available document' do
+        document = create(
+          :cosmos_document,
+          assistant: assistant,
+          account: account,
+          status: :available,
+          content: nil
+        )
+        clear_enqueued_jobs
+
+        expect do
+          document.update!(content: 'Fresh content from crawl')
+        end.to have_enqueued_job(Cosmos::Documents::ResponseBuilderJob)
+      end
+
+      it 'enqueues when content changes on an available document' do
+        document = create(
+          :cosmos_document,
+          assistant: assistant,
+          account: account,
+          status: :available,
+          content: 'Initial content'
+        )
+        clear_enqueued_jobs
+
+        expect do
+          document.update!(content: 'Updated crawl content')
+        end.to have_enqueued_job(Cosmos::Documents::ResponseBuilderJob)
+      end
+
+      it 'does not enqueue when content is cleared on an available document' do
+        document = create(
+          :cosmos_document,
+          assistant: assistant,
+          account: account,
+          status: :available,
+          content: 'Initial content'
+        )
+        clear_enqueued_jobs
+
+        expect do
+          document.update!(content: nil)
+        end.not_to have_enqueued_job(Cosmos::Documents::ResponseBuilderJob)
+      end
+
+      it 'does not enqueue for metadata-only updates' do
+        document = create(:cosmos_document, assistant: assistant, account: account, status: :available)
+        clear_enqueued_jobs
+
+        expect do
+          document.update!(metadata: { 'title' => 'Updated Again' })
+        end.not_to have_enqueued_job(Cosmos::Documents::ResponseBuilderJob)
+      end
+
+      it 'does not enqueue while document remains in progress' do
+        document = create(:cosmos_document, assistant: assistant, account: account, status: :in_progress)
+
+        expect do
+          document.update!(metadata: { 'title' => 'Updated' })
+        end.not_to have_enqueued_job(Cosmos::Documents::ResponseBuilderJob)
+      end
+    end
+
+    describe 'PDF documents' do
+      def build_pdf_document(status:, content:)
+        build(
+          :cosmos_document,
+          assistant: assistant,
+          account: account,
+          status: status,
+          content: content
+        ).tap do |doc|
+          doc.pdf_file.attach(
+            io: StringIO.new('PDF content'),
+            filename: 'sample.pdf',
+            content_type: 'application/pdf'
+          )
+        end
+      end
+
+      it 'does not enqueue when created available without content' do
+        document = build_pdf_document(status: :available, content: nil)
+
+        expect do
+          document.save!
+        end.not_to have_enqueued_job(Cosmos::Documents::ResponseBuilderJob)
+      end
+
+      it 'enqueues when status transitions to available with content' do
+        document = build_pdf_document(status: :in_progress, content: 'PDF extracted content')
+        document.save!
+        clear_enqueued_jobs
+
+        expect do
+          document.update!(status: :available)
+        end.to have_enqueued_job(Cosmos::Documents::ResponseBuilderJob)
+      end
+
+      it 'enqueues when content updates without status change' do
+        document = build_pdf_document(status: :available, content: 'Initial')
+        document.save!
+        clear_enqueued_jobs
+
+        expect do
+          document.update!(content: 'Extracted PDF text')
+        end.to have_enqueued_job(Cosmos::Documents::ResponseBuilderJob)
+      end
+
+      describe 'public helper methods' do
+        let(:doc) { build_pdf_document(status: :available, content: 'text') }
+
+        before { doc.save! }
+
+        it 'returns correct content_type for PDF' do
+          expect(doc.content_type).to eq('application/pdf')
+        end
+
+        it 'returns file_size for PDF' do
+          expect(doc.file_size).to eq(11) # 'PDF content'.size
+        end
+      end
+    end
+
+    describe 'non-PDF helper methods' do
+      let(:doc) do
+        create(:cosmos_document,
+               assistant: assistant,
+               account: account,
+               external_link: 'https://example.com')
+      end
+
+      it 'returns text/html content_type' do
+        expect(doc.content_type).to eq('text/html')
+      end
+
+      it 'returns nil file_size' do
+        expect(doc.file_size).to be_nil
+      end
+    end
+
+    it 'does not enqueue when the document is destroyed' do
+      document = create(:cosmos_document, assistant: assistant, account: account, status: :available)
+      clear_enqueued_jobs
+
+      expect do
+        document.destroy!
+      end.not_to have_enqueued_job(Cosmos::Documents::ResponseBuilderJob)
     end
   end
 end

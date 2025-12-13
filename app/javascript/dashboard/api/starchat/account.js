@@ -15,7 +15,13 @@ class StarchatAccountAPI extends ApiClient {
   }
 
   getLimits() {
-    return axios.get(`${this.url}limits`);
+    return axios.get(`${this.url}limits`).catch(error => {
+      // Suppress 404 errors for installations that don't have this route
+      if (error.response?.status === 404) {
+        return { data: {} };
+      }
+      throw error;
+    });
   }
 
   toggleDeletion(action) {

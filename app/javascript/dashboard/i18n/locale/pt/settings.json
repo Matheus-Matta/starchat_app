@@ -37,7 +37,7 @@
       },
       "INTERFACE_SECTION": {
         "TITLE": "Interface",
-        "NOTE": "Customize the look and feel of your Chatwoot dashboard.",
+        "NOTE": "Customize the look and feel of your Starchat dashboard.",
         "FONT_SIZE": {
           "TITLE": "Font size",
           "NOTE": "Adjust the text size across the dashboard based on your preference.",
@@ -299,6 +299,9 @@
     "COSMOS_ASSISTANTS": "Assistants",
     "COSMOS_DOCUMENTS": "Documents",
     "COSMOS_RESPONSES": "FAQs",
+    "COSMOS_PLAYGROUND": "Playground",
+    "COSMOS_TOOLS": "Ferramentas",
+    "COSMOS_SCENARIOS": "Cenários",
     "HOME": "Principal",
     "AGENTS": "Agentes",
     "AGENT_BOTS": "Bots",
@@ -358,10 +361,6 @@
       "INFO_SHORT": "Automatically mark offline when you aren't using the app."
     },
     "DOCS": "Ler documentos",
-    "COSMOS": "Cosmos",
-    "COSMOS_ASSISTANTS": "Assistants",
-    "COSMOS_DOCUMENTS": "Documents",
-    "COSMOS_RESPONSES": "FAQs",
     "AGENT_ASSIGNMENT": "Agent Assignment"
   },
   "BILLING_SETTINGS": {
@@ -385,36 +384,28 @@
       "BUTTON_TXT": "Buy more credits",
       "DOCUMENTS": "Documents",
       "RESPONSES": "Responses",
-      "UPGRADE": "Cosmos is not available on the free plan, upgrade now to get access to assistants, cosmos and more."
+      "UPGRADE": "Cosmos is not available on the free plan, upgrade now to get access to assistants, copilot and more."
     },
     "CHAT_WITH_US": {
       "TITLE": "Precisa de ajuda?",
       "DESCRIPTION": "Está com dificuldade em efetuar o seu pagamento? Estamos aqui para ajudar.",
       "BUTTON_TXT": "Fale connosco"
     },
-    "NO_BILLING_USER": "Os seus dados de pagamento estão a ser configurados. Atualize a página e tente novamente.",
-    "COSMOS": {
-      "TITLE": "Cosmos",
-      "DESCRIPTION": "Manage usage and credits for Cosmos AI.",
-      "BUTTON_TXT": "Buy more credits",
-      "DOCUMENTS": "Documents",
-      "RESPONSES": "Responses",
-      "UPGRADE": "Cosmos is not available on the free plan, upgrade now to get access to assistants, copilot and more."
-    }
+    "NO_BILLING_USER": "Os seus dados de pagamento estão a ser configurados. Atualize a página e tente novamente."
   },
   "CREATE_ACCOUNT": {
-    "NO_ACCOUNT_WARNING": "Não conseguimos encontrar nenhuma conta do Chatwoot. Por favor, crie uma nova conta para continuar.",
+    "NO_ACCOUNT_WARNING": "Não conseguimos encontrar nenhuma conta do Starchat. Por favor, crie uma nova conta para continuar.",
     "NEW_ACCOUNT": "Nova conta",
     "SELECTOR_SUBTITLE": "Criar uma nova conta",
     "API": {
       "SUCCESS_MESSAGE": "Conta criada com sucesso",
       "EXIST_MESSAGE": "Esta conta já existe",
-      "ERROR_MESSAGE": "Não foi possível conectar ao servidor Woot, por favor tente novamente mais tarde"
+      "ERROR_MESSAGE": "Não foi possível conectar ao servidor Starchat, por favor tente novamente mais tarde"
     },
     "FORM": {
       "NAME": {
         "LABEL": "Nome da empresa",
-        "PLACEHOLDER": "Wayne Enterprises"
+        "PLACEHOLDER": "Starchat Demos"
       },
       "SUBMIT": "submeter",
       "CANCEL": "Cancelar"

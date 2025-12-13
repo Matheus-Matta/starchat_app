@@ -10,7 +10,7 @@ import { useUISettings } from 'dashboard/composables/useUISettings';
 import Input from 'dashboard/components-next/input/Input.vue';
 import Button from 'dashboard/components-next/button/Button.vue';
 
-import SettingsPageLayout from 'dashboard/components-next/cosmos/SettingsPageLayout.vue';
+import PageLayout from 'dashboard/components-next/cosmos/PageLayout.vue';
 import SettingsHeader from 'dashboard/components-next/cosmos/pageComponents/settings/SettingsHeader.vue';
 import SuggestedRules from 'dashboard/components-next/cosmos/assistant/SuggestedRules.vue';
 import AddNewRulesInput from 'dashboard/components-next/cosmos/assistant/AddNewRulesInput.vue';
@@ -23,31 +23,28 @@ const route = useRoute();
 const store = useStore();
 const { uiSettings, updateUISettings } = useUISettings();
 
-const assistantId = route.params.assistantId;
 const uiFlags = useMapGetter('cosmosAssistants/getUIFlags');
+const assistantId = computed(() => Number(route.params.assistantId));
 const isFetching = computed(() => uiFlags.value.fetchingItem);
 const assistant = computed(() =>
-  store.getters['cosmosAssistants/getRecord'](Number(assistantId))
+  store.getters['cosmosAssistants/getRecord'](assistantId.value)
 );
 
 const searchQuery = ref('');
 const newInlineRule = ref('');
 const newDialogRule = ref('');
 
-const breadcrumbItems = computed(() => {
-  return [
-    {
-      label: t('COSMOS.ASSISTANTS.SETTINGS.BREADCRUMB.ASSISTANT'),
-      routeName: 'cosmos_assistants_index',
-    },
-    { label: assistant.value?.name, routeName: 'cosmos_assistants_edit' },
-    { label: t('COSMOS.ASSISTANTS.RESPONSE_GUIDELINES.TITLE') },
-  ];
-});
-
 const guidelinesContent = computed(
   () => assistant.value?.response_guidelines || []
 );
+
+const backUrl = computed(() => ({
+  name: 'cosmos_assistants_settings_index',
+  params: {
+    accountId: route.params.accountId,
+    assistantId: assistantId.value,
+  },
+}));
 
 const displayGuidelines = computed(() =>
   guidelinesContent.value.map((c, idx) => ({ id: idx, content: c }))
@@ -119,7 +116,7 @@ const selectedCountLabel = computed(() => {
 
 const saveGuidelines = async list => {
   await store.dispatch('cosmosAssistants/update', {
-    id: assistantId,
+    id: assistantId.value,
     assistant: { response_guidelines: list },
   });
 };
@@ -183,9 +180,13 @@ const addAllExample = async () => {
 </script>
 
 <template>
-  <SettingsPageLayout
-    :breadcrumb-items="breadcrumbItems"
+  <PageLayout
+    :header-title="$t('COSMOS.ASSISTANTS.RESPONSE_GUIDELINES.TITLE')"
     :is-fetching="isFetching"
+    :back-url="backUrl"
+    :show-know-more="false"
+    :show-pagination-footer="false"
+    :show-assistant-switcher="false"
   >
     <template #body>
       <SettingsHeader
@@ -315,5 +316,5 @@ const addAllExample = async () => {
         />
       </div>
     </template>
-  </SettingsPageLayout>
+  </PageLayout>
 </template>

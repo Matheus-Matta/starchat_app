@@ -1,7 +1,9 @@
 <script setup>
 import { computed, onMounted, ref, nextTick } from 'vue';
 import { useMapGetter, useStore } from 'dashboard/composables/store';
+import { useRoute } from 'vue-router';
 import { FEATURE_FLAGS } from 'dashboard/featureFlags';
+import { useAccount } from 'dashboard/composables/useAccount';
 
 import DeleteDialog from 'dashboard/components-next/cosmos/pageComponents/DeleteDialog.vue';
 import DocumentCard from 'dashboard/components-next/cosmos/assistant/DocumentCard.vue';
@@ -9,19 +11,20 @@ import PageLayout from 'dashboard/components-next/cosmos/PageLayout.vue';
 import CosmosPaywall from 'dashboard/components-next/cosmos/pageComponents/Paywall.vue';
 import RelatedResponses from 'dashboard/components-next/cosmos/pageComponents/document/RelatedResponses.vue';
 import CreateDocumentDialog from 'dashboard/components-next/cosmos/pageComponents/document/CreateDocumentDialog.vue';
-import AssistantSelector from 'dashboard/components-next/cosmos/pageComponents/AssistantSelector.vue';
 import DocumentPageEmptyState from 'dashboard/components-next/cosmos/pageComponents/emptyStates/DocumentPageEmptyState.vue';
 import FeatureSpotlightPopover from 'dashboard/components-next/feature-spotlight/FeatureSpotlightPopover.vue';
 import LimitBanner from 'dashboard/components-next/cosmos/pageComponents/document/LimitBanner.vue';
 
+const route = useRoute();
 const store = useStore();
 
+const { isOnChatwootCloud } = useAccount();
 const uiFlags = useMapGetter('cosmosDocuments/getUIFlags');
 const documents = useMapGetter('cosmosDocuments/getRecords');
-const assistants = useMapGetter('cosmosAssistants/getRecords');
 const isFetching = computed(() => uiFlags.value.fetchingList);
 const documentsMeta = useMapGetter('cosmosDocuments/getMeta');
-const selectedAssistant = ref('all');
+
+const selectedAssistantId = computed(() => Number(route.params.assistantId));
 
 const selectedDocument = ref(null);
 const deleteDocumentDialog = ref(null);
@@ -34,12 +37,6 @@ const showRelatedResponses = ref(false);
 const showCreateDialog = ref(false);
 const createDocumentDialog = ref(null);
 const relationQuestionDialog = ref(null);
-
-const shouldShowAssistantSelector = computed(() => {
-  if (assistants.value.length === 0) return false;
-
-  return !isFetching.value;
-});
 
 const handleShowRelatedDocument = () => {
   showRelatedResponses.value = true;
@@ -75,15 +72,10 @@ const handleAction = ({ action, id }) => {
 const fetchDocuments = (page = 1) => {
   const filterParams = { page };
 
-  if (selectedAssistant.value !== 'all') {
-    filterParams.assistantId = selectedAssistant.value;
+  if (selectedAssistantId.value) {
+    filterParams.assistantId = selectedAssistantId.value;
   }
   store.dispatch('cosmosDocuments/get', filterParams);
-};
-
-const handleAssistantFilterChange = assistant => {
-  selectedAssistant.value = assistant;
-  fetchDocuments();
 };
 
 const onPageChange = page => fetchDocuments(page);
@@ -95,9 +87,6 @@ const onDeleteSuccess = () => {
 };
 
 onMounted(() => {
-  if (!assistants.value.length) {
-    store.dispatch('cosmosAssistants/get');
-  }
   fetchDocuments();
 });
 </script>
@@ -112,6 +101,7 @@ onMounted(() => {
     :show-pagination-footer="!isFetching && !!documents.length"
     :is-fetching="isFetching"
     :is-empty="!documents.length"
+    :show-know-more="false"
     :feature-flag="FEATURE_FLAGS.COSMOS"
     @update:current-page="onPageChange"
     @click="handleCreateDocument"
@@ -121,6 +111,7 @@ onMounted(() => {
         :button-label="$t('COSMOS.HEADER_KNOW_MORE')"
         :title="$t('COSMOS.DOCUMENTS.EMPTY_STATE.FEATURE_SPOTLIGHT.TITLE')"
         :note="$t('COSMOS.DOCUMENTS.EMPTY_STATE.FEATURE_SPOTLIGHT.NOTE')"
+        :hide-actions="!isOnChatwootCloud"
         fallback-thumbnail="/assets/images/dashboard/cosmos/document-popover-light.svg"
         fallback-thumbnail-dark="/assets/images/dashboard/cosmos/document-popover-dark.svg"
         learn-more-url="https://chwt.app/cosmos-document"
@@ -133,15 +124,6 @@ onMounted(() => {
 
     <template #paywall>
       <CosmosPaywall />
-    </template>
-
-    <template #controls>
-      <div v-if="shouldShowAssistantSelector" class="mb-4 -mt-3 flex gap-3">
-        <AssistantSelector
-          :assistant-id="selectedAssistant"
-          @update="handleAssistantFilterChange"
-        />
-      </div>
     </template>
 
     <template #body>
@@ -170,6 +152,7 @@ onMounted(() => {
     <CreateDocumentDialog
       v-if="showCreateDialog"
       ref="createDocumentDialog"
+      :assistant-id="selectedAssistantId"
       @close="handleCreateDialogClose"
     />
     <DeleteDialog
