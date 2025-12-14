@@ -8,11 +8,11 @@ class Evolution::SendMessageService
 
   MEDIA_ORDER = %i[image video audio document].freeze
 
-  def initialize(message:)
+  def initialize(message:, channel: nil)
     @message      = message
     @conversation = message.conversation
     @inbox        = @conversation.inbox
-    @channel      = @inbox.channel
+    @channel      = channel || @inbox.channel
     @evolution_message_id = nil
   end
 
