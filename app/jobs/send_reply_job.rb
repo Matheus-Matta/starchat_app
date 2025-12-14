@@ -11,7 +11,8 @@ class SendReplyJob < ApplicationJob
     'Channel::Instagram' => ::Instagram::SendOnInstagramService,
     'Channel::Email' => ::Email::SendOnEmailService,
     'Channel::WebWidget' => ::Messages::SendEmailNotificationService,
-    'Channel::Api' => ::Messages::SendEmailNotificationService
+    'Channel::Api' => ::Messages::SendEmailNotificationService,
+    'Channel::Evolution' => ::Evolution::SendMessageService
   }.freeze
 
   def perform(message_id)
