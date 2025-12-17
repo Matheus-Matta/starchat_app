@@ -265,6 +265,8 @@
     "LOADING_CHART": "Loading chart data...",
     "NO_ENOUGH_DATA": "We've not received enough data points to generate report, Please try again later.",
     "DOWNLOAD_INBOX_REPORTS": "Download inbox reports",
+    "ALL_INBOXES": "All Inboxes",
+    "SEARCH_INBOX": "Search Inbox",
     "FILTER_DROPDOWN_LABEL": "Select Inbox",
     "METRICS": {
       "CONVERSATIONS": {
@@ -466,6 +468,9 @@
       "CONVERSATION": "{count} conversation",
       "CONVERSATIONS": "{count} conversations",
       "DOWNLOAD_REPORT": "Download report"
+    },
+    "RESOLUTION_HEATMAP": {
+      "HEADER": "Resolution Heatmap"
     },
     "AGENT_CONVERSATIONS": {
       "HEADER": "Conversations by agents",

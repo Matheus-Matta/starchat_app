@@ -265,6 +265,8 @@
     "LOADING_CHART": "Carregando dados do gráfico...",
     "NO_ENOUGH_DATA": "Não existem dados suficientes para gerar o relatório. Tente novamente mais tarde.",
     "DOWNLOAD_INBOX_REPORTS": "Baixar relatórios de entrada",
+    "ALL_INBOXES": "Todas as caixas de entrada",
+    "SEARCH_INBOX": "Pesquisar caixa de entrada",
     "FILTER_DROPDOWN_LABEL": "Selecionar caixa de entrada",
     "METRICS": {
       "CONVERSATIONS": {
@@ -466,6 +468,9 @@
       "CONVERSATION": "{count} conversa",
       "CONVERSATIONS": "{count} conversas",
       "DOWNLOAD_REPORT": "Baixar relatório"
+    },
+    "RESOLUTION_HEATMAP": {
+      "HEADER": "Mapa de calor de resolução"
     },
     "AGENT_CONVERSATIONS": {
       "HEADER": "Conversas por agentes",

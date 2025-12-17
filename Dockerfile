@@ -55,6 +55,10 @@ COPY . .
 
 RUN mkdir -p /app/log
 
+FROM builder AS development
+
+FROM builder AS production_builder
+
 RUN SECRET_KEY_BASE=precompile_placeholder RAILS_LOG_TO_STDOUT=enabled bundle exec rails assets:precompile
 
 RUN git rev-parse HEAD > /app/.git_sha || echo unknown > /app/.git_sha
@@ -87,8 +91,8 @@ RUN apk add --no-cache \
 
 WORKDIR /app
 
-COPY --from=builder /gems /gems
-COPY --from=builder /app /app
+COPY --from=production_builder /gems /gems
+COPY --from=production_builder /app /app
 
 RUN chmod +x docker/entrypoints/rails.sh
 

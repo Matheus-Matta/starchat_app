@@ -871,6 +871,79 @@
         "TITLE": "Caixa de entrada não conectada",
         "SUBTITLE": "Conectar uma caixa de entrada permite ao assistente lidar com perguntas iniciais de seus clientes antes de transferi-las para você."
       }
+    },
+    "CUSTOM_TOOLS": {
+      "HEADER": "Ferramentas Personalizadas",
+      "ADD_NEW": "Adicionar nova ferramenta",
+      "OPTIONS": {
+        "EDIT_TOOL": "Editar ferramenta",
+        "DELETE_TOOL": "Excluir ferramenta"
+      },
+      "CREATE": {
+        "TITLE": "Criar ferramenta",
+        "SUCCESS_MESSAGE": "Ferramenta criada com sucesso",
+        "ERROR_MESSAGE": "Houve um erro ao criar a ferramenta"
+      },
+      "EDIT": {
+        "TITLE": "Editar ferramenta",
+        "SUCCESS_MESSAGE": "Ferramenta atualizada com sucesso",
+        "ERROR_MESSAGE": "Houve um erro ao atualizar a ferramenta"
+      },
+      "FORM_DESCRIPTION": "Defina uma ferramenta personalizada que seu assistente pode usar para interagir com APIs externas.",
+      "FORM": {
+        "TITLE": {
+          "LABEL": "Nome",
+          "PLACEHOLDER": "Digite o nome da ferramenta",
+          "ERROR": "O nome é obrigatório"
+        },
+        "DESCRIPTION": {
+          "LABEL": "Descrição",
+          "PLACEHOLDER": "Digite a descrição da ferramenta"
+        },
+        "HTTP_METHOD": {
+          "LABEL": "Método HTTP"
+        },
+        "ENDPOINT_URL": {
+          "LABEL": "URL do Endpoint",
+          "PLACEHOLDER": "Digite a URL do endpoint",
+          "ERROR": "A URL do endpoint é obrigatória"
+        },
+        "AUTH_TYPE": {
+          "LABEL": "Tipo de Autenticação"
+        },
+        "AUTH_TYPES": {
+          "NONE": "Nenhum",
+          "BEARER": "Token Bearer",
+          "BASIC": "Autenticação Básica",
+          "API_KEY": "Chave de API"
+        },
+        "AUTH_CONFIG": {
+          "BEARER_TOKEN": "Token",
+          "BEARER_TOKEN_PLACEHOLDER": "Digite o token bearer",
+          "USERNAME": "Nome de usuário",
+          "USERNAME_PLACEHOLDER": "Digite o nome de usuário",
+          "PASSWORD": "Senha",
+          "PASSWORD_PLACEHOLDER": "Digite a senha",
+          "API_KEY": "Chave",
+          "API_KEY_PLACEHOLDER": "Digite o nome da chave de API",
+          "API_VALUE": "Valor",
+          "API_VALUE_PLACEHOLDER": "Digite o valor da chave de API"
+        },
+        "PARAMETERS": {
+          "LABEL": "Parâmetros",
+          "HELP_TEXT": "Defina os parâmetros que o assistente pode passar para esta ferramenta.",
+          "HELP": "Parâmetros"
+        },
+        "ADD_PARAMETER": "Adicionar Parâmetro",
+        "REQUEST_TEMPLATE": {
+          "LABEL": "Modelo de Requisição",
+          "PLACEHOLDER": "Digite o modelo de requisição (JSON)"
+        },
+        "RESPONSE_TEMPLATE": {
+          "LABEL": "Modelo de Resposta",
+          "PLACEHOLDER": "Digite o modelo de resposta (JSON)"
+        }
+      }
     }
   }
 }

@@ -876,6 +876,79 @@
         "TITLE": "No Connected Inboxes",
         "SUBTITLE": "Connecting an inbox allows the assistant to handle initial questions from your customers before transferring them to you."
       }
+    },
+    "CUSTOM_TOOLS": {
+      "HEADER": "Experimental Tools",
+      "ADD_NEW": "Add new tool",
+      "OPTIONS": {
+        "EDIT_TOOL": "Edit tool",
+        "DELETE_TOOL": "Delete tool"
+      },
+      "CREATE": {
+        "TITLE": "Create tool",
+        "SUCCESS_MESSAGE": "Tool created successfully",
+        "ERROR_MESSAGE": "There was an error creating the tool"
+      },
+      "EDIT": {
+        "TITLE": "Edit tool",
+        "SUCCESS_MESSAGE": "Tool updated successfully",
+        "ERROR_MESSAGE": "There was an error updating the tool"
+      },
+      "FORM_DESCRIPTION": "Define a custom tool that your assistant can use to interact with external APIs.",
+      "FORM": {
+        "TITLE": {
+          "LABEL": "Name",
+          "PLACEHOLDER": "Enter tool name",
+          "ERROR": "Name is required"
+        },
+        "DESCRIPTION": {
+          "LABEL": "Description",
+          "PLACEHOLDER": "Enter tool description"
+        },
+        "HTTP_METHOD": {
+          "LABEL": "HTTP Method"
+        },
+        "ENDPOINT_URL": {
+          "LABEL": "Endpoint URL",
+          "PLACEHOLDER": "Enter endpoint URL",
+          "ERROR": "Endpoint URL is required"
+        },
+        "AUTH_TYPE": {
+          "LABEL": "Authentication Type"
+        },
+        "AUTH_TYPES": {
+          "NONE": "None",
+          "BEARER": "Bearer Token",
+          "BASIC": "Basic Auth",
+          "API_KEY": "API Key"
+        },
+        "AUTH_CONFIG": {
+          "BEARER_TOKEN": "Token",
+          "BEARER_TOKEN_PLACEHOLDER": "Enter bearer token",
+          "USERNAME": "Username",
+          "USERNAME_PLACEHOLDER": "Enter username",
+          "PASSWORD": "Password",
+          "PASSWORD_PLACEHOLDER": "Enter password",
+          "API_KEY": "Key",
+          "API_KEY_PLACEHOLDER": "Enter API key name",
+          "API_VALUE": "Value",
+          "API_VALUE_PLACEHOLDER": "Enter API key value"
+        },
+        "PARAMETERS": {
+          "LABEL": "Parameters",
+          "HELP_TEXT": "Define the parameters that the assistant can pass to this tool.",
+          "HELP": "Parameters"
+        },
+        "ADD_PARAMETER": "Add Parameter",
+        "REQUEST_TEMPLATE": {
+          "LABEL": "Request Template",
+          "PLACEHOLDER": "Enter request template (JSON)"
+        },
+        "RESPONSE_TEMPLATE": {
+          "LABEL": "Response Template",
+          "PLACEHOLDER": "Enter response template (JSON)"
+        }
+      }
     }
   }
 }
