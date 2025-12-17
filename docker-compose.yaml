@@ -49,6 +49,7 @@ services:
     env_file: .env
     volumes:
       - storage_data:/app/storage
+      - ./public:/app/public
 
   rails:
     <<: *base
