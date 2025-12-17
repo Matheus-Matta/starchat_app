@@ -45,11 +45,9 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-      target: development
     env_file: .env
     volumes:
       - storage_data:/app/storage
-      - ./public:/app/public
 
   rails:
     <<: *base
