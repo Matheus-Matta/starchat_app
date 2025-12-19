@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_11_14_173609) do
+ActiveRecord::Schema[7.1].define(version: 2025_12_18_144042) do
   # These extensions should be enabled to support this database
   enable_extension "pg_stat_statements"
   enable_extension "pg_trgm"
@@ -324,6 +324,21 @@ ActiveRecord::Schema[7.1].define(version: 2025_11_14_173609) do
     t.jsonb "additional_attributes", default: {}
     t.index ["hmac_token"], name: "index_channel_api_on_hmac_token", unique: true
     t.index ["identifier"], name: "index_channel_api_on_identifier", unique: true
+  end
+
+  create_table "channel_baileys", force: :cascade do |t|
+    t.integer "account_id", null: false
+    t.string "phone_number"
+    t.string "instance_id"
+    t.jsonb "provider_config", default: {}, null: false
+    t.string "state", default: "disconnected", null: false
+    t.datetime "state_updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.text "qrcode"
+    t.index ["account_id"], name: "index_channel_baileys_on_account_id"
+    t.index ["instance_id"], name: "index_channel_baileys_on_instance_id", unique: true
+    t.index ["phone_number"], name: "index_channel_baileys_on_phone_number"
   end
 
   create_table "channel_email", force: :cascade do |t|
@@ -877,6 +892,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_11_14_173609) do
     t.integer "sender_name_type", default: 0, null: false
     t.string "business_name"
     t.jsonb "csat_config", default: {}, null: false
+    t.jsonb "anti_spam_config"
     t.index ["account_id"], name: "index_inboxes_on_account_id"
     t.index ["channel_id", "channel_type"], name: "index_inboxes_on_channel_id_and_channel_type"
     t.index ["portal_id"], name: "index_inboxes_on_portal_id"

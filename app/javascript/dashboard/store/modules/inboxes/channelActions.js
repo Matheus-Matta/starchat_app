@@ -7,7 +7,16 @@ export const buildInboxData = inboxParams => {
   const formData = new FormData();
   const { channel = {}, ...inboxProperties } = inboxParams;
   Object.keys(inboxProperties).forEach(key => {
-    formData.append(key, inboxProperties[key]);
+    let value = inboxProperties[key];
+    if (
+      typeof value === 'object' &&
+      value !== null &&
+      !(value instanceof File) &&
+      !(value instanceof Blob)
+    ) {
+      value = JSON.stringify(value);
+    }
+    formData.append(key, value);
   });
   const { selectedFeatureFlags, ...channelParams } = channel;
   // selectedFeatureFlags needs to be empty when creating a website channel

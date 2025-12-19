@@ -87,6 +87,12 @@ export default {
       healthData: null,
       isLoadingHealth: false,
       healthError: null,
+      antiSpamConfig: {
+        active: false,
+        max_messages: 5,
+        time_window: 1,
+        block_duration: 60,
+      },
     };
   },
   computed: {
@@ -469,6 +475,12 @@ export default {
         this.selectedPortalSlug = this.inbox.help_center
           ? this.inbox.help_center.slug
           : '';
+        this.antiSpamConfig = this.inbox.anti_spam_config || {
+          active: false,
+          max_messages: 5,
+          time_window: 1,
+          block_duration: 60,
+        };
 
         // Set initial tab after inbox data is loaded
         this.setTabFromRouteParam();
@@ -492,6 +504,7 @@ export default {
           lock_to_single_conversation: this.locktoSingleConversation,
           sender_name_type: this.senderNameType,
           business_name: this.businessName || null,
+          anti_spam_config: this.antiSpamConfig,
           channel: {
             widget_color: this.inbox.widget_color,
             website_url: this.channelWebsiteUrl,
@@ -910,6 +923,42 @@ export default {
             <label for="use_inbox_avatar_for_bot">
               {{ $t('INBOX_MGMT.FEATURES.USE_INBOX_AVATAR_FOR_BOT') }}
             </label>
+          </div>
+        </SettingsSection>
+
+        <SettingsSection
+          :title="$t('INBOX_MGMT.ANTI_SPAM.TITLE')"
+          :sub-title="$t('INBOX_MGMT.ANTI_SPAM.DESCRIPTION')"
+          :show-border="false"
+        >
+          <label class="pb-4">
+            {{ $t('INBOX_MGMT.ANTI_SPAM.ACTIVE') }}
+            <select v-model="antiSpamConfig.active">
+              <option :value="true">
+                {{ $t('INBOX_MGMT.EDIT.EMAIL_COLLECT_BOX.ENABLED') }}
+              </option>
+              <option :value="false">
+                {{ $t('INBOX_MGMT.EDIT.EMAIL_COLLECT_BOX.DISABLED') }}
+              </option>
+            </select>
+            <p class="pb-1 text-sm not-italic text-n-slate-11">
+              {{ $t('INBOX_MGMT.ANTI_SPAM.HELP_TEXT') }}
+            </p>
+          </label>
+
+          <div v-if="antiSpamConfig.active">
+            <woot-input
+              v-model="antiSpamConfig.max_messages"
+              type="number"
+              class="pb-4"
+              :label="$t('INBOX_MGMT.ANTI_SPAM.MAX_MESSAGES')"
+            />
+            <woot-input
+              v-model="antiSpamConfig.time_window"
+              type="number"
+              class="pb-4"
+              :label="$t('INBOX_MGMT.ANTI_SPAM.TIME_WINDOW')"
+            />
           </div>
         </SettingsSection>
 

@@ -235,14 +235,6 @@ const menuItems = computed(() => {
           }),
         },
         {
-          name: 'Playground',
-          label: t('SIDEBAR.COSMOS_PLAYGROUND'),
-          activeOn: ['cosmos_assistants_playground_index'],
-          to: accountScopedRoute('cosmos_assistants_index', {
-            navigationPath: 'cosmos_assistants_playground_index',
-          }),
-        },
-        {
           name: 'Documents',
           label: t('SIDEBAR.COSMOS_DOCUMENTS'),
           activeOn: ['cosmos_assistants_documents_index'],
@@ -251,19 +243,31 @@ const menuItems = computed(() => {
           }),
         },
         {
-          name: 'Scenarios',
-          label: t('SIDEBAR.COSMOS_SCENARIOS'),
-          activeOn: ['cosmos_assistants_scenarios_index'],
+          name: 'Playground',
+          label: t('SIDEBAR.COSMOS_PLAYGROUND'),
+          activeOn: ['cosmos_assistants_playground_index'],
           to: accountScopedRoute('cosmos_assistants_index', {
-            navigationPath: 'cosmos_assistants_scenarios_index',
+            navigationPath: 'cosmos_assistants_playground_index',
           }),
         },
         {
-          name: 'Tools',
-          label: t('SIDEBAR.COSMOS_TOOLS'),
-          activeOn: ['cosmos_tools_index'],
+          name: 'Inboxes',
+          label: t('SIDEBAR.INBOXES'),
+          activeOn: ['cosmos_assistants_inboxes_index'],
           to: accountScopedRoute('cosmos_assistants_index', {
-            navigationPath: 'cosmos_tools_index',
+            navigationPath: 'cosmos_assistants_inboxes_index',
+          }),
+        },
+        {
+          name: 'Settings',
+          label: t('SIDEBAR.SETTINGS'),
+          activeOn: [
+            'cosmos_assistants_settings_index',
+            'cosmos_assistants_guidelines_index',
+            'cosmos_assistants_guardrails_index',
+          ],
+          to: accountScopedRoute('cosmos_assistants_index', {
+            navigationPath: 'cosmos_assistants_settings_index',
           }),
         },
       ],

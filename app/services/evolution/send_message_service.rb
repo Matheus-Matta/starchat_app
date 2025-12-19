@@ -20,8 +20,8 @@ class Evolution::SendMessageService
     return unless evolution_channel?
     return unless dispatchable?
 
-    if already_dispatched?
-      Rails.logger.info("[Evolution::SendMessageService] skip: message #{message.id} already dispatched (source_id=#{message.source_id.inspect})")
+    if already_dispatched? || @message.delivered? || @message.read?
+      Rails.logger.info("[Evolution::SendMessageService] skip: message #{message.id} already dispatched (source_id=#{message.source_id.inspect}, status=#{message.status})")
       return
     end
 
@@ -109,7 +109,9 @@ class Evolution::SendMessageService
   end
 
   def dispatchable?
-    @message.outgoing? || @message.private?
+    # Only send outgoing messages that are NOT private
+    # Private messages (internal notes, system errors) should NEVER go to the client
+    @message.outgoing? && !@message.private?
   end
 
   def already_dispatched?
@@ -231,16 +233,6 @@ class Evolution::SendMessageService
     Rails.logger.error "[Evolution::SendMessageService] send_#{kind} error: #{error.class}: #{error.message}"
 
     update_message_status!(message: @message, status: 'failed', external_error: error.message)
-
-    safe_payload = payload.transform_values { |v| v.is_a?(String) && v.start_with?('http') ? URI(v).path : v }
-
-    @conversation.messages.create!(
-      account_id:   @inbox.account_id,
-      inbox_id:     @inbox.id,
-      message_type: :outgoing,
-      private:      true,
-      content:      "Falha ao enviar: #{error.class}: #{error.message}"
-    )
   end
 
   def encode_blob_base64(blob)

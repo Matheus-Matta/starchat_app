@@ -51,6 +51,10 @@
           "PLACEHOLDER": "Example: {webhookExampleURL}",
           "ERROR": "Please enter a valid URL"
         },
+        "NAME": {
+          "LABEL": "Webhook Name",
+          "PLACEHOLDER": "Enter webhook name"
+        },
         "EDIT_SUBMIT": "Update webhook",
         "ADD_SUBMIT": "Create webhook"
       },
@@ -402,12 +406,7 @@
       "UPGRADE_PROMPT": "Upgrade your plan to get access to our assistants, cosmos and more.",
       "ASK_ADMIN": "Please reach out to your administrator for the upgrade."
     },
-    "ASSISTANT_SWITCHER": {
-      "ASSISTANTS": "Assistants",
-      "SWITCH_ASSISTANT": "Switch assistant",
-      "NEW_ASSISTANT": "Create Assistant",
-      "EMPTY_LIST": "No assistants found, please create one to get started"
-    },
+
     "BANNER": {
       "RESPONSES": "You've used over 80% of your response limit. To continue using Cosmos AI, please upgrade.",
       "DOCUMENTS": "Document limit reached. Upgrade to continue using Cosmos AI."
@@ -519,6 +518,11 @@
               "DESCRIPTION": "The vibe and structure of your assistant’s replies—clear and friendly? Short and snappy? Detailed and formal?"
             }
           }
+        },
+        "DELETE": {
+          "TITLE": "Delete Assistant",
+          "DESCRIPTION": "Deleting this assistant is permanent and cannot be undone. It will remove the assistant from all connected inboxes and erase all generated knowledge.",
+          "BUTTON_TEXT": "Delete Assistant"
         }
       },
       "OPTIONS": {
@@ -791,6 +795,10 @@
         "SUCCESS_MESSAGE": "FAQ deleted successfully",
         "ERROR_MESSAGE": "There was an error deleting the FAQ, please try again."
       },
+      "PENDING_BANNER": {
+        "TITLE": "You have {count} pending FAQ suggestions"
+      },
+      "PENDING_FAQS": "Pending FAQs",
       "FILTER": {
         "ASSISTANT": "Assistant: {selected}",
         "STATUS": "Status: {selected}",

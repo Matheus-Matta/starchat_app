@@ -1,0 +1,118 @@
+A forma mais “cirúrgica” de deixar o envio instantâneo (principalmente Webhook/WhatsApp/SendReply) é tirar esses jobs do “bolo” e rodar Sidekiq em processos separados por filas (roles). Isso evita que jobs pesados (tipo seus SLAs) “segurem” a fila do que é tempo-real.
+
+Links (oficiais / referência) que você pediu
+Chatwoot (Docker produção): https://developers.chatwoot.com/self-hosted/deployment/docker
+Chatwoot (Performance / tuning): https://developers.chatwoot.com/self-hosted/deployment/performance/optimizing-configurations
+Chatwoot (Env vars): https://developers.chatwoot.com/self-hosted/configuration/environment-variables
+
+Sidekiq (Queues/weights/roles): https://github.com/sidekiq/sidekiq/wiki/Advanced-Options
+Sidekiq (Best practices): https://github.com/sidekiq/sidekiq/wiki/Best-Practices
+Sidekiq (Deployment): https://github.com/sidekiq/sidekiq/wiki/Deployment
+
+Evolution API (docs): https://doc.evolution-api.com/
+
+
+O guia oficial do Chatwoot já mostra como baixar o .env e o docker-compose.production.yaml via wget. 
+Chatwoot Docs
+
+O que mexer no Chatwoot (.env) para aguentar carga
+
+No Chatwoot, os 3 knobs que mais importam são: WEB_CONCURRENCY, RAILS_MAX_THREADS e SIDEKIQ_CONCURRENCY (e o pool de conexão do banco precisa acompanhar). 
+Chatwoot Docs
+
+Exemplo de base (ajuste conforme CPU/DB):
+
+# Rails/Puma
+WEB_CONCURRENCY=2
+RAILS_MAX_THREADS=10
+
+# Sidekiq (se você ainda tiver 1 worker único)
+SIDEKIQ_CONCURRENCY=25
+
+# Redis / Postgres
+REDIS_URL=redis://redis:6379
+DATABASE_URL=postgresql://postgres:senha@postgres:5432/chatwoot_production
+
+
+Referência de DATABASE_URL/REDIS_URL e padrão do .env no Chatwoot. 
+Chatwoot Docs
+
+Como “separar os Sidekiq” (do jeito certo) no Docker
+1) Conceito
+
+Sidekiq permite:
+
+múltiplas filas, com peso (ex: critical,2) 
+GitHub
+
+ordem estrita (critical antes de default), sem peso 
+GitHub
+
+e recomenda “roles” (processos separados) quando você precisa priorizar “tempo real” e não quer dezenas de filas por processo. 
+GitHub
++1
+
+Regra prática pro seu caso: um Sidekiq “realtime” só pra filas críticas (webhook/whatsapp/send) e outro(s) pra jobs pesados (SLA, e-mail, rotinas).
+
+2) Implementação (docker-compose): múltiplos serviços Sidekiq
+
+Você duplica o serviço sidekiq e muda command/concurrency/queues. Exemplo (modelo):
+
+services:
+  # ... rails/postgres/redis etc
+
+  sidekiq_realtime:
+    image: chatwoot/chatwoot:latest
+    env_file: .env
+    depends_on: [postgres, redis]
+    environment:
+      - RAILS_ENV=production
+      - NODE_ENV=production
+    command: ["bundle","exec","sidekiq","-c","30","-q","critical,4","-q","default,2"]
+
+  sidekiq_sla:
+    image: chatwoot/chatwoot:latest
+    env_file: .env
+    depends_on: [postgres, redis]
+    environment:
+      - RAILS_ENV=production
+      - NODE_ENV=production
+    command: ["bundle","exec","sidekiq","-c","5","-q","low","-q","default"]
+
+
+Pontos importantes:
+
+Weights: critical,4 faz a fila critical ser checada mais vezes. 
+GitHub
+
+Se você precisa critical estrita e ainda quer weights nas outras, a própria wiki recomenda processo dedicado pra critical. 
+GitHub
+
+Evite “dezenas de filas” no mesmo processo (vira pancadaria no Redis). 
+GitHub
+
+O compose padrão do Chatwoot roda Sidekiq apontando para config/sidekiq.yml (você pode manter isso e ainda assim criar processos adicionais com -q). 
+GitHub
+
+3) Mapeando com suas métricas (onde você ganha “instantâneo”)
+
+Pelos seus dados, o que mais “ameaça” o tempo real é job grande competindo com job pequeno:
+
+Sla::ProcessAccountAppliedSlasJob tem média altíssima (307s).
+O ideal é ele rodar em fila/worker separado (ex: sidekiq_sla) e deixar Webhook/WhatsApp/SendReply no sidekiq_realtime.
+
+Checklist rápido “entre outros componentes”
+
+Banco (Postgres): seu pool precisa bater com threads/processos (senão vira gargalo e dá latência). O próprio Chatwoot fala do ajuste de pool vs threads/processos. 
+Chatwoot Docs
+
+Redis: mantenha Redis “saudável” (latência baixa) porque Sidekiq depende dele e o Chatwoot usa REDIS_URL. 
+Chatwoot Docs
+
+Proxy (Nginx): o guia oficial lembra que, por padrão, os containers ficam no localhost e você deve colocar Nginx na frente. 
+Chatwoot Docs
+
+Evolution / WhatsApp: 100 msg/s é carga alta; dependendo do canal, existe limite/throughput do próprio provedor. (Como referência, a própria Meta cita números de throughput em cenários de on-premises da plataforma do WhatsApp.) 
+Desenvolvedores do Facebook
+
+Se você colar aqui o seu docker-compose.yaml atual (Chatwoot + Evolution) e quais filas/jobs você quer priorizar (ex: Webhook/WhatsApp/SendReply em “tempo real”), eu te devolvo uma versão pronta do compose com os Sidekiq “fatiados” certinho pro seu hardware e sem estourar pool do Postgres.

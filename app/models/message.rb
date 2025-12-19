@@ -145,6 +145,8 @@ class Message < ApplicationRecord
     data = attributes.symbolize_keys.merge(
       created_at: created_at.to_i,
       message_type: message_type_before_type_cast,
+      status: status,
+      content_type: content_type,
       conversation_id: conversation&.display_id,
       conversation: conversation.present? ? conversation_push_event_data : nil
     )
@@ -346,6 +348,8 @@ class Message < ApplicationRecord
   end
 
   def send_reply
+    return if failed?
+
     # FIXME: Giving it few seconds for the attachment to be uploaded to the service
     # active storage attaches the file only after commit
     attachments.blank? ? ::SendReplyJob.perform_later(id) : ::SendReplyJob.set(wait: 2.seconds).perform_later(id)

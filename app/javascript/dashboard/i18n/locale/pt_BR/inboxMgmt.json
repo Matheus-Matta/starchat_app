@@ -668,6 +668,16 @@
         "AVATAR_ERROR_MESSAGE": "Não foi possível excluir o perfil da caixa de entrada. Por favor, tente novamente mais tarde."
       }
     },
+
+    "ANTI_SPAM": {
+        "TITLE": "Anti Spam",
+        "DESCRIPTION": "Configure as regras para bloquear mensagens repetitivas do mesmo agente.",
+        "ACTIVE": "Ativar Anti Spam",
+        "MAX_MESSAGES": "Máximo de mensagens idênticas",
+        "TIME_WINDOW": "Janela de tempo (minutos)",
+        "BLOCK_DURATION": "Duração do bloqueio (minutos)",
+        "HELP_TEXT": "Se um agente enviar a mesma mensagem mais vezes que o permitido dentro da janela de tempo, o envio será bloqueado."
+    },
     "TABS": {
       "EVOLUTION": "Evolution",
       "SETTINGS": "Configurações",

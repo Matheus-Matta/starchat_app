@@ -51,6 +51,10 @@
           "PLACEHOLDER": "Exemplo: {webhookExampleURL}",
           "ERROR": "Por favor, insira uma URL válida"
         },
+        "NAME": {
+            "LABEL": "Nome do Webhook",
+            "PLACEHOLDER": "Insira o nome do webhook"
+        },
         "EDIT_SUBMIT": "Atualizar webhook",
         "ADD_SUBMIT": "Criar webhook"
       },
@@ -517,6 +521,11 @@
               "DESCRIPTION": "O jeito e a estrutura das respostas do seu assistente — tranquilo e amigável? Curto e ágil? Detalhado e formal?"
             }
           }
+        },
+        "DELETE": {
+          "TITLE": "Excluir Assistente",
+          "DESCRIPTION": "A exclusão deste assistente é permanente e não pode ser desfeita. Isso removerá o assistente de todas as caixas de entrada conectadas e apagará todo o conhecimento gerado.",
+          "BUTTON_TEXT": "Excluir Assistente"
         }
       },
       "OPTIONS": {
@@ -787,6 +796,10 @@
         "SUCCESS_MESSAGE": "FAQ excluída com sucesso",
         "ERROR_MESSAGE": "Ocorreu um erro ao excluir a FAQ, por favor tente novamente."
       },
+      "PENDING_BANNER": {
+        "TITLE": "Você tem {count} sugestões de FAQ pendentes"
+      },
+      "PENDING_FAQS": "FAQs Pendentes",
       "FILTER": {
         "ASSISTANT": "Assistente: {selected}",
         "STATUS": "Status: {selected}",

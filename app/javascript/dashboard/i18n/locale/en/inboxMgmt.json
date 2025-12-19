@@ -671,6 +671,15 @@
         "AVATAR_ERROR_MESSAGE": "Could not delete the inbox avatar. Please try again later."
       }
     },
+    "ANTI_SPAM": {
+        "TITLE": "Anti Spam",
+        "DESCRIPTION": "Configure rules to block repetitive messages from the same agent.",
+        "ACTIVE": "Enable Anti Spam",
+        "MAX_MESSAGES": "Maximum identical messages",
+        "TIME_WINDOW": "Time window (minutes)",
+        "BLOCK_DURATION": "Block duration (minutes)",
+        "HELP_TEXT": "If an agent sends the same message more times than allowed within the time window, the message will be blocked."
+    },
     "TABS": {
       "EVOLUTION": "Evolution",
       "SETTINGS": "Settings",

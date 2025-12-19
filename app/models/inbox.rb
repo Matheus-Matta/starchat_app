@@ -6,6 +6,7 @@
 #
 #  id                            :integer          not null, primary key
 #  allow_messages_after_resolved :boolean          default(TRUE)
+#  anti_spam_config              :jsonb
 #  auto_assignment_config        :jsonb
 #  business_name                 :string
 #  channel_type                  :string
@@ -197,6 +198,24 @@ class Inbox < ApplicationRecord
 
   def auto_assignment_v2_enabled?
     account.feature_enabled?('assignment_v2')
+  end
+
+  def anti_spam_enabled?
+    return false if anti_spam_config.blank?
+
+    anti_spam_config['active'] == true
+  end
+
+  def anti_spam_max_messages
+    return 5 if anti_spam_config.blank?
+
+    (anti_spam_config['max_messages'] || 5).to_i
+  end
+
+  def anti_spam_time_window
+    return 1 if anti_spam_config.blank?
+
+    (anti_spam_config['time_window'] || 1).to_i
   end
 
   private
