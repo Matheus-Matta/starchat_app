@@ -18,6 +18,7 @@ const SUPPORTED_WEBHOOK_EVENTS = [
   'contact_updated',
   'conversation_typing_on',
   'conversation_typing_off',
+  'conversation_sla_breached',
 ];
 
 export default {
