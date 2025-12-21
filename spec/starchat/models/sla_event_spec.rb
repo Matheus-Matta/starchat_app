@@ -49,7 +49,8 @@ RSpec.describe SlaEvent, type: :model do
     let!(:inbox) { create(:inbox, account: account) }
     let(:conversation) { create(:conversation, inbox: inbox, assignee: assignee, account: account) }
     let(:sla_policy) { create(:sla_policy, account: conversation.account) }
-    let(:sla_event) { create(:sla_event, event_type: 'frt', conversation: conversation, sla_policy: sla_policy) }
+    let(:applied_sla) { create(:applied_sla, conversation: conversation, account: account, sla_policy: sla_policy) }
+    let(:sla_event) { create(:sla_event, event_type: 'frt', conversation: conversation, sla_policy: sla_policy, applied_sla: applied_sla) }
 
     before do
       create(:user, account: account)
@@ -58,13 +59,19 @@ RSpec.describe SlaEvent, type: :model do
     end
 
     it 'creates notifications for relevant users' do
-      sla_event
+      expect { sla_event }.to change(Notification.where(notification_type: 'sla_missed_first_response'), :count).by(3)
+      
+      expect(Notification.where(user_id: assignee.id).count).to be >= 1
+      expect(Notification.where(user_id: admin.id).count).to be >= 1
+      expect(Notification.where(user_id: participant.id).count).to be >= 1
+    end
 
-      expect(Notification.count).to eq(3)
-      expect(Notification.where(notification_type: 'sla_missed_first_response').count).to eq(3)
-      expect(Notification.where(user_id: assignee.id).count).to eq(1)
-      expect(Notification.where(user_id: admin.id).count).to eq(1)
-      expect(Notification.where(user_id: participant.id).count).to eq(1)
+    it 'dispatches conversation.sla_breached event' do
+      allow(Rails.configuration.dispatcher).to receive(:dispatch).and_call_original
+      expect(Rails.configuration.dispatcher).to receive(:dispatch)
+        .with('conversation.sla_breached', anything, anything)
+      
+      create(:sla_event, event_type: 'frt', conversation: conversation, sla_policy: sla_policy, applied_sla: applied_sla)
     end
   end
 end

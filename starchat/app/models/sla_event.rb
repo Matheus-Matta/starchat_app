@@ -31,7 +31,7 @@ class SlaEvent < ApplicationRecord
   enum event_type: { frt: 0, nrt: 1, rt: 2 }
 
   before_validation :ensure_applied_sla_id, :ensure_account_id, :ensure_inbox_id, :ensure_sla_policy_id
-  after_create_commit :create_notifications
+  after_create_commit :create_notifications, :dispatch_create_event
 
   def push_event_data
     {
@@ -44,6 +44,15 @@ class SlaEvent < ApplicationRecord
   end
 
   private
+
+  def dispatch_create_event
+    Rails.configuration.dispatcher.dispatch(
+      'conversation.sla_breached',
+      Time.zone.now,
+      conversation: conversation,
+      sla_events: self
+    )
+  end
 
   def ensure_applied_sla_id
     self.applied_sla_id ||= AppliedSla.find_by(conversation_id: conversation_id)&.last&.id
