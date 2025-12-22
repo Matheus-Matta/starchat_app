@@ -3,7 +3,7 @@ FROM node:23-alpine AS node
 FROM ruby:3.4.4-alpine3.21 AS builder
 
 ARG PNPM_VERSION=10.2.0
-ARG BUNDLER_VERSION=2.5.11
+ARG BUNDLER_VERSION=2.5.16
 ARG RAILS_ENV=production
 ARG BUNDLE_WITHOUT="development:test"
 
@@ -14,7 +14,10 @@ ENV BUNDLE_PATH=/gems
 ENV RAILS_SERVE_STATIC_FILES=true
 ENV NODE_OPTIONS="--max-old-space-size=4096 --openssl-legacy-provider"
 
-RUN apk add --no-cache \
+RUN set -eux; \
+  for i in 1 2 3 4 5; do \
+  apk update && \
+  apk add --no-cache \
   build-base \
   git \
   tzdata \
@@ -28,7 +31,11 @@ RUN apk add --no-cache \
   imagemagick \
   libffi \
   libffi-dev \
-  pkgconf
+  pkgconf \
+  && break; \
+  echo "apk falhou... retry $i/5"; \
+  sleep 2; \
+  done
 
 RUN gem install bundler:${BUNDLER_VERSION}
 
@@ -69,7 +76,7 @@ RUN rm -rf node_modules tmp/cache spec .git .gitignore \
 
 FROM ruby:3.4.4-alpine3.21
 
-ARG BUNDLER_VERSION=2.5.11
+ARG BUNDLER_VERSION=2.5.16
 ARG RAILS_ENV=production
 ARG BUNDLE_WITHOUT="development:test"
 
@@ -80,13 +87,20 @@ ENV EXECJS_RUNTIME=Disabled
 ENV RAILS_SERVE_STATIC_FILES=true
 ENV BUNDLE_FORCE_RUBY_PLATFORM=1
 
-RUN apk add --no-cache \
+RUN set -eux; \
+  for i in 1 2 3 4 5; do \
+  apk update && \
+  apk add --no-cache \
   tzdata \
   openssl \
   postgresql-client \
   vips \
   imagemagick \
   libffi \
+  && break; \
+  echo "apk falhou... retry $i/5"; \
+  sleep 2; \
+  done \
   && gem install bundler:${BUNDLER_VERSION}
 
 WORKDIR /app
