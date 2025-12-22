@@ -1,0 +1,67 @@
+services:
+  base: &base
+    image: ${APP_IMAGE}
+    env_file: .env.prod
+    volumes:
+      - ./.env.prod:/app/.env.prod
+      - ./docker/entrypoints/rails.sh:/app/docker/entrypoints/rails.sh
+    restart: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    environment:
+      DB_HOST: postgres
+      DB_PORT: "5432"
+      DB_NAME: ${POSTGRES_DB:-starchats}
+      DB_USER: ${POSTGRES_USER:-postgres}
+      DB_PASSWORD: ${POSTGRES_PASSWORD}
+      REDIS_URL: redis://:${REDIS_PASSWORD}@redis:6379/0
+
+  rails:
+    <<: *base
+    entrypoint: ["docker/entrypoints/rails.sh"]
+    command: ["bundle","exec","puma","-C","config/puma.rb"]
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres
+      - redis
+    stop_grace_period: 60s
+
+  sidekiq_realtime:
+    <<: *base
+    command: ["bundle","exec","sidekiq","-c","8","-q","critical,4","-q","default,1"]
+    depends_on:
+      - postgres
+      - redis
+    stop_grace_period: 90s
+
+  sidekiq_evolution:
+    <<: *base
+    command: ["bundle","exec","sidekiq","-c","6","-q","evolution,4"]
+    depends_on:
+      - postgres
+      - redis
+    stop_grace_period: 90s
+
+  sidekiq_sla:
+    <<: *base
+    command: ["bundle","exec","sidekiq","-c","2","-q","sla,4","-q","low,1"]
+    depends_on:
+      - postgres
+      - redis
+    stop_grace_period: 120s
+
+  sidekiq_low:
+    <<: *base
+    command: ["bundle","exec","sidekiq","-c","4","-q","low,2","-q","default,1"]
+    depends_on:
+      - postgres
+      - redis
+    stop_grace_period: 90s
+
+volumes:
+  postgres_data:
+  redis_data:

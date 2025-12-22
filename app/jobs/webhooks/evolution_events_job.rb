@@ -1,7 +1,7 @@
 # app/jobs/webhooks/evolution_events_job.rb
 # frozen_string_literal: true
 class Webhooks::EvolutionEventsJob < ApplicationJob
-  queue_as :low
+  queue_as :evolution
 
   def perform(inbox_id:, event:, data:)
     @inbox = Inbox.find_by(id: inbox_id)

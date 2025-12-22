@@ -1,21 +1,31 @@
 #!/bin/sh
-
+set -eu
 set -x
 
-# Remove a potentially pre-existing server.pid for Rails.
-rm -rf /app/tmp/pids/server.pid
-rm -rf /app/tmp/cache/*
+APP_PATH=/app
 
-echo "Database ready to accept connections."
+if [ -f "$APP_PATH/.env.prod" ]; then
+  set -a
+  . "$APP_PATH/.env.prod"
+  set +a
+fi
 
-#install missing gems for local dev as we are using base image compiled for production
-bundle install
-BUNDLE="bundle check"
+mkdir -p "$APP_PATH/tmp/pids" "$APP_PATH/tmp/cache" "$APP_PATH/log"
+rm -f "$APP_PATH/tmp/pids/server.pid"
+rm -rf "$APP_PATH/tmp/cache"/* || true
 
-until $BUNDLE
-do
-  sleep 2;
+# garante que as gems já estão ok (em produção você NÃO deve rodar bundle install aqui)
+bundle check
+
+DB_HOST="${POSTGRES_HOST:-${POSTGRES_HOSTNAME:-${DB_HOST:-postgres}}}"
+DB_PORT="${POSTGRES_PORT:-5432}"
+DB_USER="${POSTGRES_USER:-postgres}"
+
+until pg_isready -h "$DB_HOST" -p "$DB_PORT" -U "$DB_USER" >/dev/null 2>&1; do
+  echo "Waiting for Postgres at ${DB_HOST}:${DB_PORT}..."
+  sleep 2
 done
 
-# Execute the main process of the container
+bundle exec rails db:chatwoot_prepare
+
 exec "$@"
