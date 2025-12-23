@@ -65,3 +65,148 @@ services:
 volumes:
   postgres_data:
   redis_data:
+services:
+  base: &base
+    image: ${APP_IMAGE}
+    env_file: .env
+    volumes:
+      - ./.env:/app/.env
+      - ./docker/entrypoints/rails.sh:/app/docker/entrypoints/rails.sh
+    restart: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    environment:
+      DB_HOST: postgres
+      DB_PORT: "5432"
+      DB_NAME: ${POSTGRES_DB:-chatwoot}
+      DB_USER: ${POSTGRES_USER:-postgres}
+      DB_PASSWORD: ${POSTGRES_PASSWORD}
+      REDIS_URL: redis://:${REDIS_PASSWORD}@redis:6379/0
+
+  postgres:
+    image: pgvector/pgvector:pg16
+    restart: always
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    env_file: .env
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-chatwoot}
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    ports:
+      - "6380:6379"
+    command:
+      [
+        "redis-server",
+        "--requirepass", "${REDIS_PASSWORD}",
+        "--maxmemory", "3gb",
+        "--maxmemory-policy", "allkeys-lru"
+    ]
+    volumes:
+      - redis_data:/data
+
+  rails:
+    <<: *base
+    entrypoint: ["/app/docker/entrypoints/rails.sh"]
+    command: ["bundle","exec","puma","-C","config/puma.rb"]
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres
+      - redis
+    stop_grace_period: 60s
+
+  sidekiq_critical:
+    <<: *base
+    command: ["bundle","exec","sidekiq","-c","6",
+              "-q","critical,8",
+              "-q","high,10"]
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    stop_grace_period: 90s
+
+  sidekiq_realtime:
+    <<: *base
+    command: ["bundle","exec","sidekiq","-c","5",
+              "-q","medium,8",
+              "-q","mailers,3"]
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    stop_grace_period: 90s
+
+  sidekiq_background:
+    <<: *base
+    command: ["bundle","exec","sidekiq","-c","4",
+              "-q","low,8",
+              "-q","deferred,2",
+              "-q","purgable,2"]
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    stop_grace_period: 90s
+
+  sidekiq_scheduled:
+    <<: *base
+    command: ["bundle","exec","sidekiq","-c","3",
+              "-q","scheduled_jobs,5",
+              "-q","housekeeping,3"]
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    stop_grace_period: 120s
+
+  sidekiq_migrations:
+    <<: *base
+    command: ["bundle","exec","sidekiq","-c","1",
+              "-q","async_database_migration,4"]
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    stop_grace_period: 120s
+
+  sidekiq_evolution:
+    <<: *base
+    command: ["bundle","exec","sidekiq","-c","2",
+              "-q","evolution,5"]
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    stop_grace_period: 120s
+
+  sidekiq_default:
+    <<: *base
+    command: ["bundle","exec","sidekiq","-c","2",
+              "-q","default,10"]
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    stop_grace_period: 90s
+
+volumes:
+  postgres_data:
+  redis_data:
