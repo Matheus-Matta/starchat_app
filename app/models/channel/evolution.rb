@@ -117,7 +117,21 @@ class Channel::Evolution < ApplicationRecord
   end
 
   def generated_instance_name
-    "#{INSTANCE_NAME_PREFIX}acc#{account_id}-ch#{id}"
+    # Gera nome único com:
+    # - Timestamp Unix (10 dígitos)
+    # - Account ID  
+    # - Channel ID
+    # - Hash randômico (6 caracteres)
+    # Exemplo: evo-1704567890-acc5-ch12-a3f8d2
+    
+    timestamp = Time.current.to_i
+    
+    # Hash único baseado em múltiplos fatores
+    unique_hash = Digest::SHA256.hexdigest(
+      "#{account_id}-#{id}-#{timestamp}-#{SecureRandom.hex(4)}"
+    )[0..5]
+    
+    "#{INSTANCE_NAME_PREFIX}#{timestamp}-acc#{account_id}-ch#{id}-#{unique_hash}"
   end
 
   def computed_webhook_url
