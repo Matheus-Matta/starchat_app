@@ -33,57 +33,47 @@ class Evolution::SendMessageService
 
     any_success = false
 
+    # Enviar texto primeiro, se houver
     if @message.content.present?
       begin
         resp = client.send_text(instance, number: number, text: @message.content.to_s, quoted: quoted)
         persist_message_id_from(resp)
         any_success = true
-      rescue Evolution::Client::Error => e
-        record_send_error!(error: e, kind: :text, payload: { number:, instance:, quoted_present: quoted.present? })
-        return
       rescue => e
-        record_send_error!(error: e, kind: :text, payload: { number:, instance:, quoted_present: quoted.present? })
-        return
+        record_send_error!(error: e, kind: :text, payload: { number:, instance: })
+        return unless @message.attachments.exists? # Se só tinha texto e falhou, para
       end
     end
 
+    # Enviar anexos
     ordered_attachments.each do |att|
+
       kind     = file_kind(att)
-      url      = active_storage_url(att.file.blob, expires_in: media_url_ttl)
+
       mimetype = att.file.content_type
       fname    = att.file.filename.to_s
 
+
       begin
-        if kind == :audio
-          audio_b64 = encode_blob_base64(att.file.blob)
-
-          resp = client.send_whatsapp_audio(
-            instance,
-            number: number,
-            audio:  audio_b64,  
-            delay:  0,
-            quoted: quoted
-          )
+        if force_base64?
+          # Modo forçado base64 (útil para dev local onde evolution não acessa localhost)
+          send_attachment_base64(client, instance, number, kind, att.file.blob, mimetype, fname, quoted)
         else
-          base64_data = encode_blob_base64(att.file.blob)
-
-          mediatype = case kind
-                      when :image then 'image'
-                      when :video then 'video'
-                      else              'document'
-                      end
-          opts = { mimetype: mimetype, quoted: quoted }
-          opts[:file_name] = fname if mediatype == 'document'
-          resp = client.send_media(instance, number: number, mediatype: mediatype, media: base64_data, **opts)
+          # Modo padrão: Tenta URL, fallback para base64
+          begin
+            url = active_storage_url(att.file.blob, expires_in: media_url_ttl)
+            send_attachment_url(client, instance, number, kind, url, mimetype, fname, quoted)
+          rescue => e
+            Rails.logger.warn("[Evolution] URL send failed for msg=#{@message.id}, falling back to Base64: #{e.message}")
+            send_attachment_base64(client, instance, number, kind, att.file.blob, mimetype, fname, quoted)
+          end
         end
 
-        persist_message_id_from(resp)
         any_success = true
-
-      rescue Evolution::Client::Error => e
-        record_send_error!(error: e, kind: kind, payload: { number:, instance:, url:, mimetype:, fname:, quoted_present: quoted.present? })
+        
       rescue => e
-        record_send_error!(error: e, kind: kind, payload: { number:, instance:, url:, mimetype:, fname:, quoted_present: quoted.present? })
+
+        record_send_error!(error: e, kind: kind, payload: { number:, instance:, url:, mimetype: })
       end
     end
 
@@ -91,13 +81,73 @@ class Evolution::SendMessageService
       mark_dispatched!
       update_message_status!(message: @message, status: 'delivered', external_error: nil)
     end
-
   rescue Evolution::Client::Error => e
     Rails.logger.error "[Evolution::SendMessageService] API error: #{e.message}"
-    raise
   rescue => e
     Rails.logger.error "[Evolution::SendMessageService] #{e.class}: #{e.message}"
-    raise
+  end
+  
+  private
+
+  def send_attachment_url(client, instance, number, kind, url, mimetype, fname, quoted)
+
+    if kind == :audio
+
+      resp = client.send_whatsapp_audio(
+        instance,
+        number: number,
+        audio: url,  # Evolution aceita URL aqui
+        delay: 0,
+        quoted: quoted
+      )
+      persist_message_id_from(resp)
+    else
+      mediatype = kind_to_mediatype(kind)
+      opts = { mimetype: mimetype, quoted: quoted }
+      opts[:file_name] = fname if mediatype == 'document'
+      
+
+      resp = client.send_media(
+        instance, 
+        number: number, 
+        mediatype: mediatype, 
+        media: url, # URL
+        **opts
+      )
+
+      persist_message_id_from(resp)
+    end
+  end
+
+  def send_attachment_base64(client, instance, number, kind, blob, mimetype, fname, quoted)
+
+    base64_data = encode_blob_base64(blob)
+    
+    if kind == :audio
+      resp = client.send_whatsapp_audio(instance, number: number, audio: base64_data, delay: 0, quoted: quoted)
+      persist_message_id_from(resp)
+    else
+      mediatype = kind_to_mediatype(kind)
+      opts = { mimetype: mimetype, quoted: quoted }
+      opts[:file_name] = fname if mediatype == 'document'
+      
+      resp = client.send_media(instance, number: number, mediatype: mediatype, media: base64_data, **opts)
+      persist_message_id_from(resp)
+    end
+  end
+
+  def kind_to_mediatype(kind)
+    case kind
+    when :image then 'image'
+    when :video then 'video'
+    else 'document'
+    end
+  end
+  
+  def force_base64?
+    # Em development local com Docker, Evolution pode não acessar localhost. 
+    # Use EVOLUTION_FORCE_BASE64=true se necessário.
+    ActiveRecord::Type::Boolean.new.cast(ENV['EVOLUTION_FORCE_BASE64'])
   end
 
   private
