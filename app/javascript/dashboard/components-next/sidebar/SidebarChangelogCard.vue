@@ -81,7 +81,7 @@ const handleDismiss = slug => {
 const handleReadMore = () => {
   const currentPost = unDismissedPosts.value[currentIndex.value];
   if (currentPost?.slug) {
-    window.open(`https://www.chatwoot.com/blog/${currentPost.slug}`, '_blank');
+    window.open(`https://www.starchats.com.br/blog/${currentPost.slug}`, '_blank');
   }
 };
 

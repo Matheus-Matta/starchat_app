@@ -59,6 +59,14 @@ class Channel::Evolution < ApplicationRecord
   # API esperada pelo Chatwoot
   def name = 'Evolution'
 
+  def phone_number
+    provider_config['phone_number']
+  end
+
+  def phone_number=(value)
+    self.provider_config = (provider_config || {}).merge('phone_number' => value)
+  end
+
   def update_state!(new_state)
     update!(state: new_state, state_updated_at: Time.current)
   end
@@ -90,7 +98,7 @@ class Channel::Evolution < ApplicationRecord
 
     client = Evolution::Client.new(
       base_url: ENV.fetch('EVOLUTION_BASE_URL'),
-      api_key:  api_key.presence || ENV['EVOLUTION_API_KEY']
+      api_key:  api_key.presence || ENV['AUTHENTICATION_API_KEY']
     )
 
     begin

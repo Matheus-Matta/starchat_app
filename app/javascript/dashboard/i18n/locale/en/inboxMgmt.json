@@ -146,7 +146,7 @@
         }
       },
       "EVOLUTION": {
-        "TITLE": "Evolution API",
+        "TITLE": "Account Health",
         "DESC": "Create a WhatsApp inbox using your Evolution instance. Enter your instance details below and pair the device by scanning the QR code.",
         "WARNING_TITLE": "Before you continue",
         "WARNING_TEXT": "Using WhatsApp must comply with Meta/WhatsApp policies. Review the rules below to avoid account restrictions or bans.",
@@ -183,6 +183,25 @@
         },
         "API": {
           "ERROR_MESSAGE": "We couldn't create the Evolution inbox. Please check your credentials and try again."
+        },
+        "SETTINGS": {
+            "TITLE": "Instance Settings",
+            "REJECT_CALL": "Reject Calls",
+            "REJECT_CALL_HELP": "Automatically reject incoming calls.",
+            "IGNORE_GROUPS": "Ignore Groups",
+            "IGNORE_GROUPS_HELP": "Ignore messages from groups.",
+            "ALWAYS_ONLINE": "Always Online",
+            "ALWAYS_ONLINE_HELP": "Keep status as Online.",
+            "READ_MESSAGES": "Read Messages",
+            "READ_MESSAGES_HELP": "Automatically mark messages as read.",
+            "READ_STATUS": "Read Status",
+            "READ_STATUS_HELP": "Mark status updates as viewed.",
+            "SEND_AGENT_NAME": "Send Agent Name",
+            "SEND_AGENT_NAME_HELP": "If enabled, the agent name will be added to the message.",
+            "SYNC_FULL_HISTORY": "Sync Full History",
+            "SYNC_FULL_HISTORY_HELP": "Sync entire history on connect.",
+            "REJECT_CALL_MESSAGE": "Rejection Message",
+            "REJECT_CALL_MESSAGE_PLACEHOLDER": "Ex: We do not accept calls..."
         }
       },
       "TWILIO": {
@@ -680,8 +699,14 @@
         "BLOCK_DURATION": "Block duration (minutes)",
         "HELP_TEXT": "If an agent sends the same message more times than allowed within the time window, the message will be blocked."
     },
+    "SENDER_CONFIG": {
+      "TITLE": "Sender Configuration",
+      "DESCRIPTION": "Configure sender settings for this inbox.",
+      "SEND_AGENT_NAME": "Send Agent Name",
+      "SEND_AGENT_NAME_HELP": "If enabled, the agent name will be added to the message."
+    },
     "TABS": {
-      "EVOLUTION": "Evolution",
+      "EVOLUTION": "Account Health",
       "SETTINGS": "Settings",
       "COLLABORATORS": "Collaborators",
       "CONFIGURATION": "Configuration",
@@ -718,6 +743,7 @@
       "LOCK_TO_SINGLE_CONVERSATION": "Lock to single conversation",
       "LOCK_TO_SINGLE_CONVERSATION_SUB_TEXT": "Enable or disable multiple conversations for the same contact in this inbox",
       "INBOX_UPDATE_TITLE": "Inbox Settings",
+      "INBOX_UPDATE_TITLE_GENERAL": "General",
       "INBOX_UPDATE_SUB_TEXT": "Update your inbox settings",
       "AUTO_ASSIGNMENT_SUB_TEXT": "Enable or disable the automatic assignment of new conversations to the agents added to this inbox.",
       "HMAC_VERIFICATION": "User Identity Validation",

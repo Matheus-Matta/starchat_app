@@ -23,7 +23,7 @@ module Evolution
 
     def e164_from_jid(jid)
       return if jid.blank?
-      num = jid.to_s.split('@').first.to_s.gsub(/\D+/, '')
+      num = jid.to_s.split('@').first.to_s.split(':').first.gsub(/\D+/, '')
       return if num.blank?
       num.start_with?('+') ? num : "+#{num}"
     end

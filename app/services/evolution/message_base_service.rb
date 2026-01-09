@@ -52,11 +52,48 @@ class Evolution::MessageBaseService < Whatsapp::IncomingMessageBaseService
     @contact        = ci.contact
     @contact_inbox  = ci             
 
-    if sender_is_me && @contact.name != phone_e164 && !locked_name?(@contact)
+    if !sender_is_me && !locked_name?(@contact) && display.present?
+      
+      unless looks_like_number?(display)
+        current_name = @contact.name.to_s
+        is_current_placeholder = current_name.blank? || looks_like_number?(current_name)
+        
+        if is_current_placeholder || (current_name != display)
+          @contact.update(name: display)
+        end
+      end
+
+    elsif sender_is_me && @contact.name.blank? && !locked_name?(@contact)
       @contact.update_columns(name: phone_e164, updated_at: Time.current)
+    end
+
+    pic_url = message['profilePicUrl'] || message.dig('key', 'profilePicUrl')
+    if pic_url.present?
+      update_contact_avatar(@contact, pic_url)
     end
 
     @contact
   end
+
+  def update_contact_avatar(contact, url)
+    return if url.blank?
+    
+    current_url = contact.additional_attributes['wa_profile_pic_url'] rescue nil
+    return if current_url == url
+
+    contact.additional_attributes['wa_profile_pic_url'] = url
+    contact.save
+    
+    Avatar::AvatarFromUrlJob.perform_later(contact, url)
+  end
+
+
+
+  def looks_like_number?(str)
+    return false if str.blank?
+    clean = str.to_s.gsub(/[\s\-\(\)\+]/, '')
+    clean.match?(/\A\d+\z/) && clean.length >= 7
+  end
+
   
 end

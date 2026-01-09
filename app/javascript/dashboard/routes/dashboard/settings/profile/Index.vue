@@ -133,9 +133,9 @@ export default {
     async updateProfile(userAttributes) {
       const { name, email, displayName } = userAttributes;
       const hasEmailChanged = this.currentUser.email !== email;
-      this.name = name || this.name;
-      this.email = email || this.email;
-      this.displayName = displayName || this.displayName;
+      this.name = name;
+      this.email = email;
+      this.displayName = displayName;
 
       const updatePayload = {
         name: this.name,

@@ -1,9 +1,9 @@
 A forma mais “cirúrgica” de deixar o envio instantâneo (principalmente Webhook/WhatsApp/SendReply) é tirar esses jobs do “bolo” e rodar Sidekiq em processos separados por filas (roles). Isso evita que jobs pesados (tipo seus SLAs) “segurem” a fila do que é tempo-real.
 
 Links (oficiais / referência) que você pediu
-Chatwoot (Docker produção): https://developers.chatwoot.com/self-hosted/deployment/docker
-Chatwoot (Performance / tuning): https://developers.chatwoot.com/self-hosted/deployment/performance/optimizing-configurations
-Chatwoot (Env vars): https://developers.chatwoot.com/self-hosted/configuration/environment-variables
+Chatwoot (Docker produção): https://developers.starchats.com.br/self-hosted/deployment/docker
+Chatwoot (Performance / tuning): https://developers.starchats.com.br/self-hosted/deployment/performance/optimizing-configurations
+Chatwoot (Env vars): https://developers.starchats.com.br/self-hosted/configuration/environment-variables
 
 Sidekiq (Queues/weights/roles): https://github.com/sidekiq/sidekiq/wiki/Advanced-Options
 Sidekiq (Best practices): https://github.com/sidekiq/sidekiq/wiki/Best-Practices

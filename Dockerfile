@@ -96,6 +96,7 @@ RUN set -eux; \
   postgresql-client \
   vips \
   imagemagick \
+  ffmpeg \
   libffi \
   && break; \
   echo "apk falhou... retry $i/5"; \

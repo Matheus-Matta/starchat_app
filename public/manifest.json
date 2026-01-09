@@ -2,12 +2,12 @@
   "name": "Starchats",
   "short_name": "Starchats",
   "icons": [{
-    "src": "/brand-assets/logo_thumbnail.png",
+    "src": "/brand-assets/logo_thumbnail_v2.png",
     "sizes": "192x192 512x512",
     "type": "image/png"
   }],
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#5a67d8",
-  "theme_color": "#5a67d8"
+  "background_color": "#711cec",
+  "theme_color": "#711cec"
 }

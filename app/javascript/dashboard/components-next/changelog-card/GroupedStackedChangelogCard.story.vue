@@ -11,7 +11,7 @@ const sampleCards = [
       'Watch how our latest feature can transform your workflow with powerful automation tools.',
     slug: 'chatwoot-cosmos',
     feature_image:
-      'https://www.chatwoot.com/images/cosmos/cosmos_thumbnail.jpg',
+      'https://www.starchats.com.br/images/cosmos/cosmos_thumbnail.jpg',
   },
   {
     id: 'smart-routing',
@@ -20,7 +20,7 @@ const sampleCards = [
     meta_description:
       'Screen bookers with intelligent forms and route them to the right team member.',
     slug: 'smart-routing',
-    feature_image: 'https://www.chatwoot.com/images/dashboard-dark.webp',
+    feature_image: 'https://www.starchats.com.br/images/dashboard-dark.webp',
   },
   {
     id: 'instant-meetings',

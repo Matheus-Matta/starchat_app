@@ -1,4 +1,4 @@
-Delivered-To: hello@chatwoot.com
+Delivered-To: hello@starchats.com.br
 Received: by 2002:a05:7010:e38c:b0:354:f2b8:cc31 with SMTP id ma12csp1010920mdb;
         Wed, 7 Jun 2023 19:48:08 -0700 (PDT)
 X-Google-Smtp-Source: ACHHUZ57LBzK2OVBP6udVBC9CbSsPHwJYC8okfkQWT8Q0m28WoFGG1VLohBJoHwQR2a6eqG7mvqi
@@ -29,7 +29,7 @@ ARC-Authentication-Results: i=2; mx.google.com;
 Return-Path: <test.w@example.com>
 Received: from sender4-pp-f115.zoho.com (sender4-pp-f115.zoho.com. [136.143.188.115])
         by mx.google.com with ESMTPS id q22-20020aa79836000000b006634c05d13csi86057pfl.172.2023.06.07.19.48.07
-        for <hello@chatwoot.com>
+        for <hello@starchats.com.br>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
         Wed, 07 Jun 2023 19:48:07 -0700 (PDT)
 Received-SPF: pass (google.com: domain of test.w@example.com designates 136.143.188.115 as permitted sender) client-ip=136.143.188.115;
@@ -47,7 +47,7 @@ Received: from mail.zoho.com by mx.zohomail.com with SMTP id 1686192484329887.48
 Date: Wed, 07 Jun 2023 21:48:04 -0500
 Message-ID: <CAFkiBVzURp=z2g5nAevAtdQvFfxkLrpvTeDFcwFaGQhdo_-Mkg@mail.gmail.com>
 Subject: New inline image test email conversation
-From: Sony Mathew <sony@chatwoot.com>
+From: Sony Mathew <sony@starchats.com.br>
 To: "Replies" <reply+6bdc3f4d-0bed-4515-a284-5d916fdde489@example.com>
 MIME-Version: 1.0
 Content-Type: multipart/alternative; boundary="----=_Part_737886_53803080.1686187550614"

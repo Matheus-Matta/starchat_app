@@ -45,7 +45,7 @@ export default camelcaseKeys(
             quoted:
               'Hi Team,\n\nI hope this email finds you well! I wanted to share some updates regarding\nour integration with *Chatwoot* and outline some key features we’ve\nexplored.',
           },
-          to: ['shivam@chatwoot.com'],
+          to: ['shivam@starchats.com.br'],
         },
         cc_email: null,
         bcc_email: null,

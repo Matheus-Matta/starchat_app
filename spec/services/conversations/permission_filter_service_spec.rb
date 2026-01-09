@@ -43,5 +43,26 @@ RSpec.describe Conversations::PermissionFilterService do
         expect(result.count).to eq(2)
       end
     end
+
+    context 'when conversation belongs to a team the agent is a member of' do
+      let(:team) { create(:team, account: account) }
+      let(:team_inbox) { create(:inbox, account: account) }
+      let!(:team_conversation) { create(:conversation, account: account, inbox: team_inbox, team: team) }
+      
+      before do
+        create(:team_member, user: agent, team: team)
+      end
+
+      it 'returns the team conversation even if not member of inbox' do
+        # Passing all conversations to simulate finder behavior
+        result = described_class.new(
+          account.conversations, 
+          agent, 
+          account
+        ).perform
+        
+        expect(result).to include(team_conversation)
+      end
+    end
   end
 end

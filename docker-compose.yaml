@@ -10,7 +10,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     ports:
-      - "127.0.0.1:5434:5432"
+      - "5434:5432"
     healthcheck:
       test:
         [
@@ -34,7 +34,7 @@ services:
     volumes:
       - redis_data:/data
     ports:
-      - '127.0.0.1:6380:6379'
+      - '6380:6379'
     healthcheck:
       test: ['CMD', 'redis-cli', '-a', '${REDIS_PASSWORD}', 'PING']
       interval: 5s

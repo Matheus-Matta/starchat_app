@@ -11,6 +11,22 @@
 class Whatsapp::Providers::BaseService
   pattr_initialize [:whatsapp_channel!]
 
+  def message_content(message)
+    inbox = message.inbox
+    sender_config = inbox.try(:sender_config) || {}
+    
+    if sender_config['send_agent_name'] && message.sender.is_a?(User)
+      agent_name = message.sender.try(:display_name).presence || message.sender.name
+      if agent_name.present?
+        "*#{agent_name}:*\n#{message.outgoing_content}"
+      else
+        message.outgoing_content
+      end
+    else
+      message.outgoing_content
+    end
+  end
+
   def send_message(_phone_number, _message)
     raise 'Overwrite this method in child class'
   end

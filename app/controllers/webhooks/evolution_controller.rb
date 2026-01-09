@@ -39,11 +39,18 @@ class Webhooks::EvolutionController < ActionController::API
       state = data.is_a?(Hash) ? data[:state].to_s : nil
       if (ch = @inbox.channel).is_a?(Channel::Evolution) && state.present?
         ch.update_state!(state)
+        
+        # Saves phone number if available (e.g. owner JID)
+        owner = data[:owner] || data.dig(:instance, :owner)
+        if owner.present?
+          ch.phone_number = owner.split('@').first
+          ch.save
+        end
       end
       ActionCable.server.broadcast(
         "account_#{@inbox.account_id}",
         { event: 'evolution.connection_update',
-          data: { account_id: @inbox.account_id, inbox_id: @inbox.id, state: state } }
+          data: { account_id: @inbox.account_id, inbox_id: @inbox.id, state: state, phone_number: ch&.phone_number } }
       )
     end
 

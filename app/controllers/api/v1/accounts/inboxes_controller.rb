@@ -61,6 +61,19 @@ class Api::V1::Accounts::InboxesController < Api::V1::Accounts::BaseController
       inbox_params[:anti_spam_config] = permitted_params[:anti_spam_config]
     end
 
+    if params[:sender_config].present?
+      sender_config = params[:sender_config]
+      if sender_config.is_a?(String)
+        inbox_params[:sender_config] = JSON.parse(sender_config)
+      elsif sender_config.respond_to?(:to_unsafe_h)
+        inbox_params[:sender_config] = sender_config.to_unsafe_h
+      else
+        inbox_params[:sender_config] = sender_config
+      end
+    elsif permitted_params[:sender_config].present?
+      inbox_params[:sender_config] = permitted_params[:sender_config]
+    end
+
     @inbox.update!(inbox_params)
     update_inbox_working_hours
     update_channel if channel_update_required?
@@ -183,7 +196,9 @@ class Api::V1::Accounts::InboxesController < Api::V1::Accounts::BaseController
      :enable_auto_assignment, :working_hours_enabled, :out_of_office_message, :timezone, :allow_messages_after_resolved,
      :lock_to_single_conversation, :portal_id, :sender_name_type, :business_name,
      { csat_config: [:display_type, :message, { survey_rules: [:operator, { values: [] }] }] },
-     { anti_spam_config: [:active, :max_messages, :time_window, :block_duration] }]
+     { csat_config: [:display_type, :message, { survey_rules: [:operator, { values: [] }] }] },
+     { anti_spam_config: [:active, :max_messages, :time_window, :block_duration] },
+     { sender_config: [:send_agent_name] }]
   end
 
   def permitted_params(channel_attributes = [])

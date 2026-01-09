@@ -114,6 +114,8 @@ Rails.application.routes.draw do
                   post :connect
                   post :restart
                   post :disconnect
+                  get :settings
+                  patch :settings, action: :update_settings
                 end
         end
           end

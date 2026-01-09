@@ -27,6 +27,14 @@ class EvolutionChannel extends ApiClient {
   disconnect(id) {
     return axios.post(`${this.url}/${id}/disconnect`);
   }
+
+  getSettings(id) {
+    return axios.get(`${this.url}/${id}/settings`);
+  }
+
+  updateSettings(id, settings) {
+    return axios.patch(`${this.url}/${id}/settings`, { settings });
+  }
 }
 
 export default new EvolutionChannel();

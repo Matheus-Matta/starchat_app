@@ -135,7 +135,7 @@ const handleAvatarHover = isHovered => {
             :name="name"
             :src="thumbnail"
             :fallback-src="waProfilePicUrl"
-        :size="48"
+            :size="48"
             :status="availabilityStatus"
             hide-offline-status
             rounded-full

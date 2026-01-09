@@ -30,13 +30,13 @@
       }
     },
     "PERMISSIONS": {
-      "CONVERSATION_MANAGE": "Manage all conversations",
-      "CONVERSATION_TEAM_MANAGE": "Manage team conversations and those assigned to them",
-      "CONVERSATION_UNASSIGNED_MANAGE": "Manage unassigned conversations and those assigned to them",
-      "CONVERSATION_PARTICIPATING_MANAGE": "Manage participating conversations and those assigned to them",
-      "CONTACT_MANAGE": "Manage contacts",
-      "REPORT_MANAGE": "Manage reports",
-      "KNOWLEDGE_BASE_MANAGE": "Manage knowledge base"
+      "CONVERSATION_MANAGE": "Gerir todas as conversas",
+      "CONVERSATION_TEAM_MANAGE": "Gerir conversas de equipa e as que lhes estão atribuídas",
+      "CONVERSATION_UNASSIGNED_MANAGE": "Gerir conversas não atribuídas e as que lhes estão atribuídas",
+      "CONVERSATION_PARTICIPATING_MANAGE": "Gerir conversas em que participa e as que lhe estão atribuídas",
+      "CONTACT_MANAGE": "Gerir contactos",
+      "REPORT_MANAGE": "Gerir relatórios",
+      "KNOWLEDGE_BASE_MANAGE": "Gerir base de conhecimento"
     },
     "FORM": {
       "NAME": {

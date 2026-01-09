@@ -24,7 +24,7 @@ module DownloadForWhatsappEnc
   def download_for_whatsapp_enc(url:, media_key:, media_type:, filename: nil,
                                 content_type: nil, headers: {}, identify: false)
 
-    mk  = Base64.strict_decode64(media_key.to_s) # 32 bytes
+    mk  = Base64.decode64(media_key.to_s) # 32 bytes
     info = hkdf_info_for(media_type)             # "WhatsApp Image Keys", etc.
 
     # HKDF(SHA-256), salt = 32 bytes zero, length = 112 (IV16 + AES32 + MAC32 + ref32)

@@ -391,7 +391,7 @@
         "SLUG": {
           "LABEL": "שבלול",
           "PLACEHOLDER": "שבלול קטגוריה עבור כתובות אתרים",
-          "HELP_TEXT": "app.chatwoot.com/hc/my-portal/en-US/categories/my-slug",
+          "HELP_TEXT": "app.starchats.com.br/hc/my-portal/en-US/categories/my-slug",
           "ERROR": "נדרש שבלול"
         },
         "DESCRIPTION": {
@@ -422,7 +422,7 @@
         "SLUG": {
           "LABEL": "שבלול",
           "PLACEHOLDER": "שבלול קטגוריה עבור כתובות אתרים",
-          "HELP_TEXT": "app.chatwoot.com/hc/my-portal/en-US/categories/my-slug",
+          "HELP_TEXT": "app.starchats.com.br/hc/my-portal/en-US/categories/my-slug",
           "ERROR": "נדרש שבלול"
         },
         "DESCRIPTION": {
@@ -606,7 +606,7 @@
             "LABEL": "שבלול",
             "PLACEHOLDER": "שבלול קטגוריה עבור כתובות אתרים",
             "ERROR": "נדרש שבלול",
-            "HELP_TEXT": "app.chatwoot.com/hc/{portalSlug}/{localeCode}/categories/{categorySlug}"
+            "HELP_TEXT": "app.starchats.com.br/hc/{portalSlug}/{localeCode}/categories/{categorySlug}"
           },
           "DESCRIPTION": {
             "LABEL": "תיאור",

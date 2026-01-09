@@ -42,6 +42,7 @@ export const ASSIGNEE_TYPE_TAB_PERMISSIONS = {
       ...ROLES,
       MANAGE_ALL_CONVERSATION_PERMISSIONS,
       CONVERSATION_UNASSIGNED_PERMISSIONS,
+      'conversation_team_manage',
     ],
   },
   all: {
@@ -50,6 +51,7 @@ export const ASSIGNEE_TYPE_TAB_PERMISSIONS = {
       ...ROLES,
       MANAGE_ALL_CONVERSATION_PERMISSIONS,
       CONVERSATION_PARTICIPATING_PERMISSIONS,
+      'conversation_team_manage',
     ],
   },
 };

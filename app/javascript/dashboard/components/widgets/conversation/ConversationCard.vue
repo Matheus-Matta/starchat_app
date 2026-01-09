@@ -1,5 +1,5 @@
 <script setup>
-import { computed, ref } from 'vue';
+import { computed, ref, watchEffect } from 'vue';
 import { useRouter } from 'vue-router';
 import { useStore, useMapGetter } from 'dashboard/composables/store';
 import { getLastMessage } from 'dashboard/helper/conversationHelper';
@@ -96,7 +96,8 @@ const { labelKey: voiceLabelKey, listIconColor: voiceIconColor } =
 const inboxId = computed(() => props.chat.inbox_id);
 
 const inbox = computed(() => {
-  return inboxId.value ? store.getters['inboxes/getInbox'](inboxId.value) : {};
+  const found = inboxId.value ? store.getters['inboxes/getInbox'](inboxId.value) : {};
+  return found || {};
 });
 
 const showInboxName = computed(() => {

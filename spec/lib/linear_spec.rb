@@ -367,7 +367,7 @@ describe Linear do
       end
 
       it 'returns linked issues' do
-        response = linear_client.linked_issues('app.chatwoot.com')
+        response = linear_client.linked_issues('app.starchats.com.br')
         expect(response).to eq({ 'linkedIssue' => { 'id' => 'issue1', 'title' => 'Title' } })
       end
     end
@@ -380,7 +380,7 @@ describe Linear do
       end
 
       it 'raises an exception' do
-        response = linear_client.linked_issues('app.chatwoot.com')
+        response = linear_client.linked_issues('app.starchats.com.br')
         expect(response).to eq({ :error => { 'errors' => [{ 'message' => 'Error retrieving data' }] }, :error_code => 422 })
       end
     end

@@ -146,7 +146,7 @@
         }
       },
       "EVOLUTION": {
-        "TITLE": "API Evolution",
+        "TITLE": "Saúde da Conta",
         "DESC": "Crie uma caixa de entrada WhatsApp usando sua instância Evolution. Insira os detalhes da instância abaixo e pareie o dispositivo escaneando o QR code.",
         "WARNING_TITLE": "Antes de continuar",
         "WARNING_TEXT": "O uso do WhatsApp deve estar em conformidade com as políticas da Meta/WhatsApp. Revise as regras abaixo para evitar restrições ou banimentos de conta.",
@@ -183,6 +183,25 @@
         },
         "API": {
           "ERROR_MESSAGE": "Não foi possível criar a caixa de entrada Evolution. Verifique suas credenciais e tente novamente."
+        },
+        "SETTINGS": {
+            "TITLE": "Configurações da Instância",
+            "REJECT_CALL": "Rejeitar Chamadas",
+            "REJECT_CALL_HELP": "Rejeitar chamadas recebidas automaticamente.",
+            "IGNORE_GROUPS": "Ignorar Grupos",
+            "IGNORE_GROUPS_HELP": "Ignorar mensagens vindas de grupos.",
+            "ALWAYS_ONLINE": "Sempre Online",
+            "ALWAYS_ONLINE_HELP": "Manter o status como Online.",
+            "READ_MESSAGES": "Ler Mensagens",
+            "READ_MESSAGES_HELP": "Marcar mensagens como lidas automaticamente.",
+            "READ_STATUS": "Ler Status",
+            "READ_STATUS_HELP": "Marcar atualizações de status como visualizadas.",
+            "SEND_AGENT_NAME": "Enviar Nome do Agente",
+            "SEND_AGENT_NAME_HELP": "Se ativado, o nome do agente será adicionado à mensagem.",
+            "SYNC_FULL_HISTORY": "Sincronizar Histórico",
+            "SYNC_FULL_HISTORY_HELP": "Sincronizar todo o histórico ao conectar.",
+            "REJECT_CALL_MESSAGE": "Mensagem de Rejeição",
+            "REJECT_CALL_MESSAGE_PLACEHOLDER": "Ex: Não atendemos chamadas..."
         }
       },
       "TWILIO": {
@@ -678,8 +697,14 @@
         "BLOCK_DURATION": "Duração do bloqueio (minutos)",
         "HELP_TEXT": "Se um agente enviar a mesma mensagem mais vezes que o permitido dentro da janela de tempo, o envio será bloqueado."
     },
+    "SENDER_CONFIG": {
+      "TITLE": "Configuração do Remetente",
+      "DESCRIPTION": "Configure as permissões de envio para esta caixa de entrada.",
+      "SEND_AGENT_NAME": "Enviar Nome do Agente",
+      "SEND_AGENT_NAME_HELP": "Se ativado, o nome do agente será adicionado à mensagem."
+    },
     "TABS": {
-      "EVOLUTION": "Evolution",
+      "EVOLUTION": "Saúde da Conta",
       "SETTINGS": "Configurações",
       "COLLABORATORS": "Agentes",
       "CONFIGURATION": "Configuração",
@@ -716,6 +741,7 @@
       "LOCK_TO_SINGLE_CONVERSATION": "Bloquear para conversa única",
       "LOCK_TO_SINGLE_CONVERSATION_SUB_TEXT": "Ativar ou desativar várias conversas para o mesmo contato nesta caixa de entrada",
       "INBOX_UPDATE_TITLE": "Configurações da Caixa de Entrada",
+      "INBOX_UPDATE_TITLE_GENERAL": "Geral",
       "INBOX_UPDATE_SUB_TEXT": "Atualize suas configurações de caixa de entrada",
       "AUTO_ASSIGNMENT_SUB_TEXT": "Ativar ou desativar a atribuição automática de novas conversas aos agentes adicionados a essa caixa de entrada.",
       "HMAC_VERIFICATION": "Validação de Identidade do Usuário",

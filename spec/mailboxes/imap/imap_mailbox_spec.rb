@@ -269,7 +269,7 @@ RSpec.describe Imap::ImapMailbox do
       let(:agent_conversation) { create(:conversation, account: account, inbox: channel.inbox, assignee: agent) }
       let(:reply_mail_with_fallback_reference) do
         # Simulate an email reply with a reference that matches FALLBACK_PATTERN
-        reference_id = "account/#{account.id}/conversation/#{agent_conversation.uuid}@chatwoot.com"
+        reference_id = "account/#{account.id}/conversation/#{agent_conversation.uuid}@starchats.com.br"
         create_inbound_email_from_mail(
           from: 'email@gmail.com',
           to: 'imap@gmail.com',
@@ -293,7 +293,7 @@ RSpec.describe Imap::ImapMailbox do
       let(:agent_conversation) { create(:conversation, account: account, inbox: channel.inbox, assignee: agent) }
       let(:reply_mail_with_multiple_references) do
         # Multiple references including both patterns
-        fallback_reference = "account/#{account.id}/conversation/#{agent_conversation.uuid}@chatwoot.com"
+        fallback_reference = "account/#{account.id}/conversation/#{agent_conversation.uuid}@starchats.com.br"
         other_reference = 'some-other-message-id@example.com'
         create_inbound_email_from_mail(
           from: 'email@gmail.com',

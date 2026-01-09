@@ -22,6 +22,14 @@ export default {
       const resp = await EvolutionChannel.disconnect(id);
       return resp?.data || resp;
     },
+    async getSettings(_ctx, { id }) {
+      const resp = await EvolutionChannel.getSettings(id);
+      return resp?.data || resp;
+    },
+    async updateSettings(_ctx, { id, settings }) {
+      const resp = await EvolutionChannel.updateSettings(id, settings);
+      return resp?.data || resp;
+    },
   },
   mutations: {},
 };

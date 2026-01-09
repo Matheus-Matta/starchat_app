@@ -3,14 +3,14 @@ info:
   title: Chatwoot - Platform API
   description: Platform API endpoints for Chatwoot
   version: 1.1.0
-  termsOfService: https://www.chatwoot.com/terms-of-service/
+  termsOfService: https://www.starchats.com.br/terms-of-service/
   contact:
-    email: hello@chatwoot.com
+    email: hello@starchats.com.br
   license:
     name: MIT License
     url: https://opensource.org/licenses/MIT
 servers:
-  - url: https://app.chatwoot.com/
+  - url: https://app.starchats.com.br/
 tags:
   - name: Accounts
     description: Platform account management

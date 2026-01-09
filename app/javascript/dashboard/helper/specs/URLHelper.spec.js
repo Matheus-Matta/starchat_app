@@ -75,7 +75,7 @@ describe('#URL Helpers', () => {
 
   describe('isValidURL', () => {
     it('should return true if valid url is passed', () => {
-      expect(isValidURL('https://chatwoot.com')).toBe(true);
+      expect(isValidURL('https://starchats.com.br')).toBe(true);
     });
     it('should return false if invalid url is passed', () => {
       expect(isValidURL('alert.window')).toBe(false);
@@ -172,7 +172,7 @@ describe('#URL Helpers', () => {
 
   describe('hasValidAvatarUrl', () => {
     test('should return true for valid non-Gravatar URL', () => {
-      expect(hasValidAvatarUrl('https://chatwoot.com/avatar.jpg')).toBe(true);
+      expect(hasValidAvatarUrl('https://starchats.com.br/avatar.jpg')).toBe(true);
     });
 
     test('should return false for a Gravatar URL (www.gravatar.com)', () => {

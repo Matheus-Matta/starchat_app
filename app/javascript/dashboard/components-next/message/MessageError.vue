@@ -51,7 +51,8 @@ const canRetry = computed(() => !hasOneDayPassed(createdAt.value));
       class="text-xs font-medium max-w-[250px] break-words"
       :class="[
         orientation === ORIENTATION.LEFT ? 'text-left' : 'text-right',
-        error.toLowerCase().includes('frequência') || error.toLowerCase().includes('frequently')
+        error.toLowerCase().includes('frequência') ||
+        error.toLowerCase().includes('frequently')
           ? 'text-n-amber-11'
           : 'bg-n-alpha-2 text-n-ruby-12 px-2 py-1.5 rounded-md border border-n-ruby-6',
       ]"

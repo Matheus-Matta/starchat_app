@@ -58,6 +58,18 @@ module Evolution
       delete("/instance/delete/#{escape(instance_name)}")
     end
 
+    # ========= Settings =========
+
+    # GET /settings/find/:instance
+    def find_settings(instance_name)
+      get("/settings/find/#{escape(instance_name)}")
+    end
+
+    # POST /settings/set/:instance
+    def set_settings(instance_name, payload)
+      post("/settings/set/#{escape(instance_name)}", payload)
+    end
+
     # ========= Webhook =========
 
     # POST /webhook/instance

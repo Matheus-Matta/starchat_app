@@ -4,8 +4,9 @@ import { useStore, useMapGetter } from 'dashboard/composables/store';
 import { useI18n } from 'vue-i18n';
 import { useAlert } from 'dashboard/composables';
 import { useVuelidate } from '@vuelidate/core';
-import { required, email } from '@vuelidate/validators';
+import { required, email, minLength, sameAs } from '@vuelidate/validators';
 import Button from 'dashboard/components-next/button/Button.vue';
+import Switch from 'dashboard/components-next/switch/Switch.vue';
 
 const emit = defineEmits(['close']);
 
@@ -14,18 +15,30 @@ const { t } = useI18n();
 
 const agentName = ref('');
 const agentEmail = ref('');
+const agentPassword = ref('');
+const agentPasswordConfirmation = ref('');
+const setPasswordManually = ref(false);
 const selectedRoleId = ref('agent');
 
-const rules = {
-  agentName: { required },
-  agentEmail: { required, email },
-  selectedRoleId: { required },
-};
+const rules = computed(() => {
+  const r = {
+    agentName: { required },
+    agentEmail: { required, email },
+    selectedRoleId: { required },
+  };
+  if (setPasswordManually.value) {
+    r.agentPassword = { required, minLength: minLength(6) };
+    r.agentPasswordConfirmation = { required, sameAsPassword: sameAs(agentPassword) };
+  }
+  return r;
+});
 
 const v$ = useVuelidate(rules, {
   agentName,
   agentEmail,
   selectedRoleId,
+  agentPassword,
+  agentPasswordConfirmation,
 });
 
 const uiFlags = useMapGetter('agents/getUIFlags');
@@ -70,6 +83,9 @@ const addAgent = async () => {
       name: agentName.value,
       email: agentEmail.value,
     };
+    if (setPasswordManually.value) {
+      payload.password = agentPassword.value;
+    }
 
     if (selectedRole.value.name.startsWith('custom_')) {
       payload.custom_role_id = selectedRole.value.id;
@@ -144,6 +160,43 @@ const addAgent = async () => {
             :placeholder="$t('AGENT_MGMT.ADD.FORM.EMAIL.PLACEHOLDER')"
             @input="v$.agentEmail.$touch"
           />
+        </label>
+      </div>
+
+      <div class="w-full mb-4">
+        <div class="flex items-center gap-2">
+          <Switch v-model="setPasswordManually" />
+          <span class="text-sm text-black-900 dark:text-slate-50 cursor-pointer" @click="setPasswordManually = !setPasswordManually">
+            Definir senha manualmente (Confirmar conta automaticamente)
+          </span>
+        </div>
+      </div>
+
+      <div v-if="setPasswordManually" class="w-full">
+        <label :class="{ error: v$.agentPassword.$error }">
+          Senha
+          <input
+            v-model="agentPassword"
+            type="password"
+            placeholder="Senha do agente"
+            @input="v$.agentPassword.$touch"
+          />
+          <span v-if="v$.agentPassword.$error" class="message">
+            Senha é obrigatória e deve ter no mínimo 6 caracteres
+          </span>
+        </label>
+
+        <label :class="{ error: v$.agentPasswordConfirmation.$error }">
+          Confirmar Senha
+          <input
+            v-model="agentPasswordConfirmation"
+            type="password"
+            placeholder="Confirme a senha"
+            @input="v$.agentPasswordConfirmation.$touch"
+          />
+          <span v-if="v$.agentPasswordConfirmation.$error" class="message">
+            As senhas não coincidem
+          </span>
         </label>
       </div>
 

@@ -4,15 +4,15 @@ import { EmailQuoteExtractor } from '../emailQuoteExtractor.js';
 const SAMPLE_EMAIL_HTML = `
 <p>method</p>
 <blockquote>
-<p>On Mon, Sep 29, 2025 at 5:18 PM John <a href="mailto:shivam@chatwoot.com">shivam@chatwoot.com</a> wrote:</p>
+<p>On Mon, Sep 29, 2025 at 5:18 PM John <a href="mailto:shivam@starchats.com.br">shivam@starchats.com.br</a> wrote:</p>
 <p>Hi</p>
 <blockquote>
-<p>On Mon, Sep 29, 2025 at 5:17 PM Shivam Mishra <a href="mailto:shivam@chatwoot.com">shivam@chatwoot.com</a> wrote:</p>
+<p>On Mon, Sep 29, 2025 at 5:17 PM Shivam Mishra <a href="mailto:shivam@starchats.com.br">shivam@starchats.com.br</a> wrote:</p>
 <p>Yes, it is.</p>
 <p>On Mon, Sep 29, 2025 at 5:16 PM John from Shaneforwoot &lt; shaneforwoot@gmail.com&gt; wrote:</p>
 <blockquote>
 <p>Hey</p>
-<p>On Mon, Sep 29, 2025 at 4:59 PM John shivam@chatwoot.com wrote:</p>
+<p>On Mon, Sep 29, 2025 at 4:59 PM John shivam@starchats.com.br wrote:</p>
 <p>This is another quoted quoted text reply</p>
 <p>This is nice</p>
 <p>On Mon, Sep 29, 2025 at 4:21 PM John from Shaneforwoot &lt; &gt; shaneforwoot@gmail.com&gt; wrote:</p>

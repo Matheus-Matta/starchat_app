@@ -31,9 +31,7 @@ const updateAssistant = assistantDetails =>
     ...assistantDetails,
   });
 
-const i18nKey = computed(
-  () => `COSMOS.ASSISTANTS.${props.type.toUpperCase()}`
-);
+const i18nKey = computed(() => `COSMOS.ASSISTANTS.${props.type.toUpperCase()}`);
 
 const createAssistant = async assistantDetails => {
   try {

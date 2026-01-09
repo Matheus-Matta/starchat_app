@@ -16,7 +16,7 @@ RSpec.describe Evolution::SendMessageService do
     allow(Evolution::Client).to receive(:new).and_return(client_double)
     stub_const('ENV', ENV.to_hash.merge(
       'EVOLUTION_BASE_URL' => 'https://api.evolution.test',
-      'EVOLUTION_API_KEY' => 'test-key-123'
+      'AUTHENTICATION_API_KEY' => 'test-key-123'
     ))
   end
 

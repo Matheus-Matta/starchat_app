@@ -93,6 +93,9 @@ export default {
         time_window: 1,
         block_duration: 60,
       },
+      senderConfig: {
+        send_agent_name: false,
+      },
     };
   },
   computed: {
@@ -295,6 +298,16 @@ export default {
       return false;
     },
 
+    isSenderNameConfigurable() {
+      return (
+        this.isATwilioChannel ||
+        this.isATwitterInbox ||
+        this.isAFacebookInbox ||
+        this.isAWhatsAppChannel ||
+        this.isEvolutionInbox
+      );
+    },
+
     instagramUnauthorized() {
       return this.isAnInstagramChannel && this.inbox?.reauthorization_required;
     },
@@ -477,9 +490,11 @@ export default {
           : '';
         this.antiSpamConfig = this.inbox.anti_spam_config || {
           active: false,
-          max_messages: 5,
           time_window: 1,
           block_duration: 60,
+        };
+        this.senderConfig = this.inbox.sender_config || {
+          send_agent_name: false,
         };
 
         // Set initial tab after inbox data is loaded
@@ -505,6 +520,7 @@ export default {
           sender_name_type: this.senderNameType,
           business_name: this.businessName || null,
           anti_spam_config: this.antiSpamConfig,
+          sender_config: this.senderConfig,
           channel: {
             widget_color: this.inbox.widget_color,
             website_url: this.channelWebsiteUrl,
@@ -612,7 +628,10 @@ export default {
       />
       <div v-if="selectedTabKey === 'inbox-settings'" class="mx-8">
         <SettingsSection
-          :title="$t('INBOX_MGMT.SETTINGS_POPUP.INBOX_UPDATE_TITLE')"
+          :title="
+            $t('INBOX_MGMT.SETTINGS_POPUP.INBOX_UPDATE_TITLE_GENERAL') ||
+            'General'
+          "
           :sub-title="$t('INBOX_MGMT.SETTINGS_POPUP.INBOX_UPDATE_SUB_TEXT')"
           :show-border="false"
         >
@@ -960,6 +979,28 @@ export default {
               :label="$t('INBOX_MGMT.ANTI_SPAM.TIME_WINDOW')"
             />
           </div>
+        </SettingsSection>
+
+        <SettingsSection
+          v-if="isSenderNameConfigurable"
+          :title="$t('INBOX_MGMT.SENDER_CONFIG.TITLE')"
+          :sub-title="$t('INBOX_MGMT.SENDER_CONFIG.DESCRIPTION')"
+          :show-border="false"
+        >
+          <label class="pb-4">
+            {{ $t('INBOX_MGMT.SENDER_CONFIG.SEND_AGENT_NAME') }}
+            <select v-model="senderConfig.send_agent_name">
+              <option :value="true">
+                {{ $t('INBOX_MGMT.EDIT.EMAIL_COLLECT_BOX.ENABLED') }}
+              </option>
+              <option :value="false">
+                {{ $t('INBOX_MGMT.EDIT.EMAIL_COLLECT_BOX.DISABLED') }}
+              </option>
+            </select>
+            <p class="pb-1 text-sm not-italic text-n-slate-11">
+              {{ $t('INBOX_MGMT.SENDER_CONFIG.SEND_AGENT_NAME_HELP') }}
+            </p>
+          </label>
         </SettingsSection>
 
         <SettingsSection

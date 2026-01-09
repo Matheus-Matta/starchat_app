@@ -19,8 +19,8 @@ RSpec.describe SlackUnfurlJob do
         unfurl_id: 'C7NQEAE5Q.1695111587.937099.7e240338c6d2053fb49f56808e7c1f619f6ef317c39ebc59fc4af1cc30dce49b',
         channel: 'G01354F6A6Q',
         links: [{
-          url: "https://qa.chatwoot.com/app/accounts/#{hook.account_id}/conversations/#{conversation.display_id}",
-          domain: 'qa.chatwoot.com'
+          url: "https://qa.starchats.com.br/app/accounts/#{hook.account_id}/conversations/#{conversation.display_id}",
+          domain: 'qa.starchats.com.br'
         }]
       },
       type: 'event_callback',
@@ -75,7 +75,7 @@ RSpec.describe SlackUnfurlJob do
 
     context 'when another account URL is shared' do
       before do
-        link_shared[:event][:links][0][:url] = 'https://qa.chatwoot.com/app/accounts/123/conversations/123'
+        link_shared[:event][:links][0][:url] = 'https://qa.starchats.com.br/app/accounts/123/conversations/123'
       end
 
       it 'does not unfurl' do

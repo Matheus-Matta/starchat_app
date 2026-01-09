@@ -10,6 +10,7 @@ import {
   onMounted,
   defineEmits,
 } from 'vue';
+
 import { useStore } from 'vuex';
 import { useRoute, useRouter } from 'vue-router';
 import {
@@ -63,6 +64,7 @@ import {
 import {
   getUserPermissions,
   filterItemsByPermission,
+  getUserRole,
 } from 'dashboard/helper/permissionsHelper.js';
 import { matchesFilters } from '../store/modules/conversations/helpers/filterHelpers';
 import { CONVERSATION_EVENTS } from '../helper/AnalyticsHelper/events';
@@ -198,15 +200,31 @@ const userPermissions = computed(() => {
 });
 
 const assigneeTabItems = computed(() => {
-  return filterItemsByPermission(
+  const tabs = filterItemsByPermission(
     ASSIGNEE_TYPE_TAB_PERMISSIONS,
     userPermissions.value,
     item => item.permissions
-  ).map(({ key, count: countKey }) => ({
-    key,
-    name: t(`CHAT_LIST.ASSIGNEE_TYPE_TABS.${key}`),
-    count: conversationStats.value[countKey] || 0,
-  }));
+  );
+
+  return tabs
+    .filter(({ key }) => {
+      if (key === 'unassigned') {
+        const role = getUserRole(currentUser.value, currentAccountId.value);
+        if (role === 'custom_role') {
+          return (
+            userPermissions.value.includes('conversation_unassigned_manage') ||
+            userPermissions.value.includes('conversation_manage') ||
+            userPermissions.value.includes('conversation_team_manage')
+          );
+        }
+      }
+      return true;
+    })
+    .map(({ key, count: countKey }) => ({
+      key,
+      name: t(`CHAT_LIST.ASSIGNEE_TYPE_TABS.${key}`),
+      count: conversationStats.value[countKey] || 0,
+    }));
 });
 
 const showAssigneeInConversationCard = computed(() => {
@@ -269,6 +287,17 @@ const conversationListPagination = computed(() => {
 });
 
 const conversationFilters = computed(() => {
+  let finalTeamId = props.teamId || undefined;
+  if (activeAssigneeTab.value === 'unassigned') {
+    const hasUnassignedPerm =
+      userPermissions.value.includes('conversation_unassigned_manage') ||
+      userPermissions.value.includes('conversation_manage');
+
+    if (hasUnassignedPerm) {
+      finalTeamId = undefined;
+    }
+  }
+
   return {
     inboxId: props.conversationInbox ? props.conversationInbox : undefined,
     assigneeType: activeAssigneeTab.value,
@@ -276,7 +305,7 @@ const conversationFilters = computed(() => {
     sortBy: activeSortBy.value,
     page: conversationListPagination.value,
     labels: props.label ? [props.label] : undefined,
-    teamId: props.teamId || undefined,
+    teamId: finalTeamId,
     conversationType: props.conversationType || undefined,
   };
 });
@@ -339,7 +368,17 @@ const conversationList = computed(() => {
     });
   }
 
-  return localConversationList;
+  // Deduplicate and filter invalid items to prevent Virtual Scroller errors
+  const uniqueMap = new Map();
+  const uniqueList = [];
+  localConversationList.forEach(item => {
+    if (item && item.id && !uniqueMap.has(item.id)) {
+      uniqueMap.set(item.id, true);
+      uniqueList.push(item);
+    }
+  });
+
+  return uniqueList;
 });
 
 const showEndOfListMessage = computed(() => {
@@ -918,29 +957,8 @@ watch(conversationFilters, (newVal, oldVal) => {
       class="flex-1 overflow-hidden conversations-list hover:overflow-y-auto"
       :class="{ 'overflow-hidden': isContextMenuOpen }"
     >
-      <DynamicScroller
-        ref="conversationDynamicScroller"
-        :items="conversationList"
-        :min-item-size="24"
-        class="w-full h-full overflow-auto"
-      >
-        <template #default="{ item, index, active }">
-          <!--
-            If we encounter resizing issues, we can set the `watchData` prop to true
-            this will deeply watch the entire object instead of just size dependencies
-            But it can impact performance
-          -->
-          <DynamicScrollerItem
-            :item="item"
-            :active="active"
-            :data-index="index"
-            :size-dependencies="[
-              item.messages,
-              item.labels,
-              item.uuid,
-              item.inbox_id,
-            ]"
-          >
+      <div class="w-full h-full overflow-auto">
+        <div v-for="item in conversationList" :key="item.id">
             <ConversationItem
               :source="item"
               :label="label"
@@ -951,12 +969,11 @@ watch(conversationFilters, (newVal, oldVal) => {
               @select-conversation="selectConversation"
               @de-select-conversation="deSelectConversation"
             />
-          </DynamicScrollerItem>
-        </template>
-        <template #after>
-          <div v-if="chatListLoading" class="flex justify-center my-4">
+        </div>
+        
+        <div v-if="chatListLoading" class="flex justify-center my-4">
             <Spinner class="text-n-brand" />
-          </div>
+        </div>
           <p
             v-else-if="showEndOfListMessage"
             class="p-4 text-center text-n-slate-11"
@@ -968,8 +985,7 @@ watch(conversationFilters, (newVal, oldVal) => {
             :options="intersectionObserverOptions"
             @observed="loadMoreConversations"
           />
-        </template>
-      </DynamicScroller>
+      </div>
     </div>
     <Dialog
       ref="deleteConversationDialogRef"

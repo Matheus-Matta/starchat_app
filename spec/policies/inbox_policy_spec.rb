@@ -32,4 +32,19 @@ RSpec.describe InboxPolicy, type: :policy do
       it { expect(inbox_policy).to permit(agent_context, inbox) }
     end
   end
+
+  describe 'Scope' do
+    let!(:team) { create(:team, account: account) }
+    let!(:team_inbox) { create(:inbox, account: account) }
+    let!(:team_conversation) { create(:conversation, account: account, inbox: team_inbox, team: team) }
+    
+    before do
+       create(:team_member, user: agent, team: team)
+    end
+
+    it 'includes inbox with team conversation for agent' do
+      scope = Pundit.policy_scope!(agent_context, Inbox)
+      expect(scope).to include(team_inbox)
+    end
+  end
 end
