@@ -29,6 +29,7 @@ master.key
 
 # Ignore env files
 .env
+.env.teste
 
 public/uploads
 public/packs*
@@ -106,3 +107,4 @@ CLAUDE.local.md
 .histoire
 \*.orig
 \*.mergebak
+.env.teste
