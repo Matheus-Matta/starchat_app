@@ -52,8 +52,10 @@ COPY Gemfile Gemfile.lock ./
 
 RUN bundle config set --local force_ruby_platform true \
   && bundle config set --local path "${BUNDLE_PATH}" \
+  && bundle config set --global retry 5 \
+  && bundle config set --global timeout 30 \
   && if [ "$RAILS_ENV" = "production" ]; then bundle config set without "development test"; fi \
-  && bundle install -j 4 -r 3
+  && bundle install -j 4 -r 5
 
 COPY package.json pnpm-lock.yaml ./
 RUN pnpm install --frozen-lockfile
