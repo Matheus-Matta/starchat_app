@@ -12,11 +12,11 @@ RSpec.describe Api::V1::Accounts::Channels::EvolutionChannelController, type: :c
     allow(ENV).to receive(:[]).and_call_original
     allow(ENV).to receive(:fetch).and_call_original
     
-    allow(ENV).to receive(:[]).with('EVOLUTION_API_KEY').and_return('test-api-key')
+    allow(ENV).to receive(:[]).with('AUTHENTICATION_API_KEY').and_return('test-api-key')
     allow(ENV).to receive(:[]).with('EVOLUTION_BASE_URL').and_return('http://evolution.test')
     
     allow(ENV).to receive(:fetch).with('EVOLUTION_BASE_URL').and_return('http://evolution.test')
-    allow(ENV).to receive(:fetch).with('EVOLUTION_API_KEY').and_return('test-api-key')
+    allow(ENV).to receive(:fetch).with('AUTHENTICATION_API_KEY').and_return('test-api-key')
     allow(ENV).to receive(:fetch).with('EVOLUTION_HTTP_OPEN_TIMEOUT', 180).and_return(180)
     allow(ENV).to receive(:fetch).with('EVOLUTION_HTTP_READ_TIMEOUT', 180).and_return(180)
   end

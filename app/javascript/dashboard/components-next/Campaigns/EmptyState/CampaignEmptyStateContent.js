@@ -17,7 +17,7 @@ export const ONGOING_CAMPAIGN_EMPTY_STATE_CONTENT = [
     enabled: true,
     campaign_type: 'ongoing',
     trigger_rules: {
-      url: 'https://www.chatwoot.com/features/chatbot/',
+      url: 'https://www.starchats.com.br/features/chatbot/',
       time_on_page: 10,
     },
     trigger_only_during_business_hours: true,
@@ -42,7 +42,7 @@ export const ONGOING_CAMPAIGN_EMPTY_STATE_CONTENT = [
     enabled: false,
     campaign_type: 'ongoing',
     trigger_rules: {
-      url: 'https://www.chatwoot.com/pricings',
+      url: 'https://www.starchats.com.br/pricings',
       time_on_page: 10,
     },
     trigger_only_during_business_hours: false,
@@ -67,7 +67,7 @@ export const ONGOING_CAMPAIGN_EMPTY_STATE_CONTENT = [
     enabled: false,
     campaign_type: 'ongoing',
     trigger_rules: {
-      url: 'https://{*.}?chatwoot.com/apps/account/*/settings/inboxes/new/',
+      url: 'https://{*.}?starchats.com.br/apps/account/*/settings/inboxes/new/',
       time_on_page: 10,
     },
     trigger_only_during_business_hours: false,

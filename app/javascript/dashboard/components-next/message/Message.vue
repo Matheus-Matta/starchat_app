@@ -196,9 +196,7 @@ const isBotOrAgentMessage = computed(() => {
   }
 
   if (
-    [SENDER_TYPES.AGENT_BOT, SENDER_TYPES.COSMOS_ASSISTANT].includes(
-      senderType
-    )
+    [SENDER_TYPES.AGENT_BOT, SENDER_TYPES.COSMOS_ASSISTANT].includes(senderType)
   ) {
     return true;
   }

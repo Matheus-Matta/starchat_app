@@ -30,6 +30,8 @@ const getters = {
 
     const permissions = getUserPermissions(currentUser, currentAccountId);
     const userRole = getUserRole(currentUser, currentAccountId);
+    const myTeams = rootGetters['teams/getMyTeams'] || [];
+    const userTeamIds = myTeams.map(team => team.id);
 
     return allConversations
       .filter(conversation => {
@@ -41,7 +43,8 @@ const getters = {
           conversation,
           userRole,
           permissions,
-          currentUserId
+          currentUserId,
+          userTeamIds
         );
 
         return matchesFilterResult && allowedForRole;
@@ -95,12 +98,37 @@ const getters = {
     const hasAppliedFilters = _state.appliedFilters.length !== 0;
     return hasAppliedFilters ? filterQueryGenerator(_state.appliedFilters) : [];
   },
-  getUnAssignedChats: _state => activeFilters => {
-    return _state.allConversations.filter(conversation => {
+  getUnAssignedChats: (_state, _, __, rootGetters) => activeFilters => {
+    const currentUser = rootGetters.getCurrentUser;
+    const currentUserId = rootGetters.getCurrentUser.id;
+    const currentAccountId = rootGetters.getCurrentAccountId;
+
+    const permissions = getUserPermissions(currentUser, currentAccountId);
+    const userRole = getUserRole(currentUser, currentAccountId);
+    const myTeams = rootGetters['teams/getMyTeams'] || [];
+    
+    // If user has permission to manage unassigned, we don't restrict by team
+    // Otherwise, we pass team IDs to allow access to team conversations
+    const hasUnassignedPermission = 
+      permissions.includes('conversation_unassigned_manage') || 
+      permissions.includes('conversation_manage');
+      
+    const userTeamIds = hasUnassignedPermission ? [] : myTeams.map(team => team.id);
+
+    const filtered = _state.allConversations.filter(conversation => {
       const isUnAssigned = !conversation.meta.assignee;
       const shouldFilter = applyPageFilters(conversation, activeFilters);
-      return isUnAssigned && shouldFilter;
+      const allowedForRole = applyRoleFilter(
+        conversation,
+        userRole,
+        permissions,
+        currentUserId,
+        userTeamIds
+      );
+
+      return isUnAssigned && shouldFilter && allowedForRole;
     });
+    return filtered;
   },
   getAllStatusChats: (_state, _, __, rootGetters) => activeFilters => {
     const currentUser = rootGetters.getCurrentUser;
@@ -109,6 +137,8 @@ const getters = {
 
     const permissions = getUserPermissions(currentUser, currentAccountId);
     const userRole = getUserRole(currentUser, currentAccountId);
+    const myTeams = rootGetters['teams/getMyTeams'] || [];
+    const userTeamIds = myTeams.map(team => team.id);
 
     return _state.allConversations.filter(conversation => {
       const shouldFilter = applyPageFilters(conversation, activeFilters);
@@ -116,7 +146,8 @@ const getters = {
         conversation,
         userRole,
         permissions,
-        currentUserId
+        currentUserId,
+        userTeamIds
       );
 
       return shouldFilter && allowedForRole;

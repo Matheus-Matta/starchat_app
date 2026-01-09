@@ -11,9 +11,7 @@ const router = useRouter();
 const { uiSettings } = useUISettings();
 const route = useRoute();
 
-const assistants = computed(
-  () => store.getters['cosmosAssistants/getRecords']
-);
+const assistants = computed(() => store.getters['cosmosAssistants/getRecords']);
 
 const isAssistantPresent = assistantId => {
   return !!assistants.value.find(a => a.id === Number(assistantId));

@@ -3,14 +3,14 @@ info:
   title: Chatwoot - Client API
   description: Client API endpoints for Chatwoot
   version: 1.1.0
-  termsOfService: https://www.chatwoot.com/terms-of-service/
+  termsOfService: https://www.starchats.com.br/terms-of-service/
   contact:
-    email: hello@chatwoot.com
+    email: hello@starchats.com.br
   license:
     name: MIT License
     url: https://opensource.org/licenses/MIT
 servers:
-  - url: https://app.chatwoot.com/
+  - url: https://app.starchats.com.br/
 tags:
   - name: Contacts API
     description: APIs for managing contacts from client applications
@@ -30,4 +30,4 @@ components:
       type: apiKey
       in: header
       name: api_access_token
-      description: This token can be obtained by visiting the profile page or via rails console. Provides access to endpoints based on the user permissions levels. 
+      description: This token can be obtained by visiting the profile page or via rails console. Provides access to endpoints based on the user permissions levels.

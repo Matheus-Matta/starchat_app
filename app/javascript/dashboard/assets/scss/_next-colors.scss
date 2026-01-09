@@ -30,17 +30,17 @@
     --iris-12: 39 41 98;
 
     --blue-1: 241 236 254;
-    --blue-2: 233 217 252;  
-    --blue-3: 216 180 254;  
-    --blue-4: 192 132 252; 
-    --blue-5: 168 85  247; 
-    --blue-6: 129 70  236;  
-    --blue-7: 81  56  238; 
-    --blue-8: 70  48  206;  
-    --blue-9: 58  39  175;  
-    --blue-10: 47  32  144; 
-    --blue-11: 36  24  112;
-    --blue-12: 23  15  75;
+    --blue-2: 233 217 252;
+    --blue-3: 216 180 254;
+    --blue-4: 192 132 252;
+    --blue-5: 168 85 247;
+    --blue-6: 129 70 236;
+    --blue-7: 81 56 238;
+    --blue-8: 70 48 206;
+    --blue-9: 58 39 175;
+    --blue-10: 47 32 144;
+    --blue-11: 36 24 112;
+    --blue-12: 23 15 75;
 
     --ruby-1: 255 252 253;
     --ruby-2: 255 247 248;
@@ -118,18 +118,19 @@
 
   .dark {
     // slate
-    --slate-1: 17 17 19;
-    --slate-2: 24 25 27;
-    --slate-3: 33 34 37;
-    --slate-4: 39 42 45;
-    --slate-5: 46 49 53;
-    --slate-6: 54 58 63;
-    --slate-7: 67 72 78;
-    --slate-8: 90 97 105;
-    --slate-9: 105 110 119;
-    --slate-10: 119 123 132;
-    --slate-11: 176 180 186;
-    --slate-12: 237 238 240;
+    // slate (Tinted High-Quality Dark Mode)
+    --slate-1: 18 17 22; // Deepest background
+    --slate-2: 24 23 29; // Card background
+    --slate-3: 34 32 40; // UI element background
+    --slate-4: 42 40 50; // Hover states
+    --slate-5: 50 48 60; // Active states
+    --slate-6: 60 58 72; // Borders
+    --slate-7: 74 72 88; // UI Borders
+    --slate-8: 96 94 112; // Dark Icons
+    --slate-9: 112 110 130;
+    --slate-10: 130 128 148;
+    --slate-11: 168 166 182; // Low contrast text
+    --slate-12: 236 235 240; // High contrast text
 
     --iris-1: 19 19 30;
     --iris-2: 23 22 37;
@@ -144,15 +145,15 @@
     --iris-11: 158 177 255;
     --iris-12: 224 223 254;
 
-    --blue-1: 18 12 60;  
-    --blue-2: 23 15 75;   
-    --blue-3: 36 24 112;  
-    --blue-4: 47 32 144;  
-    --blue-5: 58 39 175;  
-    --blue-6: 70 48 206;  
-    --blue-7: 81 56 238;  
-    --blue-8: 129 70 236; 
-    --blue-9: 168 85 247; 
+    --blue-1: 18 12 60;
+    --blue-2: 23 15 75;
+    --blue-3: 36 24 112;
+    --blue-4: 47 32 144;
+    --blue-5: 58 39 175;
+    --blue-6: 70 48 206;
+    --blue-7: 81 56 238;
+    --blue-8: 129 70 236;
+    --blue-9: 168 85 247;
     --blue-10: 192 132 252;
     --blue-11: 216 180 254;
     --blue-12: 233 217 252;
@@ -209,11 +210,11 @@
     --gray-11: 180 180 180;
     --gray-12: 238 238 238;
 
-    --background-color: 18 18 19;
-    --border-strong: 52 52 52;
-    --border-weak: 38 38 42;
-    --solid-1: 23 23 26;
-    --solid-2: 29 30 36;
+    --background-color: 18 17 22;
+    --border-strong: 55 53 66;
+    --border-weak: 40 38 48;
+    --solid-1: 24 23 29;
+    --solid-2: 30 29 36;
     --solid-3: 44 45 54;
     --solid-active: 53 57 66;
     --solid-amber: 42 37 30;

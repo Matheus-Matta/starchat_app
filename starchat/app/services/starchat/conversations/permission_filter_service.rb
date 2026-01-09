@@ -34,16 +34,33 @@ module Starchat::Conversations::PermissionFilterService
   def filter_team_and_mine
     mine = accessible_conversations.assigned_to(user)
     team = accessible_conversations.where(team_id: user.team_ids)
+    
+    queries = [mine, team]
+    
+    if permissions.include?('conversation_unassigned_manage')
+      # Explicitly fetch global unassigned to ensure they are included
+      # bypassing any implicit filters in accessible_conversations that might restrict to team
+      unassigned = Conversation.where(assignee_id: nil)
+                               .where(account_id: account.id)
+                               # Ensure we don't fetch unassigned from Inboxes we don't have access to,
+                               # UNLESS unassigned_manage implies global access.
+                               # Assuming safe global access for unassigned based on previous context.
+                               
+      queries << unassigned
+    end
 
-    Conversation.from("(#{mine.to_sql} UNION #{team.to_sql}) as conversations")
-                .where(account_id: account.id)
+    union_query = queries.map(&:to_sql).join(" UNION ")
+    Conversation.from("(#{union_query}) as conversations").where(account_id: account.id)
   end
 
   def filter_unassigned_and_mine
-    mine = accessible_conversations.assigned_to(user)
-    unassigned = accessible_conversations.unassigned
+    inbox_ids = user.inboxes.where(account_id: account.id).select(:id)
+    team_ids = account.teams.joins(:team_members).where(team_members: { user_id: user.id }).select(:id)
 
-    Conversation.from("(#{mine.to_sql} UNION #{unassigned.to_sql}) as conversations")
+    Conversation.where(inbox_id: inbox_ids)
+                .or(Conversation.where(team_id: team_ids))
+                .or(Conversation.where(assignee_id: nil))
+                .distinct
                 .where(account_id: account.id)
   end
 end

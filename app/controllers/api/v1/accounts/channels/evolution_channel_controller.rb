@@ -1,15 +1,25 @@
 require 'timeout'
 class Api::V1::Accounts::Channels::EvolutionChannelController < Api::V1::Accounts::BaseController
-  before_action :load_channel, only: %i[show connect restart disconnect]
+  before_action :load_channel, only: %i[show connect restart disconnect settings update_settings]
 
   def create
     name = extract_name!(params[:evolution_channel])
 
+    # Cria canal e inbox primeiro para ter IDs e gerar o instance_name correto via modelo
     channel = Channel::Evolution.create!(account: Current.account)
     inbox   = Inbox.create!(name:, account: Current.account, channel:)
-    inst    = "acc#{Current.account.id}_inbox#{inbox.id}"
+    
+    # Reload para garantir que pegamos o instance_name gerado pelo callback
+    channel.reload 
+    inst = channel.instance_name
 
-    evo     = evo_client(api_key: ENV['EVOLUTION_API_KEY'])
+    # Se por acaso falhar callback (improvável), gera manual
+    if inst.blank?
+      channel.send(:assign_instance_name!)
+      inst = channel.instance_name
+    end
+
+    evo     = evo_client(api_key: ENV['AUTHENTICATION_API_KEY'])
     webhook = "#{base_host}/webhooks/evolution/#{inbox.id}"
 
     payload = build_create_payload(
@@ -19,11 +29,10 @@ class Api::V1::Accounts::Channels::EvolutionChannelController < Api::V1::Account
     )
 
     evo_resp = to_hash(evo.create_instance(payload))
-    api_key  = evo_resp['hash'].presence || ENV['EVOLUTION_API_KEY']
+    api_key  = evo_resp['hash'].presence || ENV['AUTHENTICATION_API_KEY']
     inst_id  = evo_resp['instanceId'] || evo_resp.dig('instance', 'instanceId') || evo_resp.dig('instance', 'id')
 
     channel.update!(
-      instance_name:   inst,
       api_key:         api_key,
       webhook_url:     webhook,
       provider_config: { instance_id: inst_id }.compact
@@ -48,7 +57,7 @@ class Api::V1::Accounts::Channels::EvolutionChannelController < Api::V1::Account
 
   # GET /api/v1/accounts/:account_id/channels/evolution_channel/:id
   def show
-    render json: { channel: @channel }
+    render json: { channel: @channel.as_json(methods: :phone_number) }
   end
 
   # POST /api/v1/accounts/:account_id/channels/evolution_channel/:id/connect
@@ -60,7 +69,7 @@ class Api::V1::Accounts::Channels::EvolutionChannelController < Api::V1::Account
       raw = evo.connect_qr(@channel.instance_name) # GET /instance/connect/{instance}
       h   = to_hash(raw)
 
-      return broadcast_open!(@channel) if read_instance_state(h) == 'open'
+      return broadcast_open!(@channel, phone_number: extract_phone_number(h)) if read_instance_state(h) == 'open'
 
       qr = extract_qr(h)
       return handle_qr_and_render(@channel, qr)
@@ -74,7 +83,7 @@ class Api::V1::Accounts::Channels::EvolutionChannelController < Api::V1::Account
         raw2 = evo.connect_qr(@channel.instance_name)
         h2   = to_hash(raw2)
 
-        return broadcast_open!(@channel) if read_instance_state(h2) == 'open'
+        return broadcast_open!(@channel, phone_number: extract_phone_number(h2)) if read_instance_state(h2) == 'open'
 
         qr2 = extract_qr(h2)
         return handle_qr_and_render(@channel, qr2)
@@ -99,7 +108,7 @@ class Api::V1::Accounts::Channels::EvolutionChannelController < Api::V1::Account
       @channel.update_state!(new_state)
 
       if %w[open connected].include?(new_state)
-        broadcast_open!(@channel)
+        broadcast_open!(@channel, phone_number: extract_phone_number(h))
       else
         connect
       end
@@ -140,6 +149,72 @@ class Api::V1::Accounts::Channels::EvolutionChannelController < Api::V1::Account
     render_error(e)
   end
 
+  # GET /api/v1/accounts/:account_id/channels/evolution_channel/:id/settings
+  def settings
+    evo = evo_client(@channel)
+    
+    # Fetch snake_case settings from Evolution
+    # ex: { "reject_call" => false, ... }
+    remote = evo.find_settings(@channel.instance_name)
+
+    # Convert to camelCase for frontend consistency
+    normalized = remote.transform_keys { |k| k.to_s.camelize(:lower) }
+
+    render json: normalized
+  rescue StandardError => e
+    Rails.logger.error("[Evolution] settings failed: #{e.class} #{e.message}")
+    
+    # Fallback: tentar usar configurações salvas localmente
+    stored = (@channel.provider_config || {})['settings']
+    if stored.present?
+      render json: stored.transform_keys { |k| k.to_s.camelize(:lower) }
+    elsif not_found_error?(e)
+      render json: {} 
+    else
+      render_error(e)
+    end
+  end
+
+  # PATCH /api/v1/accounts/:account_id/channels/evolution_channel/:id/settings
+  def update_settings
+    # Frontend sends camelCase settings
+    # payload: { rejectCall: true, msgCall: "...", ... }
+    
+    # Whitelist params
+    # Check if inside 'settings' (frontend usually wraps it)
+    source = params[:settings].present? ? params.require(:settings) : params
+
+    permitted = source.permit(
+      :rejectCall, :msgCall, :groupsIgnore, :alwaysOnline, 
+      :readMessages, :readStatus, :syncFullHistory, :wavoipToken,
+      :sendAgentName
+    ).to_h
+
+    # Force restricted values
+    permitted[:groupsIgnore] = true
+    permitted[:syncFullHistory] = false
+
+    # 1. Update DB (persist "desired" state)
+    conf = @channel.provider_config || {}
+    conf['settings'] = permitted
+    @channel.update!(provider_config: conf)
+
+    # 2. Push to Evolution
+    evo = evo_client(@channel)
+    updated = evo.set_settings(@channel.instance_name, permitted)
+
+    # Evolution returns object, we normalize again just in case (though POST returns 201 with body)
+    # The user said POST returns 201 with updated object.
+    
+    if updated.is_a?(Hash)
+      render json: updated.transform_keys { |k| k.to_s.camelize(:lower) }
+    else
+      render json: permitted # Fallback if empty response
+    end
+  rescue StandardError => e
+    render_error(e)
+  end
+
   private
 
   def handle_qr_and_render(channel, qr)
@@ -174,14 +249,15 @@ class Api::V1::Accounts::Channels::EvolutionChannelController < Api::V1::Account
       alwaysOnline: false,
       readMessages: false,
       readStatus:   false,
-      webhook: {
-        enabled:  true,
-        url:      webhook_url,
-        byEvents: false,   
-        base64:   true,
-        headers:  { 'Content-Type' => 'application/json' },
-        events:   get_events
-      },
+      # webhook: {
+      #   enabled:  true,
+      #   url:      webhook_url,
+      #   byEvents: false,   
+      #   base64:   false, # Forçar false para economizar banda
+      #   headers:  { 'Content-Type' => 'application/json' },
+      #   events:   get_events
+      # },
+
       rabbitmq: {
         enabled: true,
         events:  get_events
@@ -198,8 +274,7 @@ class Api::V1::Accounts::Channels::EvolutionChannelController < Api::V1::Account
       MESSAGES_UPDATE
       MESSAGES_DELETE
       MESSAGES_SET
-      CONTACTS_UPDATE
-      CONTACTS_SET
+      SEND_MESSAGE
     ]
   end
 
@@ -227,6 +302,13 @@ class Api::V1::Accounts::Channels::EvolutionChannelController < Api::V1::Account
     (h.dig('instance', 'state') || h['state']).to_s.downcase
   end
 
+  def extract_phone_number(h)
+    owner = h.dig('instance', 'owner') || h['owner']
+    return unless owner.present?
+
+    owner.split('@').first
+  end
+
   # ===== Infra =====
 
   def load_channel
@@ -236,7 +318,7 @@ class Api::V1::Accounts::Channels::EvolutionChannelController < Api::V1::Account
   def evo_client(channel = nil, api_key: nil)
     Evolution::Client.new(
       base_url:     ENV.fetch('EVOLUTION_BASE_URL'),
-      api_key:      channel&.api_key.presence || api_key.presence || ENV.fetch('EVOLUTION_API_KEY'),
+      api_key:      channel&.api_key.presence || api_key.presence || ENV.fetch('AUTHENTICATION_API_KEY'),
       open_timeout: Integer(ENV.fetch('EVOLUTION_HTTP_OPEN_TIMEOUT', 180)),
       read_timeout: Integer(ENV.fetch('EVOLUTION_HTTP_READ_TIMEOUT', 180))
     )
@@ -252,14 +334,21 @@ class Api::V1::Accounts::Channels::EvolutionChannelController < Api::V1::Account
     Rails.logger.error("[Evolution] WS broadcast error: #{e.class} #{e.message}")
   end
 
-  def broadcast_open!(channel)
+  def broadcast_open!(channel, phone_number: nil)
     channel.update_state!('open')
+
+    if phone_number.present?
+      channel.phone_number = phone_number
+      channel.save
+    end
+
     broadcast(channel.account_id, 'evolution.connection_update', {
       account_id: channel.account_id,
       inbox_id:   inbox_for(channel)&.id,
-      state:      'open'
+      state:      'open',
+      phone_number: channel.phone_number
     })
-    render json: { state: 'open' }
+    render json: { state: 'open', phone_number: channel.phone_number }
   end
 
   def base_host
@@ -304,7 +393,7 @@ class Api::V1::Accounts::Channels::EvolutionChannelController < Api::V1::Account
     )
 
     resp    = to_hash(evo.create_instance(payload))
-    api_key = resp['hash'].presence || channel.api_key.presence || ENV['EVOLUTION_API_KEY']
+    api_key = resp['hash'].presence || channel.api_key.presence || ENV['AUTHENTICATION_API_KEY']
     inst_id = resp['instanceId'] || resp.dig('instance', 'instanceId') || resp.dig('instance', 'id')
 
     channel.update!(

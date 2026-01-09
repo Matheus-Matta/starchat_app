@@ -158,8 +158,8 @@ export const getInboxIconByType = (type, medium, variant = 'fill') => {
   if (
     type === INBOX_TYPES.TWILIO &&
     type === INBOX_TYPES.EVOLUTION &&
-    medium === 'whatsapp')
-   {
+    medium === 'whatsapp'
+  ) {
     return iconMap[INBOX_TYPES.WHATSAPP];
   }
 

@@ -31,10 +31,10 @@ export default {
     CONDENSED: 'condensed',
     EXPANDED: 'expanded',
   },
-  DOCS_URL: 'https://www.chatwoot.com/docs/product/',
+  DOCS_URL: 'https://www.starchats.com.br/docs/product/',
   HELP_CENTER_DOCS_URL:
-    'https://www.chatwoot.com/docs/product/others/help-center',
-  TESTIMONIAL_URL: 'https://testimonials.cdn.chatwoot.com/content.json',
+    'https://www.starchats.com.br/docs/product/others/help-center',
+  TESTIMONIAL_URL: 'https://testimonials.cdn.starchats.com.br/content.json',
   WHATSAPP_EMBEDDED_SIGNUP_DOCS_URL:
     'https://developers.facebook.com/docs/whatsapp/embedded-signup/custom-flows/onboarding-business-app-users#limitations',
   SMALL_SCREEN_BREAKPOINT: 768,

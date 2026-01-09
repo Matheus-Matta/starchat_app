@@ -32,8 +32,8 @@ describe Integrations::Slack::SlackLinkUnfurlService do
           team_id: 'TLST3048H',
           api_app_id: 'A012S5UETV4',
           event: link_shared_event.merge(links: [{
-                                           url: "https://qa.chatwoot.com/app/accounts/1212/conversations/#{conversation.display_id}",
-                                           domain: 'qa.chatwoot.com'
+                                           url: "https://qa.starchats.com.br/app/accounts/1212/conversations/#{conversation.display_id}",
+                                           domain: 'qa.starchats.com.br'
                                          }], channel: 'G054F6A6Q'),
           type: 'event_callback',
           event_time: 1_588_623_033
@@ -53,8 +53,8 @@ describe Integrations::Slack::SlackLinkUnfurlService do
           team_id: 'TLST3048H',
           api_app_id: 'A012S5UETV4',
           event: link_shared_event.merge(links: [{
-                                           url: 'https://qa.chatwoot.com/app/accounts/1/conversations/1213',
-                                           domain: 'qa.chatwoot.com'
+                                           url: 'https://qa.starchats.com.br/app/accounts/1/conversations/1213',
+                                           domain: 'qa.starchats.com.br'
                                          }], channel: 'G054F6A6Q'),
           type: 'event_callback',
           event_time: 1_588_623_033
@@ -74,8 +74,8 @@ describe Integrations::Slack::SlackLinkUnfurlService do
           team_id: 'TLST3048H',
           api_app_id: 'A012S5UETV4',
           event: link_shared_event.merge(links: [{
-                                           url: "https://qa.chatwoot.com/app/accounts/1/conversations/#{conversation.display_id}",
-                                           domain: 'qa.chatwoot.com'
+                                           url: "https://qa.starchats.com.br/app/accounts/1/conversations/#{conversation.display_id}",
+                                           domain: 'qa.starchats.com.br'
                                          }]),
           type: 'event_callback',
           event_time: 1_588_623_033
@@ -87,7 +87,7 @@ describe Integrations::Slack::SlackLinkUnfurlService do
         expected_body = {
           'source' => 'conversations_history',
           'unfurl_id' => 'C7NQEAE5Q.1695111587.937099.7e240338c6d2053fb49f56808e7c1f619f6ef317c39ebc59fc4af1cc30dce49b',
-          'unfurls' => '{"https://qa.chatwoot.com/app/accounts/1/conversations/1":' \
+          'unfurls' => '{"https://qa.starchats.com.br/app/accounts/1/conversations/1":' \
                        '{"blocks":[{' \
                        '"type":"section",' \
                        '"fields":[{' \
@@ -101,7 +101,7 @@ describe Integrations::Slack::SlackLinkUnfurlService do
                        '{"type":"actions","elements":[{' \
                        '"type":"button",' \
                        '"text":{"type":"plain_text","text":"Open conversation","emoji":true},' \
-                       '"url":"https://qa.chatwoot.com/app/accounts/1/conversations/1",' \
+                       '"url":"https://qa.starchats.com.br/app/accounts/1/conversations/1",' \
                        '"action_id":"button-action"}]}]}}'
         }
 
@@ -109,7 +109,7 @@ describe Integrations::Slack::SlackLinkUnfurlService do
           .with(body: expected_body)
           .to_return(status: 200, body: '', headers: {})
         result = link_builder.perform
-        expect(result).to eq([{ url: 'https://qa.chatwoot.com/app/accounts/1/conversations/1', domain: 'qa.chatwoot.com' }])
+        expect(result).to eq([{ url: 'https://qa.starchats.com.br/app/accounts/1/conversations/1', domain: 'qa.starchats.com.br' }])
       end
     end
 
@@ -119,12 +119,12 @@ describe Integrations::Slack::SlackLinkUnfurlService do
           team_id: 'TLST3048H',
           api_app_id: 'A012S5UETV4',
           event: link_shared_event.merge(links: [{
-                                           url: "https://qa.chatwoot.com/app/accounts/1/conversations/#{conversation.display_id}",
-                                           domain: 'qa.chatwoot.com'
+                                           url: "https://qa.starchats.com.br/app/accounts/1/conversations/#{conversation.display_id}",
+                                           domain: 'qa.starchats.com.br'
                                          },
                                                  {
-                                                   url: "https://qa.chatwoot.com/app/accounts/1/conversations/#{conversation.display_id}",
-                                                   domain: 'qa.chatwoot.com'
+                                                   url: "https://qa.starchats.com.br/app/accounts/1/conversations/#{conversation.display_id}",
+                                                   domain: 'qa.starchats.com.br'
                                                  }]),
           type: 'event_callback',
           event_time: 1_588_623_033
@@ -136,7 +136,7 @@ describe Integrations::Slack::SlackLinkUnfurlService do
         expected_body = {
           'source' => 'conversations_history',
           'unfurl_id' => 'C7NQEAE5Q.1695111587.937099.7e240338c6d2053fb49f56808e7c1f619f6ef317c39ebc59fc4af1cc30dce49b',
-          'unfurls' => '{"https://qa.chatwoot.com/app/accounts/1/conversations/1":' \
+          'unfurls' => '{"https://qa.starchats.com.br/app/accounts/1/conversations/1":' \
                        '{"blocks":[{' \
                        '"type":"section",' \
                        '"fields":[{' \
@@ -150,7 +150,7 @@ describe Integrations::Slack::SlackLinkUnfurlService do
                        '{"type":"actions","elements":[{' \
                        '"type":"button",' \
                        '"text":{"type":"plain_text","text":"Open conversation","emoji":true},' \
-                       '"url":"https://qa.chatwoot.com/app/accounts/1/conversations/1",' \
+                       '"url":"https://qa.starchats.com.br/app/accounts/1/conversations/1",' \
                        '"action_id":"button-action"}]}]}}'
         }
         stub_request(:post, 'https://slack.com/api/chat.unfurl')

@@ -8,8 +8,7 @@ const imageCards = {
   meta_description:
     'Watch how our latest feature can transform your workflow with powerful automation tools.',
   slug: 'chatwoot-cosmos',
-  feature_image:
-    'https://www.chatwoot.com/images/cosmos/cosmos_thumbnail.jpg',
+  feature_image: 'https://www.starchats.com.br/images/cosmos/cosmos_thumbnail.jpg',
 };
 
 const handleReadMore = () => {

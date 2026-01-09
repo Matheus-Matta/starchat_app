@@ -11,7 +11,14 @@ class InboxPolicy < ApplicationPolicy
     end
 
     def resolve
-      user.assigned_inboxes
+      return scope if @account_user.administrator?
+
+      direct_inbox_ids = user.inbox_members.select(:inbox_id)
+      
+      team_ids = account.teams.joins(:team_members).where(team_members: { user_id: user.id }).select(:id)
+      team_inbox_ids = Conversation.where(account_id: account.id, team_id: team_ids).select(:inbox_id)
+      
+      scope.where(id: direct_inbox_ids).or(scope.where(id: team_inbox_ids)).distinct
     end
   end
 

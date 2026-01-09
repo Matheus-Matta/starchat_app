@@ -12,7 +12,7 @@ class SendReplyJob < ApplicationJob
     'Channel::Email' => ::Email::SendOnEmailService,
     'Channel::WebWidget' => ::Messages::SendEmailNotificationService,
     'Channel::Api' => ::Messages::SendEmailNotificationService,
-    'Channel::Evolution' => ::Evolution::SendMessageService
+    'Channel::Evolution' => ::Evolution::BatchSendService
   }.freeze
 
   def perform(message_id)

@@ -63,7 +63,7 @@ class Whatsapp::Providers::Whatsapp360DialogService < Whatsapp::Providers::BaseS
       headers: api_headers,
       body: {
         to: phone_number,
-        text: { body: message.outgoing_content },
+        text: { body: message_content(message) },
         type: 'text'
       }.to_json
     )

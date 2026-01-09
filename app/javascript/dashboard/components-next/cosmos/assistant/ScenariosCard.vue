@@ -213,9 +213,7 @@ const renderInstruction = instruction => () =>
 
       <TextArea
         v-model="state.description"
-        :label="
-          t('COSMOS.ASSISTANTS.SCENARIOS.ADD.NEW.FORM.DESCRIPTION.LABEL')
-        "
+        :label="t('COSMOS.ASSISTANTS.SCENARIOS.ADD.NEW.FORM.DESCRIPTION.LABEL')"
         :placeholder="
           t('COSMOS.ASSISTANTS.SCENARIOS.ADD.NEW.FORM.DESCRIPTION.PLACEHOLDER')
         "
@@ -225,9 +223,7 @@ const renderInstruction = instruction => () =>
       />
       <Editor
         v-model="state.instruction"
-        :label="
-          t('COSMOS.ASSISTANTS.SCENARIOS.ADD.NEW.FORM.INSTRUCTION.LABEL')
-        "
+        :label="t('COSMOS.ASSISTANTS.SCENARIOS.ADD.NEW.FORM.INSTRUCTION.LABEL')"
         :placeholder="
           t('COSMOS.ASSISTANTS.SCENARIOS.ADD.NEW.FORM.INSTRUCTION.PLACEHOLDER')
         "

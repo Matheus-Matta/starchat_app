@@ -16,23 +16,23 @@ RSpec.describe PortalInstructionsMailer do
 
     context 'when target domain is available' do
       it 'sends email with cname instructions' do
-        with_modified_env HELPCENTER_URL: 'https://help.chatwoot.com' do
+        with_modified_env HELPCENTER_URL: 'https://help.starchats.com.br' do
           mail = described_class.send_cname_instructions(portal: portal, recipient_email: recipient_email).deliver_now
 
           expect(mail.to).to eq([recipient_email])
           expect(mail.subject).to eq("Finish setting up #{portal.custom_domain}")
-          expect(mail.body.encoded).to include('help.example.com CNAME help.chatwoot.com')
+          expect(mail.body.encoded).to include('help.example.com CNAME help.starchats.com.br')
         end
       end
     end
 
     context 'when helpcenter url is not available but frontend url is' do
       it 'uses frontend url as target domain' do
-        with_modified_env HELPCENTER_URL: '', FRONTEND_URL: 'https://app.chatwoot.com' do
+        with_modified_env HELPCENTER_URL: '', FRONTEND_URL: 'https://app.starchats.com.br' do
           mail = described_class.send_cname_instructions(portal: portal, recipient_email: recipient_email).deliver_now
 
           expect(mail.to).to eq([recipient_email])
-          expect(mail.body.encoded).to include('help.example.com CNAME app.chatwoot.com')
+          expect(mail.body.encoded).to include('help.example.com CNAME app.starchats.com.br')
         end
       end
     end

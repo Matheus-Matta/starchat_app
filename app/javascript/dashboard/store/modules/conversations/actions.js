@@ -44,6 +44,7 @@ const actions = {
       const {
         data: { data },
       } = await ConversationApi.get(params);
+
       buildConversationList(
         { commit, dispatch },
         params,

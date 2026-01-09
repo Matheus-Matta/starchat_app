@@ -8,17 +8,21 @@ class Evolution::SendMessageService
 
   MEDIA_ORDER = %i[image video audio document].freeze
 
-  def initialize(message:, channel: nil)
+  def initialize(message:, channel: nil, skip_attachments: false)
     @message      = message
     @conversation = message.conversation
     @inbox        = @conversation.inbox
     @channel      = channel || @inbox.channel
+    @skip_attachments = skip_attachments
     @evolution_message_id = nil
   end
 
   def perform
     return unless evolution_channel?
     return unless dispatchable?
+
+    in_reply_to_val = @message.content_attributes&.dig('in_reply_to')
+    Rails.logger.info("[Evolution::SendMessageService] STARTED msg=#{@message.id} content='#{@message.content}' in_reply_to=#{in_reply_to_val} atts=#{@message.content_attributes}")
 
     if already_dispatched? || @message.delivered? || @message.read?
       Rails.logger.info("[Evolution::SendMessageService] skip: message #{message.id} already dispatched (source_id=#{message.source_id.inspect}, status=#{message.status})")
@@ -29,75 +33,186 @@ class Evolution::SendMessageService
     number   = recipient_waid
     instance = @channel.instance_name
 
-    quoted = safely_build_quoted_for(@message)
+    quote = safely_build_quoted_for(@message)
 
-    any_success = false
+    @any_success = false
+    
+    Rails.logger.info("[Evolution::SendMessageService] perform msg=#{@message.id} content=#{@message.content.inspect} attachments=#{@message.attachments.count} quoted_id=#{quote&.dig('key', 'id')}")
 
+    # Enviar texto primeiro, se houver
     if @message.content.present?
       begin
-        resp = client.send_text(instance, number: number, text: @message.content.to_s, quoted: quoted)
-        persist_message_id_from(resp)
-        any_success = true
-      rescue Evolution::Client::Error => e
-        record_send_error!(error: e, kind: :text, payload: { number:, instance:, quoted_present: quoted.present? })
-        return
-      rescue => e
-        record_send_error!(error: e, kind: :text, payload: { number:, instance:, quoted_present: quoted.present? })
-        return
-      end
-    end
-
-    ordered_attachments.each do |att|
-      kind     = file_kind(att)
-      url      = active_storage_url(att.file.blob, expires_in: media_url_ttl)
-      mimetype = att.file.content_type
-      fname    = att.file.filename.to_s
-
-      begin
-        if kind == :audio
-          audio_b64 = encode_blob_base64(att.file.blob)
-
-          resp = client.send_whatsapp_audio(
-            instance,
-            number: number,
-            audio:  audio_b64,  
-            delay:  0,
-            quoted: quoted
-          )
-        else
-          base64_data = encode_blob_base64(att.file.blob)
-
-          mediatype = case kind
-                      when :image then 'image'
-                      when :video then 'video'
-                      else              'document'
-                      end
-          opts = { mimetype: mimetype, quoted: quoted }
-          opts[:file_name] = fname if mediatype == 'document'
-          resp = client.send_media(instance, number: number, mediatype: mediatype, media: base64_data, **opts)
+        
+        text_content = @message.content.to_s.strip
+        sender_config = @inbox.sender_config || {}
+        if sender_config['send_agent_name'] && @message.sender.is_a?(User)
+          agent_name = @message.sender.try(:display_name).presence || @message.sender.name
+          if agent_name.present?
+            text_content = "*#{agent_name}:*\n#{text_content}"
+          end
         end
 
+        resp = client.send_text(instance, number: number, text: text_content, quoted: quote)
         persist_message_id_from(resp)
-        any_success = true
-
-      rescue Evolution::Client::Error => e
-        record_send_error!(error: e, kind: kind, payload: { number:, instance:, url:, mimetype:, fname:, quoted_present: quoted.present? })
+        @any_success = true
       rescue => e
-        record_send_error!(error: e, kind: kind, payload: { number:, instance:, url:, mimetype:, fname:, quoted_present: quoted.present? })
+        record_send_error!(error: e, kind: :text, payload: { number:, instance: })
+        return unless @message.attachments.exists? # Se só tinha texto e falhou, para
       end
     end
 
-    if any_success
+    # Se tivermos ativado o BatchSendService externamente ou se quisermos usar o modo legado:
+    # Por padrão, mantemos a lógica síncrona aqui SE este serviço for chamado diretamente.
+    # Mas criamos o método público `send_single_attachment` para ser usado pelos jobs.
+    
+    # Enviar anexos (modo síncrono legado ou se chamado diretamente)
+    unless @skip_attachments
+      ordered_attachments.each_with_index do |att, index|
+        send_single_attachment(att, index: index)
+      end
+    end
+
+    if any_success?
       mark_dispatched!
       update_message_status!(message: @message, status: 'delivered', external_error: nil)
     end
-
   rescue Evolution::Client::Error => e
     Rails.logger.error "[Evolution::SendMessageService] API error: #{e.message}"
-    raise
   rescue => e
     Rails.logger.error "[Evolution::SendMessageService] #{e.class}: #{e.message}"
-    raise
+  end
+
+  # Novo método público para ser usado pelo SendAttachmentJob
+  def send_single_attachment(att, index: 0)
+    return unless evolution_channel?
+    
+    # Se chamado via Job, @channel e @client precisam estar prontos
+    client   = build_client
+    number   = recipient_waid
+    instance = @channel.instance_name
+    quoted   = safely_build_quoted_for(@message)
+
+    kind     = file_kind(att)
+    mimetype = att.file.content_type
+    fname    = att.file.filename.to_s
+    filesize = att.file.byte_size
+
+    # "Video no app geralmente fica em torno de 100MB"
+    # Se for maior que 100MB, envia como documento (até 2GB)
+    blob_to_use = att.file.blob
+
+    # Tenta comprimir vídeo antes de enviar
+    if kind == :video
+      begin
+        compressed = try_compress_video(att.file)
+        if compressed
+          blob_to_use = compressed
+          filesize    = blob_to_use.byte_size # Atualiza tamanho para log
+          Rails.logger.info "[Evolution] Using compressed video: #{filesize} bytes (Original: #{att.file.byte_size})"
+        end
+      rescue => e
+        Rails.logger.error "[Evolution] Video compression failed: #{e.message}. Using original."
+      end
+    end
+
+    # "Video no app geralmente fica em torno de 100MB"
+    if kind == :video && filesize > 100.megabytes
+      Rails.logger.info("[Evolution] Video too large (#{filesize} bytes), sending as document: #{fname}")
+      kind = :document
+    end
+
+    # Delay / Jitter
+    base_delay = (index + 1) * rand(1000..2000) 
+    
+    begin
+      if force_base64?
+        send_attachment_base64(client, instance, number, kind, blob_to_use, mimetype, fname, quoted, delay: base_delay)
+      else
+        begin
+          url = active_storage_url(blob_to_use, expires_in: media_url_ttl)
+          send_attachment_url(client, instance, number, kind, url, mimetype, fname, quoted, delay: base_delay)
+        rescue => e
+          Rails.logger.warn("[Evolution] URL send failed for msg=#{@message.id}, falling back to Base64: #{e.message}")
+          send_attachment_base64(client, instance, number, kind, blob_to_use, mimetype, fname, quoted, delay: base_delay)
+        end
+      end
+      
+      # Marca sucesso se pelo menos um passar
+      @any_success = true
+      
+    rescue => e
+      record_send_error!(error: e, kind: kind, payload: { number:, instance:, url: (url rescue nil), mimetype: })
+      raise e # Re-raise para o Job tentar retry se falhar
+    end
+  end
+
+  private
+
+  def any_success?
+    @any_success
+  end
+  
+  private
+
+  def send_attachment_url(client, instance, number, kind, url, mimetype, fname, quoted, delay: 0)
+
+    if kind == :audio
+
+      resp = client.send_whatsapp_audio(
+        instance,
+        number: number,
+        audio: url,  # Evolution aceita URL aqui
+        delay: delay,
+        quoted: quoted
+      )
+      persist_message_id_from(resp)
+    else
+      mediatype = kind_to_mediatype(kind)
+      opts = { mimetype: mimetype, quoted: quoted, delay: delay }
+      opts[:file_name] = fname if mediatype == 'document'
+      
+
+      resp = client.send_media(
+        instance, 
+        number: number, 
+        mediatype: mediatype, 
+        media: url, # URL
+        **opts
+      )
+
+      persist_message_id_from(resp)
+    end
+  end
+
+  def send_attachment_base64(client, instance, number, kind, blob, mimetype, fname, quoted, delay: 0)
+
+    base64_data = encode_blob_base64(blob)
+    
+    if kind == :audio
+      resp = client.send_whatsapp_audio(instance, number: number, audio: base64_data, delay: delay, quoted: quoted)
+      persist_message_id_from(resp)
+    else
+      mediatype = kind_to_mediatype(kind)
+      opts = { mimetype: mimetype, quoted: quoted, delay: delay }
+      opts[:file_name] = fname if mediatype == 'document'
+      
+      resp = client.send_media(instance, number: number, mediatype: mediatype, media: base64_data, **opts)
+      persist_message_id_from(resp)
+    end
+  end
+
+  def kind_to_mediatype(kind)
+    case kind
+    when :image then 'image'
+    when :video then 'video'
+    else 'document'
+    end
+  end
+  
+  def force_base64?
+    # Em development local com Docker, Evolution pode não acessar localhost. 
+    # Use EVOLUTION_FORCE_BASE64=true se necessário.
+    ActiveRecord::Type::Boolean.new.cast(ENV['EVOLUTION_FORCE_BASE64'])
   end
 
   private
@@ -121,7 +236,7 @@ class Evolution::SendMessageService
   def build_client
     Evolution::Client.new(
       base_url: ENV.fetch('EVOLUTION_BASE_URL'),
-      api_key:  @channel.api_key.presence || ENV.fetch('EVOLUTION_API_KEY')
+      api_key:  @channel.api_key.presence || ENV.fetch('AUTHENTICATION_API_KEY')
     )
   end
 
@@ -183,6 +298,11 @@ class Evolution::SendMessageService
     if preview.present?
       preview = preview.gsub(/\R+/, ' ').strip
       preview = preview[0, 240] if preview.length > 240
+    elsif parent&.attachments&.any?
+      file_type = parent.attachments.first.file_type
+      preview = "📷 #{file_type.capitalize}"
+    else
+      preview = "..."
     end
 
     q = {
@@ -192,7 +312,10 @@ class Evolution::SendMessageService
         'fromMe'    => from_me
       }
     }
-    q['message'] = { 'conversation' => preview } if preview.present?
+    # FORCE text conversation to prevent media resend behavior
+    q['message'] = { 'conversation' => preview }
+    
+    Rails.logger.info("[Evolution] build_quoted_for: parent_id=#{parent&.id} preview='#{preview}' q=#{q.inspect}")
     q
   end
 
@@ -233,6 +356,35 @@ class Evolution::SendMessageService
     Rails.logger.error "[Evolution::SendMessageService] send_#{kind} error: #{error.class}: #{error.message}"
 
     update_message_status!(message: @message, status: 'failed', external_error: error.message)
+  end
+
+  def try_compress_video(attachment)
+    return nil unless defined?(VideoCompressor)
+
+    compressed_blob = nil
+
+    attachment.open do |temp_file|
+      input_path = temp_file.path
+      output_path = "#{input_path}_compressed.mp4"
+
+      begin
+        VideoCompressor.compress!(input_path: input_path, output_path: output_path)
+
+        if File.exist?(output_path) && File.size?(output_path)
+          compressed_blob = ActiveStorage::Blob.create_and_upload!(
+            io: File.open(output_path),
+            filename: "compressed_#{attachment.filename}",
+            content_type: attachment.content_type
+          )
+        end
+      rescue => e
+        Rails.logger.error "[Evolution] Compression internal error: #{e.message}"
+      ensure
+         FileUtils.rm_f(output_path) if output_path && File.exist?(output_path)
+      end
+    end
+
+    compressed_blob
   end
 
   def encode_blob_base64(blob)

@@ -42,7 +42,7 @@ const [isPopupVisible, togglePopup] = useToggle();
           <p v-if="note" class="text-n-slate-12 text-start text-sm mb-0">
             {{ note }}
           </p>
-        </div>  
+        </div>
       </section>
     </div>
   </div>

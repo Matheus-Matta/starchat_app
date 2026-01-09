@@ -1,16 +1,18 @@
 <script>
 import { emitter } from 'shared/helpers/mitt';
+import { useAlert } from 'dashboard/composables';
 import NextButton from 'dashboard/components-next/button/Button.vue';
+import WootSwitch from 'dashboard/components-next/switch/Switch.vue';
 
 export default {
   name: 'EvolutionControls',
-  components: { NextButton },
+  components: { NextButton, WootSwitch },
   props: {
     inbox: { type: Object, default: () => ({}) },
   },
   data() {
     return {
-      // UI/estado
+      // UI/estado connection
       state: 'disconnected',
       qrcodeBase64: '',
       pairingCode: '',
@@ -19,10 +21,22 @@ export default {
       waitingQR: false,
       showQRPanel: false,
 
-      // channel completo
-      channel: null,
+      // channel
       channelLoading: false,
       channelError: '',
+
+      // settings
+      loadingSettings: false,
+      isUpdating: false,
+      settings: {
+        rejectCall: false,
+        msgCall: '',
+        groupsIgnore: false,
+        alwaysOnline: false,
+        readMessages: false,
+        readStatus: false,
+        syncFullHistory: false,
+      },
     };
   },
   computed: {
@@ -66,7 +80,9 @@ export default {
       return map[s] || map.disconnected;
     },
     stateI18nLabel() {
-      return this.$t(`INBOX_MGMT.ADD.EVOLUTION.STATES.${this.stateBadge.i18n}`);
+      return this.$t(
+        'INBOX_MGMT.ADD.EVOLUTION.STATES.' + this.stateBadge.i18n
+      );
     },
     isConnected() {
       return ['open', 'connected'].includes(
@@ -90,6 +106,7 @@ export default {
       if (s === 'connected' || s === 'open') {
         this.showQRPanel = false;
         this.waitingQR = false;
+        this.fetchSettings(); // Busca settings ao conectar
       }
     },
     'inbox.channel_id': {
@@ -104,16 +121,16 @@ export default {
 
     this.fetchChannel();
 
-    this._onReconnect = () => {
+    this.handleSocketReconnect = () => {
       this.isSubscribed = true;
     };
-    this._onDisconnect = () => {
+    this.handleSocketDisconnect = () => {
       this.isSubscribed = false;
     };
-    emitter.on('WEBSOCKET_RECONNECT', this._onReconnect);
-    emitter.on('WEBSOCKET_DISCONNECT', this._onDisconnect);
+    emitter.on('WEBSOCKET_RECONNECT', this.handleSocketReconnect);
+    emitter.on('WEBSOCKET_DISCONNECT', this.handleSocketDisconnect);
 
-    this._onQR = p => {
+    this.handleQRUpdate = p => {
       if (Number(p.inbox_id) !== Number(this.inbox?.id)) return;
       const b64 = String(p.qrcode_base64 || '').trim();
       if (b64) {
@@ -123,24 +140,25 @@ export default {
       this.pairingCode = p.pairing_code || '';
     };
 
-    this._onConn = p => {
+    this.handleConnectionUpdate = p => {
       if (Number(p.inbox_id) !== Number(this.inbox?.id)) return;
       if (p.state) this.state = p.state;
       if (this.isConnected) {
         this.waitingQR = false;
         this.qrcodeBase64 = '';
         this.pairingCode = '';
+        this.fetchSettings();
       }
     };
 
-    emitter.on('evolution:qrcode_updated', this._onQR);
-    emitter.on('evolution:connection_update', this._onConn);
+    emitter.on('evolution:qrcode_updated', this.handleQRUpdate);
+    emitter.on('evolution:connection_update', this.handleConnectionUpdate);
   },
   beforeUnmount() {
-    emitter.off('WEBSOCKET_RECONNECT', this._onReconnect);
-    emitter.off('WEBSOCKET_DISCONNECT', this._onDisconnect);
-    emitter.off('evolution:qrcode_updated', this._onQR);
-    emitter.off('evolution:connection_update', this._onConn);
+    emitter.off('WEBSOCKET_RECONNECT', this.handleSocketReconnect);
+    emitter.off('WEBSOCKET_DISCONNECT', this.handleSocketDisconnect);
+    emitter.off('evolution:qrcode_updated', this.handleQRUpdate);
+    emitter.off('evolution:connection_update', this.handleConnectionUpdate);
   },
   methods: {
     async fetchChannel() {
@@ -157,12 +175,58 @@ export default {
 
         this.channel = ch;
         if (ch?.state) this.state = ch.state;
+        if (this.isConnected) this.fetchSettings();
       } catch (e) {
-        console.error('[EvolutionControls] fetchChannel erro:', e);
+        // console.error('[EvolutionControls] fetchChannel erro:', e);
         this.channelError =
           e?.message || 'Não foi possível carregar o canal (Evolution).';
       } finally {
         this.channelLoading = false;
+      }
+    },
+    async fetchSettings() {
+      if (!this.channel?.id) return;
+      this.loadingSettings = true;
+      try {
+        const data = await this.$store.dispatch('evolution/getSettings', {
+          id: this.channel.id,
+        });
+        // eslint-disable-next-line no-console
+        console.log('[Evolution] fetchSettings data:', data);
+        // Mescla com defaults para garantir que chaves existam
+        if (data) {
+          this.settings = { ...this.settings, ...data };
+          this.settings.groupsIgnore = true;
+          this.settings.syncFullHistory = false;
+        }
+      } catch (e) {
+        // eslint-disable-next-line no-console
+        console.warn('[Evolution] fetchSettings warning:', e);
+      } finally {
+        this.loadingSettings = false;
+      }
+    },
+    async updateSettings() {
+      if (!this.channel?.id) return;
+
+      this.isUpdating = true;
+      this.settings.groupsIgnore = true;
+      this.settings.syncFullHistory = false;
+      // eslint-disable-next-line no-console
+      console.log('[Evolution] updateSettings payload:', this.settings);
+
+      try {
+        await this.$store.dispatch('evolution/updateSettings', {
+          id: this.channel.id,
+          settings: this.settings,
+        });
+        useAlert(this.$t('INBOX_MGMT.EDIT.API.SUCCESS_MESSAGE'));
+      } catch (e) {
+        // eslint-disable-next-line no-console
+        console.error('[Evolution] updateSettings error:', e);
+        useAlert(this.$t('INBOX_MGMT.EDIT.API.ERROR_MESSAGE'));
+      } finally {
+        this.isUpdating = false;
       }
     },
     async onConnect() {
@@ -190,7 +254,7 @@ export default {
           this.waitingQR = false;
         }
       } catch (e) {
-        console.error('[Evolution] connect erro:', e);
+        // console.error('[Evolution] connect erro:', e);
         this.state = 'error';
         this.waitingQR = false;
       } finally {
@@ -206,14 +270,13 @@ export default {
         await this.$store.dispatch('evolution/disconnect', {
           id: this.channel.id,
         });
-        // resposta é 204; estado real chega via WS. Reflete localmente:
         this.state = 'disconnected';
         this.showQRPanel = false;
         this.waitingQR = false;
         this.qrcodeBase64 = '';
         this.pairingCode = '';
       } catch (e) {
-        console.error('[Evolution] disconnect erro:', e);
+        // console.error('[Evolution] disconnect erro:', e);
       } finally {
         this.isBusy = false;
       }
@@ -244,7 +307,7 @@ export default {
           this.waitingQR = false;
         }
       } catch (e) {
-        console.error('[Evolution] restart erro:', e);
+        // console.error('[Evolution] restart erro:', e);
         this.state = 'error';
         this.waitingQR = false;
       } finally {
@@ -256,148 +319,208 @@ export default {
 </script>
 
 <template>
-  <div class="mx-8">
-    <!-- Cabeçalho -->
-    <div class="ml-0 mr-0 py-8 w-full">
-      <div class="grid grid-cols-1 lg:grid-cols-8 gap-6">
-        <div class="col-span-2">
-          <p class="text-base text-n-brand mb-0 font-medium">
+  <div class="gap-4 pt-8 mx-8">
+    <div
+      class="px-5 py-5 space-y-6 rounded-xl border shadow-sm border-n-weak bg-n-solid-2"
+    >
+      <div
+        class="flex flex-col gap-5 justify-between items-start w-full md:flex-row"
+      >
+        <div>
+          <span class="text-base font-medium text-n-slate-12">
             {{ $t('INBOX_MGMT.ADD.EVOLUTION.TITLE') }}
-          </p>
-          <p
-            class="text-sm mb-2 text-n-slate-11 leading-5 tracking-normal mt-2"
-          >
+          </span>
+          <p class="mt-1 text-sm text-n-slate-11">
             {{ $t('INBOX_MGMT.ADD.EVOLUTION.QR.INSTRUCTION') }}
           </p>
         </div>
 
-        <!-- Card principal -->
-        <div class="col-span-6 xl:col-span-5">
-          <!-- Linha de status + botões -->
-          <div class="flex items-center justify-between mb-4">
-            <!-- Badge de estado -->
+        <div class="flex items-center gap-2 flex-shrink-0">
+          <!-- Status Badge -->
+          <span
+            class="flex flex-row items-center py-0.5 px-2 rounded text-xs mr-2"
+            :class="stateBadge.bg"
+          >
             <span
-              class="flex flex-row items-center py-0.5 px-2 rounded text-xs"
-              :class="stateBadge.bg"
-            >
-              <span
-                class="h-1 w-1 rounded-full mr-1 rtl:mr-0 rtl:ml-0"
-                :class="stateBadge.dot"
-              />
-              <span class="text-xs" :class="stateBadge.text">
-                {{ stateI18nLabel }}
-              </span>
+              class="h-1 w-1 rounded-full mr-1 rtl:mr-0 rtl:ml-0"
+              :class="stateBadge.dot"
+            />
+            <span class="text-xs" :class="stateBadge.text">
+              {{ stateI18nLabel }}
             </span>
+          </span>
 
-            <!-- Botões de ação -->
-            <div class="flex items-center gap-2">
-              <NextButton
-                v-if="!isConnected"
-                solid
-                teal
-                :loading="isConnecting"
-                :label="$t('INBOX_MGMT.ADD.EVOLUTION_QR.GET_QRCODE')"
-                @click="onConnect"
-              />
-            </div>
-          </div>
+          <!-- Actions -->
+          <NextButton
+            v-if="!isConnected"
+            solid
+            teal
+            sm
+            :loading="isConnecting"
+            :label="$t('INBOX_MGMT.ADD.EVOLUTION_QR.GET_QRCODE')"
+            @click="onConnect"
+          />
 
-          <!-- Conteúdo do card -->
-          <div class="border border-n-weak rounded-lg bg-n-solid-1 p-6 w-full">
-            <div class="flex flex-col items-center justify-center min-h-72">
-              <template v-if="isConnected">
-                <div class="flex flex-col items-center gap-3">
-                  <i class="i-lucide-check-circle text-3xl text-emerald-600" />
-                  <p class="text-sm opacity-80">
-                    {{
-                      $t('INBOX_MGMT.ADD.EVOLUTION.STATES.CONNECTED') ||
-                      'Instance is connected.'
-                    }}
-                  </p>
-                  <NextButton
-                    solid
-                    ruby
-                    :disabled="isBusy"
-                    :label="
-                      $t('INBOX_MGMT.ADD.EVOLUTION.STATES.CLOSE') ||
-                      'DISCONNECT'
-                    "
-                    @click="onDisconnect"
-                  />
-                </div>
-              </template>
-
-              <!-- Não conectado -->
-              <template v-else>
-                <!-- Painel de QR só quando o usuário clicou em Conectar -->
-                <template v-if="showQRPanel && !isConnected">
-                  <!-- QR pronto -->
-                  <div v-if="qrcodeBase64" class="flex flex-col items-center">
-                    <img
-                      :key="qrcodeBase64"
-                      :src="qrcodeBase64"
-                      alt="Evolution QR Code"
-                      class="w-64 h-64 object-contain"
-                    />
-                    <p v-if="pairingCode" class="mt-3 text-xs opacity-80">
-                      <strong>{{ pairingCode }}</strong>
-                    </p>
-                  </div>
-
-                  <!-- Aguardando QR -->
-                  <div v-else class="text-center opacity-80">
-                    <woot-loading-indicator
-                      v-if="
-                        waitingQR ||
-                        ['connecting', 'qrcode', 'pairing'].includes(
-                          String(state).toLowerCase()
-                        )
-                      "
-                    />
-                    <p class="mt-3">
-                      {{
-                        $t('INBOX_MGMT.ADD.EVOLUTION.QR.PANEL_TITLE') ||
-                        'QR Code'
-                      }}
-                    </p>
-                    <p class="text-xs mt-1">
-                      {{
-                        $t('INBOX_MGMT.CREATE_FLOW.QRCODE.WAITING') ||
-                        'Waiting for QR Code…'
-                      }}
-                    </p>
-                  </div>
-                </template>
-
-                <!-- Aguardando ação do usuário -->
-                <template v-else>
-                  <div class="text-center opacity-80">
-                    <p class="text-sm">
-                      {{
-                        $t('INBOX_MGMT.ADD.EVOLUTION.HINT_CONNECT_TO_SHOW_QR')
-                      }}
-                    </p>
-                  </div>
-                </template>
-              </template>
-            </div>
-          </div>
+          <template v-if="isConnected">
+            <NextButton
+              label="Restart"
+              sm
+              ghost
+              :disabled="isBusy"
+              @click="onRestart"
+            />
+            <NextButton
+              solid
+              ruby
+              sm
+              :disabled="isBusy"
+              :label="
+                $t('INBOX_MGMT.ADD.EVOLUTION.STATES.CLOSE') || 'DISCONNECT'
+              "
+              @click="onDisconnect"
+            />
+          </template>
         </div>
       </div>
-    </div>
 
-    <!-- Ações secundárias (Restart) -->
-    <div class="ml-0 mr-0 py-8 w-full">
-      <div class="grid grid-cols-1 lg:grid-cols-8 gap-6">
-        <div class="col-span-2" />
-        <div class="col-span-6 xl:col-span-5 flex items-center gap-3">
-          <NextButton
-            solid
-            blue
-            :disabled="isBusy"
-            :label="$t('INBOX_MGMT.ADD.EVOLUTION.STATES.RESTART')"
-            @click="onRestart"
+      <!-- Content Area -->
+      <!-- If showing QR Code/Connecting and NOT connected yet -->
+      <div
+        v-if="!isConnected && showQRPanel"
+        class="flex flex-col items-center justify-center min-h-[18rem] rounded-lg border border-n-weak bg-n-solid-1 p-6"
+      >
+        <div v-if="qrcodeBase64" class="flex flex-col items-center">
+          <img
+            :key="qrcodeBase64"
+            :src="qrcodeBase64"
+            alt="Evolution QR Code"
+            class="w-64 h-64 object-contain"
           />
+          <p v-if="pairingCode" class="mt-3 text-xs opacity-80">
+            <strong>{{ pairingCode }}</strong>
+          </p>
+        </div>
+        <div v-else class="text-center opacity-80">
+          <woot-loading-indicator />
+          <p class="mt-3">
+            {{ $t('INBOX_MGMT.ADD.EVOLUTION.QR.PANEL_TITLE') || 'QR Code' }}
+          </p>
+          <p class="text-xs mt-1">
+            {{
+              $t('INBOX_MGMT.CREATE_FLOW.QRCODE.WAITING') ||
+              'Waiting for QR Code…'
+            }}
+          </p>
+        </div>
+      </div>
+
+      <!-- Settings Grid (only if connected) -->
+      <div v-else-if="isConnected" class="animate-fade-in-up">
+        <!-- Settings Title/Desc inside card if needed, or just the grid -->
+        <div class="grid grid-cols-1 gap-4 xs:grid-cols-2">
+          <!-- Reject Call -->
+          <div
+            class="flex flex-col gap-2 p-4 rounded-lg border border-n-weak bg-n-solid-1"
+          >
+            <div class="flex items-center justify-between">
+              <span class="text-sm font-medium text-n-slate-11">
+                {{ $t('INBOX_MGMT.ADD.EVOLUTION.SETTINGS.REJECT_CALL') }}
+              </span>
+              <WootSwitch v-model="settings.rejectCall" />
+            </div>
+            <p class="text-xs text-n-slate-11 mt-1">
+              {{ $t('INBOX_MGMT.ADD.EVOLUTION.SETTINGS.REJECT_CALL_HELP') }}
+            </p>
+          </div>
+
+          <!-- Always Online -->
+          <div
+            class="flex flex-col gap-2 p-4 rounded-lg border border-n-weak bg-n-solid-1"
+          >
+            <div class="flex items-center justify-between">
+              <span class="text-sm font-medium text-n-slate-11">
+                {{ $t('INBOX_MGMT.ADD.EVOLUTION.SETTINGS.ALWAYS_ONLINE') }}
+              </span>
+              <WootSwitch v-model="settings.alwaysOnline" />
+            </div>
+            <p class="text-xs text-n-slate-11 mt-1">
+              {{ $t('INBOX_MGMT.ADD.EVOLUTION.SETTINGS.ALWAYS_ONLINE_HELP') }}
+            </p>
+          </div>
+
+          <!-- Read Messages -->
+          <div
+            class="flex flex-col gap-2 p-4 rounded-lg border border-n-weak bg-n-solid-1"
+          >
+            <div class="flex items-center justify-between">
+              <span class="text-sm font-medium text-n-slate-11">
+                {{ $t('INBOX_MGMT.ADD.EVOLUTION.SETTINGS.READ_MESSAGES') }}
+              </span>
+              <WootSwitch v-model="settings.readMessages" />
+            </div>
+            <p class="text-xs text-n-slate-11 mt-1">
+              {{ $t('INBOX_MGMT.ADD.EVOLUTION.SETTINGS.READ_MESSAGES_HELP') }}
+            </p>
+          </div>
+
+          <!-- Read Status -->
+          <div
+            class="flex flex-col gap-2 p-4 rounded-lg border border-n-weak bg-n-solid-1"
+          >
+            <div class="flex items-center justify-between">
+              <span class="text-sm font-medium text-n-slate-11">
+                {{ $t('INBOX_MGMT.ADD.EVOLUTION.SETTINGS.READ_STATUS') }}
+              </span>
+              <WootSwitch v-model="settings.readStatus" />
+            </div>
+            <p class="text-xs text-n-slate-11 mt-1">
+              {{ $t('INBOX_MGMT.ADD.EVOLUTION.SETTINGS.READ_STATUS_HELP') }}
+            </p>
+          </div>
+        </div>
+
+        <!-- Message for Reject Call -->
+        <div
+          v-if="settings.rejectCall"
+          class="mt-4 p-4 rounded-lg border border-n-weak bg-n-solid-1"
+        >
+          <label class="block mb-1 text-sm font-medium text-n-slate-12">
+            {{ $t('INBOX_MGMT.ADD.EVOLUTION.SETTINGS.REJECT_CALL_MESSAGE') }}
+          </label>
+          <input
+            v-model="settings.msgCall"
+            type="text"
+            class="w-full px-3 py-2 text-sm rounded outline-none border-n-weak bg-n-alpha-1 focus:border-n-brand"
+            :placeholder="
+              $t(
+                'INBOX_MGMT.ADD.EVOLUTION.SETTINGS.REJECT_CALL_MESSAGE_PLACEHOLDER'
+              )
+            "
+          />
+        </div>
+
+        <div class="flex justify-end pt-4 mt-4 border-t border-n-weak">
+          <NextButton
+            :label="$t('INBOX_MGMT.SETTINGS_POPUP.UPDATE')"
+            :loading="isUpdating"
+            solid
+            teal
+            @click="updateSettings"
+          />
+        </div>
+      </div>
+
+      <!-- Disconnected Placeholder / Initial State -->
+      <div v-else class="pt-8">
+        <div
+          class="flex justify-center items-center p-8 text-center text-n-slate-11"
+        >
+          <div>
+            <i class="i-lucide-activity mb-2 w-8 h-8 mx-auto" />
+            <p class="text-sm">
+              {{ $t('INBOX_MGMT.ADD.EVOLUTION.HINT_CONNECT_TO_SHOW_QR') }}
+            </p>
+          </div>
         </div>
       </div>
     </div>
@@ -407,5 +530,18 @@ export default {
 <style scoped>
 .min-h-72 {
   min-height: 18rem;
+}
+.animate-fade-in-up {
+  animation: fade-in-up 0.3s ease-out;
+}
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 </style>

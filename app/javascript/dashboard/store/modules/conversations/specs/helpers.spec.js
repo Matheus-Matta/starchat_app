@@ -234,6 +234,44 @@ describe('Conversation Helpers', () => {
       ).toBe(false);
     });
 
+    // Test for userTeamIds logic
+    describe('with userTeamIds', () => {
+      const role = 'custom_role';
+      const permissions = [];
+      const currentUserId = 1;
+      const userTeamIds = [100, 200];
+
+      it('returns true if conversation team id is in userTeamIds', () => {
+        const conversation = {
+          meta: { team: { id: 100 } },
+        };
+        expect(
+          applyRoleFilter(
+            conversation,
+            role,
+            permissions,
+            currentUserId,
+            userTeamIds
+          )
+        ).toBe(true);
+      });
+
+      it('returns false if conversation team id is NOT in userTeamIds', () => {
+        const conversation = {
+          meta: { team: { id: 999 } },
+        };
+        expect(
+          applyRoleFilter(
+            conversation,
+            role,
+            permissions,
+            currentUserId,
+            userTeamIds
+          )
+        ).toBe(false);
+      });
+    });
+
     // Test edge cases for meta.assignee
     describe('handles edge cases with meta.assignee', () => {
       const role = 'custom_role';

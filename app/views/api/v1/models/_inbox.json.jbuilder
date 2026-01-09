@@ -10,6 +10,7 @@ json.enable_email_collect resource.enable_email_collect
 json.csat_survey_enabled resource.csat_survey_enabled
 json.csat_config resource.csat_config
 json.anti_spam_config resource.anti_spam_config
+json.sender_config resource.sender_config
 json.enable_auto_assignment resource.enable_auto_assignment
 json.auto_assignment_config resource.auto_assignment_config
 json.out_of_office_message resource.out_of_office_message

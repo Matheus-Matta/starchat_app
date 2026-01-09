@@ -34,9 +34,10 @@ class Evolution::IncomingMessageService < Evolution::MessageBaseService
     text     = extract_text(@payload).to_s
 
     attached = attach_from_payload!(@message ||= temp_message_shell(outgoing, source_id), @payload)
-    Rails.logger.info("[EVOLUTION INCOMING] attached=#{attached.inspect}")
+    Rails.logger.info("[EVOLUTION INCOMING] source_id=#{source_id} text=#{text.inspect} attached=#{attached.inspect}")
 
     if text.blank? && !attached
+      Rails.logger.warn("[EVOLUTION INCOMING] ABORT: text blank and no attachments. Payload: #{@payload.keys}")
       return
     end
 
@@ -44,10 +45,12 @@ class Evolution::IncomingMessageService < Evolution::MessageBaseService
     Evolution::MessageReplyTo.apply!(@message, @payload)
 
     if @message.save
+      Rails.logger.info("[EVOLUTION INCOMING] Message created successfully id=#{@message.id}")
       @message.attachments.each do |att|
         blob = att.file.blob
       end
     else
+      Rails.logger.error("[EVOLUTION INCOMING] Failed to save message: #{@message.errors.full_messages}")
     end
   end
 

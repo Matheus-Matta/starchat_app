@@ -18,6 +18,7 @@
   - critical
   - high
   - medium
+  - evolution
   - default
   - mailers
   - action_mailbox_routing

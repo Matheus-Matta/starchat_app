@@ -263,3 +263,5 @@ group :development, :test do
 end
 
 gem 'fiddle'
+
+gem "bunny", "~> 2.24"

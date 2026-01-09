@@ -16,7 +16,23 @@ class Conversations::PermissionFilterService
   private
 
   def accessible_conversations
-    conversations.where(inbox: user.inboxes.where(account_id: account.id))
+    inbox_ids = user.inboxes.where(account_id: account.id).select(:id)
+    team_ids = account.teams.joins(:team_members).where(team_members: { user_id: user.id }).select(:id)
+
+    scope = conversations.where(inbox_id: inbox_ids).or(conversations.where(team_id: team_ids))
+
+    perms = account_user&.permissions || []
+
+    if perms.include?('conversation_unassigned_manage') || perms.include?('conversation_manage')
+      return conversations.where(inbox_id: inbox_ids)
+                          .or(conversations.where(team_id: team_ids))
+                          .or(conversations.where(assignee_id: nil))
+                          .distinct
+    end
+
+    scope
+
+    scope.distinct
   end
 
   def account_user
