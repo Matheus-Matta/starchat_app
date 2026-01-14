@@ -85,6 +85,7 @@ class Evolution::SendMessageService
   # Novo método público para ser usado pelo SendAttachmentJob
   def send_single_attachment(att, index: 0)
     return unless evolution_channel?
+    return if already_dispatched?
     
     # Se chamado via Job, @channel e @client precisam estar prontos
     client   = build_client
