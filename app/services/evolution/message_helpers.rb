@@ -40,7 +40,13 @@ module Evolution
     end
 
     def from_me?(message)
-      truthy?(message[:from_me] || message[:fromMe] || message.dig(:key, :fromMe))
+      val = message[:from_me] || message['from_me'] ||
+            message[:fromMe]  || message['fromMe']  ||
+            message.dig(:key, :fromMe) ||
+            message.dig('key', 'fromMe') ||
+            message.dig('key', 'from_me')
+
+      truthy?(val)
     end
     def media_kind_of(message)
       payload = message[:message] || message['message']
