@@ -61,7 +61,8 @@ class Evolution::IncomingMessageService < Evolution::MessageBaseService
       inbox_id:                inbox.id,
       message_type:            outgoing ? :outgoing : :incoming,
       source_id:               source_id,
-      in_reply_to_external_id: nil
+      in_reply_to_external_id: nil,
+      additional_attributes:   outgoing ? { 'evolution_dispatched' => true } : {}
     }
     outgoing ? @conversation.messages.build(attrs) :
                @conversation.messages.build(attrs.merge(sender: @contact))
