@@ -249,17 +249,16 @@ class Api::V1::Accounts::Channels::EvolutionChannelController < Api::V1::Account
       alwaysOnline: false,
       readMessages: false,
       readStatus:   false,
-      # webhook: {
-      #   enabled:  true,
-      #   url:      webhook_url,
-      #   byEvents: false,   
-      #   base64:   false, # Forçar false para economizar banda
-      #   headers:  { 'Content-Type' => 'application/json' },
-      #   events:   get_events
-      # },
-
+      webhook: {
+        enabled:  true,
+        url:      webhook_url,
+        byEvents: false,   
+        base64:   false, # Forçar false para economizar banda
+        headers:  { 'Content-Type' => 'application/json' },
+        events:   get_events
+      },
       rabbitmq: {
-        enabled: true,
+        enabled: false,
         events:  get_events
       }
     }
