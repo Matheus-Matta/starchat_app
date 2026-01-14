@@ -14,7 +14,7 @@ class Webhooks::EvolutionEventsJob < ApplicationJob
     puts "\n\n[EVOLUTION DATA ROWS EVENT = #{evt}]"
 
     case evt
-    when 'messages_upsert', 'send_message'
+    when 'messages_upsert'
       rows.each do |raw|
         safely('incoming message') do
           next if raw.blank?

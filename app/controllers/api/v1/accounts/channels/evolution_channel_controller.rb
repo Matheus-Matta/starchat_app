@@ -273,7 +273,6 @@ class Api::V1::Accounts::Channels::EvolutionChannelController < Api::V1::Account
       MESSAGES_UPDATE
       MESSAGES_DELETE
       MESSAGES_SET
-      SEND_MESSAGE
     ]
   end
 
