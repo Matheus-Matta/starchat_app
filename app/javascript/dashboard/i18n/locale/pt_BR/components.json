@@ -1,10 +1,13 @@
 {
   "PAGINATION_FOOTER": {
     "SHOWING": "Exibindo {startItem} - {endItem} de {totalItems} itens",
-    "CURRENT_PAGE_INFO": "{currentPage} de {totalPages} páginas"
+    "SHOWING_RANGE": "Exibindo {startItem} - {endItem}",
+    "CURRENT_PAGE_INFO": "{currentPage} de {totalPages} páginas",
+    "CURRENT_PAGE_ONLY": "Página {currentPage}"
   },
   "COMBOBOX": {
     "PLACEHOLDER": "Selecione uma opção...",
+    "LOADING": "Carregando...",
     "EMPTY_SEARCH_RESULTS": "Nenhum item encontrado para o termo de pesquisa `{searchTerm}`",
     "EMPTY_STATE": "Nenhum resultado encontrado.",
     "SEARCH_PLACEHOLDER": "Pesquisar...",

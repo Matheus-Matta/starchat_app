@@ -107,10 +107,10 @@ export default {
         '';
       return typeof url === 'string' ? url.trim() : '';
     },
-  },
-  avatarSrc() {
-    const t = (this.contact?.thumbnail || '').trim();
-    return t || this.waProfilePicUrl || '';
+    avatarSrc() {
+      const t = (this.contact?.thumbnail || '').trim();
+      return t || this.waProfilePicUrl || '';
+    },
   },
   watch: {
     'contact.id': {

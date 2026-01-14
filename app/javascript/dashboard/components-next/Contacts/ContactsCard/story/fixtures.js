@@ -38,7 +38,8 @@ export default [
     thumbnail: 'https://api.dicebear.com/9.x/thumbs/svg?seed=Upload',
     customAttributes: {
       dateContact: '2024-02-01T00:00:00.000Z',
-      linkContact: 'https://staging.starchats.com.br/app/accounts/3/contacts-new',
+      linkContact:
+        'https://staging.starchats.com.br/app/accounts/3/contacts-new',
       listContact: 'Not spam',
       numberContact: '12',
     },

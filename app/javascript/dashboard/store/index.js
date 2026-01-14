@@ -61,6 +61,7 @@ import cosmosTools from './cosmos/tools';
 import cosmosCustomTools from './cosmos/customTools';
 
 import evolution from './modules/channels/evolution';
+import pipedrive from './modules/pipedrive';
 
 const plugins = [];
 
@@ -126,6 +127,7 @@ export default createStore({
     cosmosTools,
     cosmosCustomTools,
     evolution,
+    pipedrive,
   },
   plugins,
 });

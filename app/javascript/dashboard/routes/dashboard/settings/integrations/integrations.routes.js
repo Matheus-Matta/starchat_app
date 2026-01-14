@@ -10,6 +10,7 @@ import SettingsContent from '../Wrapper.vue';
 import Linear from './Linear.vue';
 import Notion from './Notion.vue';
 import Shopify from './Shopify.vue';
+import Pipedrive from './Pipedrive.vue';
 
 export default {
   routes: [
@@ -110,6 +111,17 @@ export default {
           },
           props: route => ({ error: route.query.error }),
         },
+
+        {
+          path: 'pipedrive',
+          name: 'settings_integrations_pipedrive',
+          component: Pipedrive,
+          meta: {
+            featureFlag: FEATURE_FLAGS.INTEGRATIONS,
+            permissions: ['administrator'],
+          },
+        },
+
         {
           path: ':integration_id',
           name: 'settings_applications_integration',

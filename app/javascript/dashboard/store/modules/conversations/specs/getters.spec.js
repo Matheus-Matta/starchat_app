@@ -1,4 +1,3 @@
-
 import getters from '../getters';
 import * as helpers from '../helpers';
 
@@ -8,29 +7,29 @@ import * as helpers from '../helpers';
 
 describe('Conversation Getters', () => {
   describe('getUnAssignedChats', () => {
-    const runGetter = (permissionsList) => {
+    const runGetter = permissionsList => {
       const state = {
         allConversations: [
-          { 
-              id: 1, 
-              meta: { assignee: null, team: { id: 1 } },
-              inbox_id: 1,
-              status: 'open'  
+          {
+            id: 1,
+            meta: { assignee: null, team: { id: 1 } },
+            inbox_id: 1,
+            status: 'open',
           }, // Team 1 (Mine), Unassigned
-          { 
-              id: 2, 
-              meta: { assignee: null, team: { id: 2 } },
-              inbox_id: 1,
-              status: 'open'
+          {
+            id: 2,
+            meta: { assignee: null, team: { id: 2 } },
+            inbox_id: 1,
+            status: 'open',
           }, // Team 2 (Other), Unassigned
-          { 
-              id: 3, 
-              meta: { assignee: { id: 99 }, team: { id: 1 } },
-              inbox_id: 1,
-              status: 'open'
+          {
+            id: 3,
+            meta: { assignee: { id: 99 }, team: { id: 1 } },
+            inbox_id: 1,
+            status: 'open',
           }, // Team 1, Assigned (Should filter out by isUnAssigned check)
         ],
-        appliedFilters: []
+        appliedFilters: [],
       };
 
       const rootGetters = {
@@ -41,26 +40,34 @@ describe('Conversation Getters', () => {
               id: 1,
               role: 'agent',
               custom_role_id: 123,
-              permissions: permissionsList
-            }
-          ]
+              permissions: permissionsList,
+            },
+          ],
         },
         getCurrentAccountId: 1,
         'teams/getMyTeams': [{ id: 1 }],
       };
 
       const activeFilters = {
-          status: 'open'
+        status: 'open',
       };
-      
+
       // The getter returns a function that takes activeFilters
-      return getters.getUnAssignedChats(state, null, null, rootGetters)(activeFilters);
+      return getters.getUnAssignedChats(
+        state,
+        null,
+        null,
+        rootGetters
+      )(activeFilters);
     };
 
     it('returns ALL unassigned conversations (Team + Global) when user has Unassigned Manage permission', () => {
-      const permissions = ['conversation_team_manage', 'conversation_unassigned_manage'];
+      const permissions = [
+        'conversation_team_manage',
+        'conversation_unassigned_manage',
+      ];
       const result = runGetter(permissions);
-      
+
       // Should include ID 1 (Team) and ID 2 (Global)
       const ids = result.map(c => c.id);
       expect(ids).toContain(1);
@@ -72,7 +79,7 @@ describe('Conversation Getters', () => {
     it('returns ONLY Team unassigned conversations when user has ONLY Team Manage permission', () => {
       const permissions = ['conversation_team_manage'];
       const result = runGetter(permissions);
-      
+
       // Should include ID 1 (Team) ONLY
       const ids = result.map(c => c.id);
       expect(ids).toContain(1);

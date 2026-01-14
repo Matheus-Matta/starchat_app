@@ -344,6 +344,119 @@
         "CONFIRM": "Sim, excluir",
         "CANCEL": "Cancelar"
       }
+    },
+    "PIPEDRIVE": {
+      "DEALS": "Negócios",
+      "LEADS": "Leads",
+      "ACTIVITIES": "Atividades",
+      "OPEN_DEALS": "Negócios Abertos",
+      "UPCOMING_ACTIVITIES": "Próximas Atividades",
+      "VIEW_FULL_DETAILS": "Ver Detalhes",
+      "CONTACT_NOT_FOUND": "Contato não encontrado no Pipedrive",
+      "MODAL": {
+        "TITLE": "Detalhes do Pipedrive",
+        "DEALS": "Negócios",
+        "LEADS": "Leads",
+        "ACTIVITIES": "Atividades",
+        "NO_DATA": "Nenhum {type} encontrado.",
+        "ERROR": "Erro ao buscar detalhes",
+        "DESCRIPTION": "Visualize os {type} existentes para este contato no Pipedrive.",
+        "CLOSE": "Fechar",
+        "DONE": "Concluído",
+        "OPEN_IN_PIPEDRIVE": "Abrir no Pipedrive",
+        "TABLE": {
+          "TITLE": "Título",
+          "VALUE": "Valor",
+          "STAGE": "Estágio",
+          "STATUS": "Status",
+          "OWNER": "Responsável",
+          "DATE": "Data",
+          "SUBJECT": "Assunto",
+          "TYPE": "Tipo",
+          "DUE_DATE": "Data de Vencimento",
+          "PRIORITY": "Prioridade",
+          "DEAL": "Negócio",
+          "PERSON": "Pessoa",
+          "ORGANIZATION": "Organização",
+          "DURATION": "Duração",
+          "PRODUCTS": "Produtos",
+          "ORIGIN": "Origem",
+          "CREATED_AT": "Lead criado em",
+          "NEXT_ACTIVITY": "Próxima atividade",
+          "LABELS": "Etiquetas"
+        }
+      },
+      "CONFIGURATION": {
+        "TITLE": "Configuração do Pipedrive",
+        "DESCRIPTION": "Configure as permissões de sincronização com o Pipedrive",
+        "IMPORT_CONTACTS": "Importar Contatos",
+        "IMPORT_CONTACTS_TOGGLE": "Importar Contatos",
+        "SYNC_PHONE": "Sincronizar Telefone",
+        "SYNC_EMAIL": "Sincronizar Email",
+        "SYNC_NAME": "Sincronizar Nome",
+        "SYNC_ORG": "Sincronizar Organização"
+      },
+      "DELETE": "Excluir Integração",
+      "DELETE_CONFIRMATION": {
+        "TITLE": "Excluir integração",
+        "MESSAGE": "Tem certeza que deseja excluir a integração com Pipedrive? Isso irá parar a sincronização de contatos e negócios."
+      },
+      "CONNECT_MODAL": {
+        "TITLE": "Conectar Pipedrive",
+        "API_TOKEN": "Token da API",
+        "API_TOKEN_PLACEHOLDER": "Insira o Token da API do Pipedrive",
+        "COMPANY_DOMAIN": "Domínio da Empresa",
+        "COMPANY_DOMAIN_PLACEHOLDER": "empresa (apenas subdomínio)",
+        "COMPANY_DOMAIN_HINT": "https://<b>empresa</b>.pipedrive.com",
+        "SYNC_CONTACTS": "Sincronizar Contatos",
+        "CANCEL": "Cancelar",
+        "CONNECT": "Conectar"
+      },
+      "CONNECT_SUCCESS": "Pipedrive conectado com sucesso",
+      "CONNECT_ERROR": "Não foi possível conectar ao Pipedrive",
+      "PAGINATION": {
+        "SHOWING_DEALS": "Exibindo {startItem} - {endItem} de {totalItems} negócios",
+        "SHOWING_LEADS": "Exibindo {startItem} - {endItem} de {totalItems} leads",
+        "SHOWING_ACTIVITIES": "Exibindo {startItem} - {endItem} de {totalItems} atividades"
+      },
+      "FILTERS": {
+        "LABELS": {
+          "STATUS": "Status",
+          "TYPE": "Tipo",
+          "DUE_DATE": "Data de Vencimento",
+          "STAGE_NAME": "Estágio",
+          "USER_NAME": "Usuário",
+          "PERSON_NAME": "Contato",
+          "ORG_NAME": "Organização"
+        },
+        "STATUS": {
+          "ALL_NOT_DELETED": "Todos não excluídos",
+          "OPEN": "Em aberto",
+          "WON": "Ganhos",
+          "LOST": "Perdidos",
+          "DELETED": "Excluídos",
+          "ACTIVE": "Ativos",
+          "ARCHIVED": "Arquivados",
+          "PENDING": "Pendente",
+          "DONE": "Feito"
+        },
+        "TYPES": {
+          "CALL": "Ligação",
+          "MEETING": "Reunião",
+          "TASK": "Tarefa",
+          "DEADLINE": "Prazo",
+          "EMAIL": "Email",
+          "LUNCH": "Almoço"
+        },
+        "OPERATORS": {
+          "EQUAL_TO": "É igual a",
+          "NOT_EQUAL_TO": "Não é igual a",
+          "CONTAINS": "Contém",
+          "DOES_NOT_CONTAIN": "Não contém",
+          "GREATER_THAN": "É maior que",
+          "LESS_THAN": "É menor que"
+        }
+      }
     }
   },
   "COSMOS": {

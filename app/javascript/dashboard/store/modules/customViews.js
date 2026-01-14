@@ -5,14 +5,23 @@ import CustomViewsAPI from '../../api/customViews';
 const VIEW_TYPES = {
   CONVERSATION: 'conversation',
   CONTACT: 'contact',
+  PIPEDRIVE_DEALS: 'pipedrive_deals',
+  PIPEDRIVE_LEADS: 'pipedrive_leads',
+  PIPEDRIVE_ACTIVITIES: 'pipedrive_activities',
 };
 
 // use to normalize the filter type
 const FILTER_KEYS = {
   0: VIEW_TYPES.CONVERSATION,
   1: VIEW_TYPES.CONTACT,
+  3: VIEW_TYPES.PIPEDRIVE_DEALS,
+  4: VIEW_TYPES.PIPEDRIVE_LEADS,
+  5: VIEW_TYPES.PIPEDRIVE_ACTIVITIES,
   [VIEW_TYPES.CONVERSATION]: VIEW_TYPES.CONVERSATION,
   [VIEW_TYPES.CONTACT]: VIEW_TYPES.CONTACT,
+  [VIEW_TYPES.PIPEDRIVE_DEALS]: VIEW_TYPES.PIPEDRIVE_DEALS,
+  [VIEW_TYPES.PIPEDRIVE_LEADS]: VIEW_TYPES.PIPEDRIVE_LEADS,
+  [VIEW_TYPES.PIPEDRIVE_ACTIVITIES]: VIEW_TYPES.PIPEDRIVE_ACTIVITIES,
 };
 
 export const state = {
@@ -20,6 +29,15 @@ export const state = {
     records: [],
   },
   [VIEW_TYPES.CONTACT]: {
+    records: [],
+  },
+  [VIEW_TYPES.PIPEDRIVE_DEALS]: {
+    records: [],
+  },
+  [VIEW_TYPES.PIPEDRIVE_LEADS]: {
+    records: [],
+  },
+  [VIEW_TYPES.PIPEDRIVE_ACTIVITIES]: {
     records: [],
   },
   uiFlags: {
@@ -36,13 +54,22 @@ export const getters = {
   },
   getCustomViewsByFilterType: _state => key => {
     const filterType = FILTER_KEYS[key];
-    return _state[filterType].records;
+    return _state[filterType] ? _state[filterType].records : [];
   },
   getConversationCustomViews(_state) {
     return _state[VIEW_TYPES.CONVERSATION].records;
   },
   getContactCustomViews(_state) {
     return _state[VIEW_TYPES.CONTACT].records;
+  },
+  getPipedriveDealsCustomViews(_state) {
+    return _state[VIEW_TYPES.PIPEDRIVE_DEALS].records;
+  },
+  getPipedriveLeadsCustomViews(_state) {
+    return _state[VIEW_TYPES.PIPEDRIVE_LEADS].records;
+  },
+  getPipedriveActivitiesCustomViews(_state) {
+    return _state[VIEW_TYPES.PIPEDRIVE_ACTIVITIES].records;
   },
   getActiveConversationFolder(_state) {
     return _state.activeConversationFolder;
@@ -97,7 +124,10 @@ export const actions = {
     commit(types.SET_CUSTOM_VIEW_UI_FLAG, { isDeleting: true });
     try {
       await CustomViewsAPI.deleteCustomViews(id, filterType);
-      commit(types.DELETE_CUSTOM_VIEW, { data: id, filterType });
+      commit(types.DELETE_CUSTOM_VIEW, {
+        data: id,
+        filterType: FILTER_KEYS[filterType],
+      });
     } catch (error) {
       throw new Error(error);
     } finally {

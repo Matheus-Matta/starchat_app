@@ -341,6 +341,113 @@
         "CONFIRM": "Yes, delete",
         "CANCEL": "Cancel"
       }
+    },
+    "PIPEDRIVE": {
+      "DEALS": "Deals",
+      "LEADS": "Leads",
+      "ACTIVITIES": "Activities",
+      "OPEN_DEALS": "Open Deals",
+      "UPCOMING_ACTIVITIES": "Upcoming Activities",
+      "VIEW_FULL_DETAILS": "View Full Details",
+      "CONTACT_NOT_FOUND": "Contact not found in Pipedrive",
+      "MODAL": {
+        "TITLE": "Pipedrive Details",
+        "DEALS": "Deals",
+        "LEADS": "Leads",
+        "ACTIVITIES": "Activities",
+        "NO_DATA": "No {type} found.",
+        "ERROR": "Error fetching details",
+        "DESCRIPTION": "View existing {type} for this contact in Pipedrive.",
+        "CLOSE": "Close",
+        "DONE": "Done",
+        "OPEN_IN_PIPEDRIVE": "Open in Pipedrive",
+        "TABLE": {
+          "TITLE": "Title",
+          "VALUE": "Value",
+          "STAGE": "Stage",
+          "STATUS": "Status",
+          "OWNER": "Owner",
+          "DATE": "Date",
+          "SUBJECT": "Subject",
+          "TYPE": "Type",
+          "DUE_DATE": "Due Date",
+          "PRIORITY": "Priority",
+          "DEAL": "Deal",
+          "PERSON": "Person",
+          "ORGANIZATION": "Organization",
+          "DURATION": "Duration",
+          "PRODUCTS": "Products",
+          "ORIGIN": "Origin",
+          "CREATED_AT": "Lead created at",
+          "NEXT_ACTIVITY": "Next activity",
+          "LABELS": "Labels"
+        }
+      },
+      "CONFIGURATION": {
+        "TITLE": "Pipedrive Configuration",
+        "DESCRIPTION": "Connect your Pipedrive account to sync contacts and view deals, leads, and activities from your conversations."
+      },
+      "DELETE": "Delete Integration",
+      "DELETE_CONFIRMATION": {
+        "TITLE": "Delete integration",
+        "MESSAGE": "Are you sure you want to delete the Pipedrive integration? This will stop syncing contacts and deals."
+      },
+      "CONNECT_MODAL": {
+        "TITLE": "Connect Pipedrive",
+        "API_TOKEN": "API Token",
+        "API_TOKEN_PLACEHOLDER": "Enter Pipedrive API Token",
+        "COMPANY_DOMAIN": "Company Domain",
+        "COMPANY_DOMAIN_PLACEHOLDER": "company (subdomain only)",
+        "COMPANY_DOMAIN_HINT": "https://<b>company</b>.pipedrive.com",
+        "SYNC_CONTACTS": "Sync Contacts (coming soon)",
+        "CANCEL": "Cancel",
+        "CONNECT": "Connect"
+      },
+      "CONNECT_SUCCESS": "Pipedrive connected successfully",
+      "CONNECT_ERROR": "Could not connect to Pipedrive",
+      "PAGINATION": {
+        "SHOWING_DEALS": "Showing {startItem} - {endItem} of {totalItems} deals",
+        "SHOWING_LEADS": "Showing {startItem} - {endItem} of {totalItems} leads",
+        "SHOWING_ACTIVITIES": "Showing {startItem} - {endItem} of {totalItems} activities"
+      },
+      "FILTERS": {
+        "LABELS": {
+          "STATUS": "Status",
+          "TYPE": "Type",
+          "DUE_DATE": "Due Date",
+          "STAGE_NAME": "Stage",
+          "USER_NAME": "User",
+          "PERSON_NAME": "Person",
+          "ORG_NAME": "Organization"
+        },
+        "STATUS": {
+          "ALL_NOT_DELETED": "All not deleted",
+          "OPEN": "Open",
+          "WON": "Won",
+          "LOST": "Lost",
+          "DELETED": "Deleted",
+          "ACTIVE": "Active",
+          "ARCHIVED": "Archived",
+          "PENDING": "Pending",
+          "DONE": "Done"
+        },
+        "TYPES": {
+          "CALL": "Call",
+          "MEETING": "Meeting",
+          "TASK": "Task",
+          "DEADLINE": "Deadline",
+          "EMAIL": "Email",
+          "LUNCH": "Lunch"
+        },
+        "OPERATORS": {
+          "EQUAL_TO": "Equal to",
+          "NOT_EQUAL_TO": "Not equal to",
+          "CONTAINS": "Contains",
+          "DOES_NOT_CONTAIN": "Does not contain",
+          "GREATER_THAN": "Greater than",
+          "LESS_THAN": "Less than"
+        }
+      }
     }
   },
   "COSMOS": {

@@ -18,7 +18,8 @@ class AsyncDispatcher < BaseDispatcher
       NotificationListener.instance,
       ParticipationListener.instance,
       ReportingEventListener.instance,
-      WebhookListener.instance
+      WebhookListener.instance,
+      Crm::Pipedrive::Listener.instance
     ]
   end
 end

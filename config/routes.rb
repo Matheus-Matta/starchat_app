@@ -202,7 +202,8 @@ Rails.application.routes.draw do
           end
           resources :reporting_events, only: [:index] if ChatwootApp.enterprise?
           resources :custom_attribute_definitions, only: [:index, :show, :create, :update, :destroy]
-          resources :custom_filters, only: [:index, :show, :create, :update, :destroy]
+          resources :custom_attribute_definitions, only: [:index, :show, :create, :update, :destroy]
+          resources :custom_filters, only: [:index, :show, :create, :update, :destroy], path: 'segments'
           resources :inboxes, only: [:index, :show, :create, :update, :destroy] do
             get :assignable_agents, on: :member
             get :campaigns, on: :member
@@ -278,6 +279,16 @@ Rails.application.routes.draw do
 
           resources :webhooks, only: [:index, :create, :update, :destroy]
           namespace :integrations do
+            resource :pipedrive, controller: 'pipedrive', only: [:destroy, :show] do
+              get :customer_context
+              get :deals
+              get :leads
+              get :activities
+              get :filters
+              get :users
+              get :persons
+              get :organizations
+            end
             resources :apps, only: [:index, :show]
             resources :hooks, only: [:show, :create, :update, :destroy] do
               member do
@@ -519,6 +530,7 @@ Rails.application.routes.draw do
   get 'webhooks/instagram', to: 'webhooks/instagram#verify'
   post 'webhooks/instagram', to: 'webhooks/instagram#events'
   post 'webhooks/evolution/:inbox_id', to: 'webhooks/evolution#process_payload'
+  post 'webhook/pipedrive/:account_id/:token', to: 'webhooks/pipedrive#process_payload'
 
   namespace :twitter do
     resource :callback, only: [:show]

@@ -62,7 +62,10 @@ const formatFilterValue = value => {
           <span
             class="lowercase whitespace-nowrap first-letter:capitalize text-n-slate-12"
           >
-            {{ replaceUnderscoreWithSpace(filter.attributeKey) }}
+            {{
+              filter.attributeLabel ||
+              replaceUnderscoreWithSpace(filter.attributeKey)
+            }}
           </span>
           <span class="px-1 text-xs text-n-slate-10 whitespace-nowrap">
             {{ formatOperatorLabel(filter.filterOperator) }}

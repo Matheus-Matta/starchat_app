@@ -294,11 +294,14 @@
     "REPORTS": "Relatórios",
     "SETTINGS": "Configurações",
     "CONTACTS": "Contatos",
+    "COMPANIES": "Empresas",
+    "ALL_COMPANIES": "Todas as Empresas",
     "ACTIVE": "Ativo",
     "COSMOS": "Capitão",
     "COSMOS_ASSISTANTS": "Assistentes",
     "COSMOS_DOCUMENTS": "Documentos",
     "COSMOS_RESPONSES": "FAQs",
+    "COSMOS_PLAYGROUND": "Playground",
     "HOME": "Principal",
     "AGENTS": "Agentes",
     "AGENT_BOTS": "Robôs",
@@ -358,7 +361,8 @@
       "INFO_SHORT": "Marcar off-line automaticamente quando não estiver usando o aplicativo."
     },
     "DOCS": "Ler documentos",
-    "AGENT_ASSIGNMENT": "Agent Assignment"
+    "AGENT_ASSIGNMENT": "Agent Assignment",
+    "SECURITY": "Segurança"
   },
   "BILLING_SETTINGS": {
     "TITLE": "Cobrança",

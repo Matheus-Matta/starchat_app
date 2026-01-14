@@ -20,7 +20,7 @@ class CustomFilter < ApplicationRecord
   belongs_to :user
   belongs_to :account
 
-  enum filter_type: { conversation: 0, contact: 1, report: 2 }
+  enum filter_type: { conversation: 0, contact: 1, report: 2, pipedrive_deals: 3, pipedrive_leads: 4, pipedrive_activities: 5 }
   validate :validate_number_of_filters
 
   def validate_number_of_filters

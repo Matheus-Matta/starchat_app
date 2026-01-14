@@ -21,6 +21,10 @@ const props = defineProps({
     type: String,
     default: '',
   },
+  showTotal: {
+    type: Boolean,
+    default: true,
+  },
 });
 const emit = defineEmits(['update:currentPage']);
 const { t } = useI18n();
@@ -43,6 +47,12 @@ const changePage = newPage => {
 };
 
 const currentPageInformation = computed(() => {
+  if (!props.showTotal) {
+    return t('PAGINATION_FOOTER.SHOWING_RANGE', {
+      startItem: startItem.value,
+      endItem: endItem.value,
+    });
+  }
   return t(
     props.currentPageInfo ? props.currentPageInfo : 'PAGINATION_FOOTER.SHOWING',
     {
@@ -54,8 +64,13 @@ const currentPageInformation = computed(() => {
 });
 
 const pageInfo = computed(() => {
+  if (!props.showTotal) {
+    return t('PAGINATION_FOOTER.CURRENT_PAGE_ONLY', {
+      currentPage: props.currentPage,
+    });
+  }
   return t('PAGINATION_FOOTER.CURRENT_PAGE_INFO', {
-    currentPage: '',
+    currentPage: props.currentPage,
     totalPages: totalPages.value,
   });
 });
@@ -72,6 +87,7 @@ const pageInfo = computed(() => {
     </div>
     <div class="flex items-center gap-2">
       <Button
+        v-if="showTotal"
         icon="i-lucide-chevrons-left"
         variant="ghost"
         size="sm"
@@ -105,6 +121,7 @@ const pageInfo = computed(() => {
         @click="changePage(currentPage + 1)"
       />
       <Button
+        v-if="showTotal"
         icon="i-lucide-chevrons-right"
         variant="ghost"
         color="slate"

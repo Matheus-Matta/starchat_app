@@ -3,7 +3,7 @@ import { h, computed, onMounted } from 'vue';
 import { provideSidebarContext } from './provider';
 import { useAccount } from 'dashboard/composables/useAccount';
 import { useKbd } from 'dashboard/composables/utils/useKbd';
-import { useMapGetter } from 'dashboard/composables/store';
+import { useMapGetter, useFunctionGetter } from 'dashboard/composables/store';
 import { useStore } from 'vuex';
 import { useI18n } from 'vue-i18n';
 import { useStorage } from '@vueuse/core';
@@ -17,6 +17,7 @@ import SidebarChangelogCard from './SidebarChangelogCard.vue';
 import ChannelLeaf from './ChannelLeaf.vue';
 import SidebarAccountSwitcher from './SidebarAccountSwitcher.vue';
 import Logo from 'next/icon/Logo.vue';
+import PipedriveIcon from 'dashboard/components-next/icon/PipedriveIcon.vue';
 import ComposeConversation from 'dashboard/components-next/NewConversation/ComposeConversation.vue';
 
 const props = defineProps({
@@ -77,6 +78,29 @@ const conversationCustomViews = useMapGetter(
   'customViews/getConversationCustomViews'
 );
 
+const dealsCustomViews = useMapGetter(
+  'customViews/getPipedriveDealsCustomViews'
+);
+const leadsCustomViews = useMapGetter(
+  'customViews/getPipedriveLeadsCustomViews'
+);
+const activitiesCustomViews = useMapGetter(
+  'customViews/getPipedriveActivitiesCustomViews'
+);
+
+const pipedriveIntegration = useFunctionGetter(
+  'integrations/getIntegration',
+  'pipedrive'
+);
+const isPipedriveEnabled = computed(() => {
+  const integration = pipedriveIntegration.value;
+  console.log('[Sidebar] Pipedrive Integration status:', {
+    integration,
+    enabled: !!integration?.enabled,
+  });
+  return !!integration?.enabled;
+});
+
 onMounted(() => {
   store.dispatch('labels/get');
   store.dispatch('inboxes/get');
@@ -85,6 +109,10 @@ onMounted(() => {
   store.dispatch('attributes/get');
   store.dispatch('customViews/get', 'conversation');
   store.dispatch('customViews/get', 'contact');
+  store.dispatch('customViews/get', 'pipedrive_deals');
+  store.dispatch('customViews/get', 'pipedrive_leads');
+  store.dispatch('customViews/get', 'pipedrive_activities');
+  store.dispatch('integrations/get', 'pipedrive');
 });
 
 const sortedInboxes = computed(() =>
@@ -454,6 +482,74 @@ const menuItems = computed(() => {
         },
       ],
     },
+    ...(isPipedriveEnabled.value
+      ? [
+          {
+            name: 'Pipedrive',
+            label: 'Pipedrive',
+            icon: h(PipedriveIcon),
+            children: [
+              {
+                name: 'Pipedrive Deals Group',
+                label: 'Negócios',
+                icon: 'i-lucide-briefcase',
+                children: [
+                  {
+                    name: 'Pipedrive Deals All',
+                    label: 'Todos os Negócios',
+                    to: accountScopedRoute('pipedrive_deals_index'),
+                  },
+                  ...dealsCustomViews.value.map(view => ({
+                    name: `deal-${view.id}`,
+                    label: view.name,
+                    to: accountScopedRoute('pipedrive_deals_filters', {
+                      filterId: view.id,
+                    }),
+                  })),
+                ],
+              },
+              {
+                name: 'Pipedrive Leads Group',
+                label: 'Leads',
+                icon: 'i-lucide-users',
+                children: [
+                  {
+                    name: 'Pipedrive Leads All',
+                    label: 'Todos os Leads',
+                    to: accountScopedRoute('pipedrive_leads_index'),
+                  },
+                  ...leadsCustomViews.value.map(view => ({
+                    name: `lead-${view.id}`,
+                    label: view.name,
+                    to: accountScopedRoute('pipedrive_leads_filters', {
+                      filterId: view.id,
+                    }),
+                  })),
+                ],
+              },
+              {
+                name: 'Pipedrive Activities Group',
+                label: 'Atividades',
+                icon: 'i-lucide-calendar',
+                children: [
+                  {
+                    name: 'Pipedrive Activities All',
+                    label: 'Todas as Atividades',
+                    to: accountScopedRoute('pipedrive_activities_index'),
+                  },
+                  ...activitiesCustomViews.value.map(view => ({
+                    name: `activity-${view.id}`,
+                    label: view.name,
+                    to: accountScopedRoute('pipedrive_activities_filters', {
+                      filterId: view.id,
+                    }),
+                  })),
+                ],
+              },
+            ],
+          },
+        ]
+      : []),
     {
       name: 'Settings',
       label: t('SIDEBAR.SETTINGS'),

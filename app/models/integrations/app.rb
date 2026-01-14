@@ -60,6 +60,8 @@ class Integrations::App
       account.feature_enabled?('crm_integration')
     when 'notion'
       notion_enabled?(account)
+    when 'pipedrive'
+      true
     else
       true
     end
@@ -103,7 +105,7 @@ class Integrations::App
 
   class << self
     def apps
-      Hashie::Mash.new(APPS_CONFIG)
+      Hashie::Mash.new(YAML.load_file(Rails.root.join('config/integration/apps.yml')))
     end
 
     def all

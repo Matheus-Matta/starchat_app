@@ -11,6 +11,7 @@ export const DEFAULT_CONVERSATION_SIDEBAR_ITEMS_ORDER = Object.freeze([
   { name: 'conversation_participants' },
   { name: 'linear_issues' },
   { name: 'shopify_orders' },
+  { name: 'pipedrive_360' },
 ]);
 
 export const DEFAULT_CONTACT_SIDEBAR_ITEMS_ORDER = Object.freeze([
@@ -69,9 +70,11 @@ const useContactSidebarItemsOrder = uiSettings => {
  * @param {string} key - The key of the sidebar item to toggle.
  * @param {Object} uiSettings - Reactive UI settings object.
  * @param {Function} updateUISettings - Function to update UI settings.
+ * @param {boolean} [value] - The value to set for the sidebar item. If not provided, it toggles the current state.
  */
-const toggleSidebarUIState = (key, uiSettings, updateUISettings) => {
-  updateUISettings({ [key]: !uiSettings.value[key] });
+const toggleSidebarUIState = (key, uiSettings, updateUISettings, value) => {
+  const currentState = uiSettings.value[key];
+  updateUISettings({ [key]: value !== undefined ? value : !currentState });
 };
 
 /**
@@ -155,8 +158,8 @@ export function useUISettings() {
     conversationSidebarItemsOrder: useConversationSidebarItemsOrder(uiSettings),
     contactSidebarItemsOrder: useContactSidebarItemsOrder(uiSettings),
     isContactSidebarItemOpen: key => !!uiSettings.value[key],
-    toggleSidebarUIState: key =>
-      toggleSidebarUIState(key, uiSettings, updateUISettings),
+    toggleSidebarUIState: (key, value) =>
+      toggleSidebarUIState(key, uiSettings, updateUISettings, value),
     setSignatureFlagForInbox: (channelType, value) =>
       setSignatureFlagForInbox(channelType, value, updateUISettings),
     fetchSignatureFlagFromUISettings: channelType =>

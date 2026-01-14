@@ -239,6 +239,10 @@ pt_BR:
     online:
       delete: '%{contact_name} está Online, por favor, tente novamente mais tarde'
   integration_apps:
+    pipedrive:
+      name: 'Pipedrive'
+      description: 'Acesse seus negócios, leads e atividades do Pipedrive no Starchat. Sincronize contatos automaticamente e dê mais contexto à sua equipe de vendas.'
+      short_description: 'Visualize e gerencie seus negócios do Pipedrive.'
     dashboard_apps:
       name: Painel de Aplicativos
       description: O Painel de Aplicativos permite que você crie e incorpore aplicativos que exibem informações, pedidos ou histórico de pagamento, fornecendo mais contexto aos seus agentes de suporte ao cliente.

@@ -45,6 +45,7 @@ const accessibleItems = computed(() => {
     // If a item has no link, it means it's just a subgroup header
     // So we don't need to check for permissions here, because there's nothing to
     // access here anyway
+    if (child.children && child.children.length > 0) return true;
     return child.to && isAllowed(child.to);
   });
 });
@@ -113,9 +114,20 @@ const toggleTrigger = () => {
     !isExpanded.value &&
     !hasActiveChild.value
   ) {
-    // if not already expanded, navigate to the first child
-    const firstItem = accessibleItems.value[0];
-    router.push(firstItem.to);
+    // If not already expanded, navigate to the first navigable child
+    // Since some children might be subgroups (no 'to'), we need to recursively find the first link
+    const findFirstLink = items => {
+      for (const item of items) {
+        if (item.to) return item.to;
+        if (item.children) return findFirstLink(item.children);
+      }
+      return null;
+    };
+
+    const targetLink = findFirstLink(accessibleItems.value);
+    if (targetLink) {
+      router.push(targetLink);
+    }
   }
   setExpandedItem(props.name);
 };

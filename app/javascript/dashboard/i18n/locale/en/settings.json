@@ -298,6 +298,8 @@
     "REPORTS": "Reports",
     "SETTINGS": "Settings",
     "CONTACTS": "Contacts",
+    "COMPANIES": "Companies",
+    "ALL_COMPANIES": "All Companies",
     "ACTIVE": "Active",
     "COSMOS": "Cosmos",
     "COSMOS_ASSISTANTS": "Assistants",
@@ -505,6 +507,9 @@
       "SWITCH_TO_REPLY": "Switch to Reply",
       "TOGGLE_SNOOZE_DROPDOWN": "Toggle snooze dropdown"
     }
+  },
+  "CONTACTS_LAYOUT": {
+    "NO_RECORDS_FOUND": "No records found"
   },
   "ASSIGNMENT_POLICY": {
     "INDEX": {

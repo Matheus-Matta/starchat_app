@@ -287,6 +287,7 @@
     }
   },
   "CONTACTS_LAYOUT": {
+    "NO_RECORDS_FOUND": "Nenhum registro encontrado",
     "HEADER": {
       "TITLE": "Contatos",
       "SEARCH_TITLE": "Pesquisar contatos",

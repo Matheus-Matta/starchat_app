@@ -265,3 +265,5 @@ end
 gem 'fiddle'
 
 gem "bunny", "~> 2.24"
+
+gem "phonelib", "~> 0.10.15"

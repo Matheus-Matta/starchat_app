@@ -118,13 +118,20 @@ dialogflow:
         'type': 'select',
         'name': 'region',
         'default': 'global',
-        'options': [
-          { 'label': 'Global - Default', 'value': 'global' },
-          { 'label': 'AS-NE1 - Tokyo, Japan', 'value': 'asia-northeast1' },
-          { 'label': 'AU-SE1 - Sydney, Australia', 'value': 'australia-southeast1' },
-          { 'label': 'EU-W1 - St. Ghislain, Belgium', 'value': 'europe-west1' },
-          { 'label': 'EU-W2 - London, England', 'value': 'europe-west2' },
-        ],
+        'options':
+          [
+            { 'label': 'Global - Default', 'value': 'global' },
+            { 'label': 'AS-NE1 - Tokyo, Japan', 'value': 'asia-northeast1' },
+            {
+              'label': 'AU-SE1 - Sydney, Australia',
+              'value': 'australia-southeast1',
+            },
+            {
+              'label': 'EU-W1 - St. Ghislain, Belgium',
+              'value': 'europe-west1',
+            },
+            { 'label': 'EU-W2 - London, England', 'value': 'europe-west2' },
+          ],
       },
     ]
   visible_properties: ['project_id', 'region']
@@ -283,4 +290,68 @@ leadsquared:
       'enable_transcript_activity',
       'conversation_activity_score',
       'transcript_activity_score',
+    ]
+
+pipedrive:
+  id: pipedrive
+  logo: pipedrive.png
+  i18n_key: pipedrive
+  hook_type: account
+  allow_multiple_hooks: false
+  settings_json_schema:
+    {
+      'type': 'object',
+      'properties':
+        {
+          'api_token': { 'type': 'string' },
+          'company_domain': { 'type': 'string' },
+          'sync_contacts': { 'type': 'boolean' },
+          'sync_name': { 'type': 'boolean' },
+          'sync_email': { 'type': 'boolean' },
+          'sync_phone': { 'type': 'boolean' },
+          'sync_organization': { 'type': 'boolean' },
+          'import_contacts': { 'type': 'boolean' },
+        },
+      'required': ['api_token', 'company_domain'],
+      'additionalProperties': true,
+    }
+  settings_form_schema:
+    [
+      {
+        'label': 'API Token',
+        'type': 'text',
+        'name': 'api_token',
+        'validation': 'required',
+      },
+      {
+        'label': 'Company Domain',
+        'type': 'text',
+        'name': 'company_domain',
+        'validation': 'required',
+      },
+      { 'label': 'Sync Contacts', 'type': 'checkbox', 'name': 'sync_contacts' },
+      {
+        'label': 'Import Contacts',
+        'type': 'checkbox',
+        'name': 'import_contacts',
+      },
+      { 'label': 'Sync Name', 'type': 'checkbox', 'name': 'sync_name' },
+      { 'label': 'Sync Email', 'type': 'checkbox', 'name': 'sync_email' },
+      { 'label': 'Sync Phone', 'type': 'checkbox', 'name': 'sync_phone' },
+      {
+        'label': 'Sync Organization',
+        'type': 'checkbox',
+        'name': 'sync_organization',
+      },
+    ]
+  visible_properties:
+    [
+      'api_token',
+      'company_domain',
+      'sync_contacts',
+      'import_contacts',
+      'sync_name',
+      'sync_email',
+      'sync_phone',
+      'sync_organization',
     ]

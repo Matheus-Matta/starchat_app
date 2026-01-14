@@ -40,11 +40,9 @@ class Api::V1::Accounts::CustomFiltersController < Api::V1::Accounts::BaseContro
   end
 
   def permitted_payload
-    params.require(:custom_filter).permit(
-      :name,
-      :filter_type,
-      query: {}
-    )
+    params.require(:custom_filter).permit(:name, :filter_type).tap do |whitelisted|
+      whitelisted[:query] = params[:custom_filter][:query].permit! if params[:custom_filter][:query].present?
+    end
   end
 
   def permitted_params

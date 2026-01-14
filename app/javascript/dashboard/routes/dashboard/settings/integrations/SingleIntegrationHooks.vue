@@ -28,11 +28,11 @@ const { replaceInstallationName } = useBranding();
       <div class="flex h-16 w-16 items-center justify-center">
         <img
           :src="`/dashboard/images/integrations/${integrationId}.png`"
-          class="max-w-full rounded-md border border-n-weak shadow-sm block dark:hidden bg-n-alpha-3 dark:bg-n-alpha-2"
+          class="max-w-full rounded-md block dark:hidden"
         />
         <img
           :src="`/dashboard/images/integrations/${integrationId}-dark.png`"
-          class="max-w-full rounded-md border border-n-weak shadow-sm hidden dark:block bg-n-alpha-3 dark:bg-n-alpha-2"
+          class="max-w-full rounded-md hidden dark:block"
         />
       </div>
       <div class="flex flex-col justify-center m-0 mx-4 flex-1">

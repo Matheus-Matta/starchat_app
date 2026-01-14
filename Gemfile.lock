@@ -642,6 +642,7 @@ GEM
       activerecord (>= 5.2)
       activesupport (>= 5.2)
     pgvector (0.1.1)
+    phonelib (0.10.15)
     prism (1.4.0)
     procore-sift (1.0.0)
       activerecord (>= 6.1)
@@ -1087,6 +1088,7 @@ DEPENDENCIES
   pg
   pg_search
   pgvector
+  phonelib (~> 0.10.15)
   procore-sift
   pry-rails
   puma

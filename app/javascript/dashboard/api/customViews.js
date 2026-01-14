@@ -3,7 +3,7 @@ import ApiClient from './ApiClient';
 
 class CustomViewsAPI extends ApiClient {
   constructor() {
-    super('custom_filters', { accountScoped: true });
+    super('segments', { accountScoped: true });
   }
 
   getCustomViewsByFilterType(type) {

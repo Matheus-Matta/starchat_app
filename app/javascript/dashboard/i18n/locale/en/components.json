@@ -1,10 +1,13 @@
 {
   "PAGINATION_FOOTER": {
     "SHOWING": "Showing {startItem} - {endItem} of {totalItems} items",
-    "CURRENT_PAGE_INFO": "{currentPage} of {totalPages} pages"
+    "SHOWING_RANGE": "Showing {startItem} - {endItem}",
+    "CURRENT_PAGE_INFO": "{currentPage} of {totalPages} pages",
+    "CURRENT_PAGE_ONLY": "Page {currentPage}"
   },
   "COMBOBOX": {
     "PLACEHOLDER": "Select an option...",
+    "LOADING": "Loading...",
     "EMPTY_SEARCH_RESULTS": "No items found for the search term `{searchTerm}`",
     "EMPTY_STATE": "No results found.",
     "SEARCH_PLACEHOLDER": "Search...",

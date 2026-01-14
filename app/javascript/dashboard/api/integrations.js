@@ -33,6 +33,12 @@ class IntegrationsAPI extends ApiClient {
     return axios.delete(`${this.baseUrl()}/integrations/hooks/${hookId}`);
   }
 
+  updateHook({ hookId, settings }) {
+    return axios.patch(`${this.baseUrl()}/integrations/hooks/${hookId}`, {
+      hook: { settings },
+    });
+  }
+
   connectShopify({ shopDomain }) {
     return axios.post(`${this.baseUrl()}/integrations/shopify/auth`, {
       shop_domain: shopDomain,

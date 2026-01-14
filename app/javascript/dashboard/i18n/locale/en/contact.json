@@ -288,6 +288,7 @@
   },
 
   "CONTACTS_LAYOUT": {
+    "NO_RECORDS_FOUND": "No records found",
     "HEADER": {
       "TITLE": "Contacts",
       "SEARCH_TITLE": "Search contacts",
@@ -371,6 +372,10 @@
             "CANCEL": "No, Cancel",
             "SUCCESS_MESSAGE": "Filter deleted successfully",
             "ERROR_MESSAGE": "Unable to delete filter. Please try again later."
+          },
+          "UPDATE_SEGMENT": {
+            "SUCCESS_MESSAGE": "Filter updated successfully",
+            "ERROR_MESSAGE": "Unable to update filter. Please try again later."
           }
         }
       }

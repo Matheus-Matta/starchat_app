@@ -8,47 +8,64 @@ import { required } from '@vuelidate/validators';
 import Dialog from 'dashboard/components-next/dialog/Dialog.vue';
 import Input from 'dashboard/components-next/input/Input.vue';
 
+const props = defineProps({
+  filterType: {
+    type: Number,
+    default: 1,
+  },
+});
+
 const emit = defineEmits(['create']);
-
-const FILTER_TYPE_CONTACT = 1;
-
 const { t } = useI18n();
 
-const uiFlags = useMapGetter('customViews/getUIFlags');
-const isCreating = computed(() => uiFlags.value.isCreating);
-
 const dialogRef = ref(null);
+const uiFlags = useMapGetter('contacts/getUIFlags');
+const isCreating = computed(() => uiFlags.value.isCreatingCustomView);
 
 const state = reactive({
   name: '',
 });
 
-const validationRules = {
+const rules = {
   name: { required },
 };
 
-const v$ = useVuelidate(validationRules, state);
+const v$ = useVuelidate(rules, state);
 
 const handleDialogConfirm = async () => {
   const isNameValid = await v$.value.$validate();
   if (!isNameValid) return;
   emit('create', {
     name: state.name,
-    filter_type: FILTER_TYPE_CONTACT,
+    filter_type: props.filterType,
   });
   state.name = '';
   v$.value.$reset();
 };
 
-defineExpose({ dialogRef });
+const isEditing = ref(false);
+
+const open = ({ name = '', edit = false } = {}) => {
+  state.name = name;
+  isEditing.value = edit;
+  dialogRef.value?.open();
+};
+
+defineExpose({ dialogRef, open });
 </script>
 
 <template>
   <Dialog
     ref="dialogRef"
-    :title="t('CONTACTS_LAYOUT.HEADER.ACTIONS.FILTERS.CREATE_SEGMENT.TITLE')"
+    :title="
+      isEditing
+        ? t('CONTACTS_LAYOUT.HEADER.ACTIONS.FILTERS.UPDATE_SEGMENT.TITLE')
+        : t('CONTACTS_LAYOUT.HEADER.ACTIONS.FILTERS.CREATE_SEGMENT.TITLE')
+    "
     :confirm-button-label="
-      t('CONTACTS_LAYOUT.HEADER.ACTIONS.FILTERS.CREATE_SEGMENT.CONFIRM')
+      isEditing
+        ? t('CONTACTS_LAYOUT.HEADER.ACTIONS.FILTERS.UPDATE_SEGMENT.CONFIRM')
+        : t('CONTACTS_LAYOUT.HEADER.ACTIONS.FILTERS.CREATE_SEGMENT.CONFIRM')
     "
     :is-loading="isCreating"
     :disable-confirm-button="isCreating"
