@@ -53,8 +53,8 @@
           "ERROR": "Por favor, insira uma URL válida"
         },
         "NAME": {
-            "LABEL": "Nome do Webhook",
-            "PLACEHOLDER": "Insira o nome do webhook"
+          "LABEL": "Nome do Webhook",
+          "PLACEHOLDER": "Insira o nome do webhook"
         },
         "EDIT_SUBMIT": "Atualizar webhook",
         "ADD_SUBMIT": "Criar webhook"
@@ -484,7 +484,7 @@
           "TITLE": "Funcionalidades",
           "ALLOW_CONVERSATION_FAQS": "Gerar perguntas frequentes a partir de conversas resolvidas",
           "ALLOW_MEMORIES": "Capture os principais detalhes como memórias de interações do cliente.",
-          "ALLOW_CITATIONS": "Incluir fonte de citações nas respostas"
+          "ALLOW_CITATIONS": "Permitir citações nas respostas"
         }
       },
       "EDIT": {
@@ -798,7 +798,8 @@
         "ERROR_MESSAGE": "Ocorreu um erro ao excluir a FAQ, por favor tente novamente."
       },
       "PENDING_BANNER": {
-        "TITLE": "Você tem {count} sugestões de FAQ pendentes"
+        "TITLE": "Você tem {count} sugestões de FAQ pendentes",
+        "ACTION": "Revisar agora"
       },
       "PENDING_FAQS": "FAQs Pendentes",
       "FILTER": {
@@ -852,7 +853,9 @@
         "FEATURE_SPOTLIGHT": {
           "TITLE": "Cosmos FAQ",
           "NOTE": "Cosmos FAQs detects common customer questions—whether missing from your knowledge base or frequently asked—and generates relevant FAQs to improve support. You can review each suggestion and decide whether to approve or reject it."
-        }
+        },
+        "NO_PENDING_TITLE": "Nenhuma FAQ pendente",
+        "CLEAR_SEARCH": "Limpar busca"
       }
     },
     "INBOXES": {
@@ -956,8 +959,35 @@
         "RESPONSE_TEMPLATE": {
           "LABEL": "Modelo de Resposta",
           "PLACEHOLDER": "Digite o modelo de resposta (JSON)"
+        },
+        "PARAM_NAME": {
+          "PLACEHOLDER": "Nome do parâmetro"
+        },
+        "PARAM_DESCRIPTION": {
+          "PLACEHOLDER": "Descrição do parâmetro"
+        },
+        "PARAM_TYPE": {
+          "PLACEHOLDER": "Selecione o tipo de parâmetro"
+        },
+        "PARAM_TYPES": {
+          "STRING": "String",
+          "NUMBER": "Número",
+          "BOOLEAN": "Booleano",
+          "ARRAY": "Array",
+          "OBJECT": "Objeto"
+        },
+        "PARAM_REQUIRED": {
+          "LABEL": "Obrigatório"
         }
+      },
+      "EMPTY_STATE": {
+        "TITLE": "Nenhuma ferramenta personalizada disponível",
+        "SUBTITLE": "Crie ferramentas personalizadas para estender as capacidades do seu assistente com APIs e serviços externos."
       }
-    }
+    },
+    "TITLE": "Cosmos",
+    "DESCRIPTION": "Assistente com IA para suporte ao cliente",
+    "BUTTON_TXT": "Configurar Cosmos",
+    "UPGRADE": "Faça upgrade para desbloquear recursos do Cosmos"
   }
 }
