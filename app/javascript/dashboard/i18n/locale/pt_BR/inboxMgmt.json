@@ -1056,6 +1056,11 @@
     "EMAIL_PROVIDER": {
       "TITLE": "Escolha seu provedor de email",
       "DESCRIPTION": "Selecione como você deseja conectar sua caixa de entrada de email"
+    },
+    "EMAIL_CHANNEL": {
+      "FORWARDING_ADDRESS_LABEL": "Endereço de Encaminhamento",
+      "CONFIGURE_SMTP_IMAP_LINK": "Configurar SMTP/IMAP",
+      "CONFIGURE_SMTP_IMAP_TEXT": "Ou configure manualmente usando"
     }
   },
   "EMAIL_PROVIDERS": {
@@ -1071,5 +1076,8 @@
       "TITLE": "Outros Provedores",
       "DESCRIPTION": "Configure manualmente usando configurações SMTP/IMAP"
     }
+  },
+  "SETTINGS_POPUP": {
+    "FORWARD_EMAIL_NOT_CONFIGURED": "Endereço de encaminhamento de email não configurado"
   }
 }

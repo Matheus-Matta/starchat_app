@@ -1045,6 +1045,11 @@
     "EMAIL_PROVIDER": {
       "TITLE": "Choose your email provider",
       "DESCRIPTION": "Select how you want to connect your email inbox"
+    },
+    "EMAIL_CHANNEL": {
+      "FORWARDING_ADDRESS_LABEL": "Forwarding Address",
+      "CONFIGURE_SMTP_IMAP_LINK": "Configure SMTP/IMAP",
+      "CONFIGURE_SMTP_IMAP_TEXT": "Or configure manually using"
     }
   },
   "EMAIL_PROVIDERS": {
@@ -1060,5 +1065,8 @@
       "TITLE": "Other Providers",
       "DESCRIPTION": "Configure manually using SMTP/IMAP settings"
     }
+  },
+  "SETTINGS_POPUP": {
+    "FORWARD_EMAIL_NOT_CONFIGURED": "Forward email address is not configured"
   }
 }
