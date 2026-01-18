@@ -108,3 +108,4 @@ CLAUDE.local.md
 \*.orig
 \*.mergebak
 .env.teste
+.git_sha
