@@ -48,7 +48,8 @@ class Evolution::SendMessageService
     if @message.content.present?
       begin
         
-        text_content = @message.content.to_s.strip
+        # Use outgoing_content para incluir o link do CSAT quando aplicável
+        text_content = @message.outgoing_content.to_s.strip
         sender_config = @inbox.sender_config || {}
         if sender_config['send_agent_name'] && @message.sender.is_a?(User)
           agent_name = @message.sender.try(:display_name).presence || @message.sender.name
