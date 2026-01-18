@@ -1,7 +1,11 @@
-<p>Hi {{user.available_name}},</p>
+\u003cp\u003eOlá {{user.available_name}},\u003c/p\u003e
 
-<p>You have received a new message in your assigned conversation.</p>
+\u003cp style=\"color: #374151; line-height: 1.6;\"\u003e
+  Nova mensagem na sua conversa atribuída (\u003ca href=\"{{ action_url }}\" style=\"color: #7C3AED; text-decoration: none; font-weight: 600;\"\u003e#{{conversation.display_id}}\u003c/a\u003e).
+\u003c/p\u003e
 
-<p>
-Click <a href="{{action_url}}">here</a> to get cracking.
-</p>
+\u003cp style=\"margin-top: 24px;\"\u003e
+  \u003ca href=\"{{ action_url }}\" style=\"display: inline-block; padding: 12px 24px; background-color: #7C3AED; color: #ffffff; text-decoration: none; border-radius: 6px; font-weight: 600; text-align: center;\"\u003e
+    Ver Mensagem
+  \u003c/a\u003e
+\u003c/p\u003e

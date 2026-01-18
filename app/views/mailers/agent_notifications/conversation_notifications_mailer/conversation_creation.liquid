@@ -1,30 +1,37 @@
-<p>Hi {{user.available_name}}</p>
+\u003cp\u003eOlá {{user.available_name}},\u003c/p\u003e
 
-<p>
-  A new conversation (<a href="{{ action_url }}">#{{conversation.display_id}}</a>) has been created in {{ inbox.name }}.
-  <strong>{{ conversation.contact_name }}</strong> wrote:
-</p>
+\u003cp\u003e
+  Uma nova conversa (\u003ca href=\"{{ action_url }}\" style=\"color: #7C3AED; text-decoration: none; font-weight: 600;\"\u003e#{{conversation.display_id}}\u003c/a\u003e) foi criada na caixa de entrada \u003cstrong style=\"color: #1F2937;\"\u003e{{ inbox.name }}\u003c/strong\u003e.
+  \u003cstrong style=\"color: #1F2937;\"\u003e{{ conversation.contact_name }}\u003c/strong\u003e escreveu:
+\u003c/p\u003e
 
 {% for chat_message in conversation.recent_messages %}
-  <div>
-    <h4 style="margin: 0;">
+  \u003cdiv style=\"margin-bottom: 20px;\"\u003e
+    \u003ch4 style=\"margin: 0 0 8px 0; color: #6B7280; font-size: 14px; font-weight: 600;\"\u003e
       {% if chat_message.sender == user.available_name %}
-        You
+        Você
       {% else %}
         {{chat_message.sender}}
       {% endif %}
-    </h4>
-  </div>
+    \u003c/h4\u003e
 
-  <div style="padding: 10px 20px; margin: 5px 0 20px 0; background: #F2F3F7; border-radius: 10px; display: inline-block; font-family: 'Helvetica Neue',Tahoma,Arial,sans-serif; text-align: start; unicode-bidi: plaintext;">
-    {% if chat_message.content %}
-      {{chat_message.content}}
-    {% endif %}
+    \u003cdiv style=\"padding: 12px 16px; margin: 0; background: #F9FAFB; border-left: 3px solid #7C3AED; border-radius: 6px; display: inline-block; font-family: 'Helvetica Neue',Tahoma,Arial,sans-serif; text-align: start; unicode-bidi: plaintext; color: #374151; line-height: 1.6;\"\u003e
+      {% if chat_message.content %}
+        {{chat_message.content}}
+      {% endif %}
 
-    {% if chat_message.attachments %}
-      {% for attachment in chat_message.attachments %}
-        Attachment [<a href="{{ attachment }}" _target="blank">Click here to view</a>]
-      {% endfor %}
-    {% endif %}
-  </div>
+      {% if chat_message.attachments %}
+        {% for attachment in chat_message.attachments %}
+          \u003cbr/\u003e\u003cbr/\u003e
+          📎 Anexo [\u003ca href=\"{{ attachment }}\" target=\"_blank\" style=\"color: #7C3AED; text-decoration: none; font-weight: 600;\"\u003eClique aqui para visualizar\u003c/a\u003e]
+        {% endfor %}
+      {% endif %}
+    \u003c/div\u003e
+  \u003c/div\u003e
 {% endfor %}
+
+\u003cp style=\"margin-top: 24px;\"\u003e
+  \u003ca href=\"{{ action_url }}\" style=\"display: inline-block; padding: 12px 24px; background-color: #7C3AED; color: #ffffff; text-decoration: none; border-radius: 6px; font-weight: 600; text-align: center;\"\u003e
+    Ver Conversa
+  \u003c/a\u003e
+\u003c/p\u003e

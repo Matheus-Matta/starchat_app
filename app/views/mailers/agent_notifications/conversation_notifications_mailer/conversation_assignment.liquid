@@ -1,31 +1,19 @@
-<p>Hi {{user.available_name}},</p>
+\u003cp\u003eOlá {{user.available_name}},\u003c/p\u003e
 
-<p>Time to save the world. A new conversation has been assigned to you</p>
+\u003cp style=\"color: #374151; line-height: 1.6;\"\u003e
+  Uma nova conversa (\u003ca href=\"{{ action_url }}\" style=\"color: #7C3AED; text-decoration: none; font-weight: 600;\"\u003e#{{conversation.display_id}}\u003c/a\u003e) foi atribuída a você.
+\u003c/p\u003e
 
-{% for chat_message in conversation.recent_messages %}
-  <div>
-    <h4 style="margin: 0;">
-      {% if chat_message.sender == user.available_name %}
-        You
-      {% else %}
-        {{chat_message.sender}}
-      {% endif %}
-    </h4>
-  </div>
+\u003cp style=\"color: #374151; line-height: 1.6;\"\u003e
+  \u003cstrong style=\"color: #1F2937;\"\u003eContato:\u003c/strong\u003e {{ conversation.contact_name }}\u003cbr/\u003e
+  \u003cstrong style=\"color: #1F2937;\"\u003eCaixa de Entrada:\u003c/strong\u003e {{ inbox.name }}\u003cbr/\u003e
+  {% if conversation.assignee %}
+    \u003cstrong style=\"color: #1F2937;\"\u003eAtribuído a:\u003c/strong\u003e {{ conversation.assignee.name }}
+  {% endif %}
+\u003c/p\u003e
 
-  <div style="padding: 10px 20px; margin: 5px 0 20px 0; background: #F2F3F7; border-radius: 10px; display: inline-block; font-family: 'Helvetica Neue',Tahoma,Arial,sans-serif; text-align: start; unicode-bidi: plaintext;">
-    {% if chat_message.content %}
-      {{chat_message.content}}
-    {% endif %}
-
-    {% if chat_message.attachments %}
-      {% for attachment in chat_message.attachments %}
-        Attachment [<a href="{{ attachment }}" _target="blank">Click here to view</a>]
-      {% endfor %}
-    {% endif %}
-  </div>
-{% endfor %}
-
-<p>
-Click <a href="{{action_url}}">here</a> to get cracking.
-</p>
+\u003cp style=\"margin-top: 24px;\"\u003e
+  \u003ca href=\"{{ action_url }}\" style=\"display: inline-block; padding: 12px 24px; background-color: #7C3AED; color: #ffffff; text-decoration: none; border-radius: 6px; font-weight: 600; text-align: center;\"\u003e
+    Ver Conversa
+  \u003c/a\u003e
+\u003c/p\u003e

@@ -148,13 +148,19 @@ pt_BR:
         recorded_at: Data de gravação
   notifications:
     notification_title:
-      conversation_creation: ''
+      conversation_creation: 'Uma conversa (#%{display_id}) foi criada na caixa de entrada %{inbox_name}'
       conversation_assignment: Uma conversa (#%{display_id}) foi atribuída a você
       assigned_conversation_new_message: Uma nova mensagem foi criada na conversa (#%{display_id})
       conversation_mention: Você foi mencionado em uma conversa (#%{display_id})
       sla_missed_first_response: Meta de SLA de Primeira Resposta não alcançada para a conversa (#%{display_id})
       sla_missed_next_response: Meta de SLA de Próxima Resposta não alcançada para a conversa (#%{display_id})
       sla_missed_resolution: Meta de SLA de Resolução não alcançada para a conversa (#%{display_id})
+    email_subject:
+      conversation_creation: '%{agent_name}, uma nova conversa [ID - %{display_id}] foi criada na caixa de entrada %{inbox_name}'
+      conversation_assignment: '%{agent_name}, uma nova conversa [ID - %{display_id}] foi atribuída a você'
+      conversation_mention: '%{agent_name}, você foi mencionado na conversa [ID - %{display_id}]'
+      assigned_conversation_new_message: '%{agent_name}, nova mensagem na sua conversa atribuída [ID - %{display_id}]'
+      participating_conversation_new_message: '%{agent_name}, nova mensagem na sua conversa participante [ID - %{display_id}]'
     attachment: Anexo
     no_content: Sem conteúdo
   conversations:
