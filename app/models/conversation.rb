@@ -204,7 +204,8 @@ class Conversation < ApplicationRecord
   end
 
   def csat_survey_link
-    "#{ENV.fetch('FRONTEND_URL', nil)}/survey/responses/#{uuid}"
+    base_url = ENV['FRONTEND_URL_TESTE'].presence || ENV.fetch('FRONTEND_URL', nil)
+    "#{base_url}/survey/responses/#{uuid}"
   end
 
   def dispatch_conversation_updated_event(previous_changes = nil)

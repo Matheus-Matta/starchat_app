@@ -15,6 +15,7 @@ class MessageContentPresenter < SimpleDelegator
   end
 
   def survey_url(conversation_uuid)
-    "#{ENV.fetch('FRONTEND_URL', nil)}/survey/responses/#{conversation_uuid}"
+    base_url = ENV['FRONTEND_URL_TESTE'].presence || ENV.fetch('FRONTEND_URL', nil)
+    "#{base_url}/survey/responses/#{conversation_uuid}"
   end
 end

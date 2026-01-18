@@ -605,9 +605,9 @@ Rails.application.routes.draw do
   end
 
   # ---------------------------------------------------------------------
-  # Routes for swagger docs
-  get '/swagger/*path', to: 'swagger#respond'
-  get '/swagger', to: 'swagger#respond'
+  # Routes for API documentation
+  get '/doc/*path', to: 'doc#respond'
+  get '/doc', to: 'doc#respond'
 
   # ----------------------------------------------------------------------
   # Routes for testing

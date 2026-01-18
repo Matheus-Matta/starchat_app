@@ -19,7 +19,12 @@ class Evolution::SendMessageService
 
   def perform
     return unless evolution_channel?
-    return unless dispatchable?
+    
+    # Handle non-dispatchable messages (private or invalid type)
+    unless dispatchable?
+      mark_as_blocked!
+      return
+    end
 
     in_reply_to_val = @message.content_attributes&.dig('in_reply_to')
     Rails.logger.info("[Evolution::SendMessageService] STARTED msg=#{@message.id} content='#{@message.content}' in_reply_to=#{in_reply_to_val} atts=#{@message.content_attributes}")
@@ -225,9 +230,10 @@ class Evolution::SendMessageService
   end
 
   def dispatchable?
-    # Only send outgoing messages that are NOT private
+    # Send outgoing and template messages (like CSAT) that are NOT private
     # Private messages (internal notes, system errors) should NEVER go to the client
-    @message.outgoing? && !@message.private?
+    # Template messages include CSAT surveys and other system-generated messages that should be sent to contacts
+    (@message.outgoing? || @message.template?) && !@message.private?
   end
 
   def already_dispatched?
@@ -351,6 +357,17 @@ class Evolution::SendMessageService
     h = @message.additional_attributes.to_h
     h['evolution_dispatched'] = true
     @message.update_columns(additional_attributes: h, updated_at: Time.current)
+  end
+
+  def mark_as_blocked!
+    reason = if @message.private?
+               'Private messages are not sent to contacts'
+             else
+               "Message type '#{@message.message_type}' cannot be sent via Evolution"
+             end
+    
+    Rails.logger.info("[Evolution::SendMessageService] Blocked msg=#{@message.id}: #{reason}")
+    update_message_status!(message: @message, status: 'failed', external_error: reason)
   end
 
   def record_send_error!(error:, kind:, payload: {})
