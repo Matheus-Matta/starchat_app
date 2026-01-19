@@ -23,16 +23,18 @@ module Evolution
 
     def e164_from_jid(jid)
       return if jid.blank?
+
       num = jid.to_s.split('@').first.to_s.split(':').first.gsub(/\D+/, '')
       return if num.blank?
+
       num.start_with?('+') ? num : "+#{num}"
     end
 
     def remote_jid_from(message)
       jid = message.dig(:key, :remoteJid) || message[:remoteJid] || message['remoteJid']
       return if jid.blank?
-      jid = jid.to_s.sub(/:\d+@/, '@')
-      jid
+
+      jid.to_s.sub(/:\d+@/, '@')
     end
 
     def push_name_from(message)
@@ -48,6 +50,7 @@ module Evolution
 
       truthy?(val)
     end
+
     def media_kind_of(message)
       payload = message[:message] || message['message']
       return :text if payload.is_a?(Hash) && (payload[:conversation].present? || payload['conversation'].present?)
@@ -57,6 +60,7 @@ module Evolution
       return :video    if payload[:videoMessage]    || payload['videoMessage']
       return :audio    if payload[:audioMessage]    || payload['audioMessage']
       return :document if payload[:documentMessage] || payload['documentMessage']
+
       :unknown
     end
 
@@ -65,9 +69,9 @@ module Evolution
       return nil unless payload.is_a?(Hash)
 
       payload[:imageMessage]    || payload['imageMessage']    ||
-      payload[:videoMessage]    || payload['videoMessage']    ||
-      payload[:audioMessage]    || payload['audioMessage']    ||
-      payload[:documentMessage] || payload['documentMessage']
+        payload[:videoMessage]    || payload['videoMessage']    ||
+        payload[:audioMessage]    || payload['audioMessage']    ||
+        payload[:documentMessage] || payload['documentMessage']
     end
 
     def base64_and_ext_from_message(message)
@@ -76,22 +80,23 @@ module Evolution
       node     = media_node_of(message)
       mimetype = (node && (node[:mimetype] || node['mimetype'])).to_s
 
-      b64 = if node&.[]( :base64 ).present? then node[:base64]
-            elsif node&.[]( 'base64' ).present? then node['base64']
-            elsif p&.[]( :base64 ).present? then p[:base64]
-            elsif p&.[]( 'base64' ).present? then p['base64']
+      b64 = if node&.[](:base64).present? then node[:base64]
+            elsif node&.[]('base64').present? then node['base64']
+            elsif p&.[](:base64).present? then p[:base64]
+            elsif p&.[]('base64').present? then p['base64']
             end
 
       return [nil, nil, nil] if b64.blank?
+
       [b64, ext_from_mimetype_or_kind(mimetype, kind), mimetype.presence]
     end
 
     def source_id_of(message)
       message.dig(:key, :id) ||
-      message.dig('key', 'id') ||
-      message[:id] ||
-      message['id'] ||
-      SecureRandom.hex(8)
+        message.dig('key', 'id') ||
+        message[:id] ||
+        message['id'] ||
+        SecureRandom.hex(8)
     end
 
     def ext_from_mimetype_or_kind(mimetype, kind)
@@ -105,9 +110,10 @@ module Evolution
         if m.start_with?('image/') then 'jpg'
         elsif m.start_with?('video/') then 'mp4'
         elsif m.start_with?('audio/') then 'ogg'
-        else 'bin'
+        else
+          'bin'
         end
       end
     end
   end
-end  
+end

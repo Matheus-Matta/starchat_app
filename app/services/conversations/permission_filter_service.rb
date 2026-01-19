@@ -30,8 +30,6 @@ class Conversations::PermissionFilterService
                           .distinct
     end
 
-    scope
-
     scope.distinct
   end
 

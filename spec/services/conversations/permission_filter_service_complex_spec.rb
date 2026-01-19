@@ -1,12 +1,14 @@
 require 'rails_helper'
 
 describe Conversations::PermissionFilterService do
+  subject { described_class.new(account.conversations, user, account).perform }
+
   let!(:account) { create(:account) }
   let!(:user) { create(:user, account: account) }
   let!(:team) { create(:team, account: account) }
   let!(:inbox_1) { create(:inbox, account: account) }
   let!(:inbox_2) { create(:inbox, account: account) }
-  
+
   # Conversations
   # 1. Team + Unassigned
   let!(:conv_team_unassigned) { create(:conversation, account: account, inbox: inbox_1, team: team, assignee: nil) }
@@ -20,7 +22,7 @@ describe Conversations::PermissionFilterService do
   before do
     # Add user to team
     create(:team_member, team: team, user: user)
-    
+
     # Set up AccountUser to mimic custom role behavior
     # Assuming standard agent role but with mocked permissions since we can't easily create CustomRole object in specs without factory
     au = user.account_users.find_by(account_id: account.id)
@@ -28,10 +30,8 @@ describe Conversations::PermissionFilterService do
     allow(au).to receive(:permissions).and_return(permissions)
   end
 
-  subject { described_class.new(account.conversations, user, account).perform }
-
   context 'with Team Manage + Unassigned Manage' do
-    let(:permissions) { ['conversation_team_manage', 'conversation_unassigned_manage'] }
+    let(:permissions) { %w[conversation_team_manage conversation_unassigned_manage] }
 
     it 'returns Team conversations (assigned/unassigned) AND Global Unassigned conversations' do
       # Expectation 1: Team Unassigned -> Visible (Via Team or Unassigned)
@@ -45,7 +45,7 @@ describe Conversations::PermissionFilterService do
 
       # Expectation 4: Global Assigned -> HIDDEN (No Permission)
       expect(subject).not_to include(conv_global_assigned)
-      
+
       expect(subject.count).to eq(3)
     end
   end
@@ -56,28 +56,27 @@ describe Conversations::PermissionFilterService do
     it 'returns ONLY Team conversations' do
       expect(subject).to include(conv_team_unassigned)
       expect(subject).to include(conv_team_assigned)
-      
+
       # Global Unassigned -> HIDDEN (No Unassigned Manage)
       expect(subject).not_to include(conv_global_unassigned)
-      
+
       expect(subject.count).to eq(2)
     end
   end
-  
+
   context 'with ONLY Unassigned Manage' do
     let(:permissions) { ['conversation_unassigned_manage'] }
-    
+
     it 'returns Global Unassigned conversations' do
-       # If only unassigned manage, and team member logic is implicit in backend service
-       # Backend service includes Team ID match by default for members.
-       # So Team Unassigned -> Visible
-       expect(subject).to include(conv_team_unassigned)
-       # Global Unassigned -> Visible permissions
-       expect(subject).to include(conv_global_unassigned)
-       
-       # Team Assigned -> Visible via Team ID Match (default logic)
-       expect(subject).to include(conv_team_assigned)
+      # If only unassigned manage, and team member logic is implicit in backend service
+      # Backend service includes Team ID match by default for members.
+      # So Team Unassigned -> Visible
+      expect(subject).to include(conv_team_unassigned)
+      # Global Unassigned -> Visible permissions
+      expect(subject).to include(conv_global_unassigned)
+
+      # Team Assigned -> Visible via Team ID Match (default logic)
+      expect(subject).to include(conv_team_assigned)
     end
   end
-
 end

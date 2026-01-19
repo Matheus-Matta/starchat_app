@@ -222,7 +222,7 @@ RSpec.describe Cosmos::CustomTool, type: :model do
 
       it 'handles multiple template variables' do
         tool = create(:cosmos_custom_tool, account: account,
-                                            endpoint_url: 'https://api.example.com/{{ resource }}/{{ id }}?details={{ show_details }}')
+                                           endpoint_url: 'https://api.example.com/{{ resource }}/{{ id }}?details={{ show_details }}')
 
         result = tool.build_request_url({ resource: 'orders', id: '123', show_details: 'true' })
         expect(result).to eq('https://api.example.com/orders/123?details=true')
@@ -238,7 +238,7 @@ RSpec.describe Cosmos::CustomTool, type: :model do
 
       it 'renders request body template with params' do
         tool = create(:cosmos_custom_tool, account: account,
-                                            request_template: '{ "order_id": "{{ order_id }}", "source": "starchats" }')
+                                           request_template: '{ "order_id": "{{ order_id }}", "source": "starchats" }')
 
         result = tool.build_request_body({ order_id: '12345' })
         expect(result).to eq('{ "order_id": "12345", "source": "starchats" }')
@@ -266,7 +266,7 @@ RSpec.describe Cosmos::CustomTool, type: :model do
 
       it 'returns empty hash for API key when location is not header' do
         tool = create(:cosmos_custom_tool, account: account, auth_type: 'api_key',
-                                            auth_config: { key: 'test_key', location: 'query', name: 'api_key' })
+                                           auth_config: { key: 'test_key', location: 'query', name: 'api_key' })
 
         expect(tool.build_auth_headers).to eq({})
       end
@@ -301,7 +301,7 @@ RSpec.describe Cosmos::CustomTool, type: :model do
 
       it 'renders response template with JSON response' do
         tool = create(:cosmos_custom_tool, account: account,
-                                            response_template: 'Order status: {{ response.status }}')
+                                           response_template: 'Order status: {{ response.status }}')
         raw_response = '{"status": "shipped", "tracking": "123ABC"}'
 
         result = tool.format_response(raw_response)
@@ -310,7 +310,7 @@ RSpec.describe Cosmos::CustomTool, type: :model do
 
       it 'handles response template with multiple fields' do
         tool = create(:cosmos_custom_tool, account: account,
-                                            response_template: 'Order {{ response.id }} is {{ response.status }}. Tracking: {{ response.tracking }}')
+                                           response_template: 'Order {{ response.id }} is {{ response.status }}. Tracking: {{ response.tracking }}')
         raw_response = '{"id": "12345", "status": "delivered", "tracking": "ABC123"}'
 
         result = tool.format_response(raw_response)
@@ -319,7 +319,7 @@ RSpec.describe Cosmos::CustomTool, type: :model do
 
       it 'handles non-JSON response' do
         tool = create(:cosmos_custom_tool, account: account,
-                                            response_template: 'Response: {{ response }}')
+                                           response_template: 'Response: {{ response }}')
         raw_response = 'plain text response'
 
         result = tool.format_response(raw_response)
@@ -330,9 +330,9 @@ RSpec.describe Cosmos::CustomTool, type: :model do
     describe '#to_tool_metadata' do
       it 'returns tool metadata hash with custom flag' do
         tool = create(:cosmos_custom_tool, account: account,
-                                            slug: 'custom_test-tool',
-                                            title: 'Test Tool',
-                                            description: 'A test tool')
+                                           slug: 'custom_test-tool',
+                                           title: 'Test Tool',
+                                           description: 'A test tool')
 
         metadata = tool.to_tool_metadata
         expect(metadata).to eq({

@@ -204,7 +204,7 @@ RSpec.describe Cosmos::Scenario, type: :model do
     describe '#resolved_tools' do
       it 'includes custom tool metadata' do
         create(:cosmos_custom_tool, account: account, slug: 'custom_fetch-order',
-                                     title: 'Fetch Order', description: 'Gets order details')
+                                    title: 'Fetch Order', description: 'Gets order details')
         scenario = create(:cosmos_scenario,
                           assistant: assistant,
                           account: account,

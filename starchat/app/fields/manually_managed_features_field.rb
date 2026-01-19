@@ -8,6 +8,7 @@ class ManuallyManagedFeaturesField < Administrate::Field::Base
   def to_s
     data.is_a?(Array) ? data.join(', ') : '[]'
   end
+
   def selected_features
     # If we have direct array data, use it (for rendering after form submission)
     return data if data.is_a?(Array)

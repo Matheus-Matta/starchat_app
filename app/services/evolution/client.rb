@@ -13,9 +13,9 @@ module Evolution
     attr_reader :base_url, :api_key, :default_headers, :open_timeout, :read_timeout
 
     DEFAULT_TIMEOUTS = {
-      open:  Integer(ENV.fetch("EVOLUTION_HTTP_OPEN_TIMEOUT", 10)),  
-      read:  Integer(ENV.fetch("EVOLUTION_HTTP_READ_TIMEOUT", 60)),   
-      write: Integer(ENV.fetch("EVOLUTION_HTTP_WRITE_TIMEOUT", 30))  
+      open: Integer(ENV.fetch('EVOLUTION_HTTP_OPEN_TIMEOUT', 10)),
+      read: Integer(ENV.fetch('EVOLUTION_HTTP_READ_TIMEOUT', 60)),
+      write: Integer(ENV.fetch('EVOLUTION_HTTP_WRITE_TIMEOUT', 30))
     }.freeze
 
     def initialize(base_url:, api_key:, open_timeout: 5, read_timeout: 15)
@@ -26,7 +26,7 @@ module Evolution
 
       @default_headers = {
         'Content-Type' => 'application/json',
-        'apikey'       => @api_key
+        'apikey' => @api_key
       }.freeze
     end
 
@@ -88,7 +88,7 @@ module Evolution
     def send_text(instance, number:, text:, quoted: nil, delay: 0)
       body = {
         number: normalize_number(number),
-        text:   text
+        text: text
       }
       body[:quoted] = quoted if quoted.present?
       body[:delay]  = delay.to_i if delay.to_i.positive?
@@ -100,9 +100,9 @@ module Evolution
       # raise Error, "invalid media URL" unless media.is_a?(String) && media.start_with?("http")
 
       body = {
-        number:    normalize_number(number),
+        number: normalize_number(number),
         mediatype: mediatype,
-        media:     media
+        media: media
       }
       body[:mimetype] = mimetype if mimetype.present?
       body[:caption]  = caption  if caption.present?
@@ -110,7 +110,7 @@ module Evolution
       body[:quoted]   = quoted   if quoted.present?
       body[:delay]    = delay.to_i if delay.to_i.positive?
 
-      media_read_timeout = Integer(ENV.fetch("EVOLUTION_HTTP_MEDIA_READ_TIMEOUT", 180))
+      media_read_timeout = Integer(ENV.fetch('EVOLUTION_HTTP_MEDIA_READ_TIMEOUT', 180))
       post("/message/sendMedia/#{escape(instance)}", body,
            timeouts: { open: DEFAULT_TIMEOUTS[:open], write: DEFAULT_TIMEOUTS[:write], read: media_read_timeout })
     end
@@ -118,12 +118,12 @@ module Evolution
     def send_whatsapp_audio(instance, number:, audio:, quoted: nil, delay: 0)
       body = {
         number: normalize_number(number),
-        audio:  audio
+        audio: audio
       }
       body[:quoted] = quoted if quoted.present?
       body[:delay]  = delay.to_i if delay.to_i.positive?
 
-      media_read_timeout = Integer(ENV.fetch("EVOLUTION_HTTP_MEDIA_READ_TIMEOUT", 180))
+      media_read_timeout = Integer(ENV.fetch('EVOLUTION_HTTP_MEDIA_READ_TIMEOUT', 180))
       post("/message/sendWhatsAppAudio/#{escape(instance)}", body,
            timeouts: { open: DEFAULT_TIMEOUTS[:open], write: DEFAULT_TIMEOUTS[:write], read: media_read_timeout })
     end
@@ -138,34 +138,34 @@ module Evolution
 
     def post(path, body, timeouts: {}, idempotency_key: nil, retries: 2)
       t   = DEFAULT_TIMEOUTS.merge(timeouts || {})
-      url = URI.join(@base_url + "/", path.sub(%r{^/}, ""))
+      url = URI.join(@base_url + '/', path.sub(%r{^/}, ''))
 
       attempt = 0
       begin
         http = Net::HTTP.new(url.host, url.port)
-        http.use_ssl = (url.scheme == "https")
+        http.use_ssl = (url.scheme == 'https')
         http.open_timeout  = t[:open]
         http.read_timeout  = t[:read]
         http.write_timeout = t[:write] if http.respond_to?(:write_timeout)
         http.keep_alive_timeout = 20   if http.respond_to?(:keep_alive_timeout)
 
         req = Net::HTTP::Post.new(url)
-        req["apikey"]        = @api_key
-        req["Content-Type"]  = "application/json"
-        req["Connection"]    = "keep-alive"
-        req["Idempotency-Key"] = idempotency_key if idempotency_key # <- evita duplicar no servidor (se ele suportar)
+        req['apikey']        = @api_key
+        req['Content-Type']  = 'application/json'
+        req['Connection']    = 'keep-alive'
+        req['Idempotency-Key'] = idempotency_key if idempotency_key # <- evita duplicar no servidor (se ele suportar)
         req.body = JSON.generate(body)
 
         res = http.request(req)
-        unless res.is_a?(Net::HTTPSuccess)
-          raise Error, (parse_err(res) || "#{res.code} #{res.message}")
-        end
+        raise Error, (parse_err(res) || "#{res.code} #{res.message}") unless res.is_a?(Net::HTTPSuccess)
+
         return parse_json(res.body)
 
       rescue Net::OpenTimeout, Net::ReadTimeout, EOFError, Errno::ECONNRESET, Errno::ETIMEDOUT => e
         attempt += 1
         raise Error, e.message if attempt > retries
-        sleep(0.5 * (2 ** (attempt - 1)) + rand * 0.1)
+
+        sleep((0.5 * (2 ** (attempt - 1))) + (rand * 0.1))
         retry
       end
     end
@@ -222,15 +222,15 @@ module Evolution
     end
 
     def parse_json(str)
-      str && !str.empty? ? JSON.parse(str) : {}
+      str.present? ? JSON.parse(str) : {}
     rescue JSON::ParserError
       {}
     end
 
     def parse_err(res)
       body = parse_json(res.body)
-      body["message"] || body.dig("response", "message")
-    rescue
+      body['message'] || body.dig('response', 'message')
+    rescue StandardError
       nil
     end
 
@@ -240,8 +240,9 @@ module Evolution
 
     def normalize_number(n)
       s = n.to_s
-      return s unless s.end_with?("@s.whatsapp.net")
-      s.split("@").first
+      return s unless s.end_with?('@s.whatsapp.net')
+
+      s.split('@').first
     end
   end
 end

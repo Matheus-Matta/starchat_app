@@ -38,6 +38,7 @@ module Evolution
     def extract_quoted_stanza_id(p)
       ci = dig_context_info(p)
       return unless ci.is_a?(Hash)
+
       ci['stanzaId'] || ci['quotedStanzaID'] || ci['quotedStanzaId']
     end
   end

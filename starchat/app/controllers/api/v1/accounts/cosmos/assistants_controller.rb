@@ -66,8 +66,6 @@ class Api::V1::Accounts::Cosmos::AssistantsController < Api::V1::Accounts::BaseC
     params.require(:assistant).permit(:message_content, message_history: [:role, :content])
   end
 
-
-
   def message_history
     (playground_params[:message_history] || []).map { |message| { role: message[:role], content: message[:content] } }
   end

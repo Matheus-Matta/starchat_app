@@ -40,8 +40,8 @@ class CreateCosmosTables < ActiveRecord::Migration[7.0]
       t.timestamps
     end
 
-          add_index :cosmos_assistants, :account_id
-      add_index :cosmos_assistants, [:account_id, :name], unique: true
+    add_index :cosmos_assistants, :account_id
+    add_index :cosmos_assistants, [:account_id, :name], unique: true
   end
 
   def create_documents
@@ -55,9 +55,9 @@ class CreateCosmosTables < ActiveRecord::Migration[7.0]
       t.timestamps
     end
 
-          add_index :cosmos_documents, :account_id
-      add_index :cosmos_documents, :assistant_id
-      add_index :cosmos_documents, [:assistant_id, :external_link], unique: true
+    add_index :cosmos_documents, :account_id
+    add_index :cosmos_documents, :assistant_id
+    add_index :cosmos_documents, [:assistant_id, :external_link], unique: true
   end
 
   def create_assistant_responses
@@ -72,10 +72,10 @@ class CreateCosmosTables < ActiveRecord::Migration[7.0]
       t.timestamps
     end
 
-          add_index :cosmos_assistant_responses, :account_id
-      add_index :cosmos_assistant_responses, :assistant_id
-      add_index :cosmos_assistant_responses, :document_id
-      add_index :cosmos_assistant_responses, :embedding, using: :ivfflat, name: 'vector_idx_knowledge_entries_embedding', opclass: :vector_l2_ops
+    add_index :cosmos_assistant_responses, :account_id
+    add_index :cosmos_assistant_responses, :assistant_id
+    add_index :cosmos_assistant_responses, :document_id
+    add_index :cosmos_assistant_responses, :embedding, using: :ivfflat, name: 'vector_idx_knowledge_entries_embedding', opclass: :vector_l2_ops
   end
 
   def create_old_tables

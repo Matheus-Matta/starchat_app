@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'down'
 require 'uri'
 
@@ -12,7 +13,6 @@ class Evolution::ContactSyncService
 
   def perform
     @list.each do |c|
-
       phone_e164 = e164_from_jid(c['remoteJid'])
       next if phone_e164.blank?
 
@@ -24,12 +24,12 @@ class Evolution::ContactSyncService
         if push_name.present? && !name_is_number?(push_name)
           push_name
         else
-          phone_e164 
+          phone_e164
         end
 
       contact_inbox = ::ContactInboxWithContactBuilder.new(
         source_id: waid,
-        inbox:     @inbox,
+        inbox: @inbox,
         contact_attributes: { name: initial_name, phone_number: "+#{waid}" }
       ).perform
 
@@ -38,11 +38,10 @@ class Evolution::ContactSyncService
         contact.update!(name: push_name)
       elsif name_is_number?(contact.name) && push_name.present? && !name_is_number?(push_name)
         contact.update!(name: push_name)
-      else
       end
 
       sync_profile_image_like_whatsapp!(contact, pic_url) if pic_url.present?
-    rescue => e
+    rescue StandardError => e
       Rails.logger.warn "[Evolution] contact sync row failed: #{e.class} #{e.message}"
     end
   end
@@ -53,8 +52,10 @@ class Evolution::ContactSyncService
 
   def e164_from_jid(remote_jid)
     return if remote_jid.blank?
+
     number = remote_jid.to_s.split('@').first.to_s.split(':').first
     return if number.blank? || number !~ /\A\d+\z/
+
     "+#{number}"
   end
 
@@ -77,14 +78,15 @@ class Evolution::ContactSyncService
     Contact.transaction do
       contact.update_columns(
         additional_attributes: attrs,
-        custom_attributes:     customs,
-        updated_at:            Time.current
+        custom_attributes: customs,
+        updated_at: Time.current
       )
     end
   end
 
   def name_is_number?(name)
     return false if name.blank?
+
     normalized = name.gsub(/\s+/, '')
     normalized.match?(/\A\+?\d+\z/)
   end

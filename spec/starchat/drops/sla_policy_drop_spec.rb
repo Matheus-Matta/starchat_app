@@ -1,8 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe SlaPolicyDrop do
-  let(:sla_policy) { FactoryBot.create(:sla_policy) }
   subject(:drop) { described_class.new(sla_policy) }
+
+  let(:sla_policy) { FactoryBot.create(:sla_policy) }
 
   describe '#name' do
     it 'returns the name from sla_policy' do

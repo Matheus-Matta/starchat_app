@@ -26,12 +26,12 @@ module Evolution
         end
 
         permitted = ActionController::Parameters.new(
-          account_id:            inbox.account_id,
-          inbox_id:              inbox.id,
+          account_id: inbox.account_id,
+          inbox_id: inbox.id,
           additional_attributes: {}
         ).permit!
 
-        ::ConversationBuilder.new(contact_inbox:, params: permitted).perform
+        ::ConversationBuilder.new(contact_inbox: contact_inbox, params: permitted).perform
       end
     end
   end

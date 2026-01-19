@@ -65,7 +65,7 @@ class Starchat::Api::V1::AccountsController < Api::BaseController
         'allowed' => @account.usage_limits[:agents],
         'consumed' => agents(@account)
       },
-              'cosmos' => @account.usage_limits[:cosmos]
+      'cosmos' => @account.usage_limits[:cosmos]
     }
   end
 
@@ -74,11 +74,9 @@ class Starchat::Api::V1::AccountsController < Api::BaseController
     @current_account_user = @account.account_users.find_by(user_id: current_user.id)
   end
 
-
   def render_invalid_billing_details
     render_could_not_create_error('Please subscribe to a plan before viewing the billing details')
   end
-
 
   def pundit_user
     {

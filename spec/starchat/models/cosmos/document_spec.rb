@@ -31,8 +31,6 @@ RSpec.describe Cosmos::Document, type: :model do
         pdf_document.external_link = nil
         expect(pdf_document).to be_valid
       end
-
-
     end
 
     describe '#pdf_document?' do

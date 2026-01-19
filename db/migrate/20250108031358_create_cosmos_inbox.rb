@@ -6,6 +6,6 @@ class CreateCosmosInbox < ActiveRecord::Migration[7.0]
       t.timestamps
     end
 
-          add_index :cosmos_inboxes, [:cosmos_assistant_id, :inbox_id], unique: true
+    add_index :cosmos_inboxes, [:cosmos_assistant_id, :inbox_id], unique: true
   end
 end

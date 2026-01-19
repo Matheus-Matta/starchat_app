@@ -4,6 +4,7 @@ module Evolution
     def valid_status_transition?(message, status)
       return false unless Message.statuses.key?(status)
       return false if message.read? && status == 'delivered'
+
       true
     end
 

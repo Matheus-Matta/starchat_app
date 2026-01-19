@@ -1,10 +1,11 @@
 # frozen_string_literal: true
+
 module DownloadForEnc
-  require "down"
-  require "openssl"
-  require "tempfile"
-  require "securerandom"
-  require "marcel"
+  require 'down'
+  require 'openssl'
+  require 'tempfile'
+  require 'securerandom'
+  require 'marcel'
 
   # Baixa um arquivo .enc via HTTP(S), descriptografa (AES-256-GCM) em streaming
   # e sobe o resultado para o Active Storage. Retorna um ActiveStorage::Blob.
@@ -29,11 +30,11 @@ module DownloadForEnc
     tag_bin  = decode_bytes(tag)
     aad_bin  = aad.nil? ? nil : decode_bytes(aad)
 
-    out = Tempfile.new(["dec-", SecureRandom.hex(4)])
+    out = Tempfile.new(['dec-', SecureRandom.hex(4)])
     out.binmode
 
     Down.open(url, headers: headers) do |remote|
-      cipher = OpenSSL::Cipher.new("aes-256-gcm")
+      cipher = OpenSSL::Cipher.new('aes-256-gcm')
       cipher.decrypt
       cipher.key = key_bin
       cipher.iv  = iv_bin
@@ -50,22 +51,22 @@ module DownloadForEnc
     resolved_filename = filename.presence || "file-#{SecureRandom.hex(4)}"
     resolved_ct = content_type.presence ||
                   Marcel::MimeType.for(out, name: resolved_filename) ||
-                  "application/octet-stream"
+                  'application/octet-stream'
 
     blob = ActiveStorage::Blob.create_and_upload!(
-      io:           out,
-      filename:     resolved_filename,
+      io: out,
+      filename: resolved_filename,
       content_type: resolved_ct,
-      identify:     identify
+      identify: identify
     )
 
     blob
   rescue OpenSSL::Cipher::CipherError => e
-    raise e 
+    raise e
   ensure
     begin
       out.close! if defined?(out) && out
-    rescue
+    rescue StandardError
       # no-op
     end
   end
@@ -75,11 +76,11 @@ module DownloadForEnc
   def decode_bytes(s)
     str = s.to_s
     if str.match?(/\A[0-9a-fA-F]+\z/) && (str.size.even?)
-      [str].pack("H*")
+      [str].pack('H*')
     else
       begin
         Base64.strict_decode64(str)
-      rescue
+      rescue StandardError
         str
       end
     end

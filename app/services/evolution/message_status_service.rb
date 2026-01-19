@@ -5,20 +5,19 @@ class Evolution::MessageStatusService
   pattr_initialize [:inbox!, :params!]
 
   STATUS_MAP = {
-    'SERVER_ACK'   => 'sent',
-    'SENT'         => 'sent',
+    'SERVER_ACK' => 'sent',
+    'SENT' => 'sent',
     'DELIVERY_ACK' => 'delivered',
-    'DELIVERED'    => 'delivered',
-    'READ'         => 'read',
-    'SEEN'         => 'read',
-    'FAILED'       => 'failed',
-    'ERROR'        => 'failed'
+    'DELIVERED' => 'delivered',
+    'READ' => 'read',
+    'SEEN' => 'read',
+    'FAILED' => 'failed',
+    'ERROR' => 'failed'
   }.freeze
 
   STATUS_RANK = { 'sent' => 0, 'delivered' => 1, 'read' => 2, 'failed' => 3 }.freeze
 
   def perform
-
     return if inbox.blank?
     return unless supported_status?
 
@@ -57,6 +56,7 @@ class Evolution::MessageStatusService
     # nunca regredir (ex.: read -> delivered), mas permitir sobrescrever com failed
     return false if incoming == 'failed'
     return false if current.blank?
+
     cur_rank = STATUS_RANK[current]
     inc_rank = STATUS_RANK[incoming]
     cur_rank && inc_rank && inc_rank < cur_rank
@@ -81,6 +81,7 @@ class Evolution::MessageStatusService
           params[:id].presence ||
           params[:key_id].presence
     return if key.blank?
+
     inbox.messages.outgoing.find_by(source_id: key)
   end
 end

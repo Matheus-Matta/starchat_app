@@ -37,9 +37,9 @@ RSpec.describe InboxPolicy, type: :policy do
     let!(:team) { create(:team, account: account) }
     let!(:team_inbox) { create(:inbox, account: account) }
     let!(:team_conversation) { create(:conversation, account: account, inbox: team_inbox, team: team) }
-    
+
     before do
-       create(:team_member, user: agent, team: team)
+      create(:team_member, user: agent, team: team)
     end
 
     it 'includes inbox with team conversation for agent' do

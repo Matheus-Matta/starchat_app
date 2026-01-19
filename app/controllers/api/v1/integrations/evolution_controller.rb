@@ -24,8 +24,7 @@ class Api::V1::Integrations::EvolutionController < ActionController::API
     @channel = @inbox.channel
   end
 
-  def verify_signature!
-  end
+  def verify_signature!; end
 
   def upsert_messages(msgs)
     Array(msgs).each do |m|
@@ -35,6 +34,5 @@ class Api::V1::Integrations::EvolutionController < ActionController::API
     end
   end
 
-  def update_status(updates)
-  end
+  def update_status(updates); end
 end

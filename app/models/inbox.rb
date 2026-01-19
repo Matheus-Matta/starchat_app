@@ -249,8 +249,7 @@ class Inbox < ApplicationRecord
     Rails.configuration.dispatcher.dispatch(INBOX_UPDATED, Time.zone.now, inbox: self, changed_attributes: previous_changes)
   end
 
-  def ensure_valid_max_assignment_limit
-  end
+  def ensure_valid_max_assignment_limit; end
 
   def delete_round_robin_agents
     ::AutoAssignment::InboxRoundRobinService.new(inbox: self).clear_queue
@@ -265,7 +264,7 @@ class Inbox < ApplicationRecord
 
     @evo_delete_payload = {
       instance_name: channel.try(:instance_name),
-      api_key:       channel.try(:api_key)
+      api_key: channel.try(:api_key)
     }.compact
   end
 
@@ -274,8 +273,8 @@ class Inbox < ApplicationRecord
     return if payload.blank? || payload[:instance_name].blank? || payload[:api_key].blank?
 
     Evolution::DeleteInstanceJob.perform_later(
-      base_url:     ENV.fetch('EVOLUTION_BASE_URL'),
-      api_key:      payload[:api_key],
+      base_url: ENV.fetch('EVOLUTION_BASE_URL'),
+      api_key: payload[:api_key],
       instance_name: payload[:instance_name]
     )
   end

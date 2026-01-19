@@ -16,19 +16,19 @@ module Starchat::Account::PlanUsageAndLimits
   end
 
   def increment_response_usage
-          current_usage = custom_attributes[COSMOS_RESPONSES_USAGE].to_i || 0
-      custom_attributes[COSMOS_RESPONSES_USAGE] = current_usage + 1
+    current_usage = custom_attributes[COSMOS_RESPONSES_USAGE].to_i || 0
+    custom_attributes[COSMOS_RESPONSES_USAGE] = current_usage + 1
     save
   end
 
   def reset_response_usage
-          custom_attributes[COSMOS_RESPONSES_USAGE] = 0
+    custom_attributes[COSMOS_RESPONSES_USAGE] = 0
     save
   end
 
   def update_document_usage
     # this will ensure that the document count is always accurate
-          custom_attributes[COSMOS_DOCUMENTS_USAGE] = cosmos_documents.count
+    custom_attributes[COSMOS_DOCUMENTS_USAGE] = cosmos_documents.count
     save
   end
 
@@ -43,8 +43,8 @@ module Starchat::Account::PlanUsageAndLimits
     default_limits = default_cosmos_limits
 
     {
-              documents: self[:limits][COSMOS_DOCUMENTS] || default_limits['documents'],
-        responses: self[:limits][COSMOS_RESPONSES] || default_limits['responses']
+      documents: self[:limits][COSMOS_DOCUMENTS] || default_limits['documents'],
+      responses: self[:limits][COSMOS_RESPONSES] || default_limits['responses']
     }.with_indifferent_access
   end
 
@@ -56,7 +56,7 @@ module Starchat::Account::PlanUsageAndLimits
     consumed = if type == :documents
                  custom_attributes[COSMOS_DOCUMENTS_USAGE].to_i || 0
                else
-                                   custom_attributes[COSMOS_RESPONSES_USAGE].to_i || 0
+                 custom_attributes[COSMOS_RESPONSES_USAGE].to_i || 0
                end
 
     consumed = 0 if consumed.negative?

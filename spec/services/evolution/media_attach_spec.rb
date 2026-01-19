@@ -9,7 +9,7 @@ RSpec.describe Evolution::MediaAttach do
       include Evolution::MediaAttach
       include Evolution::DownloadForBase64
       include FileTypeHelper
-      
+
       # Mock do método download_for_whatsapp_enc
       def download_for_whatsapp_enc(url:, media_key:, media_type:, filename:, content_type:, headers:, identify:)
         # Simular criação de blob
@@ -53,14 +53,14 @@ RSpec.describe Evolution::MediaAttach do
         expect(test_class).not_to receive(:download_for_base64)
 
         result = test_class.attach_from_payload!(message, payload)
-        
+
         expect(result).to be true
         expect(message.attachments.count).to eq(1)
       end
 
       it 'loga que está processando via URL' do
         expect(Rails.logger).to receive(:info).with(/Processing via URL \(\.enc\)/)
-        
+
         test_class.attach_from_payload!(message, payload)
       end
     end
@@ -86,14 +86,14 @@ RSpec.describe Evolution::MediaAttach do
         expect(test_class).not_to receive(:download_for_whatsapp_enc)
 
         result = test_class.attach_from_payload!(message, payload)
-        
+
         expect(result).to be true
         expect(message.attachments.count).to eq(1)
       end
 
       it 'loga que está fazendo fallback para base64' do
         expect(Rails.logger).to receive(:info).with(/Fallback to Base64 processing/)
-        
+
         test_class.attach_from_payload!(message, payload)
       end
     end
@@ -152,7 +152,7 @@ RSpec.describe Evolution::MediaAttach do
 
       it 'pula URL e tenta base64 se disponível' do
         expect(test_class).not_to receive(:download_for_whatsapp_enc)
-        
+
         # Como não tem base64, deve retornar false
         result = test_class.attach_from_payload!(message, payload)
         expect(result).to be false
@@ -222,9 +222,9 @@ RSpec.describe Evolution::MediaAttach do
 
       it 'captura erro e retorna false' do
         allow(test_class).to receive(:download_for_whatsapp_enc).and_raise(StandardError, 'Download failed')
-        
+
         expect(Rails.logger).to receive(:warn).with(/erro: StandardError Download failed/)
-        
+
         result = test_class.attach_from_payload!(message, payload)
         expect(result).to be false
       end
@@ -242,7 +242,7 @@ RSpec.describe Evolution::MediaAttach do
         }
 
         expect(test_class).to receive(:download_for_base64).with('BASE64_STRING_HERE', anything).and_call_original
-        
+
         test_class.attach_from_payload!(message, payload)
       end
 

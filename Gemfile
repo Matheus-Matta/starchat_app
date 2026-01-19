@@ -264,4 +264,4 @@ end
 
 gem 'fiddle'
 
-gem "bunny", "~> 2.24"
+gem 'bunny', '~> 2.24'

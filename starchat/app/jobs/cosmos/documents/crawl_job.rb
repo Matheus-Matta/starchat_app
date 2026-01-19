@@ -40,8 +40,8 @@ class Cosmos::Documents::CrawlJob < ApplicationJob
   end
 
   def perform_firecrawl_crawl(document)
-          cosmos_usage_limits = document.account.usage_limits[:cosmos] || {}
-      document_limit = cosmos_usage_limits[:documents] || {}
+    cosmos_usage_limits = document.account.usage_limits[:cosmos] || {}
+    document_limit = cosmos_usage_limits[:documents] || {}
     crawl_limit = [document_limit[:current_available] || 10, 500].min
 
     Cosmos::Tools::FirecrawlService

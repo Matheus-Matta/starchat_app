@@ -110,14 +110,14 @@ Rails.application.routes.draw do
           namespace :channels do
             resource :twilio_channel, only: [:create]
             resources :evolution_channel, only: [:create, :show, :update, :destroy], path: 'evolution_channel', controller: 'evolution_channel' do
-                member do
-                  post :connect
-                  post :restart
-                  post :disconnect
-                  get :settings
-                  patch :settings, action: :update_settings
-                end
-        end
+              member do
+                post :connect
+                post :restart
+                post :disconnect
+                get :settings
+                patch :settings, action: :update_settings
+              end
+            end
           end
           resources :conversations, only: [:index, :create, :show, :update, :destroy] do
             collection do
@@ -612,8 +612,4 @@ Rails.application.routes.draw do
   # ----------------------------------------------------------------------
   # Routes for testing
   resources :widget_tests, only: [:index] unless Rails.env.production?
-
-
-
 end
-

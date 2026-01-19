@@ -60,7 +60,7 @@ RSpec.describe SlaEvent, type: :model do
 
     it 'creates notifications for relevant users' do
       expect { sla_event }.to change(Notification.where(notification_type: 'sla_missed_first_response'), :count).by(3)
-      
+
       expect(Notification.where(user_id: assignee.id).count).to be >= 1
       expect(Notification.where(user_id: admin.id).count).to be >= 1
       expect(Notification.where(user_id: participant.id).count).to be >= 1
@@ -70,7 +70,7 @@ RSpec.describe SlaEvent, type: :model do
       allow(Rails.configuration.dispatcher).to receive(:dispatch).and_call_original
       expect(Rails.configuration.dispatcher).to receive(:dispatch)
         .with('conversation.sla_breached', anything, anything)
-      
+
       create(:sla_event, event_type: 'frt', conversation: conversation, sla_policy: sla_policy, applied_sla: applied_sla)
     end
   end

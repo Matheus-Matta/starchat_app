@@ -34,22 +34,22 @@ module Starchat::Conversations::PermissionFilterService
   def filter_team_and_mine
     mine = accessible_conversations.assigned_to(user)
     team = accessible_conversations.where(team_id: user.team_ids)
-    
+
     queries = [mine, team]
-    
+
     if permissions.include?('conversation_unassigned_manage')
       # Explicitly fetch global unassigned to ensure they are included
       # bypassing any implicit filters in accessible_conversations that might restrict to team
       unassigned = Conversation.where(assignee_id: nil)
                                .where(account_id: account.id)
-                               # Ensure we don't fetch unassigned from Inboxes we don't have access to,
-                               # UNLESS unassigned_manage implies global access.
-                               # Assuming safe global access for unassigned based on previous context.
-                               
+      # Ensure we don't fetch unassigned from Inboxes we don't have access to,
+      # UNLESS unassigned_manage implies global access.
+      # Assuming safe global access for unassigned based on previous context.
+
       queries << unassigned
     end
 
-    union_query = queries.map(&:to_sql).join(" UNION ")
+    union_query = queries.map(&:to_sql).join(' UNION ')
     Conversation.from("(#{union_query}) as conversations").where(account_id: account.id)
   end
 

@@ -14,7 +14,7 @@ class Whatsapp::Providers::BaseService
   def message_content(message)
     inbox = message.inbox
     sender_config = inbox.try(:sender_config) || {}
-    
+
     if sender_config['send_agent_name'] && message.sender.is_a?(User)
       agent_name = message.sender.try(:display_name).presence || message.sender.name
       if agent_name.present?

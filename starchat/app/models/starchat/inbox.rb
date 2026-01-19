@@ -18,7 +18,7 @@ module Starchat::Inbox
   private
 
   def more_responses?
-          account.usage_limits[:cosmos][:responses][:current_available].positive?
+    account.usage_limits[:cosmos][:responses][:current_available].positive?
   end
 
   def get_agent_ids_over_assignment_limit(limit)

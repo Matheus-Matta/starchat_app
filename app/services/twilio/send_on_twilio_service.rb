@@ -61,10 +61,10 @@ class Twilio::SendOnTwilioService < Base::SendOnChannelService
       media_url: attachments
     }
   end
-  
+
   def message_content(message)
     sender_config = inbox.try(:sender_config) || {}
-    
+
     if sender_config['send_agent_name'] && message.sender.is_a?(User) && message.sender.name.present?
       "*#{message.sender.name}*\n#{message.outgoing_content}"
     else
