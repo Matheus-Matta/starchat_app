@@ -11,6 +11,9 @@ plugins:
 Layout/LineLength:
   Max: 150
 
+Layout/EndOfLine:
+  Enabled: false
+
 Metrics/ClassLength:
   Max: 175
   Exclude:
