@@ -64,6 +64,8 @@ docker:
 # CI/Standardization targets
 ci: lint test
 
+git: test_frontend lint
+
 lint: lint_backend lint_frontend
 
 lint_backend:
@@ -75,7 +77,7 @@ lint_frontend:
 test: test_backend test_frontend
 
 test_backend:
-	bundle exec rspec
+	RAILS_ENV=test DATABASE_URL=postgres://postgres:300401@localhost:5432/starchat_test bundle exec rspec
 
 test_frontend:
 	pnpm test
