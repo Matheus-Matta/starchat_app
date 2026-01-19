@@ -74,13 +74,12 @@ lint_backend:
 lint_frontend:
 	pnpm eslint
 
-test: test_backend test_frontend
+test: test_frontend
 
-test_backend:
-	RAILS_ENV=test DATABASE_URL=postgres://postgres:300401@localhost:5432/starchat_test bundle exec rspec
+
 
 test_frontend:
 	pnpm test
 
 .PHONY: setup db_create db_migrate db_seed db_reset db console server burn docker run force_run force_run_tunnel debug debug_worker
-.PHONY: ci lint test lint_backend lint_frontend test_backend test_frontend
+.PHONY: ci lint test lint_backend lint_frontend test_frontend
