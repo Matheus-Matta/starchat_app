@@ -166,6 +166,7 @@ module.exports = {
     'no-console': 'off',
     '@intlify/vue-i18n/no-dynamic-keys': 'off',
     '@intlify/vue-i18n/no-unused-keys': 'off',
+    '@intlify/vue-i18n/no-raw-text': 'off',
   },
   settings: {
     'vue-i18n': {

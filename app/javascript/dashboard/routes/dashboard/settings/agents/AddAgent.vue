@@ -28,7 +28,10 @@ const rules = computed(() => {
   };
   if (setPasswordManually.value) {
     r.agentPassword = { required, minLength: minLength(6) };
-    r.agentPasswordConfirmation = { required, sameAsPassword: sameAs(agentPassword) };
+    r.agentPasswordConfirmation = {
+      required,
+      sameAsPassword: sameAs(agentPassword),
+    };
   }
   return r;
 });
@@ -166,7 +169,10 @@ const addAgent = async () => {
       <div class="w-full mb-4">
         <div class="flex items-center gap-2">
           <Switch v-model="setPasswordManually" />
-          <span class="text-sm text-black-900 dark:text-slate-50 cursor-pointer" @click="setPasswordManually = !setPasswordManually">
+          <span
+            class="text-sm text-black-900 dark:text-slate-50 cursor-pointer"
+            @click="setPasswordManually = !setPasswordManually"
+          >
             Definir senha manualmente (Confirmar conta automaticamente)
           </span>
         </div>

@@ -22,7 +22,9 @@ describe('PortalHelper', () => {
       };
       expect(
         buildPortalArticleURL('handbook', 'culture', 'fr', 'article-slug')
-      ).toEqual('https://help.starchats.com.br/hc/handbook/articles/article-slug');
+      ).toEqual(
+        'https://help.starchats.com.br/hc/handbook/articles/article-slug'
+      );
       window.chatwootConfig = {};
     });
 
@@ -65,7 +67,9 @@ describe('PortalHelper', () => {
       };
       expect(
         buildPortalArticleURL('handbook', 'culture', 'fr', 'article-slug')
-      ).toEqual('https://app.starchats.com.br/hc/handbook/articles/article-slug');
+      ).toEqual(
+        'https://app.starchats.com.br/hc/handbook/articles/article-slug'
+      );
     });
   });
 });

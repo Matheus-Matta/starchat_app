@@ -959,32 +959,32 @@ watch(conversationFilters, (newVal, oldVal) => {
     >
       <div class="w-full h-full overflow-auto">
         <div v-for="item in conversationList" :key="item.id">
-            <ConversationItem
-              :source="item"
-              :label="label"
-              :team-id="teamId"
-              :folders-id="foldersId"
-              :conversation-type="conversationType"
-              :show-assignee="showAssigneeInConversationCard"
-              @select-conversation="selectConversation"
-              @de-select-conversation="deSelectConversation"
-            />
-        </div>
-        
-        <div v-if="chatListLoading" class="flex justify-center my-4">
-            <Spinner class="text-n-brand" />
-        </div>
-          <p
-            v-else-if="showEndOfListMessage"
-            class="p-4 text-center text-n-slate-11"
-          >
-            {{ $t('CHAT_LIST.EOF') }}
-          </p>
-          <IntersectionObserver
-            v-else
-            :options="intersectionObserverOptions"
-            @observed="loadMoreConversations"
+          <ConversationItem
+            :source="item"
+            :label="label"
+            :team-id="teamId"
+            :folders-id="foldersId"
+            :conversation-type="conversationType"
+            :show-assignee="showAssigneeInConversationCard"
+            @select-conversation="selectConversation"
+            @de-select-conversation="deSelectConversation"
           />
+        </div>
+
+        <div v-if="chatListLoading" class="flex justify-center my-4">
+          <Spinner class="text-n-brand" />
+        </div>
+        <p
+          v-else-if="showEndOfListMessage"
+          class="p-4 text-center text-n-slate-11"
+        >
+          {{ $t('CHAT_LIST.EOF') }}
+        </p>
+        <IntersectionObserver
+          v-else
+          :options="intersectionObserverOptions"
+          @observed="loadMoreConversations"
+        />
       </div>
     </div>
     <Dialog
