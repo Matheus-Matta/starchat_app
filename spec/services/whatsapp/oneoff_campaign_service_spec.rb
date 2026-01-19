@@ -31,7 +31,7 @@ describe Whatsapp::OneoffCampaignService do
     # Ensure the service uses our mocked channel object by stubbing the whole delegation chain
     # Using allow_any_instance_of here because the service is instantiated within individual tests
     # and we need to mock the delegated channel method for proper test isolation
-    allow_any_instance_of(described_class).to receive(:channel).and_return(whatsapp_channel) # rubocop:disable RSpec/AnyInstance
+    allow_any_instance_of(described_class).to receive(:channel).and_return(whatsapp_channel)
   end
 
   describe '#perform' do

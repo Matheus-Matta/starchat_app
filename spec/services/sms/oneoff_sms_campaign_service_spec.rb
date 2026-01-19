@@ -20,7 +20,7 @@ describe Sms::OneoffSmsCampaignService do
         body: { 'id' => '1' }.to_json,
         headers: {}
       )
-      allow_any_instance_of(described_class).to receive(:channel).and_return(sms_channel) # rubocop:disable RSpec/AnyInstance
+      allow_any_instance_of(described_class).to receive(:channel).and_return(sms_channel)
     end
 
     it 'raises error if the campaign is completed' do

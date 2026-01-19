@@ -16,7 +16,6 @@ class Seeders::Reports::ConversationCreator
     @priorities = [nil, 'urgent', 'high', 'medium', 'low']
   end
 
-  # rubocop:disable Metrics/MethodLength
   def create_conversation(created_at:)
     conversation = nil
     should_resolve = false

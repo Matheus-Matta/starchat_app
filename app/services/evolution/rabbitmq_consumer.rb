@@ -189,7 +189,7 @@ module Evolution
 
     def handle_connection(_instance_name, mapping, data)
       state = data.is_a?(Hash) ? data['state'].to_s : nil
-      return unless state.present?
+      return if state.blank?
 
       # Atualiza DB apenas se conectar/desconectar (evita hits desnecessários)
       Channel::Evolution.where(id: mapping[:channel_id]).update_all(state: state, state_updated_at: Time.current)

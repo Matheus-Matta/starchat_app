@@ -310,7 +310,7 @@ class Api::V1::Accounts::Channels::EvolutionChannelController < Api::V1::Account
 
   def extract_phone_number(h)
     owner = h.dig('instance', 'owner') || h['owner']
-    return unless owner.present?
+    return if owner.blank?
 
     owner.split('@').first
   end
@@ -361,7 +361,7 @@ class Api::V1::Accounts::Channels::EvolutionChannelController < Api::V1::Account
     raw = ENV.fetch('FRONTEND_URL', nil)
     uri = URI.parse(raw)
     host = "#{uri.scheme}://#{uri.host}"
-    host += ":#{uri.port}" if uri.port && ![80, 443].include?(uri.port)
+    host += ":#{uri.port}" if uri.port && [80, 443].exclude?(uri.port)
     host
   end
 

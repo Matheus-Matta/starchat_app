@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/BlockLength
 namespace :chatwoot do
   namespace :dev do
     desc 'Toggle between Chatwoot variants with interactive menu'

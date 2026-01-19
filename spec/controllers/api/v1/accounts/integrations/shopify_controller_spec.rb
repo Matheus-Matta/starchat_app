@@ -57,7 +57,6 @@ RSpec.describe 'Shopify Integration API', type: :request do
     end
 
     context 'when it is an authenticated user' do
-      # rubocop:disable RSpec/AnyInstance
       let(:shopify_client) { instance_double(ShopifyAPI::Clients::Rest::Admin) }
 
       let(:customers_response) do

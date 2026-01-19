@@ -12,7 +12,7 @@ class Webhooks::EvolutionEventsJob < ApplicationJob
     rows = Array.wrap(data).compact
     rows = rows.reject { |r| r.respond_to?(:empty?) && r.empty? }
 
-    puts "\n\n[EVOLUTION DATA ROWS EVENT = #{evt}]"
+    Rails.logger.debug { "\n\n[EVOLUTION DATA ROWS EVENT = #{evt}]" }
 
     case evt
     when 'messages_upsert'

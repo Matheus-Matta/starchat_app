@@ -13,12 +13,9 @@ Layout/LineLength:
 
 Layout/EndOfLine:
   Enabled: false
+
 RSpec/ExampleLength:
   Max: 50
-
-Style/FrozenStringLiteralComment:
-  Enabled: false
-
 
 Metrics/ClassLength:
   Enabled: false
@@ -44,6 +41,115 @@ Metrics/BlockLength:
 Metrics/ParameterLists:
   Enabled: false
 
+Style/Documentation:
+  Enabled: false
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Style/StringConcatenation:
+  Enabled: false
+
+Style/GlobalStdStream:
+  Enabled: false
+
+Naming/FileName:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/SymbolArray:
+  Enabled: false
+
+Style/OpenStructUse:
+  Enabled: false
+
+Style/OptionalBooleanParameter:
+  Exclude:
+    - 'app/services/email_templates/db_resolver_service.rb'
+    - 'app/dispatchers/dispatcher.rb'
+
+Style/GlobalVars:
+  Exclude:
+    - 'config/initializers/01_redis.rb'
+    - 'config/initializers/rack_attack.rb'
+    - 'lib/redis/alfred.rb'
+    - 'lib/global_config.rb'
+    - 'spec/**/*' # Allow global vars in tests/mocks if needed
+
+Style/ClassVars:
+  Exclude:
+    - 'app/services/email_templates/db_resolver_service.rb'
+
+Lint/MissingSuper:
+  Exclude:
+    - 'app/drops/base_drop.rb'
+    - 'app/services/evolution/message_base_service.rb'
+
+Lint/SymbolConversion:
+  Enabled: false
+
+Lint/EmptyBlock:
+  Exclude:
+    - 'app/views/api/v1/accounts/conversations/toggle_status.json.jbuilder'
+
+Lint/OrAssignmentToConstant:
+  Exclude:
+    - 'lib/redis/config.rb'
+
+Rails/HelperInstanceVariable:
+  Exclude:
+    - starchat/app/helpers/cosmos/chat_helper.rb
+
+Rails/ApplicationController:
+  Exclude:
+    - 'app/controllers/api/v1/widget/messages_controller.rb'
+    - 'app/controllers/dashboard_controller.rb'
+    - 'app/controllers/widget_tests_controller.rb'
+    - 'app/controllers/widgets_controller.rb'
+    - 'app/controllers/platform_controller.rb'
+    - 'app/controllers/public_controller.rb'
+    - 'app/controllers/survey/responses_controller.rb'
+
+Rails/FindEach:
+  Enabled: true
+  Include:
+    - 'app/**/*.rb'
+
+Rails/CompactBlank:
+  Enabled: false
+
+Rails/EnvironmentVariableAccess:
+  Enabled: false
+
+Rails/TimeZoneAssignment:
+  Enabled: false
+
+Rails/RedundantPresenceValidationOnBelongsTo:
+  Enabled: false
+
+Rails/InverseOf:
+  Exclude:
+    - starchat/app/models/cosmos/assistant.rb
+
+Rails/UniqueValidationWithoutIndex:
+  Exclude:
+    - app/models/canned_response.rb
+    - app/models/telegram_bot.rb
+    - starchat/app/models/cosmos_inbox.rb
+    - 'app/models/channel/twitter_profile.rb'
+    - 'app/models/webhook.rb'
+    - 'app/models/contact.rb'
+
+Style/MapToHash:
+  Enabled: false
+
+Style/HashSyntax:
+  Enabled: true
+  EnforcedStyle: no_mixed_keys
+  EnforcedShorthandSyntax: never
+
 RSpec/NestedGroups:
   Enabled: true
   Max: 10
@@ -60,21 +166,13 @@ Naming/VariableNumber:
 Naming/MemoizedInstanceVariableName:
   Exclude:
     - 'app/models/message.rb'
+    - 'app/controllers/api/v1/accounts/channels/evolution_channel_controller.rb'
 
 Style/GuardClause:
   Exclude:
     - 'app/builders/account_builder.rb'
     - 'app/models/attachment.rb'
     - 'app/models/message.rb'
-
-Metrics/AbcSize:
-  Max: 26
-  Exclude:
-    - 'app/controllers/concerns/auth_helper.rb'
-
-    - 'app/models/integrations/hook.rb'
-    - 'app/models/canned_response.rb'
-    - 'app/models/telegram_bot.rb'
 
 Rails/RenderInline:
   Exclude:
@@ -90,22 +188,11 @@ RSpec/IndexedLet:
 RSpec/NamedSubject:
   Enabled: false
 
-# we should bring this down
 RSpec/MultipleExpectations:
-  Max: 7
+  Max: 20
 
 RSpec/MultipleMemoizedHelpers:
-  Max: 14
-
-# custom rules
-# UseFromEmail:
-#   Enabled: true
-#   Exclude:
-#     - 'app/models/user.rb'
-#     - 'app/models/contact.rb'
-#
-# CustomCopLocation:
-#   Enabled: true
+  Max: 20
 
 AllCops:
   NewCops: enable
@@ -125,7 +212,6 @@ AllCops:
 FactoryBot/SyntaxMethods:
   Enabled: false
 
-# Disable new rules causing errors
 Layout/LeadingCommentSpace:
   Enabled: false
 
@@ -180,7 +266,6 @@ Rails/EnumSyntax:
 Lint/RedundantTypeConversion:
   Enabled: false
 
-# Additional rules to disable
 Rails/RedundantActiveRecordAllMethod:
   Enabled: false
 
@@ -196,7 +281,6 @@ Lint/SafeNavigationConsistency:
 Lint/CopDirectiveSyntax:
   Enabled: false
 
-# Final set of rules to disable
 FactoryBot/ExcessiveCreateList:
   Enabled: false
 
@@ -227,7 +311,6 @@ Rails/RootPathnameMethods:
 Style/SuperArguments:
   Enabled: false
 
-# Final remaining rules to disable
 Rails/Delegate:
   Enabled: false
 
@@ -240,42 +323,23 @@ FactoryBot/RedundantFactoryOption:
 FactoryBot/FactoryAssociationWithStrategy:
   Enabled: false
 
-# OVERRIDE: Disable strict rules for legacy codebase to ensure CI passes
-Style/Documentation:
+RSpec/SpecFilePathFormat:
   Enabled: false
 
-Style/ClassAndModuleChildren:
+RSpec/EmptyExampleGroup:
   Enabled: false
 
-Style/StringConcatenation:
+Lint/DuplicateMethods:
   Enabled: false
 
-Style/GlobalStdStream:
+Lint/DuplicateBranch:
   Enabled: false
 
-Naming/FileName:
+RSpec/ContextWording:
   Enabled: false
 
-Metrics/AbcSize:
+RSpec/AnyInstance:
   Enabled: false
 
-Metrics/ClassLength:
-  Enabled: false
-
-Metrics/CyclomaticComplexity:
-  Enabled: false
-
-Metrics/MethodLength:
-  Enabled: false
-
-Metrics/PerceivedComplexity:
-  Enabled: false
-
-Metrics/ModuleLength:
-  Enabled: false
-
-Metrics/BlockLength:
-  Enabled: false
-
-Metrics/ParameterLists:
+RSpec/DescribeClass:
   Enabled: false

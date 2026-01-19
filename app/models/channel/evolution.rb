@@ -158,7 +158,7 @@ class Channel::Evolution < ApplicationRecord
     uri = URI.parse(raw)
 
     host = "#{uri.scheme}://#{uri.host}"
-    host += ":#{uri.port}" if uri.port && ![80, 443].include?(uri.port)
+    host += ":#{uri.port}" if uri.port && [80, 443].exclude?(uri.port)
     host
   rescue URI::InvalidURIError
     nil

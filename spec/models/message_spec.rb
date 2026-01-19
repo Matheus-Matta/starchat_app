@@ -5,7 +5,6 @@ require Rails.root.join 'spec/models/concerns/liquidable_shared.rb'
 
 RSpec.describe Message do
   before do
-    # rubocop:disable RSpec/AnyInstance
     allow_any_instance_of(described_class).to receive(:reindex_for_search).and_return(true)
     # rubocop:enable RSpec/AnyInstance
   end

@@ -173,7 +173,6 @@ class Evolution::SendMessageService
         delay: delay,
         quoted: quoted
       )
-      persist_message_id_from(resp)
     else
       mediatype = kind_to_mediatype(kind)
       opts = { mimetype: mimetype, quoted: quoted, delay: delay }
@@ -187,8 +186,8 @@ class Evolution::SendMessageService
         **opts
       )
 
-      persist_message_id_from(resp)
     end
+    persist_message_id_from(resp)
   end
 
   def send_attachment_base64(client, instance, number, kind, blob, mimetype, fname, quoted, delay: 0)
@@ -196,15 +195,14 @@ class Evolution::SendMessageService
 
     if kind == :audio
       resp = client.send_whatsapp_audio(instance, number: number, audio: base64_data, delay: delay, quoted: quoted)
-      persist_message_id_from(resp)
     else
       mediatype = kind_to_mediatype(kind)
       opts = { mimetype: mimetype, quoted: quoted, delay: delay }
       opts[:file_name] = fname if mediatype == 'document'
 
       resp = client.send_media(instance, number: number, mediatype: mediatype, media: base64_data, **opts)
-      persist_message_id_from(resp)
     end
+    persist_message_id_from(resp)
   end
 
   def kind_to_mediatype(kind)
@@ -293,7 +291,7 @@ class Evolution::SendMessageService
     remote_jid =
       parent&.conversation&.contact_inbox&.source_id ||
       message.conversation.contact_inbox.source_id
-    remote_jid = "#{remote_jid}@s.whatsapp.net" if remote_jid.present? && !remote_jid.include?('@')
+    remote_jid = "#{remote_jid}@s.whatsapp.net" if remote_jid.present? && remote_jid.exclude?('@')
 
     from_me = parent.present? ? parent.outgoing? : false
 

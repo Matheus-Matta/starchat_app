@@ -76,7 +76,7 @@ RSpec.describe '/api/v1/accounts/{account.id}/channels/twilio_channel', type: :r
           expect(json_response['messaging_service_sid']).to eq('MGec8130512b5dd462cfe03095ec1111ed')
         end
 
-        context 'with a phone number' do # rubocop:disable RSpec/NestedGroups
+        context 'with a phone number' do
           let(:params) do
             {
               twilio_channel: {

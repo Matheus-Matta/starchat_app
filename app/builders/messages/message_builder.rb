@@ -306,7 +306,7 @@ class Messages::MessageBuilder
       s1 = tokens1[0]
       s2 = tokens2[0]
       max_len = [s1.length, s2.length].max
-      return 0.0 if max_len == 0
+      return 0.0 if max_len.zero?
 
       dist = levenshtein_distance(s1, s2)
       similarity = 1.0 - (dist.to_f / max_len)
@@ -315,7 +315,7 @@ class Messages::MessageBuilder
 
     intersection_size = (tokens1 & tokens2).size
     min_size = [tokens1.size, tokens2.size].min
-    return 0.0 if min_size == 0
+    return 0.0 if min_size.zero?
 
     intersection_size.to_f / min_size
   end
@@ -323,8 +323,8 @@ class Messages::MessageBuilder
   def levenshtein_distance(s, t)
     m = s.length
     n = t.length
-    return m if n == 0
-    return n if m == 0
+    return m if n.zero?
+    return n if m.zero?
 
     d = Array.new(m+1) { Array.new(n+1) }
 

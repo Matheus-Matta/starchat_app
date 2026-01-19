@@ -48,7 +48,7 @@ RSpec.describe 'Callbacks API', type: :request do
         buf = OpenURI::Buffer.new
         io = buf.io
         io.base_uri = URI.parse('https://example.org')
-        allow_any_instance_of(URI::HTTP).to receive(:open).and_return(io) # rubocop:disable RSpec/AnyInstance
+        allow_any_instance_of(URI::HTTP).to receive(:open).and_return(io)
 
         post "/api/v1/accounts/#{account.id}/callbacks/register_facebook_page",
              headers: admin.create_new_auth_token,
@@ -59,7 +59,7 @@ RSpec.describe 'Callbacks API', type: :request do
       end
 
       it 'registers a new facebook page with avatar on redirect' do
-        allow_any_instance_of(URI::HTTP).to receive(:open).and_raise(OpenURI::HTTPRedirect.new(nil, nil, URI.parse('https://example.org'))) # rubocop:disable RSpec/AnyInstance
+        allow_any_instance_of(URI::HTTP).to receive(:open).and_raise(OpenURI::HTTPRedirect.new(nil, nil, URI.parse('https://example.org')))
 
         post "/api/v1/accounts/#{account.id}/callbacks/register_facebook_page",
              headers: admin.create_new_auth_token,

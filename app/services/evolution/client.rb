@@ -19,7 +19,7 @@ module Evolution
     }.freeze
 
     def initialize(base_url:, api_key:, open_timeout: 5, read_timeout: 15)
-      @base_url = base_url.to_s.sub(%r{/\z}, '')
+      @base_url = base_url.to_s.delete_suffix('/')
       @api_key  = api_key.to_s
       @open_timeout = open_timeout
       @read_timeout = read_timeout

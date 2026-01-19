@@ -65,7 +65,7 @@ RSpec.describe Api::V1::Accounts::Channels::EvolutionChannelController, type: :c
 
           expect(response).to have_http_status(:created)
 
-          json_response = JSON.parse(response.body)
+          json_response = response.parsed_body
           expect(json_response['inbox']['name']).to eq('Test WhatsApp')
           expect(json_response['channel']['provider_config']).to include('instance_id' => 'inst_123')
         end
@@ -79,7 +79,7 @@ RSpec.describe Api::V1::Accounts::Channels::EvolutionChannelController, type: :c
         it 'returns unprocessable_entity' do
           post :create, params: create_params
           expect(response).to have_http_status(:unprocessable_entity)
-          expect(JSON.parse(response.body)['message']).to eq('API Error')
+          expect(response.parsed_body['message']).to eq('API Error')
         end
       end
     end
@@ -92,7 +92,7 @@ RSpec.describe Api::V1::Accounts::Channels::EvolutionChannelController, type: :c
         get :show, params: { account_id: account.id, id: channel.id }
 
         expect(response).to have_http_status(:ok)
-        json_response = JSON.parse(response.body)
+        json_response = response.parsed_body
         expect(json_response['channel']['id']).to eq(channel.id)
       end
     end

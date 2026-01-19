@@ -6,15 +6,14 @@ module Evolution
       ActiveRecord::Base.transaction(requires_new: true) do
         ::ContactInbox.lock.where(id: contact_inbox.id).pluck(:id)
 
-        if inbox.lock_to_single_conversation?
-          conv = ::Conversation.where(contact_inbox_id: contact_inbox.id)
+        conv = if inbox.lock_to_single_conversation?
+                 ::Conversation.where(contact_inbox_id: contact_inbox.id)
                                .order(updated_at: :desc).first
-          return conv if conv.present?
-        else
-          conv = ::Conversation.where(contact_inbox_id: contact_inbox.id, status: :open)
+               else
+                 ::Conversation.where(contact_inbox_id: contact_inbox.id, status: :open)
                                .order(updated_at: :desc).first
-          return conv if conv.present?
-        end
+               end
+        return conv if conv.present?
 
         if inbox.lock_to_single_conversation?
           last_conv = ::Conversation.where(contact_inbox_id: contact_inbox.id)
