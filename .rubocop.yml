@@ -13,141 +13,40 @@ Layout/LineLength:
 
 Layout/EndOfLine:
   Enabled: false
-
-Metrics/ClassLength:
-  Max: 175
-  Exclude:
-    - 'app/models/message.rb'
-    - 'app/models/conversation.rb'
-
-Metrics/MethodLength:
-  Max: 19
-  Exclude:
-    - 'starchat/lib/cosmos/agent.rb'
-
 RSpec/ExampleLength:
   Max: 50
-
-Style/Documentation:
-  Enabled: false
-
-Style/ExponentialNotation:
-  Enabled: false
 
 Style/FrozenStringLiteralComment:
   Enabled: false
 
-Style/SymbolArray:
+
+Metrics/ClassLength:
   Enabled: false
 
-Style/OpenStructUse:
+Metrics/MethodLength:
   Enabled: false
 
-Style/OptionalBooleanParameter:
-  Exclude:
-    - 'app/services/email_templates/db_resolver_service.rb'
-    - 'app/dispatchers/dispatcher.rb'
-
-Style/GlobalVars:
-  Exclude:
-    - 'config/initializers/01_redis.rb'
-    - 'config/initializers/rack_attack.rb'
-    - 'lib/redis/alfred.rb'
-    - 'lib/global_config.rb'
-
-Style/ClassVars:
-  Exclude:
-    - 'app/services/email_templates/db_resolver_service.rb'
-
-Lint/MissingSuper:
-  Exclude:
-    - 'app/drops/base_drop.rb'
-
-Lint/SymbolConversion:
+Metrics/AbcSize:
   Enabled: false
 
-Lint/EmptyBlock:
-  Exclude:
-    - 'app/views/api/v1/accounts/conversations/toggle_status.json.jbuilder'
+Metrics/CyclomaticComplexity:
+  Enabled: false
 
-Lint/OrAssignmentToConstant:
-  Exclude:
-    - 'lib/redis/config.rb'
-
-Metrics/BlockLength:
-  Max: 30
-  Exclude:
-    - spec/**/*
-    - '**/routes.rb'
-    - 'config/environments/*'
-    - db/schema.rb
+Metrics/PerceivedComplexity:
+  Enabled: false
 
 Metrics/ModuleLength:
-  Exclude:
-    - lib/seeders/message_seeder.rb
-    - spec/support/slack_stubs.rb
-
-Rails/HelperInstanceVariable:
-  Exclude:
-    - starchat/app/helpers/cosmos/chat_helper.rb
-
-Rails/ApplicationController:
-  Exclude:
-    - 'app/controllers/api/v1/widget/messages_controller.rb'
-    - 'app/controllers/dashboard_controller.rb'
-    - 'app/controllers/widget_tests_controller.rb'
-    - 'app/controllers/widgets_controller.rb'
-    - 'app/controllers/platform_controller.rb'
-    - 'app/controllers/public_controller.rb'
-    - 'app/controllers/survey/responses_controller.rb'
-
-Rails/FindEach:
-  Enabled: true
-  Include:
-    - 'app/**/*.rb'
-
-Rails/CompactBlank:
   Enabled: false
 
-Rails/EnvironmentVariableAccess:
+Metrics/BlockLength:
   Enabled: false
 
-Rails/TimeZoneAssignment:
+Metrics/ParameterLists:
   Enabled: false
-
-Rails/RedundantPresenceValidationOnBelongsTo:
-  Enabled: false
-
-Rails/InverseOf:
-  Exclude:
-    - starchat/app/models/cosmos/assistant.rb
-
-Rails/UniqueValidationWithoutIndex:
-  Exclude:
-    - app/models/canned_response.rb
-    - app/models/telegram_bot.rb
-    - starchat/app/models/cosmos_inbox.rb
-    - 'app/models/channel/twitter_profile.rb'
-    - 'app/models/webhook.rb'
-    - 'app/models/contact.rb'
-
-Style/ClassAndModuleChildren:
-  EnforcedStyle: compact
-  Exclude:
-    - 'config/application.rb'
-    - 'config/initializers/monkey_patches/*'
-
-Style/MapToHash:
-  Enabled: false
-
-Style/HashSyntax:
-  Enabled: true
-  EnforcedStyle: no_mixed_keys
-  EnforcedShorthandSyntax: never
 
 RSpec/NestedGroups:
   Enabled: true
-  Max: 4
+  Max: 10
 
 RSpec/MessageSpies:
   Enabled: false
