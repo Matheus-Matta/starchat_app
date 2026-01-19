@@ -4,9 +4,9 @@ plugins:
   - rubocop-rspec
   - rubocop-factory_bot
 
-require:
-  - ./rubocop/use_from_email.rb
-  - ./rubocop/custom_cop_location.rb
+# require:
+#   - ./rubocop/use_from_email.rb
+#   - ./rubocop/custom_cop_location.rb
 
 Layout/LineLength:
   Max: 150
@@ -196,14 +196,14 @@ RSpec/MultipleMemoizedHelpers:
   Max: 14
 
 # custom rules
-UseFromEmail:
-  Enabled: true
-  Exclude:
-    - 'app/models/user.rb'
-    - 'app/models/contact.rb'
-
-CustomCopLocation:
-  Enabled: true
+# UseFromEmail:
+#   Enabled: true
+#   Exclude:
+#     - 'app/models/user.rb'
+#     - 'app/models/contact.rb'
+#
+# CustomCopLocation:
+#   Enabled: true
 
 AllCops:
   NewCops: enable
