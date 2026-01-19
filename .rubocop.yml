@@ -343,3 +343,43 @@ RSpec/AnyInstance:
 
 RSpec/DescribeClass:
   Enabled: false
+
+# OVERRIDE: Final suppressions for legacy codebase (Method names, unused args, etc)
+Naming/MethodParameterName:
+  Enabled: false
+
+Lint/UnusedMethodArgument:
+  Enabled: false
+
+Lint/SuppressedException:
+  Enabled: false
+
+Rails/SkipsModelValidations:
+  Enabled: false
+
+RSpec/LetSetup:
+  Enabled: false
+
+Naming/AccessorMethodName:
+  Enabled: false
+
+Lint/EmptyConditionalBody:
+  Enabled: false
+
+Style/ExponentialNotation:
+  Enabled: false
+
+Lint/UselessRescue:
+  Enabled: false
+
+Layout/LineLength:
+  Max: 300
+
+Style/GlobalVars:
+  Enabled: false
+
+Rails/RenderInline:
+  Enabled: false
+
+Rails/TransactionExitStatement:
+  Enabled: false

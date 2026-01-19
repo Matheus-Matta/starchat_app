@@ -21,7 +21,6 @@ RSpec.describe ContactInbox do
     it 'backfills pubsub_token on call for older objects' do
       obj = create(:contact_inbox)
       # to replicate an object with out pubsub_token
-      # rubocop:disable Rails/SkipsModelValidations
       obj.update_column(:pubsub_token, nil)
       # rubocop:enable Rails/SkipsModelValidations
 

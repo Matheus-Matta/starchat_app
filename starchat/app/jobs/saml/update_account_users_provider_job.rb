@@ -8,7 +8,6 @@ class Saml::UpdateAccountUsersProviderJob < ApplicationJob
     account.users.find_each(batch_size: 1000) do |user|
       next unless should_update_user_provider?(user, provider)
 
-      # rubocop:disable Rails/SkipsModelValidations
       user.update_column(:provider, provider)
       # rubocop:enable Rails/SkipsModelValidations
     end

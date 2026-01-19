@@ -4,7 +4,6 @@ class Contacts::CompanyAssociationService
 
     company = find_or_create_company(contact)
     if company
-      # rubocop:disable Rails/SkipsModelValidations
       # Using update_column and increment_counter to avoid triggering callbacks while maintaining counter cache
       contact.update_column(:company_id, company.id)
       Company.increment_counter(:contacts_count, company.id)

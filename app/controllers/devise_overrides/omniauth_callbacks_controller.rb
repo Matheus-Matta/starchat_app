@@ -59,7 +59,7 @@ class DeviseOverrides::OmniauthCallbacksController < DeviseTokenAuth::OmniauthCa
     User
   end
 
-  def get_resource_from_auth_hash # rubocop:disable Naming/AccessorMethodName
+  def get_resource_from_auth_hash
     email = auth_hash.dig('info', 'email')
     @resource = resource_class.from_email(email)
   end

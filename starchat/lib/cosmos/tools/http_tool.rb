@@ -73,9 +73,7 @@ class Cosmos::Tools::HttpTool < Agents::Tool
 
   def validate_response!(response)
     content_length = response['content-length']&.to_i
-    if content_length && content_length > MAX_RESPONSE_SIZE
-      raise "Response size #{content_length} bytes exceeds maximum allowed #{MAX_RESPONSE_SIZE} bytes"
-    end
+    raise "Response size #{content_length} bytes exceeds maximum allowed #{MAX_RESPONSE_SIZE} bytes" if content_length && content_length > MAX_RESPONSE_SIZE
 
     return unless response.body && response.body.bytesize > MAX_RESPONSE_SIZE
 

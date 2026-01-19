@@ -12,9 +12,7 @@ module Filters::FilterHelper
     end
 
     # Every other filter expects a value to be present
-    if %w[is_present is_not_present].exclude?(query_hash[:filter_operator]) && query_hash['values'].blank?
-      raise CustomExceptions::CustomFilter::InvalidValue.new(attribute_name: query_hash['attribute_key'])
-    end
+    raise CustomExceptions::CustomFilter::InvalidValue.new(attribute_name: query_hash['attribute_key']) if %w[is_present is_not_present].exclude?(query_hash[:filter_operator]) && query_hash['values'].blank?
 
     condition_query = build_condition_query_string(current_filter, query_hash, current_index)
     # The query becomes empty only when it doesn't match to any supported

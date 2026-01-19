@@ -87,7 +87,7 @@ class DataImportJob < ApplicationJob
     end
   end
 
-  def handle_csv_error(error) # rubocop:disable Lint/UnusedMethodArgument
+  def handle_csv_error(error)
     @data_import.update!(status: :failed)
     send_import_failed_notification_to_admin
   end

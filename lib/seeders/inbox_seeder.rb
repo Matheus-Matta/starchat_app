@@ -46,7 +46,6 @@ class Seeders::InboxSeeder
   end
 
   def seed_whatsapp_inbox
-    # rubocop:disable Rails/SkipsModelValidations
     Channel::Whatsapp.insert(
       {
         account_id: @account.id,

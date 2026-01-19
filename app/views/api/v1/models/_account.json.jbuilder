@@ -12,9 +12,7 @@ if resource.custom_attributes.present?
     json.logo resource.custom_attributes['logo'] if resource.custom_attributes['logo'].present?
     json.onboarding_step resource.custom_attributes['onboarding_step'] if resource.custom_attributes['onboarding_step'].present?
     json.marked_for_deletion_at resource.custom_attributes['marked_for_deletion_at'] if resource.custom_attributes['marked_for_deletion_at'].present?
-    if resource.custom_attributes['marked_for_deletion_reason'].present?
-      json.marked_for_deletion_reason resource.custom_attributes['marked_for_deletion_reason']
-    end
+    json.marked_for_deletion_reason resource.custom_attributes['marked_for_deletion_reason'] if resource.custom_attributes['marked_for_deletion_reason'].present?
   end
 end
 json.domain @account.domain

@@ -37,9 +37,7 @@ class ContentAttributeValidator < ActiveModel::Validator
   end
 
   def validate_item_actions!(record)
-    if record.items.select { |item| item[:actions].blank? }.present?
-      record.errors.add(:content_attributes, 'contains items missing actions') && return
-    end
+    record.errors.add(:content_attributes, 'contains items missing actions') && return if record.items.select { |item| item[:actions].blank? }.present?
 
     validate_item_action_attributes!(record)
   end
