@@ -35,6 +35,10 @@ module.exports = {
     sourceType: 'module',
   },
   rules: {
+    'no-underscore-dangle': 'off',
+    'eqeqeq': 'off',
+    'class-methods-use-this': 'off',
+    'no-use-before-define': 'off',
     'no-unused-vars': 'off',
     'vue/no-unused-vars': 'off',
     'prettier/prettier': ['error'],
