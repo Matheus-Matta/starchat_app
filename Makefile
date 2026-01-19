@@ -59,4 +59,24 @@ debug_worker:
 docker: 
 	docker build -t $(APP_NAME) -f ./docker/Dockerfile .
 
-.PHONY: setup db_create db_migrate db_seed db_reset db console server burn docker run force_run force_run_tunnel debug debug_worker
+
+# CI/Statandardization targets
+ci: lint test
+
+lint: lint:backend lint:frontend
+
+lint:backend:
+	bundle exec rubocop
+
+lint:frontend:
+	pnpm eslint
+
+test: test:backend test:frontend
+
+test:backend:
+	bundle exec rspec
+
+test:frontend:
+	pnpm test
+
+.PHONY: setup db_create db_migrate db_seed db_reset db console server burn docker run force_run force_run_tunnel debug debug_worker ci lint test lint:backend lint:frontend test:backend test:frontend
