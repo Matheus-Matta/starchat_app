@@ -60,23 +60,25 @@ docker:
 	docker build -t $(APP_NAME) -f ./docker/Dockerfile .
 
 
-# CI/Statandardization targets
+
+# CI/Standardization targets
 ci: lint test
 
-lint: lint:backend lint:frontend
+lint: lint_backend lint_frontend
 
-lint:backend:
+lint_backend:
 	bundle exec rubocop
 
-lint:frontend:
+lint_frontend:
 	pnpm eslint
 
-test: test:backend test:frontend
+test: test_backend test_frontend
 
-test:backend:
+test_backend:
 	bundle exec rspec
 
-test:frontend:
+test_frontend:
 	pnpm test
 
-.PHONY: setup db_create db_migrate db_seed db_reset db console server burn docker run force_run force_run_tunnel debug debug_worker ci lint test lint:backend lint:frontend test:backend test:frontend
+.PHONY: setup db_create db_migrate db_seed db_reset db console server burn docker run force_run force_run_tunnel debug debug_worker
+.PHONY: ci lint test lint_backend lint_frontend test_backend test_frontend
