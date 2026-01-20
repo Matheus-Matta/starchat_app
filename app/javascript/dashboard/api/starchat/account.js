@@ -4,6 +4,7 @@ import ApiClient from '../ApiClient';
 class StarchatAccountAPI extends ApiClient {
   constructor() {
     super('', { accountScoped: true, enterprise: true });
+    this.apiVersion = '/starchat/api/v1';
   }
 
   checkout() {

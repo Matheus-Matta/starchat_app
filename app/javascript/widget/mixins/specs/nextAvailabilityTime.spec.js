@@ -4,6 +4,7 @@ import nextAvailabilityTimeMixin from '../nextAvailabilityTime';
 
 describe('nextAvailabilityTimeMixin', () => {
   const chatwootWebChannel = {
+    timezone: 'UTC',
     workingHoursEnabled: true,
     workingHours: [
       {
@@ -79,7 +80,13 @@ describe('nextAvailabilityTimeMixin', () => {
   });
 
   it('should return day names', () => {
-    const wrapper = mount(Component);
+    const wrapper = mount(Component, {
+      global: {
+        mocks: {
+          $t: msg => msg,
+        },
+      },
+    });
     wrapper.vm.dayNames = [
       'Sunday',
       'Monday',
@@ -101,12 +108,24 @@ describe('nextAvailabilityTimeMixin', () => {
   });
 
   it('should return channelConfig', () => {
-    const wrapper = mount(Component);
+    const wrapper = mount(Component, {
+      global: {
+        mocks: {
+          $t: msg => msg,
+        },
+      },
+    });
     expect(wrapper.vm.channelConfig).toEqual(chatwootWebChannel);
   });
 
   it('should return workingHours', () => {
-    const wrapper = mount(Component);
+    const wrapper = mount(Component, {
+      global: {
+        mocks: {
+          $t: msg => msg,
+        },
+      },
+    });
     expect(wrapper.vm.workingHours).toEqual(chatwootWebChannel.workingHours);
   });
 
@@ -115,7 +134,13 @@ describe('nextAvailabilityTimeMixin', () => {
     const expectedWorkingHours = chatwootWebChannel.workingHours.find(
       slot => slot.day_of_week === currentDay
     );
-    const wrapper = mount(Component);
+    const wrapper = mount(Component, {
+      global: {
+        mocks: {
+          $t: msg => msg,
+        },
+      },
+    });
     wrapper.vm.dayNames = [
       'Sunday',
       'Monday',
@@ -134,7 +159,13 @@ describe('nextAvailabilityTimeMixin', () => {
     const expectedWorkingHours = chatwootWebChannel.workingHours.find(
       slot => slot.day_of_week === nextDay
     );
-    const wrapper = mount(Component);
+    const wrapper = mount(Component, {
+      global: {
+        mocks: {
+          $t: msg => msg,
+        },
+      },
+    });
     wrapper.vm.dayNames = [
       'Sunday',
       'Monday',
@@ -148,12 +179,24 @@ describe('nextAvailabilityTimeMixin', () => {
   });
 
   it('should return presentHour', () => {
-    const wrapper = mount(Component);
-    expect(wrapper.vm.presentHour).toBe(new Date().getHours());
+    const wrapper = mount(Component, {
+      global: {
+        mocks: {
+          $t: msg => msg,
+        },
+      },
+    });
+    expect(wrapper.vm.presentHour).toBe(new Date().getUTCHours());
   });
 
   it('should return presentMinute', () => {
-    const wrapper = mount(Component);
+    const wrapper = mount(Component, {
+      global: {
+        mocks: {
+          $t: msg => msg,
+        },
+      },
+    });
     wrapper.vm.dayNames = [
       'Sunday',
       'Monday',
@@ -163,11 +206,17 @@ describe('nextAvailabilityTimeMixin', () => {
       'Friday',
       'Saturday',
     ];
-    expect(wrapper.vm.presentMinute).toBe(new Date().getMinutes());
+    expect(wrapper.vm.presentMinute).toBe(new Date().getUTCMinutes());
   });
 
   it('should return currentDay', () => {
-    const wrapper = mount(Component);
+    const wrapper = mount(Component, {
+      global: {
+        mocks: {
+          $t: msg => msg,
+        },
+      },
+    });
     wrapper.vm.dayNames = [
       'Sunday',
       'Monday',
@@ -186,7 +235,13 @@ describe('nextAvailabilityTimeMixin', () => {
   });
 
   it('should return currentDayTimings', () => {
-    const wrapper = mount(Component);
+    const wrapper = mount(Component, {
+      global: {
+        mocks: {
+          $t: msg => msg,
+        },
+      },
+    });
     wrapper.vm.dayNames = [
       'Sunday',
       'Monday',
@@ -209,7 +264,13 @@ describe('nextAvailabilityTimeMixin', () => {
   });
 
   it('should return nextDayTimings', () => {
-    const wrapper = mount(Component);
+    const wrapper = mount(Component, {
+      global: {
+        mocks: {
+          $t: msg => msg,
+        },
+      },
+    });
     wrapper.vm.dayNames = [
       'Sunday',
       'Monday',
@@ -229,7 +290,13 @@ describe('nextAvailabilityTimeMixin', () => {
   });
 
   it('should return dayDiff', () => {
-    const wrapper = mount(Component);
+    const wrapper = mount(Component, {
+      global: {
+        mocks: {
+          $t: msg => msg,
+        },
+      },
+    });
     wrapper.vm.dayNames = [
       'Sunday',
       'Monday',
@@ -251,7 +318,13 @@ describe('nextAvailabilityTimeMixin', () => {
   });
 
   it('should return dayNameOfNextWorkingDay', () => {
-    const wrapper = mount(Component);
+    const wrapper = mount(Component, {
+      global: {
+        mocks: {
+          $t: msg => msg,
+        },
+      },
+    });
     wrapper.vm.dayNames = [
       'Sunday',
       'Monday',
@@ -267,7 +340,13 @@ describe('nextAvailabilityTimeMixin', () => {
   });
 
   it('should return hoursAndMinutesBackInOnline', () => {
-    const wrapper = mount(Component);
+    const wrapper = mount(Component, {
+      global: {
+        mocks: {
+          $t: msg => msg,
+        },
+      },
+    });
     wrapper.vm.dayNames = [
       'Sunday',
       'Monday',
@@ -299,15 +378,27 @@ describe('nextAvailabilityTimeMixin', () => {
   });
 
   it('should return getNextDay', () => {
-    const wrapper = mount(Component);
+    const wrapper = mount(Component, {
+      global: {
+        mocks: {
+          $t: msg => msg,
+        },
+      },
+    });
     expect(wrapper.vm.getNextDay(6)).toBe(0);
   });
 
   it('should return in 30 minutes', () => {
-    vi.useFakeTimers('modern').setSystemTime(
+    vi.useFakeTimers().setSystemTime(
       new Date('Thu Apr 14 2022 14:04:46 GMT+0530')
     );
-    const wrapper = mount(Component);
+    const wrapper = mount(Component, {
+      global: {
+        mocks: {
+          $t: msg => msg,
+        },
+      },
+    });
     wrapper.vm.dayNames = [
       'Sunday',
       'Monday',
@@ -325,10 +416,16 @@ describe('nextAvailabilityTimeMixin', () => {
   });
 
   it('should return in 2 hours', () => {
-    vi.useFakeTimers('modern').setSystemTime(
+    vi.useFakeTimers().setSystemTime(
       new Date('Thu Apr 14 2022 22:04:46 GMT+0530')
     );
-    const wrapper = mount(Component);
+    const wrapper = mount(Component, {
+      global: {
+        mocks: {
+          $t: msg => msg,
+        },
+      },
+    });
     wrapper.vm.dayNames = [
       'Sunday',
       'Monday',
@@ -343,10 +440,16 @@ describe('nextAvailabilityTimeMixin', () => {
   });
 
   it('should return at 09:00 AM', () => {
-    vi.useFakeTimers('modern').setSystemTime(
+    vi.useFakeTimers().setSystemTime(
       new Date('Thu Apr 15 2022 22:04:46 GMT+0530')
     );
-    const wrapper = mount(Component);
+    const wrapper = mount(Component, {
+      global: {
+        mocks: {
+          $t: msg => msg,
+        },
+      },
+    });
     wrapper.vm.dayNames = [
       'Sunday',
       'Monday',
@@ -361,10 +464,16 @@ describe('nextAvailabilityTimeMixin', () => {
   });
 
   it('should return tomorrow', () => {
-    vi.useFakeTimers('modern').setSystemTime(
+    vi.useFakeTimers().setSystemTime(
       new Date('Thu Apr 1 2022 23:04:46 GMT+0530')
     );
-    const wrapper = mount(Component);
+    const wrapper = mount(Component, {
+      global: {
+        mocks: {
+          $t: msg => msg,
+        },
+      },
+    });
     wrapper.vm.dayNames = [
       'Sunday',
       'Monday',
@@ -380,10 +489,16 @@ describe('nextAvailabilityTimeMixin', () => {
   });
 
   it.skip('should return on Saturday', () => {
-    vi.useFakeTimers('modern').setSystemTime(
+    vi.useFakeTimers().setSystemTime(
       new Date('Thu Apr 14 2022 23:04:46 GMT+0530')
     );
-    const wrapper = mount(Component);
+    const wrapper = mount(Component, {
+      global: {
+        mocks: {
+          $t: msg => msg,
+        },
+      },
+    });
     wrapper.vm.dayNames = [
       'Sunday',
       'Monday',
