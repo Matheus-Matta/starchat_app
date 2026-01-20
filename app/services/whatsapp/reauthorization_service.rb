@@ -11,9 +11,7 @@ class Whatsapp::ReauthorizationService
     channel = inbox.channel
 
     # Validate phone number matches for reauthorization
-    if phone_info[:phone_number] != channel.phone_number
-      raise StandardError, "Phone number mismatch. Expected #{channel.phone_number}, got #{phone_info[:phone_number]}"
-    end
+    raise StandardError, "Phone number mismatch. Expected #{channel.phone_number}, got #{phone_info[:phone_number]}" if phone_info[:phone_number] != channel.phone_number
 
     # Update channel configuration
     update_channel_config(channel, access_token, phone_info)

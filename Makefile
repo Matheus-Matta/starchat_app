@@ -59,4 +59,27 @@ debug_worker:
 docker: 
 	docker build -t $(APP_NAME) -f ./docker/Dockerfile .
 
+
+
+# CI/Standardization targets
+ci: lint test
+
+git: test_frontend lint
+
+lint: lint_backend lint_frontend
+
+lint_backend:
+	bundle exec rubocop
+
+lint_frontend:
+	pnpm eslint
+
+test: test_frontend
+
+
+
+test_frontend:
+	pnpm test
+
 .PHONY: setup db_create db_migrate db_seed db_reset db console server burn docker run force_run force_run_tunnel debug debug_worker
+.PHONY: ci lint test lint_backend lint_frontend test_frontend

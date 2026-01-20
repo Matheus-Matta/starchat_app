@@ -1,5 +1,6 @@
 # app/jobs/webhooks/evolution_events_job.rb
 # frozen_string_literal: true
+
 class Webhooks::EvolutionEventsJob < ApplicationJob
   queue_as :evolution
 
@@ -10,14 +11,15 @@ class Webhooks::EvolutionEventsJob < ApplicationJob
     evt  = event.to_s.tr('.', '_').downcase
     rows = Array.wrap(data).compact
     rows = rows.reject { |r| r.respond_to?(:empty?) && r.empty? }
-    
-    puts "\n\n[EVOLUTION DATA ROWS EVENT = #{evt}]"
+
+    Rails.logger.debug { "\n\n[EVOLUTION DATA ROWS EVENT = #{evt}]" }
 
     case evt
     when 'messages_upsert'
       rows.each do |raw|
         safely('incoming message') do
           next if raw.blank?
+
           Evolution::IncomingMessageService.new(
             inbox: @inbox,
             processed: raw
@@ -29,6 +31,7 @@ class Webhooks::EvolutionEventsJob < ApplicationJob
       rows.each do |row|
         safely('status update') do
           next if row.blank?
+
           Evolution::MessageStatusService.new(
             inbox: @inbox,
             params: row
@@ -53,7 +56,7 @@ class Webhooks::EvolutionEventsJob < ApplicationJob
 
   def safely(what)
     yield
-  rescue => e
+  rescue StandardError => e
     Rails.logger.warn "[Evolution] #{what} failed (Inbox##{@inbox&.id}): #{e.class} #{e.message}"
   end
 end

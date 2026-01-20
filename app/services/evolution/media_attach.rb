@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'securerandom'
 
 module Evolution
@@ -36,12 +37,12 @@ module Evolution
       b64 ||= media['base64'] if media.is_a?(Hash) && media['base64'].present?
 
       if b64.present?
-        Rails.logger.info "[MediaAttach] Found Base64. Processing..."
+        Rails.logger.info '[MediaAttach] Found Base64. Processing...'
         blob = download_for_base64(
           b64,
-          filename:     filename,
+          filename: filename,
           content_type: mimetype.presence,
-          identify:     false
+          identify: false
         )
         return attach_blob!(message, blob)
       end
@@ -50,13 +51,13 @@ module Evolution
       if url.present? && media_key.present?
         Rails.logger.info "[MediaAttach] Trying .enc download from #{url}..."
         blob = download_for_whatsapp_enc(
-          url:          url,
-          media_key:    media_key,
-          media_type:   type,          # :audio/:video/:image/:document
-          filename:     filename,
+          url: url,
+          media_key: media_key,
+          media_type: type,          # :audio/:video/:image/:document
+          filename: filename,
           content_type: mimetype,
-          headers:      {},            # ajuste se houver Auth
-          identify:     false
+          headers: {},            # ajuste se houver Auth
+          identify: false
         )
         return attach_blob!(message, blob)
       end
@@ -68,13 +69,13 @@ module Evolution
         begin
           blob = download_simple_url(url, filename, mimetype)
           return attach_blob!(message, blob)
-        rescue => e
+        rescue StandardError => e
           Rails.logger.warn "[MediaAttach] Simple URL download failed: #{e.message}"
         end
       end
 
       false
-    rescue => e
+    rescue StandardError => e
       Rails.logger.warn "[MediaAttach] erro: #{e.class} #{e.message}"
       false
     end
@@ -107,16 +108,23 @@ module Evolution
       candidates.find { |c| c.is_a?(String) && c.present? }
     end
 
-    def suggested_filename_from_payload_like_wa(type, mimetype)
-      ext = case
-            when mimetype.start_with?('image/jpeg') then '.jpg'
-            when mimetype.start_with?('image/png')  then '.png'
-            when mimetype.start_with?('image/gif')  then '.gif'
-            when mimetype.start_with?('image/webp') then '.webp'
-            when mimetype.start_with?('video/mp4')  then '.mp4'
-            when mimetype.start_with?('audio/ogg')  then '.ogg'
-            when mimetype.start_with?('audio/mpeg') then '.mp3'
-            else ''
+    def suggested_filename_from_payload_like_wa(_type, mimetype)
+      ext = if mimetype.start_with?('image/jpeg')
+              '.jpg'
+            elsif mimetype.start_with?('image/png')
+              '.png'
+            elsif mimetype.start_with?('image/gif')
+              '.gif'
+            elsif mimetype.start_with?('image/webp')
+              '.webp'
+            elsif mimetype.start_with?('video/mp4')
+              '.mp4'
+            elsif mimetype.start_with?('audio/ogg')
+              '.ogg'
+            elsif mimetype.start_with?('audio/mpeg')
+              '.mp3'
+            else
+              ''
             end
       "file-#{SecureRandom.hex(4)}#{ext}"
     end
@@ -132,7 +140,7 @@ module Evolution
         else
           Rails.logger.info "[ATTACH] blob=#{blob.id} key=#{blob.key} filename=#{blob.filename} ct=#{blob.content_type}"
         end
-      rescue => e
+      rescue StandardError => e
         Rails.logger.warn "[ATTACH] blob=#{blob.id} saved, but failed to generate URL for log: #{e.message}"
       end
       true
@@ -141,9 +149,9 @@ module Evolution
     # — utilidades já usadas no seu serviço —
     def presigned_url_for(blob, expires_in: 15.minutes, disposition: 'inline')
       if blob.respond_to?(:url)
-        blob.url(expires_in:, disposition:, filename: blob.filename)
+        blob.url(expires_in: expires_in, disposition: disposition, filename: blob.filename)
       elsif blob.respond_to?(:service_url)
-        blob.service_url(expires_in:, disposition:, filename: blob.filename)
+        blob.service_url(expires_in: expires_in, disposition: disposition, filename: blob.filename)
       end
     end
 
@@ -151,16 +159,17 @@ module Evolution
       return 'image' if ct.to_s.start_with?('image/')
       return 'video' if ct.to_s.start_with?('video/')
       return 'audio' if ct.to_s.start_with?('audio/')
+
       'file'
     end
 
     def download_simple_url(url, filename, content_type)
       require 'down'
       tempfile = Down.download(url, max_size: 50 * 1024 * 1024) # 50MB limit
-      
+
       ActiveStorage::Blob.create_and_upload!(
-        io:           tempfile,
-        filename:     filename,
+        io: tempfile,
+        filename: filename,
         content_type: content_type
       )
     end
@@ -168,9 +177,8 @@ module Evolution
     def safe_file_type_for(content_type)
       ct = content_type.to_s
       return file_type(ct) if respond_to?(:file_type)
-      if defined?(::FileTypeHelper) && ::FileTypeHelper.respond_to?(:file_type)
-        return ::FileTypeHelper.file_type(ct)
-      end
+      return ::FileTypeHelper.file_type(ct) if defined?(::FileTypeHelper) && ::FileTypeHelper.respond_to?(:file_type)
+
       file_type_from_content_type(ct)
     end
   end

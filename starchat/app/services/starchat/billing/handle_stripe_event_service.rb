@@ -13,15 +13,13 @@ class Starchat::Billing::HandleStripeEventService
     cosmos_integration
   ].freeze
 
-
   BUSINESS_PLAN_FEATURES = %w[sla custom_roles].freeze
-
 
   ENTERPRISE_PLAN_FEATURES = %w[audit_logs disable_branding].freeze
 
   def perform(event:)
     @event = event
-    Rails.logger.debug { "Stripe event handling removido" }
+    Rails.logger.debug { 'Stripe event handling removido' }
   end
 
   private
@@ -52,6 +50,7 @@ class Starchat::Billing::HandleStripeEventService
   def enable_plan_specific_features
     plan_name = account.custom_attributes['plan_name']
     return if plan_name.blank?
+
     case plan_name
     when 'Startups'
       account.enable_features(*STARTUP_PLAN_FEATURES)

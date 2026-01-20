@@ -12,7 +12,7 @@ class AddFeatureCitationToAssistantConfig < ActiveRecord::Migration[7.1]
   def down
     return unless ChatwootApp.enterprise?
 
-     Cosmos::Assistant.find_each do |assistant|
+    Cosmos::Assistant.find_each do |assistant|
       config = assistant.config.dup
       config.delete('feature_citation')
       assistant.update!(config: config)

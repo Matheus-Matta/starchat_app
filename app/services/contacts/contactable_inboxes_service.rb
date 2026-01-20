@@ -58,6 +58,7 @@ class Contacts::ContactableInboxesService
 
   def evolution_contactable_inbox(inbox)
     return if @contact.phone_number.blank?
+
     { source_id: @contact.phone_number.delete('+'), inbox: inbox }
   end
 

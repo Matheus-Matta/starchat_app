@@ -11,16 +11,16 @@ const templates = [
     components: [
       {
         type: 'BODY',
-        text: "Hi {{1}}, we're scheduling a technician visit to {{2}} on {{3}} between {{4}} and {{5}}. Please confirm if this time slot works for you."
-      }
-    ]
+        text: "Hi {{1}}, we're scheduling a technician visit to {{2}} on {{3}} between {{4}} and {{5}}. Please confirm if this time slot works for you.",
+      },
+    ],
   },
   {
     name: 'order_confirmation',
     components: [
       { type: 'HEADER', format: 'IMAGE' },
-      { type: 'BODY', text: 'Hi {{1}}' } // Minimal body
-    ]
+      { type: 'BODY', text: 'Hi {{1}}' }, // Minimal body
+    ],
   },
   {
     name: 'discount_coupon',
@@ -28,31 +28,31 @@ const templates = [
       { type: 'BODY', text: 'Here is your coupon {{1}}' },
       {
         type: 'BUTTONS',
-        buttons: [{ type: 'COPY_CODE' }]
-      }
-    ]
+        buttons: [{ type: 'COPY_CODE' }],
+      },
+    ],
   },
   {
     name: 'purchase_receipt',
     components: [
       { type: 'HEADER', format: 'DOCUMENT' },
-      { type: 'BODY', text: 'Receipt for {{1}}, {{2}}, {{3}}' }
-    ]
+      { type: 'BODY', text: 'Receipt for {{1}}, {{2}}, {{3}}' },
+    ],
   },
   {
     name: 'training_video',
     components: [
       { type: 'HEADER', format: 'VIDEO' },
-      { type: 'BODY', text: 'Video for {{name}} on {{date}}' }
-    ]
+      { type: 'BODY', text: 'Video for {{name}} on {{date}}' },
+    ],
   },
   {
     name: 'no_variable_template',
     components: [
       { type: 'HEADER', format: 'TEXT', text: 'Header' },
-      { type: 'BODY', text: 'Body text' }
-    ]
-  }
+      { type: 'BODY', text: 'Body text' },
+    ],
+  },
 ];
 
 describe('templateHelper', () => {

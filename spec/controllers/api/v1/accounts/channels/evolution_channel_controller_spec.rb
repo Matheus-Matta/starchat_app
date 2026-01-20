@@ -11,10 +11,10 @@ RSpec.describe Api::V1::Accounts::Channels::EvolutionChannelController, type: :c
     allow(Evolution::Client).to receive(:new).and_return(evolution_client)
     allow(ENV).to receive(:[]).and_call_original
     allow(ENV).to receive(:fetch).and_call_original
-    
+
     allow(ENV).to receive(:[]).with('AUTHENTICATION_API_KEY').and_return('test-api-key')
     allow(ENV).to receive(:[]).with('EVOLUTION_BASE_URL').and_return('http://evolution.test')
-    
+
     allow(ENV).to receive(:fetch).with('EVOLUTION_BASE_URL').and_return('http://evolution.test')
     allow(ENV).to receive(:fetch).with('AUTHENTICATION_API_KEY').and_return('test-api-key')
     allow(ENV).to receive(:fetch).with('EVOLUTION_HTTP_OPEN_TIMEOUT', 180).and_return(180)
@@ -58,14 +58,14 @@ RSpec.describe Api::V1::Accounts::Channels::EvolutionChannelController, type: :c
         end
 
         it 'creates a channel and inbox' do
-          expect {
+          expect do
             post :create, params: create_params
-          }.to change(Channel::Evolution, :count).by(1)
-           .and change(Inbox, :count).by(1)
+          end.to change(Channel::Evolution, :count).by(1)
+                                                   .and change(Inbox, :count).by(1)
 
           expect(response).to have_http_status(:created)
-          
-          json_response = JSON.parse(response.body)
+
+          json_response = response.parsed_body
           expect(json_response['inbox']['name']).to eq('Test WhatsApp')
           expect(json_response['channel']['provider_config']).to include('instance_id' => 'inst_123')
         end
@@ -79,7 +79,7 @@ RSpec.describe Api::V1::Accounts::Channels::EvolutionChannelController, type: :c
         it 'returns unprocessable_entity' do
           post :create, params: create_params
           expect(response).to have_http_status(:unprocessable_entity)
-          expect(JSON.parse(response.body)['message']).to eq('API Error')
+          expect(response.parsed_body['message']).to eq('API Error')
         end
       end
     end
@@ -90,21 +90,21 @@ RSpec.describe Api::V1::Accounts::Channels::EvolutionChannelController, type: :c
 
       it 'returns the channel details' do
         get :show, params: { account_id: account.id, id: channel.id }
-        
+
         expect(response).to have_http_status(:ok)
-        json_response = JSON.parse(response.body)
+        json_response = response.parsed_body
         expect(json_response['channel']['id']).to eq(channel.id)
       end
     end
 
     describe 'POST #restart' do
       let!(:channel) { Channel::Evolution.create!(account: account, instance_name: 'test_inst', api_key: 'key') }
-      
-      it ' restarts the instance' do
+
+      it 'restarts the instance' do
         allow(evolution_client).to receive(:restart_instance).with('test_inst').and_return({ 'instance' => { 'state' => 'open' } })
-        
+
         post :restart, params: { account_id: account.id, id: channel.id }
-        
+
         expect(response).to have_http_status(:ok)
         expect(channel.reload.state).to eq('open')
       end
@@ -112,9 +112,9 @@ RSpec.describe Api::V1::Accounts::Channels::EvolutionChannelController, type: :c
       it 'falls back to connect on timeout' do
         allow(evolution_client).to receive(:restart_instance).and_raise(Timeout::Error)
         allow(controller).to receive(:connect)
-        
+
         post :restart, params: { account_id: account.id, id: channel.id }
-        
+
         expect(controller).to have_received(:connect)
       end
     end
@@ -124,9 +124,9 @@ RSpec.describe Api::V1::Accounts::Channels::EvolutionChannelController, type: :c
 
       it 'logs out and updates state' do
         allow(evolution_client).to receive(:logout_instance).with('test_inst')
-        
+
         delete :disconnect, params: { account_id: account.id, id: channel.id }
-        
+
         expect(response).to have_http_status(:no_content)
         expect(channel.reload.state).to eq('disconnected')
       end
@@ -134,9 +134,9 @@ RSpec.describe Api::V1::Accounts::Channels::EvolutionChannelController, type: :c
       it 'tries delete if logout fails' do
         allow(evolution_client).to receive(:logout_instance).and_raise(StandardError)
         allow(evolution_client).to receive(:delete_instance).with('test_inst')
-        
+
         delete :disconnect, params: { account_id: account.id, id: channel.id }
-        
+
         expect(channel.reload.state).to eq('disconnected')
       end
     end

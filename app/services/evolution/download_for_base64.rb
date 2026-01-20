@@ -9,10 +9,8 @@ module Evolution::DownloadForBase64
 
     if str.start_with?('data:')
       header, data = str.split(',', 2)
-      if content_type.blank?
-        if (m = header.match(%r{\Adata:(?<ct>[^;]+);base64}))
-          content_type = m[:ct]
-        end
+      if content_type.blank? && (m = header.match(/\Adata:(?<ct>[^;]+);base64/))
+        content_type = m[:ct]
       end
       str = data
     end
@@ -24,7 +22,7 @@ module Evolution::DownloadForBase64
     if identify && content_type.blank?
       begin
         content_type = Marcel::MimeType.for(io, name: filename)
-      rescue
+      rescue StandardError
       ensure
         io.rewind
       end
@@ -33,8 +31,8 @@ module Evolution::DownloadForBase64
     content_type ||= 'application/octet-stream'
 
     ActiveStorage::Blob.create_and_upload!(
-      io:          io,
-      filename:    filename,
+      io: io,
+      filename: filename,
       content_type: content_type
     )
   end

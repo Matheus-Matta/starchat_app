@@ -15,9 +15,7 @@ class Integrations::Dialogflow::ProcessorService < Integrations::BotProcessorSer
   end
 
   def get_response(session_id, message_content)
-    if hook.settings['credentials'].blank?
-      Rails.logger.warn "Account: #{hook.try(:account_id)} Hook: #{hook.id} credentials are not present." && return
-    end
+    Rails.logger.warn "Account: #{hook.try(:account_id)} Hook: #{hook.id} credentials are not present." && return if hook.settings['credentials'].blank?
 
     configure_dialogflow_client_defaults
     detect_intent(session_id, message_content)

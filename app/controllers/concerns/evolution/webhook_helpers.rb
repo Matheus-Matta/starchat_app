@@ -38,7 +38,7 @@ module Evolution::WebhookHelpers
       list: Array(list)
     )
   end
-  
+
   included do
     private
 
@@ -73,7 +73,7 @@ module Evolution::WebhookHelpers
         file_type: content_type,
         file: { io: io, filename: filename, content_type: content_type }
       )
-    rescue => e
+    rescue StandardError => e
       Rails.logger.warn("[Evolution] attach media failed: #{e.class} #{e.message}")
     end
   end

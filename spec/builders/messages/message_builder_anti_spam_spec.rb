@@ -32,6 +32,8 @@ describe Messages::MessageBuilder do
     context 'when anti-spam is enabled' do
       before do
         inbox.update(anti_spam_config: { active: true, max_messages: 2, time_window: 1 })
+        allow($alfred).to receive(:with).and_yield(mock_redis)
+
         # Limpa o histórico do mock redis se necessário (MockRedis já inicia limpo a cada teste/yield se for nova instância)
       end
 
@@ -40,16 +42,13 @@ describe Messages::MessageBuilder do
       # Se eu mockar `and_yield(MockRedis.new)`, cada chamada terá um redis vazio.
       # Preciso usar O MESMO mock instance.
       let(:mock_redis) { MockRedis.new }
-      before do
-        allow($alfred).to receive(:with).and_yield(mock_redis)
-      end
 
       it 'blocks message when limit is exceeded with identical content' do
         # 1st message (SimilCount 0)
         described_class.new(user, conversation, ActionController::Parameters.new({ content: 'spam' })).perform
         # 2nd message (SimilCount 1 => OK)
         described_class.new(user, conversation, ActionController::Parameters.new({ content: 'spam' })).perform
-        
+
         # 3rd message -> Should Block
         message = described_class.new(user, conversation, ActionController::Parameters.new({ content: 'spam' })).perform
         expect(message.status).to eq('failed') # Status is string
@@ -59,14 +58,14 @@ describe Messages::MessageBuilder do
       it 'blocks message with similar content (Token Similarity)' do
         msg1 = 'Promoção imperdível de natal'
         msg2 = 'Venha ver a Promoção imperdível de natal!!!'
-        
+
         # 1st
         described_class.new(user, conversation, ActionController::Parameters.new({ content: msg1 })).perform
         # 2nd (Similar)
         described_class.new(user, conversation, ActionController::Parameters.new({ content: msg2 })).perform
         # 3rd (Similar -> Block)
         message = described_class.new(user, conversation, ActionController::Parameters.new({ content: msg1 })).perform
-        
+
         expect(message.status).to eq('failed')
       end
 
@@ -77,7 +76,7 @@ describe Messages::MessageBuilder do
         described_class.new(user, conversation, ActionController::Parameters.new({ content: 'testes' })).perform
         # 3rd (testess -> similar to testes 0.85) -> Block
         message = described_class.new(user, conversation, ActionController::Parameters.new({ content: 'testess' })).perform
-        
+
         expect(message.status).to eq('failed')
       end
 
@@ -85,10 +84,10 @@ describe Messages::MessageBuilder do
         described_class.new(user, conversation, ActionController::Parameters.new({ content: 'oi' })).perform
         described_class.new(user, conversation, ActionController::Parameters.new({ content: 'tudo bem?' })).perform
         message = described_class.new(user, conversation, ActionController::Parameters.new({ content: 'tchau' })).perform
-        
-        expect(message.status).to_not eq('failed')
+
+        expect(message.status).not_to eq('failed')
       end
-      
+
       it 'ignores case and accents' do
         # 1st
         described_class.new(user, conversation, ActionController::Parameters.new({ content: 'Olá' })).perform
@@ -96,10 +95,9 @@ describe Messages::MessageBuilder do
         described_class.new(user, conversation, ActionController::Parameters.new({ content: 'ola' })).perform
         # 3rd -> Block
         message = described_class.new(user, conversation, ActionController::Parameters.new({ content: 'OLA' })).perform
-        
+
         expect(message.status).to eq('failed')
       end
-      
     end
   end
 end

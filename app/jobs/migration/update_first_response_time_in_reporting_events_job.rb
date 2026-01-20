@@ -49,7 +49,6 @@ class Migration::UpdateFirstResponseTimeInReportingEventsJob < ApplicationJob
   end
 
   def update_event_details(event, last_bot_reply, first_human_reply, inbox)
-    # rubocop:disable Rails/SkipsModelValidations
     event.update_columns(event_start_time: last_bot_reply.created_at,
                          event_end_time: first_human_reply.created_at,
                          value: calculate_event_value(last_bot_reply, first_human_reply),

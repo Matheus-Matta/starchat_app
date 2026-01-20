@@ -23,7 +23,6 @@ class TestData::ContactBatchService
 
   private
 
-  # rubocop:disable Rails/SkipsModelValidations
   def create_contacts
     Rails.logger.info { "Creating #{@batch_size} contacts for account ##{@account.id}" }
     start_time = Time.current

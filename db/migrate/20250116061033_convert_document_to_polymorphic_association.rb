@@ -2,7 +2,6 @@ class ConvertDocumentToPolymorphicAssociation < ActiveRecord::Migration[7.0]
   def up
     add_column :cosmos_assistant_responses, :documentable_type, :string
 
-    # rubocop:disable Rails/SkipsModelValidations
     if ChatwootApp.enterprise?
       Cosmos::AssistantResponse
         .where

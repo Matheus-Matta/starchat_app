@@ -9,21 +9,21 @@ RSpec.describe Evolution::SendMessageService do
   let(:contact) { create(:contact, account: account) }
   let(:contact_inbox) { create(:contact_inbox, contact: contact, inbox: inbox, source_id: '5521999887766') }
   let(:conversation) { create(:conversation, contact: contact, inbox: inbox, contact_inbox: contact_inbox, account: account) }
-  
+
   let(:client_double) { instance_double(Evolution::Client) }
-  
+
   before do
     allow(Evolution::Client).to receive(:new).and_return(client_double)
     stub_const('ENV', ENV.to_hash.merge(
-      'EVOLUTION_BASE_URL' => 'https://api.evolution.test',
-      'AUTHENTICATION_API_KEY' => 'test-key-123'
-    ))
+                        'EVOLUTION_BASE_URL' => 'https://api.evolution.test',
+                        'AUTHENTICATION_API_KEY' => 'test-key-123'
+                      ))
   end
 
   describe '#perform com mensagem de texto' do
     it 'envia mensagem de texto simples' do
       message = create(:message, conversation: conversation, message_type: :outgoing, content: 'Olá, teste!')
-      
+
       expect(client_double).to receive(:send_text)
         .with(channel.instance_name, number: '5521999887766', text: 'Olá, teste!', quoted: nil)
         .and_return({ 'key' => { 'id' => 'msg_123' } })
@@ -37,7 +37,7 @@ RSpec.describe Evolution::SendMessageService do
 
     it 'não envia mensagem privada (nota interna)' do
       message = create(:message, conversation: conversation, message_type: :outgoing, private: true, content: 'Nota interna')
-      
+
       expect(client_double).not_to receive(:send_text)
 
       service = described_class.new(message: message)
@@ -46,7 +46,7 @@ RSpec.describe Evolution::SendMessageService do
 
     it 'não envia mensagem já despachada' do
       message = create(:message, conversation: conversation, message_type: :outgoing, source_id: 'already_sent', content: 'Teste')
-      
+
       expect(client_double).not_to receive(:send_text)
 
       service = described_class.new(message: message)
@@ -56,14 +56,14 @@ RSpec.describe Evolution::SendMessageService do
 
   describe '#perform com anexos (mídia)' do
     let(:message) { create(:message, conversation: conversation, message_type: :outgoing, content: '') }
-    
+
     context 'quando envia imagem via URL (comportamento prioritário)' do
       it 'envia URL diretamente para a API Evolution' do
         create(:attachment, message: message, account: account)
         message.reload
 
         allow_any_instance_of(ActiveStorage::Blob).to receive(:url).and_return('https://storage.example.com/image.jpg?expires=123')
-        
+
         expect(client_double).to receive(:send_media).with(
           channel.instance_name,
           hash_including(
@@ -86,7 +86,7 @@ RSpec.describe Evolution::SendMessageService do
         message.reload
 
         allow_any_instance_of(ActiveStorage::Blob).to receive(:url).and_return('https://storage.example.com/audio.ogg?expires=123')
-        
+
         expect(client_double).to receive(:send_whatsapp_audio).with(
           channel.instance_name,
           hash_including(
@@ -112,7 +112,7 @@ RSpec.describe Evolution::SendMessageService do
         # Precisamos forçar o content_type também se o factory criar errado
         allow_any_instance_of(ActiveStorage::Blob).to receive(:content_type).and_return('application/pdf')
         allow_any_instance_of(ActiveStorage::Blob).to receive(:filename).and_return(ActiveStorage::Filename.new('documento.pdf'))
-        
+
         expect(client_double).to receive(:send_media).with(
           channel.instance_name,
           hash_including(
@@ -130,18 +130,18 @@ RSpec.describe Evolution::SendMessageService do
 
     context 'quando URL falha (fallback para base64)' do
       it 'tenta base64 se URL não funcionar' do
-        attachment = create(:attachment, message: message, account: account)
+        create(:attachment, message: message, account: account)
         message.reload
-        
+
         allow_any_instance_of(ActiveStorage::Blob).to receive(:url).and_raise(StandardError, 'URL generation failed')
-        
+
         # Mock do Base64
         allow_any_instance_of(ActiveStorage::Blob).to receive(:open).and_yield(StringIO.new('fake_image_data'))
-        
+
         expect(client_double).to receive(:send_media).and_return({ 'key' => { 'id' => 'fallback_msg' } })
 
         service = described_class.new(message: message)
-        
+
         expect { service.perform }.not_to raise_error
       end
     end
@@ -150,12 +150,12 @@ RSpec.describe Evolution::SendMessageService do
   describe '#perform com erros' do
     it 'marca mensagem como failed se API retornar erro' do
       message = create(:message, conversation: conversation, message_type: :outgoing, content: 'Teste erro')
-      
+
       allow(client_double).to receive(:send_text)
         .and_raise(Evolution::Client::Error, 'API Error: Instance not connected')
 
       service = described_class.new(message: message)
-      
+
       # O serviço captura o erro e loga, não deve levantar exception
       expect { service.perform }.not_to raise_error
       expect(message.reload.status).to eq('failed')
@@ -166,14 +166,14 @@ RSpec.describe Evolution::SendMessageService do
     let(:parent_message) do
       create(:message, conversation: conversation, message_type: :incoming, source_id: 'parent_msg_123')
     end
-    
+
     it 'envia mensagem com quoted (resposta)' do
       message = create(:message,
                        conversation: conversation,
                        message_type: :outgoing,
                        content: 'Esta é uma resposta',
                        content_attributes: { in_reply_to: parent_message.id })
-      
+
       expect(client_double).to receive(:send_text).with(
         channel.instance_name,
         hash_including(
@@ -191,16 +191,16 @@ RSpec.describe Evolution::SendMessageService do
   describe 'ordenação de anexos' do
     it 'envia anexos na ordem correta (imagem > vídeo > áudio > documento)' do
       message = create(:message, conversation: conversation, message_type: :outgoing, content: nil)
-      
+
       # Criar anexos fora de ordem
-      doc = create(:attachment, message: message, account: account, file_type: :file)
-      img = create(:attachment, message: message, account: account, file_type: :image)
-      vid = create(:attachment, message: message, account: account, file_type: :video)
-      
+      create(:attachment, message: message, account: account, file_type: :file)
+      create(:attachment, message: message, account: account, file_type: :image)
+      create(:attachment, message: message, account: account, file_type: :video)
+
       message.reload # Importante!
-      
+
       allow_any_instance_of(ActiveStorage::Blob).to receive(:url).and_return('http://example.com/file')
-      
+
       # Deve enviar na ordem: imagem, vídeo, documento
       expect(client_double).to receive(:send_media).ordered.and_return({ 'key' => { 'id' => 'msg1' } })
       expect(client_double).to receive(:send_media).ordered.and_return({ 'key' => { 'id' => 'msg2' } })

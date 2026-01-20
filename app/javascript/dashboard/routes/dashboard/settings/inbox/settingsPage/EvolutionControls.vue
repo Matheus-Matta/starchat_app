@@ -80,9 +80,7 @@ export default {
       return map[s] || map.disconnected;
     },
     stateI18nLabel() {
-      return this.$t(
-        'INBOX_MGMT.ADD.EVOLUTION.STATES.' + this.stateBadge.i18n
-      );
+      return this.$t('INBOX_MGMT.ADD.EVOLUTION.STATES.' + this.stateBadge.i18n);
     },
     isConnected() {
       return ['open', 'connected'].includes(

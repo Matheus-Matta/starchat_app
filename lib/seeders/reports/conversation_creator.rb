@@ -16,7 +16,6 @@ class Seeders::Reports::ConversationCreator
     @priorities = [nil, 'urgent', 'high', 'medium', 'low']
   end
 
-  # rubocop:disable Metrics/MethodLength
   def create_conversation(created_at:)
     conversation = nil
     should_resolve = false
@@ -43,7 +42,6 @@ class Seeders::Reports::ConversationCreator
 
     # Now resolve outside of time travel if needed
     if should_resolve && resolution_time
-      # rubocop:disable Rails/SkipsModelValidations
       conversation.update_column(:status, :resolved)
       conversation.update_column(:updated_at, resolution_time)
       # rubocop:enable Rails/SkipsModelValidations
@@ -61,6 +59,7 @@ class Seeders::Reports::ConversationCreator
 
   private
 
+  # rubocop:disable Metrics/MethodLength
   def build_conversation
     contact = @contacts.sample
     inbox = @inboxes.sample

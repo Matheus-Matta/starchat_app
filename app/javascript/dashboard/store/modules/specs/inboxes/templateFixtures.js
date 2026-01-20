@@ -260,4 +260,18 @@ export const templates = [
     ],
     rejected_reason: 'NONE',
   },
+  {
+    name: 'order_confirmation',
+    status: 'approved',
+    category: 'TRANSACTIONAL',
+    language: 'en_US',
+    namespace: 'ed41a221_133a_4558_a1d6_192960e3aee9',
+    components: [
+      {
+        text: 'Your order {{1}} has been confirmed.',
+        type: 'BODY',
+      },
+    ],
+    rejected_reason: 'NONE',
+  },
 ];

@@ -71,9 +71,7 @@ export default {
     isAEvolutionChannel() {
       return this.channelType === INBOX_TYPES.EVOLUTION;
     },
-    isAVoiceChannel() {
-      return this.channelType === INBOX_TYPES.VOICE;
-    },
+
     isATwilioSMSChannel() {
       const { medium: medium = '' } = this.inbox;
       return this.isATwilioChannel && medium === 'sms';

@@ -6,15 +6,14 @@ module Evolution
       ActiveRecord::Base.transaction(requires_new: true) do
         ::ContactInbox.lock.where(id: contact_inbox.id).pluck(:id)
 
-        if inbox.lock_to_single_conversation?
-          conv = ::Conversation.where(contact_inbox_id: contact_inbox.id)
+        conv = if inbox.lock_to_single_conversation?
+                 ::Conversation.where(contact_inbox_id: contact_inbox.id)
                                .order(updated_at: :desc).first
-          return conv if conv.present?
-        else
-          conv = ::Conversation.where(contact_inbox_id: contact_inbox.id, status: :open)
+               else
+                 ::Conversation.where(contact_inbox_id: contact_inbox.id, status: :open)
                                .order(updated_at: :desc).first
-          return conv if conv.present?
-        end
+               end
+        return conv if conv.present?
 
         if inbox.lock_to_single_conversation?
           last_conv = ::Conversation.where(contact_inbox_id: contact_inbox.id)
@@ -26,12 +25,12 @@ module Evolution
         end
 
         permitted = ActionController::Parameters.new(
-          account_id:            inbox.account_id,
-          inbox_id:              inbox.id,
+          account_id: inbox.account_id,
+          inbox_id: inbox.id,
           additional_attributes: {}
         ).permit!
 
-        ::ConversationBuilder.new(contact_inbox:, params: permitted).perform
+        ::ConversationBuilder.new(contact_inbox: contact_inbox, params: permitted).perform
       end
     end
   end

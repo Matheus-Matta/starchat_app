@@ -7,10 +7,10 @@ RSpec.describe VideoCompressor do
   before do
     # Garante que FileUtils.mkdir_p não falhe
     allow(FileUtils).to receive(:mkdir_p)
-    
+
     # Permite chamadas reais para outros arquivos (evita erro com gems internas)
     allow(File).to receive(:exist?).and_call_original
-    
+
     # Garante que verificação de existência do input passe
     allow(File).to receive(:exist?).with(input_path).and_return(true)
   end
@@ -21,7 +21,7 @@ RSpec.describe VideoCompressor do
         # Mock do sucesso do comando ffmpeg
         status = instance_double(Process::Status, success?: true, exitstatus: 0)
         allow(Open3).to receive(:capture3).and_return(['', '', status])
-        
+
         # Mock do arquivo de saída sendo gerado
         allow(File).to receive(:exist?).with(output_path).and_return(true)
         allow(File).to receive(:size?).with(output_path).and_return(1024)
@@ -29,7 +29,7 @@ RSpec.describe VideoCompressor do
 
       it 'calls ffmpeg with correct arguments and returns output path' do
         result = described_class.compress!(input_path: input_path, output_path: output_path)
-        
+
         expect(result).to eq(output_path)
         expect(Open3).to have_received(:capture3) do |*args|
           expect(args).to include('ffmpeg')
@@ -46,9 +46,9 @@ RSpec.describe VideoCompressor do
       end
 
       it 'raises VideoCompressor::Error' do
-        expect {
+        expect do
           described_class.compress!(input_path: input_path, output_path: output_path)
-        }.to raise_error(VideoCompressor::Error, /ffmpeg falhou \(1\): Error processing/)
+        end.to raise_error(VideoCompressor::Error, /ffmpeg falhou \(1\): Error processing/)
       end
     end
 
@@ -58,9 +58,9 @@ RSpec.describe VideoCompressor do
       end
 
       it 'raises VideoCompressor::Error' do
-        expect {
+        expect do
           described_class.compress!(input_path: input_path, output_path: output_path)
-        }.to raise_error(VideoCompressor::Error, /Entrada não existe/)
+        end.to raise_error(VideoCompressor::Error, /Entrada não existe/)
       end
     end
   end

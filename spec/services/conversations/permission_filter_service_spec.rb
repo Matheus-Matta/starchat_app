@@ -48,7 +48,7 @@ RSpec.describe Conversations::PermissionFilterService do
       let(:team) { create(:team, account: account) }
       let(:team_inbox) { create(:inbox, account: account) }
       let!(:team_conversation) { create(:conversation, account: account, inbox: team_inbox, team: team) }
-      
+
       before do
         create(:team_member, user: agent, team: team)
       end
@@ -56,11 +56,11 @@ RSpec.describe Conversations::PermissionFilterService do
       it 'returns the team conversation even if not member of inbox' do
         # Passing all conversations to simulate finder behavior
         result = described_class.new(
-          account.conversations, 
-          agent, 
+          account.conversations,
+          agent,
           account
         ).perform
-        
+
         expect(result).to include(team_conversation)
       end
     end

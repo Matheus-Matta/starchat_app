@@ -178,7 +178,18 @@ const compareDates = (conversationValue, filterValue, compareFn) => {
   const valueToCompare = Array.isArray(filterValue)
     ? filterValue[0]
     : filterValue;
-  const filterDate = coerceToDate(valueToCompare);
+
+  let filterDate;
+  // Check if valueToCompare is strictly a YYYY-MM-DD string
+  if (
+    typeof valueToCompare === 'string' &&
+    /^\d{4}-\d{2}-\d{2}$/.test(valueToCompare)
+  ) {
+    const [year, month, day] = valueToCompare.split('-').map(Number);
+    filterDate = new Date(year, month - 1, day);
+  } else {
+    filterDate = coerceToDate(valueToCompare);
+  }
 
   if (conversationDate === null || filterDate === null) return false;
   return compareFn(conversationDate, filterDate);

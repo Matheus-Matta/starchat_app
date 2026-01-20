@@ -18,7 +18,7 @@ module Evolution
       # 2. Agendar envio de anexos em background (ActiveJob)
       # Isso garante que não bloqueamos a thread principal e podemos usar retry/backoff do Sidekiq
       @message.attachments.each_with_index do |attachment, index|
-        # Calcula delay: 
+        # Calcula delay:
         # Ex: 1 texto já foi.
         # Anexo 1: delay 1s
         # Anexo 2: delay 3s

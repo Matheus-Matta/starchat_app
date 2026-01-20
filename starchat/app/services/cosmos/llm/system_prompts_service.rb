@@ -1,4 +1,3 @@
-# rubocop:disable Metrics/ClassLength
 class Cosmos::Llm::SystemPromptsService
   class << self
     def faq_generator(language = 'english')
@@ -86,7 +85,6 @@ class Cosmos::Llm::SystemPromptsService
       SYSTEM_PROMPT_MESSAGE
     end
 
-    # rubocop:disable Metrics/MethodLength
     def copilot_response_generator(product_name, available_tools, config = {})
       citation_guidelines = if config['feature_citation']
                               <<~CITATION_TEXT

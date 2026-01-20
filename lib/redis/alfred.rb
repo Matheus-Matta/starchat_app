@@ -7,7 +7,7 @@ module Redis::Alfred
     # key operations
 
     # set a value in redis
-    def set(key, value, nx: false, ex: false) # rubocop:disable Naming/MethodParameterName
+    def set(key, value, nx: false, ex: false)
       $alfred.with { |conn| conn.set(key, value, nx: nx, ex: ex) }
     end
 

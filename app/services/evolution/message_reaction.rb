@@ -14,7 +14,7 @@ module Evolution
       target_source_id = rx.dig('key', 'id').to_s
       return false if target_source_id.blank?
 
-      parent = ::Message.find_by(inbox_id:, source_id: target_source_id)
+      parent = ::Message.find_by(inbox_id: inbox_id, source_id: target_source_id)
       unless parent
         Rails.logger.info "[MessageReaction] parent NÃO encontrado (inbox_id=#{inbox_id}, source_id=#{target_source_id})"
         return false
@@ -35,13 +35,13 @@ module Evolution
       end
 
       attrs = {
-        content:                 emoji,        # só o emoji; renderiza como reply no Chatwoot
-        content_type:            'text',
-        private:                 false,
-        account_id:              parent.account_id,
-        inbox_id:                parent.inbox_id,
-        message_type:            (from_me ? :outgoing : :incoming),
-        source_id:               source_id,
+        content: emoji,        # só o emoji; renderiza como reply no Chatwoot
+        content_type: 'text',
+        private: false,
+        account_id: parent.account_id,
+        inbox_id: parent.inbox_id,
+        message_type: (from_me ? :outgoing : :incoming),
+        source_id: source_id,
         in_reply_to_external_id: nil
       }
 
@@ -54,18 +54,18 @@ module Evolution
 
       msg.in_reply_to = parent
 
-      Rails.logger.info "[MessageReaction] tentando salvar reply reaction: emoji=#{emoji.inspect} "\
+      Rails.logger.info "[MessageReaction] tentando salvar reply reaction: emoji=#{emoji.inspect} " \
                         "parent_id=#{parent.id} conv_id=#{conv.id} from_me=#{from_me} source_id=#{source_id}"
 
       if msg.save
-        Rails.logger.info "[MessageReaction] reaction criada id=#{msg.id} "\
+        Rails.logger.info "[MessageReaction] reaction criada id=#{msg.id} " \
                           "in_reply_to=#{msg.in_reply_to_id} message_type=#{msg.message_type}"
         return true
       else
         Rails.logger.warn "[MessageReaction] reply NÃO salvo: #{msg.errors.full_messages.join(', ')}"
         return false
       end
-    rescue => e
+    rescue StandardError => e
       Rails.logger.warn "[MessageReaction] falhou: #{e.class} #{e.message}\n#{e.backtrace&.first}"
       false
     end

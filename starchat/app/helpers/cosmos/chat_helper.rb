@@ -79,8 +79,8 @@ module Cosmos::ChatHelper
   end
 
   def process_invalid_tool_call(function_name, tool_call_id)
-          persist_message({ content: I18n.t('cosmos.copilot.invalid_tool_call'), function_name: function_name }, 'assistant_thinking')
-      append_tool_response(I18n.t('cosmos.copilot.tool_not_available'), tool_call_id)
+    persist_message({ content: I18n.t('cosmos.copilot.invalid_tool_call'), function_name: function_name }, 'assistant_thinking')
+    append_tool_response(I18n.t('cosmos.copilot.tool_not_available'), tool_call_id)
   end
 
   def append_tool_response(content, tool_call_id)

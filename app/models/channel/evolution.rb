@@ -40,13 +40,13 @@ class Channel::Evolution < ApplicationRecord
 
   enum state: {
     disconnected: 'disconnected',
-    close:        'close',
-    connecting:   'connecting',
-    qrcode:       'qrcode',
-    pairing:      'pairing',
-    open:         'open',
-    connected:    'connected',
-    error:        'error'
+    close: 'close',
+    connecting: 'connecting',
+    qrcode: 'qrcode',
+    pairing: 'pairing',
+    open: 'open',
+    connected: 'connected',
+    error: 'error'
   }
 
   validates :instance_name, uniqueness: true, allow_nil: true
@@ -72,15 +72,15 @@ class Channel::Evolution < ApplicationRecord
   end
 
   def send_message(message)
-    Evolution::SendMessageService.new(channel: self, message:).perform
+    Evolution::SendMessageService.new(channel: self, message: message).perform
   end
 
   def update_message(message, **attrs)
-    Evolution::UpdateMessageService.new(channel: self, message:, **attrs).perform
+    Evolution::UpdateMessageService.new(channel: self, message: message, **attrs).perform
   end
 
   def delete_message(message)
-    Evolution::DeleteMessageService.new(channel: self, message:).perform
+    Evolution::DeleteMessageService.new(channel: self, message: message).perform
   end
 
   private
@@ -98,18 +98,18 @@ class Channel::Evolution < ApplicationRecord
 
     client = Evolution::Client.new(
       base_url: ENV.fetch('EVOLUTION_BASE_URL'),
-      api_key:  api_key.presence || ENV['AUTHENTICATION_API_KEY']
+      api_key: api_key.presence || ENV.fetch('AUTHENTICATION_API_KEY', nil)
     )
 
     begin
       client.logout_instance(instance_name)
-    rescue => e
+    rescue StandardError => e
       Rails.logger.warn("[Evolution] logout before delete failed channel=#{id} instance=#{instance_name}: #{e.class} #{e.message}")
     end
 
     begin
       client.delete_instance(instance_name)
-    rescue => e
+    rescue StandardError => e
       if e.respond_to?(:status) && e.status.to_i == 404
         Rails.logger.info("[Evolution] instance already deleted channel=#{id} instance=#{instance_name}")
       else
@@ -127,18 +127,18 @@ class Channel::Evolution < ApplicationRecord
   def generated_instance_name
     # Gera nome único com:
     # - Timestamp Unix (10 dígitos)
-    # - Account ID  
+    # - Account ID
     # - Channel ID
     # - Hash randômico (6 caracteres)
     # Exemplo: evo-1704567890-acc5-ch12-a3f8d2
-    
+
     timestamp = Time.current.to_i
-    
+
     # Hash único baseado em múltiplos fatores
     unique_hash = Digest::SHA256.hexdigest(
       "#{account_id}-#{id}-#{timestamp}-#{SecureRandom.hex(4)}"
     )[0..5]
-    
+
     "#{INSTANCE_NAME_PREFIX}#{timestamp}-acc#{account_id}-ch#{id}-#{unique_hash}"
   end
 
@@ -158,7 +158,7 @@ class Channel::Evolution < ApplicationRecord
     uri = URI.parse(raw)
 
     host = "#{uri.scheme}://#{uri.host}"
-    host += ":#{uri.port}" if uri.port && ![80, 443].include?(uri.port)
+    host += ":#{uri.port}" if uri.port && [80, 443].exclude?(uri.port)
     host
   rescue URI::InvalidURIError
     nil
@@ -175,6 +175,10 @@ class Channel::Evolution < ApplicationRecord
   end
 
   def log_evo_error(msg, error)
-    Rails.logger.error "[EVOLUTION] #{msg} channel=#{id} inbox=#{inbox_id rescue nil}: #{error.class} - #{error.message}"
+    Rails.logger.error "[EVOLUTION] #{msg} channel=#{id} inbox=#{begin
+      inbox_id
+    rescue StandardError
+      nil
+    end}: #{error.class} - #{error.message}"
   end
 end

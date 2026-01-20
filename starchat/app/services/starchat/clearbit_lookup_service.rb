@@ -1,4 +1,3 @@
-
 class Starchat::ClearbitLookupService
   # Clearbit API endpoint for combined lookup
   CLEARBIT_ENDPOINT = 'https://person.clearbit.com/v2/combined/find'.freeze

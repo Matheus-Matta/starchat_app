@@ -473,13 +473,15 @@ describe('filterHelpers', () => {
 
     it('should match conversation with contains operator for referer', () => {
       const conversation = {
-        additional_attributes: { referer: 'https://www.starchats.com.br/pricing' },
+        additional_attributes: {
+          referer: 'https://www.starchats.com.br/pricing',
+        },
       };
       const filters = [
         {
           attribute_key: 'referer',
           filter_operator: 'contains',
-          values: 'chatwoot',
+          values: 'starchats',
           query_operator: 'and',
         },
       ];
@@ -488,13 +490,15 @@ describe('filterHelpers', () => {
 
     it('should not match conversation with does_not_contain operator for referer', () => {
       const conversation = {
-        additional_attributes: { referer: 'https://www.starchats.com.br/pricing' },
+        additional_attributes: {
+          referer: 'https://www.starchats.com.br/pricing',
+        },
       };
       const filters = [
         {
           attribute_key: 'referer',
           filter_operator: 'does_not_contain',
-          values: 'chatwoot',
+          values: 'starchats',
           query_operator: 'and',
         },
       ];

@@ -1,6 +1,6 @@
 import { shallowMount } from '@vue/test-utils';
-import TemplateParser from '../../../../dashboard/components/widgets/conversation/WhatsappTemplates/TemplateParser.vue';
-import { templates } from './fixtures';
+import TemplateParser from '../../../../dashboard/components-next/whatsapp/WhatsAppTemplateParser.vue';
+import { templates } from '../../../../dashboard/store/modules/specs/inboxes/templateFixtures';
 import { nextTick } from 'vue';
 
 const config = {
@@ -19,7 +19,11 @@ describe('#WhatsAppTemplates', () => {
       props: { template: templates[0] },
     });
     await nextTick();
-    expect(wrapper.vm.variables).toEqual(['{{1}}', '{{2}}', '{{3}}']);
+    expect(Object.keys(wrapper.vm.processedParams.body)).toEqual([
+      '1',
+      '2',
+      '3',
+    ]);
   });
 
   it('returns no variables from a template string if it does not contain variables', async () => {
@@ -28,7 +32,7 @@ describe('#WhatsAppTemplates', () => {
       props: { template: templates[12] },
     });
     await nextTick();
-    expect(wrapper.vm.variables).toBeNull();
+    expect(wrapper.vm.hasVariables).toBe(false);
   });
 
   it('returns the body of a template', async () => {
@@ -39,7 +43,7 @@ describe('#WhatsAppTemplates', () => {
     await nextTick();
     const expectedOutput =
       templates[1].components.find(i => i.type === 'BODY')?.text || '';
-    expect(wrapper.vm.templateString).toEqual(expectedOutput);
+    expect(wrapper.vm.renderedTemplate).toEqual(expectedOutput);
   });
 
   it('generates the templates from variable input', async () => {
@@ -51,11 +55,11 @@ describe('#WhatsAppTemplates', () => {
 
     // Instead of using `setData`, directly modify the `processedParams` using the component's logic
     await wrapper.vm.$nextTick();
-    wrapper.vm.processedParams = { 1: 'abc', 2: 'xyz', 3: 'qwerty' };
+    wrapper.vm.processedParams.body = { 1: 'abc', 2: 'xyz', 3: 'qwerty' };
     await wrapper.vm.$nextTick();
 
     const expectedOutput =
       'Esta é a sua confirmação de voo para abc-xyz em qwerty.';
-    expect(wrapper.vm.processedString).toEqual(expectedOutput);
+    expect(wrapper.vm.renderedTemplate).toEqual(expectedOutput);
   });
 });

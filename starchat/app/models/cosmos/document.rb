@@ -33,7 +33,7 @@ class Cosmos::Document < ApplicationRecord
   validates :external_link, presence: true
   validates :external_link, uniqueness: { scope: :assistant_id }
   validates :content, length: { maximum: 200_000 }
-  
+
   before_validation :ensure_account_id
   before_validation :set_external_link_for_pdf
   before_validation :normalize_external_link
@@ -55,16 +55,19 @@ class Cosmos::Document < ApplicationRecord
 
   def content_type
     return pdf_file.blob.content_type if pdf_file.attached?
+
     'text/html'
   end
 
   def display_url
     return external_link unless pdf_file.attached?
+
     external_link.presence || pdf_file.filename.to_s
   end
 
   def file_size
     return pdf_file.blob.byte_size if pdf_file.attached?
+
     nil
   end
 
@@ -116,7 +119,7 @@ class Cosmos::Document < ApplicationRecord
   end
 
   def ensure_within_plan_limit
-          limits = account.usage_limits[:cosmos][:documents]
+    limits = account.usage_limits[:cosmos][:documents]
     raise LimitExceededError, I18n.t('cosmos.documents.limit_exceeded') unless limits[:current_available].positive?
   end
 

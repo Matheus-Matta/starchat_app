@@ -73,7 +73,7 @@ RSpec.describe Evolution::Client do
         )
 
       resp = client.set_webhook('starchats_support', 'https://27pz5ssk-3001.brs.devtunnels.ms/webhooks/evolution/123')
-      expect(resp['success']).to eq(true)
+      expect(resp['success']).to be(true)
     end
   end
 

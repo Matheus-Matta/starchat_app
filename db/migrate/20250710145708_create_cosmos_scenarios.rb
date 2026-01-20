@@ -12,7 +12,7 @@ class CreateCosmosScenarios < ActiveRecord::Migration[7.1]
       t.timestamps
     end
 
-          add_index :cosmos_scenarios, :enabled
-      add_index :cosmos_scenarios, [:assistant_id, :enabled]
+    add_index :cosmos_scenarios, :enabled
+    add_index :cosmos_scenarios, [:assistant_id, :enabled]
   end
 end

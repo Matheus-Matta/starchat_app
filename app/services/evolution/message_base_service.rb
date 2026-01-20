@@ -1,11 +1,9 @@
 # frozen_string_literal: true
 
-
 class Evolution::MessageBaseService < Whatsapp::IncomingMessageBaseService
-  
   include FileTypeHelper
   include ::DownloadForWhatsappEnc
-  
+
   include Evolution::DownloadForBase64
   include Evolution::MediaAttach
   include Evolution::MessageReplyTo
@@ -44,23 +42,21 @@ class Evolution::MessageBaseService < Whatsapp::IncomingMessageBaseService
       source_id: waid,
       inbox: inbox,
       contact_attributes: {
-        name:         desired,
+        name: desired,
         phone_number: "+#{waid}"
       }
     ).perform
 
     @contact        = ci.contact
-    @contact_inbox  = ci             
+    @contact_inbox  = ci
 
     if !sender_is_me && !locked_name?(@contact) && display.present?
-      
+
       unless looks_like_number?(display)
         current_name = @contact.name.to_s
         is_current_placeholder = current_name.blank? || looks_like_number?(current_name)
-        
-        if is_current_placeholder || (current_name != display)
-          @contact.update(name: display)
-        end
+
+        @contact.update(name: display) if is_current_placeholder || (current_name != display)
       end
 
     elsif sender_is_me && @contact.name.blank? && !locked_name?(@contact)
@@ -68,32 +64,31 @@ class Evolution::MessageBaseService < Whatsapp::IncomingMessageBaseService
     end
 
     pic_url = message['profilePicUrl'] || message.dig('key', 'profilePicUrl')
-    if pic_url.present?
-      update_contact_avatar(@contact, pic_url)
-    end
+    update_contact_avatar(@contact, pic_url) if pic_url.present?
 
     @contact
   end
 
   def update_contact_avatar(contact, url)
     return if url.blank?
-    
-    current_url = contact.additional_attributes['wa_profile_pic_url'] rescue nil
+
+    current_url = begin
+      contact.additional_attributes['wa_profile_pic_url']
+    rescue StandardError
+      nil
+    end
     return if current_url == url
 
     contact.additional_attributes['wa_profile_pic_url'] = url
     contact.save
-    
+
     Avatar::AvatarFromUrlJob.perform_later(contact, url)
   end
 
-
-
   def looks_like_number?(str)
     return false if str.blank?
+
     clean = str.to_s.gsub(/[\s\-\(\)\+]/, '')
     clean.match?(/\A\d+\z/) && clean.length >= 7
   end
-
-  
 end

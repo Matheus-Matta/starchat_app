@@ -6,13 +6,12 @@ class Starchat::Billing::CreateStripeCustomerService
   def perform
     account.update!(
       custom_attributes: {
-        plan_name: default_plan['name'],
+        plan_name: default_plan['name']
       }
     )
   end
 
   private
-
 
   def default_quantity
     default_plan['default_quantity'] || DEFAULT_QUANTITY
@@ -26,5 +25,4 @@ class Starchat::Billing::CreateStripeCustomerService
     installation_config = InstallationConfig.find_by(name: 'CHATWOOT_CLOUD_PLANS')
     @default_plan ||= installation_config.value.first
   end
-
 end

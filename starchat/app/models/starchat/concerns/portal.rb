@@ -7,6 +7,5 @@ module Starchat::Concerns::Portal
 
   def enqueue_domain_verification
     return if custom_domain.blank?
-
   end
 end

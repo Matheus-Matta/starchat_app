@@ -127,7 +127,6 @@ class Article < ApplicationRecord
   end
 
   def increment_view_count
-    # rubocop:disable Rails/SkipsModelValidations
     update_column(:views, views? ? views + 1 : 1)
     # rubocop:enable Rails/SkipsModelValidations
   end

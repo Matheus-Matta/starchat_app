@@ -24,7 +24,8 @@ export const contacts = [
       'https://sivin-tunnel.chatwoot.dev/rails/active_storage/representations/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBc0FCIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--c20b627b384f5981112e949b8414cd4d3e5912ee/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBTU0lJY0c1bkJqb0dSVlE2RTNKbGMybDZaVjkwYjE5bWFXeHNXd2RwQWZvdyIsImV4cCI6bnVsbCwicHVyIjoidmFyaWF0aW9uIn19--ebe60765d222d11ade39165eae49cc4b2de18d89/Avatar%201.20.41%E2%80%AFAM.png',
     customAttributes: {
       dateContact: '2024-02-01T00:00:00.000Z',
-      linkContact: 'https://staging.starchats.com.br/app/accounts/3/contacts-new',
+      linkContact:
+        'https://staging.starchats.com.br/app/accounts/3/contacts-new',
       listContact: 'Not spam',
       numberContact: '12',
     },

@@ -15,7 +15,6 @@ class AddLocaleToArticle < ActiveRecord::Migration[7.0]
                  else
                    article.portal.default_locale
                  end
-        # rubocop:disable Rails/SkipsModelValidations
         article.update_columns(locale: locale)
         # rubocop:enable Rails/SkipsModelValidations
       end

@@ -96,7 +96,9 @@ const { labelKey: voiceLabelKey, listIconColor: voiceIconColor } =
 const inboxId = computed(() => props.chat.inbox_id);
 
 const inbox = computed(() => {
-  const found = inboxId.value ? store.getters['inboxes/getInbox'](inboxId.value) : {};
+  const found = inboxId.value
+    ? store.getters['inboxes/getInbox'](inboxId.value)
+    : {};
   return found || {};
 });
 

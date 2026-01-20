@@ -21,7 +21,6 @@ RSpec.describe Migration::CompanyAccountBatchJob, type: :job do
       it 'creates a company and associates the contact' do
         # Clean up companies created by Part 2's callback
         Company.delete_all
-        # rubocop:disable Rails/SkipsModelValidations
         contact.update_column(:company_id, nil)
         # rubocop:enable Rails/SkipsModelValidations
 

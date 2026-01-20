@@ -24,8 +24,9 @@ class Messages::MessageBuilder
     is_spam = check_anti_spam
     @message = @conversation.messages.build(message_params)
     if is_spam
-       @message.status = :failed
-       @message.content_attributes[:external_error] = I18n.t('conversations.messages.anti_spam_error', default: 'You are sending this message too frequently')
+      @message.status = :failed
+      @message.content_attributes[:external_error] =
+        I18n.t('conversations.messages.anti_spam_error', default: 'You are sending this message too frequently')
     end
     process_attachments
     process_emails
@@ -101,15 +102,13 @@ class Messages::MessageBuilder
   end
 
   def message_type
-    if @conversation.inbox.channel_type != 'Channel::Api' && @message_type == 'incoming'
-      raise StandardError, 'Incoming messages are only allowed in Api inboxes'
-    end
+    raise StandardError, 'Incoming messages are only allowed in Api inboxes' if @conversation.inbox.channel_type != 'Channel::Api' && @message_type == 'incoming'
 
     @message_type
   end
 
   def sender
-    ['outgoing', 'template'].include?(message_type) ? (message_sender || @user) : @conversation.contact
+    %w[outgoing template].include?(message_type) ? (message_sender || @user) : @conversation.contact
   end
 
   def external_created_at
@@ -227,7 +226,7 @@ class Messages::MessageBuilder
   end
 
   def check_anti_spam
-    return false unless ['outgoing', 'template'].include?(message_type)
+    return false unless %w[outgoing template].include?(message_type)
     return false unless @conversation.inbox.anti_spam_enabled?
 
     current_sender = sender
@@ -244,7 +243,7 @@ class Messages::MessageBuilder
     return false if current_tokens.empty?
 
     history_key = "anti_spam_history:inbox:#{@conversation.inbox_id}:user:#{current_sender.id}"
-    
+
     similar_count = 0
     is_spam = false
 
@@ -253,18 +252,16 @@ class Messages::MessageBuilder
       now = Time.now.to_i
 
       raw_history.each do |entry_json|
-        begin
-          entry = JSON.parse(entry_json)
-          timestamp = entry['t']
-          
-          if (now - timestamp) <= window_seconds
-            past_tokens = entry['s']
-            similarity = calculate_token_similarity(current_tokens, past_tokens)
-            
-            similar_count += 1 if similarity >= 0.7
-          end
-        rescue JSON::ParserError
+        entry = JSON.parse(entry_json)
+        timestamp = entry['t']
+
+        if (now - timestamp) <= window_seconds
+          past_tokens = entry['s']
+          similarity = calculate_token_similarity(current_tokens, past_tokens)
+
+          similar_count += 1 if similarity >= 0.7
         end
+      rescue JSON::ParserError
       end
 
       if (similar_count + 1) > limit
@@ -277,7 +274,7 @@ class Messages::MessageBuilder
           multi.expire(history_key, window_seconds + 300)
         end
       end
-      
+
       Rails.logger.info "[Anti-Spam] Inbox: #{@conversation.inbox_id}, User: #{current_sender.id}, SimilarCount: #{similar_count}, Limit: #{limit}, Content: #{content.truncate(20)}, Spam: #{is_spam}"
     end
 
@@ -286,8 +283,13 @@ class Messages::MessageBuilder
 
   def normalize_and_tokenize(text)
     return [] if text.blank?
+
     normalized = text.to_s.downcase
-    normalized = ActiveSupport::Inflector.transliterate(normalized) rescue normalized
+    normalized = begin
+      ActiveSupport::Inflector.transliterate(normalized)
+    rescue StandardError
+      normalized
+    end
     normalized = normalized.gsub(/[^a-z0-9\s]/, '')
     normalized = normalized.gsub(/(.)\1{2,}/, '\1')
     tokens = normalized.split
@@ -297,37 +299,38 @@ class Messages::MessageBuilder
 
   def calculate_token_similarity(tokens1, tokens2)
     return 0.0 if tokens1.empty? || tokens2.empty?
-    
+
     if tokens1.size == 1 && tokens2.size == 1
-       s1 = tokens1[0]
-       s2 = tokens2[0]
-       max_len = [s1.length, s2.length].max
-       return 0.0 if max_len == 0
-       
-       dist = levenshtein_distance(s1, s2)
-       similarity = 1.0 - (dist.to_f / max_len)
-       return similarity
+      s1 = tokens1[0]
+      s2 = tokens2[0]
+      max_len = [s1.length, s2.length].max
+      return 0.0 if max_len.zero?
+
+      dist = levenshtein_distance(s1, s2)
+      similarity = 1.0 - (dist.to_f / max_len)
+      return similarity
     end
-    
+
     intersection_size = (tokens1 & tokens2).size
     min_size = [tokens1.size, tokens2.size].min
-    return 0.0 if min_size == 0
-    
+    return 0.0 if min_size.zero?
+
     intersection_size.to_f / min_size
   end
-  
+
   def levenshtein_distance(s, t)
     m = s.length
     n = t.length
-    return m if n == 0
-    return n if m == 0
-    d = Array.new(m+1) {Array.new(n+1)}
+    return m if n.zero?
+    return n if m.zero?
 
-    (0..m).each {|i| d[i][0] = i}
-    (0..n).each {|j| d[0][j] = j}
+    d = Array.new(m+1) { Array.new(n+1) }
+
+    (0..m).each { |i| d[i][0] = i }
+    (0..n).each { |j| d[0][j] = j }
     (1..n).each do |j|
       (1..m).each do |i|
-        cost = (s[i-1] == t[j-1]) ? 0 : 1
+        cost = s[i-1] == t[j-1] ? 0 : 1
         d[i][j] = [d[i-1][j]+1, d[i][j-1]+1, d[i-1][j-1]+cost].min
       end
     end

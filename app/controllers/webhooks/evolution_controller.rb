@@ -1,5 +1,6 @@
 # app/controllers/webhooks/evolution_controller.rb
 # frozen_string_literal: true
+
 require 'open-uri'
 
 class Webhooks::EvolutionController < ActionController::API
@@ -39,7 +40,7 @@ class Webhooks::EvolutionController < ActionController::API
       state = data.is_a?(Hash) ? data[:state].to_s : nil
       if (ch = @inbox.channel).is_a?(Channel::Evolution) && state.present?
         ch.update_state!(state)
-        
+
         # Saves phone number if available (e.g. owner JID)
         owner = data[:owner] || data.dig(:instance, :owner)
         if owner.present?
@@ -55,14 +56,14 @@ class Webhooks::EvolutionController < ActionController::API
     end
 
     data = [data] if %w[messages_upsert messages_update contacts_update chats_update].include?(event) && data.is_a?(Hash)
-    
+
     Webhooks::EvolutionEventsJob.perform_later(inbox_id: @inbox.id, event: event, data: data || [])
 
     head :ok
   rescue JSON::ParserError => e
     Rails.logger.warn("[Evolution] payload parse falhou: #{e.class} #{e.message}")
     head :ok
-  rescue => e
+  rescue StandardError => e
     Rails.logger.error("[Evolution] erro de webhook: #{e.class} #{e.message} bt=#{e.backtrace&.first(3)&.join(' | ')}")
     head :ok
   end

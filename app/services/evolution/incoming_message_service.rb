@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'securerandom'
 
 class Evolution::IncomingMessageService < Evolution::MessageBaseService
@@ -9,24 +10,21 @@ class Evolution::IncomingMessageService < Evolution::MessageBaseService
     return if @payload.blank?
 
     ensure_contact_from_message!(@payload)
-    @conversation = Evolution::ConversationEnsurer.ensure!(inbox:, contact_inbox: @contact_inbox)
+    @conversation = Evolution::ConversationEnsurer.ensure!(inbox: inbox, contact_inbox: @contact_inbox)
     create_message
   end
 
   private
 
   def create_message
-
     source_id = (@payload.dig('key', 'id') || @payload['messageId']).to_s
-    if ::Message.exists?(inbox_id: inbox.id, source_id: source_id)
-      return
-    end
+    return if ::Message.exists?(inbox_id: inbox.id, source_id: source_id)
 
     if Evolution::MessageReaction.apply!(
-        inbox_id:   inbox.id,
-        payload:    @payload,
-        author_name: (@contact&.name.presence || @payload['pushName'])
-      )
+      inbox_id: inbox.id,
+      payload: @payload,
+      author_name: (@contact&.name.presence || @payload['pushName'])
+    )
       return
     end
 
@@ -47,7 +45,7 @@ class Evolution::IncomingMessageService < Evolution::MessageBaseService
     if @message.save
       Rails.logger.info("[EVOLUTION INCOMING] Message created successfully id=#{@message.id}")
       @message.attachments.each do |att|
-        blob = att.file.blob
+        att.file.blob
       end
     else
       Rails.logger.error("[EVOLUTION INCOMING] Failed to save message: #{@message.errors.full_messages}")
@@ -56,16 +54,19 @@ class Evolution::IncomingMessageService < Evolution::MessageBaseService
 
   def temp_message_shell(outgoing, source_id)
     attrs = {
-      content:                 '', 
-      account_id:              inbox.account_id,
-      inbox_id:                inbox.id,
-      message_type:            outgoing ? :outgoing : :incoming,
-      source_id:               source_id,
+      content: '',
+      account_id: inbox.account_id,
+      inbox_id: inbox.id,
+      message_type: outgoing ? :outgoing : :incoming,
+      source_id: source_id,
       in_reply_to_external_id: nil,
-      additional_attributes:   outgoing ? { 'evolution_dispatched' => true } : {}
+      additional_attributes: outgoing ? { 'evolution_dispatched' => true } : {}
     }
-    outgoing ? @conversation.messages.build(attrs) :
-               @conversation.messages.build(attrs.merge(sender: @contact))
+    if outgoing
+      @conversation.messages.build(attrs)
+    else
+      @conversation.messages.build(attrs.merge(sender: @contact))
+    end
   end
 
   def extract_media_debug(p)
@@ -83,5 +84,4 @@ class Evolution::IncomingMessageService < Evolution::MessageBaseService
       p.dig('message', 'documentMessage', 'caption') ||
       ''
   end
-
 end

@@ -79,7 +79,10 @@ export default {
     ...mapGetters({ globalConfig: 'globalConfig/get' }),
     termsLink() {
       return this.$t('REGISTER.TERMS_ACCEPT')
-        .replace('https://www.starchats.com.br/terms', this.globalConfig.termsURL)
+        .replace(
+          'https://www.starchats.com.br/terms',
+          this.globalConfig.termsURL
+        )
         .replace(
           'https://www.starchats.com.br/privacy-policy',
           this.globalConfig.privacyURL

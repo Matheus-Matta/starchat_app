@@ -7,7 +7,7 @@ class Twilio::CallbackController < ApplicationController
 
   private
 
-  def permitted_params # rubocop:disable Metrics/MethodLength
+  def permitted_params
     params.permit(
       :ApiVersion,
       :SmsSid,

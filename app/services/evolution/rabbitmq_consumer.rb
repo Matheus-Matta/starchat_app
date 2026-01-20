@@ -7,45 +7,44 @@ module Evolution
 
     def start
       @logger = Logger.new(STDOUT)
-      @logger.info "[EvolutionRabbit] Initializing Consumer Service..."
-      
-      conn_uri = ENV['RABBITMQ_URI']
-      
+      @logger.info '[EvolutionRabbit] Initializing Consumer Service...'
+
+      conn_uri = ENV.fetch('RABBITMQ_URI', nil)
+
       # 3.4 Configurações de Conexão Robustas
-      conn = Bunny.new(conn_uri, 
-        automatically_recover: true,
-        heartbeat: 10,
-        network_recovery_interval: 5,
-        recover_from_connection_close: true,
-        logger: @logger
-      )
-      
+      conn = Bunny.new(conn_uri,
+                       automatically_recover: true,
+                       heartbeat: 10,
+                       network_recovery_interval: 5,
+                       recover_from_connection_close: true,
+                       logger: @logger)
+
       conn.start
-      @logger.info "[EvolutionRabbit] Connected to RabbitMQ!"
-      
+      @logger.info '[EvolutionRabbit] Connected to RabbitMQ!'
+
       ch = conn.create_channel
       ch.prefetch(PREFETCH_COUNT) # 3.3 Prefetch otimizado
-      
+
       exchange_name = ENV.fetch('RABBITMQ_EXCHANGE_NAME', 'evolution_exchange')
-      
+
       x = ch.topic(exchange_name, durable: true)
 
       queue_name = ENV.fetch('RABBITMQ_MAIN_QUEUE', 'starchats_evolution_inbound')
-      
+
       q = ch.queue(queue_name, durable: true, arguments: {
-        'x-queue-type' => 'classic',
-        'x-dead-letter-exchange' => 'evolution_retry',
-        'x-dead-letter-routing-key' => 'retry'
-      })
-      
+                     'x-queue-type' => 'classic',
+                     'x-dead-letter-exchange' => 'evolution_retry',
+                     'x-dead-letter-routing-key' => 'retry'
+                   })
+
       q.bind(x, routing_key: '#')
 
       @dlx_exchange = ch.direct(ENV.fetch('RABBITMQ_DLX_EXCHANGE', 'evolution_dlx'), durable: true)
-      
+
       @logger.info "[EvolutionRabbit] Waiting for messages on '#{q.name}' (Prefetch: #{PREFETCH_COUNT})..."
 
       # 3.5 block: false com loop manual para não travar recovery
-      consumer = q.subscribe(manual_ack: true, block: false) do |delivery_info, properties, body|
+      q.subscribe(manual_ack: true, block: false) do |delivery_info, properties, body|
         handle_message(ch, delivery_info, properties, body)
       end
 
@@ -53,7 +52,7 @@ module Evolution
       begin
         loop { sleep 5 }
       rescue Interrupt
-        @logger.info "[EvolutionRabbit] Shutting down..."
+        @logger.info '[EvolutionRabbit] Shutting down...'
         ch.close
         conn.close
       end
@@ -66,10 +65,10 @@ module Evolution
       begin
         # 3.6 Validação de Payload
         payload = JSON.parse(body)
-        
+
         # Processamento principal
         process_payload(payload)
-        
+
         # 3.1 Sucesso -> Ack
         ch.ack(delivery_info.delivery_tag)
 
@@ -78,7 +77,7 @@ module Evolution
         publish_to_dlq(body, properties, "invalid_json: #{e.message}")
         ch.ack(delivery_info.delivery_tag)
 
-      rescue => e
+      rescue StandardError => e
         # 3.2 Retry com Contador (x-death)
         handle_retry(ch, delivery_info, properties, e, body)
       end
@@ -91,7 +90,7 @@ module Evolution
         @logger.info "[EvolutionRabbit] 💀 FATAL: Max retries reached (#{retry_count}). Sending to DLQ."
         @logger.info "[EvolutionRabbit] 🛑 Error Details: #{error.class} - #{error.message}"
         @logger.info "[EvolutionRabbit] 🛑 Backtrace: #{error.backtrace&.first(3)&.join(' | ')}"
-        
+
         publish_to_dlq(body, properties, "max_retries: #{error.message}")
         ch.ack(delivery_info.delivery_tag)
       else
@@ -130,7 +129,7 @@ module Evolution
 
       evt = (raw['event'] || '').to_s.tr('.', '_').downcase.strip
       instance_name = raw['instance']
-      
+
       return if instance_name.blank?
 
       # Log de processamento do evento específico
@@ -138,25 +137,25 @@ module Evolution
 
       # 3.7 Cache por Instance
       mapping = resolve_instance_cached(instance_name)
-      
+
       unless mapping
         @logger.info "[EvolutionRabbit] ⚠️ Ignored Event: Instance '#{instance_name}' not found or unmapped in Starchats."
         return
       end
 
       data = raw['data']
-      
+
       case evt
       when 'qrcode_updated'
         handle_qrcode(mapping, data)
       when 'connection_update'
         handle_connection(instance_name, mapping, data)
-      when 'messages_upsert', 'messages_update', 
-           'contacts_update', 'contacts_upsert', 
+      when 'messages_upsert', 'messages_update',
+           'contacts_update', 'contacts_upsert',
            'chats_update', 'chats_upsert'
         enqueue_job(mapping, evt, data)
       when 'send_message'
-        @logger.info "[EvolutionRabbit] 📤 Message sent confirmed (SEND_MESSAGE)"
+        @logger.info '[EvolutionRabbit] 📤 Message sent confirmed (SEND_MESSAGE)'
       end
     end
 
@@ -167,15 +166,15 @@ module Evolution
       Rails.cache.fetch("evo_map_#{instance_name}", expires_in: 5.minutes) do
         channel = Channel::Evolution.find_by(instance_name: instance_name)
         return nil unless channel
-        
+
         inbox = Inbox.find_by(channel_id: channel.id)
         return nil unless inbox
 
         # Retorna hash leve para evitar problemas com objetos ActiveRecord em cache
-        { 
-          channel_id: channel.id, 
-          inbox_id: inbox.id, 
-          account_id: inbox.account_id 
+        {
+          channel_id: channel.id,
+          inbox_id: inbox.id,
+          account_id: inbox.account_id
         }
       end
     end
@@ -184,23 +183,23 @@ module Evolution
       q = (data.is_a?(Hash) ? (data['qrcode'] || {}) : {}).with_indifferent_access
       broadcast(mapping, 'evolution.qrcode_updated', {
         qrcode_base64: q[:base64],
-        pairing_code:  q[:pairingCode]
+        pairing_code: q[:pairingCode]
       }.compact)
     end
 
-    def handle_connection(instance_name, mapping, data)
+    def handle_connection(_instance_name, mapping, data)
       state = data.is_a?(Hash) ? data['state'].to_s : nil
-      if state.present?
-        # Atualiza DB apenas se conectar/desconectar (evita hits desnecessários)
-        Channel::Evolution.where(id: mapping[:channel_id]).update_all(state: state, state_updated_at: Time.current)
-        broadcast(mapping, 'evolution.connection_update', { state: state })
-      end
+      return if state.blank?
+
+      # Atualiza DB apenas se conectar/desconectar (evita hits desnecessários)
+      Channel::Evolution.where(id: mapping[:channel_id]).update_all(state: state, state_updated_at: Time.current)
+      broadcast(mapping, 'evolution.connection_update', { state: state })
     end
 
     def broadcast(mapping, event_name, payload)
       ActionCable.server.broadcast(
         "account_#{mapping[:account_id]}",
-        { 
+        {
           event: event_name,
           data: payload.merge(account_id: mapping[:account_id], inbox_id: mapping[:inbox_id])
         }
@@ -209,10 +208,8 @@ module Evolution
 
     def enqueue_job(mapping, evt, data)
       payload_data = data
-      if %w[messages_upsert messages_update contacts_update chats_update].include?(evt) && payload_data.is_a?(Hash)
-        payload_data = [payload_data]
-      end
-      
+      payload_data = [payload_data] if %w[messages_upsert messages_update contacts_update chats_update].include?(evt) && payload_data.is_a?(Hash)
+
       Webhooks::EvolutionEventsJob.perform_later(inbox_id: mapping[:inbox_id], event: evt, data: payload_data || [])
       @logger.info "[EvolutionRabbit] 🚀 Dispatch Job: Webhooks::EvolutionEventsJob | Inbox: #{mapping[:inbox_id]} | Event: #{evt}"
     end

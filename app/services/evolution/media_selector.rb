@@ -21,7 +21,8 @@ module Evolution
 
     def normalize_wa_media_url(url_or_path)
       return if url_or_path.blank?
-      return url_or_path if url_or_path =~ /\Ahttps?:\/\//i
+      return url_or_path if %r{\Ahttps?://}i.match?(url_or_path)
+
       "https://mmg.whatsapp.net#{url_or_path}"
     end
   end

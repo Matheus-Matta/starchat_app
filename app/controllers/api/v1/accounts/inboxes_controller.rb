@@ -47,29 +47,29 @@ class Api::V1::Accounts::InboxesController < Api::V1::Accounts::BaseController
   def update
     inbox_params = permitted_params.except(:channel, :csat_config)
     inbox_params[:csat_config] = format_csat_config(permitted_params[:csat_config]) if permitted_params[:csat_config].present?
-    
+
     if params[:anti_spam_config].present?
       anti_spam_config = params[:anti_spam_config]
-      if anti_spam_config.is_a?(String)
-        inbox_params[:anti_spam_config] = JSON.parse(anti_spam_config)
-      elsif anti_spam_config.respond_to?(:to_unsafe_h)
-        inbox_params[:anti_spam_config] = anti_spam_config.to_unsafe_h
-      else
-        inbox_params[:anti_spam_config] = anti_spam_config
-      end
+      inbox_params[:anti_spam_config] = if anti_spam_config.is_a?(String)
+                                          JSON.parse(anti_spam_config)
+                                        elsif anti_spam_config.respond_to?(:to_unsafe_h)
+                                          anti_spam_config.to_unsafe_h
+                                        else
+                                          anti_spam_config
+                                        end
     elsif permitted_params[:anti_spam_config].present?
       inbox_params[:anti_spam_config] = permitted_params[:anti_spam_config]
     end
 
     if params[:sender_config].present?
       sender_config = params[:sender_config]
-      if sender_config.is_a?(String)
-        inbox_params[:sender_config] = JSON.parse(sender_config)
-      elsif sender_config.respond_to?(:to_unsafe_h)
-        inbox_params[:sender_config] = sender_config.to_unsafe_h
-      else
-        inbox_params[:sender_config] = sender_config
-      end
+      inbox_params[:sender_config] = if sender_config.is_a?(String)
+                                       JSON.parse(sender_config)
+                                     elsif sender_config.respond_to?(:to_unsafe_h)
+                                       sender_config.to_unsafe_h
+                                     else
+                                       sender_config
+                                     end
     elsif permitted_params[:sender_config].present?
       inbox_params[:sender_config] = permitted_params[:sender_config]
     end
@@ -220,7 +220,7 @@ class Api::V1::Accounts::InboxesController < Api::V1::Accounts::BaseController
       'telegram' => Channel::Telegram,
       'whatsapp' => Channel::Whatsapp,
       'sms' => Channel::Sms,
-      'evolution'  => Channel::Evolution
+      'evolution' => Channel::Evolution
     }[permitted_params[:channel][:type]]
   end
 
@@ -234,24 +234,27 @@ class Api::V1::Accounts::InboxesController < Api::V1::Accounts::BaseController
 
   def bulk_destroy
     ids = Array(params[:ids]).presence || begin
-      raw = request.raw_post.presence && JSON.parse(request.raw_post) rescue {}
+      raw = begin
+        request.raw_post.presence && JSON.parse(request.raw_post)
+      rescue StandardError
+        {}
+      end
       Array(raw['ids'])
     end
     return render json: { ok: false, error: 'IDs ausentes' }, status: :unprocessable_entity if ids.blank?
+
     ids = ids.map(&:to_i).uniq
     inboxes = policy_scope(Current.account.inboxes).where(id: ids)
     deleted = 0
     failed  = []
     inboxes.find_each do |inbox|
-      begin
-        authorize inbox, :destroy? # por item
-        ::DeleteObjectJob.perform_later(inbox, Current.user, request.ip)
-        deleted += 1
-      rescue Pundit::NotAuthorizedError => e
-        failed << { id: inbox.id, error: e.message }
-      rescue StandardError => e
-        failed << { id: inbox.id, error: e.message }
-      end
+      authorize inbox, :destroy? # por item
+      ::DeleteObjectJob.perform_later(inbox, Current.user, request.ip)
+      deleted += 1
+    rescue Pundit::NotAuthorizedError => e
+      failed << { id: inbox.id, error: e.message }
+    rescue StandardError => e
+      failed << { id: inbox.id, error: e.message }
     end
     missing = ids - inboxes.pluck(:id)
     failed.concat(missing.map { |mid| { id: mid, error: 'not_found' } }) if missing.any?

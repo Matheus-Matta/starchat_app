@@ -85,7 +85,6 @@ class Notification < ApplicationRecord
     }
   end
 
-  # rubocop:disable Metrics/MethodLength
   def push_message_title
     notification_title_map = {
       'conversation_creation' => 'notifications.notification_title.conversation_creation',

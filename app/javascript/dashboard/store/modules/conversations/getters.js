@@ -106,14 +106,16 @@ const getters = {
     const permissions = getUserPermissions(currentUser, currentAccountId);
     const userRole = getUserRole(currentUser, currentAccountId);
     const myTeams = rootGetters['teams/getMyTeams'] || [];
-    
+
     // If user has permission to manage unassigned, we don't restrict by team
     // Otherwise, we pass team IDs to allow access to team conversations
-    const hasUnassignedPermission = 
-      permissions.includes('conversation_unassigned_manage') || 
+    const hasUnassignedPermission =
+      permissions.includes('conversation_unassigned_manage') ||
       permissions.includes('conversation_manage');
-      
-    const userTeamIds = hasUnassignedPermission ? [] : myTeams.map(team => team.id);
+
+    const userTeamIds = hasUnassignedPermission
+      ? []
+      : myTeams.map(team => team.id);
 
     const filtered = _state.allConversations.filter(conversation => {
       const isUnAssigned = !conversation.meta.assignee;

@@ -155,11 +155,7 @@ export const getInboxIconByType = (type, medium, variant = 'fill') => {
     variant === 'fill' ? DEFAULT_ICON_FILL : DEFAULT_ICON_LINE;
 
   // Special case for Twilio (whatsapp and sms)
-  if (
-    type === INBOX_TYPES.TWILIO &&
-    type === INBOX_TYPES.EVOLUTION &&
-    medium === 'whatsapp'
-  ) {
+  if (type === INBOX_TYPES.TWILIO && medium === 'whatsapp') {
     return iconMap[INBOX_TYPES.WHATSAPP];
   }
 

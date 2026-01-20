@@ -161,8 +161,22 @@ describe('#getters', () => {
         },
       ];
 
+      const mockRootGetters = {
+        getCurrentUser: {
+          id: 1,
+          accounts: [{ id: 1, role: 'administrator', permissions: [] }],
+        },
+        getCurrentAccountId: 1,
+        'teams/getMyTeams': [],
+      };
+
       expect(
-        getters.getUnAssignedChats({ allConversations: conversationList })({
+        getters.getUnAssignedChats(
+          { allConversations: conversationList },
+          {},
+          {},
+          mockRootGetters
+        )({
           status: 1,
         })
       ).toEqual([

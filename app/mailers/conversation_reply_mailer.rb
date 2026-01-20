@@ -163,9 +163,7 @@ class ConversationReplyMailer < ApplicationMailer
     # Find the last incoming message's message_id to reply to
     content_attributes = @conversation.messages.incoming.last&.content_attributes
 
-    if content_attributes && content_attributes['email'] && content_attributes['email']['message_id']
-      return "<#{content_attributes['email']['message_id']}>"
-    end
+    return "<#{content_attributes['email']['message_id']}>" if content_attributes && content_attributes['email'] && content_attributes['email']['message_id']
 
     nil
   end
