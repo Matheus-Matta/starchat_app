@@ -492,6 +492,11 @@ en:
       invalid_token: Invalid or expired MFA token
       invalid_credentials: Invalid credentials or verification code
       feature_unavailable: MFA feature is not available. Please configure encryption keys.
+    evolution:
+      phone_not_found: Error sending message. This number may not exist on WhatsApp.
+      connection_error: Connection error. Check your connection and try again.
+      media_error: Error sending file. Please check the file size and format.
+      generic: Error sending message. Please try again.
   profile:
     mfa:
       enabled: MFA enabled successfully

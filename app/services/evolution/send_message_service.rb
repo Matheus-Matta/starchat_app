@@ -376,9 +376,21 @@ class Evolution::SendMessageService
   end
 
   def record_send_error!(error:, kind:, payload: {})
-    Rails.logger.error "[Evolution::SendMessageService] send_#{kind} error: #{error.class}: #{error.message}"
+    error_details = Evolution::ErrorHandler.handle_send_error(error)
 
-    update_message_status!(message: @message, status: 'failed', external_error: error.message)
+    Rails.logger.error(
+      "[Evolution::SendMessageService] send_#{kind} error: " \
+      "type=#{error_details[:error_type]} " \
+      "user_msg='#{error_details[:user_message]}' " \
+      "technical='#{error_details[:technical_message]}' " \
+      "payload=#{payload.inspect}"
+    )
+
+    update_message_status!(
+      message: @message,
+      status: 'failed',
+      external_error: error_details[:user_message]
+    )
   end
 
   def try_compress_video(attachment)

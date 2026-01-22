@@ -88,6 +88,11 @@ pt_BR:
       invalid_token: Token MFA inválido ou expirado
       invalid_credentials: Credenciais ou código de verificação inválidos
       feature_unavailable: O recurso MFA não está disponível. Por favor, configure as chaves de criptografia.
+    evolution:
+      phone_not_found: Erro ao enviar mensagem. Este número pode não existir no WhatsApp.
+      connection_error: Erro de conexão. Verifique sua conexão e tente novamente.
+      media_error: Erro ao enviar arquivo. Verifique o tamanho e formato do arquivo.
+      generic: Erro ao enviar mensagem. Tente novamente.
   profile:
     mfa:
       enabled: MFA habilitado com sucesso
