@@ -113,7 +113,8 @@ const prepareStateBasedOnProps = () => {
     socialProfiles = {},
   } = additionalAttributes || {};
 
-  const inboxIds = contactInboxes.length > 0 ? contactInboxes.map(ci => ci.inbox.id) : [];
+  const inboxIds =
+    contactInboxes.length > 0 ? contactInboxes.map(ci => ci.inbox.id) : [];
   disabledInboxIds.value = inboxIds;
 
   Object.assign(state, {
@@ -289,7 +290,7 @@ defineExpose({
             v-model="state.inboxIds"
             :options="inboxOptions"
             :placeholder="item.placeholder"
-            :multiple="true"
+            multiple
             :disabled-values="disabledInboxIds"
             class="[&>div>button]:h-8"
             :class="{

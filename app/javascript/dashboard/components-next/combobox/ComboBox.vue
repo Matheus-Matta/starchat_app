@@ -67,7 +67,9 @@ const selectedLabel = computed(() => {
 const selectOption = option => {
   if (props.multiple) {
     let newVal;
-    const current = Array.isArray(selectedValue.value) ? selectedValue.value : [];
+    const current = Array.isArray(selectedValue.value)
+      ? selectedValue.value
+      : [];
     if (current.includes(option.value)) {
       if (props.disabledValues.includes(option.value)) return;
       newVal = current.filter(v => v !== option.value);
