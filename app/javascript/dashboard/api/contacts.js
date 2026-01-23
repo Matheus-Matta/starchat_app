@@ -2,7 +2,7 @@
 import ApiClient from './ApiClient';
 
 export const buildContactParams = (page, sortAttr, label, search) => {
-  let params = `include_contact_inboxes=false&page=${page}&sort=${sortAttr}`;
+  let params = `include_contact_inboxes=true&page=${page}&sort=${sortAttr}`;
   if (search) {
     params = `${params}&q=${search}`;
   }
@@ -28,11 +28,11 @@ class ContactAPI extends ApiClient {
   }
 
   show(id) {
-    return axios.get(`${this.url}/${id}?include_contact_inboxes=false`);
+    return axios.get(`${this.url}/${id}?include_contact_inboxes=true`);
   }
 
   update(id, data) {
-    return axios.patch(`${this.url}/${id}?include_contact_inboxes=false`, data);
+    return axios.patch(`${this.url}/${id}`, data);
   }
 
   getConversations(contactId) {

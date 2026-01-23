@@ -1,5 +1,5 @@
 <script setup>
-import { computed, reactive, watch } from 'vue';
+import { computed, reactive, watch, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { required, email } from '@vuelidate/validators';
 import { useVuelidate } from '@vuelidate/core';
@@ -8,6 +8,8 @@ import countries from 'shared/constants/countries.js';
 import Input from 'dashboard/components-next/input/Input.vue';
 import ComboBox from 'dashboard/components-next/combobox/ComboBox.vue';
 import Icon from 'dashboard/components-next/icon/Icon.vue';
+import { useMapGetter } from 'dashboard/composables/store';
+import { useChannelIcon } from 'next/icon/provider';
 import PhoneNumberInput from 'dashboard/components-next/phonenumberinput/PhoneNumberInput.vue';
 
 const props = defineProps({
@@ -28,6 +30,7 @@ const props = defineProps({
 const emit = defineEmits(['update']);
 
 const { t } = useI18n();
+const inboxes = useMapGetter('inboxes/getInboxes');
 
 const FORM_CONFIG = {
   FIRST_NAME: { field: 'firstName' },
@@ -38,6 +41,7 @@ const FORM_CONFIG = {
   COUNTRY: { field: 'additionalAttributes.countryCode' },
   BIO: { field: 'additionalAttributes.description' },
   COMPANY_NAME: { field: 'additionalAttributes.companyName' },
+  INBOX: { field: 'inboxIds' },
 };
 
 const SOCIAL_CONFIG = {
@@ -55,6 +59,7 @@ const defaultState = {
   firstName: '',
   lastName: '',
   phoneNumber: '',
+  inboxIds: [],
   additionalAttributes: {
     description: '',
     companyName: '',
@@ -72,6 +77,7 @@ const defaultState = {
 };
 
 const state = reactive({ ...defaultState });
+const disabledInboxIds = ref([]);
 
 const validationRules = {
   firstName: { required },
@@ -93,7 +99,10 @@ const prepareStateBasedOnProps = () => {
     email: emailAddress,
     phoneNumber,
     additionalAttributes = {},
+    contact_inboxes: contactInboxesSnake,
+    contactInboxes: contactInboxesCamel,
   } = props.contactData || {};
+  const contactInboxes = contactInboxesCamel || contactInboxesSnake || [];
   const { firstName, lastName } = splitName(name || '');
   const {
     description = '',
@@ -104,6 +113,10 @@ const prepareStateBasedOnProps = () => {
     socialProfiles = {},
   } = additionalAttributes || {};
 
+  const inboxIds =
+    contactInboxes.length > 0 ? contactInboxes.map(ci => ci.inbox.id) : [];
+  disabledInboxIds.value = inboxIds;
+
   Object.assign(state, {
     id,
     name,
@@ -111,6 +124,7 @@ const prepareStateBasedOnProps = () => {
     lastName,
     email: emailAddress,
     phoneNumber,
+    inboxIds,
     additionalAttributes: {
       description,
       companyName,
@@ -124,6 +138,14 @@ const prepareStateBasedOnProps = () => {
 
 const countryOptions = computed(() =>
   countries.map(({ name, id }) => ({ label: name, value: id }))
+);
+
+const inboxOptions = computed(() =>
+  inboxes.value.map(inbox => ({
+    label: inbox.name,
+    value: inbox.id,
+    icon: useChannelIcon(inbox).value,
+  }))
 );
 
 const editDetailsForm = computed(() =>
@@ -210,6 +232,11 @@ const handleCountrySelection = value => {
   emit('update', state);
 };
 
+const handleInboxChange = () => {
+  const { firstName, lastName, ...stateWithoutNames } = state;
+  emit('update', stateWithoutNames);
+};
+
 const resetValidation = () => {
   v$.value.$reset();
 };
@@ -219,9 +246,11 @@ const resetForm = () => {
 };
 
 watch(
-  () => props.contactData?.id,
-  id => {
-    if (id) prepareStateBasedOnProps();
+  () => [props.contactData?.id, props.contactData?.contactInboxes?.length],
+  () => {
+    if (props.contactData?.id && !props.isNewContact) {
+      prepareStateBasedOnProps();
+    }
   },
   { immediate: true }
 );
@@ -255,6 +284,21 @@ defineExpose({
               '[&>div>button]:!bg-n-alpha-black2': isDetailsView,
             }"
             @update:model-value="handleCountrySelection"
+          />
+          <ComboBox
+            v-else-if="item.key === 'INBOX'"
+            v-model="state.inboxIds"
+            :options="inboxOptions"
+            :placeholder="item.placeholder"
+            multiple
+            :disabled-values="disabledInboxIds"
+            class="[&>div>button]:h-8"
+            :class="{
+              '[&>div>button]:bg-n-alpha-black2 [&>div>button:not(.focused)]:!outline-transparent':
+                !isDetailsView,
+              '[&>div>button]:!bg-n-alpha-black2': isDetailsView,
+            }"
+            @update:model-value="handleInboxChange"
           />
           <PhoneNumberInput
             v-else-if="item.key === 'PHONE_NUMBER'"

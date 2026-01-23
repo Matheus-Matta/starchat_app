@@ -96,7 +96,13 @@ class Api::V1::Accounts::ContactsController < Api::V1::Accounts::BaseController
   def update
     @contact.assign_attributes(contact_update_params)
     @contact.save!
+    if params[:inbox_ids].is_a?(Array)
+      add_new_contact_inboxes(params[:inbox_ids])
+    else
+      build_contact_inbox
+    end
     process_avatar_from_url
+    @contact.reload
   end
 
   def destroy
@@ -117,6 +123,22 @@ class Api::V1::Accounts::ContactsController < Api::V1::Accounts::BaseController
   end
 
   private
+
+  # Only adds new inboxes. Existing associations are immutable through this endpoint
+  # to prevent accidental removal of conversation history.
+  def add_new_contact_inboxes(inbox_ids)
+    target_ids = inbox_ids.map(&:to_i).uniq
+    existing_inbox_ids = @contact.contact_inboxes.pluck(:inbox_id)
+    new_inbox_ids = target_ids - existing_inbox_ids
+
+    return if new_inbox_ids.empty?
+
+    Current.account.inboxes.where(id: new_inbox_ids).find_each do |inbox|
+      ContactInboxBuilder.new(contact: @contact, inbox: inbox).perform
+    rescue StandardError => e
+      Rails.logger.error "Failed to create contact inbox: #{e.message}"
+    end
+  end
 
   # TODO: Move this to a finder class
   def resolved_contacts

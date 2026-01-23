@@ -1,7 +1,8 @@
-import { computed } from 'vue';
+import { computed, h } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useOperators } from './operators';
 import { useMapGetter } from 'dashboard/composables/store.js';
+import { useChannelIcon } from 'next/icon/provider';
 import {
   buildAttributesFilterTypes,
   CONTACT_ATTRIBUTES,
@@ -51,10 +52,12 @@ export function useContactFilterContext() {
 
   const contactAttributes = useMapGetter('attributes/getContactAttributes');
   const labels = useMapGetter('labels/getLabels');
+  const inboxes = useMapGetter('inboxes/getInboxes');
 
   const {
     equalityOperators,
     containmentOperators,
+    presenceOperators,
     dateOperators,
     getOperatorTypes,
   } = useOperators();
@@ -133,6 +136,22 @@ export function useContactFilterContext() {
       inputType: 'plainText',
       dataType: 'text',
       filterOperators: containmentOperators.value,
+      attributeModel: 'standard',
+    },
+    {
+      attributeKey: CONTACT_ATTRIBUTES.INBOX_ID,
+      value: CONTACT_ATTRIBUTES.INBOX_ID,
+      attributeName: t('CONTACTS_LAYOUT.FILTER.INBOX'),
+      label: t('CONTACTS_LAYOUT.FILTER.INBOX'),
+      inputType: 'searchSelect',
+      options: inboxes.value.map(inbox => {
+        return {
+          ...inbox,
+          icon: useChannelIcon(inbox).value,
+        };
+      }),
+      dataType: 'text',
+      filterOperators: presenceOperators.value,
       attributeModel: 'standard',
     },
     {

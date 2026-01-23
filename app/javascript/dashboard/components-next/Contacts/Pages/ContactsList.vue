@@ -97,6 +97,7 @@ const handleAvatarHover = (id, isHovered) => {
         :additional-attributes="contact.additionalAttributes"
         :custom-attributes="contact.customAttributes"
         :availability-status="contact.availabilityStatus"
+        :contact-inboxes="contact.contactInboxes"
         :is-expanded="expandedCardId === contact.id"
         :is-updating="isUpdating"
         :selectable="shouldShowSelection(contact.id)"

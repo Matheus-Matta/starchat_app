@@ -24,6 +24,10 @@ class Contacts::FilterService < FilterService
       "+#{current_val&.delete('+')}"
     elsif query_hash['attribute_key'] == 'country_code'
       current_val.downcase
+    elsif query_hash['attribute_key'] == 'inbox_id'
+      # inbox_id em contatos é uma relação many-to-many através de contact_inboxes
+      # então retornamos os valores como estão (IDs dos inboxes)
+      query_hash['values']
     else
       current_val.is_a?(String) ? current_val.downcase : current_val
     end
