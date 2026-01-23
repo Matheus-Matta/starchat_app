@@ -34,7 +34,7 @@ describe('#ContactsAPI', () => {
     it('#get', () => {
       contactAPI.get(1, 'name', 'customer-support');
       expect(axiosMock.get).toHaveBeenCalledWith(
-        '/api/v1/contacts?include_contact_inboxes=false&page=1&sort=name&labels[]=customer-support'
+        '/api/v1/contacts?include_contact_inboxes=true&page=1&sort=name&labels[]=customer-support'
       );
     });
 
@@ -68,7 +68,7 @@ describe('#ContactsAPI', () => {
     it('#search', () => {
       contactAPI.search('leads', 1, 'date', 'customer-support');
       expect(axiosMock.get).toHaveBeenCalledWith(
-        '/api/v1/contacts/search?include_contact_inboxes=false&page=1&sort=date&q=leads&labels[]=customer-support'
+        '/api/v1/contacts/search?include_contact_inboxes=true&page=1&sort=date&q=leads&labels[]=customer-support'
       );
     });
 
@@ -107,7 +107,7 @@ describe('#ContactsAPI', () => {
       };
       contactAPI.filter(1, 'name', queryPayload);
       expect(axiosMock.post).toHaveBeenCalledWith(
-        '/api/v1/contacts/filter?include_contact_inboxes=false&page=1&sort=name',
+        '/api/v1/contacts/filter?include_contact_inboxes=true&page=1&sort=name',
         queryPayload
       );
     });
@@ -124,15 +124,15 @@ describe('#ContactsAPI', () => {
 describe('#buildContactParams', () => {
   it('returns correct string', () => {
     expect(buildContactParams(1, 'name', '', '')).toBe(
-      'include_contact_inboxes=false&page=1&sort=name'
+      'include_contact_inboxes=true&page=1&sort=name'
     );
     expect(buildContactParams(1, 'name', 'customer-support', '')).toBe(
-      'include_contact_inboxes=false&page=1&sort=name&labels[]=customer-support'
+      'include_contact_inboxes=true&page=1&sort=name&labels[]=customer-support'
     );
     expect(
       buildContactParams(1, 'name', 'customer-support', 'message-content')
     ).toBe(
-      'include_contact_inboxes=false&page=1&sort=name&q=message-content&labels[]=customer-support'
+      'include_contact_inboxes=true&page=1&sort=name&q=message-content&labels[]=customer-support'
     );
   });
 });
