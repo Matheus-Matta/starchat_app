@@ -59,8 +59,7 @@ class Api::V1::Accounts::ContactsController < Api::V1::Accounts::BaseController
     @contacts_count = @contacts.total_count
   end
 
-  def show
-  end
+  def show; end
 
   def filter
     result = ::Contacts::FilterService.new(Current.account, Current.user, params.permit!).perform

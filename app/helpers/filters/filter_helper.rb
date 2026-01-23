@@ -55,9 +55,7 @@ module Filters::FilterHelper
 
   def handle_standard_attributes(current_filter, query_hash, current_index, filter_operator_value)
     # Para contatos, inbox_id é uma relação many-to-many através de contact_inboxes
-    if query_hash[:attribute_key] == 'inbox_id' && filter_config[:entity] == 'Contact'
-      return contact_inbox_filter_query(query_hash, current_index)
-    end
+    return contact_inbox_filter_query(query_hash, current_index) if query_hash[:attribute_key] == 'inbox_id' && filter_config[:entity] == 'Contact'
 
     case current_filter['data_type']
     when 'date'
@@ -109,12 +107,12 @@ module Filters::FilterHelper
 
   def contact_inbox_filter_query(query_hash, current_index)
     query_operator = query_hash[:query_operator]
+    # rubocop:disable Rails/HelperInstanceVariable
     @filter_values["value_#{current_index}"] = filter_values(query_hash)
+    # rubocop:enable Rails/HelperInstanceVariable
 
-    contact_inbox_relation_query = 
-      "SELECT * FROM contact_inboxes WHERE contact_inboxes.contact_id = contacts.id"
-    inbox_query = 
-      "AND contact_inboxes.inbox_id IN (:value_#{current_index})"
+    contact_inbox_relation_query = 'SELECT * FROM contact_inboxes WHERE contact_inboxes.contact_id = contacts.id'
+    inbox_query = "AND contact_inboxes.inbox_id IN (:value_#{current_index})"
 
     case query_hash[:filter_operator]
     when 'equal_to'

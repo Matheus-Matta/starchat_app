@@ -447,7 +447,7 @@ RSpec.describe 'Contacts API', type: :request do
         inbox = create(:inbox, account: account)
         contact_in_inbox = create(:contact, :with_email, account: account)
         create(:contact_inbox, contact: contact_in_inbox, inbox: inbox)
-        
+
         post "/api/v1/accounts/#{account.id}/contacts/filter",
              params: { payload: [
                attribute_key: 'inbox_id',
