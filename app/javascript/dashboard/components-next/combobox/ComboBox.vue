@@ -14,13 +14,15 @@ const props = defineProps({
       value.every(option => 'value' in option && 'label' in option),
   },
   placeholder: { type: String, default: '' },
-  modelValue: { type: [String, Number], default: '' },
+  modelValue: { type: [String, Number, Array], default: '' },
   disabled: { type: Boolean, default: false },
   searchPlaceholder: { type: String, default: '' },
   emptyState: { type: String, default: '' },
   message: { type: String, default: '' },
   hasError: { type: Boolean, default: false },
   useApiResults: { type: Boolean, default: false }, // useApiResults prop to determine if search is handled by API
+  multiple: { type: Boolean, default: false },
+  disabledValues: { type: Array, default: () => [] },
 });
 
 const emit = defineEmits(['update:modelValue', 'search']);
@@ -49,6 +51,13 @@ const selectPlaceholder = computed(() => {
   return props.placeholder || t('COMBOBOX.PLACEHOLDER');
 });
 const selectedLabel = computed(() => {
+  if (props.multiple && Array.isArray(selectedValue.value)) {
+    if (selectedValue.value.length === 0) return selectPlaceholder.value;
+    const labels = props.options
+      .filter(option => selectedValue.value.includes(option.value))
+      .map(option => option.label);
+    return labels.join(', ');
+  }
   const selected = props.options.find(
     option => option.value === selectedValue.value
   );
@@ -56,10 +65,23 @@ const selectedLabel = computed(() => {
 });
 
 const selectOption = option => {
-  selectedValue.value = option.value;
-  emit('update:modelValue', option.value);
-  open.value = false;
-  search.value = '';
+  if (props.multiple) {
+    let newVal;
+    const current = Array.isArray(selectedValue.value) ? selectedValue.value : [];
+    if (current.includes(option.value)) {
+      if (props.disabledValues.includes(option.value)) return;
+      newVal = current.filter(v => v !== option.value);
+    } else {
+      newVal = [...current, option.value];
+    }
+    selectedValue.value = newVal;
+    emit('update:modelValue', newVal);
+  } else {
+    selectedValue.value = option.value;
+    emit('update:modelValue', option.value);
+    open.value = false;
+    search.value = '';
+  }
 };
 
 const toggleDropdown = () => {
@@ -115,6 +137,8 @@ watch(
         :search-placeholder="searchPlaceholder"
         :empty-state="emptyState"
         :selected-values="selectedValue"
+        :multiple="multiple"
+        :disabled-values="disabledValues"
         @search="emit('search', $event)"
         @select="selectOption"
       />

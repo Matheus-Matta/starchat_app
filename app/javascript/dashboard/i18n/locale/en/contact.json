@@ -385,6 +385,7 @@
       "IDENTIFIER": "Identifier",
       "COUNTRY": "Country",
       "CITY": "City",
+      "INBOX": "Inbox",
       "CREATED_AT": "Created at",
       "LAST_ACTIVITY": "Last activity",
       "REFERER_LINK": "Referer link",
@@ -439,6 +440,9 @@
           },
           "COMPANY_NAME": {
             "PLACEHOLDER": "Enter the company name"
+          },
+          "INBOX": {
+            "PLACEHOLDER": "Select inbox"
           }
         },
         "UPDATE_BUTTON": "Update contact",

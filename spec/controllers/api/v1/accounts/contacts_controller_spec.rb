@@ -442,6 +442,25 @@ RSpec.describe 'Contacts API', type: :request do
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.body).to include('Invalid value. The values provided for country_code are invalid"')
       end
+
+      it 'filters by inbox_id' do
+        inbox = create(:inbox, account: account)
+        contact_in_inbox = create(:contact, :with_email, account: account)
+        create(:contact_inbox, contact: contact_in_inbox, inbox: inbox)
+        
+        post "/api/v1/accounts/#{account.id}/contacts/filter",
+             params: { payload: [
+               attribute_key: 'inbox_id',
+               filter_operator: 'equal_to',
+               values: [inbox.id]
+             ] },
+             headers: admin.create_new_auth_token,
+             as: :json
+
+        expect(response).to have_http_status(:success)
+        expect(response.body).to include(contact_in_inbox.email)
+        expect(response.body).not_to include(contact1.email)
+      end
     end
   end
 
@@ -670,6 +689,33 @@ RSpec.describe 'Contacts API', type: :request do
 
         expect(response).to have_http_status(:success)
         expect(contact.reload.blocked).to be(false)
+      end
+
+      it 'adds new contact inboxes' do
+        inbox = create(:inbox, account: account)
+        patch "/api/v1/accounts/#{account.id}/contacts/#{contact.id}",
+              params: valid_params.merge(inbox_ids: [inbox.id]),
+              headers: admin.create_new_auth_token,
+              as: :json
+
+        expect(response).to have_http_status(:success)
+        expect(contact.reload.inboxes).to include(inbox)
+      end
+
+      it 'does not remove existing contact inboxes (immutable)' do
+        existing_inbox = create(:inbox, account: account)
+        create(:contact_inbox, contact: contact, inbox: existing_inbox)
+        new_inbox = create(:inbox, account: account)
+
+        patch "/api/v1/accounts/#{account.id}/contacts/#{contact.id}",
+              params: valid_params.merge(inbox_ids: [new_inbox.id]),
+              headers: admin.create_new_auth_token,
+              as: :json
+
+        expect(response).to have_http_status(:success)
+        contact.reload
+        expect(contact.inboxes).to include(new_inbox)
+        expect(contact.inboxes).to include(existing_inbox)
       end
     end
   end

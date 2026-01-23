@@ -27,6 +27,10 @@ const props = defineProps({
     type: [String, Number, Array],
     default: () => [],
   },
+  disabledValues: {
+    type: Array,
+    default: () => [],
+  },
 });
 
 const emit = defineEmits(['select', 'search']);
@@ -81,10 +85,13 @@ defineExpose({
       <li
         v-for="option in options"
         :key="option.value"
-        class="flex items-center justify-between w-full gap-2 px-3 py-2 text-sm transition-colors duration-150 cursor-pointer hover:bg-n-alpha-2"
+        class="flex items-center justify-between w-full gap-2 px-3 py-2 text-sm transition-colors duration-150"
         :class="{
           'bg-n-alpha-2': isSelected(option),
+          'opacity-50 cursor-not-allowed': disabledValues.includes(option.value),
+          'cursor-pointer hover:bg-n-alpha-2': !disabledValues.includes(option.value),
         }"
+
         role="option"
         :aria-selected="isSelected(option)"
         @click="emit('select', option)"

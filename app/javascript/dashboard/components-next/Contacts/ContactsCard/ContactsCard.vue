@@ -24,6 +24,7 @@ const props = defineProps({
   isUpdating: { type: Boolean, default: false },
   selectable: { type: Boolean, default: false },
   isSelected: { type: Boolean, default: false },
+  contactInboxes: { type: Array, default: () => [] },
 });
 
 const emit = defineEmits([
@@ -44,6 +45,7 @@ const getInitialContactData = () => ({
   email: props.email,
   phoneNumber: props.phoneNumber,
   additionalAttributes: props.additionalAttributes,
+  contactInboxes: props.contactInboxes,
 });
 
 const contactData = ref(getInitialContactData());

@@ -384,6 +384,7 @@
       "IDENTIFIER": "Identificador",
       "COUNTRY": "País/região",
       "CITY": "Cidade",
+      "INBOX": "Caixa de Entrada",
       "CREATED_AT": "Criado em",
       "LAST_ACTIVITY": "Última atividade",
       "REFERER_LINK": "Link de origem",
@@ -438,6 +439,9 @@
           },
           "COMPANY_NAME": {
             "PLACEHOLDER": "Digite o nome da empresa"
+          },
+          "INBOX": {
+            "PLACEHOLDER": "Selecione a caixa de entrada"
           }
         },
         "UPDATE_BUTTON": "Atualizar contato",
