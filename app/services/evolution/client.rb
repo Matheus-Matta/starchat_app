@@ -197,11 +197,11 @@ module Evolution
       res = http.request(req)
       parse_response!(res)
     rescue JSON::ParserError => e
-      raise Error.new("Invalid JSON response: #{e.message}")
+      raise Error, "Invalid JSON response: #{e.message}"
     rescue Error => e
       raise e
     rescue StandardError => e
-      raise Error.new(e.message)
+      raise Error, e.message
     end
 
     def build_request(method, uri, body)
