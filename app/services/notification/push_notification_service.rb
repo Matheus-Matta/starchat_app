@@ -23,7 +23,7 @@ class Notification::PushNotificationService
 
   def user_subscribed_to_notification?
     notification_setting = notification_settings.find_by(account_id: notification.account.id)
-    
+
     # Don't send push for 'open' status
     if notification.notification_type == 'inbox_connection_update'
       status = notification.meta&.dig('status')

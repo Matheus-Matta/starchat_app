@@ -225,6 +225,7 @@ module Evolution
       json = payload.empty? ? {} : JSON.parse(payload)
 
       return json if code.between?(200, 299)
+
       # Evolution v2 returns 200/201 but sometimes with { status: 4xx, message: ... } - handle that?
       # However typical errors are real HTTP errors.
       # Special case: logout with 422? Evolution sometimes returns weird codes.

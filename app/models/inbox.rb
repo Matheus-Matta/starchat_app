@@ -285,7 +285,6 @@ class Inbox < ApplicationRecord
       instance_name: payload[:instance_name]
     )
   end
-
 end
 
 Inbox.prepend_mod_with('Inbox')

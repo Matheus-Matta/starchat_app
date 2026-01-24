@@ -74,7 +74,7 @@ class AgentNotifications::ConversationNotificationsMailer < ApplicationMailer
     subject = I18n.t('notifications.email_subject.inbox_connection_update',
                      agent_name: @agent.available_name,
                      inbox_name: @inbox.sanitized_name)
-    @action_url = "#{ENV['FRONTEND_URL']}/app/accounts/#{@inbox.account_id}/settings/inboxes/#{@inbox.id}"
+    @action_url = "#{ENV.fetch('FRONTEND_URL', nil)}/app/accounts/#{@inbox.account_id}/settings/inboxes/#{@inbox.id}"
     send_mail_with_liquid(to: @agent.email, subject: subject) and return
   end
 

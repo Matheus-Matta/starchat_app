@@ -10,26 +10,24 @@ module Evolution::CommonHelpers
     return if recipients.blank?
 
     recipients.uniq.each do |admin|
-      begin
-        # De-duplicate: don't create if one exists for the same user/inbox AND same status in the last 2 minutes
-        # This allows "close" then "open" to both notify, but blocks repeated "close"
-        next if Notification.where(
-          user: admin,
-          notification_type: 'inbox_connection_update',
-          primary_actor: inbox,
-          created_at: 2.minutes.ago..Time.current
-        ).where("meta ->> 'status' = ?", status).exists?
+      # De-duplicate: don't create if one exists for the same user/inbox AND same status in the last 2 minutes
+      # This allows "close" then "open" to both notify, but blocks repeated "close"
+      next if Notification.where(
+        user: admin,
+        notification_type: 'inbox_connection_update',
+        primary_actor: inbox,
+        created_at: 2.minutes.ago..Time.current
+      ).exists?(["meta ->> 'status' = ?", status])
 
-        Notification.create!(
-          notification_type: 'inbox_connection_update',
-          account: inbox.account,
-          user: admin,
-          primary_actor: inbox,
-          meta: { status: status }
-        )
-      rescue StandardError => e
-        Rails.logger.error("[Evolution] Failed to create notification for user #{admin.id}: #{e.message}")
-      end
+      Notification.create!(
+        notification_type: 'inbox_connection_update',
+        account: inbox.account,
+        user: admin,
+        primary_actor: inbox,
+        meta: { status: status }
+      )
+    rescue StandardError => e
+      Rails.logger.error("[Evolution] Failed to create notification for user #{admin.id}: #{e.message}")
     end
   end
 
@@ -37,7 +35,7 @@ module Evolution::CommonHelpers
     h = to_hash(resp)
     q = h['qrcode'] || h.dig('data', 'qrcode') || {}
     # Removed h.dig('instance', 'qrcode') because 'instance' is often a String ID, causing TypeError
-    
+
     base64 = q['base64'] || h['base64'] || h.dig('data', 'base64')
     pair   = q['pairingCode'] || h['pairingCode'] || h.dig('data', 'pairingCode')
 

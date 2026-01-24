@@ -11,7 +11,7 @@ RSpec.describe Notification do
   end
 
   context 'with default order by' do
-    before { Notification.delete_all }
+    before { described_class.delete_all }
 
     it 'sort by primary id asc' do
       notification1 = create(:notification)

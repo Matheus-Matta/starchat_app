@@ -75,7 +75,7 @@ class Webhooks::EvolutionController < ActionController::API
 
     ch.update_state!(state)
     update_channel_phone_number(ch, data)
-    
+
     # Extract QR if present in connection update (sometimes Evolution sends QR with connection update)
     qr = extract_qr(data)
 
@@ -89,9 +89,9 @@ class Webhooks::EvolutionController < ActionController::API
     }.compact)
 
     # Notify if state is 'close', 'refused', 'open' or 'connected'
-    if %w[close refused open connected].include?(state)
-      create_connection_change_notification(@inbox, state)
-    end
+    return unless %w[close refused open connected].include?(state)
+
+    create_connection_change_notification(@inbox, state)
   end
 
   def update_channel_phone_number(channel, data)
