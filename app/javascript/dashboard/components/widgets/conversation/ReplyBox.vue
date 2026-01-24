@@ -12,6 +12,7 @@ import ReplyToMessage from './ReplyToMessage.vue';
 import ResizableTextArea from 'shared/components/ResizableTextArea.vue';
 import AttachmentPreview from 'dashboard/components/widgets/AttachmentsPreview.vue';
 import ReplyTopPanel from 'dashboard/components/widgets/WootWriter/ReplyTopPanel.vue';
+import { INBOX_TYPES } from 'dashboard/helper/inbox';
 import ReplyEmailHead from './ReplyEmailHead.vue';
 import ReplyBottomPanel from 'dashboard/components/widgets/WootWriter/ReplyBottomPanel.vue';
 import ArticleSearchPopover from 'dashboard/routes/dashboard/helpcenter/components/ArticleSearch/SearchPopover.vue';
@@ -192,7 +193,14 @@ export default {
       return this.currentChat.inbox_id;
     },
     inbox() {
-      return this.$store.getters['inboxes/getInbox'](this.inboxId);
+      const inbox = this.$store.getters['inboxes/getInbox'](this.inboxId);
+      if (inbox?.channel_type) {
+        return inbox;
+      }
+      if (this.inboxId) {
+        return { channel_type: INBOX_TYPES.API };
+      }
+      return inbox || {};
     },
     messagePlaceHolder() {
       return this.isPrivate
