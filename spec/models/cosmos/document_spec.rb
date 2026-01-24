@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Cosmos::Document, type: :model do
   describe 'file format validation' do
-    let(:document) { Cosmos::Document.new }
+    let(:document) { described_class.new }
 
     context 'when attaching files' do
       before do
@@ -12,8 +12,8 @@ RSpec.describe Cosmos::Document, type: :model do
 
       it 'allows XLSX' do
         # We simulate the blob check indirectly or via mock
-        blob = double('blob', content_type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', byte_size: 1000)
-        attachment = double('attachment', attached?: true, blob: blob)
+        blob = instance_double('ActiveStorage::Blob', content_type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', byte_size: 1000)
+        attachment = instance_double('ActiveStorage::Attached::One', attached?: true, blob: blob)
         allow(document).to receive(:pdf_file).and_return(attachment)
         
         document.send(:validate_file_format)
@@ -21,8 +21,8 @@ RSpec.describe Cosmos::Document, type: :model do
       end
 
       it 'allows CSV' do
-        blob = double('blob', content_type: 'text/csv', byte_size: 1000)
-        attachment = double('attachment', attached?: true, blob: blob)
+        blob = instance_double('ActiveStorage::Blob', content_type: 'text/csv', byte_size: 1000)
+        attachment = instance_double('ActiveStorage::Attached::One', attached?: true, blob: blob)
         allow(document).to receive(:pdf_file).and_return(attachment)
         
         document.send(:validate_file_format)
@@ -30,8 +30,8 @@ RSpec.describe Cosmos::Document, type: :model do
       end
 
       it 'rejects JPG' do
-        blob = double('blob', content_type: 'image/jpeg', byte_size: 1000)
-        attachment = double('attachment', attached?: true, blob: blob)
+        blob = instance_double('ActiveStorage::Blob', content_type: 'image/jpeg', byte_size: 1000)
+        attachment = instance_double('ActiveStorage::Attached::One', attached?: true, blob: blob)
         allow(document).to receive(:pdf_file).and_return(attachment)
         
         document.send(:validate_file_format)
@@ -41,7 +41,7 @@ RSpec.describe Cosmos::Document, type: :model do
   end
 
   describe '#file_document?' do
-    let(:document) { Cosmos::Document.new }
+    let(:document) { described_class.new }
 
     it 'returns true if pdf_file is attached' do
       allow(document.pdf_file).to receive(:attached?).and_return(true)
@@ -65,7 +65,7 @@ RSpec.describe Cosmos::Document, type: :model do
   end
 
   describe '#should_enqueue_response_builder?' do
-    let(:document) { Cosmos::Document.new(status: :available) }
+    let(:document) { described_class.new(status: :available) }
 
     it 'returns true if status available and file_id present' do
       document.content = nil

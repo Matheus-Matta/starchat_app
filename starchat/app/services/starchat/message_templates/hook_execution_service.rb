@@ -11,8 +11,8 @@ module Starchat::MessageTemplates::HookExecutionService
     return unless should_process_cosmos_response?
 
     unless inbox.cosmos_active?
-       Rails.logger.info "[Cosmos] Inbox #{inbox.id} not active. Handoff."
-       return perform_handoff 
+      Rails.logger.info "[Cosmos] Inbox #{inbox.id} not active. Handoff."
+      return perform_handoff
     end
 
     Rails.logger.info "[Cosmos] Scheduling response for conv #{conversation.id}" if Rails.env.development?
@@ -47,11 +47,7 @@ module Starchat::MessageTemplates::HookExecutionService
     has_assistant = inbox.cosmos_assistant.present?
     is_pending = conversation.pending?
     
-    should_process = is_pending && is_incoming && has_assistant
-    
-    # Rails.logger.debug "[Cosmos] should_process? #{should_process}"
-    
-    should_process
+    is_pending && is_incoming && has_assistant
   end
 
   def perform_handoff

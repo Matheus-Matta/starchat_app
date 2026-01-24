@@ -130,8 +130,6 @@ class Cosmos::Document < ApplicationRecord
     raise LimitExceededError, I18n.t('cosmos.documents.limit_exceeded') unless limits[:current_available].positive?
   end
 
-
-
   def validate_file_format
     return unless pdf_file.attached?
 
