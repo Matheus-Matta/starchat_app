@@ -93,6 +93,10 @@ module Evolution
     # POST /message/sendText/:instance
     # body: { number:, text:, quoted?, delay?, mentionsEveryOne?, mentioned? }
     def send_text(instance, number:, text:, quoted: nil, delay: 0)
+      # Deduplication check
+      key_payload = { instance: instance, number: number, text: text }
+      return { 'success' => true, 'deduplicated' => true } if duplicate_request?(key_payload)
+
       body = {
         number: normalize_number(number),
         text: text
@@ -105,6 +109,10 @@ module Evolution
 
     def send_media(instance, number:, mediatype:, media:, mimetype:, caption: nil, file_name: nil, quoted: nil, delay: 0)
       # raise Error, "invalid media URL" unless media.is_a?(String) && media.start_with?("http")
+
+      # Deduplication check
+      key_payload = { instance: instance, number: number, media: media, mediatype: mediatype, caption: caption }
+      return { 'success' => true, 'deduplicated' => true } if duplicate_request?(key_payload)
 
       body = {
         number: normalize_number(number),
@@ -123,6 +131,10 @@ module Evolution
     end
 
     def send_whatsapp_audio(instance, number:, audio:, quoted: nil, delay: 0)
+      # Deduplication check
+      key_payload = { instance: instance, number: number, audio: audio }
+      return { 'success' => true, 'deduplicated' => true } if duplicate_request?(key_payload)
+
       body = {
         number: normalize_number(number),
         audio: audio
@@ -267,6 +279,13 @@ module Evolution
       return s unless s.end_with?('@s.whatsapp.net')
 
       s.split('@').first
+    end
+
+    def duplicate_request?(payload)
+      hash = Digest::MD5.hexdigest(payload.to_json)
+      key = "evolution:client:dedup:#{hash}"
+      # Expire in 3 minutes as requested
+      !Redis::Alfred.set(key, 1, nx: true, ex: 3.minutes)
     end
   end
 end

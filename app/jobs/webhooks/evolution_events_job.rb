@@ -8,6 +8,10 @@ class Webhooks::EvolutionEventsJob < ApplicationJob
     @inbox = Inbox.find_by(id: inbox_id)
     return unless @inbox&.channel.is_a?(Channel::Evolution)
 
+    # Set URL options for ActiveStorage URL generation in background jobs
+    base_url = ENV.fetch('FRONTEND_URL', 'http://localhost:3000').to_s.chomp('/')
+    ActiveStorage::Current.url_options = { host: base_url }
+
     evt  = event.to_s.tr('.', '_').downcase
     rows = Array.wrap(data).compact
     rows = rows.reject { |r| r.respond_to?(:empty?) && r.empty? }

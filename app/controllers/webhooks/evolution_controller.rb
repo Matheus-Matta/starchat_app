@@ -18,7 +18,16 @@ class Webhooks::EvolutionController < ActionController::API
     handle_event(event, data)
 
     # Re-wrap data if necessary for the job
-    data = [data] if %w[messages_upsert messages_update contacts_update chats_update].include?(event) && data.is_a?(Hash)
+    if %w[messages_upsert messages_update contacts_update chats_update].include?(event)
+      data = [data] if data.is_a?(Hash)
+
+      # Deduplicate messages
+      if event == 'messages_upsert'
+        data = data.reject { |msg| message_already_processed?(msg) }
+        return head :ok if data.empty?
+      end
+    end
+
     Webhooks::EvolutionEventsJob.perform_later(inbox_id: @inbox.id, event: event, data: data || [])
 
     head :ok
@@ -109,5 +118,14 @@ class Webhooks::EvolutionController < ActionController::API
 
   def normalize_event(e)
     e.to_s.tr('.', '_').downcase
+  end
+
+  def message_already_processed?(msg_data)
+    unique_id = msg_data.dig('key', 'id')
+    return false if unique_id.blank?
+
+    # Returns true (processed) if Redis key already exists (set returns nil)
+    # Returns false (new) if Redis key was set successfully
+    !Redis::Alfred.set("evolution:dedup:#{@inbox.id}:#{unique_id}", 1, nx: true, ex: 3.minutes)
   end
 end
