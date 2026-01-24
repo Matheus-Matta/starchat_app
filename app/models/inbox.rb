@@ -219,6 +219,13 @@ class Inbox < ApplicationRecord
     (anti_spam_config['time_window'] || 1).to_i
   end
 
+  def push_event_data
+    {
+      id: id,
+      name: name
+    }
+  end
+
   private
 
   def default_name_for_blank_name

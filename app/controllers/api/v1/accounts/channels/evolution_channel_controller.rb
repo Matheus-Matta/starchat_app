@@ -133,15 +133,22 @@ class Api::V1::Accounts::Channels::EvolutionChannelController < Api::V1::Account
     evo = evo_client(@channel)
 
     begin
-      evo.logout_instance(@channel.instance_name) # DELETE /instance/logout/{instance}
-    rescue StandardError => e
-      Rails.logger.warn("[Evolution] logout_instance failed: #{e.class} #{e.message}, trying delete")
-      begin
-        evo.delete_instance(@channel.instance_name) # DELETE /instance/delete/{instance}
-      rescue StandardError => e2
-        Rails.logger.warn("[Evolution] delete_instance failed: #{e2.class} #{e2.message}")
+      evo.logout_instance(@channel.instance_name)
+    rescue Evolution::Client::Error => e
+      # Ignore if instance not found (404), unprocessable (422) or Bad Request (400)
+      # Evolution often returns 400/422 if instance is already logged out
+      unless [400, 404, 422].include?(e.status)
+        Rails.logger.error("[Evolution] logout_instance error: #{e.class} #{e.message}")
+        render_error(e) and return
       end
+      Rails.logger.warn("[Evolution] logout_instance ignored error: #{e.status} #{e.message}")
+    rescue StandardError => e
+      Rails.logger.error("[Evolution] logout_instance unexpected error: #{e.class} #{e.message}")
+      render_error(e) and return
     end
+
+    inbox = inbox_for(@channel)
+    create_connection_change_notification(inbox, 'disconnected') if inbox.present?
 
     @channel.update_state!('disconnected')
 
@@ -222,6 +229,8 @@ class Api::V1::Accounts::Channels::EvolutionChannelController < Api::V1::Account
     render_error(e)
   end
 
+  include Evolution::CommonHelpers
+
   private
 
   def handle_qr_and_render(channel, qr)
@@ -284,29 +293,6 @@ class Api::V1::Accounts::Channels::EvolutionChannelController < Api::V1::Account
   end
 
   # ===== Utils de resposta =====
-
-  def extract_qr(resp)
-    h = to_hash(resp)
-    q = h['qrcode'] || h.dig('data', 'qrcode') || h.dig('instance', 'qrcode') || {}
-
-    base64 = q['base64'] || h['base64'] || h.dig('data', 'base64')
-    pair   = q['pairingCode'] || h['pairingCode'] || h.dig('data', 'pairingCode')
-
-    { base64: base64, pairing_code: pair }.compact
-  end
-
-  def to_hash(resp)
-    return resp if resp.is_a?(Hash)
-    return JSON.parse(resp) if resp.is_a?(String)
-
-    {}
-  rescue JSON::ParserError
-    {}
-  end
-
-  def read_instance_state(h)
-    (h.dig('instance', 'state') || h['state']).to_s.downcase
-  end
 
   def extract_phone_number(h)
     owner = h.dig('instance', 'owner') || h['owner']

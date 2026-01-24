@@ -6,7 +6,9 @@ class Notification::PushNotificationService
   def perform
     return unless user_subscribed_to_notification?
 
-    notification_subscriptions.each do |subscription|
+    subscriptions = notification_subscriptions
+
+    subscriptions.each do |subscription|
       send_browser_push(subscription)
       send_fcm_push(subscription)
       send_push_via_chatwoot_hub(subscription)
@@ -21,6 +23,13 @@ class Notification::PushNotificationService
 
   def user_subscribed_to_notification?
     notification_setting = notification_settings.find_by(account_id: notification.account.id)
+
+    # Don't send push for 'open' status
+    if notification.notification_type == 'inbox_connection_update'
+      status = notification.meta&.dig('status')
+      return false if %w[open connected].include?(status)
+    end
+
     return true if notification_setting.public_send("push_#{notification.notification_type}?")
 
     false
@@ -33,17 +42,33 @@ class Notification::PushNotificationService
   def push_message
     {
       title: notification.push_message_title,
-      tag: "#{notification.notification_type}_#{conversation.display_id}_#{notification.id}",
+      tag: push_tag,
       url: push_url
     }
   end
 
+  def push_tag
+    if conversation
+      "#{notification.notification_type}_#{conversation.display_id}_#{notification.id}"
+    else
+      "#{notification.notification_type}_#{notification.primary_actor_id}_#{notification.id}"
+    end
+  end
+
   def push_url
-    app_account_conversation_url(account_id: conversation.account_id, id: conversation.display_id)
+    if conversation
+      app_account_conversation_url(account_id: conversation.account_id, id: conversation.display_id)
+    elsif notification.primary_actor_type == 'Inbox'
+      "#{root_url}app/accounts/#{notification.account_id}/settings/inboxes/#{notification.primary_actor_id}"
+    else
+      root_url
+    end
   end
 
   def can_send_browser_push?(subscription)
-    VapidService.public_key && subscription.browser_push?
+    pub_key = VapidService.public_key
+    is_browser = subscription.browser_push?
+    pub_key && is_browser
   end
 
   def browser_push_payload(subscription)
@@ -67,7 +92,6 @@ class Notification::PushNotificationService
     return unless can_send_browser_push?(subscription)
 
     WebPush.payload_send(**browser_push_payload(subscription))
-    Rails.logger.info("Browser push sent to #{user.email} with title #{push_message[:title]}")
   rescue StandardError => e
     handle_browser_push_error(e, subscription)
   end

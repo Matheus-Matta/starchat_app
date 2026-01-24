@@ -212,7 +212,7 @@ class ActionCableConnector extends BaseActionCableConnector {
   };
 
   onEvolutionConnectionUpdate = data => {
-    emitter.emit('evolution:connection_update', data);
+    emitter.emit('evolution:connection_update', { ...data });
   };
 }
 

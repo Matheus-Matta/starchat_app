@@ -145,8 +145,11 @@ en:
       sla_missed_first_response: 'SLA target first response missed for conversation (#%{display_id})'
       sla_missed_next_response: 'SLA target next response missed for conversation (#%{display_id})'
       sla_missed_resolution: 'SLA target resolution missed for conversation (#%{display_id})'
-    attachment: 'Attachment'
-    no_content: 'No content'
+      inbox_connection_update: 'Connection for inbox %{inbox_name}: %{status}'
+    notification_body:
+      inbox_connection_update: 'The connection for inbox %{inbox_name} changed to: %{status}. Please check your settings.'
+    email_subject:
+      inbox_connection_update: 'URGENT: Connection updated for %{inbox_name} (%{status})'
   conversations:
     cosmos:
       handoff: 'Transferring to another agent for further assistance.'
@@ -564,6 +567,11 @@ en:
       sla_missed_first_response: 'SLA target first response missed for conversation (#%{display_id})'
       sla_missed_next_response: 'SLA target next response missed for conversation (#%{display_id})'
       sla_missed_resolution: 'SLA target resolution missed for conversation (#%{display_id})'
+      inbox_connection_update: 'Connection updated for inbox %{inbox_name}'
+    notification_body:
+      inbox_connection_update: 'The connection for inbox %{inbox_name} has been disconnected or updated. Please check your settings.'
+    email_subject:
+      inbox_connection_update: 'URGENT: Connection updated for %{inbox_name}'
     attachment: 'Attachment'
     no_content: 'No content'
   conversations:

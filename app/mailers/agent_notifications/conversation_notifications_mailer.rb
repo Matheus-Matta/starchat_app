@@ -66,13 +66,25 @@ class AgentNotifications::ConversationNotificationsMailer < ApplicationMailer
     send_mail_with_liquid(to: @agent.email, subject: subject) and return
   end
 
+  def inbox_connection_update(inbox, agent, _secondary)
+    return unless smtp_config_set_or_development?
+
+    @agent = agent
+    @inbox = inbox
+    subject = I18n.t('notifications.email_subject.inbox_connection_update',
+                     agent_name: @agent.available_name,
+                     inbox_name: @inbox.sanitized_name)
+    @action_url = "#{ENV.fetch('FRONTEND_URL', nil)}/app/accounts/#{@inbox.account_id}/settings/inboxes/#{@inbox.id}"
+    send_mail_with_liquid(to: @agent.email, subject: subject) and return
+  end
+
   private
 
   def liquid_droppables
     super.merge({
                   user: @agent,
                   conversation: @conversation,
-                  inbox: @conversation.inbox,
+                  inbox: @inbox || @conversation&.inbox,
                   message: @message
                 })
   end

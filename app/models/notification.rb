@@ -43,7 +43,8 @@ class Notification < ApplicationRecord
     participating_conversation_new_message: 5,
     sla_missed_first_response: 6,
     sla_missed_next_response: 7,
-    sla_missed_resolution: 8
+    sla_missed_resolution: 8,
+    inbox_connection_update: 9
   }.freeze
 
   enum notification_type: NOTIFICATION_TYPES
@@ -53,7 +54,7 @@ class Notification < ApplicationRecord
   after_destroy_commit :dispatch_destroy_event
   after_update_commit :dispatch_update_event
 
-  PRIMARY_ACTORS = ['Conversation'].freeze
+  PRIMARY_ACTORS = %w[Conversation Inbox].freeze
 
   def push_event_data
     # Secondary actor could be nil for cases like system assigning conversation
@@ -85,47 +86,60 @@ class Notification < ApplicationRecord
     }
   end
 
+  NOTIFICATION_TITLE_KEYS = {
+    'conversation_creation' => 'notifications.notification_title.conversation_creation',
+    'conversation_assignment' => 'notifications.notification_title.conversation_assignment',
+    'assigned_conversation_new_message' => 'notifications.notification_title.assigned_conversation_new_message',
+    'participating_conversation_new_message' => 'notifications.notification_title.assigned_conversation_new_message',
+    'conversation_mention' => 'notifications.notification_title.conversation_mention',
+    'sla_missed_first_response' => 'notifications.notification_title.sla_missed_first_response',
+    'sla_missed_next_response' => 'notifications.notification_title.sla_missed_next_response',
+    'sla_missed_resolution' => 'notifications.notification_title.sla_missed_resolution',
+    'inbox_connection_update' => 'notifications.notification_title.inbox_connection_update'
+  }.freeze
+
   def push_message_title
-    notification_title_map = {
-      'conversation_creation' => 'notifications.notification_title.conversation_creation',
-      'conversation_assignment' => 'notifications.notification_title.conversation_assignment',
-      'assigned_conversation_new_message' => 'notifications.notification_title.assigned_conversation_new_message',
-      'participating_conversation_new_message' => 'notifications.notification_title.assigned_conversation_new_message',
-      'conversation_mention' => 'notifications.notification_title.conversation_mention',
-      'sla_missed_first_response' => 'notifications.notification_title.sla_missed_first_response',
-      'sla_missed_next_response' => 'notifications.notification_title.sla_missed_next_response',
-      'sla_missed_resolution' => 'notifications.notification_title.sla_missed_resolution'
-    }
+    I18n.with_locale(account.locale || I18n.locale) do
+      i18n_key = NOTIFICATION_TITLE_KEYS[notification_type]
+      return '' unless i18n_key
 
-    i18n_key = notification_title_map[notification_type]
-    return '' unless i18n_key
-
-    if notification_type == 'conversation_creation'
-      I18n.t(i18n_key, display_id: conversation.display_id, inbox_name: primary_actor.inbox.name)
-    elsif %w[conversation_assignment assigned_conversation_new_message participating_conversation_new_message
-             conversation_mention].include?(notification_type)
-      I18n.t(i18n_key, display_id: conversation.display_id)
-    else
-      I18n.t(i18n_key, display_id: primary_actor.display_id)
+      case notification_type
+      when 'conversation_creation'
+        I18n.t(i18n_key, display_id: conversation.display_id, inbox_name: primary_actor.inbox.name)
+      when 'inbox_connection_update'
+        I18n.t(i18n_key, inbox_name: primary_actor.name, status: status_from_meta)
+      when 'conversation_assignment', 'assigned_conversation_new_message', 'participating_conversation_new_message', 'conversation_mention'
+        I18n.t(i18n_key, display_id: conversation&.display_id)
+      else
+        I18n.t(i18n_key, display_id: primary_actor.try(:display_id))
+      end
     end
   end
-  # rubocop:enable Metrics/MethodLength
 
   def push_message_body
-    case notification_type
-    when 'conversation_creation', 'sla_missed_first_response'
-      message_body(conversation.messages.first)
-    when 'assigned_conversation_new_message', 'participating_conversation_new_message', 'conversation_mention'
-      message_body(secondary_actor)
-    when 'conversation_assignment', 'sla_missed_next_response', 'sla_missed_resolution'
-      message_body((conversation.messages.incoming.last || conversation.messages.outgoing.last))
-    else
-      ''
+    I18n.with_locale(account.locale || I18n.locale) do
+      case notification_type
+      when 'conversation_creation', 'sla_missed_first_response'
+        message_body(conversation&.messages&.first)
+      when 'assigned_conversation_new_message', 'participating_conversation_new_message', 'conversation_mention'
+        message_body(secondary_actor)
+      when 'conversation_assignment', 'sla_missed_next_response', 'sla_missed_resolution'
+        last_msg = conversation&.messages&.then { |m| m.incoming.last || m.outgoing.last }
+        message_body(last_msg) if last_msg
+      when 'inbox_connection_update'
+        I18n.t('notifications.notification_body.inbox_connection_update', inbox_name: primary_actor.name, status: status_from_meta)
+      else
+        ''
+      end
     end
+  end
+
+  def status_from_meta
+    meta&.dig('status') || 'disconnected'
   end
 
   def conversation
-    primary_actor
+    primary_actor if primary_actor_type == 'Conversation'
   end
 
   private
@@ -152,6 +166,7 @@ class Notification < ApplicationRecord
   end
 
   def process_notification_delivery
+    Rails.logger.info("[Notification] Processing delivery for #{notification_type} to user #{user_id}")
     Notification::PushNotificationJob.perform_later(self) if user_subscribed_to_notification?('push')
 
     # Should we do something about the case where user subscribed to both push and email ?
@@ -164,10 +179,15 @@ class Notification < ApplicationRecord
 
   def user_subscribed_to_notification?(delivery_type)
     notification_setting = user.notification_settings.find_by(account_id: account.id)
-    return false if notification_setting.blank?
+    if notification_setting.blank?
+      Rails.logger.warn("[Notification] No notification settings found for user #{user_id} in account #{account_id}")
+      return false
+    end
 
     # Check if the user has subscribed to the specified type of notification
-    notification_setting.public_send("#{delivery_type}_#{notification_type}?")
+    subscribed = notification_setting.public_send("#{delivery_type}_#{notification_type}?")
+    Rails.logger.info("[Notification] User #{user_id} subscribed to #{delivery_type}_#{notification_type}: #{subscribed}")
+    subscribed
   end
 
   def dispatch_create_event

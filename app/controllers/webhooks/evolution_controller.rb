@@ -6,69 +6,106 @@ require 'open-uri'
 class Webhooks::EvolutionController < ActionController::API
   include Evolution::WebhookHelpers
 
+  include Evolution::CommonHelpers
+
   def process_payload
-    @inbox = Inbox.find_by(id: params[:inbox_id])
-    unless @inbox
-      Rails.logger.info("[Evolution] webhook: inbox #{params[:inbox_id]} não disponível; ignorando")
-      return head :ok
-    end
+    return head :ok unless (@inbox = Inbox.find_by(id: params[:inbox_id]))
 
-    raw      = request.request_parameters.presence || JSON.parse(request.raw_post)
-    evo      = raw['evolution'].is_a?(Hash) ? raw['evolution'] : {}
-    event    = normalize_event(raw['event'] || evo['event'])
-    raw_data = (raw['data'] || evo['data'])
+    payload = parse_payload
+    event   = normalize_event(payload[:event])
+    data    = payload[:data]
 
-    data =
-      if raw_data.is_a?(Array)
-        raw_data.map { |x| x.is_a?(Hash) ? x.with_indifferent_access : x }
-      elsif raw_data.is_a?(Hash)
-        raw_data.with_indifferent_access
-      else
-        []
-      end
+    handle_event(event, data)
 
-    case event
-    when 'qrcode_updated'
-      q = (data.is_a?(Hash) ? (data[:qrcode] || {}) : {}).with_indifferent_access
-      ActionCable.server.broadcast(
-        "account_#{@inbox.account_id}",
-        { event: 'evolution.qrcode_updated',
-          data: { account_id: @inbox.account_id, inbox_id: @inbox.id,
-                  qrcode_base64: q[:base64], pairing_code: q[:pairingCode] }.compact }
-      )
-    when 'connection_update'
-      state = data.is_a?(Hash) ? data[:state].to_s : nil
-      if (ch = @inbox.channel).is_a?(Channel::Evolution) && state.present?
-        ch.update_state!(state)
-
-        # Saves phone number if available (e.g. owner JID)
-        owner = data[:owner] || data.dig(:instance, :owner)
-        if owner.present?
-          ch.phone_number = owner.split('@').first
-          ch.save
-        end
-      end
-      ActionCable.server.broadcast(
-        "account_#{@inbox.account_id}",
-        { event: 'evolution.connection_update',
-          data: { account_id: @inbox.account_id, inbox_id: @inbox.id, state: state, phone_number: ch&.phone_number } }
-      )
-    end
-
+    # Re-wrap data if necessary for the job
     data = [data] if %w[messages_upsert messages_update contacts_update chats_update].include?(event) && data.is_a?(Hash)
-
     Webhooks::EvolutionEventsJob.perform_later(inbox_id: @inbox.id, event: event, data: data || [])
 
     head :ok
-  rescue JSON::ParserError => e
-    Rails.logger.warn("[Evolution] payload parse falhou: #{e.class} #{e.message}")
+  rescue JSON::ParserError
     head :ok
   rescue StandardError => e
-    Rails.logger.error("[Evolution] erro de webhook: #{e.class} #{e.message} bt=#{e.backtrace&.first(3)&.join(' | ')}")
+    Rails.logger.error("[Evolution] webhook error: #{e.message}")
     head :ok
   end
 
   private
+
+  def parse_payload
+    raw  = request.request_parameters.presence || JSON.parse(request.raw_post)
+    evo  = raw['evolution'].is_a?(Hash) ? raw['evolution'] : {}
+    data = (raw['data'] || evo['data'])
+
+    {
+      event: raw['event'] || evo['event'],
+      data: process_data(data)
+    }
+  end
+
+  def process_data(data)
+    if data.is_a?(Array)
+      data.map { |x| x.is_a?(Hash) ? x.with_indifferent_access : x }
+    elsif data.is_a?(Hash)
+      data.with_indifferent_access
+    else
+      []
+    end
+  end
+
+  def handle_event(event, data)
+    case event
+    when 'qrcode_updated'    then handle_qrcode_updated(data)
+    when 'connection_update' then handle_connection_update(data)
+    end
+  end
+
+  def handle_qrcode_updated(data)
+    q = (data.is_a?(Hash) ? (data[:qrcode] || {}) : {}).with_indifferent_access
+    broadcast_evolution_event('evolution.qrcode_updated', {
+      account_id: @inbox.account_id,
+      inbox_id: @inbox.id,
+      qrcode_base64: q[:base64],
+      pairing_code: q[:pairingCode]
+    }.compact)
+  end
+
+  def handle_connection_update(data)
+    state = data.is_a?(Hash) ? data[:state].to_s : nil
+    return unless (ch = @inbox.channel).is_a?(Channel::Evolution) && state.present?
+
+    ch.update_state!(state)
+    update_channel_phone_number(ch, data)
+
+    # Extract QR if present in connection update (sometimes Evolution sends QR with connection update)
+    qr = extract_qr(data)
+
+    broadcast_evolution_event('evolution.connection_update', {
+      account_id: @inbox.account_id,
+      inbox_id: @inbox.id,
+      state: state,
+      phone_number: ch&.phone_number,
+      qrcode_base64: qr[:base64],
+      pairing_code: qr[:pairing_code]
+    }.compact)
+
+    # Notify if state is 'close', 'refused', 'open' or 'connected'
+    return unless %w[close refused open connected].include?(state)
+
+    create_connection_change_notification(@inbox, state)
+  end
+
+  def update_channel_phone_number(channel, data)
+    inst_data = data[:instance]
+    owner = data[:owner] || (inst_data.is_a?(Hash) ? inst_data[:owner] : nil)
+    return if owner.blank?
+
+    channel.phone_number = owner.split('@').first
+    channel.save
+  end
+
+  def broadcast_evolution_event(event, data)
+    ActionCable.server.broadcast("account_#{@inbox.account_id}", { event: event, data: data })
+  end
 
   def normalize_event(e)
     e.to_s.tr('.', '_').downcase
