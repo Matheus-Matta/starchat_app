@@ -8,7 +8,14 @@ require 'cgi'
 
 module Evolution
   class Client
-    class Error < StandardError; end
+    class Error < StandardError
+      attr_reader :status
+
+      def initialize(msg, status: nil)
+        @status = status
+        super(msg)
+      end
+    end
 
     attr_reader :base_url, :api_key, :default_headers, :open_timeout, :read_timeout
 
@@ -190,9 +197,11 @@ module Evolution
       res = http.request(req)
       parse_response!(res)
     rescue JSON::ParserError => e
-      raise Error, "Invalid JSON response: #{e.message}"
+      raise Error.new("Invalid JSON response: #{e.message}")
+    rescue Error => e
+      raise e
     rescue StandardError => e
-      raise Error, e.message
+      raise Error.new(e.message)
     end
 
     def build_request(method, uri, body)
@@ -216,9 +225,23 @@ module Evolution
       json = payload.empty? ? {} : JSON.parse(payload)
 
       return json if code.between?(200, 299)
+      # Evolution v2 returns 200/201 but sometimes with { status: 4xx, message: ... } - handle that?
+      # However typical errors are real HTTP errors.
+      # Special case: logout with 422? Evolution sometimes returns weird codes.
+      # If Evolution returns status outside 2xx but inside body has success?
+      # Let's trust HTTP code primarily.
+
+      # Special case for logout if it returns 200 but has error in json
+      if json['status'].present? && json['status'].to_i >= 400
+        msg = json['message'] || json['error'] || "HTTP #{code} (status #{json['status']})"
+        raise Error.new(msg, status: json['status'].to_i)
+      end
+
+      # Evolution API sometimes returns 422 for 'Instance not found' or 'Instance already logged out'
+      # We might want to swallow that in some contexts, but here we raise.
 
       msg = json['message'] || json['error'] || "HTTP #{code}"
-      raise Error, msg
+      raise Error.new(msg, status: code)
     end
 
     def parse_json(str)

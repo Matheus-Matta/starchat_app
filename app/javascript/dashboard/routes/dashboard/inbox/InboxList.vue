@@ -170,11 +170,15 @@ const openConversation = async notificationItem => {
     id,
     primaryActorId,
     primaryActorType,
-    primaryActor: { inboxId, id: conversationId },
+    primaryActor,
     notificationType,
   } = notificationItem;
 
-  if (route.params.id === String(conversationId)) return;
+  const isInboxNotification = primaryActorType === 'Inbox';
+  const inboxId = isInboxNotification ? primaryActorId : primaryActor.inboxId;
+  const conversationId = isInboxNotification ? null : primaryActor.id;
+
+  if (conversationId && route.params.id === String(conversationId)) return;
 
   useTrack(INBOX_EVENTS.OPEN_CONVERSATION_VIA_INBOX, {
     notificationType,
@@ -191,10 +195,17 @@ const openConversation = async notificationItem => {
     // to update the unread count in the store realtime
     store.dispatch('notifications/unReadCount');
 
-    router.push({
-      name: 'inbox_view_conversation',
-      params: { inboxId, type: 'conversation', id: conversationId },
-    });
+    if (isInboxNotification) {
+      router.push({
+        name: 'settings_inbox_show',
+        params: { accountId: store.getters.getCurrentAccountId, inboxId },
+      });
+    } else {
+      router.push({
+        name: 'inbox_view_conversation',
+        params: { inboxId, type: 'conversation', id: conversationId },
+      });
+    }
   } catch {
     // error
   }

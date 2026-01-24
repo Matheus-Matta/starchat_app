@@ -1,0 +1,72 @@
+DEPRECATION WARNING: `Rails.application.secrets` is deprecated in favor of `Rails.application.credentials` and will be removed in Rails 7.2. (called from <top (required)> at /home/matheus/starchat_app-1/config/environment.rb:5)
+DEPRECATION WARNING: `Rails.application.secrets` is deprecated in favor of `Rails.application.credentials` and will be removed in Rails 7.2. (called from <top (required)> at /home/matheus/starchat_app-1/config/environment.rb:5)
+Run options: include {locations: {"./spec/models/notification_spec.rb" => [14]}}
+DEPRECATION WARNING: User model aliases `assigned_conversations`, but `assigned_conversations` is not an attribute. Starting in Rails 7.2, alias_attribute with non-attribute targets will raise. Use `alias_method :conversations, :assigned_conversations` or define the method manually. (called from Kernel#tap at <internal:kernel>:91)
+N1: 1858 2026-01-24 20:12:27 UTC
+N3: 1860 2026-01-24 20:12:27 UTC
+First: 1824 2026-01-24 18:48:33 UTC
+All IDs: [1824, 1858, 1859, 1860]
+F
+
+Failures:
+
+  1) Notification with default order by sort by primary id desc
+     Failure/Error: expect(described_class.all.first).to eq notification3
+
+       expected: #<Notification id: 1860, account_id: 557, user_id: 716, notification_type: "conversation_assignment",...90000 +0000", snoozed_until: nil, last_activity_at: "2026-01-24 20:12:27.469890000 +0000", meta: {}>
+            got: #<Notification id: 1824, account_id: 1, user_id: 1, notification_type: "inbox_connection_update", pri...ed_until: nil, last_activity_at: "2026-01-24 18:48:33.437652000 +0000", meta: {"status" => "close"}>
+
+       (compared using ==)
+
+       Diff:
+
+
+       @@ -1,16 +1,16 @@
+       -#<Notification:0x000079fdb77c1558
+       - id: 1860,
+       - account_id: 557,
+       - user_id: 716,
+       - notification_type: "conversation_assignment",
+       - primary_actor_type: "Conversation",
+       - primary_actor_id: 359,
+       +#<Notification:0x000079fdb75367c0
+       + id: 1824,
+       + account_id: 1,
+       + user_id: 1,
+       + notification_type: "inbox_connection_update",
+       + primary_actor_type: "Inbox",
+       + primary_actor_id: 395,
+         secondary_actor_type: nil,
+         secondary_actor_id: nil,
+       - read_at: nil,
+       - created_at: Sat, 24 Jan 2026 20:12:27.469890000 UTC +00:00,
+       - updated_at: Sat, 24 Jan 2026 20:12:27.469890000 UTC +00:00,
+       + read_at: Sat, 24 Jan 2026 18:50:46.545823000 UTC +00:00,
+       + created_at: Sat, 24 Jan 2026 18:48:33.437652000 UTC +00:00,
+       + updated_at: Sat, 24 Jan 2026 18:48:33.437652000 UTC +00:00,
+         snoozed_until: nil,
+       - last_activity_at: Sat, 24 Jan 2026 20:12:27.469890000 UTC +00:00,
+       - meta: {}>
+       + last_activity_at: Sat, 24 Jan 2026 18:48:33.437652000 UTC +00:00,
+       + meta: {"status" => "close"}>
+     # ./spec/models/notification_spec.rb:23:in 'block (3 levels) in <top (required)>'
+
+Deprecation Warnings:
+
+Rails 7.1 has deprecated the singular fixture_path in favour of an array.You should migrate to plural:
+
+
+If you need more of the backtrace for any of these deprecations to
+identify where to make the necessary changes, you can configure
+`config.raise_errors_for_deprecations!`, and it will turn the
+deprecation warnings into errors, giving you the full backtrace.
+
+1 deprecation warning total
+
+Finished in 3.37 seconds (files took 7.21 seconds to load)
+1 example, 1 failure
+
+Failed examples:
+
+rspec ./spec/models/notification_spec.rb:14 # Notification with default order by sort by primary id desc
+

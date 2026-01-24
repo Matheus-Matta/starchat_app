@@ -127,7 +127,6 @@ export default {
     };
     emitter.on('WEBSOCKET_RECONNECT', this.handleSocketReconnect);
     emitter.on('WEBSOCKET_DISCONNECT', this.handleSocketDisconnect);
-
     this.handleQRUpdate = p => {
       if (Number(p.inbox_id) !== Number(this.inbox?.id)) return;
       const b64 = String(p.qrcode_base64 || '').trim();
@@ -137,7 +136,6 @@ export default {
       }
       this.pairingCode = p.pairing_code || '';
     };
-
     this.handleConnectionUpdate = p => {
       if (Number(p.inbox_id) !== Number(this.inbox?.id)) return;
       if (p.state) this.state = p.state;
@@ -189,8 +187,7 @@ export default {
         const data = await this.$store.dispatch('evolution/getSettings', {
           id: this.channel.id,
         });
-        // eslint-disable-next-line no-console
-        console.log('[Evolution] fetchSettings data:', data);
+
         // Mescla com defaults para garantir que chaves existam
         if (data) {
           this.settings = { ...this.settings, ...data };
@@ -198,8 +195,7 @@ export default {
           this.settings.syncFullHistory = false;
         }
       } catch (e) {
-        // eslint-disable-next-line no-console
-        console.warn('[Evolution] fetchSettings warning:', e);
+        // fetchSettings failed silenty
       } finally {
         this.loadingSettings = false;
       }
@@ -210,9 +206,6 @@ export default {
       this.isUpdating = true;
       this.settings.groupsIgnore = true;
       this.settings.syncFullHistory = false;
-      // eslint-disable-next-line no-console
-      console.log('[Evolution] updateSettings payload:', this.settings);
-
       try {
         await this.$store.dispatch('evolution/updateSettings', {
           id: this.channel.id,
@@ -220,8 +213,6 @@ export default {
         });
         useAlert(this.$t('INBOX_MGMT.EDIT.API.SUCCESS_MESSAGE'));
       } catch (e) {
-        // eslint-disable-next-line no-console
-        console.error('[Evolution] updateSettings error:', e);
         useAlert(this.$t('INBOX_MGMT.EDIT.API.ERROR_MESSAGE'));
       } finally {
         this.isUpdating = false;
@@ -399,9 +390,9 @@ export default {
           </p>
         </div>
         <div v-else class="text-center opacity-80">
-          <woot-loading-indicator />
+          <woot-spinner />
           <p class="mt-3">
-            {{ $t('INBOX_MGMT.ADD.EVOLUTION.QR.PANEL_TITLE') || 'QR Code' }}
+            {{ $t('INBOX_MGMT.CREATE_FLOW.QRCODE.WAITING') }}
           </p>
           <p class="text-xs mt-1">
             {{

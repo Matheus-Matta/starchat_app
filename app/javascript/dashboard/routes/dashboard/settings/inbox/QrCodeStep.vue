@@ -35,12 +35,14 @@ export default {
     emitter.on('WEBSOCKET_DISCONNECT', this._onDisconnect);
 
     this._onQR = p => {
+      console.log('QrCodeStep: evolution:qrcode_updated received', p);
       if (Number(p.inbox_id) != Number(this.inboxId)) return;
       const b64 = String(p.qrcode_base64 || '').trim();
       if (b64) this.qrcodeBase64 = b64;
       this.pairingCode = p.pairing_code || '';
     };
     this._onConn = p => {
+      console.log('QrCodeStep: evolution:connection_update received', p);
       if (Number(p.inbox_id) != Number(this.inboxId)) return;
       if (p.state) this.state = p.state;
       const s = String(this.state).toLowerCase();
@@ -113,7 +115,7 @@ export default {
               />
             </div>
             <div v-else class="text-center opacity-80">
-              <woot-loading-indicator />
+              <woot-spinner />
               <p class="mt-3">
                 {{ $t('INBOX_MGMT.CREATE_FLOW.QRCODE.WAITING') }}
               </p>
