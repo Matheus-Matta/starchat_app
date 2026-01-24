@@ -42,11 +42,11 @@ module Starchat::MessageTemplates::HookExecutionService
     # 1. Incoming message
     # 2. Assistant present
     # 3. Conversation must be Pending (Standard behavior)
-    
+
     is_incoming = message.incoming?
     has_assistant = inbox.cosmos_assistant.present?
     is_pending = conversation.pending?
-    
+
     is_pending && is_incoming && has_assistant
   end
 
