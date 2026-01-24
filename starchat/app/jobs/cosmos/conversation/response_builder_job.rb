@@ -127,6 +127,7 @@ class Cosmos::Conversation::ResponseBuilderJob < ApplicationJob
   end
 
   def log_error(error)
+    Rails.logger.error "[Cosmos] ResponseBuilderJob Error: #{error.message} \n #{error.backtrace.join("\n")}"
     ChatwootExceptionTracker.new(error, account: account).capture_exception
   end
 

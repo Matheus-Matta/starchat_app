@@ -57,8 +57,8 @@ class Cosmos::Documents::ResponseBuilderJob < ApplicationJob
 
   def should_use_pagination?(document)
     # Auto-detect when to use pagination
-    # For now, use pagination for PDFs with OpenAI file ID
-    document.pdf_document? && document.openai_file_id.present?
+    # For now, use pagination for files with OpenAI file ID
+    document.file_document? && document.openai_file_id.present?
   end
 
   def reset_previous_responses(response_document)

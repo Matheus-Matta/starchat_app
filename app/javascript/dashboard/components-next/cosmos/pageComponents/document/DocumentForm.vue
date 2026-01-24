@@ -44,13 +44,13 @@ const validationRules = {
     minLength: requiredIf(() => state.documentType === 'url' && minLength(1)),
   },
   pdfFile: {
-    required: requiredIf(() => state.documentType === 'pdf'),
+    required: requiredIf(() => state.documentType === 'file'),
   },
 };
 
 const documentTypeOptions = [
   { value: 'url', label: t('COSMOS.DOCUMENTS.FORM.TYPE.URL') },
-  { value: 'pdf', label: t('COSMOS.DOCUMENTS.FORM.TYPE.PDF') },
+  { value: 'file', label: t('COSMOS.DOCUMENTS.FORM.TYPE.FILE') },
 ];
 
 const v$ = useVuelidate(validationRules, state);
@@ -75,19 +75,25 @@ const handleCancel = () => emit('cancel');
 const handleFileChange = event => {
   const file = event.target.files[0];
   if (file) {
-    if (file.type !== 'application/pdf') {
-      useAlert(t('COSMOS.DOCUMENTS.FORM.PDF_FILE.INVALID_TYPE'));
+    const allowedTypes = [
+      'application/pdf',
+      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      'application/vnd.ms-excel',
+      'text/csv',
+    ];
+    if (!allowedTypes.includes(file.type)) {
+      useAlert(t('COSMOS.DOCUMENTS.FORM.FILE.INVALID_TYPE'));
       event.target.value = '';
       return;
     }
     if (file.size > MAX_FILE_SIZE) {
       // 10MB
-      useAlert(t('COSMOS.DOCUMENTS.FORM.PDF_FILE.TOO_LARGE'));
+      useAlert(t('COSMOS.DOCUMENTS.FORM.FILE.TOO_LARGE'));
       event.target.value = '';
       return;
     }
     state.pdfFile = file;
-    state.name = file.name.replace(/\.pdf$/i, '');
+    state.name = file.name.replace(/\.(pdf|xlsx?|csv)$/i, '');
   }
 };
 
@@ -111,9 +117,9 @@ const prepareDocumentDetails = () => {
     formData.append('document[pdf_file]', state.pdfFile);
     formData.append(
       'document[name]',
-      state.name || state.pdfFile.name.replace('.pdf', '')
+      state.name || state.pdfFile.name.replace(/\.(pdf|xlsx?|csv)$/i, '')
     );
-    // No need to send external_link for PDF - it's auto-generated in the backend
+    // No need to send external_link for file - it's auto-generated in the backend
   }
 
   return formData;
@@ -155,15 +161,15 @@ const handleSubmit = async () => {
       :message-type="formErrors.url ? 'error' : 'info'"
     />
 
-    <div v-if="state.documentType === 'pdf'" class="flex flex-col gap-2">
+    <div v-if="state.documentType === 'file'" class="flex flex-col gap-2">
       <label class="text-sm font-medium text-n-slate-12">
-        {{ t('COSMOS.DOCUMENTS.FORM.PDF_FILE.LABEL') }}
+        {{ t('COSMOS.DOCUMENTS.FORM.FILE.LABEL') }}
       </label>
       <div class="relative">
         <input
           ref="fileInputRef"
           type="file"
-          accept=".pdf"
+          accept=".pdf,.xlsx,.csv"
           class="hidden"
           @change="handleFileChange"
         />
@@ -179,21 +185,21 @@ const handleSubmit = async () => {
               <div
                 class="flex justify-center items-center w-10 h-10 rounded-lg bg-n-slate-3"
               >
-                <i class="text-xl i-ph-file-pdf text-n-slate-11" />
+                <i class="text-xl i-ph-file-text text-n-slate-11" />
               </div>
               <div class="flex flex-col flex-1 gap-1 items-start">
                 <p class="m-0 text-sm font-medium text-n-slate-12">
                   {{
                     state.pdfFile
                       ? state.pdfFile.name
-                      : t('COSMOS.DOCUMENTS.FORM.PDF_FILE.CHOOSE_FILE')
+                      : t('COSMOS.DOCUMENTS.FORM.FILE.CHOOSE_FILE')
                   }}
                 </p>
                 <p class="m-0 text-xs text-n-slate-11">
                   {{
                     state.pdfFile
                       ? `${(state.pdfFile.size / 1024 / 1024).toFixed(2)} MB`
-                      : t('COSMOS.DOCUMENTS.FORM.PDF_FILE.HELP_TEXT')
+                      : t('COSMOS.DOCUMENTS.FORM.FILE.HELP_TEXT')
                   }}
                 </p>
               </div>

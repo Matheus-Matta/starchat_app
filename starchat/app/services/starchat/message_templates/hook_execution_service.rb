@@ -1,15 +1,23 @@
 module Starchat::MessageTemplates::HookExecutionService
   MAX_ATTACHMENT_WAIT_SECONDS = 4
 
-  def trigger_templates
-    super
-    return unless should_process_cosmos_response?
-    return perform_handoff unless inbox.cosmos_active?
+  private
 
+  def trigger_templates
+    ::MessageTemplates::Template::OutOfOffice.new(conversation: conversation).perform if should_send_out_of_office_message?
+    ::MessageTemplates::Template::Greeting.new(conversation: conversation).perform if should_send_greeting?
+    ::MessageTemplates::Template::EmailCollect.new(conversation: conversation).perform if inbox.enable_email_collect && should_send_email_collect?
+
+    return unless should_process_cosmos_response?
+
+    unless inbox.cosmos_active?
+       Rails.logger.info "[Cosmos] Inbox #{inbox.id} not active. Handoff."
+       return perform_handoff 
+    end
+
+    Rails.logger.info "[Cosmos] Scheduling response for conv #{conversation.id}" if Rails.env.development?
     schedule_cosmos_response
   end
-
-  private
 
   def schedule_cosmos_response
     job_args = [conversation, conversation.inbox.cosmos_assistant]
@@ -25,25 +33,36 @@ module Starchat::MessageTemplates::HookExecutionService
   def calculate_attachment_wait_time
     attachment_count = message.attachments.size
     base_wait = 1.second
-
-    # Wait longer for more attachments or larger files
     additional_wait = [attachment_count * 1, MAX_ATTACHMENT_WAIT_SECONDS].min.seconds
     base_wait + additional_wait
   end
 
   def should_process_cosmos_response?
-    conversation.pending? && message.incoming? && inbox.cosmos_assistant.present?
+    # Logic:
+    # 1. Incoming message
+    # 2. Assistant present
+    # 3. Conversation must be Pending (Standard behavior)
+    
+    is_incoming = message.incoming?
+    has_assistant = inbox.cosmos_assistant.present?
+    is_pending = conversation.pending?
+    
+    should_process = is_pending && is_incoming && has_assistant
+    
+    # Rails.logger.debug "[Cosmos] should_process? #{should_process}"
+    
+    should_process
   end
 
   def perform_handoff
     return unless conversation.pending?
 
-    Rails.logger.info("Cosmos limit exceeded, performing handoff mid-conversation for conversation: #{conversation.id}")
+    Rails.logger.info("Cosmos limit exceeded handoff: #{conversation.id}")
     conversation.messages.create!(
       message_type: :outgoing,
       account_id: conversation.account.id,
       inbox_id: conversation.inbox.id,
-      content: 'Transferring to another agent for further assistance.'
+      content: 'Transferring to another agent due to limit.'
     )
     conversation.bot_handoff!
   end

@@ -28,6 +28,7 @@ class Cosmos::Document < ApplicationRecord
   has_many :responses, class_name: 'Cosmos::AssistantResponse', dependent: :destroy, as: :documentable
   belongs_to :account
 
+  # Handles PDF, XLSX, CSV, etc. Named 'pdf_file' for legacy reasons.
   has_one_attached :pdf_file
 
   validates :external_link, presence: true
@@ -35,8 +36,11 @@ class Cosmos::Document < ApplicationRecord
   validates :content, length: { maximum: 200_000 }
 
   before_validation :ensure_account_id
-  before_validation :set_external_link_for_pdf
+  before_validation :set_external_link_for_file
   before_validation :normalize_external_link
+
+  validate :validate_file_format
+  validate :validate_file_attachment
 
   enum status: {
     in_progress: 0,
@@ -71,9 +75,12 @@ class Cosmos::Document < ApplicationRecord
     nil
   end
 
-  def pdf_document?
-    pdf_file.attached? || external_link&.to_s&.downcase&.end_with?('.pdf')
+  def file_document?
+    pdf_file.attached? || external_link&.to_s&.downcase&.match?(/\.(pdf|xlsx?|csv)\z/)
   end
+
+  # Deprecated alias
+  alias pdf_document? file_document?
 
   def store_openai_file_id(file_id)
     metadata['openai_file_id'] = file_id
@@ -104,9 +111,9 @@ class Cosmos::Document < ApplicationRecord
 
   def should_enqueue_response_builder?
     return false unless status == 'available'
-    return false if content.blank?
+    return false if content.blank? && openai_file_id.blank?
 
-    # Enqueue if status changed to available OR content changed while available
+    # Enqueue if status changed to available OR content/file_id changed while available
     saved_change_to_status? || saved_change_to_content?
   end
 
@@ -123,10 +130,21 @@ class Cosmos::Document < ApplicationRecord
     raise LimitExceededError, I18n.t('cosmos.documents.limit_exceeded') unless limits[:current_available].positive?
   end
 
-  def validate_pdf_format
+
+
+  def validate_file_format
     return unless pdf_file.attached?
 
-    errors.add(:pdf_file, I18n.t('cosmos.documents.pdf_format_error')) unless pdf_file.blob.content_type == 'application/pdf'
+    allowed_types = %w[
+      application/pdf
+      application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+      application/vnd.ms-excel
+      text/csv
+    ]
+
+    return if allowed_types.include?(pdf_file.blob.content_type)
+
+    errors.add(:pdf_file, I18n.t('cosmos.documents.file_format_error'))
   end
 
   def validate_file_attachment
@@ -134,15 +152,15 @@ class Cosmos::Document < ApplicationRecord
 
     return unless pdf_file.blob.byte_size > 10.megabytes
 
-    errors.add(:pdf_file, I18n.t('cosmos.documents.pdf_size_error'))
+    errors.add(:pdf_file, I18n.t('cosmos.documents.file_size_error'))
   end
 
-  def set_external_link_for_pdf
+  def set_external_link_for_file
     return unless pdf_file.attached? && external_link.blank?
 
-    # Set a unique external_link for PDF files
-    # Format: PDF: filename_timestamp (without extension)
+    # Set a unique external_link for files
+    # Format: FILE: filename_timestamp (without extension)
     timestamp = Time.current.strftime('%Y%m%d%H%M%S')
-    self.external_link = "PDF: #{pdf_file.filename.base}_#{timestamp}"
+    self.external_link = "FILE: #{pdf_file.filename.base}_#{timestamp}"
   end
 end
