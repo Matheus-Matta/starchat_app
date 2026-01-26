@@ -16,6 +16,10 @@ class Whatsapp::EmbeddedSignupService
     validate_token_access(access_token)
 
     channel = create_or_reauthorize_channel(access_token, phone_info)
+    # Reauthorization updates an existing channel, so the on: :create callback won't fire.
+    # We call setup_webhooks explicitly here and then check the health.
+    # The 'source' attribute in provider_config will prevent the automatic callback from firing
+    # during initial creation to avoid double calls.
     channel.setup_webhooks
     check_channel_health_and_prompt_reauth(channel)
     channel

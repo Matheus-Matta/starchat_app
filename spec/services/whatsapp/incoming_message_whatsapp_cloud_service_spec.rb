@@ -42,8 +42,7 @@ describe Whatsapp::IncomingMessageWhatsappCloudService do
         stub_request(
           :get,
           whatsapp_channel.media_url(
-            'b1c68f38-8734-4ad3-b4a1-ef0c10d683',
-            whatsapp_channel.provider_config['phone_number_id']
+            'b1c68f38-8734-4ad3-b4a1-ef0c10d683'
           )
         ).to_return(
           status: 401
@@ -113,8 +112,7 @@ describe Whatsapp::IncomingMessageWhatsappCloudService do
     stub_request(
       :get,
       whatsapp_channel.media_url(
-        'b1c68f38-8734-4ad3-b4a1-ef0c10d683',
-        whatsapp_channel.provider_config['phone_number_id']
+        'b1c68f38-8734-4ad3-b4a1-ef0c10d683'
       )
     ).to_return(
       status: 200,
