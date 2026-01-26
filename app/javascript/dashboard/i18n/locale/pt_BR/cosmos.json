@@ -3,14 +3,34 @@
     "DOCUMENTS": {
       "FORM": {
         "TYPE": {
+          "LABEL": "Tipo",
+          "URL": "URL",
           "FILE": "Arquivo"
+        },
+        "URL": {
+          "LABEL": "URL",
+          "PLACEHOLDER": "Digite a URL",
+          "ERROR": "Por favor, digite uma URL válida"
         },
         "FILE": {
           "LABEL": "Arquivo",
           "CHOOSE_FILE": "Escolher arquivo",
-          "HELP_TEXT": "Faça upload de um arquivo"
+          "HELP_TEXT": "Faça upload de um arquivo",
+          "INVALID_TYPE": "Tipo de arquivo inválido. Apenas PDF, XLSX e CSV são permitidos.",
+          "TOO_LARGE": "O arquivo é muito grande. O tamanho máximo é 10MB."
+        },
+        "PDF_FILE": {
+          "ERROR": "Por favor, faça upload de um arquivo"
+        },
+        "NAME": {
+          "LABEL": "Nome",
+          "PLACEHOLDER": "Digite um nome para este documento"
         }
       }
+    },
+    "FORM": {
+      "CANCEL": "Cancelar",
+      "CREATE": "Criar"
     }
   }
 }

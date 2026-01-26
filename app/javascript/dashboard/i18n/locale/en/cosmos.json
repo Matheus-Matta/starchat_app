@@ -3,14 +3,34 @@
     "DOCUMENTS": {
       "FORM": {
         "TYPE": {
+          "LABEL": "Type",
+          "URL": "URL",
           "FILE": "File"
+        },
+        "URL": {
+          "LABEL": "URL",
+          "PLACEHOLDER": "Enter URL",
+          "ERROR": "Please enter a valid URL"
         },
         "FILE": {
           "LABEL": "File",
           "CHOOSE_FILE": "Choose File",
-          "HELP_TEXT": "Upload a file"
+          "HELP_TEXT": "Upload a file",
+          "INVALID_TYPE": "Invalid file type. Only PDF, XLSX, and CSV are allowed.",
+          "TOO_LARGE": "File is too large. Max size is 10MB."
+        },
+        "PDF_FILE": {
+          "ERROR": "Please upload a file"
+        },
+        "NAME": {
+          "LABEL": "Name",
+          "PLACEHOLDER": "Enter a name for this document"
         }
       }
+    },
+    "FORM": {
+      "CANCEL": "Cancel",
+      "CREATE": "Create"
     }
   }
 }

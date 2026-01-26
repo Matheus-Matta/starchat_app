@@ -161,7 +161,7 @@ importers:
         specifier: ^28.0.4
         version: 28.0.4
       posthog-js:
-        specifier: ^1.260.2
+        specifier: ^1.260.3
         version: 1.260.3
       qrcode:
         specifier: ^1.5.4
