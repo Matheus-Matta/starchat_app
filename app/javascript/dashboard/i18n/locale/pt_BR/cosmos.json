@@ -1,0 +1,16 @@
+{
+  "COSMOS": {
+    "DOCUMENTS": {
+      "FORM": {
+        "TYPE": {
+          "FILE": "Arquivo"
+        },
+        "FILE": {
+          "LABEL": "Arquivo",
+          "CHOOSE_FILE": "Escolher arquivo",
+          "HELP_TEXT": "Faça upload de um arquivo"
+        }
+      }
+    }
+  }
+}

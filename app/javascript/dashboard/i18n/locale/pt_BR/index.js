@@ -12,6 +12,7 @@ import components from './components.json';
 import contact from './contact.json';
 import contactFilters from './contactFilters.json';
 import conversation from './conversation.json';
+import cosmos from './cosmos.json';
 import csatMgmt from './csatMgmt.json';
 import customRole from './customRole.json';
 import datePicker from './datePicker.json';
@@ -51,6 +52,7 @@ export default {
   ...contact,
   ...contactFilters,
   ...conversation,
+  ...cosmos,
   ...csatMgmt,
   ...customRole,
   ...datePicker,
