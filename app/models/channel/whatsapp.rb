@@ -33,6 +33,7 @@ class Channel::Whatsapp < ApplicationRecord
   validate :validate_provider_config
 
   after_create :sync_templates
+  after_commit :setup_webhooks, on: :create, if: :should_auto_setup_webhooks?
   before_destroy :teardown_webhooks
 
   def name
@@ -84,5 +85,14 @@ class Channel::Whatsapp < ApplicationRecord
 
   def teardown_webhooks
     Whatsapp::WebhookTeardownService.new(self).perform
+  end
+
+  def should_auto_setup_webhooks?
+    # Only auto-setup webhooks if the provider is Whatsapp Cloud
+    # and if the source is not embedded_signup.
+    # Embedded signup has its own logic for setting up webhooks (after phone info is fetched)
+    return false if Rails.env.test?
+
+    provider == 'whatsapp_cloud' && provider_config['source'] != 'embedded_signup'
   end
 end
