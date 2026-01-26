@@ -1,0 +1,16 @@
+{
+  "COSMOS": {
+    "DOCUMENTS": {
+      "FORM": {
+        "TYPE": {
+          "FILE": "File"
+        },
+        "FILE": {
+          "LABEL": "File",
+          "CHOOSE_FILE": "Choose File",
+          "HELP_TEXT": "Upload a file"
+        }
+      }
+    }
+  }
+}
