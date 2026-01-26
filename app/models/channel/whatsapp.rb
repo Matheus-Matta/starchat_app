@@ -32,11 +32,9 @@ class Channel::Whatsapp < ApplicationRecord
   validates :phone_number, presence: true, uniqueness: true
   validate :validate_provider_config
 
-  # rubocop:disable Rails/ActiveRecordCallbacksOrder
-  after_create :sync_templates
   before_destroy :teardown_webhooks
+  after_create :sync_templates
   after_commit :setup_webhooks, on: :create, if: :should_auto_setup_webhooks?
-  # rubocop:enable Rails/ActiveRecordCallbacksOrder
 
   def name
     'Whatsapp'
