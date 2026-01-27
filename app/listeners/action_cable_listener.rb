@@ -183,7 +183,7 @@ class ActionCableListener < BaseListener
     admin_tokens = account.administrators.pluck(:pubsub_token)
 
     inbox_members = conversation.inbox.members.includes(:teams, account_users: :custom_role)
-                                        .where(account_users: { account_id: account.id })
+                                .where(account_users: { account_id: account.id })
 
     allowed_agent_tokens = []
 
@@ -208,13 +208,12 @@ class ActionCableListener < BaseListener
       end
 
       # Check if user is the assignee
-      if conversation.assignee_id == user.id
-        if permissions.include?('conversation_participating_manage') || 
-           permissions.include?('conversation_team_manage') || 
-           permissions.include?('conversation_unassigned_manage')
-          allowed_agent_tokens << user.pubsub_token
-          next
-        end
+      if conversation.assignee_id == user.id &&
+         (permissions.include?('conversation_participating_manage') ||
+          permissions.include?('conversation_team_manage') ||
+          permissions.include?('conversation_unassigned_manage'))
+        allowed_agent_tokens << user.pubsub_token
+        next
       end
 
       if conversation.assignee_id.nil? && permissions.include?('conversation_unassigned_manage')
@@ -222,12 +221,12 @@ class ActionCableListener < BaseListener
         next
       end
 
-      if conversation.team_id.present? && permissions.include?('conversation_team_manage')
+      if conversation.team_id.present? &&
+         permissions.include?('conversation_team_manage') &&
+         user.teams.any? { |team| team.id == conversation.team_id }
         # Use existing loaded association to avoid N+1 and potential cache issues
-        if user.teams.any? { |team| team.id == conversation.team_id }
-          allowed_agent_tokens << user.pubsub_token
-          next
-        end
+        allowed_agent_tokens << user.pubsub_token
+        next
       end
     end
 

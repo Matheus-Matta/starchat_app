@@ -70,7 +70,7 @@ describe ActionCableListener do
 
       it 'notifies expected agents' do
         recipients = base_recipients(conversation)
-        
+
         # Quem MAIS deve receber:
         # - Unassigned Agent: SIM (permissão conversation_unassigned_manage)
         recipients << unassigned_agent.pubsub_token
@@ -144,26 +144,26 @@ describe ActionCableListener do
 
       it 'restricts access to unauthorized custom roles' do
         recipients = base_recipients(conversation)
-        
+
         # Quem MAIS deve receber:
         # Ninguém extra.
-        
+
         # Participating Agent: NÃO está participando.
         # Team Agent: NÃO é do time.
         # Unassigned Agent: NÃO é unassigned.
 
         # Verificação explícita de exclusão
         unexpected_tokens = [
-            participating_agent.pubsub_token,
-            team_agent.pubsub_token,
-            unassigned_agent.pubsub_token
+          participating_agent.pubsub_token,
+          team_agent.pubsub_token,
+          unassigned_agent.pubsub_token
         ]
 
         # Validando que standard_agent recebe (já está no base_recipients)
-        
+
         expect(ActionCableBroadcastJob).to receive(:perform_later) do |tokens, _, _|
-            expect(tokens).to include(*recipients)
-            expect(tokens).not_to include(*unexpected_tokens)
+          expect(tokens).to include(*recipients)
+          expect(tokens).not_to include(*unexpected_tokens)
         end
 
         listener.message_created(event)
@@ -181,7 +181,7 @@ describe ActionCableListener do
         # Quem MAIS deve receber:
         # - Team Agent: SIM (conversa é do time dele + ele tem permissão conversation_team_manage)
         recipients << team_agent.pubsub_token
-        
+
         # - Unassigned Agent: SIM (conversa não tem assignee individual, logo perm 'conversation_unassigned_manage' aplica)
         recipients << unassigned_agent.pubsub_token
 
@@ -254,12 +254,12 @@ describe ActionCableListener do
 
       it 'broadcasts creation and message to Unassigned Managers' do
         # Setup: Garantir criação dos objetos antes de ouvir broadcasts
-        c = conversation
-        m = message
-        
+        conversation
+        message
+
         # Expectation: Unassigned Agent should see it. Team Agent should NOT. Participating Agent should NOT.
-        expected = universal_recipients(c) + [unassigned_agent.pubsub_token]
-        
+        expected = universal_recipients(conversation) + [unassigned_agent.pubsub_token]
+
         # 1. Conversation Created
         expect_broadcast(expected, 'conversation.created')
         listener.conversation_created(created_event)
@@ -277,13 +277,10 @@ describe ActionCableListener do
       let(:message_event) { Events::Base.new(:'message.created', Time.zone.now, message: message) }
 
       it 'broadcasts to Team Members and Unassigned Managers' do
-        c = conversation
-        m = message
-
-        # Expectation: 
+        # Expectation:
         # - Team Agent: YES (Team matches)
         # - Unassigned Agent: YES (Is unassigned)
-        expected = universal_recipients(c) + [team_agent.pubsub_token, unassigned_agent.pubsub_token]
+        expected = universal_recipients(conversation) + [team_agent.pubsub_token, unassigned_agent.pubsub_token]
 
         # 1. Conversation Created
         expect_broadcast(expected, 'conversation.created')
@@ -302,14 +299,11 @@ describe ActionCableListener do
       let(:message_event) { Events::Base.new(:'message.created', Time.zone.now, message: message) }
 
       it 'broadcasts only to Assignee (Participant)' do
-        c = conversation
-        m = message
-
         # Expectation:
         # - Participating Agent: YES (Is Assignee)
         # - Unassigned Agent: NO (Is Assigned)
         # - Team Agent: NO (No Team)
-        expected = universal_recipients(c) + [participating_agent.pubsub_token]
+        expected = universal_recipients(conversation) + [participating_agent.pubsub_token]
 
         # 1. Conversation Created
         expect_broadcast(expected, 'conversation.created')
@@ -334,14 +328,11 @@ describe ActionCableListener do
       end
 
       it 'broadcasts to Assignee and Team Watchers' do
-        c = conversation
-        m = message
-
         # Expectation:
         # - Other Member: YES (Assignee)
         # - Team Agent: YES (Team Match + Perm)
         # - Unassigned Agent: NO (Is Assigned)
-        expected = universal_recipients(c) + [other_member.pubsub_token, team_agent.pubsub_token]
+        expected = universal_recipients(conversation) + [other_member.pubsub_token, team_agent.pubsub_token]
 
         # 1. Conversation Created
         expect_broadcast(expected, 'conversation.created')

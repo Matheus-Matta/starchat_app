@@ -33,7 +33,9 @@ class Channel::Whatsapp < ApplicationRecord
   validate :validate_provider_config
 
   before_destroy :teardown_webhooks
+  # rubocop:disable Rails/ActiveRecordCallbacksOrder
   after_create :sync_templates
+  # rubocop:enable Rails/ActiveRecordCallbacksOrder
   after_commit :setup_webhooks, on: :create, if: :should_auto_setup_webhooks?
 
   def name
