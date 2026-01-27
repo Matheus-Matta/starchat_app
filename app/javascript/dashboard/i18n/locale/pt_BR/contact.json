@@ -364,6 +364,12 @@
             "SUCCESS_MESSAGE": "Filtro salvo com sucesso",
             "ERROR_MESSAGE": "Não foi possível salvar o filtro. Por favor, tente mais tarde."
           },
+          "UPDATE_SEGMENT": {
+            "TITLE": "Atualizar filtro",
+            "CONFIRM": "Atualizar filtro",
+            "SUCCESS_MESSAGE": "Filtro atualizado com sucesso",
+            "ERROR_MESSAGE": "Não foi possível atualizar o filtro. Por favor, tente mais tarde."
+          },
           "DELETE_SEGMENT": {
             "TITLE": "Confirmar exclusão",
             "DESCRIPTION": "Tem certeza de que deseja excluir este filtro?",

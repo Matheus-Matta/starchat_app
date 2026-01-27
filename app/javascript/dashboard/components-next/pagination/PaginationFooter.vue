@@ -32,8 +32,8 @@ const { t } = useI18n();
 const totalPages = computed(() =>
   Math.ceil(props.totalItems / props.itemsPerPage)
 );
-const startItem = computed(
-  () => (props.currentPage - 1) * props.itemsPerPage + 1
+const startItem = computed(() =>
+  props.totalItems === 0 ? 0 : (props.currentPage - 1) * props.itemsPerPage + 1
 );
 const endItem = computed(() =>
   Math.min(startItem.value + props.itemsPerPage - 1, props.totalItems)

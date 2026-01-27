@@ -349,6 +349,9 @@
       "DEALS": "Negócios",
       "LEADS": "Leads",
       "ACTIVITIES": "Atividades",
+      "CREATE_DEAL": "Criar Negócio",
+      "CREATE_LEAD": "Criar Lead",
+      "CREATE_ACTIVITY": "Criar Atividade",
       "OPEN_DEALS": "Negócios Abertos",
       "UPCOMING_ACTIVITIES": "Próximas Atividades",
       "VIEW_FULL_DETAILS": "Ver Detalhes",
@@ -414,12 +417,92 @@
       },
       "CONNECT_SUCCESS": "Pipedrive conectado com sucesso",
       "CONNECT_ERROR": "Não foi possível conectar ao Pipedrive",
+      "API_ERROR": "Acesso não autorizado ou assinatura expirada no Pipedrive. Verifique sua conta.",
+      "ERROR_TITLE": "Erro de Integração",
+      "CREATE_SUCCESS": "Item criado com sucesso",
+      "CREATE_ERROR": "Erro ao criar item",
+      "LEAD_REQ_PERSON_OR_ORG": "Informe um Contato ou Organização",
+      "CURRENCY": "Moeda",
+      "LINK_TO_ID": "Vincular a",
+      "PERSON_ID": "Contato",
+      "ORG_ID": "Organização",
+      "LEAD_REQ_HELP": "* Obrigatório informar Contato ou Organização",
+      "SEARCH_PERSON": "Buscar Contato",
+      "SEARCH_ORG": "Buscar Organização",
+      "SEARCH_PRODUCT": "Buscar Produto",
+      "DATE": "Data",
+      "TIME": "Hora",
+      "DURATION": "Duração (HH:MM)",
+      "NOTE": "Nota",
+      "OWNER": "Responsável",
+      "LABEL": "Etiqueta",
+      "VISIBLE_TO": "Visível para",
+      "WAS_SEEN": "Foi visto?",
+      "EXPECTED_CLOSE_DATE": "Data prevista de fechamento",
+      "SEARCH_OWNER": "Buscar Responsável",
+      "SEARCH_DEAL": "Buscar Negócio",
+      "SEARCH_LEAD": "Buscar Lead",
+      "PRIORITY": "Prioridade",
+      "BUSY": "Ocupado",
+      "DONE_QUESTION": "Feito?",
+      "MARK_AS_DONE": "Marcar como feito",
+      "PUBLIC_DESCRIPTION": "Descrição Pública",
+      "DETAILS_RELATIONS": "Detalhes e Relacionamentos",
+      "VISIBLE_TO_OPTIONS": {
+        "OWNER_AND_FOLLOWERS": "Responsável e seguidores (privado)",
+        "ENTIRE_COMPANY": "Toda a empresa (compartilhado)"
+      },
+      "BOOLEAN": {
+        "YES": "Sim",
+        "NO": "Não"
+      },
+      "PRIORITY_OPTIONS": {
+        "NORMAL": "Normal",
+        "HIGH": "Alta"
+      },
+      "BASIC_INFO": "Informações Básicas",
+      "PRODUCT_OPTIONAL": "Produto",
+      "PRODUCT_ID": "ID do Produto",
+      "PRODUCT_PRICE": "Preço",
+      "PRODUCT_QUANTITY": "Quantidade",
+      "DISCOUNT_OPTIONAL": "Desconto",
+      "DISCOUNT_DESCRIPTION": "Descrição",
+      "DISCOUNT_VALUE": "Valor",
+      "DISCOUNT_TYPE": "Tipo",
+      "DISCOUNT_PERCENTAGE": "Porcentagem",
+      "DISCOUNT_AMOUNT": "Valor Fixo",
+      "INSTALLMENT_OPTIONAL": "Parcela",
+      "INSTALLMENT_DESCRIPTION": "Descrição",
+      "INSTALLMENT_AMOUNT": "Valor",
+      "INSTALLMENT_DATE": "Data de Cobrança",
+      "DEAL": {
+        "TITLE_LABEL": "Título"
+      },
       "PAGINATION": {
         "SHOWING_DEALS": "Exibindo {startItem} - {endItem} de {totalItems} negócios",
         "SHOWING_LEADS": "Exibindo {startItem} - {endItem} de {totalItems} leads",
         "SHOWING_ACTIVITIES": "Exibindo {startItem} - {endItem} de {totalItems} atividades"
       },
       "FILTERS": {
+        "TITLE": "Filtros",
+        "ADD_CONDITION": "Adicionar condição",
+        "CLEAR": "Limpar",
+        "CANCEL": "Cancelar",
+        "APPLY": "Aplicar",
+        "ATTRIBUTES": {
+          "STATUS": "Status",
+          "USER": "Responsável",
+          "PERSON": "Contato",
+          "ORGANIZATION": "Organização",
+          "TYPE": "Tipo",
+          "DUE_DATE": "Data de Vencimento",
+          "ADD_TIME": "Data de criação",
+          "UPDATE_TIME": "Data de atualização",
+          "CREATED_FROM": "Criado a partir de",
+          "CREATED_TO": "Criado até",
+          "UPDATED_FROM": "Atualizado a partir de",
+          "UPDATED_TO": "Atualizado até"
+        },
         "LABELS": {
           "STATUS": "Status",
           "TYPE": "Tipo",
@@ -454,9 +537,65 @@
           "CONTAINS": "Contém",
           "DOES_NOT_CONTAIN": "Não contém",
           "GREATER_THAN": "É maior que",
-          "LESS_THAN": "É menor que"
+          "LESS_THAN": "É menor que",
+          "IS_GREATER_THAN": "É maior que",
+          "IS_LESS_THAN": "É menor que"
         }
-      }
+      },
+        "EMPTY_VALUE": {
+          "VALUE": "Sem valor",
+          "ORG": "Sem organização",
+          "PERSON": "Sem contato",
+          "DEAL": "Sem negócio",
+          "DATE": "Sem data",
+          "RESPONSIBLE": "Sem responsável"
+        },
+        "PLACEHOLDERS": {
+          "DEAL_TITLE": "Ex: Novo Negócio",
+        "ACTIVITY_SUBJECT": "Ex: Ligar para cliente",
+        "LEAD_TITLE": "Ex: Novo Lead",
+        "COUPON": "Cupom",
+        "ENTRY": "Entrada",
+        "AMOUNT": "500",
+        "DURATION": "00:15",
+        "VIEW_IN_PIPEDRIVE": "Ver no Pipedrive"
+      },
+      "SORT": {
+        "SORT_BY": "Ordenar por",
+        "OPTIONS": {
+          "ADD_TIME": "Data de criação",
+          "UPDATE_TIME": "Data de atualização",
+          "TITLE": "Título",
+          "VALUE": "Valor",
+          "STAGE": "Estágio",
+          "DUE_DATE": "Data de vencimento",
+          "SUBJECT": "Assunto"
+        },
+        "ORDER": {
+          "LABEL": "Ordem",
+          "ASCENDING": "Crescente",
+          "DESCENDING": "Decrescente"
+        }
+      },
+      "TYPES_SINGULAR": {
+        "LEAD": "Lead",
+        "DEAL": "Negócio",
+        "ACTIVITY": "Atividade"
+      },
+      "UPDATE_BUTTON": "Atualizar",
+      "DELETE": {
+        "MESSAGE": "Esta ação é permanente e irreversível.",
+        "BUTTON": "Excluir agora",
+        "LABEL": "Excluir {type}",
+        "CONFIRM_TITLE": "Confirmar exclusão",
+        "CONFIRM_MESSAGE": "Tem certeza que deseja excluir: {type}?",
+        "API": {
+          "SUCCESS_MESSAGE": "Excluído com sucesso",
+          "ERROR_MESSAGE": "Erro ao excluir"
+        }
+      },
+      "UPDATE_SUCCESS": "Atualizado com sucesso",
+      "UPDATE_ERROR": "Erro ao atualizar"
     }
   },
   "COSMOS": {

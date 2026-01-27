@@ -22,13 +22,11 @@ const props = defineProps({
   currentPage: { type: Number, default: 1 },
   totalItems: { type: Number, default: 0 },
   itemsPerPage: { type: Number, default: 15 },
-  isFetching: { type: Boolean, default: false },
   searchValue: { type: String, default: '' },
   buttonLabel: { type: String, default: 'Criar' },
   resourceType: { type: String, default: 'deals' },
   activeSort: { type: String, default: '' },
   activeOrdering: { type: String, default: '' },
-  activeStatus: { type: String, default: '' },
   savedFilterQuery: { type: Array, default: () => [] },
   activeSegmentId: { type: [String, Number], default: null },
   activeSegmentName: { type: String, default: '' },
@@ -42,6 +40,27 @@ const emit = defineEmits([
   'filter',
 ]);
 
+const SEARCH_DEBOUNCE_MS = 800;
+const FILTER_TYPE_MAP = {
+  deals: 3,
+  leads: 4,
+  activities: 5,
+};
+const ROUTE_NAMES = {
+  deals: {
+    index: 'pipedrive_deals_index',
+    filters: 'pipedrive_deals_filters',
+  },
+  leads: {
+    index: 'pipedrive_leads_index',
+    filters: 'pipedrive_leads_filters',
+  },
+  activities: {
+    index: 'pipedrive_activities_index',
+    filters: 'pipedrive_activities_filters',
+  },
+};
+
 const { t } = useI18n();
 const store = useStore();
 const router = useRouter();
@@ -49,30 +68,13 @@ const router = useRouter();
 const activeFilters = ref([]);
 const filterRef = ref(null);
 const createSegmentDialogRef = ref(null);
-
-const isInternalFilterUpdate = ref(false);
+const deleteSegmentDialogRef = ref(null);
+const showFilterModal = ref(false);
 
 watch(
   () => props.savedFilterQuery,
   newVal => {
-    isInternalFilterUpdate.value = true; // Prevent auto-saving segment during load
-    
-    // Use setTimeout to allow component to mount/update if needed
-    setTimeout(() => {
-      if (filterRef.value) {
-        if (newVal && newVal.length > 0) {
-          filterRef.value.setFilters(newVal);
-        } else {
-          filterRef.value.reset();
-          activeFilters.value = [];
-        }
-      }
-      
-      // Release the lock after a short delay to ensure all events propagated
-      setTimeout(() => {
-        isInternalFilterUpdate.value = false;
-      }, 300);
-    }, 100);
+    activeFilters.value = newVal || [];
   },
   { immediate: true }
 );
@@ -83,76 +85,61 @@ const updateCurrentPage = page => {
 
 const onSearchInput = useDebounceFn(value => {
   emit('search', value);
-}, 800);
+}, SEARCH_DEBOUNCE_MS);
 
 const onUpdateAppliedFilters = async filters => {
   activeFilters.value = filters;
   emit('filter', filters);
-
-  if (props.activeSegmentId && !isInternalFilterUpdate.value) {
-    try {
-      await store.dispatch('customViews/update', {
-        id: props.activeSegmentId,
-        name: props.activeSegmentName,
-        query: { payload: filters },
-      });
-      useAlert(
-        t(
-          'CONTACTS_LAYOUT.HEADER.ACTIONS.FILTERS.UPDATE_SEGMENT.SUCCESS_MESSAGE'
-        )
-      );
-    } catch (error) {
-      useAlert(
-        t('CONTACTS_LAYOUT.HEADER.ACTIONS.FILTERS.CREATE_SEGMENT.ERROR_MESSAGE')
-      );
-    }
-  } else {
-  }
+  showFilterModal.value = false;
 };
 
 const clearAllFilters = async () => {
-  if (filterRef.value) {
-    isInternalFilterUpdate.value = true;
-    
-    filterRef.value.reset();
-    isInternalFilterUpdate.value = false; // Reset immediately after sync reset call
-  }
+  filterRef.value?.reset();
   activeFilters.value = [];
   emit('filter', []);
 };
 
-
 const openFilter = () => {
-  filterRef.value?.open();
+  showFilterModal.value = true;
+};
+
+const closeFilter = () => {
+  showFilterModal.value = false;
 };
 
 const openCreateSegmentDialog = () => {
-  if (props.activeSegmentId) {
-    createSegmentDialogRef.value?.open({
-      name: props.activeSegmentName,
-      edit: true,
-    });
-  } else {
-    createSegmentDialogRef.value?.open();
-  }
-};
+  const config = props.activeSegmentId
+    ? { name: props.activeSegmentName, edit: true }
+    : undefined;
 
-const filterTypeMap = {
-  deals: 3, // pipedrive_deals
-  leads: 4, // pipedrive_leads
-  activities: 5, // pipedrive_activities
+  createSegmentDialogRef.value?.open(config);
 };
 
 const currentFilterType = computed(
-  () => filterTypeMap[props.resourceType] || 3
+  () => FILTER_TYPE_MAP[props.resourceType] || FILTER_TYPE_MAP.deals
 );
 
-const onCreateSegment = async ({ name, filter_type }) => {
-  const payloadData = {
-    name,
-    filter_type,
-    query: { payload: activeFilters.value },
-  };
+const buildSegmentPayload = name => ({
+  name,
+  filter_type: currentFilterType.value,
+  query: { payload: activeFilters.value },
+});
+
+const navigateToFilter = filterId => {
+  const routeName =
+    ROUTE_NAMES[props.resourceType]?.filters || ROUTE_NAMES.deals.filters;
+
+  router.push({
+    name: routeName,
+    params: {
+      accountId: router.currentRoute.value.params.accountId,
+      filterId,
+    },
+  });
+};
+
+const onCreateSegment = async ({ name }) => {
+  const payloadData = buildSegmentPayload(name);
 
   try {
     if (props.activeSegmentId) {
@@ -172,20 +159,9 @@ const onCreateSegment = async ({ name, filter_type }) => {
           'CONTACTS_LAYOUT.HEADER.ACTIONS.FILTERS.CREATE_SEGMENT.SUCCESS_MESSAGE'
         )
       );
-      if (result && result.data && result.data.id) {
-        let routeName = 'pipedrive_deals_filters';
-        if (props.resourceType === 'leads')
-          routeName = 'pipedrive_leads_filters';
-        if (props.resourceType === 'activities')
-          routeName = 'pipedrive_activities_filters';
 
-        router.push({
-          name: routeName,
-          params: {
-            accountId: router.currentRoute.value.params.accountId,
-            filterId: result.data.id,
-          },
-        });
+      if (result?.data?.id) {
+        navigateToFilter(result.data.id);
       }
     }
   } catch (error) {
@@ -195,10 +171,18 @@ const onCreateSegment = async ({ name, filter_type }) => {
   }
 };
 
-const deleteSegmentDialogRef = ref(null);
-
 const confirmDeleteSegment = () => {
   deleteSegmentDialogRef.value?.dialogRef.open();
+};
+
+const navigateToIndex = () => {
+  const routeName =
+    ROUTE_NAMES[props.resourceType]?.index || ROUTE_NAMES.deals.index;
+
+  router.push({
+    name: routeName,
+    params: { accountId: router.currentRoute.value.params.accountId },
+  });
 };
 
 const onDeleteSegment = async () => {
@@ -211,15 +195,7 @@ const onDeleteSegment = async () => {
       t('CONTACTS_LAYOUT.HEADER.ACTIONS.FILTERS.DELETE_SEGMENT.SUCCESS_MESSAGE')
     );
     deleteSegmentDialogRef.value?.dialogRef.close();
-    router.push({
-      name:
-        props.resourceType === 'leads'
-          ? 'pipedrive_leads_index'
-          : props.resourceType === 'activities'
-            ? 'pipedrive_activities_index'
-            : 'pipedrive_deals_index',
-      params: { accountId: router.currentRoute.value.params.accountId },
-    });
+    navigateToIndex();
   } catch (error) {
     useAlert(
       t('CONTACTS_LAYOUT.HEADER.ACTIONS.FILTERS.DELETE_SEGMENT.ERROR_MESSAGE')
@@ -271,77 +247,75 @@ const paginationInfoKey = computed(() => {
                 </template>
               </Input>
             </div>
-              </div>
-              <PipedriveFilter
-                v-if="!activeSegmentId"
-                ref="filterRef"
-                :resource-type="resourceType"
-                :active-status="activeStatus"
-                @update:applied-filters="onUpdateAppliedFilters"
-              />
-              <div class="flex items-center gap-2">
-                 <Button
-                    v-if="!activeSegmentId"
-                    icon="i-lucide-filter"
-                    size="sm"
-                    variant="ghost"
-                    @click="openFilter"
-                 />
-                 <div class="relative">
-                  <button
-                    v-if="activeSegmentId"
-                    id="toggleContactsFilterButton"
-                    class="relative w-8 inline-flex items-center min-w-0 gap-2 transition-all duration-100 ease-out border-0 rounded-lg outline-1 outline disabled:opacity-50 text-n-slate-12 hover:enabled:bg-n-alpha-2 focus-visible:bg-n-alpha-2 outline-transparent h-8 px-3 text-sm active:enabled:scale-[0.97] justify-center"
-                    @click="openCreateSegmentDialog"
-                  >
-                    <span class="i-lucide-pen-line flex-shrink-0" />
-                  </button>
-                  <Button
-                    v-else-if="activeFilters.length > 0"
-                    icon="i-lucide-save"
-                    size="sm"
-                    variant="ghost"
-                    @click="openCreateSegmentDialog"
-                  />
-                </div>
-                <!--v-if-->
-                <button
-                  v-if="activeSegmentId"
-                  class="inline-flex items-center min-w-0 gap-2 transition-all duration-100 ease-out border-0 rounded-lg outline-1 outline disabled:opacity-50 text-n-slate-12 hover:enabled:bg-n-alpha-2 focus-visible:bg-n-alpha-2 outline-transparent h-8 w-8 p-0 text-sm active:enabled:scale-[0.97] justify-center"
-                  @click="confirmDeleteSegment"
+            <div class="flex items-center gap-2">
+              <div v-if="!activeSegmentId" class="relative">
+                <Button
+                  id="pipedrive-filter-button"
+                  icon="i-lucide-list-filter"
+                  color="slate"
+                  size="sm"
+                  variant="ghost"
+                  class="relative w-8"
+                  @click="openFilter"
                 >
-                  <span class="i-lucide-trash flex-shrink-0" />
-                  <!--v-if-->
-                  <!--v-if-->
-                </button>
-                <div class="relative">
-                  <PipedriveSortMenu
-                    :resource-type="resourceType"
-                    :active-sort="activeSort"
-                    :active-ordering="activeOrdering"
-                    @update:sort="emit('sort', $event)"
-                  >
-                    <template #trigger>
-                      <button
-                        class="inline-flex items-center min-w-0 gap-2 transition-all duration-100 ease-out border-0 rounded-lg outline-1 outline disabled:opacity-50 text-n-slate-12 hover:enabled:bg-n-alpha-2 focus-visible:bg-n-alpha-2 outline-transparent h-8 w-8 p-0 text-sm active:enabled:scale-[0.97] justify-center"
-                      >
-                        <span class="i-lucide-arrow-down-up flex-shrink-0" />
-                        <!--v-if-->
-                        <!--v-if-->
-                      </button>
-                    </template>
-                  </PipedriveSortMenu>
-                  <!--v-if-->
-                </div>
+                  <div
+                    v-if="activeFilters.length > 0"
+                    class="absolute top-0 right-0 w-2 h-2 rounded-full bg-n-brand"
+                  />
+                </Button>
+                <PipedriveFilter
+                  v-if="showFilterModal"
+                  ref="filterRef"
+                  v-model="activeFilters"
+                  :resource-type="resourceType"
+                  class="absolute mt-1 ltr:right-0 rtl:left-0 top-full"
+                  @update:applied-filters="onUpdateAppliedFilters"
+                  @close="closeFilter"
+                />
               </div>
-              <slot name="header-actions" />
-              <div class="w-px h-4 bg-n-strong" />
+              <div class="relative">
+                <Button
+                  v-if="activeSegmentId"
+                  icon="i-lucide-pen-line"
+                  color="slate"
+                  size="sm"
+                  variant="ghost"
+                  @click="openCreateSegmentDialog"
+                />
+                <Button
+                  v-else-if="activeFilters.length > 0"
+                  icon="i-lucide-save"
+                  color="slate"
+                  size="sm"
+                  variant="ghost"
+                  @click="openCreateSegmentDialog"
+                />
+              </div>
               <Button
-                :label="buttonLabel"
+                v-if="activeSegmentId"
+                icon="i-lucide-trash"
+                color="slate"
                 size="sm"
-                @click="emit('click-action')"
+                variant="ghost"
+                @click="confirmDeleteSegment"
               />
+              <div class="relative">
+                <PipedriveSortMenu
+                  :resource-type="resourceType"
+                  :active-sort="activeSort"
+                  :active-ordering="activeOrdering"
+                  @update:sort="emit('sort', $event)"
+                />
+              </div>
             </div>
+            <slot name="header-actions" />
+            <div class="w-px h-4 bg-n-strong" />
+            <Button
+              :label="buttonLabel"
+              size="sm"
+              class="min-w-[140px]"
+              @click="emit('click-action')"
+            />
           </div>
         </div>
       </header>
@@ -360,6 +334,7 @@ const paginationInfoKey = computed(() => {
             :clear-button-label="
               t('CONTACTS_LAYOUT.FILTER.ACTIVE_FILTERS.CLEAR_FILTERS')
             "
+            :show-clear-button="!activeSegmentId"
             class="mb-6"
             @open-filter="openFilter"
             @clear-filters="clearAllFilters"
@@ -377,6 +352,7 @@ const paginationInfoKey = computed(() => {
         />
       </footer>
     </div>
+
     <CreateSegmentDialog
       ref="createSegmentDialogRef"
       :filter-type="currentFilterType"

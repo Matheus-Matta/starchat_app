@@ -21,6 +21,7 @@ const props = defineProps({
   message: { type: String, default: '' },
   hasError: { type: Boolean, default: false },
   useApiResults: { type: Boolean, default: false }, // useApiResults prop to determine if search is handled by API
+  direction: { type: String, default: 'down' },
 });
 
 const emit = defineEmits(['update:modelValue', 'search']);
@@ -110,6 +111,7 @@ watch(
       <ComboBoxDropdown
         ref="dropdownRef"
         v-model:search-value="search"
+        :direction="direction"
         :open="open"
         :options="filteredOptions"
         :search-placeholder="searchPlaceholder"

@@ -22,6 +22,18 @@ class PipedriveAPI extends ApiClient {
     return axios.get(`${this.url}/activities`, { params });
   }
 
+  createDeal(payload) {
+    return axios.post(`${this.url}/create_deal`, payload);
+  }
+
+  createLead(payload) {
+    return axios.post(`${this.url}/create_lead`, { lead: payload });
+  }
+
+  createActivity(payload) {
+    return axios.post(`${this.url}/create_activity`, { activity: payload });
+  }
+
   getUsers(term = '') {
     const url = `${this.url}/users`;
     return axios.get(url, { params: { term } });
@@ -34,6 +46,16 @@ class PipedriveAPI extends ApiClient {
 
   getOrganizations(term = '') {
     const url = `${this.url}/organizations`;
+    return axios.get(url, { params: { term } });
+  }
+
+  getLeadLabels() {
+    const url = `${this.url}/lead_labels`;
+    return axios.get(url);
+  }
+
+  getProducts(term = '') {
+    const url = `${this.url}/search_products`;
     return axios.get(url, { params: { term } });
   }
 }

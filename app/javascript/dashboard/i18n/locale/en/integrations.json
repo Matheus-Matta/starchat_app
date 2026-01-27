@@ -445,9 +445,52 @@
           "CONTAINS": "Contains",
           "DOES_NOT_CONTAIN": "Does not contain",
           "GREATER_THAN": "Greater than",
-          "LESS_THAN": "Less than"
+          "LESS_THAN": "Less than",
+          "IS_GREATER_THAN": "Greater than",
+          "IS_LESS_THAN": "Less than"
         }
-      }
+      },
+      "SORT": {
+        "SORT_BY": "Sort by",
+        "OPTIONS": {
+          "ADD_TIME": "Creation date",
+          "UPDATE_TIME": "Update date",
+          "TITLE": "Title",
+          "VALUE": "Value",
+          "STAGE": "Stage",
+          "DUE_DATE": "Due date",
+          "SUBJECT": "Subject"
+        },
+        "ORDER": {
+          "LABEL": "Order",
+          "ASCENDING": "Ascending",
+          "DESCENDING": "Descending"
+        }
+      },
+      "SEARCH_PERSON": "Search Person",
+      "SEARCH_ORG": "Search Organization",
+      "SEARCH_PRODUCT": "Search Product",
+      "BASIC_INFO": "Basic Information",
+      "PRODUCT_OPTIONAL": "Product",
+      "PRODUCT_ID": "Product ID",
+      "PRODUCT_PRICE": "Price",
+      "PRODUCT_QUANTITY": "Quantity",
+      "DISCOUNT_OPTIONAL": "Discount",
+      "DISCOUNT_DESCRIPTION": "Description",
+      "DISCOUNT_VALUE": "Value",
+      "DISCOUNT_TYPE": "Type",
+      "DISCOUNT_PERCENTAGE": "Percentage",
+      "DISCOUNT_AMOUNT": "Flat Amount",
+      "INSTALLMENT_OPTIONAL": "Installment",
+      "INSTALLMENT_DESCRIPTION": "Description",
+      "INSTALLMENT_AMOUNT": "Amount",
+      "INSTALLMENT_DATE": "Billing Date",
+      "CREATE_DEAL": "Create Deal",
+      "CREATE_SUCCESS": "Deal created successfully",
+      "CREATE_ERROR": "Error creating deal",
+      "CURRENCY": "Currency",
+      "PERSON_ID": "Person",
+      "ORG_ID": "Organization"
     }
   },
   "COSMOS": {

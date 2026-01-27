@@ -94,10 +94,6 @@ const pipedriveIntegration = useFunctionGetter(
 );
 const isPipedriveEnabled = computed(() => {
   const integration = pipedriveIntegration.value;
-  console.log('[Sidebar] Pipedrive Integration status:', {
-    integration,
-    enabled: !!integration?.enabled,
-  });
   return !!integration?.enabled;
 });
 

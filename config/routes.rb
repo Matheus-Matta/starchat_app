@@ -280,14 +280,27 @@ Rails.application.routes.draw do
           resources :webhooks, only: [:index, :create, :update, :destroy]
           namespace :integrations do
             resource :pipedrive, controller: 'pipedrive', only: [:destroy, :show] do
-              get :customer_context
-              get :deals
-              get :leads
-              get :activities
-              get :filters
-              get :users
-              get :persons
-              get :organizations
+              collection do
+                get :customer_context
+                get :deals
+                post :create_deal
+                patch :update_deal
+                delete :delete_deal
+                get :leads
+                post :create_lead
+                patch :update_lead
+                delete :delete_lead
+                get :activities
+                post :create_activity
+                patch :update_activity
+                delete :delete_activity
+                get :filters
+                get :users
+                get :persons
+                get :organizations
+                get :search_products
+                get :lead_labels
+              end
             end
             resources :apps, only: [:index, :show]
             resources :hooks, only: [:show, :create, :update, :destroy] do

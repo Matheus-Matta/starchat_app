@@ -28,7 +28,7 @@ const attributeKey = defineModel('attributeKey', {
 
 const values = defineModel('values', {
   type: [String, Number, Array, Object],
-  required: true,
+  required: false,
 });
 
 const filterOperator = defineModel('filterOperator', {

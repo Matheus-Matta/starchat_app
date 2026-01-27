@@ -98,9 +98,16 @@ class Crm::Pipedrive::FetchCustomerContextService
         due_date: a['due_date'],
         due_time: a['due_time'],
         duration: a['duration'],
+        busy: a['busy'] || a['busy_flag'],
         deal_title: a['deal_title'], # API usually provides this flat
         person_name: a['person_name'],
         org_name: a['org_name'],
+        lead_title: a['lead_title'],
+        owner_name: a['owner_name'],
+        owner_id: a['owner_id'] || a['user_id'],
+        user_id: a['user_id'] || a['owner_id'],
+        lead_id: a['lead_id'], # Ensure ID is passed
+        deal_id: a['deal_id'],
         # Extra fields if available logic needed:
         note: a['note']
       }
@@ -271,19 +278,38 @@ class Crm::Pipedrive::FetchCustomerContextService
 
     recent = @client.activities(person_id: @person_id, limit: 5, sort_by: 'update_time', sort_direction: 'desc')&.dig('data') || []
     
-    # Inject URLs and Format Dates
+    # Pre-fetch users for mapping names if missing
+    users_res = @client.users
+    users_map = {}
+    if users_res && users_res['success']
+      users_res['data'].each { |u| users_map[u['id']] = u['name'] }
+    end
+
+    # Inject URLs, Format Dates and Enrich Names
     [upcoming, recent].each do |list|
       list.each do |a| 
         a['url'] = generate_url('activity', a['id'])
         
-        # Inject Deal URL
+        # Inject Deal URL & Title
         if a['deal_id']
           a['deal_url'] = generate_url('deal', a['deal_id'])
         end
+        
+        # Inject Owner Name if missing (for frontend dropdown pre-fill)
+        target_oid = a['owner_id'] || a['user_id']
+        a['owner_id'] = target_oid
+        a['user_id'] = target_oid # Normalize for frontend
+        if target_oid && !a['owner_name']
+           a['owner_name'] = users_map[target_oid]
+        end
+        
+        # Normalize busy flag
+        a['busy'] = a['busy'] || a['busy_flag']
 
+        # Inject Lead Title fallback? (Hard to do efficiently)
+        # Assuming Pipedrive provides lead_title or similar in v1.
+        # If not, frontend will show ID.
 
-
-        # Format Date to Brazilian standard
         # Format Date to Brazilian standard
         if a['due_date'].present?
            begin
@@ -318,7 +344,7 @@ class Crm::Pipedrive::FetchCustomerContextService
     when 'lead'
       "#{base}/leads/inbox/#{id}"
     when 'activity'
-      "#{base}/activities/list/user/everyone?selected_activity_id=#{id}&tab=activity"
+      "#{base}/activities/list/user/everyone?selected=#{id}&tab=activity"
     end
   end
 

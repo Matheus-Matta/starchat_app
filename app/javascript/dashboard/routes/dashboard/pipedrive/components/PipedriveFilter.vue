@@ -1,109 +1,20 @@
 <script setup>
-import { ref, computed, watch } from 'vue';
-import { useI18n } from 'vue-i18n';
+import { ref, watch, toRefs } from 'vue';
 import { useDebounceFn } from '@vueuse/core';
+import { vOnClickOutside } from '@vueuse/components';
 import Button from 'dashboard/components-next/button/Button.vue';
 import ConditionRow from 'dashboard/components-next/filter/ConditionRow.vue';
 import PipedriveAPI from 'dashboard/api/pipedrive';
+import { usePipedriveFilterContext } from './pipedriveFilterProvider';
 
 const props = defineProps({
   resourceType: { type: String, default: 'deals' }, // deals, leads, activities
-  activeStatus: { type: String, default: '' },
+  modelValue: { type: Array, default: () => [] },
 });
-const emit = defineEmits(['update:filter', 'update:appliedFilters']);
-const { t } = useI18n();
-const isOpen = ref(false);
-
-// Predefined Values Helper
-const mapToOptions = opts => opts.map(o => ({ id: o.value, name: o.label }));
-
-const dealsStatus = computed(() => [
-  {
-    label: t('INTEGRATION_SETTINGS.PIPEDRIVE.FILTERS.STATUS.ALL_NOT_DELETED'),
-    value: 'all_not_deleted',
-  },
-  {
-    label: t('INTEGRATION_SETTINGS.PIPEDRIVE.FILTERS.STATUS.OPEN'),
-    value: 'open',
-  },
-  {
-    label: t('INTEGRATION_SETTINGS.PIPEDRIVE.FILTERS.STATUS.WON'),
-    value: 'won',
-  },
-  {
-    label: t('INTEGRATION_SETTINGS.PIPEDRIVE.FILTERS.STATUS.LOST'),
-    value: 'lost',
-  },
-  {
-    label: t('INTEGRATION_SETTINGS.PIPEDRIVE.FILTERS.STATUS.DELETED'),
-    value: 'deleted',
-  },
-]);
-
-const leadsStatus = computed(() => [
-  {
-    label: t('INTEGRATION_SETTINGS.PIPEDRIVE.FILTERS.STATUS.ACTIVE'),
-    value: 'not_archived',
-  },
-  {
-    label: t('INTEGRATION_SETTINGS.PIPEDRIVE.FILTERS.STATUS.ARCHIVED'),
-    value: 'archived',
-  },
-]);
-
-const activityStatus = computed(() => [
-  {
-    label: t('INTEGRATION_SETTINGS.PIPEDRIVE.FILTERS.STATUS.PENDING'),
-    value: '0',
-  },
-  {
-    label: t('INTEGRATION_SETTINGS.PIPEDRIVE.FILTERS.STATUS.DONE'),
-    value: '1',
-  },
-]);
-
-const activityTypes = computed(() => [
-  {
-    label: t('INTEGRATION_SETTINGS.PIPEDRIVE.FILTERS.TYPES.CALL'),
-    value: 'call',
-  },
-  {
-    label: t('INTEGRATION_SETTINGS.PIPEDRIVE.FILTERS.TYPES.MEETING'),
-    value: 'meeting',
-  },
-  {
-    label: t('INTEGRATION_SETTINGS.PIPEDRIVE.FILTERS.TYPES.TASK'),
-    value: 'task',
-  },
-  {
-    label: t('INTEGRATION_SETTINGS.PIPEDRIVE.FILTERS.TYPES.DEADLINE'),
-    value: 'deadline',
-  },
-  {
-    label: t('INTEGRATION_SETTINGS.PIPEDRIVE.FILTERS.TYPES.EMAIL'),
-    value: 'email',
-  },
-  {
-    label: t('INTEGRATION_SETTINGS.PIPEDRIVE.FILTERS.TYPES.LUNCH'),
-    value: 'lunch',
-  },
-]);
-
-// Operators
-const equalToOperator = computed(() => [
-  {
-    value: 'equal_to',
-    label: t('INTEGRATION_SETTINGS.PIPEDRIVE.FILTERS.OPERATORS.EQUAL_TO'),
-    hasInput: true,
-  },
-]);
-
-const textOperators = computed(() => [
-  {
-    value: 'equal_to',
-    label: t('INTEGRATION_SETTINGS.PIPEDRIVE.FILTERS.OPERATORS.EQUAL_TO'),
-    hasInput: true,
-  },
+const emit = defineEmits([
+  'update:modelValue',
+  'update:appliedFilters',
+  'close',
 ]);
 
 // Cache for async search results (separated by type)
@@ -121,7 +32,7 @@ const addToKnown = (mapRef, items) => {
   if (!items || !items.length) return;
   items.forEach(item => {
     if (item && item.id) {
-       mapRef.value.set(String(item.id), item);
+      mapRef.value.set(String(item.id), item);
     }
   });
 };
@@ -197,117 +108,90 @@ const fetchOrganizations = useDebounceFn(
   500
 );
 
-// Define Filter Types
-const filterTypes = computed(() => {
-  const types = [];
-
-  // 1. Status Filter
-  let statusOptions = [];
-  if (props.resourceType === 'deals') statusOptions = dealsStatus.value;
-  else if (props.resourceType === 'leads') statusOptions = leadsStatus.value;
-  else if (props.resourceType === 'activities')
-    statusOptions = activityStatus.value;
-
-  types.push({
-    attributeKey: 'status',
-    label: t('INTEGRATION_SETTINGS.PIPEDRIVE.FILTERS.ATTRIBUTES.STATUS'),
-    inputType: 'searchSelect',
-    operators: equalToOperator.value,
-    options: mapToOptions(statusOptions),
-  });
-
-  // 2. Owner Filter (owner_id)
-  // Maps to owner_id param in backend. 'User' in Pipedrive context often means 'Owner'.
-  types.push({
-    attributeKey: 'owner_id',
-    label: t('INTEGRATION_SETTINGS.PIPEDRIVE.FILTERS.ATTRIBUTES.USER'),
-    inputType: 'asyncSearchSelect',
-    operators: equalToOperator.value,
-    fetchOptions: fetchUsers,
-  });
-
-  // 3. Person Filter
-  types.push({
-    attributeKey: 'person_id',
-    label: t('INTEGRATION_SETTINGS.PIPEDRIVE.FILTERS.ATTRIBUTES.PERSON'),
-    inputType: 'asyncSearchSelect',
-    operators: equalToOperator.value,
-    fetchOptions: fetchPersons,
-  });
-
-  // 4. Organization Filter
-  types.push({
-    attributeKey: 'org_id',
-    label: t('INTEGRATION_SETTINGS.PIPEDRIVE.FILTERS.ATTRIBUTES.ORGANIZATION'),
-    inputType: 'asyncSearchSelect',
-    operators: equalToOperator.value,
-    fetchOptions: fetchOrganizations,
-  });
-
-  // 5. Activity Specific
-  if (props.resourceType === 'activities') {
-    types.push({
-      attributeKey: 'type',
-      label: t('INTEGRATION_SETTINGS.PIPEDRIVE.FILTERS.ATTRIBUTES.TYPE'),
-      inputType: 'searchSelect',
-      operators: equalToOperator.value,
-      options: mapToOptions(activityTypes.value),
-    });
-    types.push({
-      attributeKey: 'due_date',
-      label: t('INTEGRATION_SETTINGS.PIPEDRIVE.FILTERS.ATTRIBUTES.DUE_DATE'),
-      inputType: 'date',
-      operators: equalToOperator.value, // Simplified date (equal to)
-    });
-  }
-
-  // 6. Stage (Deals Only)
-  /*
-  if (props.resourceType === 'deals') {
-     // Requies fetching stages pipeline. Omitted for brevity unless requested.
-  }
-  */
-
-  return types;
+const { resourceType } = toRefs(props);
+const { filterTypes } = usePipedriveFilterContext(resourceType, {
+  fetchUsers,
+  fetchPersons,
+  fetchOrganizations,
 });
 
-// Current Filter State
-const filters = ref([
-  {
-    attributeKey: 'status',
-    filterOperator: 'equal_to',
-    values: '',
-    queryOperator: 'and',
+const DEFAULT_FILTER = {
+  attributeKey: 'status',
+  filterOperator: 'equal_to',
+  values: null,
+  queryOperator: 'and',
+};
+
+// Local Filter State (decoupled from parent until apply)
+const filters = ref([]);
+
+// Sync from prop to local on mount/change
+watch(
+  () => props.modelValue,
+  val => {
+    if (val && val.length) {
+      // Deep copy to detach referencing objects and avoid real-time preview update
+      const parsed = JSON.parse(JSON.stringify(val));
+
+      // Reverse map backend keys to generic UI keys for Date filters
+      parsed.forEach(f => {
+        if (f.attributeKey === 'created_from') {
+          f.attributeKey = 'add_time';
+          f.filterOperator = 'is_greater_than';
+        } else if (f.attributeKey === 'created_to') {
+          f.attributeKey = 'add_time';
+          f.filterOperator = 'is_less_than';
+        } else if (f.attributeKey === 'updated_from') {
+          f.attributeKey = 'update_time';
+          f.filterOperator = 'is_greater_than';
+        } else if (f.attributeKey === 'updated_to') {
+          f.attributeKey = 'update_time';
+          f.filterOperator = 'is_less_than';
+        }
+      });
+
+      filters.value = parsed;
+    } else {
+      // Always reset to default if external prop is empty
+      filters.value = [{ ...DEFAULT_FILTER }];
+    }
   },
-]);
+  { immediate: true, deep: true }
+);
+
+// Watch filters to repopulate known items for async selects if editing existing filter
+watch(
+  filters,
+  newFilters => {
+    newFilters.forEach(filter => {
+      if (filter.meta) {
+        if (['owner_id', 'user_id'].includes(filter.attributeKey))
+          knownUsers.value.set(String(filter.value), filter.meta);
+        if (filter.attributeKey === 'person_id')
+          knownPersons.value.set(String(filter.value), filter.meta);
+        if (filter.attributeKey === 'org_id')
+          knownOrganizations.value.set(String(filter.value), filter.meta);
+      }
+    });
+  },
+  { immediate: true, deep: true }
+);
 
 // Methods
 const open = () => {
-  isOpen.value = true;
+  // Just a placeholder for compatibility
 };
 
 const close = () => {
-  isOpen.value = false;
+  emit('close');
 };
 
 const resetFilter = () => {
-  filters.value = [
-    {
-      attributeKey: 'status',
-      filterOperator: 'equal_to',
-      values: '', // Reset to empty
-      queryOperator: 'and',
-    },
-  ];
+  filters.value = [{ ...DEFAULT_FILTER }];
 };
 
 const appendNewCondition = () => {
-  filters.value.push({
-    attributeKey: 'owner_id', // Default to next useful filter
-    filterOperator: 'equal_to',
-    values: '',
-    queryOperator: 'and',
-  });
+  filters.value.push({ ...DEFAULT_FILTER, queryOperator: 'and' });
 };
 
 const removeCondition = index => {
@@ -320,168 +204,142 @@ const removeCondition = index => {
 
 const applyFilter = () => {
   // Construct "Rich Payload"
-  const richPayload = filters.value.map(filter => {
-    let value = filter.values;
-    let label = '';
-    let rawObject = null;
-
-    // Determine Label and Value based on type
-    if (typeof value === 'object' && value !== null) {
-      // It's a select/search object
-      rawObject = value;
-      value = value.id !== undefined ? value.id : value.value; // Prefer ID, fallback to value
-      label = rawObject.name || rawObject.label || rawObject.title || '';
-    } else {
-      // Primitive value (ID or String)
-      label = String(value);
-
-      // Label resolution for known types
-      if (filter.attributeKey === 'status') {
-         const typeDef = filterTypes.value.find(item => item.attributeKey === 'status');
-         const option = typeDef?.options?.find(o => o.id === value);
-         if (option) label = option.name;
+  const richPayload = filters.value
+    .map(filter => {
+      // Constraint Check
+      if (
+        filter.values === null ||
+        filter.values === undefined ||
+        filter.values === ''
+      ) {
+        return null;
       }
-      else if (['owner_id', 'user_id'].includes(filter.attributeKey)) {
-         const found = knownUsers.value.get(String(value));
-         if (found) {
+
+      let value = filter.values;
+      let label = '';
+      let rawObject = null;
+
+      // Determine Label and Value based on type
+      if (typeof value === 'object' && value !== null) {
+        // It's a select/search object
+        rawObject = value;
+        value = value.id !== undefined ? value.id : value.value; // Prefer ID, fallback to value
+        label = rawObject.name || rawObject.label || rawObject.title || '';
+      } else {
+        // Primitive value (ID or String)
+        label = String(value);
+
+        // Label resolution for known types
+        if (filter.attributeKey === 'status') {
+          const typeDef = filterTypes.value.find(
+            item => item.attributeKey === 'status'
+          );
+          const option = typeDef?.options?.find(o => o.id === value);
+          if (option) label = option.name;
+        } else if (['owner_id', 'user_id'].includes(filter.attributeKey)) {
+          const found = knownUsers.value.get(String(value));
+          if (found) {
             label = found.name;
             rawObject = found;
-         }
-      }
-      else if (filter.attributeKey === 'person_id') {
-         const found = knownPersons.value.get(String(value));
-         if (found) {
+          }
+        } else if (filter.attributeKey === 'person_id') {
+          const found = knownPersons.value.get(String(value));
+          if (found) {
             label = found.name;
             rawObject = found;
-         }
-      }
-      else if (filter.attributeKey === 'org_id') {
-         const found = knownOrganizations.value.get(String(value));
-         if (found) {
+          }
+        } else if (filter.attributeKey === 'org_id') {
+          const found = knownOrganizations.value.get(String(value));
+          if (found) {
             label = found.name;
             rawObject = found;
-         }
-      }
-    }
-
-    return {
-      attributeKey: filter.attributeKey,
-      filterOperator: filter.filterOperator,
-      queryOperator: filter.queryOperator,
-      value: value,       // The ID or raw string (Param Value for Backend)
-      label: label,       // The display name (UI Label)
-      values: rawObject || label || value, // The value for ActiveFilterPreview (expects 'values')
-      meta: rawObject,    // The full object (UI State restoration)
-      attributeLabel: filterTypes.value.find(item => item.attributeKey === filter.attributeKey)?.label || filter.attributeKey
-    };
-  });
-
-  emit('update:appliedFilters', richPayload);
-  isOpen.value = false;
-};
-
-// Reconstruct UI state from saved payload
-const setFilters = (savedFilters) => {
-  if (!savedFilters || !savedFilters.length) {
-    resetFilter();
-    return;
-  }
-
-  filters.value = savedFilters.map(savedItem => {
-    // If we have meta (full object), use it. Otherwise construct minimal object from label/value.
-    let reconstructedValue = savedItem.value;
-
-    if (['owner_id', 'user_id', 'person_id', 'org_id', 'status'].includes(savedItem.attributeKey)) {
-        if (savedItem.meta) {
-           reconstructedValue = savedItem.meta;
-        } else if (savedItem.label) {
-           reconstructedValue = {
-             id: savedItem.value,
-             name: savedItem.label,
-             label: savedItem.label,
-           };
+          }
         }
-    }
+      }
 
-    // Populate Kown Items Cache from saved data to ensure future edits work
-    if (savedItem.meta) {
-       if (['owner_id', 'user_id'].includes(savedItem.attributeKey)) knownUsers.value.set(String(savedItem.value), savedItem.meta);
-       if (savedItem.attributeKey === 'person_id') knownPersons.value.set(String(savedItem.value), savedItem.meta);
-       if (savedItem.attributeKey === 'org_id') knownOrganizations.value.set(String(savedItem.value), savedItem.meta);
-    }
+      // Logic to convert generic date keys to specific backend keys
+      let key = filter.attributeKey;
+      if (key === 'add_time') {
+        if (filter.filterOperator === 'is_greater_than') key = 'created_from';
+        else if (filter.filterOperator === 'is_less_than') key = 'created_to';
+      } else if (key === 'update_time') {
+        if (filter.filterOperator === 'is_greater_than') key = 'updated_from';
+        else if (filter.filterOperator === 'is_less_than') key = 'updated_to';
+      }
 
-    return {
-      attributeKey: savedItem.attributeKey,
-      filterOperator: savedItem.filterOperator || 'equal_to',
-      queryOperator: savedItem.queryOperator || 'and',
-      values: reconstructedValue, 
-    };
-  });
+      return {
+        attributeKey: key,
+        filterOperator: filter.filterOperator,
+        queryOperator: filter.queryOperator,
+        value: value, // The ID or raw string (Param Value for Backend)
+        label: label, // The display name (UI Label)
+        values: rawObject || label || value, // The value for ActiveFilterPreview (expects 'values')
+        meta: rawObject, // The full object (UI State restoration)
+        attributeLabel:
+          filterTypes.value.find(
+            item => item.attributeKey === filter.attributeKey
+          )?.label || filter.attributeKey,
+      };
+    })
+    .filter(f => f !== null);
+
+  emit('update:modelValue', richPayload);
+  emit('update:appliedFilters', richPayload);
+  emit('close');
 };
 
-defineExpose({ open, close, setFilters, reset: resetFilter });
+defineExpose({ open, close, reset: resetFilter });
+
+const outsideClickHandler = [
+  () => emit('close'),
+  { ignore: ['#pipedrive-filter-button'] },
+];
 </script>
 
 <template>
-  <div class="flex flex-col">
-    <!-- Modal logic handled by parent commonly, but here we can emit event or just use isOpen if wrapper handles it -->
-    <div v-if="isOpen" class="fixed inset-0 z-40 flex items-center justify-center bg-black/50 backdrop-blur-sm">
-      <div class="w-full max-w-3xl bg-white rounded-xl shadow-xl border border-n-weak p-6 flex flex-col gap-4 animate-fade-in relative">
-         
-         <div class="flex justify-between items-center mb-2">
-            <h3 class="text-lg font-medium text-n-slate-12">
-               {{ t('INTEGRATION_SETTINGS.PIPEDRIVE.FILTERS.TITLE') }}
-            </h3>
-            <button @click="close" class="text-n-slate-11 hover:text-n-slate-12">
-               <span class="i-lucide-x w-5 h-5" />
-            </button>
-         </div>
-
-         <div class="flex flex-col gap-3 min-h-[200px] max-h-[60vh] overflow-y-auto">
-            <ConditionRow
-               v-for="(filter, index) in filters"
-               :key="index"
-               v-model:attribute-key="filter.attributeKey"
-               v-model:filter-operator="filter.filterOperator"
-               v-model:values="filter.values"
-               :attributes="filterTypes"
-               :show-query-operator="index > 0"
-               :query-operator="filter.queryOperator"
-               @remove="removeCondition(index)"
-               @update:queryOperator="(val) => filter.queryOperator = val"
-            />
-         </div>
-
-         <div class="flex items-center gap-2 mt-2">
-            <Button
-               variant="ghost"
-               color="slate"
-               size="sm"
-               @click="appendNewCondition"
-            >
-               <span class="i-lucide-plus w-4 h-4 mr-1" />
-               {{ t('INTEGRATION_SETTINGS.PIPEDRIVE.FILTERS.ADD_CONDITION') }}
-            </Button>
-         </div>
-
-         <div class="flex justify-between items-center mt-6 pt-4 border-t border-n-weak">
-            <Button
-               variant="ghost"
-               color="slate"
-               @click="resetFilter" 
-            >
-               {{ t('INTEGRATION_SETTINGS.PIPEDRIVE.FILTERS.CLEAR') }}
-            </Button>
-            <div class="flex gap-2">
-               <Button variant="ghost" color="slate" @click="close">
-                  {{ t('INTEGRATION_SETTINGS.PIPEDRIVE.FILTERS.CANCEL') }}
-               </Button>
-               <Button color="blue" @click="applyFilter">
-                  {{ t('INTEGRATION_SETTINGS.PIPEDRIVE.FILTERS.APPLY') }}
-               </Button>
-            </div>
-         </div>
-
+  <div
+    v-on-click-outside="outsideClickHandler"
+    class="z-40 max-w-3xl min-w-96 lg:w-[750px] overflow-visible w-full border border-n-weak bg-n-alpha-3 backdrop-blur-[100px] shadow-lg rounded-xl p-6 grid gap-6"
+  >
+    <h3 class="text-base font-medium leading-6 text-n-slate-12">
+      {{ $t('INTEGRATION_SETTINGS.PIPEDRIVE.FILTERS.TITLE') }}
+    </h3>
+    <ul class="grid gap-4 list-none">
+      <template v-for="(filter, index) in filters" :key="filter.id">
+        <ConditionRow
+          v-if="index === 0"
+          :key="`filter-${filter.attributeKey}-0`"
+          v-model:attribute-key="filter.attributeKey"
+          v-model:filter-operator="filter.filterOperator"
+          v-model:values="filter.values"
+          :filter-types="filterTypes"
+          :show-query-operator="false"
+          @remove="removeCondition(index)"
+        />
+        <ConditionRow
+          v-else
+          :key="`filter-${filter.attributeKey}-${index}`"
+          v-model:attribute-key="filter.attributeKey"
+          v-model:filter-operator="filter.filterOperator"
+          v-model:query-operator="filters[index - 1].queryOperator"
+          v-model:values="filter.values"
+          show-query-operator
+          :filter-types="filterTypes"
+          @remove="removeCondition(index)"
+        />
+      </template>
+    </ul>
+    <div class="flex justify-between gap-2">
+      <Button sm ghost blue class="flex-shrink-0" @click="appendNewCondition">
+        {{ $t('INTEGRATION_SETTINGS.PIPEDRIVE.FILTERS.ADD_CONDITION') }}
+      </Button>
+      <div class="flex gap-2 flex-shrink-0">
+        <Button sm faded slate @click="resetFilter">
+          {{ $t('INTEGRATION_SETTINGS.PIPEDRIVE.FILTERS.CLEAR') }}
+        </Button>
+        <Button sm solid blue @click="applyFilter">
+          {{ $t('INTEGRATION_SETTINGS.PIPEDRIVE.FILTERS.APPLY') }}
+        </Button>
       </div>
     </div>
   </div>

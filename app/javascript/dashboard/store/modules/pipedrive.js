@@ -30,7 +30,6 @@ const getters = {
 
 const actions = {
   async getDeals({ commit }, params = {}) {
-    console.log('[Pipedrive Store] getDeals params:', params);
     commit('SET_UI_FLAG', {
       isFetchingDeals: true,
       isFetching: true,
@@ -38,10 +37,8 @@ const actions = {
     });
     try {
       const response = await PipedriveAPI.getDeals(params);
-      console.log('[Pipedrive Store] getDeals success:', response.data);
       commit('SET_DEALS', response.data);
     } catch (error) {
-      console.error('[Pipedrive Store] getDeals error:', error);
       commit('SET_UI_FLAG', {
         isFetchingDeals: false,
         isFetching: false,
@@ -52,7 +49,6 @@ const actions = {
     }
   },
   async getLeads({ commit }, params = {}) {
-    console.log('[Pipedrive Store] getLeads params:', params);
     commit('SET_UI_FLAG', {
       isFetchingLeads: true,
       isFetching: true,
@@ -60,10 +56,8 @@ const actions = {
     });
     try {
       const response = await PipedriveAPI.getLeads(params);
-      console.log('[Pipedrive Store] getLeads success:', response.data);
       commit('SET_LEADS', response.data);
     } catch (error) {
-      console.error('[Pipedrive Store] getLeads error:', error);
       commit('SET_UI_FLAG', {
         isFetchingLeads: false,
         isFetching: false,
@@ -74,7 +68,6 @@ const actions = {
     }
   },
   async getActivities({ commit }, params = {}) {
-    console.log('[Pipedrive Store] getActivities params:', params);
     commit('SET_UI_FLAG', {
       isFetchingActivities: true,
       isFetching: true,
@@ -82,10 +75,8 @@ const actions = {
     });
     try {
       const response = await PipedriveAPI.getActivities(params);
-      console.log('[Pipedrive Store] getActivities success:', response.data);
       commit('SET_ACTIVITIES', response.data);
     } catch (error) {
-      console.error('[Pipedrive Store] getActivities error:', error);
       commit('SET_UI_FLAG', {
         isFetchingActivities: false,
         isFetching: false,
@@ -93,6 +84,30 @@ const actions = {
       });
     } finally {
       commit('SET_UI_FLAG', { isFetchingActivities: false, isFetching: false });
+    }
+  },
+  async createDeal(_, payload) {
+    try {
+      const response = await PipedriveAPI.createDeal(payload);
+      return response.data;
+    } catch (error) {
+      throw new Error(error.response?.data?.error || error.message);
+    }
+  },
+  async createLead(_, payload) {
+    try {
+      const response = await PipedriveAPI.createLead(payload);
+      return response.data;
+    } catch (error) {
+      throw new Error(error.response?.data?.error || error.message);
+    }
+  },
+  async createActivity(_, payload) {
+    try {
+      const response = await PipedriveAPI.createActivity(payload);
+      return response.data;
+    } catch (error) {
+      throw new Error(error.response?.data?.error || error.message);
     }
   },
 };

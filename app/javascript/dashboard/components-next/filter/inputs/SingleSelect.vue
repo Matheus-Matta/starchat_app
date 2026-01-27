@@ -46,7 +46,8 @@ const {
 const { t } = useI18n();
 const selected = defineModel({
   type: Object,
-  required: true,
+  required: false,
+  default: null,
 });
 
 const searchTerm = ref('');

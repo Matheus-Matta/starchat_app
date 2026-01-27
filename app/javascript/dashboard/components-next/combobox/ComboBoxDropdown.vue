@@ -27,6 +27,10 @@ const props = defineProps({
     type: [String, Number, Array],
     default: () => [],
   },
+  direction: {
+    type: String, // 'up' or 'down'
+    default: 'down',
+  },
 });
 
 const emit = defineEmits(['select', 'search']);
@@ -60,7 +64,11 @@ defineExpose({
 <template>
   <div
     v-show="open"
-    class="absolute z-50 w-full mt-1 transition-opacity duration-200 border rounded-md shadow-lg bg-n-solid-1 border-n-strong"
+    class="absolute z-50 w-full transition-opacity duration-200 border rounded-md shadow-lg bg-n-solid-1 border-n-strong"
+    :class="{
+      'mt-1': direction === 'down',
+      'bottom-full mb-1': direction === 'up',
+    }"
   >
     <div class="relative border-b border-n-strong">
       <span class="absolute i-lucide-search top-2.5 size-4 left-3" />
