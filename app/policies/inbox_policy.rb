@@ -13,12 +13,12 @@ class InboxPolicy < ApplicationPolicy
     def resolve
       return scope if @account_user.administrator?
 
-      direct_inbox_ids = user.inbox_members.select(:inbox_id)
+      direct_inbox_ids = user.inbox_members.pluck(:inbox_id)
 
       team_ids = account.teams.joins(:team_members).where(team_members: { user_id: user.id }).select(:id)
-      team_inbox_ids = Conversation.where(account_id: account.id, team_id: team_ids).select(:inbox_id)
+      team_inbox_ids = Conversation.where(account_id: account.id, team_id: team_ids).distinct.pluck(:inbox_id)
 
-      scope.where(id: direct_inbox_ids).or(scope.where(id: team_inbox_ids)).distinct
+      scope.where(id: (direct_inbox_ids + team_inbox_ids).uniq)
     end
   end
 

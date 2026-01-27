@@ -33,7 +33,7 @@ class ActionCableListener < BaseListener
   def message_created(event)
     message, account = extract_message_and_account(event)
     conversation = message.conversation
-    tokens = user_tokens(account, conversation.inbox.members) + contact_tokens(conversation.contact_inbox, message)
+    tokens = restricted_user_tokens(account, conversation) + contact_tokens(conversation.contact_inbox, message)
 
     broadcast(account, tokens, MESSAGE_CREATED, message.push_event_data)
   end
@@ -41,7 +41,7 @@ class ActionCableListener < BaseListener
   def message_updated(event)
     message, account = extract_message_and_account(event)
     conversation = message.conversation
-    tokens = user_tokens(account, conversation.inbox.members) + contact_tokens(conversation.contact_inbox, message)
+    tokens = restricted_user_tokens(account, conversation) + contact_tokens(conversation.contact_inbox, message)
 
     broadcast(account, tokens, MESSAGE_UPDATED, message.push_event_data.merge(previous_changes: event.data[:previous_changes]))
   end
@@ -49,35 +49,35 @@ class ActionCableListener < BaseListener
   def first_reply_created(event)
     message, account = extract_message_and_account(event)
     conversation = message.conversation
-    tokens = user_tokens(account, conversation.inbox.members)
+    tokens = restricted_user_tokens(account, conversation)
 
     broadcast(account, tokens, FIRST_REPLY_CREATED, message.push_event_data)
   end
 
   def conversation_created(event)
     conversation, account = extract_conversation_and_account(event)
-    tokens = user_tokens(account, conversation.inbox.members) + contact_inbox_tokens(conversation.contact_inbox)
+    tokens = restricted_user_tokens(account, conversation) + contact_inbox_tokens(conversation.contact_inbox)
 
     broadcast(account, tokens, CONVERSATION_CREATED, conversation.push_event_data)
   end
 
   def conversation_read(event)
     conversation, account = extract_conversation_and_account(event)
-    tokens = user_tokens(account, conversation.inbox.members)
+    tokens = restricted_user_tokens(account, conversation)
 
     broadcast(account, tokens, CONVERSATION_READ, conversation.push_event_data)
   end
 
   def conversation_status_changed(event)
     conversation, account = extract_conversation_and_account(event)
-    tokens = user_tokens(account, conversation.inbox.members) + contact_inbox_tokens(conversation.contact_inbox)
+    tokens = restricted_user_tokens(account, conversation) + contact_inbox_tokens(conversation.contact_inbox)
 
     broadcast(account, tokens, CONVERSATION_STATUS_CHANGED, conversation.push_event_data)
   end
 
   def conversation_updated(event)
     conversation, account = extract_conversation_and_account(event)
-    tokens = user_tokens(account, conversation.inbox.members) + contact_inbox_tokens(conversation.contact_inbox)
+    tokens = restricted_user_tokens(account, conversation) + contact_inbox_tokens(conversation.contact_inbox)
 
     broadcast(account, tokens, CONVERSATION_UPDATED, conversation.push_event_data)
   end
@@ -116,21 +116,21 @@ class ActionCableListener < BaseListener
 
   def assignee_changed(event)
     conversation, account = extract_conversation_and_account(event)
-    tokens = user_tokens(account, conversation.inbox.members)
+    tokens = restricted_user_tokens(account, conversation)
 
     broadcast(account, tokens, ASSIGNEE_CHANGED, conversation.push_event_data)
   end
 
   def team_changed(event)
     conversation, account = extract_conversation_and_account(event)
-    tokens = user_tokens(account, conversation.inbox.members)
+    tokens = restricted_user_tokens(account, conversation)
 
     broadcast(account, tokens, TEAM_CHANGED, conversation.push_event_data)
   end
 
   def conversation_contact_changed(event)
     conversation, account = extract_conversation_and_account(event)
-    tokens = user_tokens(account, conversation.inbox.members)
+    tokens = restricted_user_tokens(account, conversation)
 
     broadcast(account, tokens, CONVERSATION_CONTACT_CHANGED, conversation.push_event_data)
   end
@@ -170,13 +170,67 @@ class ActionCableListener < BaseListener
 
   def typing_event_listener_tokens(account, conversation, user)
     current_user_token = user.is_a?(Contact) ? conversation.contact_inbox.pubsub_token : user.pubsub_token
-    (user_tokens(account, conversation.inbox.members) + [conversation.contact_inbox.pubsub_token]) - [current_user_token]
+    (restricted_user_tokens(account, conversation) + [conversation.contact_inbox.pubsub_token]) - [current_user_token]
   end
 
   def user_tokens(account, agents)
     agent_tokens = agents.pluck(:pubsub_token)
     admin_tokens = account.administrators.pluck(:pubsub_token)
     (agent_tokens + admin_tokens).uniq
+  end
+
+  def restricted_user_tokens(account, conversation)
+    admin_tokens = account.administrators.pluck(:pubsub_token)
+
+    inbox_members = conversation.inbox.members.includes(:teams, account_users: :custom_role)
+                                .where(account_users: { account_id: account.id })
+
+    allowed_agent_tokens = []
+
+    inbox_members.find_each do |user|
+      account_user = user.account_users.find { |au| au.account_id == account.id }
+      next unless account_user
+
+      # Admins are already handled
+      next if account_user.administrator?
+
+      # Agents without custom roles have full access to inbox conversations by default
+      if account_user.custom_role_id.nil?
+        allowed_agent_tokens << user.pubsub_token
+        next
+      end
+
+      permissions = account_user.custom_role.permissions
+
+      if permissions.include?('conversation_manage')
+        allowed_agent_tokens << user.pubsub_token
+        next
+      end
+
+      # Check if user is the assignee
+      if conversation.assignee_id == user.id &&
+         (permissions.include?('conversation_participating_manage') ||
+          permissions.include?('conversation_team_manage') ||
+          permissions.include?('conversation_unassigned_manage'))
+        allowed_agent_tokens << user.pubsub_token
+        next
+      end
+
+      if conversation.assignee_id.nil? && permissions.include?('conversation_unassigned_manage')
+        allowed_agent_tokens << user.pubsub_token
+        next
+      end
+
+      if conversation.team_id.present? &&
+         permissions.include?('conversation_team_manage') &&
+         user.teams.any? { |team| team.id == conversation.team_id }
+        # Use existing loaded association to avoid N+1 and potential cache issues
+        allowed_agent_tokens << user.pubsub_token
+        next
+      end
+    end
+
+    (allowed_agent_tokens + admin_tokens).uniq
   end
 
   def contact_tokens(contact_inbox, message)
