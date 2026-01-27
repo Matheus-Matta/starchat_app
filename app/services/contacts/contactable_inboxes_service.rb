@@ -79,3 +79,5 @@ class Contacts::ContactableInboxesService
     end
   end
 end
+
+Contacts::ContactableInboxesService.prepend_mod_with('Contacts::ContactableInboxesService')

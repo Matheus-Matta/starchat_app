@@ -1,0 +1,357 @@
+# Query: Captain
+
+302 results - 39 files
+
+app/controllers/api/v1/accounts/captain/preferences_controller.rb:
+   1: class Api::V1::Accounts::Captain::PreferencesController < Api::V1::Accounts::BaseController
+  10:     params_to_update = captain_params
+  11:     @current_account.captain_models = params_to_update[:captain_models] if params_to_update[:captain_models]
+  12:     @current_account.captain_features = params_to_update[:captain_features] if params_to_update[:captain_features]
+  32:   def captain_params
+  34:     permitted[:captain_models] = merged_captain_models if params[:captain_models].present?
+  35:     permitted[:captain_features] = merged_captain_features if params[:captain_features].present?
+  39:   def merged_captain_models
+  40:     existing_models = @current_account.captain_models || {}
+  41:     existing_models.merge(permitted_captain_models)
+  44:   def merged_captain_features
+  45:     existing_features = @current_account.captain_features || {}
+  46:     existing_features.merge(permitted_captain_features)
+  49:   def permitted_captain_models
+  50:     params.require(:captain_models).permit(
+  56:   def permitted_captain_features
+  57:     params.require(:captain_features).permit(
+  64:     preferences = Current.account.captain_preferences
+
+app/javascript/dashboard/api/cosmos/preferences.js:
+   4: class CaptainPreferences extends ApiClient {
+   6:     super('captain/preferences', { accountScoped: true });
+  18: export default new CaptainPreferences();
+
+app/javascript/dashboard/components-next/Editor/Editor.vue:
+   25:   enableCaptainTools: { type: Boolean, default: false },
+  111:         :enable-captain-tools="enableCaptainTools"
+
+app/javascript/dashboard/components-next/sidebar/Sidebar.vue:
+  472:         //   name: 'Settings Captain',
+  473:         //   label: t('SIDEBAR.CAPTAIN_AI'),
+  474:         //   icon: 'i-woot-captain',
+  475:         //   to: accountScopedRoute('captain_settings_index'),
+
+app/javascript/dashboard/helper/featureHelper.js:
+  23:   captain_billing: 'https://chwt.app/hc/captain_billing',
+
+app/javascript/dashboard/routes/dashboard/settings/settings.routes.js:
+  27: import captain from './captain/captain.routes';
+  67:     ...captain.routes,
+
+app/javascript/dashboard/routes/dashboard/settings/billing/Index.vue:
+  208:                 {{ $t('BILLING_SETTINGS.COSMOS.REFRESH_CREDITS') || $t('BILLING_SETTINGS.CAPTAIN.REFRESH_CREDITS') }}
+
+app/javascript/dashboard/routes/dashboard/settings/captain/captain.routes.js:
+  10:       path: frontendURL('accounts/:accountId/settings/captain'),
+  13:         featureFlag: FEATURE_FLAGS.CAPTAIN,
+  17:         headerTitle: 'CAPTAIN_SETTINGS.TITLE',
+  24:           name: 'captain_settings_index',
+  28:             featureFlag: FEATURE_FLAGS.CAPTAIN,
+
+app/javascript/dashboard/routes/dashboard/settings/captain/Index.vue:
+    7: import { useCaptain } from 'dashboard/composables/useCaptain';
+    9: import { useCaptainConfigStore } from 'dashboard/store/captain/preferences';
+   16: import CaptainPaywall from 'next/captain/pageComponents/Paywall.vue';
+   19: const { captainEnabled } = useCaptain();
+   23: const captainConfigStore = useCaptainConfigStore();
+   24: const { uiFlags } = storeToRefs(captainConfigStore);
+   31:     title: t('CAPTAIN_SETTINGS.MODEL_CONFIG.EDITOR.TITLE'),
+   32:     description: t('CAPTAIN_SETTINGS.MODEL_CONFIG.EDITOR.DESCRIPTION'),
+   36:     title: t('CAPTAIN_SETTINGS.MODEL_CONFIG.ASSISTANT.TITLE'),
+   37:     description: t('CAPTAIN_SETTINGS.MODEL_CONFIG.ASSISTANT.DESCRIPTION'),
+   42:     title: t('CAPTAIN_SETTINGS.MODEL_CONFIG.COPILOT.TITLE'),
+   43:     description: t('CAPTAIN_SETTINGS.MODEL_CONFIG.COPILOT.DESCRIPTION'),
+   63:   // Cloud will always see these features as long as captain is enabled
+   64:   if (isOnChatwootCloud.value && captainEnabled) {
+   78:   // Cloud will always see these features as long as captain is enabled
+   79:   if (isOnChatwootCloud.value && captainEnabled) {
+   95:     await captainConfigStore.updatePreferences({
+   96:       captain_features: { [feature]: enabled },
+   98:     useAlert(t('CAPTAIN_SETTINGS.API.SUCCESS'));
+  100:     useAlert(t('CAPTAIN_SETTINGS.API.ERROR'));
+  101:     captainConfigStore.fetch();
+  107:     await captainConfigStore.updatePreferences({
+  108:       captain_models: { [feature]: model },
+  110:     useAlert(t('CAPTAIN_SETTINGS.API.SUCCESS'));
+  112:     useAlert(t('CAPTAIN_SETTINGS.API.ERROR'));
+  113:     captainConfigStore.fetch();
+  118:   captainConfigStore.fetch();
+  125:     :no-records-message="t('CAPTAIN_SETTINGS.NOT_ENABLED')"
+  126:     :loading-message="t('CAPTAIN_SETTINGS.LOADING')"
+  130:         :title="t('CAPTAIN_SETTINGS.TITLE')"
+  131:         :description="t('CAPTAIN_SETTINGS.DESCRIPTION')"
+  132:         :link-text="t('CAPTAIN_SETTINGS.LINK_TEXT')"
+  133:         icon-name="captain"
+  134:         feature-name="captain_billing"
+  138:       <div v-if="captainEnabled" class="flex flex-col gap-1">
+  141:           :title="t('CAPTAIN_SETTINGS.MODEL_CONFIG.TITLE')"
+  142:           :description="t('CAPTAIN_SETTINGS.MODEL_CONFIG.DESCRIPTION')"
+  160:           :title="t('CAPTAIN_SETTINGS.FEATURES.TITLE')"
+  161:           :description="t('CAPTAIN_SETTINGS.FEATURES.DESCRIPTION')"
+  178:         <CaptainPaywall />
+
+app/javascript/dashboard/routes/dashboard/settings/captain/components/FeatureToggle.vue:
+   5: import { useCaptainConfigStore } from 'dashboard/store/captain/preferences';
+  23: const captainConfigStore = useCaptainConfigStore();
+  24: const { features } = storeToRefs(captainConfigStore);
+  27:   captainConfigStore.getModelsForFeature(props.featureKey)
+  44:     return t('CAPTAIN_SETTINGS.FEATURES.AUDIO_TRANSCRIPTION.TITLE');
+  47:     return t('CAPTAIN_SETTINGS.FEATURES.HELP_CENTER_SEARCH.TITLE');
+  50:     return t('CAPTAIN_SETTINGS.FEATURES.LABEL_SUGGESTION.TITLE');
+  57:     return t('CAPTAIN_SETTINGS.FEATURES.AUDIO_TRANSCRIPTION.DESCRIPTION');
+  60:     return t('CAPTAIN_SETTINGS.FEATURES.HELP_CENTER_SEARCH.DESCRIPTION');
+  63:     return t('CAPTAIN_SETTINGS.FEATURES.LABEL_SUGGESTION.DESCRIPTION');
+  70:     return t('CAPTAIN_SETTINGS.FEATURES.AUDIO_TRANSCRIPTION.MODEL_TITLE');
+  73:     return t('CAPTAIN_SETTINGS.FEATURES.HELP_CENTER_SEARCH.MODEL_TITLE');
+  76:     return t('CAPTAIN_SETTINGS.FEATURES.LABEL_SUGGESTION.MODEL_TITLE');
+  83:     return t('CAPTAIN_SETTINGS.FEATURES.AUDIO_TRANSCRIPTION.MODEL_DESCRIPTION');
+  86:     return t('CAPTAIN_SETTINGS.FEATURES.HELP_CENTER_SEARCH.MODEL_DESCRIPTION');
+  89:     return t('CAPTAIN_SETTINGS.FEATURES.LABEL_SUGGESTION.MODEL_DESCRIPTION');
+
+app/javascript/dashboard/routes/dashboard/settings/captain/components/ModelDropdown.vue:
+    5: import { useCaptainConfigStore } from 'dashboard/store/captain/preferences';
+   33: const captainConfigStore = useCaptainConfigStore();
+   37:   captainConfigStore.getModelsForFeature(props.featureKey)
+   41:   captainConfigStore.getDefaultModelForFeature(props.featureKey)
+   45:   captainConfigStore.getSelectedModelForFeature(props.featureKey)
+   69:   return t('CAPTAIN_SETTINGS.MODEL_CONFIG.CREDITS_PER_MESSAGE', {
+  106:         {{ t('CAPTAIN_SETTINGS.MODEL_CONFIG.SELECT_MODEL') }}
+  143:               {{ t('CAPTAIN_SETTINGS.MODEL_CONFIG.COMING_SOON') }}
+
+app/javascript/dashboard/store/cosmos/preferences.js:
+   2: import CaptainPreferencesAPI from 'dashboard/api/captain/preferences';
+   4: export const useCaptainConfigStore = defineStore('captainConfig', {
+  53:         const response = await CaptainPreferencesAPI.get();
+  65:       const response = await CaptainPreferencesAPI.updatePreferences(data);
+
+app/javascript/shared/components/FluentIcon/dashboard-icons.json:
+  575:   "captain-outline": [
+
+app/models/account.rb:
+  31:   include CaptainFeaturable
+  46:         'captain_models': {
+  58:         'captain_features': {
+  89:   store_accessor :settings, :captain_models, :captain_features
+
+app/models/message.rb:
+  356:     # Check if this is a response from AgentBot or Captain::Assistant
+  357:     outgoing? && sender_type.in?(['AgentBot', 'Captain::Assistant'])
+
+app/models/concerns/captain_featurable.rb:
+   3: module CaptainFeaturable
+   7:     validate :validate_captain_models
+   9:     # Dynamically define accessor methods for each captain feature
+  11:       # Define enabled? methods (e.g., captain_editor_enabled?)
+  12:       define_method("captain_#{feature_key}_enabled?") do
+  13:         captain_features_with_defaults[feature_key]
+  16:       # Define model accessor methods (e.g., captain_editor_model)
+  17:       define_method("captain_#{feature_key}_model") do
+  18:         captain_models_with_defaults[feature_key]
+  23:   def captain_preferences
+  25:       models: captain_models_with_defaults,
+  26:       features: captain_features_with_defaults
+  32:   def captain_models_with_defaults
+  33:     stored_models = captain_models || {}
+  44:   def captain_features_with_defaults
+  45:     stored_features = captain_features || {}
+  51:   def validate_captain_models
+  52:     return if captain_models.blank?
+  54:     captain_models.each do |feature_key, model_name|
+  59:       errors.add(:captain_models, "'#{model_name}' is not a valid model for #{feature_key}. Allowed: #{allowed_models.join(', ')}")
+
+app/views/super_admin/application/_icons.html.erb:
+  309:   <symbol id="icon-captain" viewBox="0 0 24 24">
+
+config/installation_config.yml:
+  185:   description: 'The OpenAI model configured for use in Captain AI. Default: gpt-4.1-mini'
+  215: # End of Captain Config
+
+config/routes.rb:
+  60:           namespace :captain do
+
+config/initializers/ai_agents.rb:
+  11:   api_key = InstallationConfig.find_by(name: 'CAPTAIN_OPEN_AI_API_KEY')&.value
+  12:   model = InstallationConfig.find_by(name: 'CAPTAIN_OPEN_AI_MODEL')&.value.presence || LlmConstants::DEFAULT_MODEL
+  13:   api_endpoint = InstallationConfig.find_by(name: 'CAPTAIN_OPEN_AI_ENDPOINT')&.value || LlmConstants::OPENAI_API_ENDPOINT
+
+config/locales/he.yml:
+  551:     captain:
+  570:       captain:
+  678:       short_description: 'שלב מסדי נתונים, מסמכים ודפים ישירות עם Captain.'
+  679:       description: 'חבר את סביבת העבודה שלך ב-Notion כדי לאפשר ל-Captain לגשת וליצור תגובות חכמות באמצעות תוכן ממסדי הנתונים, המסמכים והדפים שלך כדי לספק תמיכת לקוחות הקשרית יותר.'
+  697:   captain:
+
+config/locales/tr.yml:
+  313:       short_description: 'Veritabanlarını, dokümanları ve sayfaları doğrudan Captain ile entegre edin.'
+  314:       description: 'Captain''ın veritabanlarınız, dokümanlarınız ve sayfalarınızdaki içeriklere erişebilmesi ve bunları kullanarak daha bağlamsal bir müşteri desteği sunan akıllı yanıtlar oluşturabilmesi için Notion çalışma alanınızı bağlayın.'
+
+lib/integrations/llm_base_service.rb:
+  89:     endpoint = InstallationConfig.find_by(name: 'CAPTAIN_OPEN_AI_ENDPOINT')&.value.presence || 'https://api.openai.com/'
+
+lib/llm/config.rb:
+  41:       InstallationConfig.find_by(name: 'CAPTAIN_OPEN_AI_API_KEY')&.value
+  45:       InstallationConfig.find_by(name: 'CAPTAIN_OPEN_AI_ENDPOINT')&.value
+
+spec/controllers/api/v1/accounts/captain/preferences_controller_spec.rb:
+    5: RSpec.describe 'Api::V1::Accounts::Captain::Preferences', type: :request do
+   14:   describe 'GET /api/v1/accounts/{account.id}/captain/preferences' do
+   17:         get "/api/v1/accounts/#{account.id}/captain/preferences",
+   25:       it 'returns captain config' do
+   26:         get "/api/v1/accounts/#{account.id}/captain/preferences",
+   38:       it 'returns captain config' do
+   39:         get "/api/v1/accounts/#{account.id}/captain/preferences",
+   51:   describe 'PUT /api/v1/accounts/{account.id}/captain/preferences' do
+   54:         put "/api/v1/accounts/#{account.id}/captain/preferences",
+   55:             params: { captain_models: { editor: 'gpt-4.1-mini' } },
+   64:         put "/api/v1/accounts/#{account.id}/captain/preferences",
+   66:             params: { captain_models: { editor: 'gpt-4.1-mini' } },
+   74:       it 'updates captain_models' do
+   75:         put "/api/v1/accounts/#{account.id}/captain/preferences",
+   77:             params: { captain_models: { editor: 'gpt-4.1-mini' } },
+   84:         expect(account.reload.captain_models['editor']).to eq('gpt-4.1-mini')
+   87:       it 'updates captain_features' do
+   88:         put "/api/v1/accounts/#{account.id}/captain/preferences",
+   90:             params: { captain_features: { editor: true } },
+   97:         expect(account.reload.captain_features['editor']).to be true
+  100:       it 'merges with existing captain_models' do
+  101:         account.update!(captain_models: { 'editor' => 'gpt-4.1-mini', 'assistant' => 'gpt-5.1' })
+  103:         put "/api/v1/accounts/#{account.id}/captain/preferences",
+  105:             params: { captain_models: { editor: 'gpt-4.1' } },
+  112:         models = account.reload.captain_models
+  117:       it 'merges with existing captain_features' do
+  118:         account.update!(captain_features: { 'editor' => true, 'assistant' => false })
+  120:         put "/api/v1/accounts/#{account.id}/captain/preferences",
+  122:             params: { captain_features: { editor: false } },
+  129:         features = account.reload.captain_features
+  135:         put "/api/v1/accounts/#{account.id}/captain/preferences",
+  138:               captain_models: { editor: 'gpt-4.1-mini' },
+  139:               captain_features: { editor: true }
+  148:         expect(account.captain_models['editor']).to eq('gpt-4.1-mini')
+  149:         expect(account.captain_features['editor']).to be true
+
+spec/enterprise/services/enterprise/billing/topup_checkout_service_spec.rb:
+  20:       limits: { 'captain_responses' => 500 }
+  43:       expect(account.reload.limits['captain_responses']).to eq(1500)
+
+spec/enterprise/services/enterprise/billing/topup_fulfillment_service_spec.rb:
+  12:       limits: { 'captain_responses' => 1000 }
+  21:       expect(account.reload.limits['captain_responses']).to eq(2000)
+
+spec/enterprise/services/enterprise/message_templates/hook_execution_service_spec.rb:
+    8:   let(:assistant) { create(:captain_assistant, account: account) }
+   11:     create(:captain_inbox, captain_assistant: assistant, inbox: inbox)
+   14:   context 'when captain assistant is configured' do
+   24:       it 'schedules captain response job for incoming messages on pending conversations' do
+   25:         expect(Captain::Conversation::ResponseBuilderJob).to receive(:perform_later).with(conversation, assistant)
+   43:       it 'schedules captain response job outside business hours (Captain always responds when configured)' do
+   44:         expect(Captain::Conversation::ResponseBuilderJob).to receive(:perform_later).with(conversation, assistant)
+   49:       it 'performs captain handoff when quota is exceeded (OOO template will kick in after handoff)' do
+   51:           limits: { 'captain_responses' => 100 },
+   52:           custom_attributes: account.custom_attributes.merge('captain_responses_usage' => 100)
+   60:       it 'does not send out of office message when Captain is handling' do
+   76:       it 'schedules captain response job regardless of time' do
+   77:         expect(Captain::Conversation::ResponseBuilderJob).to receive(:perform_later).with(conversation, assistant)
+   83:     context 'when captain quota is exceeded within business hours' do
+   92:           limits: { 'captain_responses' => 100 },
+   93:           custom_attributes: account.custom_attributes.merge('captain_responses_usage' => 100)
+  105:   context 'when no captain assistant is configured' do
+  107:       CaptainInbox.where(inbox: inbox).destroy_all
+  110:     it 'does not schedule captain response job' do
+  111:       expect(Captain::Conversation::ResponseBuilderJob).not_to receive(:perform_later)
+  122:     it 'does not schedule captain response job' do
+  123:       expect(Captain::Conversation::ResponseBuilderJob).not_to receive(:perform_later)
+  130:     it 'does not schedule captain response job' do
+  131:       expect(Captain::Conversation::ResponseBuilderJob).not_to receive(:perform_later)
+  137:   context 'when greeting and out of office messages with Captain enabled' do
+  138:     context 'when conversation is pending (Captain is handling)' do
+  205:   context 'when Captain is not configured' do
+  207:       CaptainInbox.where(inbox: inbox).destroy_all
+  241:   context 'when Captain quota is exceeded and handoff happens' do
+  244:         limits: { 'captain_responses' => 100 },
+  245:         custom_attributes: account.custom_attributes.merge('captain_responses_usage' => 100)
+
+spec/lib/integrations/openai/processor_service_spec.rb:
+  477:       context 'without CAPTAIN_OPEN_AI_ENDPOINT configured' do
+  478:         before { InstallationConfig.find_by(name: 'CAPTAIN_OPEN_AI_ENDPOINT')&.destroy }
+  490:       context 'with CAPTAIN_OPEN_AI_ENDPOINT configured' do
+  492:           InstallationConfig.find_by(name: 'CAPTAIN_OPEN_AI_ENDPOINT')&.destroy
+  493:           create(:installation_config, name: 'CAPTAIN_OPEN_AI_ENDPOINT', value: 'https://custom.azure.com/')
+
+spec/models/account_spec.rb:
+  223:   describe 'captain_preferences' do
+  228:         prefs = account.captain_preferences
+  240:         account.update!(captain_models: { 'editor' => 'gpt-4.1-mini', 'assistant' => 'gpt-5.2' })
+  242:         prefs = account.captain_preferences
+  252:         account.update!(captain_features: { 'editor' => true, 'assistant' => true })
+  254:         prefs = account.captain_preferences
+  264:         account.captain_models = { 'label_suggestion' => 'gpt-5.1' }
+  267:         expect(account.errors[:captain_models].first).to include('not a valid model for label_suggestion')
+  271:         account.captain_models = { 'editor' => 'gpt-4.1-mini', 'label_suggestion' => 'gpt-4.1-nano' }
+
+spec/models/concerns/captain_featurable_spec.rb:
+    5: RSpec.describe CaptainFeaturable do
+   11:         expect(account).to respond_to("captain_#{feature_key}_enabled?")
+   17:         expect(account).to respond_to("captain_#{feature_key}_model")
+   26:           expect(account.send("captain_#{feature_key}_enabled?")).to be false
+   33:         account.update!(captain_features: { 'editor' => true, 'assistant' => true })
+   37:         expect(account.captain_editor_enabled?).to be true
+   38:         expect(account.captain_assistant_enabled?).to be true
+   42:         expect(account.captain_copilot_enabled?).to be false
+   43:         expect(account.captain_label_suggestion_enabled?).to be false
+   47:     context 'when captain_features is nil' do
+   49:         account.update!(captain_features: nil)
+   54:           expect(account.send("captain_#{feature_key}_enabled?")).to be false
+   65:           expect(account.send("captain_#{feature_key}_model")).to eq(expected_default)
+   72:         account.update!(captain_models: {
+   80:         expect(account.captain_editor_model).to eq('gpt-4.1-mini')
+   81:         expect(account.captain_assistant_model).to eq('gpt-5.1')
+   82:         expect(account.captain_label_suggestion_model).to eq('gpt-4.1-nano')
+   86:         expect(account.captain_copilot_model).to eq(Llm::Models.default_model_for('copilot'))
+   87:         expect(account.captain_audio_transcription_model).to eq(Llm::Models.default_model_for('audio_transcription'))
+   93:         account.captain_models = { 'editor' => 'invalid-model' }
+   97:         expect(account.captain_editor_model).to eq(Llm::Models.default_model_for('editor'))
+  101:     context 'when captain_models is nil' do
+  103:         account.update!(captain_models: nil)
+  109:           expect(account.send("captain_#{feature_key}_model")).to eq(expected_default)
+  115:   describe 'integration with existing captain_preferences' do
+  116:     it 'enabled? methods use the same logic as captain_preferences[:features]' do
+  117:       account.update!(captain_features: { 'editor' => true, 'copilot' => true })
+  118:       prefs = account.captain_preferences
+  121:         expect(account.send("captain_#{feature_key}_enabled?")).to eq(prefs[:features][feature_key])
+  125:     it 'model methods use the same logic as captain_preferences[:models]' do
+  126:       account.update!(captain_models: { 'editor' => 'gpt-4.1-mini', 'assistant' => 'gpt-5.2' })
+  127:       prefs = account.captain_preferences
+  130:         expect(account.send("captain_#{feature_key}_model")).to eq(prefs[:models][feature_key])
+
+spec/starchat/models/cosmos/custom_tool_spec.rb:
+  332:       let(:tool) { create(:captain_custom_tool, account: account, slug: 'custom_test_tool') }
+
+starchat/app/helpers/cosmos/chat_generation_recorder.rb:
+   1: module Captain::ChatGenerationRecorder
+  12:     tracer.in_span("llm.captain.#{feature_name}.generation") do |span|
+
+starchat/app/helpers/cosmos/chat_response_helper.rb:
+  1: module Captain::ChatResponseHelper
+
+starchat/app/services/cosmos/tools/base_tool.rb:
+  1: class Captain::Tools::BaseTool < RubyLLM::Tool
+
+starchat/app/services/llm/base_ai_service.rb:
+  24:     config_value = InstallationConfig.find_by(name: 'CAPTAIN_OPEN_AI_MODEL')&.value
+
+starchat/app/services/llm/base_open_ai_service.rb:
+  5: # - Captain::Llm::PdfProcessingService (files.upload for assistants)
+  6: # - Captain::Llm::PaginatedFaqGeneratorService (uses file_id from uploaded files)
+
+starchat/app/services/llm/legacy_base_open_ai_service.rb:
+  5: # - Captain::Llm::PdfProcessingService (files.upload for assistants)
+  6: # - Captain::Llm::PaginatedFaqGeneratorService (uses file_id from uploaded files)
+
+starchat/lib/cosmos/tools/handoff_tool.rb:
+  40:     # Send out of office message if applicable (since template messages were suppressed while Captain was handling)

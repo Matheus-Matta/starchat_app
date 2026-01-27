@@ -37,12 +37,14 @@ export const FEATURE_FLAGS = {
   CHATWOOT_V4: 'chatwoot_v4',
   REPORT_V4: 'report_v4',
   CHANNEL_INSTAGRAM: 'channel_instagram',
+  CHANNEL_TIKTOK: 'channel_tiktok',
   CONTACT_CHATWOOT_SUPPORT_TEAM: 'contact_chatwoot_support_team',
   SAML: 'saml',
   QUOTED_EMAIL_REPLY: 'quoted_email_reply',
   WHATSAPP_EMBEDDED_SIGNUP: 'whatsapp_embedded_signup',
   COSMOS_V2: 'cosmos_integration_v2',
   COMPANIES: 'companies',
+  ADVANCED_SEARCH: 'advanced_search',
 };
 
 export const PREMIUM_FEATURES = [

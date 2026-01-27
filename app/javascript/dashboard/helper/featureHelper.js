@@ -20,6 +20,7 @@ const FEATURE_HELP_URLS = {
   webhook: 'https://chwt.app/hc/webhooks',
   billing: 'https://chwt.app/pricing',
   saml: 'https://chwt.app/hc/saml',
+  cosmos_billing: 'https://chwt.app/hc/cosmos_billing',
 };
 
 export function getHelpUrlForFeature(featureName) {

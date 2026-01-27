@@ -4,9 +4,11 @@ plugins:
   - rubocop-rspec
   - rubocop-factory_bot
 
-# require:
-#   - ./rubocop/use_from_email.rb
-#   - ./rubocop/custom_cop_location.rb
+require:
+  - ./rubocop/use_from_email.rb
+  - ./rubocop/custom_cop_location.rb
+  - ./rubocop/attachment_download.rb
+  - ./rubocop/one_class_per_file.rb
 
 Layout/LineLength:
   Max: 150
@@ -65,6 +67,12 @@ Style/SymbolArray:
 Style/OpenStructUse:
   Enabled: false
 
+Chatwoot/AttachmentDownload:
+  Enabled: true
+  Exclude:
+    - 'spec/**/*'
+    - 'test/**/*'
+
 Style/OptionalBooleanParameter:
   Exclude:
     - 'app/services/email_templates/db_resolver_service.rb'
@@ -100,7 +108,7 @@ Lint/OrAssignmentToConstant:
 
 Rails/HelperInstanceVariable:
   Exclude:
-    - starchat/app/helpers/cosmos/chat_helper.rb
+    - enterprise/app/helpers/cosmos/chat_helper.rb
 
 Rails/ApplicationController:
   Exclude:
@@ -193,6 +201,9 @@ RSpec/MultipleExpectations:
 
 RSpec/MultipleMemoizedHelpers:
   Max: 20
+
+Style/OneClassPerFile:
+  Enabled: true
 
 AllCops:
   NewCops: enable

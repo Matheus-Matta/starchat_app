@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 # original Authors: Gitlab
-# https://gitlab.com/gitlab-org/gitlab/-/blob/master/config/initializers/0_inject_enterprise_edition_module.rb
-#
 
 ### Ref: https://medium.com/@leo_hetsch/ruby-modules-include-vs-prepend-vs-extend-f09837a5b073
 # Ancestors chain : it holds a list of constant names which are its ancestors

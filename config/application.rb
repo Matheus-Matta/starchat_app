@@ -48,7 +48,7 @@ module Chatwoot
     config.paths['app/views'].unshift('starchat/app/views')
 
     # Load enterprise initializers alongside standard initializers
-    enterprise_initializers = Rails.root.join('enterprise/config/initializers')
+    enterprise_initializers = Rails.root.join('starchat/config/initializers')
     Dir[enterprise_initializers.join('**/*.rb')].each { |f| require f } if enterprise_initializers.exist?
 
     # Settings in config/environments/* take precedence over those specified here.

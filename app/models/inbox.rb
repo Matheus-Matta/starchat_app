@@ -128,6 +128,10 @@ class Inbox < ApplicationRecord
     channel_type == 'Channel::Instagram'
   end
 
+  def tiktok?
+    channel_type == 'Channel::Tiktok'
+  end
+
   def web_widget?
     channel_type == 'Channel::WebWidget'
   end
@@ -158,6 +162,10 @@ class Inbox < ApplicationRecord
 
   def evolution?
     channel_type == 'Channel::Evolution'
+  end
+
+  def twilio_whatsapp?
+    channel_type == 'Channel::TwilioSms' && channel.medium == 'whatsapp'
   end
 
   def assignable_agents

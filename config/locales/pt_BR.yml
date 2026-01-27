@@ -31,8 +31,11 @@ pt_BR:
       failed: Registro falhou
     assignment_policy:
       not_found: Política de atribuição não encontrada
+    attachments:
+      invalid: Anexo inválido
     saml:
       feature_not_enabled: SAML não está habilitado para esta conta
+      sso_not_enabled: O SSO via SAML não está habilitado para esta instalação
     data_import:
       data_type:
         invalid: Tipo de dado inválido
@@ -48,6 +51,11 @@ pt_BR:
     companies:
       domain:
         invalid: must be a valid domain name
+      search:
+        query_missing: Especifique a ‘string’ de busca com o parâmetro q
+    messages:
+      search:
+        time_range_limit_exceeded: 'A pesquisa está limitada aos últimos %{days} dias'
     categories:
       locale:
         unique: deve ser único na categoria e no portal
@@ -93,6 +101,13 @@ pt_BR:
       connection_error: Erro de conexão. Verifique sua conexão e tente novamente.
       media_error: Erro ao enviar arquivo. Verifique o tamanho e formato do arquivo.
       generic: Erro ao enviar mensagem. Tente novamente.
+    topup:
+      credits_required: A quantidade de créditos é obrigatória
+      invalid_credits: Quantidade de créditos inválida
+      invalid_option: Opção de recarga inválida
+      plan_not_eligible: As recargas estão disponíveis apenas para planos pagos. Por favor, faça o upgrade do seu plano primeiro.
+      stripe_customer_not_configured: Cliente do Stripe não configurado
+      no_payment_method: Nenhum método de pagamento encontrado. Por favor, adicione um método de pagamento antes de realizar uma compra.
   profile:
     mfa:
       enabled: MFA habilitado com sucesso
@@ -182,6 +197,8 @@ pt_BR:
     messages:
       instagram_story_content: '%{story_sender} mencionou você na conversa: '
       instagram_deleted_story_content: Este Story não está mais disponível.
+      instagram_shared_story_content: 'Story compartilhado'
+      instagram_shared_post_content: 'Post compartilhado'
       deleted: Esta mensagem foi excluída
       anti_spam_error: Você está enviando esta mensagem com muita frequência
       whatsapp:
@@ -319,8 +336,8 @@ pt_BR:
       pdf_processing_failed: 'Falha ao processar o documento PDF %{document_id}: %{error}'
       pdf_processing_success: Documento PDF processado com sucesso %{document_id}
       faq_generation_complete: 'FAQ generation complete. Total FAQs created: %{count}'
-      using_paginated_faq: ''
-      using_standard_faq: Using standard FAQ generation for document %{document_id}
+      using_paginated_faq: 'Usando geração de FAQ''s paginada para o documento %{document_id}'
+      using_standard_faq: 'Using standard FAQ generation for document %{document_id}'
       response_creation_error: 'Error in creating response document: %{error}'
       missing_openai_file_id: O documento deve ter openai_file_id para processamento paginado
       openai_api_error: 'Erro da API OpenAI: %{error}'

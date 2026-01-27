@@ -12,6 +12,8 @@ describe('#StarchatAccountAPI', () => {
     expect(accountAPI).toHaveProperty('delete');
     expect(accountAPI).toHaveProperty('checkout');
     expect(accountAPI).toHaveProperty('toggleDeletion');
+    expect(accountAPI).toHaveProperty('createTopupCheckout');
+    expect(accountAPI).toHaveProperty('getLimits');
   });
 
   describe('API calls', () => {
@@ -57,6 +59,30 @@ describe('#StarchatAccountAPI', () => {
         '/starchat/api/v1/toggle_deletion',
         { action_type: 'undelete' }
       );
+    });
+
+    it('#createTopupCheckout with credits', () => {
+      accountAPI.createTopupCheckout(1000);
+      expect(axiosMock.post).toHaveBeenCalledWith(
+        '/enterprise/api/v1/topup_checkout',
+        { credits: 1000 }
+      );
+    });
+
+    it('#createTopupCheckout with different credit amounts', () => {
+      const creditAmounts = [1000, 2500, 6000, 12000];
+      creditAmounts.forEach(credits => {
+        accountAPI.createTopupCheckout(credits);
+        expect(axiosMock.post).toHaveBeenCalledWith(
+          '/enterprise/api/v1/topup_checkout',
+          { credits }
+        );
+      });
+    });
+
+    it('#getLimits', () => {
+      accountAPI.getLimits();
+      expect(axiosMock.get).toHaveBeenCalledWith('/enterprise/api/v1/limits');
     });
   });
 });

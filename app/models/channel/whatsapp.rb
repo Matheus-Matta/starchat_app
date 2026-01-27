@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: channel_whatsapp
@@ -88,11 +90,10 @@ class Channel::Whatsapp < ApplicationRecord
   end
 
   def should_auto_setup_webhooks?
-    # Only auto-setup webhooks if the provider is Whatsapp Cloud
-    # and if the source is not embedded_signup.
-    # Embedded signup has its own logic for setting up webhooks (after phone info is fetched)
     return false if Rails.env.test?
 
+    # Only auto-setup webhooks for whatsapp_cloud provider with manual setup
+    # Embedded signup calls setup_webhooks explicitly in EmbeddedSignupService
     provider == 'whatsapp_cloud' && provider_config['source'] != 'embedded_signup'
   end
 end
