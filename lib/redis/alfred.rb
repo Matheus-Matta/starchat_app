@@ -139,5 +139,9 @@ module Redis::Alfred
     def zremrangebyscore(key, range_start, range_end)
       $alfred.with { |conn| conn.zremrangebyscore(key, range_start, range_end) }
     end
+
+    def zrem(key, member)
+      $alfred.with { |conn| conn.zrem(key, member) }
+    end
   end
 end

@@ -28,7 +28,7 @@ class AutoAssignment::RateLimiter
   end
 
   def limit
-    config&.fair_distribution_limit&.to_i || Math
+    config&.fair_distribution_limit&.to_i || 99_999_999
   end
 
   def window

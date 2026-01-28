@@ -97,8 +97,8 @@ class Webhooks::EvolutionController < ActionController::API
       pairing_code: qr[:pairing_code]
     }.compact)
 
-    # Notify if state is 'close', 'refused', 'open' or 'connected'
-    return unless %w[close refused open connected].include?(state)
+    # Notify if state is 'refused' (truly disconnected/excluded)
+    return unless %w[refused].include?(state)
 
     create_connection_change_notification(@inbox, state)
   end

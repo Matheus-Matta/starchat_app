@@ -11,7 +11,15 @@ class RoomChannel < ApplicationCable::Channel
 
   def update_presence
     update_subscription
-    broadcast_presence
+    private_broadcast_presence
+  end
+
+  def unsubscribed
+    # We are not clearing presence immediately to avoid flickering on reconnect
+    # The presence will naturally expire after PRESENCE_DURATION (60s)
+    return if @current_account.blank?
+
+    PresenceBroadcastJob.perform_later(@current_account.id)
   end
 
   private
@@ -19,8 +27,18 @@ class RoomChannel < ApplicationCable::Channel
   def broadcast_presence
     return if @current_account.blank?
 
+    # Full broadcast to everyone in the account
+    PresenceBroadcastJob.perform_later(@current_account.id)
+    # Also send immediately to the subscriber
+    private_broadcast_presence
+  end
+
+  def private_broadcast_presence
+    return if @current_account.blank?
+
     data = { account_id: @current_account.id, users: ::OnlineStatusTracker.get_available_users(@current_account.id) }
     data[:contacts] = ::OnlineStatusTracker.get_available_contacts(@current_account.id) if @current_user.is_a? User
+
     ActionCable.server.broadcast(pubsub_token, { event: 'presence.update', data: data })
   end
 

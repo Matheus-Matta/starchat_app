@@ -72,6 +72,15 @@
         },
         "UPDATE_BUTTON": "Salvar Alterações"
       },
+      "MESSAGING_PREFERENCES": {
+        "TITLE": "Preferências de mensagens",
+        "NOTE": "Configurações globais para o envio e recebimento de mensagens na conta.",
+        "REQUIRE_CONTACT_INBOX_MESSAGING": {
+          "LABEL": "Bloquear envio de mensagens para contatos sem vínculo real",
+          "HELP": "Se ativado, os agentes só poderão enviar mensagens para contatos que já possuem um histórico de conversas ou mensagens recebidas naquele canal (evita vínculos fantasmas)."
+        },
+        "UPDATE_BUTTON": "Salvar Alterações"
+      },
       "NAME": {
         "LABEL": "Nome da Conta",
         "PLACEHOLDER": "Nome da sua conta",
