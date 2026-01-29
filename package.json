@@ -1,6 +1,6 @@
 {
   "name": "@starchats/starchats",
-  "version": "1.1.0-star",
+  "version": "1.1.5-star",
   "license": "MIT",
   "scripts": {
     "eslint": "eslint app/**/*.{js,vue}",

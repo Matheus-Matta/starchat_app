@@ -33,9 +33,16 @@ class BaseActionCableConnector {
     this.events = {};
     this.reconnectTimer = null;
     this.isAValidEvent = () => true;
+    this.handleVisibilityChange = this.handleVisibilityChange.bind(this);
+    document.addEventListener('visibilitychange', this.handleVisibilityChange);
+
     this.triggerPresenceInterval = () => {
       setTimeout(() => {
-        this.subscription.updatePresence();
+        try {
+          this.subscription.updatePresence();
+        } catch (error) {
+          // ignore
+        }
         this.triggerPresenceInterval();
       }, PRESENCE_INTERVAL);
     };
@@ -75,8 +82,22 @@ class BaseActionCableConnector {
   // eslint-disable-next-line class-methods-use-this
   onDisconnected = () => {};
 
+  handleVisibilityChange() {
+    if (document.visibilityState === 'visible') {
+      try {
+        this.subscription.updatePresence();
+      } catch (error) {
+        // ignore
+      }
+    }
+  }
+
   disconnect() {
     this.consumer.disconnect();
+    document.removeEventListener(
+      'visibilitychange',
+      this.handleVisibilityChange
+    );
   }
 
   onReceived = ({ event, data } = {}) => {
