@@ -21,7 +21,7 @@ class ContactInboxBuilder
       evolution_source_id
     when 'Channel::Email'
       email_source_id
-    when 'Channel::Sms'
+    when 'Channel::Sms', 'Channel::Voice'
       phone_source_id
     when 'Channel::Api', 'Channel::WebWidget'
       SecureRandom.uuid
@@ -108,6 +108,6 @@ class ContactInboxBuilder
   end
 
   def allowed_channels?
-    @inbox.email? || @inbox.sms? || @inbox.twilio? || @inbox.whatsapp?
+    @inbox.email? || @inbox.sms? || @inbox.twilio? || @inbox.whatsapp? || @inbox.channel_type == 'Channel::Voice'
   end
 end

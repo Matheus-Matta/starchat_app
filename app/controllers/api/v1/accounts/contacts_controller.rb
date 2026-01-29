@@ -74,7 +74,10 @@ class Api::V1::Accounts::ContactsController < Api::V1::Accounts::BaseController
   end
 
   def contactable_inboxes
-    @all_contactable_inboxes = Contacts::ContactableInboxesService.new(contact: @contact).get
+    @all_contactable_inboxes = Contacts::ContactableInboxesService.new(
+      contact: @contact,
+      only_existing: ActiveModel::Type::Boolean.new.cast(params[:only_existing])
+    ).get
     @contactable_inboxes = @all_contactable_inboxes.select { |contactable_inbox| policy(contactable_inbox[:inbox]).show? }
   end
 
@@ -96,8 +99,12 @@ class Api::V1::Accounts::ContactsController < Api::V1::Accounts::BaseController
   def update
     @contact.assign_attributes(contact_update_params)
     @contact.save!
-    if params[:inbox_ids].is_a?(Array)
-      add_new_contact_inboxes(params[:inbox_ids])
+    
+    # Suporta inbox_ids tanto na raiz quanto aninhado no contato
+    inbox_ids = params[:inbox_ids] || params.dig(:contact, :inbox_ids)
+    
+    if inbox_ids.is_a?(Array)
+      add_new_contact_inboxes(inbox_ids)
     else
       build_contact_inbox
     end
@@ -177,7 +184,7 @@ class Api::V1::Accounts::ContactsController < Api::V1::Accounts::BaseController
   end
 
   def permitted_params
-    params.permit(:name, :identifier, :email, :phone_number, :avatar, :blocked, :avatar_url, additional_attributes: {}, custom_attributes: {})
+    params.permit(:name, :identifier, :email, :phone_number, :avatar, :blocked, :avatar_url, :inbox_id, :source_id, inbox_ids: [], additional_attributes: {}, custom_attributes: {})
   end
 
   def contact_custom_attributes

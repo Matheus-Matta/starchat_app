@@ -1,12 +1,16 @@
 class OnlineStatusTracker
   # NOTE: You can customise the environment variable to keep your agents/contacts as online for longer
-  PRESENCE_DURATION = ENV.fetch('PRESENCE_DURATION', 20).to_i.seconds
+  PRESENCE_DURATION = ENV.fetch('PRESENCE_DURATION', 60).to_i.seconds
 
   # presence : sorted set with timestamp as the score & object id as value
 
   # obj_type: Contact | User
   def self.update_presence(account_id, obj_type, obj_id)
     ::Redis::Alfred.zadd(presence_key(account_id, obj_type), Time.now.to_i, obj_id)
+  end
+
+  def self.clear_presence(account_id, obj_type, obj_id)
+    ::Redis::Alfred.zrem(presence_key(account_id, obj_type), obj_id)
   end
 
   def self.get_presence(account_id, obj_type, obj_id)

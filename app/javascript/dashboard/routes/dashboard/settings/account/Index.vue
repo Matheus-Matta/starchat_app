@@ -17,6 +17,7 @@ import AccountDelete from './components/AccountDelete.vue';
 import AutoResolve from './components/AutoResolve.vue';
 import AudioTranscription from './components/AudioTranscription.vue';
 import SectionLayout from './components/SectionLayout.vue';
+import MessagingPreferences from './components/MessagingPreferences.vue';
 
 export default {
   components: {
@@ -30,6 +31,7 @@ export default {
     SectionLayout,
     WithLabel,
     NextInput,
+    MessagingPreferences,
   },
   setup() {
     const { updateUISettings, uiSettings } = useUISettings();
@@ -240,6 +242,7 @@ export default {
       <woot-loading-state v-if="uiFlags.isFetchingItem" />
     </div>
     <AutoResolve v-if="showAutoResolutionConfig" />
+    <MessagingPreferences />
     <AudioTranscription v-if="showAudioTranscriptionConfig" />
     <AccountId />
     <div v-if="!uiFlags.isFetchingItem && isOnChatwootCloud">

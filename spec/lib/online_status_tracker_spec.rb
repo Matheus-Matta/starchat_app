@@ -32,6 +32,13 @@ describe OnlineStatusTracker do
       expect(Redis::Alfred.hmget(format(Redis::Alfred::ONLINE_STATUS, account_id: account.id),
                                  [user1.id.to_s, user2.id.to_s])).to eq(%w[online offline])
     end
+
+    describe '.clear_presence' do
+      it 'removes the user from presence list' do
+        described_class.clear_presence(account.id, 'User', user1.id)
+        expect(described_class.get_available_users(account.id).keys).to contain_exactly(user2.id.to_s)
+      end
+    end
   end
 
   context 'when get_available_contacts' do

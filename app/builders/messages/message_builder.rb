@@ -33,11 +33,27 @@ class Messages::MessageBuilder
     # When the message has no quoted content, it will just be rendered as a regular message
     # The frontend is equipped to handle this case
     process_email_content
+    validate_contact_inbox_linkage!
     @message.save!
     @message
   end
 
   private
+
+  def validate_contact_inbox_linkage!
+    return unless @account.require_contact_inbox_messaging
+    return if @private
+    return if @message_type == 'incoming'
+    
+    # Permitimos se já existe alguma conversa anterior ou se a conversa atual já tem mensagens inbound
+    # Ou se o contato foi explicitamente vinculado (mas aqui a regra pede "real")
+    # Checamos se existe pelo menos uma mensagem inbound no ContactInbox
+    has_real_link = @conversation.contact_inbox.conversations.joins(:messages).where(messages: { message_type: :incoming }).exists?
+    
+    unless has_real_link
+      raise CustomExceptions::InboxNotContactable, I18n.t('errors.messages.contact_not_linked')
+    end
+  end
 
   # Extracts content attributes from the given params.
   # - Converts ActionController::Parameters to a regular hash if needed.

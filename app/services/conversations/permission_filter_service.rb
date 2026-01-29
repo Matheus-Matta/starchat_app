@@ -24,10 +24,12 @@ class Conversations::PermissionFilterService
     perms = account_user&.permissions || []
 
     if perms.include?('conversation_unassigned_manage') || perms.include?('conversation_manage')
-      return conversations.where(inbox_id: inbox_ids)
-                          .or(conversations.where(team_id: team_ids))
-                          .or(conversations.where(assignee_id: nil))
-                          .distinct
+      # Fix: Ensure unassigned conversations are also scoped to accessible inboxes/teams
+      return scope.or(
+        conversations.where(inbox_id: inbox_ids, assignee_id: nil)
+      ).or(
+        conversations.where(team_id: team_ids, assignee_id: nil)
+      ).distinct
     end
 
     scope.distinct

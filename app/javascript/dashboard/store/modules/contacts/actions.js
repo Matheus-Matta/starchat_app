@@ -218,7 +218,9 @@ export const actions = {
   fetchContactableInbox: async ({ commit }, id) => {
     commit(types.SET_CONTACT_UI_FLAG, { isFetchingInboxes: true });
     try {
-      const response = await ContactAPI.getContactableInboxes(id);
+      const response = await ContactAPI.getContactableInboxes(id, {
+        only_existing: true,
+      });
       const contact = {
         id: Number(id),
         contact_inboxes: response.data.payload,

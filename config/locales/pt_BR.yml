@@ -20,6 +20,8 @@ pt_BR:
   errors:
     validations:
       presence: não pode ficar em branco
+    messages:
+      contact_not_linked: "Não é possível enviar mensagem: o contato não possui histórico real ou vínculo válido neste canal."
     webhook:
       invalid: Eventos inválidos
     signup:

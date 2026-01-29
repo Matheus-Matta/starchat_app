@@ -13,7 +13,13 @@ json.created_at resource.created_at.to_i if resource[:created_at].present?
 # we only want to output contact inbox when its /contacts endpoints
 if defined?(with_contact_inboxes) && with_contact_inboxes.present?
   json.contact_inboxes do
-    json.array! resource.contact_inboxes do |contact_inbox|
+    contact_inboxes = resource.contact_inboxes
+    # Se a conta exige vínculo real, mostramos apenas inboxes que já possuem conversas
+    if resource.account.require_contact_inbox_messaging
+      contact_inboxes = contact_inboxes.joins(:conversations).distinct
+    end
+
+    json.array! contact_inboxes do |contact_inbox|
       json.partial! 'api/v1/models/contact_inbox', formats: [:json], resource: contact_inbox
     end
   end
