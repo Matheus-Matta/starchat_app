@@ -38,6 +38,10 @@ export const NOTIFICATION_TYPES = [
     label: 'PROFILE_SETTINGS.FORM.NOTIFICATIONS.TYPES.INBOX_CONNECTION_UPDATE',
     value: 'inbox_connection_update',
   },
+  {
+    label: 'PROFILE_SETTINGS.FORM.NOTIFICATIONS.TYPES.INCOMING_CALL',
+    value: 'incoming_call',
+  },
 ];
 
 export const EVENT_TYPES = {

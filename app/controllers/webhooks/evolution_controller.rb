@@ -4,7 +4,6 @@
 require 'open-uri'
 
 class Webhooks::EvolutionController < ActionController::API
-  include Evolution::WebhookHelpers
 
   include Evolution::CommonHelpers
 
@@ -18,7 +17,7 @@ class Webhooks::EvolutionController < ActionController::API
     handle_event(event, data)
 
     # Re-wrap data if necessary for the job
-    if %w[messages_upsert messages_update contacts_update chats_update].include?(event)
+    if %w[messages_upsert messages_update contacts_update chats_update call].include?(event)
       data = [data] if data.is_a?(Hash)
 
       # Deduplicate messages

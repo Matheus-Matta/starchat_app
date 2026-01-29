@@ -51,6 +51,16 @@ class Webhooks::EvolutionEventsJob < ApplicationJob
         ).perform
       end
 
+
+    when 'call'
+      rows.each do |call_event|
+        safely('call event') do
+          next if call_event.blank?
+
+          Evolution::CallEventJob.perform_later(@inbox.id, call_event)
+        end
+      end
+
     else
       Rails.logger.debug { "[Evolution] unknown event=#{evt}" }
     end

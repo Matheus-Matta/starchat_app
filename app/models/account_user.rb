@@ -29,6 +29,7 @@ class AccountUser < ApplicationRecord
 
   belongs_to :account
   belongs_to :user
+  belongs_to :custom_role, optional: true
   belongs_to :inviter, class_name: 'User', optional: true
 
   enum role: { agent: 0, administrator: 1 }
@@ -54,7 +55,20 @@ class AccountUser < ApplicationRecord
   end
 
   def permissions
-    administrator? ? ['administrator'] : ['agent']
+    if administrator?
+      ['administrator']
+    elsif custom_role
+      custom_role.permissions
+    else
+      ['agent', 'create_macro', 'create_canned_response']
+    end
+  end
+
+  def permission?(permission)
+    return true if administrator?
+    return true if custom_role_id.nil?
+
+    permissions.include?(permission.to_s)
   end
 
   def push_event_data

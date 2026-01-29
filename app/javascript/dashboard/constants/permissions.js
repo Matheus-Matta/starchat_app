@@ -6,6 +6,8 @@ export const AVAILABLE_CUSTOM_ROLE_PERMISSIONS = [
   'contact_manage',
   'report_manage',
   'knowledge_base_manage',
+  'create_macro',
+  'create_canned_response',
 ];
 
 export const ROLES = ['agent', 'administrator'];

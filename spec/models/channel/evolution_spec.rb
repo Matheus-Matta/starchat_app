@@ -17,10 +17,10 @@ RSpec.describe Channel::Evolution, type: :model do
         instance_name = channel.instance_name
 
         # Deve começar com o prefixo
-        expect(instance_name).to start_with('evo-')
+        expect(instance_name).to start_with('test-')
 
         # Deve conter timestamp Unix (10 dígitos)
-        expect(instance_name).to match(/evo-\d{10}/)
+        expect(instance_name).to match(/test-\d{10}/)
 
         # Deve conter account_id
         expect(instance_name).to include("acc#{account.id}")
@@ -59,11 +59,11 @@ RSpec.describe Channel::Evolution, type: :model do
       it 'tem todos os componentes no formato correto' do
         instance_name = channel.instance_name
 
-        # Formato esperado: evo-1704567890-acc5-ch12-a3f8d2
+        # Formato esperado: test-1704567890-acc5-ch12-a3f8d2
         parts = instance_name.split('-')
 
-        # evo
-        expect(parts[0]).to eq('evo')
+        # test
+        expect(parts[0]).to eq('test')
 
         # Timestamp (10 dígitos)
         expect(parts[1]).to match(/^\d{10}$/)
@@ -118,7 +118,7 @@ RSpec.describe Channel::Evolution, type: :model do
         channel = create(:channel_evolution, account: account, instance_name: nil)
 
         expect(channel.instance_name).to be_present
-        expect(channel.instance_name).to start_with('evo-')
+        expect(channel.instance_name).to start_with('test-')
       end
 
       it 'não sobrescreve instance_name se já existir' do

@@ -12,38 +12,32 @@ module Evolution
     # expõe:
     # - attach_from_payload!(message, payload) -> true/false
 
+    INVALID_WA_URL = 'https://web.whatsapp.net'
+    MIME_TYPE_EXTENSIONS = {
+      'image/jpeg' => '.jpg',
+      'image/png' => '.png',
+      'image/gif' => '.gif',
+      'image/webp' => '.webp',
+      'video/mp4' => '.mp4',
+      'audio/ogg' => '.ogg',
+      'audio/mpeg' => '.mp3'
+    }.freeze
+
     def attach_from_payload!(message, payload)
       type, media = Evolution::MediaSelector.pick_first_media(payload)
       return false unless type && media
 
-      raw_url    = media['url'] || media['directPath']
-      url        = Evolution::MediaSelector.normalize_wa_media_url(raw_url)
-      media_key  = media['mediaKey']
-      if media_key.is_a?(Hash)
-        # Converte Hash de bytes {"0"=>123, "1"=>45} em String binária
-        bytes = media_key.sort_by { |k, _v| k.to_i }.map { |_k, v| v }.pack('C*')
-        # DownloadForWhatsappEnc espera Base64 Strict
-        media_key = Base64.strict_encode64(bytes)
-      elsif media_key.is_a?(Array)
-        # Se vier como Array de bytes [123, 45, ...]
-        bytes = media_key.pack('C*')
-        media_key = Base64.strict_encode64(bytes)
-      end
-      mimetype   = media['mimetype'].to_s
-      filename   = suggested_filename_from_payload_like_wa(type, mimetype)
+      raw_url = select_raw_url(media)
+      url = Evolution::MediaSelector.normalize_wa_media_url(raw_url)
+      media_key = normalize_media_key(media['mediaKey'])
+
+      mimetype = media['mimetype'].to_s
+      filename = suggested_filename_from_type_and_mime(type, mimetype)
 
       # 1) Preferência: base64 (no payload OU dentro de media)
-      b64 = extract_any_base64(payload)
-      b64 ||= media['base64'] if media.is_a?(Hash) && media['base64'].present?
-
-      if b64.present?
+      if (b64 = extract_b64(payload, media)).present?
         Rails.logger.info '[MediaAttach] Found Base64. Processing...'
-        blob = download_for_base64(
-          b64,
-          filename: filename,
-          content_type: mimetype.presence,
-          identify: false
-        )
+        blob = download_for_base64(b64, filename: filename, content_type: mimetype.presence, identify: false)
         return attach_blob!(message, blob)
       end
 
@@ -53,80 +47,83 @@ module Evolution
         blob = download_for_whatsapp_enc(
           url: url,
           media_key: media_key,
-          media_type: type,          # :audio/:video/:image/:document
+          media_type: type,
           filename: filename,
           content_type: mimetype,
-          headers: {},            # ajuste se houver Auth
+          headers: {},
           identify: false
         )
         return attach_blob!(message, blob)
       end
 
-      # 3) Fallback: URL simples (sem base64, sem media_key)
-      # Caso o webhook mande uma URL pública ou acessível
-      if url.present?
-        Rails.logger.info "[MediaAttach] Trying simple download from #{url}..."
-        begin
-          blob = download_simple_url(url, filename, mimetype)
-          return attach_blob!(message, blob)
-        rescue StandardError => e
-          Rails.logger.warn "[MediaAttach] Simple URL download failed: #{e.message}"
-        end
-      end
-
-      false
-    rescue StandardError => e
-      Rails.logger.warn "[MediaAttach] erro: #{e.class} #{e.message}"
-      false
+      # 3) Fallback: URL simples
+      try_simple_download(message, url, filename, mimetype)
     end
 
     private
+
+    def select_raw_url(media)
+      url = media['url']
+      url == INVALID_WA_URL ? media['directPath'] : (url || media['directPath'])
+    end
+
+    def normalize_media_key(key)
+      return nil if key.blank?
+      return key if key.is_a?(String)
+
+      bytes = if key.is_a?(Hash)
+                key.sort_by { |k, _| k.to_i }.map { |_, v| v }
+              elsif key.is_a?(Array)
+                key
+              else
+                return nil
+              end
+
+      Base64.strict_encode64(bytes.pack('C*'))
+    end
+
+    def extract_b64(payload, media)
+      b64 = extract_any_base64(payload)
+      b64 ||= media['base64'] if media.is_a?(Hash) && media['base64'].present?
+      b64
+    end
 
     def extract_any_base64(p)
       candidates = [
         p['base64'],
         p.dig('message', 'base64'),
-
         p.dig('message', 'imageMessage', 'base64'),
         p.dig('message', 'videoMessage', 'base64'),
         p.dig('message', 'audioMessage', 'base64'),
         p.dig('message', 'documentMessage', 'base64'),
-
         p.dig('message', 'imageMessage', 'data'),
         p.dig('message', 'videoMessage', 'data'),
         p.dig('message', 'audioMessage', 'data'),
         p.dig('message', 'documentMessage', 'data'),
-
         p.dig('message', 'imageMessage', 'file'),
         p.dig('message', 'videoMessage', 'file'),
         p.dig('message', 'audioMessage', 'file'),
         p.dig('message', 'documentMessage', 'file')
       ]
-
-      # Retorna o primeiro candidato que seja String e não vazio.
-      # Ignora Hashes/Arrays (como jpegThumbnail ou keys cruas)
       candidates.find { |c| c.is_a?(String) && c.present? }
     end
 
-    def suggested_filename_from_payload_like_wa(_type, mimetype)
-      ext = if mimetype.start_with?('image/jpeg')
-              '.jpg'
-            elsif mimetype.start_with?('image/png')
-              '.png'
-            elsif mimetype.start_with?('image/gif')
-              '.gif'
-            elsif mimetype.start_with?('image/webp')
-              '.webp'
-            elsif mimetype.start_with?('video/mp4')
-              '.mp4'
-            elsif mimetype.start_with?('audio/ogg')
-              '.ogg'
-            elsif mimetype.start_with?('audio/mpeg')
-              '.mp3'
-            else
-              ''
-            end
+    def suggested_filename_from_type_and_mime(_type, mimetype)
+      ext = MIME_TYPE_EXTENSIONS.find { |k, _v| mimetype.start_with?(k) }&.last || ''
       "file-#{SecureRandom.hex(4)}#{ext}"
+    end
+
+    def try_simple_download(message, url, filename, mimetype)
+      return false if url.blank?
+
+      Rails.logger.info "[MediaAttach] Trying simple download from #{url}..."
+      begin
+        blob = download_simple_url(url, filename, mimetype)
+        attach_blob!(message, blob)
+      rescue StandardError => e
+        Rails.logger.warn "[MediaAttach] Simple URL download failed: #{e.message}"
+        false
+      end
     end
 
     def attach_blob!(message, blob)

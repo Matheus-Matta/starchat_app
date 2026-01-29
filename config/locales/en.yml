@@ -146,8 +146,10 @@ en:
       sla_missed_next_response: 'SLA target next response missed for conversation (#%{display_id})'
       sla_missed_resolution: 'SLA target resolution missed for conversation (#%{display_id})'
       inbox_connection_update: 'Connection for inbox %{inbox_name}: %{status}'
+      incoming_call: 'Incoming Call: %{inbox_name}'
     notification_body:
       inbox_connection_update: 'The connection for inbox %{inbox_name} changed to: %{status}. Please check your settings.'
+      incoming_call: 'Inbox %{inbox_name} is receiving a call from %{from_number}.'
     email_subject:
       inbox_connection_update: 'URGENT: Connection updated for %{inbox_name} (%{status})'
   conversations:

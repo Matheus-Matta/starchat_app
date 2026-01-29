@@ -7,16 +7,19 @@ class Api::V1::Accounts::CannedResponsesController < Api::V1::Accounts::BaseCont
 
   def create
     @canned_response = Current.account.canned_responses.new(canned_response_params)
+    authorize @canned_response
     @canned_response.save!
     render json: @canned_response
   end
 
   def update
+    authorize @canned_response
     @canned_response.update!(canned_response_params)
     render json: @canned_response
   end
 
   def destroy
+    authorize @canned_response
     @canned_response.destroy!
     head :ok
   end
