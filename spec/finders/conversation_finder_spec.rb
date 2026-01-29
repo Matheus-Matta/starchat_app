@@ -203,5 +203,21 @@ describe ConversationFinder do
         expect(result[:conversations].length).to be 2
       end
     end
+
+    context 'with text search' do
+      let(:params) { { q: 'found_me', status: 'all' } }
+
+      it 'returns conversations matching search from deeper pages' do
+        # Create 30 conversations to push the target to the next page
+        create_list(:conversation, 30, account: account, inbox: inbox, assignee: user_1, created_at: 1.hour.ago)
+
+        # Create target conversation with specific content, older than others so it would be on page 2
+        target = create(:conversation, account: account, inbox: inbox, assignee: user_1, created_at: 2.hours.ago)
+        create(:message, conversation: target, content: 'You found_me here', message_type: :incoming, account: account, inbox: inbox)
+
+        result = conversation_finder.perform
+        expect(result[:conversations].map(&:id)).to include(target.id)
+      end
+    end
   end
 end
