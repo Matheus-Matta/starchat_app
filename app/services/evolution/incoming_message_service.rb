@@ -42,6 +42,9 @@ class Evolution::IncomingMessageService < Evolution::MessageBaseService
     @message.content = text
     Evolution::MessageReplyTo.apply!(@message, @payload)
 
+    # Detect sticker and update content_type
+    @message.content_type = :sticker if Evolution::MediaSelector.pick_first_media(@payload).first == :sticker
+
     if @message.save
       Rails.logger.info("[EVOLUTION INCOMING] Message created successfully id=#{@message.id}")
       @message.attachments.each do |att|

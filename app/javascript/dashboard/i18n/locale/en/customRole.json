@@ -36,7 +36,9 @@
       "CONVERSATION_PARTICIPATING_MANAGE": "Manage participating conversations and those assigned to them",
       "CONTACT_MANAGE": "Manage contacts",
       "REPORT_MANAGE": "Manage reports",
-      "KNOWLEDGE_BASE_MANAGE": "Manage knowledge base"
+      "KNOWLEDGE_BASE_MANAGE": "Manage knowledge base",
+      "CREATE_MACRO": "Manage macros",
+      "CREATE_CANNED_RESPONSE": "Manage canned responses"
     },
     "FORM": {
       "NAME": {

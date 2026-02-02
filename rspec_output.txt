@@ -1,0 +1,34 @@
+DEPRECATION WARNING: `Rails.application.secrets` is deprecated in favor of `Rails.application.credentials` and will be removed in Rails 7.2. (called from <top (required)> at /home/matheus/starchat_app/config/environment.rb:5)
+DEPRECATION WARNING: `Rails.application.secrets` is deprecated in favor of `Rails.application.credentials` and will be removed in Rails 7.2. (called from <top (required)> at /home/matheus/starchat_app/config/environment.rb:5)
+F..
+
+Failures:
+
+  1) Evolution::IncomingMessageService#perform when receiving a sticker message creates a message with content_type sticker
+     Failure/Error: expect(Message.last.attachments.count).to eq(1)
+
+       expected: 1
+            got: 0
+
+       (compared using ==)
+     # ./spec/services/evolution/incoming_message_service_spec.rb:48:in 'block (4 levels) in <top (required)>'
+
+Deprecation Warnings:
+
+Rails 7.1 has deprecated the singular fixture_path in favour of an array.You should migrate to plural:
+
+
+If you need more of the backtrace for any of these deprecations to
+identify where to make the necessary changes, you can configure
+`config.raise_errors_for_deprecations!`, and it will turn the
+deprecation warnings into errors, giving you the full backtrace.
+
+1 deprecation warning total
+
+Finished in 2.98 seconds (files took 6.17 seconds to load)
+3 examples, 1 failure
+
+Failed examples:
+
+rspec ./spec/services/evolution/incoming_message_service_spec.rb:37 # Evolution::IncomingMessageService#perform when receiving a sticker message creates a message with content_type sticker
+

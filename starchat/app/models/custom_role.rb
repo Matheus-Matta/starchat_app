@@ -22,6 +22,14 @@
 # - 'conversation_participating_manage': Can manage conversations they are participating in (assigned to or a participant).
 # - 'contact_manage': Can manage contacts.
 # - 'report_manage': Can manage reports.
+
+# Available permissions for custom roles:
+# - 'conversation_manage': Can manage all conversations.
+# - 'conversation_team_manage': Can manage conversations assigned to their team and self.
+# - 'conversation_unassigned_manage': Can manage unassigned conversations and assign to self.
+# - 'conversation_participating_manage': Can manage conversations they are participating in (assigned to or a participant).
+# - 'contact_manage': Can manage contacts.
+# - 'report_manage': Can manage reports.
 # - 'knowledge_base_manage': Can manage knowledge base portals.
 
 class CustomRole < ApplicationRecord
@@ -36,6 +44,8 @@ class CustomRole < ApplicationRecord
     contact_manage
     report_manage
     knowledge_base_manage
+    create_macro
+    create_canned_response
   ].freeze
 
   validates :name, presence: true

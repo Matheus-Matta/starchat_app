@@ -10,10 +10,12 @@ module Evolution
       video    = h['videoMessage']    || h.dig('message', 'videoMessage')
       image    = h['imageMessage']    || h.dig('message', 'imageMessage')
       document = h['documentMessage'] || h.dig('message', 'documentMessage')
+      sticker  = h['stickerMessage']  || h.dig('message', 'stickerMessage')
 
       return [:audio,    audio]    if audio.is_a?(Hash)
       return [:video,    video]    if video.is_a?(Hash)
       return [:image,    image]    if image.is_a?(Hash)
+      return [:sticker,  sticker]  if sticker.is_a?(Hash)
       return [:document, document] if document.is_a?(Hash)
 
       [nil, nil]

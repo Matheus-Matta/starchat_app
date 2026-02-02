@@ -163,8 +163,10 @@ pt_BR:
       sla_missed_next_response: Meta de SLA de Próxima Resposta não alcançada para a conversa (#%{display_id})
       sla_missed_resolution: Meta de SLA de Resolução não alcançada para a conversa (#%{display_id})
       inbox_connection_update: 'Conexão da caixa de entrada %{inbox_name}: %{status}'
+      incoming_call: 'Recebendo Ligação: %{inbox_name}'
     notification_body:
       inbox_connection_update: 'A conexão da caixa de entrada %{inbox_name} mudou para: %{status}. Verifique suas configurações.'
+      incoming_call: 'A caixa de entrada %{inbox_name} está recebendo uma ligação de %{from_number}.'
     email_subject:
       inbox_connection_update: 'URGENTE: Conexão atualizada para %{inbox_name} (%{status})'
     email_subject:

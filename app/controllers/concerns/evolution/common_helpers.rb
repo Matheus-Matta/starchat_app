@@ -4,30 +4,55 @@ module Evolution::CommonHelpers
   extend ActiveSupport::Concern
 
   def create_connection_change_notification(inbox, status = 'disconnected')
-    recipients = inbox.account.administrators
-    recipients = inbox.members if recipients.blank?
+    send_evolution_notification(
+      inbox: inbox,
+      type: 'inbox_connection_update',
+      meta: { status: status },
+      dedup_key: 'status',
+      dedup_value: status,
+      dedup_window: 2.minutes
+    )
+  end
+
+  def create_incoming_call_notification(inbox, from_number)
+    send_evolution_notification(
+      inbox: inbox,
+      type: 'incoming_call',
+      meta: { from_number: from_number },
+      dedup_key: 'from_number',
+      dedup_value: from_number,
+      dedup_window: 1.minute
+    )
+  end
+
+  private
+
+  def send_evolution_notification(inbox:, type:, meta:, dedup_key:, dedup_value:, dedup_window:)
+    # Prioritize inbox members (agents working on it)
+    recipients = inbox.members
+    # Fallback to admins if no specific members assigned
+    recipients = inbox.account.administrators if recipients.blank?
 
     return if recipients.blank?
 
-    recipients.uniq.each do |admin|
-      # De-duplicate: don't create if one exists for the same user/inbox AND same status in the last 2 minutes
-      # This allows "close" then "open" to both notify, but blocks repeated "close"
+    recipients.uniq.each do |user|
+      # Deduplicate: Don't create if one exists for the same user/inbox/meta_key in the time window
       next if Notification.where(
-        user: admin,
-        notification_type: 'inbox_connection_update',
+        user: user,
+        notification_type: type,
         primary_actor: inbox,
-        created_at: 2.minutes.ago..Time.current
-      ).exists?(["meta ->> 'status' = ?", status])
+        created_at: dedup_window.ago..Time.current
+      ).exists?(["meta ->> ? = ?", dedup_key, dedup_value])
 
       Notification.create!(
-        notification_type: 'inbox_connection_update',
+        notification_type: type,
         account: inbox.account,
-        user: admin,
+        user: user,
         primary_actor: inbox,
-        meta: { status: status }
+        meta: meta
       )
     rescue StandardError => e
-      Rails.logger.error("[Evolution] Failed to create notification for user #{admin.id}: #{e.message}")
+      Rails.logger.error("[Evolution] Failed to create #{type} notification for user #{user.id}: #{e.message}")
     end
   end
 

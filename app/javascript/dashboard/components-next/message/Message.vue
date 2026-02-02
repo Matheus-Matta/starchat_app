@@ -37,6 +37,7 @@ import LocationBubble from './bubbles/Location.vue';
 import CSATBubble from './bubbles/CSAT.vue';
 import FormBubble from './bubbles/Form.vue';
 import VoiceCallBubble from './bubbles/VoiceCall.vue';
+import StickerBubble from './bubbles/Sticker.vue';
 
 import MessageError from './MessageError.vue';
 import ContextMenu from 'dashboard/modules/conversations/components/MessageContextMenu.vue';
@@ -283,6 +284,10 @@ const componentToRender = computed(() => {
 
   if (props.contentType === CONTENT_TYPES.VOICE_CALL) {
     return VoiceCallBubble;
+  }
+
+  if (props.contentType === CONTENT_TYPES.STICKER) {
+    return StickerBubble;
   }
 
   if (props.contentType === CONTENT_TYPES.INCOMING_EMAIL) {

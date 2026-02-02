@@ -36,7 +36,9 @@
       "CONVERSATION_PARTICIPATING_MANAGE": "Gerenciar conversas em que participa e as que lhe estão atribuídas",
       "CONTACT_MANAGE": "Gerenciar contatos",
       "REPORT_MANAGE": "Gerenciar relatórios",
-      "KNOWLEDGE_BASE_MANAGE": "Gerenciar base de conhecimento"
+      "KNOWLEDGE_BASE_MANAGE": "Gerenciar base de conhecimento",
+      "CREATE_MACRO": "Gerenciar macros",
+      "CREATE_CANNED_RESPONSE": "Gerenciar respostas prontas"
     },
     "FORM": {
       "NAME": {

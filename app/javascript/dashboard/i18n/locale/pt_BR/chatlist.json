@@ -102,6 +102,9 @@
       },
       "contact": {
         "CONTENT": "Contato compartilhado"
+      },
+      "sticker": {
+        "CONTENT": "Figurinha recebida"
       }
     },
     "CHAT_SORT_BY_FILTER": {

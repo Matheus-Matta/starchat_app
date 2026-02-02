@@ -51,14 +51,12 @@ class Evolution::MessageBaseService < Whatsapp::IncomingMessageBaseService
     @contact_inbox  = ci
 
     if !sender_is_me && !locked_name?(@contact) && display.present?
-
       unless looks_like_number?(display)
         current_name = @contact.name.to_s
         is_current_placeholder = current_name.blank? || looks_like_number?(current_name)
 
         @contact.update(name: display) if is_current_placeholder || (current_name != display)
       end
-
     elsif sender_is_me && @contact.name.blank? && !locked_name?(@contact)
       @contact.update_columns(name: phone_e164, updated_at: Time.current)
     end

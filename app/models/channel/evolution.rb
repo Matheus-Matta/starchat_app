@@ -139,7 +139,13 @@ class Channel::Evolution < ApplicationRecord
       "#{account_id}-#{id}-#{timestamp}-#{SecureRandom.hex(4)}"
     )[0..5]
 
-    "#{INSTANCE_NAME_PREFIX}#{timestamp}-acc#{account_id}-ch#{id}-#{unique_hash}"
+    prefix = if Rails.env.development? || Rails.env.test?
+               'test-'
+             else
+               INSTANCE_NAME_PREFIX
+             end
+
+    "#{prefix}#{timestamp}-acc#{account_id}-ch#{id}-#{unique_hash}"
   end
 
   def computed_webhook_url

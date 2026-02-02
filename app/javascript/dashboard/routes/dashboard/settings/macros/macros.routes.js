@@ -22,7 +22,7 @@ export default {
           component: Macros,
           meta: {
             featureFlag: FEATURE_FLAGS.MACROS,
-            permissions: [...ROLES, ...CONVERSATION_PERMISSIONS],
+            permissions: ['administrator', 'create_macro'],
           },
         },
       ],
@@ -44,7 +44,7 @@ export default {
           component: MacroEditor,
           meta: {
             featureFlag: FEATURE_FLAGS.MACROS,
-            permissions: [...ROLES, ...CONVERSATION_PERMISSIONS],
+            permissions: ['administrator', 'create_macro'],
           },
         },
         {
@@ -53,7 +53,7 @@ export default {
           component: MacroEditor,
           meta: {
             featureFlag: FEATURE_FLAGS.MACROS,
-            permissions: [...ROLES, ...CONVERSATION_PERMISSIONS],
+            permissions: ['administrator', 'create_macro'],
           },
         },
       ],

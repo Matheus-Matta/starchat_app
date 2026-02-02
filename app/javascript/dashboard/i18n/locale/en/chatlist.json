@@ -102,6 +102,9 @@
       },
       "contact": {
         "CONTENT": "Shared contact"
+      },
+      "sticker": {
+        "CONTENT": "Sticker message"
       }
     },
     "CHAT_SORT_BY_FILTER": {

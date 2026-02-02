@@ -44,7 +44,8 @@ class Notification < ApplicationRecord
     sla_missed_first_response: 6,
     sla_missed_next_response: 7,
     sla_missed_resolution: 8,
-    inbox_connection_update: 9
+    inbox_connection_update: 9,
+    incoming_call: 10
   }.freeze
 
   enum notification_type: NOTIFICATION_TYPES
@@ -95,7 +96,8 @@ class Notification < ApplicationRecord
     'sla_missed_first_response' => 'notifications.notification_title.sla_missed_first_response',
     'sla_missed_next_response' => 'notifications.notification_title.sla_missed_next_response',
     'sla_missed_resolution' => 'notifications.notification_title.sla_missed_resolution',
-    'inbox_connection_update' => 'notifications.notification_title.inbox_connection_update'
+    'inbox_connection_update' => 'notifications.notification_title.inbox_connection_update',
+    'incoming_call' => 'notifications.notification_title.incoming_call'
   }.freeze
 
   def push_message_title
@@ -108,6 +110,8 @@ class Notification < ApplicationRecord
         I18n.t(i18n_key, display_id: conversation.display_id, inbox_name: primary_actor.inbox.name)
       when 'inbox_connection_update'
         I18n.t(i18n_key, inbox_name: primary_actor.name, status: status_from_meta)
+      when 'incoming_call'
+        I18n.t(i18n_key, inbox_name: primary_actor.name)
       when 'conversation_assignment', 'assigned_conversation_new_message', 'participating_conversation_new_message', 'conversation_mention'
         I18n.t(i18n_key, display_id: conversation&.display_id)
       else
@@ -128,6 +132,8 @@ class Notification < ApplicationRecord
         message_body(last_msg) if last_msg
       when 'inbox_connection_update'
         I18n.t('notifications.notification_body.inbox_connection_update', inbox_name: primary_actor.name, status: status_from_meta)
+      when 'incoming_call'
+        I18n.t('notifications.notification_body.incoming_call', from_number: meta&.dig('from_number'))
       else
         ''
       end

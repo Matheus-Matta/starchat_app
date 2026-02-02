@@ -155,7 +155,8 @@
           "SLA_MISSED_FIRST_RESPONSE": "Uma conversa perde o SLA de primeira resposta",
           "SLA_MISSED_NEXT_RESPONSE": "Uma conversa perde o SLA da próxima resposta",
           "SLA_MISSED_RESOLUTION": "Uma conversa perde o SLA de resolução",
-          "INBOX_CONNECTION_UPDATE": "Conexão da caixa de entrada atualizada"
+          "INBOX_CONNECTION_UPDATE": "Conexão da caixa de entrada atualizada",
+          "INCOMING_CALL": "Chamada recebida na caixa de entrada"
         },
         "BROWSER_PERMISSION": "Ative notificações push em seu navegador para poder recebê-las"
       },

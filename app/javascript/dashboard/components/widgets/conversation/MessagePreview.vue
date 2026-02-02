@@ -27,34 +27,37 @@ export default {
   },
   computed: {
     messageByAgent() {
-      const { message_type: messageType } = this.message;
+      const messageType = this.message?.message_type;
       return messageType === MESSAGE_TYPE.OUTGOING;
     },
     isMessageAnActivity() {
-      const { message_type: messageType } = this.message;
+      const messageType = this.message?.message_type;
       return messageType === MESSAGE_TYPE.ACTIVITY;
     },
     isMessagePrivate() {
-      const { private: isPrivate } = this.message;
-      return isPrivate;
+      return !!this.message?.private;
     },
     parsedLastMessage() {
-      const { content_attributes: contentAttributes } = this.message;
+      const contentAttributes = this.message?.content_attributes;
       const { email: { subject } = {} } = contentAttributes || {};
-      return this.getPlainText(subject || this.message.content);
+      return this.getPlainText(subject || this.message?.content || '');
     },
     lastMessageFileType() {
-      const [{ file_type: fileType } = {}] = this.message.attachments;
-      return fileType;
+      const attachments = this.message?.attachments || [];
+      if (attachments.length > 0) {
+        return attachments[0].file_type || attachments[0].fileType;
+      }
+      return null;
     },
     attachmentIcon() {
-      return ATTACHMENT_ICONS[this.lastMessageFileType];
+      return ATTACHMENT_ICONS[this.lastMessageFileType] || null;
     },
     attachmentMessageContent() {
+      if (!this.lastMessageFileType) return 'CHAT_LIST.NO_CONTENT';
       return `CHAT_LIST.ATTACHMENTS.${this.lastMessageFileType}.CONTENT`;
     },
     isMessageSticker() {
-      return this.message && this.message.content_type === 'sticker';
+      return this.message?.content_type === 'sticker';
     },
   },
 };
@@ -82,26 +85,34 @@ export default {
         icon="info"
       />
     </template>
-    <span v-if="message.content && isMessageSticker">
+
+    <!-- Sticker Message -->
+    <span v-if="isMessageSticker">
       <fluent-icon
         size="16"
         class="-mt-0.5 align-middle inline-block text-n-slate-11"
         icon="image"
       />
-      {{ $t('CHAT_LIST.ATTACHMENTS.image.CONTENT') }}
+      {{ $t('CHAT_LIST.ATTACHMENTS.sticker.CONTENT') }}
     </span>
+
+    <!-- Text Content -->
     <span v-else-if="message.content">
       {{ parsedLastMessage }}
     </span>
-    <span v-else-if="message.attachments">
+
+    <!-- Attachments -->
+    <span v-else-if="message.attachments && message.attachments.length > 0">
       <fluent-icon
         v-if="attachmentIcon && showMessageType"
         size="16"
         class="-mt-0.5 align-middle inline-block text-n-slate-11"
         :icon="attachmentIcon"
       />
-      {{ $t(`${attachmentMessageContent}`) }}
+      {{ $t(attachmentMessageContent) }}
     </span>
+
+    <!-- Empty/Fallback -->
     <span v-else>
       {{ defaultEmptyMessage || $t('CHAT_LIST.NO_CONTENT') }}
     </span>
