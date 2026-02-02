@@ -15,9 +15,7 @@ if defined?(with_contact_inboxes) && with_contact_inboxes.present?
   json.contact_inboxes do
     contact_inboxes = resource.contact_inboxes
     # Se a conta exige vínculo real, mostramos apenas inboxes que já possuem conversas
-    if resource.account.require_contact_inbox_messaging
-      contact_inboxes = contact_inboxes.joins(:conversations).distinct
-    end
+    contact_inboxes = contact_inboxes.joins(:conversations).distinct if resource.account.require_contact_inbox_messaging
 
     json.array! contact_inboxes do |contact_inbox|
       json.partial! 'api/v1/models/contact_inbox', formats: [:json], resource: contact_inbox

@@ -42,7 +42,7 @@ module Evolution::CommonHelpers
         notification_type: type,
         primary_actor: inbox,
         created_at: dedup_window.ago..Time.current
-      ).exists?(["meta ->> ? = ?", dedup_key, dedup_value])
+      ).exists?(['meta ->> ? = ?', dedup_key, dedup_value])
 
       Notification.create!(
         notification_type: type,

@@ -52,7 +52,7 @@ describe Contacts::ContactableInboxesService do
       it 'generates new UUID if no ContactInbox exists (default mode)' do
         contactable_inboxes = described_class.new(contact: contact).get
         api_result = contactable_inboxes.find { |ci| ci[:inbox] == api_inbox }
-        
+
         expect(api_result).to be_present
         expect(api_result[:source_id]).to be_present
         expect(api_result[:source_id]).to match(/[a-f0-9-]{36}/) # UUID format
@@ -83,7 +83,7 @@ describe Contacts::ContactableInboxesService do
         # Inboxes com ContactInbox e conversa
         twilio_sms_contact_inbox = create(:contact_inbox, inbox: twilio_sms_inbox, contact: contact, source_id: contact.phone_number)
         create(:conversation, contact: contact, inbox: twilio_sms_inbox, contact_inbox: twilio_sms_contact_inbox)
-        
+
         # Inbox com ContactInbox mas SEM conversa (Vínculo "fantasma" agora é válido para exibição)
         create(:contact_inbox, inbox: email_inbox, contact: contact, source_id: contact.email)
 

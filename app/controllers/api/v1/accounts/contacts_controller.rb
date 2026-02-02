@@ -99,10 +99,10 @@ class Api::V1::Accounts::ContactsController < Api::V1::Accounts::BaseController
   def update
     @contact.assign_attributes(contact_update_params)
     @contact.save!
-    
+
     # Suporta inbox_ids tanto na raiz quanto aninhado no contato
     inbox_ids = params[:inbox_ids] || params.dig(:contact, :inbox_ids)
-    
+
     if inbox_ids.is_a?(Array)
       add_new_contact_inboxes(inbox_ids)
     else

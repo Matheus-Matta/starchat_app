@@ -51,7 +51,6 @@ class Webhooks::EvolutionEventsJob < ApplicationJob
         ).perform
       end
 
-
     when 'call'
       rows.each do |call_event|
         safely('call event') do
