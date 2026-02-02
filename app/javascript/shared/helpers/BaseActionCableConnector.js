@@ -21,6 +21,9 @@ class BaseActionCableConnector {
         updatePresence() {
           this.perform('update_presence');
         },
+        connected: () => {
+          this.subscription.updatePresence();
+        },
         received: this.onReceived,
         disconnected: () => {
           BaseActionCableConnector.isDisconnected = true;
