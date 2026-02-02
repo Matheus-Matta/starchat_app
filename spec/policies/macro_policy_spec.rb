@@ -24,44 +24,28 @@ RSpec.describe MacroPolicy, type: :policy do
   end
 
   permissions :index? do
-    it 'allows administrator' do
+    it 'allows all roles to index' do
       expect(subject).to permit(admin_context, macro)
-    end
-
-    it 'allows standard agent' do
       expect(subject).to permit(agent_context, macro)
-    end
-
-    it 'allows custom role with permission' do
       expect(subject).to permit(custom_role_context, macro)
-    end
-
-    it 'denies custom role WITHOUT permission' do
-      # Actually index is typically checking Class, not record. But Pundit Helper allows record.
-      # My policy: index? { ... }
-      # Wait, previously I had index? checking permission.
-      # But for usage reasons I kept index? true for CannedResponse.
-      # For MacroPolicy, did I restrict it?
-      # Step 160: index? NOT modified (it was true).
-      # Wait, I did NOT restrict index for MacroPolicy in Step 160!
       expect(subject).to permit(restricted_context, macro)
     end
   end
 
   permissions :create? do
-    it 'allows administrator' do
+    it 'allows administrator to create' do
       expect(subject).to permit(admin_context, macro)
     end
 
-    it 'allows standard agent' do
+    it 'allows standard agent to create' do
       expect(subject).to permit(agent_context, macro)
     end
 
-    it 'allows custom role with permission' do
+    it 'allows custom role with permission to create' do
       expect(subject).to permit(custom_role_context, macro)
     end
 
-    it 'denies custom role WITHOUT permission' do
+    it 'denies custom role WITHOUT permission to create' do
       expect(subject).not_to permit(restricted_context, macro)
     end
   end

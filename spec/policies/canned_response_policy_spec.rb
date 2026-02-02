@@ -1,5 +1,6 @@
 require 'rails_helper'
 
+# rubocop:disable RSpec/RepeatedExample
 RSpec.describe CannedResponsePolicy, type: :policy do
   subject { described_class }
 
@@ -72,3 +73,4 @@ RSpec.describe CannedResponsePolicy, type: :policy do
     end
   end
 end
+# rubocop:enable RSpec/RepeatedExample
