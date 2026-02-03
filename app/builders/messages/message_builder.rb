@@ -44,15 +44,15 @@ class Messages::MessageBuilder
     return unless @account.require_contact_inbox_messaging
     return if @private
     return if @message_type == 'incoming'
-    
+
     # Permitimos se já existe alguma conversa anterior ou se a conversa atual já tem mensagens inbound
     # Ou se o contato foi explicitamente vinculado (mas aqui a regra pede "real")
     # Checamos se existe pelo menos uma mensagem inbound no ContactInbox
-    has_real_link = @conversation.contact_inbox.conversations.joins(:messages).where(messages: { message_type: :incoming }).exists?
-    
-    unless has_real_link
-      raise CustomExceptions::InboxNotContactable, I18n.t('errors.messages.contact_not_linked')
-    end
+    has_real_link = @conversation.contact_inbox.conversations.joins(:messages).exists?(messages: { message_type: :incoming })
+
+    return if has_real_link
+
+    raise CustomExceptions::InboxNotContactable, I18n.t('errors.messages.contact_not_linked')
   end
 
   # Extracts content attributes from the given params.

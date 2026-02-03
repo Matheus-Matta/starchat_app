@@ -60,7 +60,7 @@ class AccountUser < ApplicationRecord
     elsif custom_role
       custom_role.permissions
     else
-      ['agent', 'create_macro', 'create_canned_response']
+      %w[agent create_macro create_canned_response]
     end
   end
 

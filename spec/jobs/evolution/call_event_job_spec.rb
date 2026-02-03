@@ -5,10 +5,10 @@ RSpec.describe Evolution::CallEventJob, type: :job do
   include Evolution::CommonHelpers
 
   let(:account) { create(:account) }
-  let!(:inbox) { create(:inbox, account: account, name: "WhatsApp Inbox") }
+  let!(:inbox) { create(:inbox, account: account, name: 'WhatsApp Inbox') }
   let!(:agent) { create(:user, account: account, role: :agent) }
   let!(:admin) { create(:user, account: account, role: :administrator) }
-  
+
   before do
     allow(Notification).to receive(:create!).and_call_original
     allow(Rails.logger).to receive(:info)
@@ -30,9 +30,10 @@ RSpec.describe Evolution::CallEventJob, type: :job do
       end
 
       it 'triggers incoming call notification' do
-        expect {
+        # Should clarify exact count in more detailed spec but this checks triggering
+        expect do
           described_class.perform_now(inbox.id, event_data)
-        }.to change(Notification, :count) # Should clarify exact count in more detailed spec but this checks triggering
+        end.to change(Notification, :count)
       end
     end
 
@@ -41,17 +42,17 @@ RSpec.describe Evolution::CallEventJob, type: :job do
 
       it 'ignores the event and does not log info' do
         expect(Rails.logger).not_to receive(:info).with(/Call Event \(Offer\)/)
-        expect {
+        expect do
           described_class.perform_now(inbox.id, event_data)
-        }.not_to change(Notification, :count)
+        end.not_to change(Notification, :count)
       end
     end
 
     context 'when inbox is invalid' do
       it 'returns early' do
-        expect {
-          described_class.perform_now(999999, {})
-        }.not_to change(Notification, :count)
+        expect do
+          described_class.perform_now(999_999, {})
+        end.not_to change(Notification, :count)
       end
     end
   end

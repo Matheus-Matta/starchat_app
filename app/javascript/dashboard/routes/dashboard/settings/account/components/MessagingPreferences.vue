@@ -16,9 +16,8 @@ const { currentAccount, updateAccount } = useAccount();
 watch(
   currentAccount,
   () => {
-    const {
-      require_contact_inbox_messaging,
-    } = currentAccount.value?.settings || {};
+    const { require_contact_inbox_messaging } =
+      currentAccount.value?.settings || {};
 
     requireContactInboxMessaging.value = !!require_contact_inbox_messaging;
   },
@@ -78,7 +77,9 @@ const handleSubmit = async () => {
           blue
           type="submit"
           :is-loading="isSubmitting"
-          :label="t('GENERAL_SETTINGS.FORM.MESSAGING_PREFERENCES.UPDATE_BUTTON')"
+          :label="
+            t('GENERAL_SETTINGS.FORM.MESSAGING_PREFERENCES.UPDATE_BUTTON')
+          "
         />
       </div>
     </form>

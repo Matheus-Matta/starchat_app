@@ -15,7 +15,7 @@
         "FILE": {
           "LABEL": "File",
           "CHOOSE_FILE": "Choose File",
-          "HELP_TEXT": "Upload a file",
+          "HELP_TEXT": "Supported formats: PDF, XLSX, CSV (Max 10MB)",
           "INVALID_TYPE": "Invalid file type. Only PDF, XLSX, and CSV are allowed.",
           "TOO_LARGE": "File is too large. Max size is 10MB."
         },

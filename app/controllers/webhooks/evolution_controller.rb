@@ -4,7 +4,6 @@
 require 'open-uri'
 
 class Webhooks::EvolutionController < ActionController::API
-
   include Evolution::CommonHelpers
 
   def process_payload

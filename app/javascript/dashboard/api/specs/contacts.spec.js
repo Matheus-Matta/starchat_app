@@ -48,7 +48,8 @@ describe('#ContactsAPI', () => {
     it('#getContactableInboxes', () => {
       contactAPI.getContactableInboxes(1);
       expect(axiosMock.get).toHaveBeenCalledWith(
-        '/api/v1/contacts/1/contactable_inboxes'
+        '/api/v1/contacts/1/contactable_inboxes',
+        { params: {} }
       );
     });
 

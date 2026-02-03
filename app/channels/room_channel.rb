@@ -10,8 +10,14 @@ class RoomChannel < ApplicationCable::Channel
   end
 
   def update_presence
+    # Check if user was already online before updating timestamp
+    was_online = ::OnlineStatusTracker.get_presence(@current_account.id, @current_user.class.name, @current_user.id)
+
     update_subscription
     private_broadcast_presence
+
+    # If user was not online (expired), broadcast their return to the account
+    PresenceBroadcastJob.perform_later(@current_account.id) unless was_online
   end
 
   def unsubscribed
@@ -19,7 +25,7 @@ class RoomChannel < ApplicationCable::Channel
     # The presence will naturally expire after PRESENCE_DURATION (60s)
     return if @current_account.blank?
 
-    PresenceBroadcastJob.perform_later(@current_account.id)
+    PresenceBroadcastJob.set(wait: ::OnlineStatusTracker::PRESENCE_DURATION).perform_later(@current_account.id)
   end
 
   private

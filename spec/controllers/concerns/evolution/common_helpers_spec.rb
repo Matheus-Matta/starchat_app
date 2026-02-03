@@ -1,12 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe Evolution::CommonHelpers, type: :controller do # Using type: controller just for concern testing structure
-  # Create a dummy class to include the module
-  class DummyController
-    include Evolution::CommonHelpers
+  let(:dummy_class) do
+    Class.new do
+      include Evolution::CommonHelpers
+    end
   end
-
-  let(:dummy) { DummyController.new }
+  let(:dummy) { dummy_class.new }
   let(:account) { create(:account) }
   let(:inbox) { create(:inbox, account: account) }
   let!(:admin) { create(:user, account: account, role: :administrator) }
@@ -28,9 +28,9 @@ RSpec.describe Evolution::CommonHelpers, type: :controller do # Using type: cont
       end
 
       it 'sends notification ONLY to members' do
-        expect {
+        expect do
           dummy.create_incoming_call_notification(inbox, from_number)
-        }.to change(Notification, :count).by(1)
+        end.to change(Notification, :count).by(1)
 
         notification = Notification.last
         expect(notification.user).to eq(agent)
@@ -44,10 +44,10 @@ RSpec.describe Evolution::CommonHelpers, type: :controller do # Using type: cont
 
     context 'when inbox has NO members assigned' do
       it 'falls back to sending notification to administrators' do
-        expect {
+        # Assumption: 1 admin created in setup
+        expect do
           dummy.create_incoming_call_notification(inbox, from_number)
-        }.to change(Notification, :count).by(1) # Assumption: 1 admin created in setup
-
+        end.to change(Notification, :count).by(1)
         notification = Notification.last
         expect(notification.user).to eq(admin)
       end
@@ -62,27 +62,26 @@ RSpec.describe Evolution::CommonHelpers, type: :controller do # Using type: cont
       it 'does not create duplicate notification within window' do
         # First call
         dummy.create_incoming_call_notification(inbox, from_number)
-        
+
         # Second call immediately after
-        expect {
+        expect do
           dummy.create_incoming_call_notification(inbox, from_number)
-        }.not_to change(Notification, :count)
+        end.not_to change(Notification, :count)
       end
 
       it 'creates new notification after window expires' do
         # Create an old notification
-        create(:notification, 
-          notification_type: 'incoming_call', 
-          account: account, 
-          user: agent, 
-          primary_actor: inbox, 
-          meta: { from_number: from_number }, 
-          created_at: 2.minutes.ago
-        )
+        create(:notification,
+               notification_type: 'incoming_call',
+               account: account,
+               user: agent,
+               primary_actor: inbox,
+               meta: { from_number: from_number },
+               created_at: 2.minutes.ago)
 
-        expect {
+        expect do
           dummy.create_incoming_call_notification(inbox, from_number)
-        }.to change(Notification, :count).by(1)
+        end.to change(Notification, :count).by(1)
       end
     end
   end
@@ -93,10 +92,10 @@ RSpec.describe Evolution::CommonHelpers, type: :controller do # Using type: cont
     it 'uses shared logic and prioritizes members' do
       inbox.add_members([agent.id])
       inbox.reload
-      
-      expect {
+
+      expect do
         dummy.create_connection_change_notification(inbox, status)
-      }.to change(Notification, :count).by(1)
+      end.to change(Notification, :count).by(1)
 
       expect(Notification.last.user).to eq(agent)
     end

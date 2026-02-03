@@ -73,6 +73,10 @@ class OnlineStatusTracker
   def self.get_available_user_ids(account_id)
     account = Account.find(account_id)
     range_start = (Time.zone.now - PRESENCE_DURATION).to_i
+
+    # Clean up old user presence records
+    ::Redis::Alfred.zremrangebyscore(presence_key(account_id, 'User'), '-inf', "(#{range_start}")
+
     user_ids = ::Redis::Alfred.zrangebyscore(presence_key(account_id, 'User'), range_start, '+inf')
     # since we are dealing with redis items as string, casting to string
     user_ids += account.account_users.where(auto_offline: false)&.map(&:user_id)&.map(&:to_s)
