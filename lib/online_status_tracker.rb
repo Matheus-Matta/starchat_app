@@ -6,6 +6,7 @@ class OnlineStatusTracker
 
   # obj_type: Contact | User
   def self.update_presence(account_id, obj_type, obj_id)
+    Rails.logger.info "[PRESENCE_DEBUG] update_presence account_id:#{account_id} type:#{obj_type} id:#{obj_id}"
     ::Redis::Alfred.zadd(presence_key(account_id, obj_type), Time.now.to_i, obj_id)
   end
 
@@ -57,11 +58,14 @@ class OnlineStatusTracker
 
   def self.get_available_users(account_id)
     user_ids = get_available_user_ids(account_id)
+    Rails.logger.info "[PRESENCE_DEBUG] get_available_users account_id:#{account_id} found_ids:#{user_ids}"
 
     return {} if user_ids.blank?
 
     user_availabilities = ::Redis::Alfred.hmget(status_key(account_id), user_ids)
-    user_ids.map.with_index { |id, index| [id, (user_availabilities[index] || get_availability_from_db(account_id, id))] }.to_h
+    result = user_ids.map.with_index { |id, index| [id, (user_availabilities[index] || get_availability_from_db(account_id, id))] }.to_h
+    Rails.logger.info "[PRESENCE_DEBUG] get_available_users account_id:#{account_id} result:#{result}"
+    result
   end
 
   def self.get_availability_from_db(account_id, user_id)

@@ -42,10 +42,14 @@ class AutoAssignment::AssignmentService
   end
 
   def find_available_agent
-    agents = filter_agents_by_rate_limit(inbox.available_agents)
+    agents_raw = inbox.available_agents
+    Rails.logger.info "[PRESENCE_DEBUG] Inbox#available_agents count:#{agents_raw.count} ids:#{agents_raw.map(&:id)}"
+    agents = filter_agents_by_rate_limit(agents_raw)
     return nil if agents.empty?
 
-    round_robin_selector.select_agent(agents)
+    selected = round_robin_selector.select_agent(agents)
+    Rails.logger.info "[PRESENCE_DEBUG] Selected agent:#{selected&.id}"
+    selected
   end
 
   def filter_agents_by_rate_limit(agents)
