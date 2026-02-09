@@ -21,4 +21,48 @@ RSpec.describe RoomChannel do
     expect(subscription).to have_stream_for(user.pubsub_token)
     expect(subscription).to have_stream_for("account_#{account.id}")
   end
+  describe 'presence synchronization' do
+    let(:account) { create(:account) }
+    let(:user) { create(:user) }
+    let!(:account_user) { create(:account_user, account: account, user: user) }
+
+    before do
+      allow(OnlineStatusTracker).to receive(:set_status)
+      allow(OnlineStatusTracker).to receive(:update_presence)
+      stub_connection
+    end
+
+    context 'when user is offline in DB' do
+      before do
+        account_user.update!(availability: 'offline')
+      end
+
+      it 'syncs offline status to Redis' do
+        subscribe(user_id: user.id, pubsub_token: user.pubsub_token, account_id: account.id)
+        expect(OnlineStatusTracker).to have_received(:set_status).with(account.id, user.id, 'offline').at_least(:once)
+      end
+    end
+
+    context 'when user is online in DB' do
+      before do
+        account_user.update!(availability: 'online')
+      end
+
+      it 'syncs online status to Redis' do
+        subscribe(user_id: user.id, pubsub_token: user.pubsub_token, account_id: account.id)
+        expect(OnlineStatusTracker).to have_received(:set_status).with(account.id, user.id, 'online').at_least(:once)
+      end
+    end
+
+    context 'when user is busy in DB' do
+      before do
+        account_user.update!(availability: 'busy')
+      end
+
+      it 'syncs busy status to Redis' do
+        subscribe(user_id: user.id, pubsub_token: user.pubsub_token, account_id: account.id)
+        expect(OnlineStatusTracker).to have_received(:set_status).with(account.id, user.id, 'busy').at_least(:once)
+      end
+    end
+  end
 end

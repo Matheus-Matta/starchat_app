@@ -2,14 +2,28 @@ class RoomChannel < ApplicationCable::Channel
   def subscribed
     # TODO: should we only do ensure stream  if current account is present?
     # for now going ahead with guard clauses in update_subscription and broadcast_presence
+    Rails.logger.info "[PRESENCE_DEBUG] RoomChannel#subscribed user_id:#{current_user&.id} account_id:#{current_account&.id}"
     current_user
     current_account
     ensure_stream
     update_subscription
+    
+    if @current_user.is_a?(User)
+      # Sync Redis status with DB status on connection to ensure consistency.
+      # This respects manual 'offline'/'busy' status if set in DB.
+      account_user = @current_user.account_users.find_by(account_id: @current_account.id)
+      if account_user&.availability.present?
+        db_status = account_user.availability
+        ::OnlineStatusTracker.set_status(@current_account.id, @current_user.id, db_status)
+        Rails.logger.info "[PRESENCE_DEBUG] Synced user status from DB on connect. DB: #{db_status} (Redis Updated)"
+      end
+    end
+
     broadcast_presence
   end
 
   def update_presence
+    Rails.logger.info "[PRESENCE_DEBUG] RoomChannel#update_presence user_id:#{current_user&.id} account_id:#{current_account&.id}"
     # Check if user was already online before updating timestamp
     was_online = ::OnlineStatusTracker.get_presence(@current_account.id, @current_user.class.name, @current_user.id)
 
@@ -21,6 +35,7 @@ class RoomChannel < ApplicationCable::Channel
   end
 
   def unsubscribed
+    Rails.logger.info "[PRESENCE_DEBUG] RoomChannel#unsubscribed user_id:#{current_user&.id} account_id:#{current_account&.id}"
     # We are not clearing presence immediately to avoid flickering on reconnect
     # The presence will naturally expire after PRESENCE_DURATION (60s)
     return if @current_account.blank?
