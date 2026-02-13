@@ -56,4 +56,16 @@ describe AutoAssignment::InboxRoundRobinService do
       end
     end
   end
+
+  describe '#queue_snapshot' do
+    it 'returns the full queue when no limit is provided' do
+      snapshot = inbox_round_robin_service.queue_snapshot
+      expect(snapshot.map(&:to_i)).to match_array(inbox_members.map(&:user_id))
+    end
+
+    it 'returns a limited snapshot when limit is provided' do
+      snapshot = inbox_round_robin_service.queue_snapshot(limit: 2)
+      expect(snapshot.length).to eq(2)
+    end
+  end
 end

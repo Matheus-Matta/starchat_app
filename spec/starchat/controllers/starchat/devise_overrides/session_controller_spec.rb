@@ -92,5 +92,40 @@ RSpec.describe 'Starchat Audit API', type: :request do
         expect(user.audits.last.associated_type).to eq('Account')
       end
     end
+
+    context 'when assigned conversations exist' do
+      let!(:inbox) { create(:inbox, account: account) }
+
+      before do
+        allow_any_instance_of(AutoAssignment::InboxRoundRobinService).to receive(:queue_snapshot).and_return(%w[1 2])
+      end
+
+      it 'creates audit logs for open, pending, and snoozed conversations' do
+        stub_const('Starchat::DeviseOverrides::SessionsController::LOGOUT_CONVERSATION_LIMIT', 3)
+
+        create(:conversation, inbox: inbox, account: account, assignee: user, status: 'open')
+        create(:conversation, inbox: inbox, account: account, assignee: user, status: 'pending')
+        create(:conversation, inbox: inbox, account: account, assignee: user, status: 'snoozed')
+
+        expect do
+          delete '/auth/sign_out', headers: user.create_new_auth_token
+        end.to change { Starchat::AuditLog.where(action: 'assignee_sign_out').count }.by(3)
+
+        statuses = Starchat::AuditLog.where(action: 'assignee_sign_out').map { |log| log.audited_changes['conversation_status'] }
+        expect(statuses).to include('open', 'pending', 'snoozed')
+      end
+
+      it 'limits the number of conversation audit logs per user' do
+        stub_const('Starchat::DeviseOverrides::SessionsController::LOGOUT_CONVERSATION_LIMIT', 2)
+
+        create(:conversation, inbox: inbox, account: account, assignee: user, status: 'open')
+        create(:conversation, inbox: inbox, account: account, assignee: user, status: 'pending')
+        create(:conversation, inbox: inbox, account: account, assignee: user, status: 'snoozed')
+
+        expect do
+          delete '/auth/sign_out', headers: user.create_new_auth_token
+        end.to change { Starchat::AuditLog.where(action: 'assignee_sign_out').count }.by(2)
+      end
+    end
   end
 end

@@ -1,6 +1,8 @@
 class AutoAssignment::AssignmentService
   pattr_initialize [:inbox!]
 
+  QUEUE_LOG_LIMIT = 50
+
   def perform_bulk_assignment(limit: 100)
     return 0 unless inbox.auto_assignment_v2_enabled?
 
@@ -47,7 +49,12 @@ class AutoAssignment::AssignmentService
     agents = filter_agents_by_rate_limit(agents_raw)
     return nil if agents.empty?
 
+    @last_queue_before = round_robin_selector.queue_snapshot(limit: QUEUE_LOG_LIMIT)
+    @last_available_agent_user_ids = agents.map do |agent_member|
+      agent_member.respond_to?(:user_id) ? agent_member.user_id : agent_member.id
+    end
     selected = round_robin_selector.select_agent(agents)
+    @last_queue_after = round_robin_selector.queue_snapshot(limit: QUEUE_LOG_LIMIT)
     Rails.logger.info "[PRESENCE_DEBUG] Selected agent:#{selected&.id}"
     selected
   end
@@ -65,6 +72,7 @@ class AutoAssignment::AssignmentService
     rate_limiter = build_rate_limiter(agent)
     rate_limiter.track_assignment(conversation)
 
+    log_assignment_audit(conversation, agent)
     dispatch_assignment_event(conversation, agent)
     true
   end
@@ -84,6 +92,29 @@ class AutoAssignment::AssignmentService
 
   def round_robin_selector
     @round_robin_selector ||= AutoAssignment::RoundRobinSelector.new(inbox: inbox)
+  end
+
+  def log_assignment_audit(conversation, agent)
+    Starchat::AuditLog.create(
+      auditable: conversation,
+      action: 'auto_assign',
+      user: agent,
+      associated: conversation.account,
+      audited_changes: {
+        assignee_id: [nil, agent.id],
+        inbox_id: conversation.inbox_id,
+        conversation_display_id: conversation.display_id,
+        conversation_status: conversation.status,
+        assignment_source: 'auto_assignment_v2',
+        available_agent_user_ids: @last_available_agent_user_ids,
+        queue_before: @last_queue_before,
+        queue_after: @last_queue_after,
+        queue_before_size: @last_queue_before&.size,
+        queue_after_size: @last_queue_after&.size
+      }.compact
+    )
+  rescue StandardError => e
+    Rails.logger.error("Auto-assignment audit log failed for conversation #{conversation.id}: #{e.class} #{e.message}")
   end
 
   def assignment_config

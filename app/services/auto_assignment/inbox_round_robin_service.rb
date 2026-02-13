@@ -33,6 +33,11 @@ class AutoAssignment::InboxRoundRobinService
     inbox.inbox_members.find_by(user_id: user_id)&.user if user_id.present?
   end
 
+  def queue_snapshot(limit: nil)
+    snapshot = queue
+    limit ? snapshot.first(limit) : snapshot
+  end
+
   private
 
   def get_member_from_allowed_agent_ids(allowed_agent_ids)

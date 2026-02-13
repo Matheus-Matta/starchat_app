@@ -8,6 +8,10 @@ class AutoAssignment::RoundRobinSelector
     round_robin_service.available_agent(allowed_agent_ids: agent_user_ids)
   end
 
+  def queue_snapshot(limit: nil)
+    round_robin_service.queue_snapshot(limit: limit)
+  end
+
   private
 
   def round_robin_service

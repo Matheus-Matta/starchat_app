@@ -1,4 +1,6 @@
 module Starchat::AutoAssignment::AssignmentService
+  QUEUE_LOG_LIMIT = 50
+
   private
 
   # Override assignment config to use policy if available
@@ -19,8 +21,14 @@ module Starchat::AutoAssignment::AssignmentService
     agents = filter_agents_by_capacity(agents) if capacity_filtering_enabled?
     return nil if agents.empty?
 
+    @last_queue_before = round_robin_selector.queue_snapshot(limit: QUEUE_LOG_LIMIT)
+    @last_available_agent_user_ids = agents.map do |agent_member|
+      agent_member.respond_to?(:user_id) ? agent_member.user_id : agent_member.id
+    end
     selector = policy&.balanced? ? balanced_selector : round_robin_selector
-    selector.select_agent(agents)
+    selected = selector.select_agent(agents)
+    @last_queue_after = round_robin_selector.queue_snapshot(limit: QUEUE_LOG_LIMIT)
+    selected
   end
 
   def filter_agents_by_capacity(agents)

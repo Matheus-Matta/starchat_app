@@ -26,6 +26,20 @@ RSpec.describe AutoAssignment::AgentAssignmentService do
       described_class.new(conversation: conversation, allowed_agent_ids: inbox_members.map(&:user_id).map(&:to_s)).perform
       expect(conversation.reload.assignee).not_to be_nil
     end
+
+    it 'creates an audit log with queue snapshot data' do
+      allow_any_instance_of(AutoAssignment::InboxRoundRobinService).to receive(:queue_snapshot).and_return(%w[1 2 3])
+
+      expect do
+        described_class.new(conversation: conversation, allowed_agent_ids: inbox_members.map(&:user_id).map(&:to_s)).perform
+      end.to change(Starchat::AuditLog, :count).by(1)
+
+      audit_log = Starchat::AuditLog.find_by(auditable: conversation, action: 'auto_assign')
+      expect(audit_log).to be_present
+      expect(audit_log.associated).to eq(account)
+      expect(audit_log.audited_changes['assignment_source']).to eq('auto_assignment_legacy')
+      expect(audit_log.audited_changes['queue_before']).to eq(%w[1 2 3])
+    end
   end
 
   describe '#find_assignee' do

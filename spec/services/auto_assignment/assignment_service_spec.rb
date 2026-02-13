@@ -20,14 +20,15 @@ RSpec.describe AutoAssignment::AssignmentService do
   describe '#perform_bulk_assignment' do
     context 'when auto assignment is enabled' do
       let(:rate_limiter) { instance_double(AutoAssignment::RateLimiter) }
+      let(:round_robin_selector) { instance_double(AutoAssignment::RoundRobinSelector) }
 
       before do
         allow(OnlineStatusTracker).to receive(:get_available_users).and_return({ agent.id.to_s => 'online' })
 
         # Mock RoundRobinSelector to return the agent
-        round_robin_selector = instance_double(AutoAssignment::RoundRobinSelector)
         allow(AutoAssignment::RoundRobinSelector).to receive(:new).and_return(round_robin_selector)
         allow(round_robin_selector).to receive(:select_agent).and_return(agent)
+        allow(round_robin_selector).to receive(:queue_snapshot).and_return([])
 
         # Mock RateLimiter to allow all assignments by default
         allow(AutoAssignment::RateLimiter).to receive(:new).and_return(rate_limiter)
@@ -44,6 +45,22 @@ RSpec.describe AutoAssignment::AssignmentService do
 
         expect(assigned_count).to eq(1)
         expect(conv.reload.assignee).to eq(agent)
+      end
+
+      it 'creates an audit log for auto assignment' do
+        allow(round_robin_selector).to receive(:queue_snapshot).and_return(%w[1 2])
+        conv = create(:conversation, inbox: inbox, status: 'open')
+        conv.update!(assignee_id: nil)
+
+        expect do
+          service.perform_bulk_assignment(limit: 1)
+        end.to change(Starchat::AuditLog, :count).by(1)
+
+        audit_log = Starchat::AuditLog.find_by(auditable: conv, action: 'auto_assign')
+        expect(audit_log).to be_present
+        expect(audit_log.audited_changes['assignment_source']).to eq('auto_assignment_v2')
+        changes = audit_log.audited_changes.with_indifferent_access
+        expect(changes['queue_before']).to eq(%w[1 2])
       end
 
       it 'returns 0 when no agents are online' do
@@ -130,6 +147,7 @@ RSpec.describe AutoAssignment::AssignmentService do
         round_robin_selector = instance_double(AutoAssignment::RoundRobinSelector)
         allow(AutoAssignment::RoundRobinSelector).to receive(:new).and_return(round_robin_selector)
         allow(round_robin_selector).to receive(:select_agent).and_return(agent)
+        allow(round_robin_selector).to receive(:queue_snapshot).and_return([])
 
         # Mock RateLimiter to allow all assignments by default
         allow(AutoAssignment::RateLimiter).to receive(:new).and_return(rate_limiter)
@@ -200,6 +218,7 @@ RSpec.describe AutoAssignment::AssignmentService do
           round_robin_selector = instance_double(AutoAssignment::RoundRobinSelector)
           allow(AutoAssignment::RoundRobinSelector).to receive(:new).and_return(round_robin_selector)
           allow(round_robin_selector).to receive(:select_agent).and_return(agent2)
+          allow(round_robin_selector).to receive(:queue_snapshot).and_return([])
 
           # Mock agent1 at limit, agent2 not at limit
           agent1_limiter = instance_double(AutoAssignment::RateLimiter)
@@ -228,6 +247,7 @@ RSpec.describe AutoAssignment::AssignmentService do
           round_robin_selector = instance_double(AutoAssignment::RoundRobinSelector)
           allow(AutoAssignment::RoundRobinSelector).to receive(:new).and_return(round_robin_selector)
           allow(round_robin_selector).to receive(:select_agent).and_return(agent)
+          allow(round_robin_selector).to receive(:queue_snapshot).and_return([])
 
           limiter = instance_double(AutoAssignment::RateLimiter)
           allow(AutoAssignment::RateLimiter).to receive(:new).and_return(limiter)
@@ -242,6 +262,7 @@ RSpec.describe AutoAssignment::AssignmentService do
           round_robin_selector = instance_double(AutoAssignment::RoundRobinSelector)
           allow(AutoAssignment::RoundRobinSelector).to receive(:new).and_return(round_robin_selector)
           allow(round_robin_selector).to receive(:select_agent).and_return(agent, agent2)
+          allow(round_robin_selector).to receive(:queue_snapshot).and_return([])
 
           # Mock RateLimiter to allow all
           limiter = instance_double(AutoAssignment::RateLimiter)
@@ -280,6 +301,7 @@ RSpec.describe AutoAssignment::AssignmentService do
           round_robin_selector = instance_double(AutoAssignment::RoundRobinSelector)
           allow(AutoAssignment::RoundRobinSelector).to receive(:new).and_return(round_robin_selector)
           allow(round_robin_selector).to receive(:select_agent).and_return(agent)
+          allow(round_robin_selector).to receive(:queue_snapshot).and_return([])
 
           # Mock RateLimiter to allow all
           limiter = instance_double(AutoAssignment::RateLimiter)

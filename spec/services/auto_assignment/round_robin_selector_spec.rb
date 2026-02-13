@@ -75,4 +75,12 @@ RSpec.describe AutoAssignment::RoundRobinSelector do
       end
     end
   end
+
+  describe '#queue_snapshot' do
+    it 'delegates to round robin service' do
+      expect(round_robin_service).to receive(:queue_snapshot).with(limit: 5).and_return(['1', '2'])
+
+      expect(selector.queue_snapshot(limit: 5)).to eq(['1', '2'])
+    end
+  end
 end
