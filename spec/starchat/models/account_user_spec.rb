@@ -8,23 +8,76 @@ RSpec.describe AccountUser, type: :model do
     it { is_expected.to belong_to(:custom_role).optional }
   end
 
-  describe 'permissions' do
+  describe '#permissions' do
     context 'when custom role is assigned' do
-      it 'returns permissions of the custom role along with `custom_role` permission' do
-        account = create(:account)
-        custom_role = create(:custom_role, account: account)
+      it 'returns custom role permissions plus the :custom_role flag' do
+        account     = create(:account)
+        custom_role = create(:custom_role, account: account, permissions: %w[conversation_manage contact_manage])
         account_user = create(:account_user, account: account, custom_role: custom_role)
 
-        expect(account_user.permissions).to eq(custom_role.permissions + ['custom_role'])
+        expect(account_user.permissions).to eq(%w[conversation_manage contact_manage custom_role])
       end
     end
 
-    context 'when custom role is not assigned' do
-      it 'returns permissions of the default role' do
-        account = create(:account)
+    context 'when no custom role is assigned' do
+      it 'returns the default agent permissions' do
+        account      = create(:account)
         account_user = create(:account_user, account: account)
 
-        expect(account_user.permissions).to eq([account_user.role])
+        expect(account_user.permissions).to eq(%w[agent create_macro create_canned_response])
+      end
+    end
+
+    context 'when the user is an administrator' do
+      it 'returns ["administrator"] regardless of custom role' do
+        account      = create(:account)
+        account_user = create(:account_user, account: account, role: :administrator)
+
+        expect(account_user.permissions).to eq(['administrator'])
+      end
+    end
+  end
+
+  describe '#permission?' do
+    let(:account) { create(:account) }
+
+    context 'when user is an administrator' do
+      subject(:account_user) { create(:account_user, account: account, role: :administrator) }
+
+      it 'returns true for any granular permission' do
+        expect(account_user.permission?(:report_manage)).to be(true)
+        expect(account_user.permission?(:create_macro)).to be(true)
+        expect(account_user.permission?(:conversation_manage)).to be(true)
+      end
+    end
+
+    context 'when user has a custom role' do
+      let(:custom_role) { create(:custom_role, account: account, permissions: %w[report_manage contact_manage]) }
+      subject(:account_user) { create(:account_user, account: account, custom_role: custom_role) }
+
+      it 'returns true for permissions the custom role includes' do
+        expect(account_user.permission?(:report_manage)).to be(true)
+        expect(account_user.permission?(:contact_manage)).to be(true)
+      end
+
+      it 'returns false for permissions not in the custom role' do
+        expect(account_user.permission?(:conversation_manage)).to be(false)
+        expect(account_user.permission?(:create_macro)).to be(false)
+      end
+    end
+
+    context 'when user is a regular agent without a custom role' do
+      subject(:account_user) { create(:account_user, account: account) }
+
+      it 'returns true for standard agent permissions' do
+        expect(account_user.permission?(:create_macro)).to be(true)
+        expect(account_user.permission?(:create_canned_response)).to be(true)
+      end
+
+      it 'returns false for permissions outside the default agent set' do
+        expect(account_user.permission?(:report_manage)).to be(false)
+        expect(account_user.permission?(:conversation_manage)).to be(false)
+        expect(account_user.permission?(:contact_manage)).to be(false)
       end
     end
   end

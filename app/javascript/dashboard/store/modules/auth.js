@@ -180,7 +180,12 @@ export const actions = {
     try {
       // optimisticly update current status
       commit(types.SET_CURRENT_USER_AVAILABILITY, params.availability);
-      const response = await authAPI.updateAvailability(params);
+      // availability_reason identifica se foi mudança manual, auto_offline, etc.
+      const payload = {
+        ...params,
+        availability_reason: params.availability_reason || 'manual',
+      };
+      const response = await authAPI.updateAvailability(payload);
       const userData = response.data;
       const { id } = userData;
       commit(types.SET_CURRENT_USER, response.data);

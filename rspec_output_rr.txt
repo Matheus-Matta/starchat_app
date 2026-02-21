@@ -1,0 +1,20 @@
+DEPRECATION WARNING: `Rails.application.secrets` is deprecated in favor of `Rails.application.credentials` and will be removed in Rails 7.2. (called from <top (required)> at /home/matheus/starchat_app/config/environment.rb:5)
+DEPRECATION WARNING: `Rails.application.secrets` is deprecated in favor of `Rails.application.credentials` and will be removed in Rails 7.2. (called from <top (required)> at /home/matheus/starchat_app/config/environment.rb:5)
+DEPRECATION WARNING: User model aliases `assigned_conversations`, but `assigned_conversations` is not an attribute. Starting in Rails 7.2, alias_attribute with non-attribute targets will raise. Use `alias_method :conversations, :assigned_conversations` or define the method manually. (called from block (3 levels) in <main> at /home/matheus/starchat_app/spec/factories/inbox_members.rb:5)
+.....
+
+Deprecation Warnings:
+
+Rails 7.1 has deprecated the singular fixture_path in favour of an array.You should migrate to plural:
+
+
+If you need more of the backtrace for any of these deprecations to
+identify where to make the necessary changes, you can configure
+`config.raise_errors_for_deprecations!`, and it will turn the
+deprecation warnings into errors, giving you the full backtrace.
+
+1 deprecation warning total
+
+Finished in 3.58 seconds (files took 7.15 seconds to load)
+5 examples, 0 failures
+

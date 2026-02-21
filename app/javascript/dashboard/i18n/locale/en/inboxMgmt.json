@@ -201,7 +201,9 @@
           "SYNC_FULL_HISTORY": "Sync Full History",
           "SYNC_FULL_HISTORY_HELP": "Sync entire history on connect.",
           "REJECT_CALL_MESSAGE": "Rejection Message",
-          "REJECT_CALL_MESSAGE_PLACEHOLDER": "Ex: We do not accept calls..."
+          "REJECT_CALL_MESSAGE_PLACEHOLDER": "Ex: We do not accept calls...",
+          "SYNC_CONTACT_NAME": "Sync Contact Name",
+          "SYNC_CONTACT_NAME_HELP": "Automatically updates the contact name with the WhatsApp display name (pushName) received on messages."
         }
       },
       "TWILIO": {

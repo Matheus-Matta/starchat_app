@@ -92,7 +92,8 @@ class Inbox < ApplicationRecord
   # @return [void]
   def add_members(user_ids)
     inbox_members.create!(user_ids.map { |user_id| { user_id: user_id } })
-    update_account_cache
+    # NOTE: cache invalidation is handled by InboxMember after_commit :update_inbox_cache
+    # to ensure the key only rotates after the transaction commits
   end
 
   # Removes multiple members from the inbox
@@ -100,7 +101,8 @@ class Inbox < ApplicationRecord
   # @return [void]
   def remove_members(user_ids)
     inbox_members.where(user_id: user_ids).destroy_all
-    update_account_cache
+    # NOTE: cache invalidation is handled by InboxMember after_commit :update_inbox_cache
+    # to ensure the key only rotates after the transaction commits
   end
 
   # Sanitizes inbox name for balanced email provider compatibility

@@ -91,6 +91,31 @@ RSpec.describe 'Starchat Audit API', type: :request do
         expect(user.audits.last.associated_id).to eq(account.id)
         expect(user.audits.last.associated_type).to eq('Account')
       end
+
+      it 'records logout_reason as manual by default' do
+        delete '/auth/sign_out', headers: user.create_new_auth_token
+
+        user.reload
+        audit = user.audits.last
+        expect(audit.action).to eq('sign_out')
+        expect(audit.audited_changes['logout_reason']).to eq('manual')
+      end
+
+      it 'records logout_reason as browser_closed when sent via param' do
+        delete '/auth/sign_out?logout_reason=browser_closed', headers: user.create_new_auth_token
+
+        user.reload
+        audit = user.audits.last
+        expect(audit.action).to eq('sign_out')
+        expect(audit.audited_changes['logout_reason']).to eq('browser_closed')
+      end
+
+      it 'records the remote_address in the audit event' do
+        delete '/auth/sign_out', headers: user.create_new_auth_token
+
+        user.reload
+        expect(user.audits.last.audited_changes['ip_address']).to be_present
+      end
     end
 
     context 'when assigned conversations exist' do

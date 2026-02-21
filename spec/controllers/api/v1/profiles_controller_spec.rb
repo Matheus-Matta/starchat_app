@@ -219,6 +219,65 @@ RSpec.describe 'Profile API', type: :request do
         expect(response).to have_http_status(:success)
         expect(OnlineStatusTracker.get_status(account.id, agent.id)).to eq('busy')
       end
+
+      it 'creates an availability_change audit log entry' do
+        account_user = agent.account_users.find_by(account: account)
+        account_user.update_columns(availability: 0) # online
+
+        expect {
+          post '/api/v1/profile/availability',
+               params: { profile: { availability: 'offline', account_id: account.id } },
+               headers: agent.create_new_auth_token,
+               as: :json
+        }.to change { Starchat::AuditLog.where(action: 'availability_change').count }.by(1)
+      end
+
+      it 'records correct availability_from, availability_to and triggered_by in audit log' do
+        account_user = agent.account_users.find_by(account: account)
+        account_user.update_columns(availability: 0) # online
+
+        post '/api/v1/profile/availability',
+             params: { profile: { availability: 'offline', account_id: account.id } },
+             headers: agent.create_new_auth_token,
+             as: :json
+
+        audit = Starchat::AuditLog.where(action: 'availability_change').last
+        expect(audit.action).to eq('availability_change')
+        expect(audit.audited_changes['availability_from']).to eq('online')
+        expect(audit.audited_changes['availability_to']).to eq('offline')
+        expect(audit.audited_changes['triggered_by']).to eq('user')
+      end
+
+      it 'records the availability_reason in audit log when provided' do
+        post '/api/v1/profile/availability',
+             params: { profile: { availability: 'busy', account_id: account.id, availability_reason: 'manual' } },
+             headers: agent.create_new_auth_token,
+             as: :json
+
+        audit = Starchat::AuditLog.where(action: 'availability_change').last
+        expect(audit.audited_changes['reason']).to eq('manual')
+      end
+
+      it 'defaults availability_reason to manual when not provided' do
+        post '/api/v1/profile/availability',
+             params: { profile: { availability: 'busy', account_id: account.id } },
+             headers: agent.create_new_auth_token,
+             as: :json
+
+        audit = Starchat::AuditLog.where(action: 'availability_change').last
+        expect(audit.audited_changes['reason']).to eq('manual')
+      end
+
+      it 'associates the audit log with the correct account' do
+        post '/api/v1/profile/availability',
+             params: { profile: { availability: 'busy', account_id: account.id } },
+             headers: agent.create_new_auth_token,
+             as: :json
+
+        audit = Starchat::AuditLog.where(action: 'availability_change').last
+        expect(audit.associated).to eq(account)
+        expect(audit.auditable).to eq(agent)
+      end
     end
   end
 

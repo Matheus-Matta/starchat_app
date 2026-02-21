@@ -212,6 +212,38 @@ class Conversation < ApplicationRecord
     dispatcher_dispatch(CONVERSATION_UPDATED, previous_changes)
   end
 
+  # Resolve o source_id do ContactInbox desta conversa de forma resiliente.
+  # Necessário porque algumas conversas (especialmente do canal Evolution) podem
+  # ter contact_inbox_id com registro deletado (orphaned FK) ou associação em cache
+  # desatualizada.
+  #
+  # Cadeia de fallback:
+  #   1. Usa contact_inbox da associação Rails (caminho feliz)
+  #   2. Busca diretamente no banco pelo contact_inbox_id (cache stale)
+  #   3. Para Evolution: busca ContactInbox por contact_id + inbox_id
+  #   4. Para Evolution: deriva do phone_number do contato (55XXXXXXXXXXX)
+  #   5. Retorna nil se não conseguir resolver
+  def resolve_contact_inbox_source_id
+    # Nível 1: associação Rails carregada corretamente
+    return contact_inbox.source_id if contact_inbox.present?
+
+    # Nível 2: contact_inbox_id existe mas a associação está stale/nil em memória
+    if contact_inbox_id.present?
+      ci = ContactInbox.find_by(id: contact_inbox_id)
+      return ci.source_id if ci.present?
+    end
+
+    # exclusivos para Evolution (source_id = número sem '+')
+    return nil unless inbox&.channel.is_a?(Channel::Evolution)
+
+    #  encontra o ContactInbox pelo par contact+inbox
+    ci = ContactInbox.find_by(contact_id: contact_id, inbox_id: inbox_id)
+    return ci.source_id if ci.present?
+
+    #  deriva do phone_number do contato ("+5521912345678" → "5521912345678")
+    contact&.phone_number.to_s.delete_prefix('+').presence
+  end
+
   private
 
   def execute_after_update_commit_callbacks

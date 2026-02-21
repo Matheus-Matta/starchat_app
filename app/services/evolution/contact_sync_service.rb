@@ -20,6 +20,7 @@ class Evolution::ContactSyncService
       push_name = extract_push_name(c) # pode ser nil
       pic_url   = extract_profile_pic_url(c)
 
+      # initial_name: sempre usa push_name na criação (independe da config)
       initial_name =
         if push_name.present? && !name_is_number?(push_name)
           push_name
@@ -34,10 +35,16 @@ class Evolution::ContactSyncService
       ).perform
 
       contact = contact_inbox.contact
-      if contact.name.blank? && push_name.present? && !name_is_number?(push_name)
-        contact.update!(name: push_name)
-      elsif name_is_number?(contact.name) && push_name.present? && !name_is_number?(push_name)
-        contact.update!(name: push_name)
+      is_placeholder = contact.name.blank? || name_is_number?(contact.name)
+
+      if push_name.present? && !name_is_number?(push_name)
+        if is_placeholder
+          # Primeira vez que vemos este contato: define o nome (única vez)
+          contact.update!(name: push_name)
+        elsif sync_contact_name_enabled?
+          # Contato já tem nome real: só atualiza se configuração ativa
+          contact.update!(name: push_name)
+        end
       end
 
       sync_profile_image_like_whatsapp!(contact, pic_url) if pic_url.present?
@@ -61,6 +68,13 @@ class Evolution::ContactSyncService
 
   def extract_push_name(c)
     c['pushName'].presence
+  end
+
+  def sync_contact_name_enabled?
+    settings = @inbox.channel.provider_config&.dig('settings') || {}
+    settings.fetch('syncContactName', false)
+  rescue StandardError
+    false
   end
 
   def extract_profile_pic_url(c)

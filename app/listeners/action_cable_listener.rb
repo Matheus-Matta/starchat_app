@@ -30,6 +30,24 @@ class ActionCableListener < BaseListener
               })
   end
 
+  def inbox_member_added(event)
+    inbox = event.data[:inbox]
+    user  = event.data[:user]
+    return unless inbox && user
+
+    account = inbox.account
+    broadcast(account, [user.pubsub_token], INBOX_MEMBER_ADDED, { inbox_id: inbox.id })
+  end
+
+  def inbox_member_removed(event)
+    inbox = event.data[:inbox]
+    user  = event.data[:user]
+    return unless inbox && user
+
+    account = inbox.account
+    broadcast(account, [user.pubsub_token], INBOX_MEMBER_REMOVED, { inbox_id: inbox.id })
+  end
+
   def message_created(event)
     message, account = extract_message_and_account(event)
     conversation = message.conversation

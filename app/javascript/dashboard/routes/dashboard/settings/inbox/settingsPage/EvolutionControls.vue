@@ -36,6 +36,7 @@ export default {
         readMessages: false,
         readStatus: false,
         syncFullHistory: false,
+        syncContactName: false,
       },
     };
   },
@@ -464,6 +465,23 @@ export default {
             </div>
             <p class="text-xs text-n-slate-11 mt-1">
               {{ $t('INBOX_MGMT.ADD.EVOLUTION.SETTINGS.READ_STATUS_HELP') }}
+            </p>
+          </div>
+
+          <!-- Sync Contact Name -->
+          <div
+            class="flex flex-col gap-2 p-4 rounded-lg border border-n-weak bg-n-solid-1"
+          >
+            <div class="flex items-center justify-between">
+              <span class="text-sm font-medium text-n-slate-11">
+                {{ $t('INBOX_MGMT.ADD.EVOLUTION.SETTINGS.SYNC_CONTACT_NAME') }}
+              </span>
+              <WootSwitch v-model="settings.syncContactName" />
+            </div>
+            <p class="text-xs text-n-slate-11 mt-1">
+              {{
+                $t('INBOX_MGMT.ADD.EVOLUTION.SETTINGS.SYNC_CONTACT_NAME_HELP')
+              }}
             </p>
           </div>
         </div>

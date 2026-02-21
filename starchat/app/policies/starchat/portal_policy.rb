@@ -1,13 +1,13 @@
 module Starchat::PortalPolicy
   def update?
-    @account_user.custom_role&.permissions&.include?('knowledge_base_manage') || super
+    @account_user&.permission?('knowledge_base_manage') || super
   end
 
   def edit?
-    @account_user.custom_role&.permissions&.include?('knowledge_base_manage') || super
+    @account_user&.permission?('knowledge_base_manage') || super
   end
 
   def logo?
-    @account_user.custom_role&.permissions&.include?('knowledge_base_manage') || super
+    @account_user&.permission?('knowledge_base_manage') || super
   end
 end

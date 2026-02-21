@@ -34,6 +34,7 @@ RSpec.describe InboxPolicy, type: :policy do
   end
 
   describe 'Scope' do
+    let!(:direct_inbox) { create(:inbox, account: account) }
     let!(:team) { create(:team, account: account) }
     let!(:team_inbox) { create(:inbox, account: account) }
     let!(:team_conversation) { create(:conversation, account: account, inbox: team_inbox, team: team) }
@@ -42,9 +43,15 @@ RSpec.describe InboxPolicy, type: :policy do
       create(:team_member, user: agent, team: team)
     end
 
-    it 'includes inbox with team conversation for agent' do
+    it 'excludes inbox accessible only via team conversation for agent (no direct membership)' do
       scope = Pundit.policy_scope!(agent_context, Inbox)
-      expect(scope).to include(team_inbox)
+      expect(scope).not_to include(team_inbox)
+    end
+
+    it 'includes inbox where agent is a direct member' do
+      create(:inbox_member, user: agent, inbox: direct_inbox)
+      scope = Pundit.policy_scope!(agent_context, Inbox)
+      expect(scope).to include(direct_inbox)
     end
   end
 end

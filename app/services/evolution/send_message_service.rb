@@ -47,8 +47,13 @@ class Evolution::SendMessageService
       'key', 'id'
     )}")
 
-    # Enviar texto primeiro, se houver
-    if @message.content.present?
+    # Determina se há anexos para definir a estratégia de envio
+    has_attachments = @message.attachments.exists?
+
+    # Enviar texto:
+    # - Se não há anexos: envia como texto puro
+    # - Se há anexos: o texto vai como caption do primeiro anexo (padrão WhatsApp)
+    if @message.content.present? && !has_attachments
       begin
         # Use outgoing_content para incluir o link do CSAT quando aplicável
         text_content = @message.outgoing_content.to_s.strip
@@ -63,18 +68,18 @@ class Evolution::SendMessageService
         @any_success = true
       rescue StandardError => e
         record_send_error!(error: e, kind: :text, payload: { number: number, instance: instance })
-        return unless @message.attachments.exists? # Se só tinha texto e falhou, para
+        return # Só texto, falhou, para
       end
     end
 
-    # Se tivermos ativado o BatchSendService externamente ou se quisermos usar o modo legado:
-    # Por padrão, mantemos a lógica síncrona aqui SE este serviço for chamado diretamente.
-    # Mas criamos o método público `send_single_attachment` para ser usado pelos jobs.
-
-    # Enviar anexos (modo síncrono legado ou se chamado diretamente)
+    # Enviar anexos (modo síncrono — quando chamado diretamente, sem BatchSendService)
     unless @skip_attachments
+      # Monta caption para o primeiro anexo (texto da mensagem)
+      text_caption = build_text_caption
+
       ordered_attachments.each_with_index do |att, index|
-        send_single_attachment(att, index: index)
+        caption_for_this = index.zero? ? text_caption : nil
+        send_single_attachment(att, index: index, caption: caption_for_this)
       end
     end
 
@@ -89,9 +94,13 @@ class Evolution::SendMessageService
   end
 
   # Novo método público para ser usado pelo SendAttachmentJob
-  def send_single_attachment(att, index: 0)
+  # caption: texto que aparece como legenda da mídia no WhatsApp
+  def send_single_attachment(att, index: 0, caption: nil)
     return unless evolution_channel?
-    return if already_dispatched?
+    # NOTA: NÃO verificamos already_dispatched? aqui porque este método é chamado
+    # explicitamente pelo SendAttachmentJob para enviar UM anexo específico.
+    # O flag evolution_dispatched é setado após envio do TEXTO pelo BatchSendService,
+    # mas isso não significa que os anexos já foram enviados.
 
     # Se chamado via Job, @channel e @client precisam estar prontos
     client   = build_client
@@ -133,14 +142,14 @@ class Evolution::SendMessageService
 
     begin
       if force_base64?
-        send_attachment_base64(client, instance, number, kind, blob_to_use, mimetype, fname, quoted, delay: base_delay)
+        send_attachment_base64(client, instance, number, kind, blob_to_use, mimetype, fname, quoted, delay: base_delay, caption: caption)
       else
         begin
           url = active_storage_url(blob_to_use, expires_in: media_url_ttl)
-          send_attachment_url(client, instance, number, kind, url, mimetype, fname, quoted, delay: base_delay)
+          send_attachment_url(client, instance, number, kind, url, mimetype, fname, quoted, delay: base_delay, caption: caption)
         rescue StandardError => e
           Rails.logger.warn("[Evolution] URL send failed for msg=#{@message.id}, falling back to Base64: #{e.message}")
-          send_attachment_base64(client, instance, number, kind, blob_to_use, mimetype, fname, quoted, delay: base_delay)
+          send_attachment_base64(client, instance, number, kind, blob_to_use, mimetype, fname, quoted, delay: base_delay, caption: caption)
         end
       end
 
@@ -163,7 +172,7 @@ class Evolution::SendMessageService
     @any_success
   end
 
-  def send_attachment_url(client, instance, number, kind, url, mimetype, fname, quoted, delay: 0)
+  def send_attachment_url(client, instance, number, kind, url, mimetype, fname, quoted, delay: 0, caption: nil)
     if kind == :audio
 
       resp = client.send_whatsapp_audio(
@@ -176,6 +185,7 @@ class Evolution::SendMessageService
     else
       mediatype = kind_to_mediatype(kind)
       opts = { mimetype: mimetype, quoted: quoted, delay: delay }
+      opts[:caption]   = caption   if caption.present?
       opts[:file_name] = fname if mediatype == 'document'
 
       resp = client.send_media(
@@ -190,7 +200,7 @@ class Evolution::SendMessageService
     persist_message_id_from(resp)
   end
 
-  def send_attachment_base64(client, instance, number, kind, blob, mimetype, fname, quoted, delay: 0)
+  def send_attachment_base64(client, instance, number, kind, blob, mimetype, fname, quoted, delay: 0, caption: nil)
     base64_data = encode_blob_base64(blob)
 
     if kind == :audio
@@ -198,6 +208,7 @@ class Evolution::SendMessageService
     else
       mediatype = kind_to_mediatype(kind)
       opts = { mimetype: mimetype, quoted: quoted, delay: delay }
+      opts[:caption]   = caption   if caption.present?
       opts[:file_name] = fname if mediatype == 'document'
 
       resp = client.send_media(instance, number: number, mediatype: mediatype, media: base64_data, **opts)
@@ -249,6 +260,20 @@ class Evolution::SendMessageService
 
   def ordered_attachments
     @message.attachments.to_a.sort_by { |att| MEDIA_ORDER.index(file_kind(att)) || 99 }
+  end
+
+  def build_text_caption
+    return nil if @message.content.blank?
+
+    text          = @message.outgoing_content.to_s.strip
+    sender_config = @inbox.sender_config || {}
+
+    if sender_config['send_agent_name'] && @message.sender.is_a?(User)
+      agent_name = @message.sender.try(:display_name).presence || @message.sender.name
+      text = "*#{agent_name}:*\n#{text}" if agent_name.present?
+    end
+
+    text.presence
   end
 
   def file_kind(att)

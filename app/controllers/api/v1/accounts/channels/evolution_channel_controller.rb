@@ -174,7 +174,8 @@ class Api::V1::Accounts::Channels::EvolutionChannelController < Api::V1::Account
     # Convert to camelCase for frontend consistency
     normalized = remote.transform_keys { |k| k.to_s.camelize(:lower) }
 
-    render json: normalized
+    # Merge local-only fields (not known by Evolution API) from DB
+    render json: normalized.merge(local_only_settings)
   rescue StandardError => e
     Rails.logger.error("[Evolution] settings failed: #{e.class} #{e.message}")
 
@@ -183,7 +184,7 @@ class Api::V1::Accounts::Channels::EvolutionChannelController < Api::V1::Account
     if stored.present?
       render json: stored.transform_keys { |k| k.to_s.camelize(:lower) }
     elsif not_found_error?(e)
-      render json: {}
+      render json: local_only_settings
     else
       render_error(e)
     end
@@ -201,7 +202,7 @@ class Api::V1::Accounts::Channels::EvolutionChannelController < Api::V1::Account
     permitted = source.permit(
       :rejectCall, :msgCall, :groupsIgnore, :alwaysOnline,
       :readMessages, :readStatus, :syncFullHistory, :wavoipToken,
-      :sendAgentName
+      :sendAgentName, :syncContactName
     ).to_h
 
     # Force restricted values
@@ -213,17 +214,18 @@ class Api::V1::Accounts::Channels::EvolutionChannelController < Api::V1::Account
     conf['settings'] = permitted
     @channel.update!(provider_config: conf)
 
-    # 2. Push to Evolution
+    # 2. Push to Evolution (only fields the Evolution API understands)
     evo = evo_client(@channel)
-    updated = evo.set_settings(@channel.instance_name, permitted)
+    evolution_payload = permitted.except('syncContactName', 'sendAgentName')
+    updated = evo.set_settings(@channel.instance_name, evolution_payload)
 
     # Evolution returns object, we normalize again just in case (though POST returns 201 with body)
-    # The user said POST returns 201 with updated object.
+    # Always merge local-only fields back so frontend keeps them.
 
     if updated.is_a?(Hash)
-      render json: updated.transform_keys { |k| k.to_s.camelize(:lower) }
+      render json: updated.transform_keys { |k| k.to_s.camelize(:lower) }.merge(local_only_settings)
     else
-      render json: permitted # Fallback if empty response
+      render json: permitted # Fallback if empty response (already has all fields)
     end
   rescue StandardError => e
     render_error(e)
@@ -288,7 +290,6 @@ class Api::V1::Accounts::Channels::EvolutionChannelController < Api::V1::Account
       MESSAGES_UPSERT
       MESSAGES_UPDATE
       MESSAGES_DELETE
-      MESSAGES_SET
       CALL
     ]
   end
@@ -325,6 +326,24 @@ class Api::V1::Accounts::Channels::EvolutionChannelController < Api::V1::Account
     ActionCable.server.broadcast("account_#{account_id}", { event: event, data: data })
   rescue StandardError => e
     Rails.logger.error("[Evolution] WS broadcast error: #{e.class} #{e.message}")
+  end
+
+  # Fields stored only in the DB (not synced to / returned by Evolution API)
+  LOCAL_ONLY_SETTINGS = %w[syncContactName sendAgentName].freeze
+
+  def local_only_settings
+    stored = (@channel.provider_config || {})['settings'] || {}
+    LOCAL_ONLY_SETTINGS.each_with_object({}) do |key, h|
+      h[key] = stored.key?(key) ? stored[key] : default_local_setting(key)
+    end
+  end
+
+  def default_local_setting(key)
+    case key
+    when 'syncContactName' then false
+    when 'sendAgentName'   then false
+    else nil
+    end
   end
 
   def broadcast_open!(channel, phone_number: nil)

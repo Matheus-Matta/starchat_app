@@ -495,6 +495,105 @@ describe('#getters', () => {
       expect(result).toEqual([mockConversations[1], mockConversations[0]]);
     });
 
+    it('does NOT show team conversations assigned to other agents for conversation_unassigned_manage', () => {
+      // Regression test: user with only conversation_unassigned_manage should NOT see
+      // conversations assigned to other agents, even if the conversation is in their team.
+      const conversationAssignedToOther = {
+        id: 99,
+        status: 'open',
+        meta: { assignee: { id: 2 }, team: { id: 10 } },
+        last_activity_at: 5000,
+      };
+      const state = {
+        allConversations: [...mockConversations, conversationAssignedToOther],
+        chatSortFilter: 'last_activity_at_desc',
+        appliedFilters: [],
+      };
+
+      const rootGetters = {
+        ...mockRootGetters,
+        getCurrentUser: {
+          ...mockRootGetters.getCurrentUser,
+          accounts: [
+            {
+              id: 1,
+              custom_role_id: 5,
+              permissions: ['conversation_unassigned_manage'],
+            },
+          ],
+        },
+        'teams/getMyTeams': [{ id: 10 }],
+      };
+
+      const result = getters.getFilteredConversations(
+        state,
+        {},
+        {},
+        rootGetters
+      );
+
+      // conversationAssignedToOther (id: 99) must NOT appear — user only has unassigned_manage,
+      // not team_manage. mockConversations[0] (assigned to user) and [1] (unassigned) must appear.
+      expect(result.map(c => c.id)).not.toContain(99);
+      expect(result.map(c => c.id)).toContain(1); // assigned to current user
+      expect(result.map(c => c.id)).toContain(2); // unassigned
+    });
+
+    it('does NOT show unassigned conversations from inaccessible inboxes for conversation_unassigned_manage', () => {
+      // Core bug fix: user has conversation_unassigned_manage but is NOT a member
+      // of inbox 77 (e.g., WhatsApp). Must NOT see unassigned conversations from that inbox.
+      const unassignedAccessibleInbox = {
+        id: 10,
+        inbox_id: 5,   // user IS a member of inbox 5
+        status: 'open',
+        meta: {},
+        last_activity_at: 1000,
+      };
+      const unassignedInaccessibleInbox = {
+        id: 11,
+        inbox_id: 77,  // user is NOT a member of inbox 77 (e.g. WhatsApp inbox)
+        status: 'open',
+        meta: {},
+        last_activity_at: 2000,
+      };
+      const assignedToMe = {
+        id: 12,
+        inbox_id: 77,  // assigned to user, inbox doesn't matter
+        status: 'open',
+        meta: { assignee: { id: 1 } },
+        last_activity_at: 3000,
+      };
+
+      const state = {
+        allConversations: [unassignedAccessibleInbox, unassignedInaccessibleInbox, assignedToMe],
+        chatSortFilter: 'last_activity_at_desc',
+        appliedFilters: [],
+      };
+
+      const rootGetters = {
+        ...mockRootGetters,
+        getCurrentUser: {
+          ...mockRootGetters.getCurrentUser,
+          accounts: [
+            {
+              id: 1,
+              custom_role_id: 5,
+              permissions: ['conversation_unassigned_manage'],
+            },
+          ],
+        },
+        'teams/getMyTeams': [],
+        // Inboxes the user belongs to (pre-filtered by backend policy_scope)
+        'inboxes/getInboxes': [{ id: 5 }],
+      };
+
+      const result = getters.getFilteredConversations(state, {}, {}, rootGetters);
+
+      expect(result.map(c => c.id)).toContain(10);   // unassigned in user's inbox ✓
+      expect(result.map(c => c.id)).toContain(12);   // assigned to user from any inbox ✓
+      expect(result.map(c => c.id)).not.toContain(11); // unassigned in inaccessible inbox ✗
+    });
+
     it('filters conversations for custom role with conversation_participating_manage permission', () => {
       const state = {
         allConversations: mockConversations,

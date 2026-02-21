@@ -24,6 +24,9 @@ class InboxMember < ApplicationRecord
 
   after_create :add_agent_to_round_robin
   after_destroy :remove_agent_from_round_robin
+  after_commit :update_inbox_cache
+  after_commit :dispatch_member_added_event, on: :create
+  after_commit :dispatch_member_removed_event, on: :destroy
 
   private
 
@@ -33,6 +36,22 @@ class InboxMember < ApplicationRecord
 
   def remove_agent_from_round_robin
     ::AutoAssignment::InboxRoundRobinService.new(inbox: inbox).remove_agent_from_queue(user_id) if inbox.present?
+  end
+
+  def update_inbox_cache
+    inbox&.update_account_cache
+  end
+
+  def dispatch_member_added_event
+    return unless inbox.present? && user.present?
+
+    Rails.configuration.dispatcher.dispatch(INBOX_MEMBER_ADDED, Time.zone.now, inbox: inbox, user: user)
+  end
+
+  def dispatch_member_removed_event
+    return unless inbox.present? && user.present?
+
+    Rails.configuration.dispatcher.dispatch(INBOX_MEMBER_REMOVED, Time.zone.now, inbox: inbox, user: user)
   end
 end
 

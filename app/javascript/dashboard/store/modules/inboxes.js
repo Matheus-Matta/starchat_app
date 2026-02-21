@@ -186,10 +186,10 @@ export const actions = {
       // Ignore error
     }
   },
-  get: async ({ commit }) => {
+  get: async ({ commit }, { bypassCache = false } = {}) => {
     commit(types.default.SET_INBOXES_UI_FLAG, { isFetching: true });
     try {
-      const response = await InboxesAPI.get(true);
+      const response = await InboxesAPI.get(!bypassCache);
       commit(types.default.SET_INBOXES_UI_FLAG, { isFetching: false });
       commit(types.default.SET_INBOXES, response.data.payload);
     } catch (error) {
@@ -336,6 +336,10 @@ export const actions = {
       commit(types.default.SET_INBOXES_UI_FLAG, { isDeleting: false });
       throw new Error(error);
     }
+  },
+  // Remove inbox from local store without API call (used when agent loses access via WS event)
+  removeFromStore: ({ commit }, inboxId) => {
+    commit(types.default.DELETE_INBOXES, inboxId);
   },
   reauthorizeFacebookPage: async ({ commit }, params) => {
     try {

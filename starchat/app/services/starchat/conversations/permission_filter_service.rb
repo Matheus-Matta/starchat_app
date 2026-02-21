@@ -32,35 +32,42 @@ module Starchat::Conversations::PermissionFilterService
   end
 
   def filter_team_and_mine
-    mine = accessible_conversations.assigned_to(user)
-    team = accessible_conversations.where(team_id: user.team_ids)
+    inbox_ids = user.inboxes.where(account_id: account.id).select(:id)
+    team_ids  = account.teams.joins(:team_members).where(team_members: { user_id: user.id }).select(:id)
 
-    queries = [mine, team]
+    scope = Conversation.where(account_id: account.id)
+
+    # Conversations in user's teams (assigned or unassigned)
+    team_convs = scope.where(team_id: team_ids)
+
+    # Conversations assigned directly to the user, regardless of inbox/team membership
+    mine = scope.where(assignee_id: user.id)
+
+    result = team_convs.or(mine)
 
     if permissions.include?('conversation_unassigned_manage')
-      # Explicitly fetch global unassigned to ensure they are included
-      # bypassing any implicit filters in accessible_conversations that might restrict to team
-      unassigned = Conversation.where(assignee_id: nil)
-                               .where(account_id: account.id)
-      # Ensure we don't fetch unassigned from Inboxes we don't have access to,
-      # UNLESS unassigned_manage implies global access.
-      # Assuming safe global access for unassigned based on previous context.
-
-      queries << unassigned
+      # Add unassigned conversations scoped to accessible inboxes and teams only
+      unassigned_in_inbox = scope.where(assignee_id: nil, inbox_id: inbox_ids)
+      unassigned_in_team  = scope.where(assignee_id: nil, team_id: team_ids)
+      result = result.or(unassigned_in_inbox).or(unassigned_in_team)
     end
 
-    union_query = queries.map(&:to_sql).join(' UNION ')
-    Conversation.from("(#{union_query}) as conversations").where(account_id: account.id)
+    result.distinct
   end
 
   def filter_unassigned_and_mine
     inbox_ids = user.inboxes.where(account_id: account.id).select(:id)
-    team_ids = account.teams.joins(:team_members).where(team_members: { user_id: user.id }).select(:id)
+    team_ids  = account.teams.joins(:team_members).where(team_members: { user_id: user.id }).select(:id)
 
-    Conversation.where(inbox_id: inbox_ids)
-                .or(Conversation.where(team_id: team_ids))
-                .or(Conversation.where(assignee_id: nil))
-                .distinct
-                .where(account_id: account.id)
+    scope = Conversation.where(account_id: account.id)
+
+    # Unassigned conversations are scoped to inboxes and teams the user belongs to
+    unassigned_in_inbox = scope.where(assignee_id: nil, inbox_id: inbox_ids)
+    unassigned_in_team  = scope.where(assignee_id: nil, team_id: team_ids)
+
+    # Conversations assigned to the user (regardless of inbox/team)
+    mine = scope.where(assignee_id: user.id)
+
+    unassigned_in_inbox.or(unassigned_in_team).or(mine).distinct
   end
 end

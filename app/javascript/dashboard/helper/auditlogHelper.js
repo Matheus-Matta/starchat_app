@@ -9,6 +9,14 @@ const availabilityMapping = {
   2: 'busy',
 };
 
+const availabilityReasonMapping = {
+  manual: 'manualmente',
+  connection_lost: 'conexão perdida',
+  browser_closed: 'navegador fechado',
+  session_expired: 'sessão expirada',
+  auto_offline: 'offline automático',
+};
+
 const translationKeys = {
   'automationrule:create': `AUDIT_LOGS.AUTOMATION_RULE.ADD`,
   'automationrule:update': `AUDIT_LOGS.AUTOMATION_RULE.EDIT`,
@@ -21,6 +29,10 @@ const translationKeys = {
   'inbox:destroy': `AUDIT_LOGS.INBOX.DELETE`,
   'user:sign_in': `AUDIT_LOGS.USER_ACTION.SIGN_IN`,
   'user:sign_out': `AUDIT_LOGS.USER_ACTION.SIGN_OUT`,
+  'user:sign_out:manual': `AUDIT_LOGS.USER_ACTION.SIGN_OUT_MANUAL`,
+  'user:sign_out:browser_closed': `AUDIT_LOGS.USER_ACTION.SIGN_OUT_BROWSER_CLOSED`,
+  'user:sign_out:session_expired': `AUDIT_LOGS.USER_ACTION.SIGN_OUT_SESSION_EXPIRED`,
+  'user:availability_change': `AUDIT_LOGS.USER_ACTION.AVAILABILITY_CHANGE`,
   'team:create': `AUDIT_LOGS.TEAM.ADD`,
   'team:update': `AUDIT_LOGS.TEAM.EDIT`,
   'team:destroy': `AUDIT_LOGS.TEAM.DELETE`,
@@ -191,6 +203,15 @@ export function generateTranslationPayload(auditLogItem, agentList) {
     );
   }
 
+  // Para availability_change, inclui from/to/reason no payload
+  if (auditableType === 'user' && action === 'availability_change') {
+    const changes = auditLogItem.audited_changes || {};
+    translationPayload.from = availabilityMapping[changes.availability_from] || changes.availability_from || 'unknown';
+    translationPayload.to = availabilityMapping[changes.availability_to] || changes.availability_to || 'unknown';
+    const rawReason = changes.reason || 'manual';
+    translationPayload.reason = availabilityReasonMapping[rawReason] || rawReason;
+  }
+
   return translationPayload;
 }
 
@@ -213,6 +234,27 @@ export const generateLogActionKey = auditLogItem => {
 
   if (auditableType === 'accountuser' && action === 'update') {
     logActionKey += getAccountUserUpdateSuffix(auditLogItem);
+  }
+
+  // Suprime accountuser:update:self quando a única mudança é availability
+  // (já coberto por user:availability_change — evita duplicatas)
+  if (auditableType === 'accountuser' && action === 'update') {
+    const changes = auditLogItem.audited_changes || {};
+    const keys = Object.keys(changes);
+    if (keys.length === 1 && keys[0] === 'availability') {
+      return '';
+    }
+  }
+
+  // Para sign_out, inclui o motivo como sufixo (manual, browser_closed, session_expired)
+  if (auditableType === 'user' && action === 'sign_out') {
+    const reason = auditLogItem.audited_changes?.logout_reason;
+    if (reason) {
+      const withReason = `${logActionKey}:${reason}`;
+      if (translationKeys[withReason]) {
+        logActionKey = withReason;
+      }
+    }
   }
 
   return translationKeys[logActionKey] || '';

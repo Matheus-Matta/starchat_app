@@ -31,7 +31,16 @@ const getters = {
     const permissions = getUserPermissions(currentUser, currentAccountId);
     const userRole = getUserRole(currentUser, currentAccountId);
     const myTeams = rootGetters['teams/getMyTeams'] || [];
-    const userTeamIds = myTeams.map(team => team.id);
+    // Only expose team conversations for users with explicit team or full manage permission.
+    // conversation_unassigned_manage does NOT grant access to team convs assigned to others.
+    const hasTeamManage =
+      permissions.includes('conversation_team_manage') ||
+      permissions.includes('conversation_manage');
+    const userTeamIds = hasTeamManage ? myTeams.map(team => team.id) : [];
+    // Scope unassigned conversations to the user's accessible inboxes only.
+    const userInboxIds = permissions.includes('conversation_unassigned_manage')
+      ? (rootGetters['inboxes/getInboxes'] || []).map(i => i.id)
+      : [];
 
     return allConversations
       .filter(conversation => {
@@ -44,7 +53,8 @@ const getters = {
           userRole,
           permissions,
           currentUserId,
-          userTeamIds
+          userTeamIds,
+          userInboxIds
         );
 
         return matchesFilterResult && allowedForRole;
@@ -116,6 +126,10 @@ const getters = {
     const userTeamIds = hasUnassignedPermission
       ? []
       : myTeams.map(team => team.id);
+    // Scope unassigned conversations to the user's accessible inboxes only.
+    const userInboxIds = permissions.includes('conversation_unassigned_manage')
+      ? (rootGetters['inboxes/getInboxes'] || []).map(i => i.id)
+      : [];
 
     const filtered = _state.allConversations.filter(conversation => {
       const isUnAssigned = !conversation.meta.assignee;
@@ -125,7 +139,8 @@ const getters = {
         userRole,
         permissions,
         currentUserId,
-        userTeamIds
+        userTeamIds,
+        userInboxIds
       );
 
       return isUnAssigned && shouldFilter && allowedForRole;
@@ -140,7 +155,16 @@ const getters = {
     const permissions = getUserPermissions(currentUser, currentAccountId);
     const userRole = getUserRole(currentUser, currentAccountId);
     const myTeams = rootGetters['teams/getMyTeams'] || [];
-    const userTeamIds = myTeams.map(team => team.id);
+    // Only expose team conversations for users with explicit team or full manage permission.
+    // conversation_unassigned_manage does NOT grant access to team convs assigned to others.
+    const hasTeamManage =
+      permissions.includes('conversation_team_manage') ||
+      permissions.includes('conversation_manage');
+    const userTeamIds = hasTeamManage ? myTeams.map(team => team.id) : [];
+    // Scope unassigned conversations to the user's accessible inboxes only.
+    const userInboxIds = permissions.includes('conversation_unassigned_manage')
+      ? (rootGetters['inboxes/getInboxes'] || []).map(i => i.id)
+      : [];
 
     return _state.allConversations.filter(conversation => {
       const shouldFilter = applyPageFilters(conversation, activeFilters);
@@ -149,7 +173,8 @@ const getters = {
         userRole,
         permissions,
         currentUserId,
-        userTeamIds
+        userTeamIds,
+        userInboxIds
       );
 
       return shouldFilter && allowedForRole;

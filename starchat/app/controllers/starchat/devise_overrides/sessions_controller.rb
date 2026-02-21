@@ -32,13 +32,27 @@ module Starchat::DeviseOverrides::SessionsController
   def create_audit_event(action)
     return unless @resource
 
+    # Para sign_out, registra como o usuário saiu (manual, browser_closed, etc.)
+    # O frontend envia via query param: ?logout_reason=manual ou browser_closed
+    extra_changes = {}
+    if action == 'sign_out'
+      reason = params[:logout_reason].presence || 'manual'
+      extra_changes = {
+        logout_reason: reason,
+        user_agent: request.user_agent,
+        ip_address: request.remote_ip
+      }
+    end
+
     associated_type = 'Account'
     @resource.accounts.each do |account|
       @resource.audits.create(
         action: action,
         user_id: @resource.id,
         associated_id: account.id,
-        associated_type: associated_type
+        associated_type: associated_type,
+        audited_changes: extra_changes,
+        remote_address: request.remote_ip
       )
     end
   end

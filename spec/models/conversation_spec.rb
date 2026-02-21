@@ -948,4 +948,103 @@ RSpec.describe Conversation do
       expect(reply_events.count).to eq(0)
     end
   end
+
+  describe '#resolve_contact_inbox_source_id' do
+    let(:account) { create(:account) }
+    let(:contact) { create(:contact, account: account, phone_number: '+5521912345678') }
+
+    # Helper: cria uma conversa ignorando validações e permite customizar contact_inbox_id
+    def build_raw_conversation(inbox:, contact:, contact_inbox: nil)
+      ci = contact_inbox || create(:contact_inbox, contact: contact, inbox: inbox)
+      conv = build(:conversation, account: inbox.account, inbox: inbox, contact: contact, contact_inbox: ci)
+      conv.save!(validate: false)
+      conv.reload
+    end
+
+    context 'nível 1 — associação contact_inbox carregada corretamente' do
+      let(:channel) { create(:channel_evolution, account: account) }
+      let(:inbox) { channel.inbox }
+      let(:contact_inbox) { create(:contact_inbox, contact: contact, inbox: inbox, source_id: '5521912345678') }
+      let(:conversation) { create(:conversation, account: account, inbox: inbox, contact: contact, contact_inbox: contact_inbox) }
+
+      it 'retorna o source_id via associação Rails' do
+        expect(conversation.resolve_contact_inbox_source_id).to eq('5521912345678')
+      end
+    end
+
+    context 'nível 2 — contact_inbox_id aponta para registro deletado (orphaned FK), canal não-Evolution' do
+      let(:inbox) { create(:inbox, account: account) }
+      let(:contact_inbox) { create(:contact_inbox, contact: contact, inbox: inbox, source_id: 'some-uuid') }
+      let(:conversation) { build_raw_conversation(inbox: inbox, contact: contact, contact_inbox: contact_inbox) }
+
+      before do
+        # Deleta o registro diretamente no banco (simula FK órfão)
+        ContactInbox.where(id: contact_inbox.id).delete_all
+        conversation.reload
+      end
+
+      it 'retorna nil — registro deletado e canal não tem fallback Evolution' do
+        expect(ContactInbox.find_by(id: conversation.contact_inbox_id)).to be_nil
+        expect(conversation.resolve_contact_inbox_source_id).to be_nil
+      end
+    end
+
+    context 'nível 3 — canal Evolution, contact_inbox_id inválido mas existe ContactInbox pelo par contact+inbox' do
+      let(:channel) { create(:channel_evolution, account: account) }
+      let(:inbox) { channel.inbox }
+      let!(:contact_inbox) { create(:contact_inbox, contact: contact, inbox: inbox, source_id: '5521912345678') }
+      let(:conversation) { build_raw_conversation(inbox: inbox, contact: contact, contact_inbox: contact_inbox) }
+
+      before do
+        # Aponta contact_inbox_id para um ID inexistente, mas o registro original
+        # ainda existe → Level 3 encontra pelo par contact+inbox
+        conversation.update_column(:contact_inbox_id, 0)
+        conversation.reload
+      end
+
+      it 'encontra o ContactInbox pelo par contact_id + inbox_id' do
+        expect(conversation.resolve_contact_inbox_source_id).to eq('5521912345678')
+      end
+    end
+
+    context 'nível 4 — canal Evolution, nenhum ContactInbox existe, contato tem phone_number' do
+      let(:channel) { create(:channel_evolution, account: account) }
+      let(:inbox) { channel.inbox }
+      let(:contact_inbox) { create(:contact_inbox, contact: contact, inbox: inbox) }
+      let(:conversation) { build_raw_conversation(inbox: inbox, contact: contact, contact_inbox: contact_inbox) }
+
+      before do
+        # Força avaliação lazy antes do delete para que a factory já tenha criado o contact_inbox
+        conversation
+        # Remove TODOS os contact_inboxes desse par para forçar Level 4
+        ContactInbox.where(contact: contact, inbox: inbox).delete_all
+        conversation.update_column(:contact_inbox_id, 0)
+        conversation.reload
+      end
+
+      it 'deriva o source_id do phone_number do contato (remove o +)' do
+        expect(conversation.resolve_contact_inbox_source_id).to eq('5521912345678')
+      end
+    end
+
+    context 'nível 4 — canal Evolution, nenhum ContactInbox existe, contato sem phone_number' do
+      let(:contact_sem_phone) { create(:contact, account: account, phone_number: nil) }
+      let(:channel) { create(:channel_evolution, account: account) }
+      let(:inbox) { channel.inbox }
+      let(:contact_inbox) { create(:contact_inbox, contact: contact_sem_phone, inbox: inbox) }
+      let(:conversation) { build_raw_conversation(inbox: inbox, contact: contact_sem_phone, contact_inbox: contact_inbox) }
+
+      before do
+        # Força avaliação lazy antes do delete
+        conversation
+        ContactInbox.where(contact: contact_sem_phone, inbox: inbox).delete_all
+        conversation.update_column(:contact_inbox_id, 0)
+        conversation.reload
+      end
+
+      it 'retorna nil — nenhuma fonte de source_id disponível' do
+        expect(conversation.resolve_contact_inbox_source_id).to be_nil
+      end
+    end
+  end
 end

@@ -25,7 +25,31 @@ class Api::V1::ProfilesController < Api::BaseController
   end
 
   def availability
-    @user.account_users.find_by!(account_id: availability_params[:account_id]).update!(availability: availability_params[:availability])
+    previous_availability = @user.account_users.find_by(account_id: availability_params[:account_id])&.availability.to_s
+    account_user = @user.account_users.find_by!(account_id: availability_params[:account_id])
+    account_user.update!(availability: availability_params[:availability])
+
+    # Audit log explícito com o motivo da mudança de disponibilidade
+    account = Account.find_by(id: availability_params[:account_id])
+    if account
+      reason = params.dig(:profile, :availability_reason).presence || 'manual'
+      Starchat::AuditLog.create(
+        auditable: @user,
+        action: 'availability_change',
+        user: @user,
+        associated: account,
+        associated_type: 'Account',
+        associated_id: account.id,
+        remote_address: request.remote_ip,
+        audited_changes: {
+          availability_from: previous_availability,
+          availability_to: availability_params[:availability].to_s,
+          reason: reason,
+          triggered_by: 'user',
+          user_agent: request.user_agent
+        }
+      )
+    end
   end
 
   def set_active_account

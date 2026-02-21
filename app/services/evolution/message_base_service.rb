@@ -55,7 +55,13 @@ class Evolution::MessageBaseService < Whatsapp::IncomingMessageBaseService
         current_name = @contact.name.to_s
         is_current_placeholder = current_name.blank? || looks_like_number?(current_name)
 
-        @contact.update(name: display) if is_current_placeholder || (current_name != display)
+        if is_current_placeholder
+          # Primeiro contato: sempre usa o pushName (inicialização única)
+          @contact.update(name: display)
+        elsif sync_contact_name_enabled? && current_name != display
+          # Nome já existe: só atualiza se a sincronização contínua estiver ativa
+          @contact.update(name: display)
+        end
       end
     elsif sender_is_me && @contact.name.blank? && !locked_name?(@contact)
       @contact.update_columns(name: phone_e164, updated_at: Time.current)
@@ -88,5 +94,12 @@ class Evolution::MessageBaseService < Whatsapp::IncomingMessageBaseService
 
     clean = str.to_s.gsub(/[\s\-\(\)\+]/, '')
     clean.match?(/\A\d+\z/) && clean.length >= 7
+  end
+
+  def sync_contact_name_enabled?
+    settings = inbox.channel.provider_config&.dig('settings') || {}
+    settings.fetch('syncContactName', false)
+  rescue StandardError
+    false
   end
 end

@@ -47,7 +47,11 @@
     },
     "USER_ACTION": {
       "SIGN_IN": "{agentName} Se conectou",
-      "SIGN_OUT": "{agentName} Se desconectou"
+      "SIGN_OUT": "{agentName} Se desconectou",
+      "SIGN_OUT_MANUAL": "{agentName} saiu do sistema (manualmente)",
+      "SIGN_OUT_BROWSER_CLOSED": "{agentName} foi desconectado (fechou o navegador ou a aba)",
+      "SIGN_OUT_SESSION_EXPIRED": "{agentName} foi desconectado (sessão expirada)",
+      "AVAILABILITY_CHANGE": "{agentName} alterou presença de {from} para {to} ({reason})"
     },
     "TEAM": {
       "ADD": "{agentName} criou um time (#{id})",

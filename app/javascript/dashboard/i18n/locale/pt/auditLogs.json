@@ -47,7 +47,11 @@
     },
     "USER_ACTION": {
       "SIGN_IN": "{agentName} iniciou sessão",
-      "SIGN_OUT": "{agentName} terminou sessão"
+      "SIGN_OUT": "{agentName} terminou sessão",
+      "SIGN_OUT_MANUAL": "{agentName} terminou sessão (manualmente)",
+      "SIGN_OUT_BROWSER_CLOSED": "{agentName} foi desligado (fechou o browser ou aba)",
+      "SIGN_OUT_SESSION_EXPIRED": "{agentName} foi desligado (sessão expirada)",
+      "AVAILABILITY_CHANGE": "{agentName} alterou presença de {from} para {to}"
     },
     "TEAM": {
       "ADD": "{agentName} created a new team (#{id})",

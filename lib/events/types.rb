@@ -55,6 +55,10 @@ module Events::Types
   AGENT_ADDED = 'agent.added'
   AGENT_REMOVED = 'agent.removed'
 
+  # inbox member events
+  INBOX_MEMBER_ADDED = 'inbox.member_added'
+  INBOX_MEMBER_REMOVED = 'inbox.member_removed'
+
   # copilot events
   COPILOT_MESSAGE_CREATED = 'copilot.message.created'
 end

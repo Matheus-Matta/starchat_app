@@ -11,22 +11,39 @@ module Evolution
     def perform
       return if @message.incoming? || @message.private? || @message.activity?
 
-      # 1. Enviar texto primeiro (se houver) e validações iniciais
-      # Usamos skip_attachments: true para que ele só envie o texto e não bloqueie
-      Evolution::SendMessageService.new(message: @message, skip_attachments: true).perform
+      attachments = @message.attachments.to_a
 
-      # 2. Agendar envio de anexos em background (ActiveJob)
-      # Isso garante que não bloqueamos a thread principal e podemos usar retry/backoff do Sidekiq
-      @message.attachments.each_with_index do |attachment, index|
-        # Calcula delay:
-        # Ex: 1 texto já foi.
-        # Anexo 1: delay 1s
-        # Anexo 2: delay 3s
-        # ...
-        delay = (index + 1) * rand(2..5).seconds
+      if attachments.any?
+        # Estratégia: enviar o texto como CAPTION do primeiro anexo (padrão WhatsApp).
+        # Demais anexos são enviados sem caption.
+        text_caption = build_caption
 
-        Evolution::SendAttachmentJob.set(wait: delay).perform_later(@message.id, attachment.id)
+        attachments.each_with_index do |attachment, index|
+          caption_for_this = index.zero? ? text_caption : nil
+          delay = (index + 1) * rand(2..5).seconds
+          Evolution::SendAttachmentJob.set(wait: delay).perform_later(@message.id, attachment.id, caption_for_this)
+        end
+      else
+        # Sem anexos: envia somente o texto normalmente
+        Evolution::SendMessageService.new(message: @message, skip_attachments: true).perform
       end
+    end
+
+    private
+
+    def build_caption
+      return nil if @message.content.blank?
+
+      inbox         = @message.conversation.inbox
+      sender_config = inbox.sender_config || {}
+      text          = @message.outgoing_content.to_s.strip
+
+      if sender_config['send_agent_name'] && @message.sender.is_a?(User)
+        agent_name = @message.sender.try(:display_name).presence || @message.sender.name
+        text = "*#{agent_name}:*\n#{text}" if agent_name.present?
+      end
+
+      text.presence
     end
   end
 end

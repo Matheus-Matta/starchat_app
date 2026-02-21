@@ -37,6 +37,8 @@ class ActionCableConnector extends BaseActionCableConnector {
       'copilot.message.created': this.onCopilotMessageCreated,
       'evolution.qrcode_updated': this.onEvolutionQRCodeUpdated,
       'evolution.connection_update': this.onEvolutionConnectionUpdate,
+      'inbox.member_added': this.onInboxMemberAdded,
+      'inbox.member_removed': this.onInboxMemberRemoved,
     };
   }
 
@@ -213,6 +215,19 @@ class ActionCableConnector extends BaseActionCableConnector {
 
   onEvolutionConnectionUpdate = data => {
     emitter.emit('evolution:connection_update', { ...data });
+  };
+
+  onInboxMemberAdded = () => {
+    // Use direct network fetch (bypass IDB) to avoid race conditions where
+    // the cache key may have been updated before the DB transaction committed
+    this.app.$store.dispatch('inboxes/get', { bypassCache: true });
+  };
+
+  onInboxMemberRemoved = data => {
+    const { inbox_id: inboxId } = data;
+    if (inboxId) {
+      this.app.$store.dispatch('inboxes/removeFromStore', inboxId);
+    }
   };
 }
 

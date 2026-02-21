@@ -160,6 +160,30 @@ describe('Conversation Helpers', () => {
           )
         ).toBe(false);
       });
+
+      // Inbox scope tests — core bug fix
+      it('returns true for unassigned conversations when userInboxIds is empty (no restriction)', () => {
+        const conv = { inbox_id: 77, meta: { assignee: null } };
+        expect(applyRoleFilter(conv, role, permissions, currentUserId, [], [])).toBe(true);
+      });
+
+      it('returns true for unassigned conversations in an accessible inbox', () => {
+        const conv = { inbox_id: 5, meta: { assignee: null } };
+        const userInboxIds = [5, 10];
+        expect(applyRoleFilter(conv, role, permissions, currentUserId, [], userInboxIds)).toBe(true);
+      });
+
+      it('returns false for unassigned conversations in an inaccessible inbox', () => {
+        const conv = { inbox_id: 77, meta: { assignee: null } };
+        const userInboxIds = [5, 10]; // inbox 77 is NOT in the list
+        expect(applyRoleFilter(conv, role, permissions, currentUserId, [], userInboxIds)).toBe(false);
+      });
+
+      it('returns true for conversations assigned to the user even in an inaccessible inbox', () => {
+        const conv = { inbox_id: 77, meta: { assignee: { id: 1 } } };
+        const userInboxIds = [5, 10]; // inbox 77 NOT accessible, but assigned to user
+        expect(applyRoleFilter(conv, role, permissions, currentUserId, [], userInboxIds)).toBe(true);
+      });
     });
 
     // Test for custom role with 'conversation_participating_manage' permission

@@ -45,9 +45,6 @@ class Cosmos::Tools::BaseService
     account_user = AccountUser.find_by(account_id: @assistant.account_id, user_id: @user.id)
     return false if account_user.blank?
 
-    return account_user.custom_role.permissions.include?(permission) if account_user.custom_role.present?
-
-    # Default permission for agents without custom roles
-    account_user.administrator? || account_user.agent?
+    account_user.permission?(permission)
   end
 end

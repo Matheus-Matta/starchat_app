@@ -76,7 +76,8 @@ export const applyRoleFilter = (
   role,
   permissions,
   currentUserId,
-  userTeamIds = []
+  userTeamIds = [],
+  userInboxIds = []
 ) => {
   // the role === "agent" check is typically not correct on it's own
   // the backend handles this by checking the custom_role_id at the user model
@@ -100,9 +101,14 @@ export const applyRoleFilter = (
   const isUnassigned = !conversationAssignee;
   const isAssignedToUser = conversationAssignee?.id === currentUserId;
 
-  // Check unassigned management permission
+  // Check unassigned management permission.
+  // Unassigned conversations are scoped to inboxes the user belongs to.
+  // isAssignedToUser is always allowed regardless of inbox.
   if (permissions.includes('conversation_unassigned_manage')) {
-    return isUnassigned || isAssignedToUser;
+    const inboxAccessible =
+      userInboxIds.length === 0 ||
+      userInboxIds.includes(conversation.inbox_id);
+    return (isUnassigned && inboxAccessible) || isAssignedToUser;
   }
 
   // Check participating conversation management permission

@@ -57,16 +57,17 @@ class AccountUser < ApplicationRecord
   def permissions
     if administrator?
       ['administrator']
-    elsif custom_role
-      custom_role.permissions
     else
+      # For agents without a custom role, default permissions are returned.
+      # The Starchat::AccountUser module overrides this when a custom_role is present.
       %w[agent create_macro create_canned_response]
     end
   end
 
   def permission?(permission)
+    # Administrators always pass – their permissions array only holds 'administrator'
+    # and does not enumerate every granular permission.
     return true if administrator?
-    return true if custom_role_id.nil?
 
     permissions.include?(permission.to_s)
   end

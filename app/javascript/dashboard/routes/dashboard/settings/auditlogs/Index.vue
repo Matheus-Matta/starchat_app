@@ -38,6 +38,8 @@ const generateLogText = auditLogItem => {
   const payload = generateTranslationPayload(auditLogItem, agentList.value);
   const translationKey = generateLogActionKey(auditLogItem);
 
+  if (!translationKey) return '';
+
   const joinIfArray = value => {
     return Array.isArray(value) ? value.join(', ') : value;
   };
@@ -49,6 +51,10 @@ const generateLogText = auditLogItem => {
   };
   return t(translationKey, mergedPayload);
 };
+
+const hasValidLogText = auditLogItem => !!generateLogActionKey(auditLogItem);
+
+const validRecords = computed(() => records.value.filter(hasValidLogText));
 
 const onPageChange = page => {
   router.push({ name: 'auditlogs_list', query: { page: page } });
@@ -89,7 +95,7 @@ const tableHeaders = computed(() => {
         :message="$t('AUDIT_LOGS.LOADING')"
       />
       <p
-        v-else-if="!records.length"
+        v-else-if="!validRecords.length"
         class="flex flex-col items-center justify-center h-full text-base p-8"
       >
         {{ $t('AUDIT_LOGS.LIST.404') }}
@@ -106,7 +112,7 @@ const tableHeaders = computed(() => {
             </th>
           </thead>
           <tbody class="divide-y divide-n-weak text-n-slate-11">
-            <tr v-for="auditLogItem in records" :key="auditLogItem.id">
+            <tr v-for="auditLogItem in validRecords" :key="auditLogItem.id">
               <td class="py-4 ltr:pr-4 rtl:pl-4 break-all whitespace-nowrap">
                 {{ generateLogText(auditLogItem) }}
               </td>

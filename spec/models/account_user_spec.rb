@@ -18,8 +18,8 @@ RSpec.describe AccountUser do
   end
 
   describe 'permissions' do
-    it 'returns the right permissions' do
-      expect(account_user.permissions).to eq(['agent'])
+    it 'returns default agent permissions' do
+      expect(account_user.permissions).to eq(%w[agent create_macro create_canned_response])
     end
 
     it 'returns the right permissions for administrator' do

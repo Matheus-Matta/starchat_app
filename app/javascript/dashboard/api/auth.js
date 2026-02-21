@@ -12,17 +12,28 @@ export default {
     const urlData = endPoints('validityCheck');
     return axios.get(urlData.url);
   },
-  logout() {
+  logout(reason = 'manual') {
     const urlData = endPoints('logout');
+    // Sinaliza logout explícito para que o beacon não duplique o evento
+    try {
+      sessionStorage.setItem('cw_explicit_logout', 'true');
+    } catch (_) {
+      /* */
+    }
     const fetchPromise = new Promise((resolve, reject) => {
       axios
-        .delete(urlData.url)
+        .delete(urlData.url, { params: { logout_reason: reason } })
         .then(response => {
           deleteIndexedDBOnLogout();
           clearCookiesOnLogout();
           resolve(response);
         })
         .catch(error => {
+          try {
+            sessionStorage.removeItem('cw_explicit_logout');
+          } catch (_) {
+            /* */
+          }
           reject(error);
         });
     });

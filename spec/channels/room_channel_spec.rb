@@ -65,4 +65,54 @@ RSpec.describe RoomChannel do
       end
     end
   end
+
+  describe '#unsubscribed' do
+    let(:account) { create(:account) }
+    let(:user) { create(:user) }
+    let!(:account_user) { create(:account_user, account: account, user: user) }
+
+    before do
+      allow(OnlineStatusTracker).to receive(:set_status)
+      allow(OnlineStatusTracker).to receive(:update_presence)
+      stub_connection
+    end
+
+    context 'when a User disconnects' do
+      before { subscribe(user_id: user.id, pubsub_token: user.pubsub_token, account_id: account.id) }
+
+      it 'enqueues Starchat::LogUserOfflineJob with correct arguments after unsubscription' do
+        expect {
+          unsubscribe
+        }.to have_enqueued_job(Starchat::LogUserOfflineJob)
+          .with(user.id, account.id, 'connection_lost')
+      end
+
+      it 'enqueues Starchat::LogUserOfflineJob with a delay of PRESENCE_DURATION + 5 seconds' do
+        freeze_time do
+          expected_wait = ::OnlineStatusTracker::PRESENCE_DURATION + 5.seconds
+          unsubscribe
+          expect(Starchat::LogUserOfflineJob).to have_been_enqueued
+            .at(Time.current + expected_wait)
+        end
+      end
+
+      it 'enqueues PresenceBroadcastJob after unsubscription' do
+        expect {
+          unsubscribe
+        }.to have_enqueued_job(PresenceBroadcastJob).with(account.id)
+      end
+    end
+
+    context 'when a Contact disconnects (not a User)' do
+      let(:contact_inbox) { create(:contact_inbox) }
+
+      before { subscribe(pubsub_token: contact_inbox.pubsub_token) }
+
+      it 'does NOT enqueue Starchat::LogUserOfflineJob' do
+        expect {
+          unsubscribe
+        }.not_to have_enqueued_job(Starchat::LogUserOfflineJob)
+      end
+    end
+  end
 end

@@ -27,7 +27,6 @@ class AutoAssignment::InboxRoundRobinService
   # the values of allowed member ids should be in string format
   def available_agent(allowed_agent_ids: [])
     validation = validate_queue?
-    Rails.logger.info "[PRESENCE_DEBUG] InboxRoundRobinService#available_agent ValidQueue?:#{validation} QueueSize:#{queue.size}"
     reset_queue unless validation
     user_id = get_member_from_allowed_agent_ids(allowed_agent_ids)
     inbox.inbox_members.find_by(user_id: user_id)&.user if user_id.present?
@@ -44,7 +43,6 @@ class AutoAssignment::InboxRoundRobinService
     return nil if allowed_agent_ids.blank?
 
     current_queue = queue
-    Rails.logger.info "[PRESENCE_DEBUG] InboxRoundRobinService#available_agent allowed:#{allowed_agent_ids} queue:#{current_queue}"
 
     user_id = current_queue.intersection(allowed_agent_ids).pop
     pop_push_to_queue(user_id)

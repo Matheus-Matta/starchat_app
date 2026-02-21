@@ -19,11 +19,9 @@ module InboxAgentAvailability
 
   def fetch_online_agent_ids
     available_users = OnlineStatusTracker.get_available_users(account_id)
-    Rails.logger.info "[PRESENCE_DEBUG] fetch_online_agent_ids account_id:#{account_id} available_users:#{available_users}"
     result = available_users.select { |_key, value| value.eql?('online') }
                        .keys
                        .map(&:to_i)
-    Rails.logger.info "[PRESENCE_DEBUG] fetch_online_agent_ids result_ids:#{result}"
     result
   end
 end

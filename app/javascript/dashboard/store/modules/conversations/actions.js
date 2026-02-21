@@ -52,7 +52,8 @@ const actions = {
         params.assigneeType
       );
     } catch (error) {
-      // Handle error
+      // Garante que o loading seja removido mesmo com erros de API/rede
+      commit(types.CLEAR_LIST_LOADING_STATUS);
     }
   },
 
@@ -67,7 +68,8 @@ const actions = {
         'appliedFilters'
       );
     } catch (error) {
-      // Handle error
+      // Garante que o loading seja removido mesmo com erros de API/rede
+      commit(types.CLEAR_LIST_LOADING_STATUS);
     }
   },
 
@@ -193,12 +195,13 @@ const actions = {
       try {
         await dispatch('fetchPreviousMessages', {
           after,
-          before: data.messages[0].id,
+          before: data.messages[0]?.id,
           conversationId: data.id,
         });
         data.dataFetched = true;
       } catch (error) {
-        // Ignore error
+        // Para evitar spinner infinito, marca como carregado mesmo com erro
+        data.dataFetched = true;
       }
     }
   },
