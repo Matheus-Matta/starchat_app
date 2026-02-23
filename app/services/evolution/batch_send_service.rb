@@ -11,6 +11,11 @@ module Evolution
     def perform
       return if @message.incoming? || @message.private? || @message.activity?
 
+      # Mensagens criadas pelo IncomingMessageService a partir de eventos fromMe do
+      # Evolution (ex.: enviadas pelo WA Web) já têm evolution_dispatched=true.
+      # Reenviá-las causaria duplicata para o destinatário — portanto abortamos.
+      return if @message.additional_attributes.to_h['evolution_dispatched']
+
       attachments = @message.attachments.to_a
 
       if attachments.any?

@@ -350,6 +350,11 @@ class Message < ApplicationRecord
   def send_reply
     return if failed?
 
+    # Mensagens ecoadas pelo webhook Evolution (fromMe externo, e.g. enviadas pelo
+    # WA Web) chegam com evolution_dispatched=true já definido em additional_attributes.
+    # Enviar novamente causaria duplicata no lado do cliente — portanto abortamos.
+    return if additional_attributes.to_h['evolution_dispatched']
+
     # FIXME: Giving it few seconds for the attachment to be uploaded to the service
     # active storage attaches the file only after commit
     attachments.blank? ? ::SendReplyJob.perform_later(id) : ::SendReplyJob.set(wait: 2.seconds).perform_later(id)
