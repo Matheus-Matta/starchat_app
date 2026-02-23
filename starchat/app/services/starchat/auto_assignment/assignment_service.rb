@@ -7,12 +7,20 @@ module Starchat::AutoAssignment::AssignmentService
   def assignment_config
     return super unless policy
 
-    {
+    config = {
       'conversation_priority' => policy.conversation_priority,
       'fair_distribution_limit' => policy.fair_distribution_limit,
       'fair_distribution_window' => policy.fair_distribution_window,
       'balanced' => policy.balanced?
-    }.compact
+    }
+
+    if policy.equal_distribution?
+      config['equal_distribution_enabled'] = true
+      config['equal_distribution_window_hours'] = policy.equal_distribution_window_hours
+      config['equal_distribution_balance_threshold'] = policy.equal_distribution_balance_threshold
+    end
+
+    config.compact
   end
 
   # Extend agent finding to add capacity checks
@@ -25,7 +33,7 @@ module Starchat::AutoAssignment::AssignmentService
     @last_available_agent_user_ids = agents.map do |agent_member|
       agent_member.respond_to?(:user_id) ? agent_member.user_id : agent_member.id
     end
-    selector = policy&.balanced? ? balanced_selector : round_robin_selector
+    selector = resolve_selector
     selected = selector.select_agent(agents)
     @last_queue_after = round_robin_selector.queue_snapshot(limit: QUEUE_LOG_LIMIT)
     selected
@@ -43,6 +51,26 @@ module Starchat::AutoAssignment::AssignmentService
       account.account_users.joins(:agent_capacity_policy).exists?
   end
 
+  # Determina qual seletor usar com base na política:
+  #   1. policy.equal_distribution?          → EqualDistributionSelector via configuração da política
+  #      (menor carga dentro da janela de tempo; com fallback para round-robin se
+  #       a dispersão de carga estiver abaixo do limiar configurado pela política)
+  #   2. inbox_assignment_policy.equal_distribution_enabled (legado)
+  #                                          → EqualDistributionSelector via configuração por inbox
+  #   3. balanced                            → BalancedSelector (menor carga total, sem janela)
+  #   4. padrão                              → RoundRobinSelector (fila circular Redis)
+  def resolve_selector
+    if policy&.equal_distribution?
+      policy_equal_distribution_selector
+    elsif inbox_assignment_policy&.equal_distribution_enabled?
+      inbox_equal_distribution_selector
+    elsif policy&.balanced?
+      balanced_selector
+    else
+      round_robin_selector
+    end
+  end
+
   def round_robin_selector
     @round_robin_selector ||= AutoAssignment::RoundRobinSelector.new(inbox: inbox)
   end
@@ -51,7 +79,35 @@ module Starchat::AutoAssignment::AssignmentService
     @balanced_selector ||= Starchat::AutoAssignment::BalancedSelector.new(inbox: inbox)
   end
 
+  def policy_equal_distribution_selector
+    @policy_equal_distribution_selector ||= Starchat::AutoAssignment::EqualDistributionSelector.new(
+      inbox: inbox,
+      window_hours: policy.equal_distribution_window_hours,
+      balance_threshold: policy.equal_distribution_balance_threshold,
+      round_robin_fallback: round_robin_selector
+    )
+  end
+
+  # Legado: igual distribuição configurada por inbox
+  def inbox_equal_distribution_selector
+    @inbox_equal_distribution_selector ||= Starchat::AutoAssignment::EqualDistributionSelector.new(
+      inbox: inbox,
+      window_hours: inbox_assignment_policy.equal_distribution_window_hours,
+      balance_threshold: inbox_assignment_policy.equal_distribution_balance_threshold,
+      round_robin_fallback: round_robin_selector
+    )
+  end
+
+  # Alias para compatibilidade de código existente
+  alias equal_distribution_selector inbox_equal_distribution_selector
+
+  def inbox_assignment_policy
+    @inbox_assignment_policy ||= inbox.inbox_assignment_policy
+  end
+
   def policy
+    return nil unless inbox.enable_auto_assignment?
+
     @policy ||= inbox.assignment_policy
   end
 

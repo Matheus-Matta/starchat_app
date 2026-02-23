@@ -97,17 +97,25 @@ const handleFetchInboxes = () => {
         </div>
         <div class="flex items-center gap-2">
           <Button
-            :label="
+            v-tooltip.top="
               t('ASSIGNMENT_POLICY.AGENT_ASSIGNMENT_POLICY.INDEX.CARD.EDIT')
             "
-            sm
+            icon="i-lucide-pencil"
+            faded
             slate
-            link
-            class="px-2"
+            xs
             @click="handleEdit"
           />
-          <div v-if="order" class="w-px h-2.5 bg-n-slate-5" />
-          <Button icon="i-lucide-trash" sm slate ghost @click="handleDelete" />
+          <Button
+            v-tooltip.top="
+              t('ASSIGNMENT_POLICY.AGENT_ASSIGNMENT_POLICY.INDEX.CARD.DELETE')
+            "
+            icon="i-lucide-trash-2"
+            faded
+            ruby
+            xs
+            @click="handleDelete"
+          />
         </div>
       </div>
       <p class="text-n-slate-11 text-sm line-clamp-1 mb-0 py-1">

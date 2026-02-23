@@ -26,10 +26,6 @@ const confirmDeletePolicyDialogRef = ref(null);
 const breadcrumbItems = computed(() => {
   const items = [
     {
-      label: t('ASSIGNMENT_POLICY.INDEX.HEADER.TITLE'),
-      routeName: 'assignment_policy_index',
-    },
-    {
       label: t('ASSIGNMENT_POLICY.AGENT_ASSIGNMENT_POLICY.INDEX.HEADER.TITLE'),
     },
   ];

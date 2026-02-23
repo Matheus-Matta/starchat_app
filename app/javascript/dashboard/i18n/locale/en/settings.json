@@ -240,7 +240,8 @@
     "APPEARANCE": "Change appearance",
     "SUPER_ADMIN_CONSOLE": "SuperAdmin console",
     "DOCS": "Read documentation",
-    "LOGOUT": "Log out"
+    "LOGOUT": "Log out",
+    "CHANGELOG": "Release notes"
   },
   "APP_GLOBAL": {
     "TRIAL_MESSAGE": "days trial remaining.",
@@ -346,7 +347,7 @@
     "REPORTS_LABEL": "Labels",
     "REPORTS_INBOX": "Inbox",
     "REPORTS_TEAM": "Team",
-    "AGENT_ASSIGNMENT": "Agent Assignment",
+    "AGENT_ASSIGNMENT": "Assignment Policy",
     "SET_AVAILABILITY_TITLE": "Set yourself as",
     "SET_YOUR_AVAILABILITY": "Set your availability",
     "SLA": "SLA",
@@ -368,7 +369,9 @@
       "INFO_SHORT": "Automatically mark offline when you aren't using the app."
     },
     "DOCS": "Read docs",
-    "SECURITY": "Security"
+    "SECURITY": "Security",
+    "COMPANIES": "Companies",
+    "ALL_COMPANIES": "All Companies"
   },
   "BILLING_SETTINGS": {
     "TITLE": "Billing",
@@ -545,7 +548,8 @@
           "ACTIVE": "Active",
           "INACTIVE": "Inactive",
           "POPOVER": "Added inboxes",
-          "EDIT": "Edit"
+          "EDIT": "Edit",
+          "DELETE": "Delete"
         },
         "NO_RECORDS_FOUND": "No assignment policies found"
       },
@@ -600,19 +604,40 @@
           "ACTIVE": "Policy is active",
           "INACTIVE": "Policy is inactive"
         },
+        "OPERATION_MODE": {
+          "LABEL": "Operation mode",
+          "ROUND_ROBIN": {
+            "LABEL": "Round Robin",
+            "DESCRIPTION": "Distributes conversations sequentially among agents in rotation. Choose which conversation in queue gets assigned first."
+          },
+          "EQUAL_DISTRIBUTION": {
+            "LABEL": "Equal Distribution",
+            "DESCRIPTION": "Assigns to the agent with the least load in the configured time window. Set window to 0 for pure load-balanced (all open conversations count).",
+            "CONFIG_DESCRIPTION": "Configure how load is measured. Setting window to 0 activates pure balanced mode (all open conversations).",
+            "WINDOW_HOURS_LABEL": "Time window (hours)",
+            "WINDOW_HOURS_HINT": "Conversations within this window count towards load. Use 0 to count all open conversations (balanced mode).",
+            "THRESHOLD_LABEL": "Imbalance threshold (%)",
+            "THRESHOLD_HINT": "Minimum load difference (%) between agents to use equal distribution. Below this value, round-robin is used instead."
+          },
+          "CUSTOM": {
+            "LABEL": "Custom",
+            "DESCRIPTION": "Configure all rules manually: assignment order, conversation priority, and fair distribution limits per time window."
+          }
+        },
         "ASSIGNMENT_ORDER": {
           "LABEL": "Assignment order",
           "ROUND_ROBIN": {
-            "LABEL": "Round robin",
-            "DESCRIPTION": "Assign conversations evenly among agents."
+            "LABEL": "Round Robin",
+            "DESCRIPTION": "Distribute conversations in sequence among agents."
           },
-          "BALANCED": {
-            "LABEL": "Balanced",
-            "DESCRIPTION": "Assign conversations based on available capacity."
+          "EQUAL_DISTRIBUTION": {
+            "LABEL": "Equal Distribution",
+            "DESCRIPTION": "Assign to the agent with the least load in the time window."
           }
         },
         "ASSIGNMENT_PRIORITY": {
           "LABEL": "Assignment priority",
+          "DESCRIPTION": "Choose which conversation from the queue gets assigned first.",
           "EARLIEST_CREATED": {
             "LABEL": "Earliest created",
             "DESCRIPTION": "The conversation that was created first gets assigned first."
@@ -631,6 +656,7 @@
         "INBOXES": {
           "LABEL": "Added inboxes",
           "DESCRIPTION": "Add inboxes for which this policy will be applicable.",
+          "AUTO_ASSIGNMENT_NOTICE": "This policy only takes effect in inboxes where automatic agent assignment is enabled. You can enable it in each inbox's settings.",
           "ADD_BUTTON": "Add inbox",
           "DROPDOWN": {
             "SEARCH_PLACEHOLDER": "Search and select inboxes to add",

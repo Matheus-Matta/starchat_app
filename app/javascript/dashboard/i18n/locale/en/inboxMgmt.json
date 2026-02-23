@@ -708,7 +708,8 @@
       "SEND_AGENT_NAME_HELP": "If enabled, the agent name will be added to the message."
     },
     "TABS": {
-      "EVOLUTION": "Account Health",
+      "EVOLUTION": "Evolution",
+      "ACCOUNT_HEALTH": "Account Health",
       "SETTINGS": "Settings",
       "COLLABORATORS": "Collaborators",
       "CONFIGURATION": "Configuration",
@@ -771,6 +772,21 @@
       "WHATSAPP_TEMPLATES_SYNC_SUBHEADER": "Manually sync message templates from WhatsApp to update your available templates.",
       "WHATSAPP_TEMPLATES_SYNC_BUTTON": "Sync Templates",
       "WHATSAPP_TEMPLATES_SYNC_SUCCESS": "Templates sync initiated successfully. It may take a couple of minutes to update.",
+      "WHATSAPP_EMBEDDED_SIGNUP_TITLE": "WhatsApp Embedded Signup",
+      "WHATSAPP_EMBEDDED_SIGNUP_SUBHEADER": "This inbox is connected through WhatsApp Embedded Signup.",
+      "WHATSAPP_EMBEDDED_SIGNUP_DESCRIPTION": "You can reconfigure this inbox to update your WhatsApp Business settings.",
+      "WHATSAPP_RECONFIGURE_BUTTON": "Reconfigure",
+      "WHATSAPP_CONNECT_TITLE": "Connect to WhatsApp Business",
+      "WHATSAPP_CONNECT_SUBHEADER": "Connect this inbox to WhatsApp Business for enhanced features and easier management.",
+      "WHATSAPP_CONNECT_DESCRIPTION": "You will be redirected to Meta to authorize your WhatsApp Business account.",
+      "WHATSAPP_CONNECT_BUTTON": "Connect",
+      "WHATSAPP_CONNECT_SUCCESS": "Successfully connected to WhatsApp Business!",
+      "WHATSAPP_CONNECT_ERROR": "Unable to connect to WhatsApp Business. Please try again.",
+      "WHATSAPP_RECONFIGURE_SUCCESS": "WhatsApp Business successfully reconfigured!",
+      "WHATSAPP_RECONFIGURE_ERROR": "Unable to reconfigure WhatsApp Business. Please try again.",
+      "WHATSAPP_APP_ID_MISSING": "WhatsApp App ID is not configured. Please contact your administrator.",
+      "WHATSAPP_CONFIG_ID_MISSING": "WhatsApp Configuration ID is not configured. Please contact your administrator.",
+      "WHATSAPP_LOGIN_CANCELLED": "WhatsApp login was cancelled. Please try again.",
       "UPDATE_PRE_CHAT_FORM_SETTINGS": "Update Pre Chat Form Settings"
     },
     "HELP_CENTER": {
@@ -783,7 +799,17 @@
     "AUTO_ASSIGNMENT": {
       "MAX_ASSIGNMENT_LIMIT": "Auto assignment limit",
       "MAX_ASSIGNMENT_LIMIT_RANGE_ERROR": "Please enter a value greater than 0",
-      "MAX_ASSIGNMENT_LIMIT_SUB_TEXT": "Limit the maximum number of conversations from this inbox that can be auto assigned to an agent"
+      "MAX_ASSIGNMENT_LIMIT_SUB_TEXT": "Limit the maximum number of conversations from this inbox that can be auto assigned to an agent",
+      "EQUAL_DISTRIBUTION": {
+        "TITLE": "Equal Distribution",
+        "SUB_TITLE": "Smart distribution: prioritizes agents with lower workload. When workloads are similar, round-robin is maintained.",
+        "ENABLED_LABEL": "Enable Equal Distribution",
+        "ENABLED_SUB_TEXT": "When enabled, new conversations are assigned to the agent with the fewest open conversations in the configured time window.",
+        "WINDOW_HOURS_LABEL": "Time window (hours)",
+        "WINDOW_HOURS_SUB_TEXT": "Only conversations opened in this period are counted for workload comparison. Use 0 to count all open conversations.",
+        "THRESHOLD_LABEL": "Imbalance threshold (%)",
+        "THRESHOLD_SUB_TEXT": "If the spread between the most and least loaded agent exceeds this percentage, equal distribution is activated. Otherwise, round-robin is used."
+      }
     },
     "FACEBOOK_REAUTHORIZE": {
       "TITLE": "Reauthorize",
@@ -1041,6 +1067,59 @@
       "INSTAGRAM": "Instagram",
       "VOICE": "Voice",
       "EVOLUTION": "Evolution"
+    },
+    "ACCOUNT_HEALTH": {
+      "TITLE": "Account Health",
+      "DESCRIPTION": "Monitor your WhatsApp Business account status and messaging limits.",
+      "GO_TO_SETTINGS": "Go to Settings",
+      "NO_DATA": "No account health data available.",
+      "FIELDS": {
+        "DISPLAY_PHONE_NUMBER": {
+          "LABEL": "Phone Number",
+          "TOOLTIP": "The phone number associated with your WhatsApp Business account."
+        },
+        "VERIFIED_NAME": {
+          "LABEL": "Verified Name",
+          "TOOLTIP": "The verified business name displayed to users in WhatsApp."
+        },
+        "DISPLAY_NAME_STATUS": {
+          "LABEL": "Display Name Status",
+          "TOOLTIP": "The review status of your WhatsApp Business display name."
+        },
+        "QUALITY_RATING": {
+          "LABEL": "Quality Rating",
+          "TOOLTIP": "Quality score based on recent messages flagged as spam or blocked by users."
+        },
+        "MESSAGING_LIMIT_TIER": {
+          "LABEL": "Messaging Limit",
+          "TOOLTIP": "The maximum number of unique users you can send messages to per day."
+        },
+        "ACCOUNT_MODE": {
+          "LABEL": "Account Mode",
+          "TOOLTIP": "Whether your account is in Live mode (real customers) or Sandbox mode (testing)."
+        }
+      },
+      "VALUES": {
+        "STATUSES": {
+          "APPROVED": "Approved",
+          "PENDING_REVIEW": "Pending Review",
+          "AVAILABLE_WITHOUT_REVIEW": "Available",
+          "REJECTED": "Rejected",
+          "DECLINED": "Declined"
+        },
+        "MODES": {
+          "LIVE": "Live",
+          "SANDBOX": "Sandbox"
+        },
+        "TIERS": {
+          "TIER_50": "50 conversations/day",
+          "TIER_250": "250 conversations/day",
+          "TIER_1K": "1,000 conversations/day",
+          "TIER_10K": "10,000 conversations/day",
+          "TIER_100K": "100,000 conversations/day",
+          "TIER_UNLIMITED": "Unlimited"
+        }
+      }
     }
   },
   "ADD": {

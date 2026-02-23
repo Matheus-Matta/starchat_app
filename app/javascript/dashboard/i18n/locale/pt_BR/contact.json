@@ -561,7 +561,9 @@
         "EXPAND": "Expandir",
         "COLLAPSE": "Recolher",
         "NO_NOTES": "Sem notas, você pode adicionar notas a partir da página de detalhes do contato.",
-        "EMPTY_STATE": "Não existem notas associadas a este contato. Você pode adicionar uma nota digitando na caixa acima."
+        "EMPTY_STATE": "Não existem notas associadas a este contato. Você pode adicionar uma nota digitando na caixa acima.",
+        "ADD_NOTE": "Adicionar nota",
+        "CONVERSATION_EMPTY_STATE": "Nenhuma conversa encontrada"
       }
     },
     "EMPTY_STATE": {
@@ -628,5 +630,26 @@
         }
       }
     }
+  },
+  "CONTACTS_BULK_ACTIONS": {
+    "ASSIGN_LABELS": "Atribuir etiquetas",
+    "ASSIGN_LABELS_FAILED": "Falha ao atribuir etiquetas",
+    "ASSIGN_LABELS_SUCCESS": "Etiquetas atribuídas com sucesso",
+    "CLEAR_SELECTION": "Limpar seleção",
+    "DELETE_CONTACTS": "Excluir contatos",
+    "DELETE_DIALOG": {
+      "CONFIRM_MULTIPLE": "Excluir {count} contatos selecionados",
+      "CONFIRM_SINGLE": "Excluir 1 contato selecionado",
+      "DESCRIPTION": "Esta ação não pode ser desfeita.",
+      "SINGULAR_DESCRIPTION": "Este contato será excluído permanentemente.",
+      "SINGULAR_TITLE": "Excluir contato",
+      "TITLE": "Excluir contatos selecionados"
+    },
+    "DELETE_FAILED": "Falha ao excluir contatos",
+    "DELETE_SUCCESS": "Contatos excluídos com sucesso",
+    "DESCRIPTION": "{count} contato(s) selecionado(s)",
+    "NO_LABELS_FOUND": "Nenhuma etiqueta encontrada",
+    "SELECTED_COUNT": "{count} selecionado(s)",
+    "SELECT_ALL": "Selecionar todos"
   }
 }

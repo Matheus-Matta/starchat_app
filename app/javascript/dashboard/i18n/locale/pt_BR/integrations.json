@@ -723,7 +723,8 @@
         "TYPE": {
           "LABEL": "Document Type",
           "URL": "URL:",
-          "PDF": "PDF File"
+          "PDF": "PDF File",
+          "FILE": "Arquivo PDF"
         },
         "URL": {
           "LABEL": "URL:",
@@ -746,6 +747,13 @@
           "LABEL": "Assistente",
           "PLACEHOLDER": "Selecione o assistente",
           "ERROR": "O campo Assistente é obrigatório"
+        },
+        "FILE": {
+          "LABEL": "Arquivo PDF",
+          "CHOOSE_FILE": "Escolher arquivo PDF",
+          "HELP_TEXT": "Tamanho máximo do arquivo: 10MB",
+          "INVALID_TYPE": "Por favor, selecione um arquivo PDF válido",
+          "TOO_LARGE": "O tamanho do arquivo excede o limite de 10MB"
         }
       },
       "DELETE": {
@@ -856,7 +864,8 @@
         },
         "NO_PENDING_TITLE": "Nenhuma FAQ pendente",
         "CLEAR_SEARCH": "Limpar busca"
-      }
+      },
+      "SEARCH_PLACEHOLDER": "Buscar respostas..."
     },
     "INBOXES": {
       "HEADER": "Caixas de entrada conectadas",

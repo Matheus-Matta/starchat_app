@@ -2,17 +2,19 @@
 #
 # Table name: assignment_policies
 #
-#  id                       :bigint           not null, primary key
-#  assignment_order         :integer          default("round_robin"), not null
-#  conversation_priority    :integer          default("earliest_created"), not null
-#  description              :text
-#  enabled                  :boolean          default(TRUE), not null
-#  fair_distribution_limit  :integer          default(100), not null
-#  fair_distribution_window :integer          default(3600), not null
-#  name                     :string(255)      not null
-#  created_at               :datetime         not null
-#  updated_at               :datetime         not null
-#  account_id               :bigint           not null
+#  id                                   :bigint           not null, primary key
+#  assignment_order                     :integer          default("round_robin"), not null
+#  conversation_priority                :integer          default("earliest_created"), not null
+#  description                          :text
+#  enabled                              :boolean          default(TRUE), not null
+#  equal_distribution_balance_threshold :integer          default(20), not null
+#  equal_distribution_window_hours      :integer          default(24), not null
+#  fair_distribution_limit              :integer          default(100), not null
+#  fair_distribution_window             :integer          default(3600), not null
+#  name                                 :string(255)      not null
+#  created_at                           :datetime         not null
+#  updated_at                           :datetime         not null
+#  account_id                           :bigint           not null
 #
 # Indexes
 #
@@ -28,6 +30,8 @@ class AssignmentPolicy < ApplicationRecord
   validates :name, presence: true, uniqueness: { scope: :account_id }
   validates :fair_distribution_limit, numericality: { greater_than: 0 }
   validates :fair_distribution_window, numericality: { greater_than: 0 }
+  validates :equal_distribution_window_hours, numericality: { greater_than: 0 }
+  validates :equal_distribution_balance_threshold, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 100 }
 
   enum conversation_priority: { earliest_created: 0, longest_waiting: 1 }
 

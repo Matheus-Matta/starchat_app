@@ -723,7 +723,8 @@
         "TYPE": {
           "LABEL": "Document Type",
           "URL": "URL",
-          "PDF": "PDF File"
+          "PDF": "PDF File",
+          "FILE": "PDF File"
         },
         "URL": {
           "LABEL": "URL",
@@ -746,6 +747,13 @@
           "LABEL": "Assistant",
           "PLACEHOLDER": "Select the assistant",
           "ERROR": "The assistant field is required"
+        },
+        "FILE": {
+          "LABEL": "PDF File",
+          "CHOOSE_FILE": "Choose PDF file",
+          "HELP_TEXT": "Maximum file size: 10MB",
+          "INVALID_TYPE": "Please select a valid PDF file",
+          "TOO_LARGE": "File size exceeds 10MB limit"
         }
       },
       "DELETE": {

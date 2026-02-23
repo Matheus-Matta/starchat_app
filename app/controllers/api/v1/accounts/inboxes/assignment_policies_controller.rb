@@ -2,7 +2,7 @@ class Api::V1::Accounts::Inboxes::AssignmentPoliciesController < Api::V1::Accoun
   before_action :fetch_inbox
   before_action :fetch_assignment_policy, only: [:create]
   before_action -> { check_authorization(AssignmentPolicy) }
-  before_action :validate_assignment_policy, only: [:show, :destroy]
+  before_action :validate_assignment_policy, only: [:show, :destroy, :update]
 
   def show
     @assignment_policy = @inbox.assignment_policy
@@ -14,6 +14,11 @@ class Api::V1::Accounts::Inboxes::AssignmentPoliciesController < Api::V1::Accoun
     # delete the old one and attach the new policy
     remove_inbox_assignment_policy
     @inbox_assignment_policy = @inbox.create_inbox_assignment_policy!(assignment_policy: @assignment_policy)
+    @assignment_policy = @inbox.assignment_policy
+  end
+
+  def update
+    @inbox.inbox_assignment_policy.update!(equal_distribution_permitted_params)
     @assignment_policy = @inbox.assignment_policy
   end
 
@@ -38,6 +43,14 @@ class Api::V1::Accounts::Inboxes::AssignmentPoliciesController < Api::V1::Accoun
 
   def permitted_params
     params.permit(:assignment_policy_id, :inbox_id)
+  end
+
+  def equal_distribution_permitted_params
+    params.permit(
+      :equal_distribution_enabled,
+      :equal_distribution_window_hours,
+      :equal_distribution_balance_threshold
+    )
   end
 
   def validate_assignment_policy

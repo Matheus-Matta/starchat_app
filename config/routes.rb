@@ -249,7 +249,7 @@ Rails.application.routes.draw do
           end
 
           resources :inboxes, only: [] do
-            resource :assignment_policy, only: [:show, :create, :destroy], module: :inboxes
+            resource :assignment_policy, only: [:show, :create, :destroy, :update], module: :inboxes
           end
 
           namespace :twitter do

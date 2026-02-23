@@ -121,6 +121,15 @@
       "FEATURES": {
         "INBOUND_EMAIL_ENABLED": "Conversation continuity with emails is enabled for your account.",
         "CUSTOM_EMAIL_DOMAIN_ENABLED": "You can receive emails in your custom domain now."
+      },
+      "MESSAGING_PREFERENCES": {
+        "TITLE": "Messaging Preferences",
+        "NOTE": "Global settings for sending and receiving messages in the account.",
+        "REQUIRE_CONTACT_INBOX_MESSAGING": {
+          "LABEL": "Block messaging for contacts without a real inbox link",
+          "HELP": "If enabled, agents can only send messages to contacts that already have a conversation history or received messages in that channel."
+        },
+        "UPDATE_BUTTON": "Save Changes"
       }
     },
     "UPDATE_CHATWOOT": "An update {latestChatwootVersion} for Chatwoot is available. Please update your instance.",

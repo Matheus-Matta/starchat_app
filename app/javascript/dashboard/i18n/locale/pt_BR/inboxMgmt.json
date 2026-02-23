@@ -321,7 +321,9 @@
           "WHATSAPP_CLOUD": "Cloud do WhatsApp",
           "WHATSAPP_CLOUD_DESC": "Configuração rápida via Meta",
           "TWILIO_DESC": "Conectar através de credenciais Twilio",
-          "360_DIALOG": "360Dialog"
+          "360_DIALOG": "360Dialog",
+          "EVOLUTION": "Evolution",
+          "EVOLUTION_DESC": "Conecte seu WhatsApp com QR code"
         },
         "SELECT_PROVIDER": {
           "TITLE": "Selecione seu provedor de API",
@@ -390,7 +392,9 @@
           "INVALID_BUSINESS_DATA": "Dados de negócio inválidos recebidos do Facebook. Por favor, tente novamente.",
           "SIGNUP_ERROR": "Ocorreu um erro no cadastro",
           "AUTH_NOT_COMPLETED": "Autenticação não concluída. Por favor, reinicie o processo.",
-          "SUCCESS_FALLBACK": "A conta do WhatsApp Business foi configurada com sucesso"
+          "SUCCESS_FALLBACK": "A conta do WhatsApp Business foi configurada com sucesso",
+          "MANUAL_FALLBACK": "Se o seu número já está conectado à Plataforma WhatsApp Business (API), ou se você é um provedor de tecnologia integrando seu próprio número, use o fluxo de {link}",
+          "MANUAL_LINK_TEXT": "configuração manual"
         },
         "API": {
           "ERROR_MESSAGE": "Não foi possível salvar o canal do WhatsApp"
@@ -705,7 +709,8 @@
       "SEND_AGENT_NAME_HELP": "Se ativado, o nome do agente será adicionado à mensagem."
     },
     "TABS": {
-      "EVOLUTION": "Saúde da Conta",
+      "EVOLUTION": "Evolution",
+      "ACCOUNT_HEALTH": "Saúde da Conta",
       "SETTINGS": "Configurações",
       "COLLABORATORS": "Agentes",
       "CONFIGURATION": "Configuração",
@@ -795,7 +800,17 @@
     "AUTO_ASSIGNMENT": {
       "MAX_ASSIGNMENT_LIMIT": "Limite de atribuição automática",
       "MAX_ASSIGNMENT_LIMIT_RANGE_ERROR": "Por favor, insira um valor maior que 0",
-      "MAX_ASSIGNMENT_LIMIT_SUB_TEXT": "Limitar o número máximo de conversas desta caixa de entrada que pode ser atribuído automaticamente a um agente"
+      "MAX_ASSIGNMENT_LIMIT_SUB_TEXT": "Limitar o número máximo de conversas desta caixa de entrada que pode ser atribuído automaticamente a um agente",
+      "EQUAL_DISTRIBUTION": {
+        "TITLE": "Distribuição Igualitária",
+        "SUB_TITLE": "Distribuição inteligente: prioriza agentes com menor carga. Quando as cargas são similares, o round-robin é mantido.",
+        "ENABLED_LABEL": "Ativar Distribuição Igualitária",
+        "ENABLED_SUB_TEXT": "Quando ativado, novas conversas são atribuídas ao agente com menos conversas abertas na janela de tempo configurada.",
+        "WINDOW_HOURS_LABEL": "Janela de tempo (horas)",
+        "WINDOW_HOURS_SUB_TEXT": "Apenas conversas abertas neste período são contadas para comparar a carga dos agentes. Use 0 para considerar todas.",
+        "THRESHOLD_LABEL": "Limiar de desequilíbrio (%)",
+        "THRESHOLD_SUB_TEXT": "Se a diferença entre o agente mais e menos carregado ultrapassar este percentual, o modo igualitário é ativado. Caso contrário, o round-robin é utilizado."
+      }
     },
     "FACEBOOK_REAUTHORIZE": {
       "TITLE": "Reautorizar",
@@ -1051,7 +1066,61 @@
       "LINE": "Line",
       "API": "Canal da API",
       "INSTAGRAM": "Instagram",
-      "VOICE": "Voz"
+      "VOICE": "Voz",
+      "EVOLUTION": "Evolution"
+    },
+    "ACCOUNT_HEALTH": {
+      "TITLE": "Saúde da Conta",
+      "DESCRIPTION": "Monitore o status da sua conta WhatsApp Business e os limites de envio.",
+      "GO_TO_SETTINGS": "Ir para Configurações",
+      "NO_DATA": "Nenhum dado de saúde da conta disponível.",
+      "FIELDS": {
+        "DISPLAY_PHONE_NUMBER": {
+          "LABEL": "Número de Telefone",
+          "TOOLTIP": "O número de telefone associado à sua conta WhatsApp Business."
+        },
+        "VERIFIED_NAME": {
+          "LABEL": "Nome Verificado",
+          "TOOLTIP": "O nome comercial verificado exibido aos usuários no WhatsApp."
+        },
+        "DISPLAY_NAME_STATUS": {
+          "LABEL": "Status do Nome",
+          "TOOLTIP": "O status de revisão do nome de exibição do seu WhatsApp Business."
+        },
+        "QUALITY_RATING": {
+          "LABEL": "Avaliação de Qualidade",
+          "TOOLTIP": "Pontuação de qualidade baseada em mensagens recentes marcadas como spam ou bloqueadas por usuários."
+        },
+        "MESSAGING_LIMIT_TIER": {
+          "LABEL": "Limite de Envio",
+          "TOOLTIP": "O número máximo de usuários únicos para os quais você pode enviar mensagens por dia."
+        },
+        "ACCOUNT_MODE": {
+          "LABEL": "Modo da Conta",
+          "TOOLTIP": "Se a sua conta está no modo Live (clientes reais) ou Sandbox (testes)."
+        }
+      },
+      "VALUES": {
+        "STATUSES": {
+          "APPROVED": "Aprovado",
+          "PENDING_REVIEW": "Em Revisão",
+          "AVAILABLE_WITHOUT_REVIEW": "Disponível",
+          "REJECTED": "Rejeitado",
+          "DECLINED": "Recusado"
+        },
+        "MODES": {
+          "LIVE": "Live",
+          "SANDBOX": "Sandbox"
+        },
+        "TIERS": {
+          "TIER_50": "50 conversas/dia",
+          "TIER_250": "250 conversas/dia",
+          "TIER_1K": "1.000 conversas/dia",
+          "TIER_10K": "10.000 conversas/dia",
+          "TIER_100K": "100.000 conversas/dia",
+          "TIER_UNLIMITED": "Ilimitado"
+        }
+      }
     }
   },
   "ADD": {

@@ -14,6 +14,9 @@ db_create:
 db_migrate:
 	RAILS_ENV=$(RAILS_ENV) bundle exec rails db:migrate
 
+sync_features:
+	RAILS_ENV=$(RAILS_ENV) bundle exec rails starchat:db:sync_features
+
 db_seed:
 	RAILS_ENV=$(RAILS_ENV) bundle exec rails db:seed
 
@@ -81,5 +84,5 @@ test: test_frontend
 test_frontend:
 	pnpm test
 
-.PHONY: setup db_create db_migrate db_seed db_reset db console server burn docker run force_run force_run_tunnel debug debug_worker
+.PHONY: setup db_create db_migrate sync_features db_seed db_reset db console server burn docker run force_run force_run_tunnel debug debug_worker
 .PHONY: ci lint test lint_backend lint_frontend test_frontend

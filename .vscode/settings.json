@@ -2,5 +2,11 @@
     "cSpell.words": [
         "chatwoot",
         "dompurify"
-    ]
+    ],
+    "chat.tools.terminal.autoApprove": {
+        "/^python3 -c \"\nimport json, os\n\ndef flatten\\(d, prefix=''\\):\n    keys = \\[\\]\n    for k, v in d\\.items\\(\\):\n        full = f'\\{prefix\\}\\.\\{k\\}' if prefix else k\n        if isinstance\\(v, dict\\):\n            keys\\.extend\\(flatten\\(v, full\\)\\)\n        else:\n            keys\\.append\\(full\\)\n    return keys\n\n# Check all JSON files that exist in EN but not PT_BR\nen_dir = '/home/matheus/starchat_app/app/javascript/dashboard/i18n/locale/en'\npt_dir = '/home/matheus/starchat_app/app/javascript/dashboard/i18n/locale/pt_BR'\n\nen_files = set\\(os\\.listdir\\(en_dir\\)\\)\npt_files = set\\(os\\.listdir\\(pt_dir\\)\\)\n\nprint\\('Files in EN but not PT_BR:', en_files - pt_files\\)\nprint\\('Files in PT_BR but not EN:', pt_files - en_files\\)\n\"\n$/": {
+            "approve": true,
+            "matchCommandLine": true
+        }
+    }
 }

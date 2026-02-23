@@ -13,6 +13,16 @@ json.anti_spam_config resource.anti_spam_config
 json.sender_config resource.sender_config
 json.enable_auto_assignment resource.enable_auto_assignment
 json.auto_assignment_config resource.auto_assignment_config
+
+if resource.inbox_assignment_policy.present?
+  json.equal_distribution_config do
+    json.enabled resource.inbox_assignment_policy.equal_distribution_enabled
+    json.window_hours resource.inbox_assignment_policy.equal_distribution_window_hours
+    json.balance_threshold resource.inbox_assignment_policy.equal_distribution_balance_threshold
+  end
+else
+  json.equal_distribution_config nil
+end
 json.out_of_office_message resource.out_of_office_message
 json.working_hours resource.weekly_schedule
 json.timezone resource.timezone

@@ -481,7 +481,7 @@ const menuItems = computed(() => {
           name: 'Settings Agent Assignment',
           label: t('SIDEBAR.AGENT_ASSIGNMENT'),
           icon: 'i-lucide-user-cog',
-          to: accountScopedRoute('assignment_policy_index'),
+          to: accountScopedRoute('agent_assignment_policy_index'),
         },
         {
           name: 'Settings Inboxes',

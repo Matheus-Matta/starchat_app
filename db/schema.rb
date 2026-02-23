@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_01_08_154809) do
+ActiveRecord::Schema[7.1].define(version: 2026_02_22_153649) do
   # These extensions should be enabled to support this database
   enable_extension "pg_stat_statements"
   enable_extension "pg_trgm"
@@ -204,6 +204,8 @@ ActiveRecord::Schema[7.1].define(version: 2026_01_08_154809) do
     t.boolean "enabled", default: true, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "equal_distribution_window_hours", default: 24, null: false
+    t.integer "equal_distribution_balance_threshold", default: 20, null: false
     t.index ["account_id", "name"], name: "index_assignment_policies_on_account_id_and_name", unique: true
     t.index ["account_id"], name: "index_assignment_policies_on_account_id"
     t.index ["enabled"], name: "index_assignment_policies_on_enabled"
@@ -435,6 +437,18 @@ ActiveRecord::Schema[7.1].define(version: 2026_01_08_154809) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["bot_token"], name: "index_channel_telegram_on_bot_token", unique: true
+  end
+
+  create_table "channel_tiktok", force: :cascade do |t|
+    t.integer "account_id", null: false
+    t.string "business_id", null: false
+    t.string "access_token", null: false
+    t.datetime "expires_at", null: false
+    t.string "refresh_token", null: false
+    t.datetime "refresh_token_expires_at", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["business_id"], name: "index_channel_tiktok_on_business_id", unique: true
   end
 
   create_table "channel_twilio_sms", force: :cascade do |t|
@@ -752,11 +766,15 @@ ActiveRecord::Schema[7.1].define(version: 2026_01_08_154809) do
     t.bigint "assigned_agent_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "csat_review_notes"
+    t.datetime "review_notes_updated_at"
+    t.bigint "review_notes_updated_by_id"
     t.index ["account_id"], name: "index_csat_survey_responses_on_account_id"
     t.index ["assigned_agent_id"], name: "index_csat_survey_responses_on_assigned_agent_id"
     t.index ["contact_id"], name: "index_csat_survey_responses_on_contact_id"
     t.index ["conversation_id"], name: "index_csat_survey_responses_on_conversation_id"
     t.index ["message_id"], name: "index_csat_survey_responses_on_message_id", unique: true
+    t.index ["review_notes_updated_by_id"], name: "index_csat_survey_responses_on_review_notes_updated_by_id"
   end
 
   create_table "custom_attribute_definitions", force: :cascade do |t|
@@ -845,6 +863,9 @@ ActiveRecord::Schema[7.1].define(version: 2026_01_08_154809) do
     t.bigint "assignment_policy_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "equal_distribution_enabled", default: false, null: false
+    t.integer "equal_distribution_window_hours", default: 24, null: false
+    t.integer "equal_distribution_balance_threshold", default: 20, null: false
     t.index ["assignment_policy_id"], name: "index_inbox_assignment_policies_on_assignment_policy_id"
     t.index ["inbox_id"], name: "index_inbox_assignment_policies_on_inbox_id", unique: true
   end
@@ -987,7 +1008,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_01_08_154809) do
     t.datetime "updated_at", precision: nil, null: false
     t.boolean "private", default: false, null: false
     t.integer "status", default: 0
-    t.string "source_id"
+    t.text "source_id"
     t.integer "content_type", default: 0, null: false
     t.json "content_attributes", default: {}
     t.string "sender_type"
@@ -1260,7 +1281,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_01_08_154809) do
   create_table "webhooks", force: :cascade do |t|
     t.integer "account_id"
     t.integer "inbox_id"
-    t.string "url"
+    t.text "url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "webhook_type", default: 0
