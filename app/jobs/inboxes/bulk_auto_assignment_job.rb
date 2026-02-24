@@ -18,14 +18,20 @@ class Inboxes::BulkAutoAssignmentJob < ApplicationJob
   private
 
   def process_assignment(inbox)
-    allowed_agent_ids = inbox.member_ids_with_assignment_capacity
-
-    if allowed_agent_ids.blank?
-      Rails.logger.info("No agents available to assign conversation to inbox #{inbox.id}")
-      return
+    if inbox.auto_assignment_v2_enabled?
+      # Use the policy-aware bulk service (equal-distribution / balanced / round-robin)
+      count = ::AutoAssignment::AssignmentService.new(inbox: inbox)
+                                                 .perform_bulk_assignment(limit: Limits::AUTO_ASSIGNMENT_BULK_LIMIT)
+      Rails.logger.info("[BulkAutoAssignment] inbox=#{inbox.id} assigned=#{count} (v2 policy)")
+    else
+      # Legacy path
+      allowed_agent_ids = inbox.member_ids_with_assignment_capacity
+      if allowed_agent_ids.blank?
+        Rails.logger.info("No agents available to assign conversation to inbox #{inbox.id}")
+        return
+      end
+      assign_conversations(inbox, allowed_agent_ids)
     end
-
-    assign_conversations(inbox, allowed_agent_ids)
   end
 
   def assign_conversations(inbox, allowed_agent_ids)

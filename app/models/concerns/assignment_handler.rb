@@ -24,7 +24,21 @@ module AssignmentHandler
     return if team&.allow_auto_assign.blank?
 
     team_members_with_capacity = inbox.member_ids_with_assignment_capacity & team.members.ids
-    ::AutoAssignment::AgentAssignmentService.new(conversation: self, allowed_agent_ids: team_members_with_capacity).find_assignee
+
+    if inbox.auto_assignment_v2_enabled?
+      # Use policy-aware selector (equal-distribution / balanced / round-robin)
+      # filtered to team members so fairness applies only within the team.
+      ::AutoAssignment::PolicyAgentSelector.new(
+        inbox: inbox,
+        allowed_agent_ids: team_members_with_capacity
+      ).find_assignee
+    else
+      # Legacy path: plain round-robin via Redis queue
+      ::AutoAssignment::AgentAssignmentService.new(
+        conversation: self,
+        allowed_agent_ids: team_members_with_capacity
+      ).find_assignee
+    end
   end
 
   def notify_assignment_change
