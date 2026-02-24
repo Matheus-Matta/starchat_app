@@ -157,6 +157,7 @@ export const TIME_CHART_CONFIG = createChartConfig((value, index, values) => {
 
 export const METRIC_CHART = {
   conversations_count: DEFAULT_CHART,
+  attendances_count: DEFAULT_CHART,
   incoming_messages_count: DEFAULT_CHART,
   outgoing_messages_count: DEFAULT_CHART,
   avg_first_response_time: TIME_CHART_CONFIG,

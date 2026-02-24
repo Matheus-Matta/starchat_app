@@ -2,6 +2,7 @@ class V2::Reports::Conversations::MetricBuilder < V2::Reports::Conversations::Ba
   def summary
     {
       conversations_count: count('conversations_count'),
+      attendances_count: count('attendances_count'),
       incoming_messages_count: count('incoming_messages_count'),
       outgoing_messages_count: count('outgoing_messages_count'),
       avg_first_response_time: count('avg_first_response_time'),

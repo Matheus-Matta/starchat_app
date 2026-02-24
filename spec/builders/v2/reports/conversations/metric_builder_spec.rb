@@ -19,6 +19,7 @@ RSpec.describe V2::Reports::Conversations::MetricBuilder, type: :model do
       expect(summary).to eq(
         {
           conversations_count: 42,
+          attendances_count: 42,
           incoming_messages_count: 42,
           outgoing_messages_count: 42,
           avg_first_response_time: 42,
@@ -32,6 +33,7 @@ RSpec.describe V2::Reports::Conversations::MetricBuilder, type: :model do
     it 'creates builders with proper params' do
       subject.summary
       expect(V2::Reports::Timeseries::CountReportBuilder).to have_received(:new).with(account, params.merge(metric: 'conversations_count'))
+      expect(V2::Reports::Timeseries::CountReportBuilder).to have_received(:new).with(account, params.merge(metric: 'attendances_count'))
       expect(V2::Reports::Timeseries::AverageReportBuilder).to have_received(:new).with(account, params.merge(metric: 'avg_first_response_time'))
     end
   end

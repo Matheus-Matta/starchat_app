@@ -37,6 +37,17 @@ class V2::Reports::Timeseries::CountReportBuilder < V2::Reports::Timeseries::Bas
     scope.messages.where(account_id: account.id, created_at: range).outgoing.unscope(:order)
   end
 
+  def scope_for_attendances_count
+    # Conta todos os inícios de atendimento: novas conversas E reabertas.
+    # Funciona igualmente para inboxes com conversa única ou múltiplas conversas.
+    # Usa o evento conversation_opened que é disparado em ambos os casos.
+    scope.reporting_events.where(
+      name: :conversation_opened,
+      account_id: account.id,
+      created_at: range
+    )
+  end
+
   def scope_for_resolutions_count
     scope.reporting_events.where(
       name: :conversation_resolved,

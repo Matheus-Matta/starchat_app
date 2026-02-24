@@ -11,6 +11,10 @@
         "NAME": "Conversations",
         "DESC": "( Total )"
       },
+      "ATTENDANCES": {
+        "NAME": "Attendances",
+        "DESC": "( Total )"
+      },
       "INCOMING_MESSAGES": {
         "NAME": "Messages received",
         "DESC": "( Total )"

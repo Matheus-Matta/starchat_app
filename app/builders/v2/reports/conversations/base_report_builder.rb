@@ -6,6 +6,7 @@ class V2::Reports::Conversations::BaseReportBuilder
   AVG_METRICS = %w[avg_first_response_time avg_resolution_time reply_time].freeze
   COUNT_METRICS = %w[
     conversations_count
+    attendances_count
     incoming_messages_count
     outgoing_messages_count
     resolutions_count

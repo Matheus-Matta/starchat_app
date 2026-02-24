@@ -28,6 +28,10 @@ module ReportHelper
     (get_grouped_values outgoing_messages).count
   end
 
+  def attendances_count
+    (get_grouped_values attendances).count
+  end
+
   def resolutions_count
     (get_grouped_values resolutions).count
   end
@@ -50,6 +54,11 @@ module ReportHelper
 
   def outgoing_messages
     scope.messages.where(account_id: account.id, created_at: range).outgoing.unscope(:order)
+  end
+
+  def attendances
+    scope.reporting_events.where(account_id: account.id, name: :conversation_opened,
+                                 created_at: range)
   end
 
   def resolutions

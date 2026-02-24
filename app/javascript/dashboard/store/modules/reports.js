@@ -15,6 +15,7 @@ const state = {
   accountReport: {
     isFetching: {
       conversations_count: false,
+      attendances_count: false,
       incoming_messages_count: false,
       outgoing_messages_count: false,
       avg_first_response_time: false,
@@ -26,6 +27,7 @@ const state = {
     },
     data: {
       conversations_count: [],
+      attendances_count: [],
       incoming_messages_count: [],
       outgoing_messages_count: [],
       avg_first_response_time: [],
@@ -40,6 +42,7 @@ const state = {
     avg_first_response_time: 0,
     avg_resolution_time: 0,
     conversations_count: 0,
+    attendances_count: 0,
     incoming_messages_count: 0,
     outgoing_messages_count: 0,
     reply_time: 0,
@@ -47,7 +50,7 @@ const state = {
     bot_resolutions_count: 0,
     bot_handoffs_count: 0,
     previous: {},
-  },
+  },,
   botSummary: {
     bot_resolutions_count: 0,
     bot_handoffs_count: 0,

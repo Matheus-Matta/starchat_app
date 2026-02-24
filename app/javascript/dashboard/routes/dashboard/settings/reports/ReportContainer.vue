@@ -27,6 +27,7 @@ export default {
       type: Object,
       default: () => ({
         CONVERSATIONS: 'conversations_count',
+        ATTENDANCES: 'attendances_count',
         INCOMING_MESSAGES: 'incoming_messages_count',
         OUTGOING_MESSAGES: 'outgoing_messages_count',
         FIRST_RESPONSE_TIME: 'avg_first_response_time',

@@ -84,6 +84,7 @@ export default {
     reportKeys() {
       return {
         CONVERSATIONS: 'conversations_count',
+        ATTENDANCES: 'attendances_count',
         ...(!this.isAgentType && {
           INCOMING_MESSAGES: 'incoming_messages_count',
         }),
