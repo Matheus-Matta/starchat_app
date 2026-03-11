@@ -29,6 +29,48 @@ class V2::Reports::Timeseries::CountReportBuilder < V2::Reports::Timeseries::Bas
     scope.conversations.where(account_id: account.id, created_at: range)
   end
 
+  def scope_for_unique_contacts_count
+    # Apenas listar contatos, a contagem única deve ser controlada sem quebrar group_by_period.
+    # Count(Distinct contact_id) é preferivel, porém o group_by com default usa IDs.
+    scope.conversations.where(account_id: account.id, created_at: range).select(:contact_id).distinct
+  end
+
+  def scope_for_status_open_count
+    # Aberturas (ou retornos para aberta) são marcadas como conversation_opened
+    scope.reporting_events.where(
+      name: :conversation_opened,
+      account_id: account.id,
+      created_at: range
+    )
+  end
+
+  def scope_for_status_resolved_count
+    # Resoluções
+    scope.reporting_events.where(
+      name: :conversation_resolved,
+      account_id: account.id,
+      created_at: range
+    )
+  end
+
+  def scope_for_status_snoozed_count
+    # Adiamentos
+    scope.reporting_events.where(
+      name: :conversation_snoozed,
+      account_id: account.id,
+      created_at: range
+    )
+  end
+
+  def scope_for_status_pending_count
+    # Pendentes / em espera
+    scope.reporting_events.where(
+      name: :conversation_pending,
+      account_id: account.id,
+      created_at: range
+    )
+  end
+
   def scope_for_incoming_messages_count
     scope.messages.where(account_id: account.id, created_at: range).incoming.unscope(:order)
   end

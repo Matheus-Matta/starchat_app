@@ -8,6 +8,10 @@
 #  allow_messages_after_resolved :boolean          default(TRUE)
 #  anti_spam_config              :jsonb
 #  auto_assignment_config        :jsonb
+#  auto_resolve_duration         :integer
+#  auto_resolve_ignore_waiting   :boolean
+#  auto_resolve_label            :string
+#  auto_resolve_message          :text
 #  business_name                 :string
 #  channel_type                  :string
 #  csat_config                   :jsonb            not null
@@ -29,16 +33,19 @@
 #  account_id                    :integer          not null
 #  channel_id                    :integer          not null
 #  portal_id                     :bigint
+#  protocol_policy_id            :bigint
 #
 # Indexes
 #
 #  index_inboxes_on_account_id                   (account_id)
 #  index_inboxes_on_channel_id_and_channel_type  (channel_id,channel_type)
 #  index_inboxes_on_portal_id                    (portal_id)
+#  index_inboxes_on_protocol_policy_id           (protocol_policy_id)
 #
 # Foreign Keys
 #
 #  fk_rails_...  (portal_id => portals.id)
+#  fk_rails_...  (protocol_policy_id => protocol_policies.id)
 #
 
 class Inbox < ApplicationRecord
@@ -58,6 +65,7 @@ class Inbox < ApplicationRecord
 
   belongs_to :account
   belongs_to :portal, optional: true
+  belongs_to :protocol_policy, optional: true
 
   belongs_to :channel, polymorphic: true, dependent: :destroy
 
@@ -86,6 +94,34 @@ class Inbox < ApplicationRecord
   after_update_commit :dispatch_update_event
 
   scope :order_by_name, -> { order('lower(name) ASC') }
+  scope :with_inbox_auto_resolve, -> { where.not(auto_resolve_duration: nil) }
+
+  # Duração efetiva de auto-resolução: usa do inbox se configurado, caso contrário herda da conta
+  def effective_auto_resolve_duration
+    auto_resolve_duration.presence || account.auto_resolve_after
+  end
+
+  # Mensagem efetiva de auto-resolução
+  def effective_auto_resolve_message
+    auto_resolve_message.presence || account.auto_resolve_message
+  end
+
+  # Flag efetiva para ignorar conversas em espera
+  def effective_auto_resolve_ignore_waiting
+    return auto_resolve_ignore_waiting unless auto_resolve_ignore_waiting.nil?
+
+    account.auto_resolve_ignore_waiting
+  end
+
+  # Label efetiva de auto-resolução
+  def effective_auto_resolve_label
+    auto_resolve_label.presence || account.auto_resolve_label
+  end
+
+  # Verifica se deve ser auto-resolvido por lógica do inbox ou da conta
+  def should_auto_resolve?
+    effective_auto_resolve_duration.to_i.positive?
+  end
 
   # Adds multiple members to the inbox
   # @param user_ids [Array<Integer>] Array of user IDs to add as members

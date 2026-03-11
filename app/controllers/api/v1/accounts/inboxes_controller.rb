@@ -195,7 +195,8 @@ class Api::V1::Accounts::InboxesController < Api::V1::Accounts::BaseController
     [:name, :avatar, :greeting_enabled, :greeting_message, :enable_email_collect, :csat_survey_enabled,
      :enable_auto_assignment, :working_hours_enabled, :out_of_office_message, :timezone, :allow_messages_after_resolved,
      :lock_to_single_conversation, :portal_id, :sender_name_type, :business_name,
-     { csat_config: [:display_type, :message, { survey_rules: [:operator, { values: [] }] }] },
+     :auto_resolve_duration, :auto_resolve_message, :auto_resolve_ignore_waiting, :auto_resolve_label,
+     :protocol_policy_id,
      { csat_config: [:display_type, :message, { survey_rules: [:operator, { values: [] }] }] },
      { anti_spam_config: [:active, :max_messages, :time_window, :block_duration] },
      { sender_config: [:send_agent_name] }]

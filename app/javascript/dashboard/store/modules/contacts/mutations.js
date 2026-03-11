@@ -22,20 +22,22 @@ export const mutations = {
 
   [types.SET_CONTACTS]: ($state, data) => {
     const sortOrder = data.map(contact => {
-      $state.records[contact.id] = {
-        ...($state.records[contact.id] || {}),
-        ...contact,
-      };
+      if ($state.records[contact.id]) {
+        Object.assign($state.records[contact.id], contact);
+      } else {
+        $state.records[contact.id] = { ...contact };
+      }
       return contact.id;
     });
     $state.sortOrder = sortOrder;
   },
 
   [types.SET_CONTACT_ITEM]: ($state, data) => {
-    $state.records[data.id] = {
-      ...($state.records[data.id] || {}),
-      ...data,
-    };
+    if ($state.records[data.id]) {
+      Object.assign($state.records[data.id], data);
+    } else {
+      $state.records[data.id] = { ...data };
+    }
 
     if (!$state.sortOrder.includes(data.id)) {
       $state.sortOrder.push(data.id);
@@ -43,7 +45,11 @@ export const mutations = {
   },
 
   [types.EDIT_CONTACT]: ($state, data) => {
-    $state.records[data.id] = data;
+    if ($state.records[data.id]) {
+      Object.assign($state.records[data.id], data);
+    } else {
+      $state.records[data.id] = { ...data };
+    }
   },
 
   [types.DELETE_CONTACT]: ($state, id) => {

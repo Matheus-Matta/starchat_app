@@ -13,6 +13,14 @@ const props = defineProps({
     type: Object,
     default: () => ({}),
   },
+  protocolCode: {
+    type: [String, Number],
+    default: '',
+  },
+  protocolPolicyId: {
+    type: [String, Number],
+    default: null,
+  },
 });
 
 const referer = computed(() => props.conversationAttributes.referer);
@@ -42,8 +50,16 @@ const platformName = computed(() => {
 
 const createdAtIp = computed(() => props.contactAttributes.created_at_ip);
 
+const protocolCode = computed(() => props.protocolCode);
+
 const staticElements = computed(() =>
   [
+    {
+      content: protocolCode,
+      title: 'CONTACT_PANEL.PROTOCOL',
+      key: 'static-protocol',
+      type: 'static_attribute',
+    },
     {
       content: initiatedAt,
       title: 'CONTACT_PANEL.INITIATED_AT',

@@ -1,0 +1,9 @@
+json.id protocol_policy.id
+json.name protocol_policy.name
+json.prefix protocol_policy.prefix
+json.scope protocol_policy.scope
+json.seq_padding protocol_policy.seq_padding
+json.include_store_code protocol_policy.include_store_code
+json.include_city_code protocol_policy.include_city_code
+json.active protocol_policy.active
+json.welcome_message protocol_policy.welcome_message

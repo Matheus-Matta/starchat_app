@@ -14,6 +14,7 @@ import ConversationParticipant from './ConversationParticipant.vue';
 import ContactInfo from './contact/ContactInfo.vue';
 import ContactNotes from './contact/ContactNotes.vue';
 import ConversationInfo from './ConversationInfo.vue';
+import ConversationProtocol from './ConversationProtocol.vue';
 import CustomAttributes from './customAttributes/CustomAttributes.vue';
 import Draggable from 'vuedraggable';
 import MacrosList from './Macros/List.vue';
@@ -184,6 +185,8 @@ onMounted(() => {
               <ConversationInfo
                 :conversation-attributes="conversationAdditionalAttributes"
                 :contact-attributes="contactAdditionalAttributes"
+                :protocol-code="currentChat.protocol_code"
+                :protocol-policy-id="currentChat.protocol_policy_id"
               />
             </AccordionItem>
           </div>
@@ -277,6 +280,24 @@ onMounted(() => {
               "
             >
               <ContactNotes :contact-id="contactId" />
+            </AccordionItem>
+          </div>
+          <!-- [COMING SOON] Protocol field - hidden until feature is ready -->
+          <div v-else-if="element.name === 'protocol'" class="hidden">
+            <AccordionItem
+              v-if="currentChat.protocol_code || currentChat.protocol_id"
+              :title="$t('CONVERSATION_SIDEBAR.ACCORDION.PROTOCOL')"
+              :is-open="isContactSidebarItemOpen('is_protocol_open')"
+              compact
+              @toggle="
+                value => toggleSidebarUIState('is_protocol_open', value)
+              "
+            >
+              <ConversationProtocol
+                :conversation-id="conversationId"
+                :protocol-id="currentChat.protocol_id"
+                :protocol-code="currentChat.protocol_code"
+              />
             </AccordionItem>
           </div>
         </template>

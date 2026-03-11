@@ -98,6 +98,17 @@ Rails.application.routes.draw do
             post :execute, on: :member
           end
           resources :sla_policies, only: [:index, :create, :show, :update, :destroy]
+          resources :protocol_policies, only: [:index, :create, :show, :update, :destroy]
+
+          # Protocolos SAC — recurso completo (issue 4 + extensão)
+          resources :protocols, only: [:index, :create, :show, :update, :destroy] do
+            member do
+              post :close
+              post :reopen
+            end
+            resources :protocol_comments, only: [:index, :create, :destroy]
+          end
+
           resources :custom_roles, only: [:index, :create, :show, :update, :destroy]
           resources :agent_capacity_policies, only: [:index, :create, :show, :update, :destroy] do
             scope module: :agent_capacity_policies do

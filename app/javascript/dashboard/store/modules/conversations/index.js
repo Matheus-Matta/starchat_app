@@ -201,7 +201,17 @@ export const mutations = {
   },
 
   [types.ADD_CONVERSATION](_state, conversation) {
-    _state.allConversations.push(conversation);
+    const index = _state.allConversations.findIndex(
+      c => c.id === conversation.id
+    );
+    if (index > -1) {
+      _state.allConversations.splice(index, 1, {
+        ..._state.allConversations[index],
+        ...conversation,
+      });
+    } else {
+      _state.allConversations.push(conversation);
+    }
   },
 
   [types.DELETE_CONVERSATION](_state, conversationId) {

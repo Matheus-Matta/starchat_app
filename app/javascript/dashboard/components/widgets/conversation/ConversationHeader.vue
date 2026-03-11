@@ -13,6 +13,8 @@ import { conversationListPageURL } from 'dashboard/helper/URLHelper';
 import { snoozedReopenTime } from 'dashboard/helper/snoozeHelpers';
 import { useInbox } from 'dashboard/composables/useInbox';
 import { useI18n } from 'vue-i18n';
+import { useAlert } from 'dashboard/composables';
+import { copyTextToClipboard } from 'shared/helpers/clipboard';
 
 const props = defineProps({
   chat: { type: Object, default: () => ({}) },
@@ -20,6 +22,13 @@ const props = defineProps({
 });
 
 const { t } = useI18n();
+
+const copyProtocolCode = async () => {
+  if (props.chat?.protocol_code) {
+    await copyTextToClipboard(props.chat.protocol_code);
+    useAlert(t('CONVERSATION.HEADER.PROTOCOL_COPIED'));
+  }
+};
 const store = useStore();
 const route = useRoute();
 
@@ -156,6 +165,20 @@ const primaryAvatarSrc = computed(() => {
           <span v-if="isSnoozed" class="font-medium text-n-amber-10">
             {{ snoozedDisplayText }}
           </span>
+          <div
+            v-if="chat.protocol_code"
+            class="flex gap-1 items-center bg-n-alpha-1 px-1.5 py-0.5 rounded text-[11px] font-mono text-n-slate-11"
+          >
+            <fluent-icon icon="hashtag" size="12" />
+            <span class="select-all">{{ chat.protocol_code }}</span>
+            <fluent-icon
+              v-tooltip="$t('CONVERSATION.HEADER.COPY_PROTOCOL')"
+              icon="copy"
+              size="12"
+              class="cursor-pointer hover:text-n-slate-12"
+              @click="copyProtocolCode"
+            />
+          </div>
         </div>
       </div>
     </div>

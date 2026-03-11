@@ -59,4 +59,7 @@ json.last_activity_at conversation.last_activity_at.to_i
 json.priority conversation.priority
 json.waiting_since conversation.waiting_since.to_i.to_i
 json.sla_policy_id conversation.sla_policy_id
+json.protocol_code conversation.protocol_code
+json.protocol_id conversation.protocol_id
+json.protocol_policy_id conversation.protocol_policy_id
 json.partial! 'starchat/api/v1/conversations/partials/conversation', conversation: conversation if ChatwootApp.enterprise?

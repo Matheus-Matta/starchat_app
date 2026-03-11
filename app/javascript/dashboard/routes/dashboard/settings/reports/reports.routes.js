@@ -3,6 +3,7 @@ import { FEATURE_FLAGS } from 'dashboard/featureFlags';
 
 import ReportsWrapper from './components/ReportsWrapper.vue';
 import Index from './Index.vue';
+import StatusReports from './StatusReports.vue';
 
 import AgentReportsIndex from './AgentReportsIndex.vue';
 import InboxReportsIndex from './InboxReportsIndex.vue';
@@ -147,6 +148,12 @@ export default {
           name: 'conversation_reports',
           meta,
           component: Index,
+        },
+        {
+          path: 'status',
+          name: 'status_reports',
+          meta,
+          component: StatusReports,
         },
         ...oldReportRoutes,
         ...revisedReportRoutes,

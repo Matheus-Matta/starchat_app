@@ -50,42 +50,40 @@ const onPickInbox = () => {
 </script>
 
 <template>
-  <span class="contents">
-    <Button
-      v-if="shouldRender"
-      v-tooltip.top-end="tooltipLabel || null"
-      v-bind="attrs"
-      :label="label"
-      :icon="icon"
-      :size="size"
-      @click="onClick"
-    />
+  <Button
+    v-if="shouldRender"
+    v-tooltip.top-end="tooltipLabel || null"
+    v-bind="attrs"
+    :label="label"
+    :icon="icon"
+    :size="size"
+    @click="onClick"
+  />
 
-    <Dialog
-      v-if="shouldRender && voiceInboxes.length > 1"
-      ref="dialogRef"
-      :title="$t('CONTACT_PANEL.VOICE_INBOX_PICKER.TITLE')"
-      show-cancel-button
-      :show-confirm-button="false"
-      width="md"
-    >
-      <div class="flex flex-col gap-2">
-        <button
-          v-for="inbox in voiceInboxes"
-          :key="inbox.id"
-          type="button"
-          class="flex items-center justify-between w-full px-4 py-2 text-left rounded-lg hover:bg-n-alpha-2"
-          @click="onPickInbox(inbox)"
-        >
-          <div class="flex items-center gap-2">
-            <span class="i-ri-phone-fill text-n-slate-10" />
-            <span class="text-sm text-n-slate-12">{{ inbox.name }}</span>
-          </div>
-          <span v-if="inbox.phone_number" class="text-xs text-n-slate-10">
-            {{ inbox.phone_number }}
-          </span>
-        </button>
-      </div>
-    </Dialog>
-  </span>
+  <Dialog
+    v-if="shouldRender && voiceInboxes.length > 1"
+    ref="dialogRef"
+    :title="$t('CONTACT_PANEL.VOICE_INBOX_PICKER.TITLE')"
+    show-cancel-button
+    :show-confirm-button="false"
+    width="md"
+  >
+    <div class="flex flex-col gap-2">
+      <button
+        v-for="inbox in voiceInboxes"
+        :key="inbox.id"
+        type="button"
+        class="flex items-center justify-between w-full px-4 py-2 text-left rounded-lg hover:bg-n-alpha-2"
+        @click="onPickInbox(inbox)"
+      >
+        <div class="flex items-center gap-2">
+          <span class="i-ri-phone-fill text-n-slate-10" />
+          <span class="text-sm text-n-slate-12">{{ inbox.name }}</span>
+        </div>
+        <span v-if="inbox.phone_number" class="text-xs text-n-slate-10">
+          {{ inbox.phone_number }}
+        </span>
+      </button>
+    </div>
+  </Dialog>
 </template>

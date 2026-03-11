@@ -1,0 +1,93 @@
+{
+  "PROTOCOL_POLICIES": {
+    "HEADER": {
+      "TITLE": "Protocol Policies",
+      "DESC": "Manage protocol generation policies for your inboxes.",
+      "NEW_BUTTON": "New Policy"
+    },
+    "LOADING": "Loading policies...",
+    "EMPTY_STATE": "No protocol policies created yet. Create a policy to start generating automatic protocols on conversations.",
+    "SCOPE": {
+      "DAILY": "Daily (resets every day)",
+      "GLOBAL": "Global (continuous increment)"
+    },
+    "STATUS": {
+      "ACTIVE": "Active",
+      "INACTIVE": "Inactive"
+    },
+    "TABLE": {
+      "NAME": "Name",
+      "PREFIX": "Prefix",
+      "SCOPE": "Scope",
+      "PADDING": "Digits",
+      "STATUS": "Status",
+      "ACTIONS": "Actions",
+      "EDIT": "Edit",
+      "DELETE": "Delete"
+    },
+    "FORM": {
+      "CREATE_TITLE": "New Protocol Policy",
+      "EDIT_TITLE": "Edit Protocol Policy",
+      "DESC": "Configure how the protocol will be generated for conversations of this policy.",
+      "PREVIEW": "Protocol example:",
+      "ACTIVE": "Policy active",
+      "INCLUDE_STORE_CODE": "Include store code",
+      "INCLUDE_CITY_CODE": "Include city code",
+      "CANCEL": "Cancel",
+      "SAVE_BTN": "Create Policy",
+      "UPDATE_BTN": "Save Changes",
+      "SECTION_BASE": "Base Settings",
+      "SECTION_RULES": "Generation Rules",
+      "SECTION_ADVANCED": "Advanced Options",
+      "WELCOME_MESSAGE": {
+        "LABEL": "Welcome Message",
+        "OPTIONAL": "Optional",
+        "HINT": "Automatically sent to the client when the conversation is created. Use {{protocol_code}} to include the protocol code.",
+        "PLACEHOLDER": "E.g: Your support protocol is {{protocol_code}}. One of our agents will contact you shortly.",
+        "PREVIEW": "Preview: "
+      },
+      "NAME": {
+        "LABEL": "Name",
+        "PLACEHOLDER": "E.g: Default SAC, Technical Assistance"
+      },
+      "PREFIX": {
+        "LABEL": "Prefix",
+        "PLACEHOLDER": "SAC",
+        "HELP": "Short code that identifies this policy (max 10 chars, uppercase recommended)"
+      },
+      "SCOPE": {
+        "LABEL": "Sequence scope"
+      },
+      "PADDING": {
+        "LABEL": "Sequence digits",
+        "HELP": "Number of numeric digits (e.g: 4 = 0001)"
+      },
+      "CREATE": {
+        "SUCCESS": "Policy created successfully"
+      },
+      "UPDATE": {
+        "SUCCESS": "Policy updated successfully"
+      },
+      "ERROR": "Error saving policy. Please try again."
+    },
+    "DELETE": {
+      "CONFIRM": {
+        "TITLE": "Delete Policy",
+        "MESSAGE": "Are you sure you want to delete policy",
+        "YES": "Yes, delete",
+        "NO": "No, cancel"
+      },
+      "API": {
+        "SUCCESS_MESSAGE": "Protocol policy deleted successfully",
+        "ERROR_MESSAGE": "Error deleting policy. Please try again."
+      }
+    },
+    "SETTINGS_SECTION": {
+      "TITLE": "Protocol Policy",
+      "SUB_TEXT": "Select a protocol policy to automatically generate service ticket numbers for this inbox.",
+      "LABEL": "Select policy",
+      "PLACEHOLDER": "No policy selected (Protocol disabled)",
+      "HELP": "When a policy is selected, each new conversation in this inbox will receive a unique protocol number according to the configured rules."
+    }
+  }
+}

@@ -2,6 +2,7 @@
   "CONTACT_PANEL": {
     "NOT_AVAILABLE": "Not Available",
     "EMAIL_ADDRESS": "Email Address",
+    "PROTOCOL": "Protocol",
     "PHONE_NUMBER": "Phone number",
     "IDENTIFIER": "Identifier",
     "COPY_SUCCESSFUL": "Copied to clipboard successfully",

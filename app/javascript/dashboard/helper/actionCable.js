@@ -184,14 +184,33 @@ class ActionCableConnector extends BaseActionCableConnector {
   };
 
   onNotificationCreated = data => {
+    if (
+      data.notification?.user?.id &&
+      data.notification.user.id !== this.app.$store.getters.getCurrentUserID
+    ) {
+      return;
+    }
     this.app.$store.dispatch('notifications/addNotification', data);
   };
 
   onNotificationDeleted = data => {
+    // Para deleções muitas vezes vem só { id }, mas se o user id estiver, filtramos:
+    if (
+      data.notification?.user?.id &&
+      data.notification.user.id !== this.app.$store.getters.getCurrentUserID
+    ) {
+      return;
+    }
     this.app.$store.dispatch('notifications/deleteNotification', data);
   };
 
   onNotificationUpdated = data => {
+    if (
+      data.notification?.user?.id &&
+      data.notification.user.id !== this.app.$store.getters.getCurrentUserID
+    ) {
+      return;
+    }
     this.app.$store.dispatch('notifications/updateNotification', data);
   };
 

@@ -1,0 +1,78 @@
+{
+  "PROTOCOLS": {
+    "HEADER": {
+      "TITLE": "Protocolos",
+      "DESC": "Histórico de protocolos SAC vinculados aos atendimentos.",
+      "NEW_BUTTON": "Novo Protocolo"
+    },
+    "LOADING": "Carregando protocolos...",
+    "EMPTY_STATE": "Nenhum protocolo encontrado.",
+    "STATUS": {
+      "OPEN": "Aberto",
+      "CLOSED": "Encerrado",
+      "ARCHIVED": "Arquivado"
+    },
+    "TABLE": {
+      "CODE": "Código",
+      "DATE": "Data",
+      "STATUS": "Status",
+      "REASON": "Motivo",
+      "CONTACT": "Contato",
+      "POLICY": "Política",
+      "CONVERSATIONS": "Conversas",
+      "ACTIONS": "Ações"
+    },
+    "FORM": {
+      "EDIT_TITLE": "Editar Protocolo",
+      "CANCEL": "Cancelar",
+      "SAVE_BTN": "Salvar",
+      "REASON": {
+        "LABEL": "Motivo",
+        "PLACEHOLDER": "Ex: Produto com defeito – NF 54321"
+      },
+      "DESCRIPTION": {
+        "LABEL": "Descrição",
+        "PLACEHOLDER": "Descreva em detalhes o problema relatado..."
+      },
+      "PROBLEM": {
+        "LABEL": "Categoria do Problema",
+        "PLACEHOLDER": "Ex: Defeito, Entrega, Financeiro"
+      }
+    },
+    "ACTIONS": {
+      "EDIT": "Editar",
+      "CLOSE": "Encerrar Protocolo",
+      "REOPEN": "Reabrir Protocolo",
+      "ARCHIVE": "Arquivar",
+      "COPY_CODE": "Copiar Código",
+      "VIEW_COMMENTS": "Ver Anotações",
+      "CANCEL": "Cancelar"
+    },
+    "COPY_SUCCESS": "Protocolo {code} copiado!",
+    "CLOSE_CONFIRM_TITLE": "Encerrar Protocolo",
+    "CLOSE_CONFIRM": "Encerrar o protocolo {code}? O contato precisará abrir um novo atendimento.",
+    "CLOSE_SUCCESS": "Protocolo encerrado com sucesso.",
+    "REOPEN_SUCCESS": "Protocolo reaberto com sucesso.",
+    "SAVE_SUCCESS": "Protocolo atualizado.",
+    "ARCHIVE_SUCCESS": "Protocolo arquivado.",
+    "ERROR": "Erro ao processar a solicitação. Tente novamente.",
+    "REUSE_NOTICE": "Este contato já possui um protocolo aberto: {code}. A conversa foi vinculada automaticamente.",
+    "COMMENTS": {
+      "TITLE": "Anotações e Comentários",
+      "EMPTY": "Nenhuma anotação registrada.",
+      "LOADING": "Carregando anotações...",
+      "NEW_PLACEHOLDER": "Adicionar anotação ao protocolo...",
+      "SEND": "Adicionar",
+      "PRIVATE_LABEL": "Comentário interno (visível apenas para a equipe)",
+      "ATTACH_FILE": "Anexar arquivo",
+      "DELETE_CONFIRM_TITLE": "Excluir Anotação",
+      "DELETE_CONFIRM": "Excluir essa anotação?",
+      "DELETE_ACTION": "Excluir",
+      "DELETE_SUCCESS": "Anotação excluída.",
+      "CREATE_SUCCESS": "Anotação adicionada.",
+      "ERROR": "Erro ao salvar anotação.",
+      "BADGE_PRIVATE": "Interno",
+      "BADGE_PUBLIC": "Público"
+    }
+  }
+}

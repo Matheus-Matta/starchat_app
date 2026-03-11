@@ -347,9 +347,11 @@
     "SET_AVAILABILITY_TITLE": "Defina como",
     "SET_YOUR_AVAILABILITY": "Disponibilidade",
     "SLA": "SLA",
+    "PROTOCOL_POLICIES": "Protocolos",
     "CUSTOM_ROLES": "Funções Personalizadas",
     "BETA": "Beta",
     "REPORTS_OVERVIEW": "Visão geral",
+    "REPORTS_STATUS": "Contagem de Status",
     "REAUTHORIZE": "A conexão com a sua caixa de entrada expirou. Por favor, reconecte para continuar recebendo e enviando mensagens",
     "HELP_CENTER": {
       "TITLE": "Central de Ajuda",

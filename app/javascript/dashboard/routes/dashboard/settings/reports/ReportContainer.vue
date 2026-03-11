@@ -27,6 +27,11 @@ export default {
       type: Object,
       default: () => ({
         CONVERSATIONS: 'conversations_count',
+        UNIQUE_CONTACTS: 'unique_contacts_count',
+        STATUS_OPEN: 'status_open_count',
+        STATUS_RESOLVED: 'status_resolved_count',
+        STATUS_SNOOZED: 'status_snoozed_count',
+        STATUS_PENDING: 'status_pending_count',
         ATTENDANCES: 'attendances_count',
         INCOMING_MESSAGES: 'incoming_messages_count',
         OUTGOING_MESSAGES: 'outgoing_messages_count',

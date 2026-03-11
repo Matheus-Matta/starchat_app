@@ -17,12 +17,16 @@ const { t } = useI18n();
 const route = useRoute();
 
 const RECONNECTED_BANNER_TIMEOUT = 2000;
+// Only show the banner if the disconnection lasts longer than this threshold.
+// This avoids noise from transient drops (mobile background, brief network blip).
+const SHOW_NOTIFICATION_DELAY = 5000;
 
 const showNotification = ref(!navigator.onLine);
 const isDisconnected = ref(false);
 const isReconnecting = ref(false);
 const isReconnected = ref(false);
 let reconnectTimeout = null;
+let notificationDelayTimer = null;
 
 const bannerText = computed(() => {
   if (isReconnecting.value) return t('NETWORK.NOTIFICATION.RECONNECTING');
@@ -43,6 +47,7 @@ const closeNotification = () => {
   showNotification.value = false;
   isReconnected.value = false;
   clearTimeout(reconnectTimeout);
+  clearTimeout(notificationDelayTimer);
 };
 
 const isInAnyOfTheRoutes = routeName => {
@@ -55,22 +60,39 @@ const isInAnyOfTheRoutes = routeName => {
 
 const updateWebsocketStatus = () => {
   isDisconnected.value = true;
-  showNotification.value = true;
+  // Only show the banner if the disconnection persists beyond the threshold.
+  // Quick reconnections (mobile resume, brief blip) won't trigger the UI.
+  clearTimeout(notificationDelayTimer);
+  notificationDelayTimer = setTimeout(() => {
+    if (isDisconnected.value) {
+      showNotification.value = true;
+    }
+  }, SHOW_NOTIFICATION_DELAY);
 };
 
 const handleReconnectionCompleted = () => {
+  // Cancel the pending "show" timer — if we reconnected before it fired,
+  // the user never needs to know there was an issue.
+  clearTimeout(notificationDelayTimer);
   isDisconnected.value = false;
   isReconnecting.value = false;
-  isReconnected.value = true;
-  showNotification.value = true;
-  reconnectTimeout = setTimeout(closeNotification, RECONNECTED_BANNER_TIMEOUT);
+  // Only show the success banner if the notification was already visible.
+  if (showNotification.value) {
+    isReconnected.value = true;
+    reconnectTimeout = setTimeout(
+      closeNotification,
+      RECONNECTED_BANNER_TIMEOUT
+    );
+  }
 };
 
 const handleReconnecting = () => {
+  // Only update the UI to "reconnecting" if the banner is already visible
+  // (i.e. the 5s grace period already elapsed). Otherwise stay silent.
+  if (!showNotification.value) return;
   if (isInAnyOfTheRoutes(route.name)) {
     isReconnecting.value = true;
     isReconnected.value = false;
-    showNotification.value = true;
   } else {
     handleReconnectionCompleted();
   }
@@ -104,6 +126,7 @@ useEmitter(BUS_EVENTS.WEBSOCKET_RECONNECT, handleReconnecting);
 
 onBeforeUnmount(() => {
   clearTimeout(reconnectTimeout);
+  clearTimeout(notificationDelayTimer);
 });
 </script>
 

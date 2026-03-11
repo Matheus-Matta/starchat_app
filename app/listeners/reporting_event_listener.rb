@@ -114,6 +114,39 @@ class ReportingEventListener < BaseListener
     create_conversation_opened_event(conversation, time_since_resolved, business_hours_value, start_time)
   end
 
+  def conversation_created(event)
+    conversation = extract_conversation_and_account(event)[0]
+
+    # De acordo com a regra de negócios nova: toda nova conversa garante 
+    # a contabilização do evento 'conversation_opened' imediatamente
+    conversation_opened(event)
+
+    # E se for instanciada como pending ou snoozed pelas automações/bot, 
+    # lança o evento do status também.
+    if %w[pending snoozed].include?(conversation.status)
+      conversation_status_changed(event)
+    end
+  end
+
+  def conversation_status_changed(event)
+    conversation = extract_conversation_and_account(event)[0]
+    
+    return unless %w[pending snoozed].include?(conversation.status)
+
+    reporting_event = ReportingEvent.new(
+      name: "conversation_#{conversation.status}",
+      value: 0,
+      value_in_business_hours: 0,
+      account_id: conversation.account_id,
+      inbox_id: conversation.inbox_id,
+      user_id: conversation.assignee_id,
+      conversation_id: conversation.id,
+      event_start_time: conversation.updated_at,
+      event_end_time: conversation.updated_at
+    )
+    reporting_event.save!
+  end
+
   private
 
   def create_conversation_opened_event(conversation, time_since_resolved, business_hours_value, start_time)

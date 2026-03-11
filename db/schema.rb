@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_02_22_153649) do
+ActiveRecord::Schema[7.1].define(version: 2026_03_09_150000) do
   # These extensions should be enabled to support this database
   enable_extension "pg_stat_statements"
   enable_extension "pg_trgm"
@@ -623,6 +623,11 @@ ActiveRecord::Schema[7.1].define(version: 2026_02_22_153649) do
     t.datetime "waiting_since"
     t.text "cached_label_list"
     t.bigint "assignee_agent_bot_id"
+    t.string "protocol_code"
+    t.integer "protocol_seq"
+    t.date "protocol_date"
+    t.bigint "protocol_policy_id"
+    t.bigint "protocol_id"
     t.index ["account_id", "display_id"], name: "index_conversations_on_account_id_and_display_id", unique: true
     t.index ["account_id", "id"], name: "index_conversations_on_id_and_account_id"
     t.index ["account_id", "inbox_id", "status", "assignee_id"], name: "conv_acid_inbid_stat_asgnid_idx"
@@ -635,6 +640,9 @@ ActiveRecord::Schema[7.1].define(version: 2026_02_22_153649) do
     t.index ["identifier", "account_id"], name: "index_conversations_on_identifier_and_account_id"
     t.index ["inbox_id"], name: "index_conversations_on_inbox_id"
     t.index ["priority"], name: "index_conversations_on_priority"
+    t.index ["protocol_code"], name: "index_conversations_on_protocol_code", unique: true
+    t.index ["protocol_id"], name: "index_conversations_on_protocol_id"
+    t.index ["protocol_policy_id"], name: "index_conversations_on_protocol_policy_id"
     t.index ["status", "account_id"], name: "index_conversations_on_status_and_account_id"
     t.index ["status", "priority"], name: "index_conversations_on_status_and_priority"
     t.index ["team_id"], name: "index_conversations_on_team_id"
@@ -915,9 +923,15 @@ ActiveRecord::Schema[7.1].define(version: 2026_02_22_153649) do
     t.jsonb "csat_config", default: {}, null: false
     t.jsonb "anti_spam_config"
     t.jsonb "sender_config"
+    t.integer "auto_resolve_duration"
+    t.text "auto_resolve_message"
+    t.boolean "auto_resolve_ignore_waiting"
+    t.string "auto_resolve_label"
+    t.bigint "protocol_policy_id"
     t.index ["account_id"], name: "index_inboxes_on_account_id"
     t.index ["channel_id", "channel_type"], name: "index_inboxes_on_channel_id_and_channel_type"
     t.index ["portal_id"], name: "index_inboxes_on_portal_id"
+    t.index ["protocol_policy_id"], name: "index_inboxes_on_protocol_policy_id"
   end
 
   create_table "installation_configs", force: :cascade do |t|
@@ -1131,6 +1145,68 @@ ActiveRecord::Schema[7.1].define(version: 2026_02_22_153649) do
     t.index ["user_id"], name: "index_portals_members_on_user_id"
   end
 
+  create_table "protocol_comments", force: :cascade do |t|
+    t.bigint "protocol_id", null: false
+    t.bigint "account_id", null: false
+    t.bigint "user_id"
+    t.text "content", null: false
+    t.boolean "is_private", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_protocol_comments_on_account_id"
+    t.index ["protocol_id"], name: "index_protocol_comments_on_protocol_id"
+    t.index ["user_id"], name: "index_protocol_comments_on_user_id"
+  end
+
+  create_table "protocol_counters", force: :cascade do |t|
+    t.bigint "protocol_policy_id", null: false
+    t.date "date"
+    t.integer "last_seq", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["protocol_policy_id", "date"], name: "index_protocol_counters_on_protocol_policy_id_and_date", unique: true
+    t.index ["protocol_policy_id"], name: "index_protocol_counters_on_protocol_policy_id"
+  end
+
+  create_table "protocol_policies", force: :cascade do |t|
+    t.bigint "account_id", null: false
+    t.string "name", null: false
+    t.string "prefix", null: false
+    t.integer "scope", default: 0
+    t.integer "seq_padding", default: 4
+    t.boolean "include_store_code", default: false
+    t.boolean "include_city_code", default: false
+    t.boolean "active", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.text "welcome_message"
+    t.index ["account_id"], name: "index_protocol_policies_on_account_id"
+  end
+
+  create_table "protocols", force: :cascade do |t|
+    t.bigint "account_id", null: false
+    t.bigint "conversation_id"
+    t.bigint "protocol_policy_id", null: false
+    t.string "code", null: false
+    t.integer "seq", null: false
+    t.date "date", null: false
+    t.string "problem"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "contact_id"
+    t.integer "status", default: 0, null: false
+    t.string "reason", limit: 500
+    t.datetime "closed_at"
+    t.index ["account_id"], name: "index_protocols_on_account_id"
+    t.index ["code"], name: "index_protocols_on_code", unique: true
+    t.index ["contact_id", "status"], name: "index_protocols_on_contact_id_and_status"
+    t.index ["contact_id"], name: "index_protocols_on_contact_id"
+    t.index ["conversation_id"], name: "index_protocols_on_conversation_id"
+    t.index ["protocol_policy_id", "contact_id", "status"], name: "idx_protocols_policy_contact_status"
+    t.index ["protocol_policy_id"], name: "index_protocols_on_protocol_policy_id"
+  end
+
   create_table "related_categories", force: :cascade do |t|
     t.bigint "category_id"
     t.bigint "related_category_id"
@@ -1308,7 +1384,19 @@ ActiveRecord::Schema[7.1].define(version: 2026_02_22_153649) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "conversations", "protocol_policies"
+  add_foreign_key "conversations", "protocols"
   add_foreign_key "inboxes", "portals"
+  add_foreign_key "inboxes", "protocol_policies"
+  add_foreign_key "protocol_comments", "accounts"
+  add_foreign_key "protocol_comments", "protocols"
+  add_foreign_key "protocol_comments", "users"
+  add_foreign_key "protocol_counters", "protocol_policies"
+  add_foreign_key "protocol_policies", "accounts"
+  add_foreign_key "protocols", "accounts"
+  add_foreign_key "protocols", "contacts"
+  add_foreign_key "protocols", "conversations"
+  add_foreign_key "protocols", "protocol_policies"
   create_trigger("accounts_after_insert_row_tr", :generated => true, :compatibility => 1).
       on("accounts").
       after(:insert).

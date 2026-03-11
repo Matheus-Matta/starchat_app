@@ -1,6 +1,7 @@
 {
   "REPORT": {
     "HEADER": "Conversations",
+    "STATUS_REPORTS_HEADER": "Status Transitions",
     "LOADING_CHART": "Loading chart data...",
     "NO_ENOUGH_DATA": "We've not received enough data points to generate report, Please try again later.",
     "DOWNLOAD_AGENT_REPORTS": "Download agent reports",
@@ -9,6 +10,26 @@
     "METRICS": {
       "CONVERSATIONS": {
         "NAME": "Conversations",
+        "DESC": "( Total )"
+      },
+      "UNIQUE_CONTACTS": {
+        "NAME": "Unique Contacts",
+        "DESC": "( Total )"
+      },
+      "STATUS_OPEN": {
+        "NAME": "Transition to Open",
+        "DESC": "( Total )"
+      },
+      "STATUS_RESOLVED": {
+        "NAME": "Transition to Resolved",
+        "DESC": "( Total )"
+      },
+      "STATUS_SNOOZED": {
+        "NAME": "Transition to Snoozed",
+        "DESC": "( Total )"
+      },
+      "STATUS_PENDING": {
+        "NAME": "Transition to Pending",
         "DESC": "( Total )"
       },
       "ATTENDANCES": {

@@ -367,6 +367,11 @@ const menuItems = computed(() => {
           label: t('SIDEBAR.REPORTS_CONVERSATION'),
           to: accountScopedRoute('conversation_reports'),
         },
+        {
+          name: 'Report Status',
+          label: t('SIDEBAR.REPORTS_STATUS'),
+          to: accountScopedRoute('status_reports'),
+        },
         ...reportRoutes.value,
         {
           name: 'Reports CSAT',
@@ -549,6 +554,13 @@ const menuItems = computed(() => {
           icon: 'i-lucide-clock-alert',
           to: accountScopedRoute('sla_list'),
         },
+        // [COMING SOON] Protocol Policies - hidden until feature is ready
+        // {
+        //   name: 'Settings Protocol Policies',
+        //   label: t('SIDEBAR.PROTOCOL_POLICIES'),
+        //   icon: 'i-lucide-clipboard-list',
+        //   to: accountScopedRoute('protocol_policies_list'),
+        // },
         {
           name: 'Settings Security',
           label: t('SIDEBAR.SECURITY'),

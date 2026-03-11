@@ -718,7 +718,8 @@
       "BUSINESS_HOURS": "Business Hours",
       "WIDGET_BUILDER": "Widget Builder",
       "BOT_CONFIGURATION": "Bot Configuration",
-      "CSAT": "CSAT"
+      "CSAT": "CSAT",
+      "INACTIVITY_POLICY": "Inactivity Policy"
     },
     "SETTINGS": "Settings",
     "FEATURES": {
@@ -1067,6 +1068,23 @@
       "INSTAGRAM": "Instagram",
       "VOICE": "Voice",
       "EVOLUTION": "Evolution"
+    },
+    "INACTIVITY_POLICY": {
+      "TITLE": "Inactivity Policy",
+      "SUBTITLE": "Configure automatic resolution of inactive conversations for this inbox. These settings override the global account configuration.",
+      "ENABLE_OVERRIDE": "Enable custom policy",
+      "DURATION_LABEL": "Auto-resolve duration (minutes)",
+      "DURATION_NOTE": "Leave blank to inherit from account settings.",
+      "DURATION_PLACEHOLDER": "e.g. 1440 (24 hours)",
+      "MESSAGE_LABEL": "Auto-resolve message",
+      "MESSAGE_PLACEHOLDER": "Message sent before resolving the conversation (optional)",
+      "LABEL_LABEL": "Label to apply on auto-resolve",
+      "LABEL_PLACEHOLDER": "e.g. inactive",
+      "IGNORE_WAITING_LABEL": "Ignore conversations that are awaiting customer reply (waiting_since)",
+      "INHERITANCE_NOTE": "If blank, the global account inactivity policy will apply to this inbox.",
+      "SAVE": "Save",
+      "CLEAR": "Clear (use account settings)",
+      "SAVE_SUCCESS": "Inactivity policy updated successfully."
     },
     "ACCOUNT_HEALTH": {
       "TITLE": "Account Health",

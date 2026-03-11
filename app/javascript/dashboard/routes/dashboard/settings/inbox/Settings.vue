@@ -21,6 +21,7 @@ import ConfigurationPage from './settingsPage/ConfigurationPage.vue';
 import CustomerSatisfactionPage from './settingsPage/CustomerSatisfactionPage.vue';
 import CollaboratorsPage from './settingsPage/CollaboratorsPage.vue';
 import EvolutionControls from './settingsPage/EvolutionControls.vue';
+import InactivityPolicyPage from './settingsPage/InactivityPolicyPage.vue';
 import WidgetBuilder from './WidgetBuilder.vue';
 import BotConfiguration from './components/BotConfiguration.vue';
 import AccountHealth from './components/AccountHealth.vue';
@@ -39,6 +40,7 @@ export default {
     EvolutionControls,
     ConfigurationPage,
     CustomerSatisfactionPage,
+    InactivityPolicyPage,
     FacebookReauthorize,
     GreetingsEditor,
     PreChatFormSettings,
@@ -96,6 +98,7 @@ export default {
       senderConfig: {
         send_agent_name: false,
       },
+      selectedProtocolPolicyId: null,
     };
   },
   computed: {
@@ -104,6 +107,7 @@ export default {
       isFeatureEnabledonAccount: 'accounts/isFeatureEnabledonAccount',
       uiFlags: 'inboxes/getUIFlags',
       portals: 'portals/allPortals',
+      protocolPolicies: 'protocolPolicies/getProtocolPolicies',
     }),
 
     selectedTabKey() {
@@ -150,6 +154,10 @@ export default {
         {
           key: 'collaborators',
           name: this.$t('INBOX_MGMT.TABS.COLLABORATORS'),
+        },
+        {
+          key: 'inactivity-policy',
+          name: this.$t('INBOX_MGMT.TABS.INACTIVITY_POLICY') || 'Inatividade',
         },
       ];
 
@@ -387,6 +395,7 @@ export default {
     this.fetchInboxSettings();
     this.fetchPortals();
     this.fetchHealthData();
+    this.$store.dispatch('protocolPolicies/get');
   },
   methods: {
     fetchPortals() {
@@ -496,6 +505,7 @@ export default {
         this.senderConfig = this.inbox.sender_config || {
           send_agent_name: false,
         };
+        this.selectedProtocolPolicyId = this.inbox.protocol_policy_id || '';
 
         // Set initial tab after inbox data is loaded
         this.setTabFromRouteParam();
@@ -531,6 +541,7 @@ export default {
             reply_time: this.replyTime || 'in_a_few_minutes',
             continuity_via_email: this.continuityViaEmail,
           },
+          protocol_policy_id: this.selectedProtocolPolicyId || null,
         };
         if (this.avatarFile) {
           payload.avatar = this.avatarFile;
@@ -1004,6 +1015,37 @@ export default {
         </SettingsSection>
 
         <SettingsSection
+          :title="$t('PROTOCOL_POLICIES.SETTINGS_SECTION.TITLE')"
+          :sub-title="$t('PROTOCOL_POLICIES.SETTINGS_SECTION.SUB_TEXT')"
+          :show-border="false"
+        >
+          <div class="flex flex-col gap-2">
+            <label class="mb-0 text-sm font-medium text-n-slate-12">
+              {{ $t('PROTOCOL_POLICIES.SETTINGS_SECTION.LABEL') }}
+            </label>
+            <select
+              v-model="selectedProtocolPolicyId"
+              class="mb-2"
+              @change="updateInbox"
+            >
+              <option value="">
+                {{ $t('PROTOCOL_POLICIES.SETTINGS_SECTION.PLACEHOLDER') }}
+              </option>
+              <option
+                v-for="policy in protocolPolicies"
+                :key="policy.id"
+                :value="policy.id"
+              >
+                {{ policy.name }} ({{ policy.prefix }}-*)
+              </option>
+            </select>
+            <p class="text-xs text-n-slate-11 italic">
+              {{ $t('PROTOCOL_POLICIES.SETTINGS_SECTION.HELP') }}
+            </p>
+          </div>
+        </SettingsSection>
+
+        <SettingsSection
           v-if="isAWebWidgetInbox || isAnEmailChannel"
           :title="$t('INBOX_MGMT.EDIT.SENDER_NAME_SECTION.TITLE')"
           :sub-title="$t('INBOX_MGMT.EDIT.SENDER_NAME_SECTION.SUB_TEXT')"
@@ -1074,6 +1116,10 @@ export default {
 
       <div v-if="selectedTabKey === 'collaborators'" class="mx-8">
         <CollaboratorsPage :inbox="inbox" />
+      </div>
+
+      <div v-if="selectedTabKey === 'inactivity-policy'">
+        <InactivityPolicyPage :inbox="inbox" />
       </div>
 
       <div v-if="selectedTabKey === 'evolution'">

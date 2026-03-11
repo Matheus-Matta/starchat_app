@@ -1,0 +1,78 @@
+{
+  "PROTOCOLS": {
+    "HEADER": {
+      "TITLE": "Protocols",
+      "DESC": "SAC protocol history linked to service conversations.",
+      "NEW_BUTTON": "New Protocol"
+    },
+    "LOADING": "Loading protocols...",
+    "EMPTY_STATE": "No protocols found.",
+    "STATUS": {
+      "OPEN": "Open",
+      "CLOSED": "Closed",
+      "ARCHIVED": "Archived"
+    },
+    "TABLE": {
+      "CODE": "Code",
+      "DATE": "Date",
+      "STATUS": "Status",
+      "REASON": "Reason",
+      "CONTACT": "Contact",
+      "POLICY": "Policy",
+      "CONVERSATIONS": "Conversations",
+      "ACTIONS": "Actions"
+    },
+    "FORM": {
+      "EDIT_TITLE": "Edit Protocol",
+      "CANCEL": "Cancel",
+      "SAVE_BTN": "Save",
+      "REASON": {
+        "LABEL": "Reason",
+        "PLACEHOLDER": "E.g: Defective product – Invoice 54321"
+      },
+      "DESCRIPTION": {
+        "LABEL": "Description",
+        "PLACEHOLDER": "Describe in detail the reported problem..."
+      },
+      "PROBLEM": {
+        "LABEL": "Problem Category",
+        "PLACEHOLDER": "E.g: Defect, Delivery, Financial"
+      }
+    },
+    "ACTIONS": {
+      "EDIT": "Edit",
+      "CLOSE": "Close Protocol",
+      "REOPEN": "Reopen Protocol",
+      "ARCHIVE": "Archive",
+      "COPY_CODE": "Copy Code",
+      "VIEW_COMMENTS": "View Notes",
+      "CANCEL": "Cancel"
+    },
+    "COPY_SUCCESS": "Protocol {code} copied!",
+    "CLOSE_CONFIRM_TITLE": "Close Protocol",
+    "CLOSE_CONFIRM": "Close protocol {code}? The contact will need to open a new service request.",
+    "CLOSE_SUCCESS": "Protocol closed successfully.",
+    "REOPEN_SUCCESS": "Protocol reopened successfully.",
+    "SAVE_SUCCESS": "Protocol updated.",
+    "ARCHIVE_SUCCESS": "Protocol archived.",
+    "ERROR": "Error processing request. Please try again.",
+    "REUSE_NOTICE": "This contact already has an open protocol: {code}. The conversation was automatically linked.",
+    "COMMENTS": {
+      "TITLE": "Notes & Comments",
+      "EMPTY": "No notes recorded.",
+      "LOADING": "Loading notes...",
+      "NEW_PLACEHOLDER": "Add a note to this protocol...",
+      "SEND": "Add",
+      "PRIVATE_LABEL": "Internal comment (visible to team only)",
+      "ATTACH_FILE": "Attach file",
+      "DELETE_CONFIRM_TITLE": "Delete Note",
+      "DELETE_CONFIRM": "Delete this note?",
+      "DELETE_ACTION": "Delete",
+      "DELETE_SUCCESS": "Note deleted.",
+      "CREATE_SUCCESS": "Note added.",
+      "ERROR": "Error saving note.",
+      "BADGE_PRIVATE": "Internal",
+      "BADGE_PUBLIC": "Public"
+    }
+  }
+}

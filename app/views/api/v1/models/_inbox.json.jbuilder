@@ -31,6 +31,11 @@ json.allow_messages_after_resolved resource.allow_messages_after_resolved
 json.lock_to_single_conversation resource.lock_to_single_conversation
 json.sender_name_type resource.sender_name_type
 json.business_name resource.business_name
+json.auto_resolve_duration resource.auto_resolve_duration
+json.auto_resolve_message resource.auto_resolve_message
+json.auto_resolve_ignore_waiting resource.auto_resolve_ignore_waiting
+json.auto_resolve_label resource.auto_resolve_label
+json.protocol_policy_id resource.protocol_policy_id
 
 if resource.portal.present?
   json.help_center do

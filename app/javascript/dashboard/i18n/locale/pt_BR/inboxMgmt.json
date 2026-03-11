@@ -719,7 +719,8 @@
       "BUSINESS_HOURS": "Horário de funcionamento",
       "WIDGET_BUILDER": "Construtor de Widget",
       "BOT_CONFIGURATION": "Configuração do Bot",
-      "CSAT": "CSAT"
+      "CSAT": "CSAT",
+      "INACTIVITY_POLICY": "Política de Inatividade"
     },
     "SETTINGS": "Configurações",
     "FEATURES": {
@@ -1068,6 +1069,23 @@
       "INSTAGRAM": "Instagram",
       "VOICE": "Voz",
       "EVOLUTION": "Evolution"
+    },
+    "INACTIVITY_POLICY": {
+      "TITLE": "Política de Inatividade",
+      "SUBTITLE": "Configure a resolução automática de conversas inativas para esta caixa de entrada. Estas configurações sobrescrevem a configuração global da conta.",
+      "ENABLE_OVERRIDE": "Habilitar política customizada",
+      "DURATION_LABEL": "Duração para auto-resolução (minutos)",
+      "DURATION_NOTE": "Deixe em branco para herdar das configurações da conta.",
+      "DURATION_PLACEHOLDER": "ex. 1440 (24 horas)",
+      "MESSAGE_LABEL": "Mensagem de auto-resolução",
+      "MESSAGE_PLACEHOLDER": "Mensagem enviada antes de resolver a conversa (opcional)",
+      "LABEL_LABEL": "Etiqueta a aplicar na auto-resolução",
+      "LABEL_PLACEHOLDER": "ex. inativo",
+      "IGNORE_WAITING_LABEL": "Ignorar conversas que aguardam resposta do cliente (waiting_since)",
+      "INHERITANCE_NOTE": "Se em branco, a política de inatividade global da conta será aplicada a esta caixa de entrada.",
+      "SAVE": "Salvar",
+      "CLEAR": "Limpar (usar config. da conta)",
+      "SAVE_SUCCESS": "Política de inatividade atualizada com sucesso."
     },
     "ACCOUNT_HEALTH": {
       "TITLE": "Saúde da Conta",

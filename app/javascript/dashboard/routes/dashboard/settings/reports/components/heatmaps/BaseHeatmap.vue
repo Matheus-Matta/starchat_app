@@ -183,11 +183,16 @@ const tooltip = useHeatmapTooltip();
           <div
             v-for="data in row.data"
             :key="data.timestamp"
-            class="h-8 rounded-sm cursor-pointer"
-            :class="getHeatmapClass(data.value)"
+            class="h-8 rounded-sm cursor-pointer grid place-items-center text-[11px] font-semibold"
+            :class="[
+              getHeatmapClass(data.value),
+              data.value > 0 ? 'text-white drop-shadow-md' : 'text-transparent',
+            ]"
             @mouseenter="tooltip.show($event, data.value)"
             @mouseleave="tooltip.hide"
-          />
+          >
+            {{ data.value || '' }}
+          </div>
         </div>
       </div>
       <div />

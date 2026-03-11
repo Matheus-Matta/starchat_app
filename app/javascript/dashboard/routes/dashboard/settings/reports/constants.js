@@ -157,6 +157,11 @@ export const TIME_CHART_CONFIG = createChartConfig((value, index, values) => {
 
 export const METRIC_CHART = {
   conversations_count: DEFAULT_CHART,
+  unique_contacts_count: DEFAULT_CHART,
+  status_open_count: DEFAULT_CHART,
+  status_resolved_count: DEFAULT_CHART,
+  status_snoozed_count: DEFAULT_CHART,
+  status_pending_count: DEFAULT_CHART,
   attendances_count: DEFAULT_CHART,
   incoming_messages_count: DEFAULT_CHART,
   outgoing_messages_count: DEFAULT_CHART,

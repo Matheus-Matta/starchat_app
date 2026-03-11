@@ -1,0 +1,93 @@
+{
+  "PROTOCOL_POLICIES": {
+    "HEADER": {
+      "TITLE": "Políticas de Protocolo",
+      "DESC": "Gerencie as políticas de geração de protocolos para as suas caixas de entrada.",
+      "NEW_BUTTON": "Nova Política"
+    },
+    "LOADING": "Carregando políticas...",
+    "EMPTY_STATE": "Nenhuma política de protocolo criada ainda. Crie uma política para começar a gerar protocolos automáticos nas conversas.",
+    "SCOPE": {
+      "DAILY": "Diário (reinicia todo dia)",
+      "GLOBAL": "Global (incremento contínuo)"
+    },
+    "STATUS": {
+      "ACTIVE": "Ativa",
+      "INACTIVE": "Inativa"
+    },
+    "TABLE": {
+      "NAME": "Nome",
+      "PREFIX": "Prefixo",
+      "SCOPE": "Escopo",
+      "PADDING": "Dígitos",
+      "STATUS": "Status",
+      "ACTIONS": "Ações",
+      "EDIT": "Editar",
+      "DELETE": "Excluir"
+    },
+    "FORM": {
+      "CREATE_TITLE": "Nova Política de Protocolo",
+      "EDIT_TITLE": "Editar Política de Protocolo",
+      "DESC": "Configure como o protocolo será gerado para as conversas desta política.",
+      "PREVIEW": "Exemplo de protocolo:",
+      "ACTIVE": "Política ativa",
+      "INCLUDE_STORE_CODE": "Incluir código da loja",
+      "INCLUDE_CITY_CODE": "Incluir código da cidade",
+      "CANCEL": "Cancelar",
+      "SAVE_BTN": "Criar Política",
+      "UPDATE_BTN": "Salvar Alterações",
+      "SECTION_BASE": "Configurações Base",
+      "SECTION_RULES": "Regras de Geração",
+      "SECTION_ADVANCED": "Opções Avançadas",
+      "WELCOME_MESSAGE": {
+        "LABEL": "Mensagem de Boas-Vindas",
+        "OPTIONAL": "Opcional",
+        "HINT": "Será enviada automaticamente ao cliente quando a conversa for criada. Use {{protocol_code}} para incluir o código do protocolo.",
+        "PLACEHOLDER": "Ex: Seu protocolo de atendimento é {{protocol_code}}. Em breve um de nossos atendentes irá contactá-lo.",
+        "PREVIEW": "Prévia: "
+      },
+      "NAME": {
+        "LABEL": "Nome",
+        "PLACEHOLDER": "Ex: SAC Padrão, Assistência Técnica"
+      },
+      "PREFIX": {
+        "LABEL": "Prefixo",
+        "PLACEHOLDER": "SAC",
+        "HELP": "Código curto que identifica esta política (máx. 10 caracteres, maiúsculo recomendado)"
+      },
+      "SCOPE": {
+        "LABEL": "Escopo da sequência"
+      },
+      "PADDING": {
+        "LABEL": "Dígitos da sequência",
+        "HELP": "Número de dígitos numéricos (ex: 4 = 0001)"
+      },
+      "CREATE": {
+        "SUCCESS": "Política criada com sucesso"
+      },
+      "UPDATE": {
+        "SUCCESS": "Política atualizada com sucesso"
+      },
+      "ERROR": "Erro ao salvar a política. Tente novamente."
+    },
+    "DELETE": {
+      "CONFIRM": {
+        "TITLE": "Excluir Política",
+        "MESSAGE": "Tem certeza que deseja excluir a política",
+        "YES": "Sim, excluir",
+        "NO": "Não, cancelar"
+      },
+      "API": {
+        "SUCCESS_MESSAGE": "Política de protocolo excluída com sucesso",
+        "ERROR_MESSAGE": "Erro ao excluir a política. Tente novamente."
+      }
+    },
+    "SETTINGS_SECTION": {
+      "TITLE": "Política de Protocolo",
+      "SUB_TEXT": "Selecione uma política de protocolo para gerar números de atendimento automáticos para esta caixa de entrada.",
+      "LABEL": "Selecione a política",
+      "PLACEHOLDER": "Nenhuma política selecionada (Protocolo desativado)",
+      "HELP": "Ao selecionar uma política, cada nova conversa nesta caixa de entrada receberá um número de protocolo único conforme as regras configuradas."
+    }
+  }
+}

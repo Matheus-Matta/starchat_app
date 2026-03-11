@@ -100,7 +100,9 @@
         "RT": "RT {status}",
         "MISSED": "missed",
         "DUE": "due"
-      }
+      },
+      "PROTOCOL_COPIED": "Protocol copied",
+      "COPY_PROTOCOL": "Copy Protocol"
     },
     "RESOLVE_DROPDOWN": {
       "MARK_PENDING": "Mark as pending",
@@ -332,7 +334,8 @@
       "PREVIOUS_CONVERSATION": "Previous Conversations",
       "MACROS": "Macros",
       "LINEAR_ISSUES": "Linked Linear Issues",
-      "SHOPIFY_ORDERS": "Shopify Orders"
+      "SHOPIFY_ORDERS": "Shopify Orders",
+      "PROTOCOL": "SAC Protocol"
     },
     "SHOPIFY": {
       "ORDER_ID": "Order #{id}",

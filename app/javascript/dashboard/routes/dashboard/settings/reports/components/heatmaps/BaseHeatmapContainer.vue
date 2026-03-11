@@ -161,15 +161,24 @@ const downloadHeatmapData = () => {
   }
 
   // Create CSV headers
-  const headers = ['Date', 'Hour', props.title];
+  const headers = [
+    t('INBOX_REPORTS.DATE') || 'Date',
+    'Dia da Semana',
+    t('INBOX_REPORTS.HOUR') || 'Hour',
+    props.title,
+  ];
   const rows = [headers];
 
   // Convert heatmap data to rows
   heatmapData.value.forEach(item => {
     const date = new Date(item.timestamp * 1000);
     const dateStr = format(date, 'yyyy-MM-dd');
-    const hour = date.getHours();
-    rows.push([dateStr, `${hour}:00 - ${hour + 1}:00`, item.value]);
+    const dayEnum = format(date, 'EEEE').toUpperCase();
+    const dayOfWeek = t(`DAYS_OF_WEEK.${dayEnum}`) || dayEnum;
+    const hourStr = `${String(date.getHours()).padStart(2, '0')}:00 - ${String(
+      date.getHours() + 1
+    ).padStart(2, '0')}:00`;
+    rows.push([dateStr, dayOfWeek, hourStr, item.value]);
   });
 
   // Convert to CSV string
@@ -242,7 +251,8 @@ watch(
     if (from && to) {
       fetchHeatmapData();
     }
-  }
+  },
+  { immediate: true }
 );
 
 watch(

@@ -1,6 +1,7 @@
 {
   "REPORT": {
     "HEADER": "Conversas",
+    "STATUS_REPORTS_HEADER": "Transições de Status",
     "LOADING_CHART": "Carregando dados do gráfico...",
     "NO_ENOUGH_DATA": "Não existem dados suficientes para gerar o relatório. Tente novamente mais tarde.",
     "DOWNLOAD_AGENT_REPORTS": "Baixar relatórios de agentes",
@@ -9,6 +10,26 @@
     "METRICS": {
       "CONVERSATIONS": {
         "NAME": "Conversas",
+        "DESC": "( Total )"
+      },
+      "UNIQUE_CONTACTS": {
+        "NAME": "Contatos Únicos",
+        "DESC": "( Total )"
+      },
+      "STATUS_OPEN": {
+        "NAME": "Transições para Aberta",
+        "DESC": "( Total )"
+      },
+      "STATUS_RESOLVED": {
+        "NAME": "Transições para Resolvida",
+        "DESC": "( Total )"
+      },
+      "STATUS_SNOOZED": {
+        "NAME": "Transições para Adiada",
+        "DESC": "( Total )"
+      },
+      "STATUS_PENDING": {
+        "NAME": "Transições para Pendente",
         "DESC": "( Total )"
       },
       "ATTENDANCES": {

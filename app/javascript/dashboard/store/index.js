@@ -41,6 +41,9 @@ import labels from './modules/labels';
 import macros from './modules/macros';
 import notifications from './modules/notifications';
 import portals from './modules/helpCenterPortals';
+import protocolPolicies from './modules/protocolPolicies';
+import protocols from './modules/protocols';
+import protocolComments from './modules/protocolComments';
 import reports from './modules/reports';
 import sla from './modules/sla';
 import slaReports from './modules/SLAReports';
@@ -107,6 +110,9 @@ export default createStore({
     macros,
     notifications,
     portals,
+    protocolPolicies,
+    protocols,
+    protocolComments,
     reports,
     sla,
     slaReports,

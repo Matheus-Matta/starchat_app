@@ -2,6 +2,11 @@ class V2::Reports::Conversations::MetricBuilder < V2::Reports::Conversations::Ba
   def summary
     {
       conversations_count: count('conversations_count'),
+      unique_contacts_count: count('unique_contacts_count'),
+      status_open_count: count('status_open_count'),
+      status_resolved_count: count('status_resolved_count'),
+      status_snoozed_count: count('status_snoozed_count'),
+      status_pending_count: count('status_pending_count'),
       attendances_count: count('attendances_count'),
       incoming_messages_count: count('incoming_messages_count'),
       outgoing_messages_count: count('outgoing_messages_count'),

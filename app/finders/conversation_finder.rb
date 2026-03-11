@@ -135,10 +135,9 @@ class ConversationFinder
     return unless params[:q]
 
     allowed_message_types = [Message.message_types[:incoming], Message.message_types[:outgoing]]
-    @conversations = conversations.joins(:messages).where('messages.content ILIKE :search', search: "%#{params[:q]}%")
-                                  .where(messages: { message_type: allowed_message_types }).includes(:messages)
-                                  .where('messages.content ILIKE :search', search: "%#{params[:q]}%")
-                                  .where(messages: { message_type: allowed_message_types })
+    @conversations = @conversations.joins(:messages)
+                                   .where('messages.content ILIKE :search', search: "%#{params[:q]}%")
+                                   .where(messages: { message_type: allowed_message_types })
   end
 
   def filter_by_status
@@ -162,8 +161,14 @@ class ConversationFinder
   def filter_by_source_id
     return unless params[:source_id]
 
-    @conversations = @conversations.joins(:contact_inbox)
-    @conversations = @conversations.where(contact_inboxes: { source_id: params[:source_id] })
+    # Use a subquery instead of a direct JOIN to avoid PostgreSQL's
+    # "could not identify an equality operator for type json" error.
+    # The error occurs because joining contact_inboxes forces Rails to
+    # generate SELECT DISTINCT over User columns of type json.
+    contact_inbox_ids = ContactInbox
+                        .where(source_id: params[:source_id])
+                        .select(:id)
+    @conversations = @conversations.where(contact_inbox_id: contact_inbox_ids)
   end
 
   def set_count_for_all_conversations
@@ -180,7 +185,9 @@ class ConversationFinder
 
   def conversations_base_query
     @conversations.includes(
-      :taggings, :inbox, { assignee: { avatar_attachment: [:blob] } }, { contact: { avatar_attachment: [:blob] } }, :team, :contact_inbox
+      :inbox, :team, :contact_inbox, :assignee_agent_bot,
+      { assignee: { avatar_attachment: [:blob] } },
+      { contact: { avatar_attachment: [:blob] } }
     )
   end
 

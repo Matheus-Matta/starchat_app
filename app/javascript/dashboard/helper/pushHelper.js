@@ -58,12 +58,32 @@ export const registerSubscription = (onSuccess = () => {}) => {
     return;
   }
   navigator.serviceWorker.ready
-    .then(serviceWorkerRegistration =>
-      serviceWorkerRegistration.pushManager.subscribe({
-        userVisibleOnly: true,
-        applicationServerKey: window.chatwootConfig.vapidPublicKey,
-      })
-    )
+    .then(serviceWorkerRegistration => {
+      return serviceWorkerRegistration.pushManager
+        .subscribe({
+          userVisibleOnly: true,
+          applicationServerKey: window.chatwootConfig.vapidPublicKey,
+        })
+        .catch(error => {
+          if (error.name === 'InvalidStateError') {
+            return serviceWorkerRegistration.pushManager
+              .getSubscription()
+              .then(subscription => {
+                if (subscription) {
+                  return subscription.unsubscribe().then(() => {
+                    return serviceWorkerRegistration.pushManager.subscribe({
+                      userVisibleOnly: true,
+                      applicationServerKey:
+                        window.chatwootConfig.vapidPublicKey,
+                    });
+                  });
+                }
+                throw error;
+              });
+          }
+          throw error;
+        });
+    })
     .then(sendRegistrationToServer)
     .then(() => {
       onSuccess();
