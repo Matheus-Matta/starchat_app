@@ -20,6 +20,8 @@ const props = defineProps({
   phoneNumber: { type: String, default: '' },
   thumbnail: { type: String, default: '' },
   availabilityStatus: { type: String, default: null },
+  responsibleAgentId: { type: Number, default: null },
+  responsibleAgent: { type: Object, default: null },
   isExpanded: { type: Boolean, default: false },
   isUpdating: { type: Boolean, default: false },
   selectable: { type: Boolean, default: false },
@@ -45,6 +47,8 @@ const getInitialContactData = () => ({
   email: props.email,
   phoneNumber: props.phoneNumber,
   additionalAttributes: props.additionalAttributes,
+  responsibleAgentId: props.responsibleAgentId,
+  responsibleAgent: props.responsibleAgent,
   contactInboxes: props.contactInboxes,
 });
 

@@ -31,6 +31,7 @@ const emit = defineEmits(['update']);
 
 const { t } = useI18n();
 const inboxes = useMapGetter('inboxes/getInboxes');
+const agents = useMapGetter('agents/getAgents');
 
 const FORM_CONFIG = {
   FIRST_NAME: { field: 'firstName' },
@@ -42,6 +43,7 @@ const FORM_CONFIG = {
   BIO: { field: 'additionalAttributes.description' },
   COMPANY_NAME: { field: 'additionalAttributes.companyName' },
   INBOX: { field: 'inboxIds' },
+  RESPONSIBLE_AGENT: { field: 'responsibleAgentId' },
 };
 
 const SOCIAL_CONFIG = {
@@ -60,6 +62,7 @@ const defaultState = {
   lastName: '',
   phoneNumber: '',
   inboxIds: [],
+  responsibleAgentId: null,
   additionalAttributes: {
     description: '',
     companyName: '',
@@ -99,6 +102,10 @@ const prepareStateBasedOnProps = () => {
     email: emailAddress,
     phoneNumber,
     additionalAttributes = {},
+    responsible_agent_id: responsibleAgentIdSnake,
+    responsibleAgentId: responsibleAgentIdCamel,
+    responsible_agent: responsibleAgentSnake,
+    responsibleAgent: responsibleAgentCamel,
     contact_inboxes: contactInboxesSnake,
     contactInboxes: contactInboxesCamel,
   } = props.contactData || {};
@@ -116,6 +123,12 @@ const prepareStateBasedOnProps = () => {
   const inboxIds =
     contactInboxes.length > 0 ? contactInboxes.map(ci => ci.inbox.id) : [];
   disabledInboxIds.value = inboxIds;
+  const responsibleAgentId =
+    responsibleAgentIdCamel ||
+    responsibleAgentIdSnake ||
+    responsibleAgentCamel?.id ||
+    responsibleAgentSnake?.id ||
+    null;
 
   Object.assign(state, {
     id,
@@ -125,6 +138,7 @@ const prepareStateBasedOnProps = () => {
     email: emailAddress,
     phoneNumber,
     inboxIds,
+    responsibleAgentId,
     additionalAttributes: {
       description,
       companyName,
@@ -147,6 +161,22 @@ const inboxOptions = computed(() =>
     icon: useChannelIcon(inbox).value,
   }))
 );
+
+const agentOptions = computed(() => {
+  const clearOption = {
+    label: t(
+      'CONTACTS_LAYOUT.CARD.EDIT_DETAILS_FORM.FORM.RESPONSIBLE_AGENT.CLEAR_OPTION'
+    ),
+    value: null,
+  };
+
+  const agentItems = (agents.value || []).map(agent => ({
+    label: agent.name,
+    value: agent.id,
+  }));
+
+  return [clearOption, ...agentItems];
+});
 
 const editDetailsForm = computed(() =>
   Object.keys(FORM_CONFIG).map(key => ({
@@ -237,6 +267,11 @@ const handleInboxChange = () => {
   emit('update', stateWithoutNames);
 };
 
+const handleResponsibleAgentChange = () => {
+  const { firstName, lastName, ...stateWithoutNames } = state;
+  emit('update', stateWithoutNames);
+};
+
 const resetValidation = () => {
   v$.value.$reset();
 };
@@ -299,6 +334,19 @@ defineExpose({
               '[&>div>button]:!bg-n-alpha-black2': isDetailsView,
             }"
             @update:model-value="handleInboxChange"
+          />
+          <ComboBox
+            v-else-if="item.key === 'RESPONSIBLE_AGENT'"
+            v-model="state.responsibleAgentId"
+            :options="agentOptions"
+            :placeholder="item.placeholder"
+            class="[&>div>button]:h-8"
+            :class="{
+              '[&>div>button]:bg-n-alpha-black2 [&>div>button:not(.focused)]:!outline-transparent':
+                !isDetailsView,
+              '[&>div>button]:!bg-n-alpha-black2': isDetailsView,
+            }"
+            @update:model-value="handleResponsibleAgentChange"
           />
           <PhoneNumberInput
             v-else-if="item.key === 'PHONE_NUMBER'"

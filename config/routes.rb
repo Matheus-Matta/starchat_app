@@ -443,6 +443,7 @@ Rails.application.routes.draw do
               get :grouped_conversation_metrics
             end
           end
+          resource :monitoring, only: [:show], controller: 'monitoring'
         end
       end
     end

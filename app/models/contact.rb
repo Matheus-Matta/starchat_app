@@ -20,6 +20,7 @@
 #  updated_at            :datetime         not null
 #  account_id            :integer          not null
 #  company_id            :bigint
+#  responsible_agent_id  :bigint
 #
 # Indexes
 #
@@ -32,9 +33,14 @@
 #  index_contacts_on_name_email_phone_number_identifier  (name,email,phone_number,identifier) USING gin
 #  index_contacts_on_nonempty_fields                     (account_id,email,phone_number,identifier) WHERE (((email)::text <> ''::text) OR ((phone_number)::text <> ''::text) OR ((identifier)::text <> ''::text))
 #  index_contacts_on_phone_number_and_account_id         (phone_number,account_id)
+#  index_contacts_on_responsible_agent_id                (responsible_agent_id)
 #  index_resolved_contact_account_id                     (account_id) WHERE (((email)::text <> ''::text) OR ((phone_number)::text <> ''::text) OR ((identifier)::text <> ''::text))
 #  uniq_email_per_account_contact                        (email,account_id) UNIQUE
 #  uniq_identifier_per_account_contact                   (identifier,account_id) UNIQUE
+#
+# Foreign Keys
+#
+#  fk_rails_...  (responsible_agent_id => users.id)
 #
 
 class Contact < ApplicationRecord
@@ -52,6 +58,7 @@ class Contact < ApplicationRecord
             format: { with: /\+[1-9]\d{1,14}\z/, message: I18n.t('errors.contacts.phone_number.invalid') }
 
   belongs_to :account
+  belongs_to :responsible_agent, class_name: 'User', optional: true, inverse_of: :responsible_contacts
   has_many :conversations, dependent: :destroy_async
   has_many :contact_inboxes, dependent: :destroy_async
   has_many :csat_survey_responses, dependent: :destroy_async
@@ -64,6 +71,8 @@ class Contact < ApplicationRecord
   after_update_commit :dispatch_update_event
   after_destroy_commit :dispatch_destroy_event
   before_save :sync_contact_attributes
+
+  validate :responsible_agent_belongs_to_account
 
   enum contact_type: { visitor: 0, lead: 1, customer: 2 }
 
@@ -215,6 +224,13 @@ class Contact < ApplicationRecord
   def prepare_contact_attributes
     prepare_email_attribute
     prepare_jsonb_attributes
+  end
+
+  def responsible_agent_belongs_to_account
+    return if responsible_agent_id.blank?
+    return if account.users.exists?(id: responsible_agent_id)
+
+    errors.add(:responsible_agent_id, 'is invalid')
   end
 
   def prepare_email_attribute

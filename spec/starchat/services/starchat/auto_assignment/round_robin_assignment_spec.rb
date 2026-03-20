@@ -98,6 +98,67 @@ RSpec.describe 'Round Robin Assignment', type: :service do
   end
 
   # ══════════════════════════════════════════════════════════════════════════
+  # Contexto 1.1: Prioridade do agente responsável do contato
+  # ══════════════════════════════════════════════════════════════════════════
+  describe 'prioridade do agente responsável' do
+    let(:contact) { create(:contact, account: account, responsible_agent: agent2) }
+    let!(:conversation) { create(:conversation, inbox: inbox, contact: contact, assignee: nil, status: 'open') }
+
+    it 'atribui diretamente ao agente responsável quando elegível' do
+      account.update!(settings: { 'prioritize_responsible_agent' => true })
+
+      service.perform_bulk_assignment(limit: 1)
+      expect(conversation.reload.assignee).to eq(agent2)
+    end
+
+    it 'nao prioriza quando a opcao esta desativada' do
+      account.update!(settings: { 'prioritize_responsible_agent' => false })
+
+      service.perform_bulk_assignment(limit: 1)
+      expect(conversation.reload.assignee).not_to eq(agent2)
+    end
+
+    it 'faz fallback quando o responsável não está disponível' do
+      account.update!(settings: { 'prioritize_responsible_agent' => true })
+
+      [agent2, agent3, agent4].each do |agent|
+        OnlineStatusTracker.set_status(account.id, agent.id, 'offline')
+      end
+
+      service.perform_bulk_assignment(limit: 1)
+      expect(conversation.reload.assignee).to eq(agent1)
+    end
+  end
+
+  describe 'priorização do responsável com 20 conversas' do
+    before { account.update!(settings: { 'prioritize_responsible_agent' => true }) }
+
+    let!(:priority_conversations) do
+      [agent1, agent2, agent3, agent4].map do |agent|
+        contact = create(:contact, account: account, responsible_agent: agent)
+        create_open_conversation(contact: contact)
+      end
+    end
+
+    let!(:other_conversations) { Array.new(16) { create_open_conversation } }
+    let(:all_conversations) { priority_conversations + other_conversations }
+
+    it 'atribui contatos prioritários e distribui o restante de forma equilibrada' do
+      service.perform_bulk_assignment(limit: 20)
+
+      priority_conversations.each_with_index do |conv, index|
+        expect(conv.reload.assignee).to eq([agent1, agent2, agent3, agent4][index])
+      end
+
+      assignees = all_conversations.map { |conv| conv.reload.assignee }
+      expect(assignees.compact.count).to eq(20)
+
+      counts = assignees.tally.values
+      expect(counts.max - counts.min).to be <= 1
+    end
+  end
+
+  # ══════════════════════════════════════════════════════════════════════════
   # Contexto 2: Distribuição circular com 20 conversas
   # ══════════════════════════════════════════════════════════════════════════
   describe 'distribuição circular com 20 conversas e 4 agentes' do

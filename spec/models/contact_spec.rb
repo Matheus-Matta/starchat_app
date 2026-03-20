@@ -14,6 +14,26 @@ RSpec.describe Contact do
     it { is_expected.to have_many(:conversations).dependent(:destroy_async) }
   end
 
+  context 'with responsible agent' do
+    let(:account) { create(:account) }
+
+    it 'allows responsible agent from the same account' do
+      agent = create(:user, account: account)
+      contact = build(:contact, account: account, responsible_agent: agent)
+
+      expect(contact).to be_valid
+    end
+
+    it 'rejects responsible agent from another account' do
+      other_account = create(:account)
+      agent = create(:user, account: other_account)
+      contact = build(:contact, account: account, responsible_agent: agent)
+
+      contact.valid?
+      expect(contact.errors[:responsible_agent_id]).to include('is invalid')
+    end
+  end
+
   describe 'concerns' do
     it_behaves_like 'avatarable'
   end

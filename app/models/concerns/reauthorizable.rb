@@ -20,6 +20,11 @@ module Reauthorizable
     ::Redis::Alfred.get(reauthorization_required_key).present?
   end
 
+  # Monitoring status for channels that depend on external authorization.
+  def monitoring_status
+    reauthorization_required? ? 'offline' : 'online'
+  end
+
   # model attribute
   def authorization_error_count
     ::Redis::Alfred.get(authorization_error_count_key).to_i

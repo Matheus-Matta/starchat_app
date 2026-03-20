@@ -443,6 +443,10 @@
           },
           "INBOX": {
             "PLACEHOLDER": "Selecione a caixa de entrada"
+          },
+          "RESPONSIBLE_AGENT": {
+            "PLACEHOLDER": "Selecione o agente responsável",
+            "CLEAR_OPTION": "Sem agente responsável"
           }
         },
         "UPDATE_BUTTON": "Atualizar contato",
@@ -477,6 +481,7 @@
     "DETAILS": {
       "CREATED_AT": "Criado {date}",
       "LAST_ACTIVITY": "Última atividade {date}",
+      "RESPONSIBLE_AGENT": "Agente responsável",
       "DELETE_CONTACT_DESCRIPTION": "Excluir permanentemente este contato. Esta ação é irreversível",
       "DELETE_CONTACT": "Excluir contato",
       "DELETE_DIALOG": {

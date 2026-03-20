@@ -89,7 +89,9 @@ class Api::V1::Accounts::ContactsController < Api::V1::Accounts::BaseController
 
   def create
     ActiveRecord::Base.transaction do
-      @contact = Current.account.contacts.new(permitted_params.except(:avatar_url))
+      @contact = Current.account.contacts.new(
+        permitted_params.except(:avatar_url, :inbox_id, :source_id, :inbox_ids)
+      )
       @contact.save!
       @contact_inbox = build_contact_inbox
       process_avatar_from_url
@@ -184,7 +186,8 @@ class Api::V1::Accounts::ContactsController < Api::V1::Accounts::BaseController
   end
 
   def permitted_params
-    params.permit(:name, :identifier, :email, :phone_number, :avatar, :blocked, :avatar_url, :inbox_id, :source_id, inbox_ids: [], additional_attributes: {}, custom_attributes: {})
+    params.permit(:name, :identifier, :email, :phone_number, :avatar, :blocked, :avatar_url, :inbox_id, :source_id,
+                  :responsible_agent_id, inbox_ids: [], additional_attributes: {}, custom_attributes: {})
   end
 
   def contact_custom_attributes
@@ -200,7 +203,7 @@ class Api::V1::Accounts::ContactsController < Api::V1::Accounts::BaseController
   end
 
   def contact_update_params
-    permitted_params.except(:custom_attributes, :avatar_url)
+    permitted_params.except(:custom_attributes, :avatar_url, :inbox_id, :source_id, :inbox_ids)
                     .merge({ custom_attributes: contact_custom_attributes })
                     .merge({ additional_attributes: contact_additional_attributes })
   end

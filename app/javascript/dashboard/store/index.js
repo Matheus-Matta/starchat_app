@@ -52,6 +52,7 @@ import teamMembers from './modules/teamMembers';
 import teams from './modules/teams';
 import userNotificationSettings from './modules/userNotificationSettings';
 import webhooks from './modules/webhooks';
+import monitoringReports from './modules/monitoringReports';
 import cosmosAssistants from './cosmos/assistant';
 import cosmosDocuments from './cosmos/document';
 import cosmosResponses from './cosmos/response';
@@ -114,6 +115,7 @@ export default createStore({
     protocols,
     protocolComments,
     reports,
+    monitoringReports,
     sla,
     slaReports,
     summaryReports,

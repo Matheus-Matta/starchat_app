@@ -59,6 +59,19 @@ class Channel::Evolution < ApplicationRecord
   # API esperada pelo Chatwoot
   def name = 'Evolution'
 
+  def monitoring_status
+    case state.to_s
+    when 'connected', 'open'
+      'online'
+    when 'connecting', 'qrcode', 'pairing'
+      'warning'
+    when 'disconnected', 'close', 'error'
+      'offline'
+    else
+      'warning'
+    end
+  end
+
   def phone_number
     provider_config['phone_number']
   end

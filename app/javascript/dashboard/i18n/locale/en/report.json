@@ -598,5 +598,88 @@
     "AVG_REPLY_TIME": "Avg. Customer Waiting Time",
     "RESOLUTION_COUNT": "Resolution Count",
     "CONVERSATIONS": "No. of conversations"
+  },
+  "MONITORING_REPORTS": {
+    "HEADER": "Live Operations Monitor",
+    "DESCRIPTION": "Track inbox health, agent presence, and active conversations in real time—no refresh required.",
+    "LIVE_BADGE": "Live",
+    "ACTIONS": {
+      "REFRESH": "Refresh",
+      "ENTER_FULLSCREEN": "Enter full screen",
+      "EXIT_FULLSCREEN": "Exit full screen"
+    },
+    "SECTIONS": {
+      "HIDE": "Hide section",
+      "SHOW": "Show section",
+      "HIDDEN_COPY": "This section is hidden. Select Show section to bring it back into view.",
+      "SUMMARY": "Summary",
+      "INBOXES": "Inboxes",
+      "AGENTS": "Agents",
+      "TOGGLE_LABEL": "Sections"
+    },
+    "FILTERS": {
+      "INBOX_SEARCH_LABEL": "Inbox search",
+      "INBOX_SEARCH_PLACEHOLDER": "Search inboxes",
+      "AGENT_SEARCH_LABEL": "Agent search",
+      "AGENT_SEARCH_PLACEHOLDER": "Search agents",
+      "INBOX_STATUS": "Inbox status",
+      "AGENT_STATUS": "Agent status",
+      "SECTION_VISIBILITY": "Sections"
+    },
+    "STATUS_FILTER": {
+      "ALL": "All statuses",
+      "ALL_INBOXES": "All inboxes",
+      "ALL_AGENTS": "All agents",
+      "ONLINE": "Online",
+      "WARNING": "Needs attention",
+      "OFFLINE": "Offline",
+      "BUSY": "Busy"
+    },
+    "SUMMARY": {
+      "TITLE": "Operation overview",
+      "TOTAL_INBOXES": "Total inboxes",
+      "ONLINE_INBOXES": "Online inboxes",
+      "WARNING_INBOXES": "Inboxes needing attention",
+      "OFFLINE_INBOXES": "Offline inboxes",
+      "TOTAL_AGENTS": "Total agents",
+      "AGENTS_AVAILABLE": "Available",
+      "AGENTS_BUSY": "Busy",
+      "AGENTS_OFFLINE": "Offline",
+      "TOTAL_ACTIVE_CONVERSATIONS": "Active conversations"
+    },
+    "INBOXES": {
+      "TITLE": "Inbox health",
+      "SUBTITLE": "Follow workload, agent presence, and last activity for each inbox.",
+      "LAST_ACTIVITY": "Last activity",
+      "NEVER": "No recent activity",
+      "ACTIVE": "Active",
+      "WAITING": "Waiting",
+      "UNASSIGNED": "Unassigned",
+      "AGENTS": "Agents",
+      "EMPTY_TITLE": "No inboxes yet",
+      "EMPTY_MESSAGE": "Connect an inbox to start monitoring live conversations."
+    },
+    "AGENTS": {
+      "TITLE": "Agent workload",
+      "SUBTITLE": "Spot workload distribution and recent activity for online teams.",
+      "ACTIVE_CONVERSATIONS": "Active conversations",
+      "INBOXES": "Inboxes",
+      "LAST_ACTIVITY": "Last activity",
+      "NEVER": "No signals yet",
+      "SPOTLIGHT": "Agent spotlight",
+      "EMPTY_TITLE": "No agents found",
+      "EMPTY_MESSAGE": "Invite teammates to see live availability and workload."
+    },
+    "STATUS": {
+      "ONLINE": "Online",
+      "WARNING": "Attention needed",
+      "OFFLINE": "Offline"
+    },
+    "ERROR": {
+      "TITLE": "We couldn't refresh the monitoring data.",
+      "ACTION": "Try again"
+    },
+    "LAST_UPDATED": "Last updated {time}",
+    "NEVER_SYNCED": "Waiting for first sync"
   }
 }

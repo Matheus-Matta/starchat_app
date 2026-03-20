@@ -95,7 +95,7 @@ class Api::V1::AccountsController < Api::BaseController
   end
 
   def settings_params
-    permitted = %i[auto_resolve_after auto_resolve_message auto_resolve_ignore_waiting audio_transcriptions auto_resolve_label require_contact_inbox_messaging]
+    permitted = %i[auto_resolve_after auto_resolve_message auto_resolve_ignore_waiting audio_transcriptions auto_resolve_label require_contact_inbox_messaging prioritize_responsible_agent]
     params.permit(permitted).to_h.merge(params.fetch(:account, {}).permit(permitted).to_h)
   end
 

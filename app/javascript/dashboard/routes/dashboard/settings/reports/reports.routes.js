@@ -23,6 +23,7 @@ import TeamReports from './TeamReports.vue';
 import CsatResponses from './CsatResponses.vue';
 import BotReports from './BotReports.vue';
 import LiveReports from './LiveReports.vue';
+import Monitoring from './Monitoring.vue';
 import SLAReports from './SLAReports.vue';
 
 const meta = {
@@ -142,6 +143,12 @@ export default {
           name: 'account_overview_reports',
           meta,
           component: LiveReports,
+        },
+        {
+          path: 'monitoring',
+          name: 'monitoring_reports',
+          meta: { ...meta, fullBleed: true },
+          component: Monitoring,
         },
         {
           path: 'conversation',

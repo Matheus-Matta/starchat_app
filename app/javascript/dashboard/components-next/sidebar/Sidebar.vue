@@ -363,6 +363,11 @@ const menuItems = computed(() => {
           to: accountScopedRoute('account_overview_reports'),
         },
         {
+          name: 'Report Monitoring',
+          label: t('SIDEBAR.REPORTS_MONITORING'),
+          to: accountScopedRoute('monitoring_reports'),
+        },
+        {
           name: 'Report Conversation',
           label: t('SIDEBAR.REPORTS_CONVERSATION'),
           to: accountScopedRoute('conversation_reports'),

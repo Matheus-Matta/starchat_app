@@ -598,5 +598,88 @@
     "AVG_REPLY_TIME": "Tempo Médio de Rspera do Cliente",
     "RESOLUTION_COUNT": "Contagem de Resolução",
     "CONVERSATIONS": "Nº de Conversas"
+  },
+  "MONITORING_REPORTS": {
+    "HEADER": "Monitoramento ao vivo das operações",
+    "DESCRIPTION": "Acompanhe a saúde das caixas de entrada, a presença dos agentes e as conversas ativas em tempo real, sem precisar atualizar a página.",
+    "LIVE_BADGE": "Ao vivo",
+    "ACTIONS": {
+      "REFRESH": "Atualizar",
+      "ENTER_FULLSCREEN": "Entrar em tela cheia",
+      "EXIT_FULLSCREEN": "Sair da tela cheia"
+    },
+    "SECTIONS": {
+      "HIDE": "Ocultar seção",
+      "SHOW": "Mostrar seção",
+      "HIDDEN_COPY": "Esta seção está oculta. Selecione Mostrar seção para exibi-la novamente.",
+      "SUMMARY": "Resumo",
+      "INBOXES": "Caixas de entrada",
+      "AGENTS": "Agentes",
+      "TOGGLE_LABEL": "Seções"
+    },
+    "FILTERS": {
+      "INBOX_SEARCH_LABEL": "Buscar caixa de entrada",
+      "INBOX_SEARCH_PLACEHOLDER": "Pesquisar caixas de entrada",
+      "AGENT_SEARCH_LABEL": "Buscar agente",
+      "AGENT_SEARCH_PLACEHOLDER": "Pesquisar agentes",
+      "INBOX_STATUS": "Status da caixa de entrada",
+      "AGENT_STATUS": "Status do agente",
+      "SECTION_VISIBILITY": "Seções"
+    },
+    "STATUS_FILTER": {
+      "ALL": "Todos os status",
+      "ALL_INBOXES": "Todas as caixas de entrada",
+      "ALL_AGENTS": "Todos os agentes",
+      "ONLINE": "Online",
+      "WARNING": "Precisa de atenção",
+      "OFFLINE": "Offline",
+      "BUSY": "Ocupado"
+    },
+    "SUMMARY": {
+      "TITLE": "Visão geral da operação",
+      "TOTAL_INBOXES": "Total de caixas de entrada",
+      "ONLINE_INBOXES": "Caixas online",
+      "WARNING_INBOXES": "Caixas com atenção",
+      "OFFLINE_INBOXES": "Caixas offline",
+      "TOTAL_AGENTS": "Total de agentes",
+      "AGENTS_AVAILABLE": "Disponíveis",
+      "AGENTS_BUSY": "Ocupados",
+      "AGENTS_OFFLINE": "Offline",
+      "TOTAL_ACTIVE_CONVERSATIONS": "Conversas ativas"
+    },
+    "INBOXES": {
+      "TITLE": "Saúde das caixas de entrada",
+      "SUBTITLE": "Acompanhe a carga, a presença dos agentes e a última atividade de cada caixa.",
+      "LAST_ACTIVITY": "Última atividade",
+      "NEVER": "Sem atividade recente",
+      "ACTIVE": "Ativas",
+      "WAITING": "Aguardando",
+      "UNASSIGNED": "Sem atribuição",
+      "AGENTS": "Agentes",
+      "EMPTY_TITLE": "Nenhuma caixa de entrada ainda",
+      "EMPTY_MESSAGE": "Conecte uma caixa de entrada para começar a monitorar as conversas ao vivo."
+    },
+    "AGENTS": {
+      "TITLE": "Carga dos agentes",
+      "SUBTITLE": "Visualize a distribuição da carga e a atividade recente das equipes online.",
+      "ACTIVE_CONVERSATIONS": "Conversas ativas",
+      "INBOXES": "Caixas",
+      "LAST_ACTIVITY": "Última atividade",
+      "NEVER": "Sem sinais ainda",
+      "SPOTLIGHT": "Destaque do agente",
+      "EMPTY_TITLE": "Nenhum agente encontrado",
+      "EMPTY_MESSAGE": "Convide colegas para ver disponibilidade e carga em tempo real."
+    },
+    "STATUS": {
+      "ONLINE": "Online",
+      "WARNING": "Precisa de atenção",
+      "OFFLINE": "Offline"
+    },
+    "ERROR": {
+      "TITLE": "Não conseguimos atualizar os dados de monitoramento.",
+      "ACTION": "Tentar novamente"
+    },
+    "LAST_UPDATED": "Última atualização {time}",
+    "NEVER_SYNCED": "Aguardando a primeira sincronização"
   }
 }

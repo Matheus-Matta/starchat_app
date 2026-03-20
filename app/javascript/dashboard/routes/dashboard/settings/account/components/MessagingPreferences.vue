@@ -9,6 +9,7 @@ import NextButton from 'dashboard/components-next/button/Button.vue';
 
 const { t } = useI18n();
 const requireContactInboxMessaging = ref(false);
+const prioritizeResponsibleAgent = ref(false);
 const isSubmitting = ref(false);
 
 const { currentAccount, updateAccount } = useAccount();
@@ -20,6 +21,8 @@ watch(
       currentAccount.value?.settings || {};
 
     requireContactInboxMessaging.value = !!require_contact_inbox_messaging;
+    prioritizeResponsibleAgent.value =
+      currentAccount.value?.settings?.prioritize_responsible_agent ?? false;
   },
   { deep: true, immediate: true }
 );
@@ -39,6 +42,7 @@ const updateAccountSettings = async settings => {
 const handleSubmit = async () => {
   return updateAccountSettings({
     require_contact_inbox_messaging: requireContactInboxMessaging.value,
+    prioritize_responsible_agent: prioritizeResponsibleAgent.value,
   });
 };
 </script>
@@ -70,6 +74,25 @@ const handleSubmit = async () => {
             </span>
           </div>
           <Switch v-model="requireContactInboxMessaging" />
+        </div>
+        <div class="p-3 h-auto flex items-center justify-between">
+          <div class="flex flex-col gap-0.5 max-w-[80%] py-1">
+            <span>
+              {{
+                t(
+                  'GENERAL_SETTINGS.FORM.MESSAGING_PREFERENCES.PRIORITIZE_RESPONSIBLE_AGENT.LABEL'
+                )
+              }}
+            </span>
+            <span class="text-xs text-n-slate-11">
+              {{
+                t(
+                  'GENERAL_SETTINGS.FORM.MESSAGING_PREFERENCES.PRIORITIZE_RESPONSIBLE_AGENT.HELP'
+                )
+              }}
+            </span>
+          </div>
+          <Switch v-model="prioritizeResponsibleAgent" />
         </div>
       </div>
       <div class="flex gap-2">

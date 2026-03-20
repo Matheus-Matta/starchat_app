@@ -8,6 +8,12 @@ module Channelable
   end
 
   def create_audit_log_entry; end
+
+  # Used by Monitoring::OperationalSnapshotBuilder to determine channel health.
+  # Channels without explicit connection/authorization state should default to online.
+  def monitoring_status
+    'online'
+  end
 end
 
 Channelable.prepend_mod_with('Channelable')

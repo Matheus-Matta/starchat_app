@@ -94,6 +94,12 @@ const avatarSrc = computed(() => {
   return manual || thumb || waProfilePicUrl.value || '';
 });
 
+const responsibleAgentName = computed(() => {
+  const contact = contactData.value || {};
+  const responsibleAgent = contact.responsibleAgent || contact.responsible_agent;
+  return responsibleAgent?.name || '';
+});
+
 const handleFormUpdate = updatedData => {
   Object.assign(contactData.value, updatedData);
 };
@@ -174,6 +180,14 @@ const handleAvatarDelete = async () => {
           >
             <span class="i-ph-user-gear text-n-slate-10 size-4" />
             {{ selectedContact?.identifier }}
+          </span>
+          <span
+            v-if="responsibleAgentName"
+            class="inline-flex items-center gap-1 text-sm text-n-slate-11"
+          >
+            <span class="i-ph-user-circle text-n-slate-10 size-4" />
+            {{ t('CONTACTS_LAYOUT.DETAILS.RESPONSIBLE_AGENT') }}:
+            {{ responsibleAgentName }}
           </span>
           <span class="inline-flex items-center gap-1 text-sm text-n-slate-11">
             <span

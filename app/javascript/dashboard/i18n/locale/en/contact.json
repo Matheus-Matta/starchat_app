@@ -444,6 +444,10 @@
           },
           "INBOX": {
             "PLACEHOLDER": "Select inbox"
+          },
+          "RESPONSIBLE_AGENT": {
+            "PLACEHOLDER": "Select responsible agent",
+            "CLEAR_OPTION": "No responsible agent"
           }
         },
         "UPDATE_BUTTON": "Update contact",
@@ -478,6 +482,7 @@
     "DETAILS": {
       "CREATED_AT": "Created {date}",
       "LAST_ACTIVITY": "Last active {date}",
+      "RESPONSIBLE_AGENT": "Responsible agent",
       "DELETE_CONTACT_DESCRIPTION": "Permanently delete this contact. This action is irreversible",
       "DELETE_CONTACT": "Delete contact",
       "DELETE_DIALOG": {

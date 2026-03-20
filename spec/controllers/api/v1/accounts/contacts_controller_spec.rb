@@ -557,6 +557,21 @@ RSpec.describe 'Contacts API', type: :request do
         expect(json_response['payload']['contact']['custom_attributes']).to eq({ 'test' => 'test', 'test1' => 'test1' })
       end
 
+      it 'creates the contact with responsible agent' do
+        agent = create(:user, account: account, role: :agent)
+
+        post "/api/v1/accounts/#{account.id}/contacts",
+             headers: admin.create_new_auth_token,
+             params: valid_params.merge({ responsible_agent_id: agent.id })
+
+        expect(response).to have_http_status(:success)
+        expect(Contact.last.responsible_agent_id).to eq(agent.id)
+
+        json_response = response.parsed_body
+        expect(json_response['payload']['contact']['responsible_agent_id']).to eq(agent.id)
+        expect(json_response['payload']['contact']['responsible_agent']['id']).to eq(agent.id)
+      end
+
       it 'does not create the contact' do
         valid_params[:name] = 'test' * 999
 
@@ -611,6 +626,31 @@ RSpec.describe 'Contacts API', type: :request do
         # custom attributes are merged properly without overwriting existing ones
         expect(contact.custom_attributes).to eq({ 'test' => 'new test', 'test1' => 'test1', 'test2' => 'test2' })
         expect(contact.additional_attributes).to eq({ 'attr1' => 'attr1', 'attr2' => 'new attr2', 'attr3' => 'attr3' })
+      end
+
+      it 'updates responsible agent' do
+        agent = create(:user, account: account, role: :agent)
+
+        patch "/api/v1/accounts/#{account.id}/contacts/#{contact.id}",
+              headers: admin.create_new_auth_token,
+              params: { responsible_agent_id: agent.id },
+              as: :json
+
+        expect(response).to have_http_status(:success)
+        expect(contact.reload.responsible_agent_id).to eq(agent.id)
+      end
+
+      it 'clears responsible agent' do
+        agent = create(:user, account: account, role: :agent)
+        contact.update!(responsible_agent: agent)
+
+        patch "/api/v1/accounts/#{account.id}/contacts/#{contact.id}",
+              headers: admin.create_new_auth_token,
+              params: { responsible_agent_id: nil },
+              as: :json
+
+        expect(response).to have_http_status(:success)
+        expect(contact.reload.responsible_agent_id).to be_nil
       end
 
       it 'prevents the update of contact of another account' do

@@ -79,6 +79,10 @@
           "LABEL": "Bloquear envio de mensagens para contatos sem vínculo real",
           "HELP": "Se ativado, os agentes só poderão enviar mensagens para contatos que já possuem um histórico de conversas ou mensagens recebidas naquele canal (evita vínculos fantasmas)."
         },
+        "PRIORITIZE_RESPONSIBLE_AGENT": {
+          "LABEL": "Priorizar agente responsável",
+          "HELP": "Se ativado, novas conversas são atribuídas ao agente responsável do contato quando ele estiver elegível."
+        },
         "UPDATE_BUTTON": "Salvar Alterações"
       },
       "NAME": {

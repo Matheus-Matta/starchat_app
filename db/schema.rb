@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_03_09_150000) do
+ActiveRecord::Schema[7.1].define(version: 2026_03_17_120000) do
   # These extensions should be enabled to support this database
   enable_extension "pg_stat_statements"
   enable_extension "pg_trgm"
@@ -570,6 +570,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_03_09_150000) do
     t.string "country_code", default: ""
     t.boolean "blocked", default: false, null: false
     t.bigint "company_id"
+    t.bigint "responsible_agent_id"
     t.index "lower((email)::text), account_id", name: "index_contacts_on_lower_email_account_id"
     t.index ["account_id", "contact_type"], name: "index_contacts_on_account_id_and_contact_type"
     t.index ["account_id", "email", "phone_number", "identifier"], name: "index_contacts_on_nonempty_fields", where: "(((email)::text <> ''::text) OR ((phone_number)::text <> ''::text) OR ((identifier)::text <> ''::text))"
@@ -582,6 +583,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_03_09_150000) do
     t.index ["identifier", "account_id"], name: "uniq_identifier_per_account_contact", unique: true
     t.index ["name", "email", "phone_number", "identifier"], name: "index_contacts_on_name_email_phone_number_identifier", opclass: :gin_trgm_ops, using: :gin
     t.index ["phone_number", "account_id"], name: "index_contacts_on_phone_number_and_account_id"
+    t.index ["responsible_agent_id"], name: "index_contacts_on_responsible_agent_id"
   end
 
   create_table "conversation_participants", force: :cascade do |t|
@@ -1384,6 +1386,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_03_09_150000) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "contacts", "users", column: "responsible_agent_id"
   add_foreign_key "conversations", "protocol_policies"
   add_foreign_key "conversations", "protocols"
   add_foreign_key "inboxes", "portals"

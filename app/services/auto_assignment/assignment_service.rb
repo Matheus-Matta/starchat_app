@@ -20,6 +20,12 @@ class AutoAssignment::AssignmentService
   def perform_for_conversation(conversation)
     return false unless assignable?(conversation)
 
+    responsible_agent = find_responsible_agent(conversation)
+    if responsible_agent
+      @last_available_agent_user_ids = [responsible_agent.id]
+      return assign_conversation(conversation, responsible_agent)
+    end
+
     agent = find_available_agent
     return false unless agent
 
@@ -29,6 +35,34 @@ class AutoAssignment::AssignmentService
   def assignable?(conversation)
     conversation.status == 'open' &&
       conversation.assignee_id.nil?
+  end
+
+  def find_responsible_agent(conversation)
+    return nil unless prioritize_responsible_agent?
+
+    contact = conversation.contact
+    return nil if contact&.responsible_agent_id.blank?
+
+    agent = contact.responsible_agent
+    return nil unless agent
+    return nil unless agent.accounts.exists?(id: inbox.account_id)
+
+    candidates = inbox.available_agents.select { |member| member.user_id == agent.id }
+    return nil if candidates.empty?
+
+    candidates = filter_agents_by_rate_limit(candidates)
+    if respond_to?(:filter_agents_by_capacity, true) && respond_to?(:capacity_filtering_enabled?, true) && capacity_filtering_enabled?
+      candidates = filter_agents_by_capacity(candidates)
+    end
+
+    candidates.first&.user
+  end
+
+  def prioritize_responsible_agent?
+    return false unless inbox.enable_auto_assignment?
+
+    settings = inbox.account.settings || {}
+    settings.fetch('prioritize_responsible_agent', false)
   end
 
   def unassigned_conversations(limit)

@@ -58,6 +58,7 @@ class ActionCableConnector extends BaseActionCableConnector {
 
   onMessageUpdated = data => {
     this.app.$store.dispatch('updateMessage', data);
+    this.refreshMonitoringSnapshot();
   };
 
   onPresenceUpdate = data => {
@@ -65,6 +66,7 @@ class ActionCableConnector extends BaseActionCableConnector {
     this.app.$store.dispatch('contacts/updatePresence', data.contacts);
     this.app.$store.dispatch('agents/updatePresence', data.users);
     this.app.$store.dispatch('setCurrentUserAvailability', data.users);
+    this.app.$store.dispatch('monitoringReports/updateAgentPresence', data.users);
   };
 
   onConversationContactChange = payload => {
@@ -109,6 +111,7 @@ class ActionCableConnector extends BaseActionCableConnector {
       lastActivityAt,
       conversationId,
     });
+    this.refreshMonitoringSnapshot();
   };
 
   // eslint-disable-next-line class-methods-use-this
@@ -171,6 +174,11 @@ class ActionCableConnector extends BaseActionCableConnector {
     emitter.emit('fetch_conversation_stats');
   };
 
+  // eslint-disable-next-line class-methods-use-this
+  refreshMonitoringSnapshot = () => {
+    emitter.emit('monitoring:refresh_snapshot');
+  };
+
   onContactDelete = data => {
     this.app.$store.dispatch(
       'contacts/deleteContactThroughConversations',
@@ -194,7 +202,6 @@ class ActionCableConnector extends BaseActionCableConnector {
   };
 
   onNotificationDeleted = data => {
-    // Para deleções muitas vezes vem só { id }, mas se o user id estiver, filtramos:
     if (
       data.notification?.user?.id &&
       data.notification.user.id !== this.app.$store.getters.getCurrentUserID
@@ -234,12 +241,12 @@ class ActionCableConnector extends BaseActionCableConnector {
 
   onEvolutionConnectionUpdate = data => {
     emitter.emit('evolution:connection_update', { ...data });
+    this.refreshMonitoringSnapshot();
   };
 
   onInboxMemberAdded = () => {
-    // Use direct network fetch (bypass IDB) to avoid race conditions where
-    // the cache key may have been updated before the DB transaction committed
     this.app.$store.dispatch('inboxes/get', { bypassCache: true });
+    this.refreshMonitoringSnapshot();
   };
 
   onInboxMemberRemoved = data => {
@@ -247,6 +254,7 @@ class ActionCableConnector extends BaseActionCableConnector {
     if (inboxId) {
       this.app.$store.dispatch('inboxes/removeFromStore', inboxId);
     }
+    this.refreshMonitoringSnapshot();
   };
 }
 

@@ -22,6 +22,10 @@ const props = defineProps({
       return ['right', 'left', 'bottom'].includes(value);
     },
   },
+  fullWidth: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const emit = defineEmits(['update:modelValue']);
@@ -29,6 +33,12 @@ const emit = defineEmits(['update:modelValue']);
 const isOpen = ref(false);
 
 const labelValue = computed(() => props.label);
+const triggerClasses = computed(() =>
+  props.fullWidth ? '!w-full max-w-none justify-between' : '!w-fit max-w-40'
+);
+const menuWidthClass = computed(() =>
+  props.fullWidth ? 'w-full max-w-none' : 'max-w-64'
+);
 
 const toggleMenu = () => {
   isOpen.value = !isOpen.value;
@@ -51,21 +61,28 @@ const handleSelect = value => {
       trailing-icon
       color="slate"
       variant="faded"
-      class="!w-fit max-w-40"
-      :class="{ 'dark:!bg-n-alpha-2 !bg-n-slate-9/20': isOpen }"
+      class="max-w-full"
+      :class="[
+        triggerClasses,
+        { 'dark:!bg-n-alpha-2 !bg-n-slate-9/20': isOpen },
+      ]"
       :label="labelValue"
       @click="toggleMenu"
     />
     <div
       v-if="isOpen"
-      class="absolute select-none max-w-64 flex flex-col gap-1 bg-n-alpha-3 backdrop-blur-[100px] p-1 top-0 shadow-lg z-40 rounded-lg border border-n-weak dark:border-n-strong/50"
-      :class="{
-        'ltr:left-full rtl:right-full ltr:ml-1 rtl:mr-1':
-          subMenuPosition === 'right',
-        'ltr:right-full rtl:left-full ltr:mr-1 rtl:ml-1':
-          subMenuPosition === 'left',
-        'top-full mt-1 ltr:right-0 rtl:left-0': subMenuPosition === 'bottom',
-      }"
+      class="absolute select-none flex flex-col gap-1 bg-n-alpha-3 backdrop-blur-[100px] p-1 top-0 shadow-lg z-40 rounded-lg border border-n-weak dark:border-n-strong/50"
+      :class="[
+        menuWidthClass,
+        {
+          'ltr:left-full rtl:right-full ltr:ml-1 rtl:mr-1':
+            subMenuPosition === 'right',
+          'ltr:right-full rtl:left-full ltr:mr-1 rtl:ml-1':
+            subMenuPosition === 'left',
+          'top-full mt-1 ltr:right-0 rtl:left-0 w-full':
+            subMenuPosition === 'bottom',
+        },
+      ]"
     >
       <Button
         v-for="option in options"
