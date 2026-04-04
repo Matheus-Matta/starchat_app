@@ -17,7 +17,7 @@ module Starchat::Conversations::PermissionFilterService
 
   def filter_by_permissions(permissions)
     # Permission-based filtering with hierarchy
-    # conversation_manage > conversation_team_manage > conversation_unassigned_manage > conversation_participating_manage
+    # conversation_manage > conversation_team_manage > conversation_unassigned_manage > conversation_participating_manage > conversation_participating_view
     if permissions.include?('conversation_manage')
       accessible_conversations
     elsif permissions.include?('conversation_team_manage')
@@ -25,7 +25,15 @@ module Starchat::Conversations::PermissionFilterService
     elsif permissions.include?('conversation_unassigned_manage')
       filter_unassigned_and_mine
     elsif permissions.include?('conversation_participating_manage')
-      accessible_conversations.assigned_to(user)
+      participating = conversations.joins(:conversation_participants)
+                                   .where(conversation_participants: { user_id: user.id })
+                                   .where(conversations: { account_id: account.id })
+      assigned = conversations.where(assignee_id: user.id)
+      participating.or(assigned).distinct
+    elsif permissions.include?('conversation_participating_view')
+      conversations.joins(:conversation_participants)
+                   .where(conversation_participants: { user_id: user.id })
+                   .where(conversations: { account_id: account.id })
     else
       Conversation.none
     end

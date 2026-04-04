@@ -28,6 +28,8 @@ class ActionCableConnector extends BaseActionCableConnector {
       'contact.deleted': this.onContactDelete,
       'contact.updated': this.onContactUpdate,
       'conversation.mentioned': this.onConversationMentioned,
+      'conversation.participant_added': this.onConversationParticipantAdded,
+      'conversation.participant_removed': this.onConversationParticipantRemoved,
       'notification.created': this.onNotificationCreated,
       'notification.deleted': this.onNotificationDeleted,
       'notification.updated': this.onNotificationUpdated,
@@ -150,6 +152,16 @@ class ActionCableConnector extends BaseActionCableConnector {
 
   onConversationMentioned = data => {
     this.app.$store.dispatch('addMentions', data);
+  };
+
+  onConversationParticipantAdded = data => {
+    this.app.$store.dispatch('addParticipating', data);
+    this.fetchConversationStats();
+  };
+
+  onConversationParticipantRemoved = data => {
+    this.app.$store.dispatch('removeParticipating', data);
+    this.fetchConversationStats();
   };
 
   clearTimer = conversationId => {

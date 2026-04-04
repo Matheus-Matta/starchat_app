@@ -3,6 +3,7 @@ export const AVAILABLE_CUSTOM_ROLE_PERMISSIONS = [
   'conversation_team_manage',
   'conversation_unassigned_manage',
   'conversation_participating_manage',
+  'conversation_participating_view',
   'contact_manage',
   'report_manage',
   'knowledge_base_manage',
@@ -17,6 +18,7 @@ export const CONVERSATION_PERMISSIONS = [
   'conversation_team_manage',
   'conversation_unassigned_manage',
   'conversation_participating_manage',
+  'conversation_participating_view',
 ];
 
 export const MANAGE_ALL_CONVERSATION_PERMISSIONS = 'conversation_manage';
@@ -26,6 +28,9 @@ export const CONVERSATION_UNASSIGNED_PERMISSIONS =
 
 export const CONVERSATION_PARTICIPATING_PERMISSIONS =
   'conversation_participating_manage';
+
+export const CONVERSATION_PARTICIPATING_VIEW_PERMISSIONS =
+  'conversation_participating_view';
 
 export const CONTACT_PERMISSIONS = 'contact_manage';
 

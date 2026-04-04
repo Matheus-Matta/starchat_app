@@ -40,6 +40,75 @@ RSpec.describe 'Agents API', type: :request do
         expect(data.first['custom_attributes']['test']).to eq('test')
       end
     end
+
+    context 'when it is an authenticated administrator' do
+      it 'returns all agents of the account including admins' do
+        get "/api/v1/accounts/#{account.id}/agents",
+            headers: admin.create_new_auth_token,
+            as: :json
+
+        expect(response).to have_http_status(:success)
+        expect(response.parsed_body.size).to eq(account.users.count)
+      end
+
+      it 'returns the expected agent fields' do
+        get "/api/v1/accounts/#{account.id}/agents",
+            headers: admin.create_new_auth_token,
+            as: :json
+
+        expect(response).to have_http_status(:success)
+        agent_data = response.parsed_body.first
+        expect(agent_data.keys).to include('id', 'name', 'email', 'role', 'availability_status', 'thumbnail')
+      end
+
+      it 'returns custom attributes on agents when present' do
+        get "/api/v1/accounts/#{account.id}/agents",
+            headers: admin.create_new_auth_token,
+            as: :json
+
+        expect(response).to have_http_status(:success)
+        admin_data = response.parsed_body.find { |a| a['id'] == admin.id }
+        expect(admin_data['custom_attributes']).to include('test' => 'test')
+      end
+
+      it 'returns agents ordered by full name' do
+        create(:user, name: 'Alpha Agent', account: account, role: :agent)
+        create(:user, name: 'Zeta Agent', account: account, role: :agent)
+
+        get "/api/v1/accounts/#{account.id}/agents",
+            headers: admin.create_new_auth_token,
+            as: :json
+
+        expect(response).to have_http_status(:success)
+        names = response.parsed_body.map { |a| a['name'] }
+        expect(names).to eq(names.sort)
+      end
+
+      it 'does not return agents from a different account' do
+        other_account = create(:account)
+        other_agent = create(:user, account: other_account, role: :agent)
+
+        get "/api/v1/accounts/#{account.id}/agents",
+            headers: admin.create_new_auth_token,
+            as: :json
+
+        expect(response).to have_http_status(:success)
+        ids = response.parsed_body.map { |a| a['id'] }
+        expect(ids).not_to include(other_agent.id)
+      end
+
+      it 'returns the responsible agent fields needed for contact assignment' do
+        get "/api/v1/accounts/#{account.id}/agents",
+            headers: admin.create_new_auth_token,
+            as: :json
+
+        expect(response).to have_http_status(:success)
+        response.parsed_body.each do |agent_data|
+          expect(agent_data['id']).to be_present
+          expect(agent_data['name']).to be_present
+        end
+      end
+    end
   end
 
   describe 'DELETE /api/v1/accounts/{account.id}/agents/:id' do

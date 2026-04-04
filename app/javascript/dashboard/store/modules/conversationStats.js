@@ -6,10 +6,12 @@ const state = {
   mineCount: 0,
   unAssignedCount: 0,
   allCount: 0,
+  participatingCount: 0,
 };
 
 export const getters = {
   getStats: $state => $state,
+  getParticipatingCount: $state => $state.participatingCount,
 };
 
 // Create a debounced version of the actual API call function
@@ -47,6 +49,9 @@ export const actions = {
   set({ commit }, meta) {
     commit(types.SET_CONV_TAB_META, meta);
   },
+  setParticipating({ commit }, count) {
+    commit(types.SET_PARTICIPATING_CONV_COUNT, count);
+  },
 };
 
 export const mutations = {
@@ -62,6 +67,9 @@ export const mutations = {
     $state.allCount = allCount;
     $state.unAssignedCount = unAssignedCount;
     $state.updatedOn = new Date();
+  },
+  [types.SET_PARTICIPATING_CONV_COUNT]($state, count) {
+    $state.participatingCount = count || 0;
   },
 };
 

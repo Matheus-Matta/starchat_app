@@ -131,6 +131,7 @@ const getters = {
       ? (rootGetters['inboxes/getInboxes'] || []).map(i => i.id)
       : [];
 
+    const { conversationType: unassignedConvType } = activeFilters;
     const filtered = _state.allConversations.filter(conversation => {
       const isUnAssigned = !conversation.meta.assignee;
       const shouldFilter = applyPageFilters(conversation, activeFilters);
@@ -140,7 +141,8 @@ const getters = {
         permissions,
         currentUserId,
         userTeamIds,
-        userInboxIds
+        userInboxIds,
+        unassignedConvType
       );
 
       return isUnAssigned && shouldFilter && allowedForRole;
@@ -166,6 +168,7 @@ const getters = {
       ? (rootGetters['inboxes/getInboxes'] || []).map(i => i.id)
       : [];
 
+    const { conversationType } = activeFilters;
     return _state.allConversations.filter(conversation => {
       const shouldFilter = applyPageFilters(conversation, activeFilters);
       const allowedForRole = applyRoleFilter(
@@ -174,7 +177,8 @@ const getters = {
         permissions,
         currentUserId,
         userTeamIds,
-        userInboxIds
+        userInboxIds,
+        conversationType
       );
 
       return shouldFilter && allowedForRole;

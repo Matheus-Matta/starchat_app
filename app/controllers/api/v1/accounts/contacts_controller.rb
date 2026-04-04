@@ -187,7 +187,7 @@ class Api::V1::Accounts::ContactsController < Api::V1::Accounts::BaseController
 
   def permitted_params
     params.permit(:name, :identifier, :email, :phone_number, :avatar, :blocked, :avatar_url, :inbox_id, :source_id,
-                  :responsible_agent_id, inbox_ids: [], additional_attributes: {}, custom_attributes: {})
+                  inbox_ids: [], responsible_agent_ids: [], additional_attributes: {}, custom_attributes: {})
   end
 
   def contact_custom_attributes

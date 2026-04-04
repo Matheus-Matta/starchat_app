@@ -101,7 +101,11 @@ RSpec.describe 'Round Robin Assignment', type: :service do
   # Contexto 1.1: Prioridade do agente responsável do contato
   # ══════════════════════════════════════════════════════════════════════════
   describe 'prioridade do agente responsável' do
-    let(:contact) { create(:contact, account: account, responsible_agent: agent2) }
+    let(:contact) do
+      c = create(:contact, account: account)
+      c.responsible_agents << agent2
+      c
+    end
     let!(:conversation) { create(:conversation, inbox: inbox, contact: contact, assignee: nil, status: 'open') }
 
     it 'atribui diretamente ao agente responsável quando elegível' do
@@ -135,7 +139,7 @@ RSpec.describe 'Round Robin Assignment', type: :service do
 
     let!(:priority_conversations) do
       [agent1, agent2, agent3, agent4].map do |agent|
-        contact = create(:contact, account: account, responsible_agent: agent)
+        contact = create(:contact, account: account).tap { |c| c.responsible_agents << agent }
         create_open_conversation(contact: contact)
       end
     end

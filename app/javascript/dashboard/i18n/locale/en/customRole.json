@@ -34,6 +34,7 @@
       "CONVERSATION_TEAM_MANAGE": "Manage team conversations and those assigned to them",
       "CONVERSATION_UNASSIGNED_MANAGE": "Manage unassigned conversations and those assigned to them",
       "CONVERSATION_PARTICIPATING_MANAGE": "Manage participating conversations and those assigned to them",
+      "CONVERSATION_PARTICIPATING_VIEW": "View conversations they participate in",
       "CONTACT_MANAGE": "Manage contacts",
       "REPORT_MANAGE": "Manage reports",
       "KNOWLEDGE_BASE_MANAGE": "Manage knowledge base",

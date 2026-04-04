@@ -180,6 +180,22 @@ class ActionCableListener < BaseListener
     broadcast(account, [user.pubsub_token], CONVERSATION_MENTIONED, conversation.push_event_data)
   end
 
+  def conversation_participant_added(event)
+    conversation, account = extract_conversation_and_account(event)
+    user = event.data[:user]
+    return unless user
+
+    broadcast(account, [user.pubsub_token], CONVERSATION_PARTICIPANT_ADDED, conversation.push_event_data)
+  end
+
+  def conversation_participant_removed(event)
+    conversation, account = extract_conversation_and_account(event)
+    user = event.data[:user]
+    return unless user
+
+    broadcast(account, [user.pubsub_token], CONVERSATION_PARTICIPANT_REMOVED, { id: conversation.display_id })
+  end
+
   private
 
   def account_token(account)
@@ -248,7 +264,13 @@ class ActionCableListener < BaseListener
       end
     end
 
-    (allowed_agent_tokens + admin_tokens).uniq
+    # Explicitly include conversation participants who may not be inbox members
+    participant_tokens = conversation.conversation_participants
+                                     .joins(:user)
+                                     .where.not(user_id: account.administrators.select(:id))
+                                     .pluck('users.pubsub_token')
+
+    (allowed_agent_tokens + admin_tokens + participant_tokens).uniq
   end
 
   def contact_tokens(contact_inbox, message)

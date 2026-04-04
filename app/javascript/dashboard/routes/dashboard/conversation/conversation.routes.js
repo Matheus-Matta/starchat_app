@@ -180,7 +180,7 @@ export default {
       path: frontendURL('accounts/:accountId/participating/conversations'),
       name: 'conversation_participating',
       meta: {
-        permissions: CONVERSATION_PERMISSIONS,
+        permissions: ['administrator', 'conversation_participating_manage', 'conversation_participating_view'],
       },
       component: ConversationView,
       props: () => ({ conversationType: 'participating' }),
@@ -191,7 +191,7 @@ export default {
       ),
       name: 'conversation_through_participating',
       meta: {
-        permissions: CONVERSATION_PERMISSIONS,
+        permissions: ['administrator', 'conversation_participating_manage', 'conversation_participating_view'],
       },
       component: ConversationView,
       props: route => ({

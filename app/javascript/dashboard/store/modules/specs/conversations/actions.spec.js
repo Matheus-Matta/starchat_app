@@ -576,7 +576,41 @@ describe('#addMentions', () => {
       ['updateConversation', { id: 1, meta: { sender: { id: 1 } } }],
     ]);
   });
+});
 
+describe('#addParticipating', () => {
+  it('always dispatches updateConversation regardless of current view', () => {
+    const conversation = { id: 1, meta: { sender: { id: 1 } } };
+    actions.addParticipating({ dispatch }, conversation);
+    expect(dispatch.mock.calls).toEqual([['updateConversation', conversation]]);
+  });
+
+  it('also dispatches updateConversation when on a different view', () => {
+    const conversation = { id: 2, meta: { sender: { id: 2 } } };
+    actions.addParticipating({ dispatch }, conversation);
+    expect(dispatch.mock.calls).toEqual([['updateConversation', conversation]]);
+  });
+});
+
+describe('#removeParticipating', () => {
+  it('always commits DELETE_CONVERSATION regardless of current view', () => {
+    actions.removeParticipating(
+      { commit },
+      { id: 42 }
+    );
+    expect(commit.mock.calls).toEqual([['DELETE_CONVERSATION', 42]]);
+  });
+
+  it('also deletes when not on the participating view', () => {
+    actions.removeParticipating(
+      { commit },
+      { id: 99 }
+    );
+    expect(commit.mock.calls).toEqual([['DELETE_CONVERSATION', 99]]);
+  });
+});
+
+describe('#syncActiveConversationMessages', () => {
   it('#syncActiveConversationMessages', async () => {
     const conversations = [
       {

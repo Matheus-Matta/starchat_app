@@ -41,21 +41,23 @@ class AutoAssignment::AssignmentService
     return nil unless prioritize_responsible_agent?
 
     contact = conversation.contact
-    return nil if contact&.responsible_agent_id.blank?
+    return nil if contact&.responsible_agents&.empty?
 
-    agent = contact.responsible_agent
-    return nil unless agent
-    return nil unless agent.accounts.exists?(id: inbox.account_id)
+    contact.responsible_agents.each do |agent|
+      next unless agent.accounts.exists?(id: inbox.account_id)
 
-    candidates = inbox.available_agents.select { |member| member.user_id == agent.id }
-    return nil if candidates.empty?
+      candidates = inbox.available_agents.select { |member| member.user_id == agent.id }
+      next if candidates.empty?
 
-    candidates = filter_agents_by_rate_limit(candidates)
-    if respond_to?(:filter_agents_by_capacity, true) && respond_to?(:capacity_filtering_enabled?, true) && capacity_filtering_enabled?
-      candidates = filter_agents_by_capacity(candidates)
+      candidates = filter_agents_by_rate_limit(candidates)
+      if respond_to?(:filter_agents_by_capacity, true) && respond_to?(:capacity_filtering_enabled?, true) && capacity_filtering_enabled?
+        candidates = filter_agents_by_capacity(candidates)
+      end
+
+      return candidates.first&.user if candidates.any?
     end
 
-    candidates.first&.user
+    nil
   end
 
   def prioritize_responsible_agent?

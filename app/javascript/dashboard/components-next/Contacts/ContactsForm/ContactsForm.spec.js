@@ -6,13 +6,13 @@ import ContactsForm from './ContactsForm.vue';
 describe('ContactsForm', () => {
   const ComboBoxStub = {
     name: 'ComboBox',
-    props: [
-      'modelValue',
-      'options',
-      'placeholder',
-      'multiple',
-      'disabledValues',
-    ],
+    props: {
+      modelValue: { default: null },
+      options: { type: Array, default: () => [] },
+      placeholder: { type: String, default: '' },
+      multiple: { type: Boolean, default: false },
+      disabledValues: { type: Array, default: () => [] },
+    },
     template: '<div class="combo-box-stub" />',
   };
 
@@ -28,18 +28,31 @@ describe('ContactsForm', () => {
     template: '<input class="phone-stub" />',
   };
 
-  const createWrapper = ({ contactData = {} } = {}) => {
+  const createWrapper = ({ contactData = {}, agentsList = [] } = {}) => {
+    const agentsGetAction = vi.fn();
     const store = createStore({
-      getters: {
-        'inboxes/getInboxes': () => [],
-        'agents/getAgents': () => [
-          { id: 1, name: 'Agent One' },
-          { id: 2, name: 'Agent Two' },
-        ],
+      modules: {
+        agents: {
+          namespaced: true,
+          state: { records: agentsList },
+          getters: {
+            getAgents: state => state.records,
+          },
+          actions: {
+            get: agentsGetAction,
+          },
+        },
+        inboxes: {
+          namespaced: true,
+          state: { records: [] },
+          getters: {
+            getInboxes: () => [],
+          },
+        },
       },
     });
 
-    return mount(ContactsForm, {
+    const wrapper = mount(ContactsForm, {
       props: {
         contactData,
         isDetailsView: true,
@@ -54,14 +67,23 @@ describe('ContactsForm', () => {
         },
       },
     });
+
+    return { wrapper, agentsGetAction };
   };
 
-  it('renders a responsible agent select with a clear option', () => {
-    const wrapper = createWrapper({
-      contactData: {
-        id: 1,
-        name: 'Jane Doe',
-      },
+  it('dispatches agents/get on mount to populate the responsible agent list', async () => {
+    const { agentsGetAction } = createWrapper();
+    await nextTick();
+    expect(agentsGetAction).toHaveBeenCalledTimes(1);
+  });
+
+  it('renders a responsible agent select without a clear option', () => {
+    const { wrapper } = createWrapper({
+      contactData: { id: 1, name: 'Jane Doe' },
+      agentsList: [
+        { id: 1, name: 'Agent One' },
+        { id: 2, name: 'Agent Two' },
+      ],
     });
 
     const comboBoxes = wrapper.findAllComponents(ComboBoxStub);
@@ -72,16 +94,37 @@ describe('ContactsForm', () => {
     expect(agentCombo).toBeTruthy();
     expect(
       agentCombo.props('options').some(option => option.value === null)
-    ).toBe(true);
+    ).toBe(false);
+    expect(agentCombo.props('multiple')).toBe(true);
   });
 
-  it('prefills responsible agent value when provided', () => {
-    const wrapper = createWrapper({
+  it('shows an empty list when agents store is empty (pre-fetch)', () => {
+    const { wrapper } = createWrapper({
+      contactData: { id: 1, name: 'Jane Doe' },
+      agentsList: [],
+    });
+
+    const comboBoxes = wrapper.findAllComponents(ComboBoxStub);
+    // No combo with agent options should exist
+    const agentCombo = comboBoxes.find(combo =>
+      Array.isArray(combo.props('options')) &&
+      combo.props('options').length === 0
+    );
+
+    expect(agentCombo).toBeTruthy();
+  });
+
+  it('prefills responsible agent ids when provided as array', () => {
+    const { wrapper } = createWrapper({
       contactData: {
         id: 1,
         name: 'Jane Doe',
-        responsibleAgentId: 2,
+        responsibleAgentIds: [2],
       },
+      agentsList: [
+        { id: 1, name: 'Agent One' },
+        { id: 2, name: 'Agent Two' },
+      ],
     });
 
     const comboBoxes = wrapper.findAllComponents(ComboBoxStub);
@@ -89,15 +132,16 @@ describe('ContactsForm', () => {
       combo.props('options').some(option => option.value === 2)
     );
 
-    expect(agentCombo.props('modelValue')).toBe(2);
+    expect(agentCombo.props('modelValue')).toEqual([2]);
   });
 
-  it('emits updates when responsible agent changes', async () => {
-    const wrapper = createWrapper({
-      contactData: {
-        id: 1,
-        name: 'Jane Doe',
-      },
+  it('emits updates with array when responsible agents change', async () => {
+    const { wrapper } = createWrapper({
+      contactData: { id: 1, name: 'Jane Doe' },
+      agentsList: [
+        { id: 1, name: 'Agent One' },
+        { id: 2, name: 'Agent Two' },
+      ],
     });
 
     const comboBoxes = wrapper.findAllComponents(ComboBoxStub);
@@ -105,11 +149,32 @@ describe('ContactsForm', () => {
       combo.props('options').some(option => option.value === 2)
     );
 
-    agentCombo.vm.$emit('update:modelValue', 2);
+    agentCombo.vm.$emit('update:modelValue', [2]);
     await nextTick();
 
     const updates = wrapper.emitted('update');
     expect(updates).toBeTruthy();
-    expect(updates[updates.length - 1][0].responsibleAgentId).toBe(2);
+    expect(updates[updates.length - 1][0].responsibleAgentIds).toEqual([2]);
+  });
+
+  it('supports selecting multiple agents at once', async () => {
+    const { wrapper } = createWrapper({
+      contactData: { id: 1, name: 'Jane Doe' },
+      agentsList: [
+        { id: 1, name: 'Agent One' },
+        { id: 2, name: 'Agent Two' },
+      ],
+    });
+
+    const comboBoxes = wrapper.findAllComponents(ComboBoxStub);
+    const agentCombo = comboBoxes.find(combo =>
+      combo.props('options').some(option => option.value === 1)
+    );
+
+    agentCombo.vm.$emit('update:modelValue', [1, 2]);
+    await nextTick();
+
+    const updates = wrapper.emitted('update');
+    expect(updates[updates.length - 1][0].responsibleAgentIds).toEqual([1, 2]);
   });
 });

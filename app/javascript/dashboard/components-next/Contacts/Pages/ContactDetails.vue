@@ -96,8 +96,11 @@ const avatarSrc = computed(() => {
 
 const responsibleAgentName = computed(() => {
   const contact = contactData.value || {};
-  const responsibleAgent = contact.responsibleAgent || contact.responsible_agent;
-  return responsibleAgent?.name || '';
+  const agents =
+    contact.responsibleAgents ||
+    contact.responsible_agents ||
+    [];
+  return agents.map(a => a.name).join(', ');
 });
 
 const handleFormUpdate = updatedData => {

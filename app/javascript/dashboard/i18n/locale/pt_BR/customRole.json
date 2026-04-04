@@ -34,6 +34,7 @@
       "CONVERSATION_TEAM_MANAGE": "Gerenciar conversas do time e as que lhe estão atribuídas",
       "CONVERSATION_UNASSIGNED_MANAGE": "Gerenciar conversas não atribuídas e as que lhe estão atribuídas",
       "CONVERSATION_PARTICIPATING_MANAGE": "Gerenciar conversas em que participa e as que lhe estão atribuídas",
+      "CONVERSATION_PARTICIPATING_VIEW": "View conversations they participate in",
       "CONTACT_MANAGE": "Gerenciar contatos",
       "REPORT_MANAGE": "Gerenciar relatórios",
       "KNOWLEDGE_BASE_MANAGE": "Gerenciar base de conhecimento",

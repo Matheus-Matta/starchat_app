@@ -33,6 +33,7 @@
       "CONVERSATION_MANAGE": "Управление всеми диалогами",
       "CONVERSATION_UNASSIGNED_MANAGE": "Управление неназначенными беседами и теми, которые им назначены",
       "CONVERSATION_PARTICIPATING_MANAGE": "Управление текущими беседами и теми, которые им назначены",
+      "CONVERSATION_PARTICIPATING_VIEW": "View conversations they participate in",
       "CONTACT_MANAGE": "Управление контактами",
       "REPORT_MANAGE": "Управление отчетами",
       "KNOWLEDGE_BASE_MANAGE": "Управление базой знаний"

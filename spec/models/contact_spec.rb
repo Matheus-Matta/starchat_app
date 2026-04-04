@@ -19,7 +19,8 @@ RSpec.describe Contact do
 
     it 'allows responsible agent from the same account' do
       agent = create(:user, account: account)
-      contact = build(:contact, account: account, responsible_agent: agent)
+      contact = create(:contact, account: account)
+      contact.responsible_agents << agent
 
       expect(contact).to be_valid
     end
@@ -27,10 +28,9 @@ RSpec.describe Contact do
     it 'rejects responsible agent from another account' do
       other_account = create(:account)
       agent = create(:user, account: other_account)
-      contact = build(:contact, account: account, responsible_agent: agent)
+      contact = create(:contact, account: account)
 
-      contact.valid?
-      expect(contact.errors[:responsible_agent_id]).to include('is invalid')
+      expect { contact.responsible_agents << agent }.to raise_error(ActiveRecord::RecordInvalid)
     end
   end
 

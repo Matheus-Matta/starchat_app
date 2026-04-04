@@ -8,6 +8,7 @@ import {
   isOnMentionsView,
   isOnUnattendedView,
   isOnFoldersView,
+  isOnParticipatingView,
 } from './helpers/actionHelpers';
 import messageReadActions from './actions/messageReadActions';
 import messageTranslateActions from './actions/messageTranslateActions';
@@ -51,6 +52,14 @@ const actions = {
         data,
         params.assigneeType
       );
+
+      if (params.conversationType === 'participating') {
+        dispatch(
+          'conversationStats/setParticipating',
+          data.meta?.all_count ?? 0,
+          { root: true }
+        );
+      }
     } catch (error) {
       // Garante que o loading seja removido mesmo com erros de API/rede
       commit(types.CLEAR_LIST_LOADING_STATUS);
@@ -355,6 +364,7 @@ const actions = {
       !isOnFoldersView(rootState) &&
       !isOnMentionsView(rootState) &&
       !isOnUnattendedView(rootState) &&
+      !isOnParticipatingView(rootState) &&
       isMatchingInboxFilter
     ) {
       commit(types.ADD_CONVERSATION, conversation);
@@ -366,6 +376,18 @@ const actions = {
     if (isOnMentionsView(rootState)) {
       dispatch('updateConversation', conversation);
     }
+  },
+
+  addParticipating({ dispatch }, conversation) {
+    dispatch('updateConversation', conversation);
+  },
+
+  removeParticipating({ commit }, { id: conversationId }) {
+    // Remove immediately from allConversations so the participating list updates
+    // in real-time regardless of the current route. The conversation will be
+    // reloaded by fetchAllConversations on the next view navigation if the user
+    // still has access through another role (admin, assignee).
+    commit(types.DELETE_CONVERSATION, conversationId);
   },
 
   addUnattended({ dispatch, rootState }, conversation) {

@@ -77,7 +77,8 @@ export const applyRoleFilter = (
   permissions,
   currentUserId,
   userTeamIds = [],
-  userInboxIds = []
+  userInboxIds = [],
+  conversationType = ''
 ) => {
   // the role === "agent" check is typically not correct on it's own
   // the backend handles this by checking the custom_role_id at the user model
@@ -89,6 +90,15 @@ export const applyRoleFilter = (
 
   // Check for full conversation management permission
   if (permissions.includes('conversation_manage')) {
+    return true;
+  }
+
+  // Views that rely on server-side filtering (participating, mentions) bypass
+  // the local role filter to avoid incorrectly hiding those conversations.
+  if (
+    conversationType === 'participating' ||
+    conversationType === 'mention'
+  ) {
     return true;
   }
 
@@ -114,6 +124,12 @@ export const applyRoleFilter = (
   // Check participating conversation management permission
   if (permissions.includes('conversation_participating_manage')) {
     return isAssignedToUser;
+  }
+
+  // conversation_participating_view only grants access via server-side filter +
+  // conversationType bypass above; it does not expose the main conversation list.
+  if (permissions.includes('conversation_participating_view')) {
+    return false;
   }
 
   return false;

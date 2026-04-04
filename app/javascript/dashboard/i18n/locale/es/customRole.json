@@ -33,6 +33,7 @@
       "CONVERSATION_MANAGE": "Manage all conversations",
       "CONVERSATION_UNASSIGNED_MANAGE": "Manage unassigned conversations and those assigned to them",
       "CONVERSATION_PARTICIPATING_MANAGE": "Manage participating conversations and those assigned to them",
+      "CONVERSATION_PARTICIPATING_VIEW": "View conversations they participate in",
       "CONTACT_MANAGE": "Administrar contactos",
       "REPORT_MANAGE": "Administrar informes",
       "KNOWLEDGE_BASE_MANAGE": "Administrar base de conocimiento"

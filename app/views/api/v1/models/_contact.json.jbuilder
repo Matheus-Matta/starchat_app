@@ -8,14 +8,8 @@ json.blocked resource.blocked
 json.identifier resource.identifier
 json.thumbnail resource.avatar_url
 json.custom_attributes resource.custom_attributes
-json.responsible_agent_id resource.responsible_agent_id
-if resource.responsible_agent.present?
-  json.responsible_agent do
-    json.id resource.responsible_agent.id
-    json.name resource.responsible_agent.name
-    json.email resource.responsible_agent.email
-  end
-end
+json.responsible_agent_ids resource.responsible_agent_ids
+json.responsible_agents resource.responsible_agents.map { |agent| { id: agent.id, name: agent.name, email: agent.email } }
 json.last_activity_at resource.last_activity_at.to_i if resource[:last_activity_at].present?
 json.created_at resource.created_at.to_i if resource[:created_at].present?
 # we only want to output contact inbox when its /contacts endpoints

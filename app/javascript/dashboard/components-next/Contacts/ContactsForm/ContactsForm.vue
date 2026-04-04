@@ -1,5 +1,5 @@
 <script setup>
-import { computed, reactive, watch, ref } from 'vue';
+import { computed, reactive, watch, ref, onMounted } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { required, email } from '@vuelidate/validators';
 import { useVuelidate } from '@vuelidate/core';
@@ -8,7 +8,7 @@ import countries from 'shared/constants/countries.js';
 import Input from 'dashboard/components-next/input/Input.vue';
 import ComboBox from 'dashboard/components-next/combobox/ComboBox.vue';
 import Icon from 'dashboard/components-next/icon/Icon.vue';
-import { useMapGetter } from 'dashboard/composables/store';
+import { useMapGetter, useStore } from 'dashboard/composables/store';
 import { useChannelIcon } from 'next/icon/provider';
 import PhoneNumberInput from 'dashboard/components-next/phonenumberinput/PhoneNumberInput.vue';
 
@@ -30,8 +30,13 @@ const props = defineProps({
 const emit = defineEmits(['update']);
 
 const { t } = useI18n();
+const store = useStore();
 const inboxes = useMapGetter('inboxes/getInboxes');
 const agents = useMapGetter('agents/getAgents');
+
+onMounted(() => {
+  store.dispatch('agents/get');
+});
 
 const FORM_CONFIG = {
   FIRST_NAME: { field: 'firstName' },
@@ -43,7 +48,7 @@ const FORM_CONFIG = {
   BIO: { field: 'additionalAttributes.description' },
   COMPANY_NAME: { field: 'additionalAttributes.companyName' },
   INBOX: { field: 'inboxIds' },
-  RESPONSIBLE_AGENT: { field: 'responsibleAgentId' },
+  RESPONSIBLE_AGENT: { field: 'responsibleAgentIds' },
 };
 
 const SOCIAL_CONFIG = {
@@ -62,7 +67,7 @@ const defaultState = {
   lastName: '',
   phoneNumber: '',
   inboxIds: [],
-  responsibleAgentId: null,
+  responsibleAgentIds: [],
   additionalAttributes: {
     description: '',
     companyName: '',
@@ -102,10 +107,10 @@ const prepareStateBasedOnProps = () => {
     email: emailAddress,
     phoneNumber,
     additionalAttributes = {},
-    responsible_agent_id: responsibleAgentIdSnake,
-    responsibleAgentId: responsibleAgentIdCamel,
-    responsible_agent: responsibleAgentSnake,
-    responsibleAgent: responsibleAgentCamel,
+    responsible_agent_ids: responsibleAgentIdsSnake,
+    responsibleAgentIds: responsibleAgentIdsCamel,
+    responsible_agents: responsibleAgentsSnake,
+    responsibleAgents: responsibleAgentsCamel,
     contact_inboxes: contactInboxesSnake,
     contactInboxes: contactInboxesCamel,
   } = props.contactData || {};
@@ -123,12 +128,14 @@ const prepareStateBasedOnProps = () => {
   const inboxIds =
     contactInboxes.length > 0 ? contactInboxes.map(ci => ci.inbox.id) : [];
   disabledInboxIds.value = inboxIds;
-  const responsibleAgentId =
-    responsibleAgentIdCamel ||
-    responsibleAgentIdSnake ||
-    responsibleAgentCamel?.id ||
-    responsibleAgentSnake?.id ||
-    null;
+
+  const resolveResponsibleAgentIds = () => {
+    if (responsibleAgentIdsCamel?.length) return responsibleAgentIdsCamel;
+    if (responsibleAgentIdsSnake?.length) return responsibleAgentIdsSnake;
+    const agentObjs = responsibleAgentsCamel || responsibleAgentsSnake;
+    if (agentObjs?.length) return agentObjs.map(a => a.id);
+    return [];
+  };
 
   Object.assign(state, {
     id,
@@ -138,7 +145,7 @@ const prepareStateBasedOnProps = () => {
     email: emailAddress,
     phoneNumber,
     inboxIds,
-    responsibleAgentId,
+    responsibleAgentIds: resolveResponsibleAgentIds(),
     additionalAttributes: {
       description,
       companyName,
@@ -162,21 +169,12 @@ const inboxOptions = computed(() =>
   }))
 );
 
-const agentOptions = computed(() => {
-  const clearOption = {
-    label: t(
-      'CONTACTS_LAYOUT.CARD.EDIT_DETAILS_FORM.FORM.RESPONSIBLE_AGENT.CLEAR_OPTION'
-    ),
-    value: null,
-  };
-
-  const agentItems = (agents.value || []).map(agent => ({
+const agentOptions = computed(() =>
+  (agents.value || []).map(agent => ({
     label: agent.name,
     value: agent.id,
-  }));
-
-  return [clearOption, ...agentItems];
-});
+  }))
+);
 
 const editDetailsForm = computed(() =>
   Object.keys(FORM_CONFIG).map(key => ({
@@ -337,9 +335,10 @@ defineExpose({
           />
           <ComboBox
             v-else-if="item.key === 'RESPONSIBLE_AGENT'"
-            v-model="state.responsibleAgentId"
+            v-model="state.responsibleAgentIds"
             :options="agentOptions"
             :placeholder="item.placeholder"
+            multiple
             class="[&>div>button]:h-8"
             :class="{
               '[&>div>button]:bg-n-alpha-black2 [&>div>button:not(.focused)]:!outline-transparent':

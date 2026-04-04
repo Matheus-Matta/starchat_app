@@ -20,6 +20,7 @@
 # - 'conversation_team_manage': Can manage conversations assigned to their team and those assigned to self.
 # - 'conversation_unassigned_manage': Can manage unassigned conversations (scoped to accessible inboxes/teams) and those assigned to self.
 # - 'conversation_participating_manage': Can manage conversations they are participating in (assigned to or a participant).
+# - 'conversation_participating_view': Can view conversations they are a participant in (read-only sidebar access).
 # - 'contact_manage': Can manage contacts.
 # - 'report_manage': Can manage reports.
 # - 'knowledge_base_manage': Can manage knowledge base portals.
@@ -35,6 +36,7 @@ class CustomRole < ApplicationRecord
     conversation_team_manage
     conversation_unassigned_manage
     conversation_participating_manage
+    conversation_participating_view
     contact_manage
     report_manage
     knowledge_base_manage

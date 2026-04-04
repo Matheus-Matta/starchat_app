@@ -33,6 +33,7 @@
       "CONVERSATION_MANAGE": "Pārvaldīt visas sarunas",
       "CONVERSATION_UNASSIGNED_MANAGE": "Pārvaldīt nepiešķirtās sarunas un tiem piešķirtās sarunas",
       "CONVERSATION_PARTICIPATING_MANAGE": "Pārvaldīt iesaistītās sarunas un tiem piešķirtās sarunas",
+      "CONVERSATION_PARTICIPATING_VIEW": "View conversations they participate in",
       "CONTACT_MANAGE": "Pārvaldīt kontaktpersonas",
       "REPORT_MANAGE": "Pārvaldīt atskaites",
       "KNOWLEDGE_BASE_MANAGE": "Pārvaldīt zināšanu bāzi"

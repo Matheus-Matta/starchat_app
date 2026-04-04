@@ -562,14 +562,14 @@ RSpec.describe 'Contacts API', type: :request do
 
         post "/api/v1/accounts/#{account.id}/contacts",
              headers: admin.create_new_auth_token,
-             params: valid_params.merge({ responsible_agent_id: agent.id })
+             params: valid_params.merge({ responsible_agent_ids: [agent.id] })
 
         expect(response).to have_http_status(:success)
-        expect(Contact.last.responsible_agent_id).to eq(agent.id)
+        expect(Contact.last.responsible_agent_ids).to include(agent.id)
 
         json_response = response.parsed_body
-        expect(json_response['payload']['contact']['responsible_agent_id']).to eq(agent.id)
-        expect(json_response['payload']['contact']['responsible_agent']['id']).to eq(agent.id)
+        expect(json_response['payload']['contact']['responsible_agent_ids']).to include(agent.id)
+        expect(json_response['payload']['contact']['responsible_agents'].map { |a| a['id'] }).to include(agent.id)
       end
 
       it 'does not create the contact' do
@@ -633,24 +633,24 @@ RSpec.describe 'Contacts API', type: :request do
 
         patch "/api/v1/accounts/#{account.id}/contacts/#{contact.id}",
               headers: admin.create_new_auth_token,
-              params: { responsible_agent_id: agent.id },
+              params: { responsible_agent_ids: [agent.id] },
               as: :json
 
         expect(response).to have_http_status(:success)
-        expect(contact.reload.responsible_agent_id).to eq(agent.id)
+        expect(contact.reload.responsible_agent_ids).to include(agent.id)
       end
 
       it 'clears responsible agent' do
         agent = create(:user, account: account, role: :agent)
-        contact.update!(responsible_agent: agent)
+        contact.responsible_agents << agent
 
         patch "/api/v1/accounts/#{account.id}/contacts/#{contact.id}",
               headers: admin.create_new_auth_token,
-              params: { responsible_agent_id: nil },
+              params: { responsible_agent_ids: [] },
               as: :json
 
         expect(response).to have_http_status(:success)
-        expect(contact.reload.responsible_agent_id).to be_nil
+        expect(contact.reload.responsible_agent_ids).to be_empty
       end
 
       it 'prevents the update of contact of another account' do

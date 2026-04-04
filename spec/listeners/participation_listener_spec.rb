@@ -34,5 +34,57 @@ describe ParticipationListener do
       expect(Rails.logger).to have_received(:warn).with('Failed to create conversation participant for account ' \
                                                         "#{account.id} : user #{agent.id} : conversation #{conversation.id}")
     end
+
+    context 'when prioritize_responsible_agent is active' do
+      let!(:responsible_agent1) { create(:user, account: account, role: :agent) }
+      let!(:responsible_agent2) { create(:user, account: account, role: :agent) }
+
+      before do
+        create(:inbox_member, inbox: inbox, user: responsible_agent1)
+        create(:inbox_member, inbox: inbox, user: responsible_agent2)
+        account.update!(settings: { 'prioritize_responsible_agent' => true })
+        conversation.contact.responsible_agents << [responsible_agent1, responsible_agent2]
+      end
+
+      it 'adds all responsible agents as participants' do
+        listener.assignee_changed(event)
+        participant_ids = conversation.conversation_participants.pluck(:user_id)
+        expect(participant_ids).to include(responsible_agent1.id, responsible_agent2.id)
+      end
+
+      it 'does not fail if a responsible agent is already a participant' do
+        conversation.conversation_participants.create!(user: responsible_agent1)
+        expect { listener.assignee_changed(event) }.not_to raise_error
+        participant_ids = conversation.conversation_participants.pluck(:user_id)
+        expect(participant_ids).to include(responsible_agent1.id, responsible_agent2.id)
+      end
+    end
+
+    context 'when prioritize_responsible_agent is inactive' do
+      let!(:responsible_agent) { create(:user, account: account, role: :agent) }
+
+      before do
+        create(:inbox_member, inbox: inbox, user: responsible_agent)
+        account.update!(settings: { 'prioritize_responsible_agent' => false })
+        conversation.contact.responsible_agents << responsible_agent
+      end
+
+      it 'does not add responsible agents as participants' do
+        listener.assignee_changed(event)
+        participant_ids = conversation.conversation_participants.pluck(:user_id)
+        expect(participant_ids).not_to include(responsible_agent.id)
+      end
+    end
+
+    context 'when contact has no responsible agents' do
+      before do
+        account.update!(settings: { 'prioritize_responsible_agent' => true })
+      end
+
+      it 'only adds the assignee as participant' do
+        listener.assignee_changed(event)
+        expect(conversation.conversation_participants.pluck(:user_id)).to eq([agent.id])
+      end
+    end
   end
 end

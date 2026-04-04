@@ -203,4 +203,142 @@ describe ActionCableListener do
       listener.conversation_updated(event)
     end
   end
+
+  describe '#conversation_participant_added' do
+    let(:participant) { create(:user, account: account, role: :agent) }
+    let(:event) do
+      Events::Base.new(
+        :'conversation.participant_added',
+        Time.zone.now,
+        conversation: conversation,
+        user: participant
+      )
+    end
+
+    it 'broadcasts the full conversation data only to the added participant pubsub_token' do
+      expect(ActionCableBroadcastJob).to receive(:perform_later).with(
+        [participant.pubsub_token],
+        'conversation.participant_added',
+        conversation.push_event_data.merge(account_id: account.id)
+      )
+      listener.conversation_participant_added(event)
+    end
+
+    it 'does not broadcast to other inbox agents not being added' do
+      expect(ActionCableBroadcastJob).not_to receive(:perform_later).with(
+        include(agent.pubsub_token),
+        anything,
+        anything
+      )
+      listener.conversation_participant_added(event)
+    end
+
+    it 'does not broadcast to account admins' do
+      expect(ActionCableBroadcastJob).not_to receive(:perform_later).with(
+        include(admin.pubsub_token),
+        anything,
+        anything
+      )
+      listener.conversation_participant_added(event)
+    end
+
+    it 'does nothing when user is nil' do
+      nil_event = Events::Base.new(
+        :'conversation.participant_added',
+        Time.zone.now,
+        conversation: conversation,
+        user: nil
+      )
+      expect(ActionCableBroadcastJob).not_to receive(:perform_later)
+      listener.conversation_participant_added(nil_event)
+    end
+
+    context 'when the participant is already the conversation assignee' do
+      before { conversation.update!(assignee: participant) }
+
+      it 'still broadcasts to the participant pubsub_token' do
+        expect(ActionCableBroadcastJob).to receive(:perform_later).with(
+          [participant.pubsub_token],
+          'conversation.participant_added',
+          conversation.push_event_data.merge(account_id: account.id)
+        )
+        listener.conversation_participant_added(event)
+      end
+    end
+  end
+
+  describe '#conversation_participant_removed' do
+    let(:participant) { create(:user, account: account, role: :agent) }
+    let(:event) do
+      Events::Base.new(
+        :'conversation.participant_removed',
+        Time.zone.now,
+        conversation: conversation,
+        user: participant
+      )
+    end
+
+    it 'broadcasts only the conversation display_id to the removed participant pubsub_token' do
+      expect(ActionCableBroadcastJob).to receive(:perform_later).with(
+        [participant.pubsub_token],
+        'conversation.participant_removed',
+        { id: conversation.display_id, account_id: account.id }
+      )
+      listener.conversation_participant_removed(event)
+    end
+
+    it 'does not broadcast full conversation data in the removed event' do
+      expect(ActionCableBroadcastJob).not_to receive(:perform_later).with(
+        anything,
+        'conversation.participant_removed',
+        hash_including(:inbox_id)
+      )
+      allow(ActionCableBroadcastJob).to receive(:perform_later)
+      listener.conversation_participant_removed(event)
+    end
+
+    it 'does not broadcast to other inbox agents' do
+      expect(ActionCableBroadcastJob).not_to receive(:perform_later).with(
+        include(agent.pubsub_token),
+        anything,
+        anything
+      )
+      listener.conversation_participant_removed(event)
+    end
+
+    it 'does nothing when user is nil' do
+      nil_event = Events::Base.new(
+        :'conversation.participant_removed',
+        Time.zone.now,
+        conversation: conversation,
+        user: nil
+      )
+      expect(ActionCableBroadcastJob).not_to receive(:perform_later)
+      listener.conversation_participant_removed(nil_event)
+    end
+
+    context 'when removed participant is also the conversation assignee' do
+      before { conversation.update!(assignee: participant) }
+
+      it 'still sends the removed event (frontend decides visibility based on assignee role)' do
+        expect(ActionCableBroadcastJob).to receive(:perform_later).with(
+          [participant.pubsub_token],
+          'conversation.participant_removed',
+          { id: conversation.display_id, account_id: account.id }
+        )
+        listener.conversation_participant_removed(event)
+      end
+
+      it 'sends only the id even when participant is assignee (not full conversation data)' do
+        allow(ActionCableBroadcastJob).to receive(:perform_later)
+
+        expect(ActionCableBroadcastJob).not_to receive(:perform_later).with(
+          anything,
+          'conversation.participant_removed',
+          conversation.push_event_data.merge(account_id: account.id)
+        )
+        listener.conversation_participant_removed(event)
+      end
+    end
+  end
 end

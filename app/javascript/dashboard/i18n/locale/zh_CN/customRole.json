@@ -33,6 +33,7 @@
       "CONVERSATION_MANAGE": "管理所有对话",
       "CONVERSATION_UNASSIGNED_MANAGE": "管理未分配的对话及分配给他们的对话",
       "CONVERSATION_PARTICIPATING_MANAGE": "管理参与的对话及分配给他们的对话",
+      "CONVERSATION_PARTICIPATING_VIEW": "View conversations they participate in",
       "CONTACT_MANAGE": "管理联系人",
       "REPORT_MANAGE": "管理报告",
       "KNOWLEDGE_BASE_MANAGE": "管理知识库"
