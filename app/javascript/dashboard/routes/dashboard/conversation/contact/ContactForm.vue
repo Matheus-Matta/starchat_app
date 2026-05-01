@@ -54,12 +54,15 @@ export default {
         twitter: '',
         linkedin: '',
         github: '',
+        telegram: '',
       },
       socialProfileKeys: [
         { key: 'facebook', prefixURL: 'https://facebook.com/' },
         { key: 'twitter', prefixURL: 'https://twitter.com/' },
         { key: 'linkedin', prefixURL: 'https://linkedin.com/' },
         { key: 'github', prefixURL: 'https://github.com/' },
+        { key: 'telegram', prefixURL: 'https://t.me/' },
+        { key: 'tiktok', prefixURL: 'https://tiktok.com/@' },
       ],
     };
   },
@@ -130,6 +133,12 @@ export default {
       if (!name && !id) return '';
       return `${name} (${id})`;
     },
+    onCountryChange(value) {
+      const selected = this.countries.find(c => c.id === value);
+      this.country = selected
+        ? { id: selected.id, name: selected.name }
+        : { id: '', name: '' };
+    },
     setDialCode() {
       if (
         this.phoneNumber !== '' &&
@@ -164,13 +173,16 @@ export default {
       const {
         social_profiles: socialProfiles = {},
         screen_name: twitterScreenName,
+        social_telegram_user_name: telegramUserName,
       } = additionalAttributes;
       this.socialProfileUserNames = {
         twitter: socialProfiles.twitter || twitterScreenName || '',
         facebook: socialProfiles.facebook || '',
         linkedin: socialProfiles.linkedin || '',
         github: socialProfiles.github || '',
+        telegram: socialProfiles.telegram || telegramUserName || '',
         instagram: socialProfiles.instagram || '',
+        tiktok: socialProfiles.tiktok || '',
       };
     },
     getContactObject() {
@@ -358,26 +370,23 @@ export default {
       :label="$t('CONTACT_FORM.FORM.COMPANY_NAME.LABEL')"
       :placeholder="$t('CONTACT_FORM.FORM.COMPANY_NAME.PLACEHOLDER')"
     />
-    <div>
-      <div class="w-full">
-        <label>
-          {{ $t('CONTACT_FORM.FORM.COUNTRY.LABEL') }}
-        </label>
-        <multiselect
-          v-model="country"
-          track-by="id"
-          label="name"
-          :placeholder="$t('CONTACT_FORM.FORM.COUNTRY.PLACEHOLDER')"
-          selected-label
-          :select-label="$t('CONTACT_FORM.FORM.COUNTRY.SELECT_PLACEHOLDER')"
-          :deselect-label="$t('CONTACT_FORM.FORM.COUNTRY.REMOVE')"
-          :custom-label="countryNameWithCode"
-          :max-height="160"
-          :options="countries"
-          allow-empty
-          :option-height="104"
-        />
-      </div>
+    <div class="w-full mb-4">
+      <label>
+        {{ $t('CONTACT_FORM.FORM.COUNTRY.LABEL') }}
+      </label>
+      <ComboBox
+        :model-value="country.id"
+        :options="
+          countries.map(c => ({
+            value: c.id,
+            label: countryNameWithCode(c),
+          }))
+        "
+        class="[&>div>button]:!bg-n-alpha-black2"
+        :placeholder="$t('CONTACT_FORM.FORM.COUNTRY.PLACEHOLDER')"
+        :search-placeholder="$t('CONTACT_FORM.FORM.COUNTRY.SELECT_PLACEHOLDER')"
+        @update:model-value="onCountryChange"
+      />
     </div>
     <woot-input
       v-model="city"
@@ -421,11 +430,3 @@ export default {
     </div>
   </form>
 </template>
-
-<style scoped lang="scss">
-::v-deep {
-  .multiselect .multiselect__tags .multiselect__single {
-    @apply pl-0;
-  }
-}
-</style>

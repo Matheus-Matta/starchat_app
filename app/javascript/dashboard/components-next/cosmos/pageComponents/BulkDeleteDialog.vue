@@ -21,7 +21,13 @@ const emit = defineEmits(['deleteSuccess']);
 const { t } = useI18n();
 const store = useStore();
 const bulkDeleteDialogRef = ref(null);
-const i18nKey = computed(() => props.type.toUpperCase());
+const i18nKey = computed(() => {
+  const i18nTypeMap = {
+    AssistantResponse: 'RESPONSES',
+    AssistantDocument: 'DOCUMENTS',
+  };
+  return i18nTypeMap[props.type];
+});
 
 const handleBulkDelete = async ids => {
   if (!ids) return;

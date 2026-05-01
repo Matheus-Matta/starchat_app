@@ -11,6 +11,7 @@ import BillingMeter from './components/BillingMeter.vue';
 import BillingCard from './components/BillingCard.vue';
 import BillingHeader from './components/BillingHeader.vue';
 import DetailItem from './components/DetailItem.vue';
+import PurchaseCreditsModal from './components/PurchaseCreditsModal.vue';
 import BaseSettingsHeader from '../components/BaseSettingsHeader.vue';
 import SettingsLayout from '../SettingsLayout.vue';
 import ButtonV4 from 'next/button/Button.vue';
@@ -32,6 +33,7 @@ const BILLING_REFRESH_ATTEMPTED = 'billing_refresh_attempted';
 
 // State for handling refresh attempts and loading
 const isWaitingForBilling = ref(false);
+const purchaseCreditsModalRef = ref(null);
 
 const customAttributes = computed(() => {
   return currentAccount.value.custom_attributes || {};
@@ -43,6 +45,11 @@ const customAttributes = computed(() => {
  */
 const planName = computed(() => {
   return customAttributes.value.plan_name;
+});
+
+const canPurchaseCredits = computed(() => {
+  const plan = planName.value?.toLowerCase();
+  return plan && plan !== 'hacker';
 });
 
 /**
@@ -71,8 +78,9 @@ const hasABillingPlan = computed(() => {
 const fetchAccountDetails = async () => {
   if (!hasABillingPlan.value) {
     await store.dispatch('accounts/subscription');
-    fetchLimits();
   }
+  // Always fetch limits for billing page to show credit usage
+  fetchLimits();
 };
 
 const handleBillingPageLogic = async () => {
@@ -117,6 +125,15 @@ const onToggleChatWindow = () => {
   if (window.$chatwoot) {
     window.$chatwoot.toggle();
   }
+};
+
+const openPurchaseCreditsModal = () => {
+  purchaseCreditsModalRef.value?.open();
+};
+
+const handleTopupSuccess = () => {
+  // Refresh limits to show updated credit balance
+  fetchLimits();
 };
 
 onMounted(handleBillingPageLogic);
@@ -217,12 +234,16 @@ onMounted(handleBillingPageLogic);
             solid
             slate
             icon="i-lucide-life-buoy"
-            @open="onToggleChatWindow"
+            @click="onToggleChatWindow"
           >
             {{ $t('BILLING_SETTINGS.CHAT_WITH_US.BUTTON_TXT') }}
           </ButtonV4>
         </BillingHeader>
       </section>
+      <PurchaseCreditsModal
+        ref="purchaseCreditsModalRef"
+        @success="handleTopupSuccess"
+      />
     </template>
   </SettingsLayout>
 </template>

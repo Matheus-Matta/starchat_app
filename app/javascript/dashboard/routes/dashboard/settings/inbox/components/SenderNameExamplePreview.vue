@@ -7,14 +7,29 @@ export default {
     PreviewCard,
     Thumbnail,
   },
-  props: {
-    senderNameType: {
-      type: String,
-      default: 'friendly',
-    },
-    businessName: {
-      type: String,
-      default: '',
+  businessName: {
+    type: String,
+    default: '',
+  },
+  isWebsiteChannel: {
+    type: Boolean,
+    default: false,
+  },
+});
+
+const emit = defineEmits(['update']);
+
+const { t } = useI18n();
+
+const senderNameKeyOptions = computed(() => [
+  {
+    key: 'friendly',
+    heading: t('INBOX_MGMT.EDIT.SENDER_NAME_SECTION.FRIENDLY.TITLE'),
+    content: t('INBOX_MGMT.EDIT.SENDER_NAME_SECTION.FRIENDLY.SUBTITLE'),
+    preview: {
+      senderName: 'Smith',
+      businessName: 'Chatwoot',
+      email: '<support@yourbusiness.com>',
     },
   },
   emits: ['update'],
@@ -65,16 +80,36 @@ export default {
       this.$emit('update', key);
     },
   },
+]);
+
+const isKeyOptionFriendly = key => key === 'friendly';
+
+const userName = keyOption =>
+  isKeyOptionFriendly(keyOption.key)
+    ? keyOption.preview.senderName
+    : keyOption.preview.businessName;
+
+const toggleSenderNameType = key => {
+  emit('update', key);
 };
 </script>
 
 <template>
-  <div class="flex flex-col lg:flex-row items-start lg:items-center gap-4">
-    <button
+  <div
+    class="flex flex-col items-start gap-4 mt-3 min-w-0"
+    :class="
+      isWebsiteChannel ? 'sm:flex-row md:flex-col xl:flex-row' : 'sm:flex-row'
+    "
+  >
+    <RadioCard
       v-for="keyOption in senderNameKeyOptions"
+      :id="keyOption.key"
       :key="keyOption.key"
-      class="text-n-slate-12 cursor-pointer p-0"
-      @click="toggleSenderNameType(keyOption.key)"
+      :label="keyOption.heading"
+      :description="keyOption.content"
+      :is-active="keyOption.key === props.senderNameType"
+      class="flex-1 !gap-2"
+      @select="toggleSenderNameType"
     >
       <PreviewCard
         :heading="keyOption.heading"
@@ -107,8 +142,11 @@ export default {
               <span class="text-xs">{{ keyOption.preview.email }}</span>
             </div>
           </div>
+          <span class="text-label-small text-n-slate-11">
+            {{ keyOption.preview.email }}
+          </span>
         </div>
-      </PreviewCard>
-    </button>
+      </div>
+    </RadioCard>
   </div>
 </template>

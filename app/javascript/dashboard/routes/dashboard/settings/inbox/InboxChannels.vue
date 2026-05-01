@@ -59,10 +59,10 @@ const items = computed(() => {
 </script>
 
 <template>
-  <div class="mx-2 flex flex-col gap-6 mb-8">
+  <div class="mx-auto flex flex-col gap-6 mb-8 max-w-7xl w-full !px-6">
     <PageHeader class="block lg:hidden !mb-0" :header-title="pageTitle" />
     <div
-      class="grid grid-cols-1 lg:grid-cols-8 lg:divide-x lg:divide-n-weak rounded-xl border border-n-weak min-h-[52rem]"
+      class="grid grid-cols-1 lg:grid-cols-8 lg:divide-x lg:divide-n-weak rounded-xl border border-n-weak h-full min-h-[50dvh]"
     >
       <woot-wizard
         class="hidden lg:block col-span-2 h-fit py-8 px-6"

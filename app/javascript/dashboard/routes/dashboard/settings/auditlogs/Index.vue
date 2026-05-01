@@ -2,8 +2,14 @@
 import { useAlert } from 'dashboard/composables';
 import { messageTimestamp } from 'shared/helpers/timeHelper';
 import { useStoreGetters, useStore } from 'dashboard/composables/store';
-import TableFooter from 'dashboard/components/widgets/TableFooter.vue';
+import {
+  BaseTable,
+  BaseTableRow,
+  BaseTableCell,
+} from 'dashboard/components-next/table';
+import PaginationFooter from 'dashboard/components-next/pagination/PaginationFooter.vue';
 import BaseSettingsHeader from '../components/BaseSettingsHeader.vue';
+import SettingsLayout from '../SettingsLayout.vue';
 import {
   generateTranslationPayload,
   generateLogActionKey,
@@ -81,18 +87,18 @@ const tableHeaders = computed(() => {
 </script>
 
 <template>
-  <div class="flex-1 overflow-auto">
-    <BaseSettingsHeader
-      :title="$t('AUDIT_LOGS.HEADER')"
-      :description="$t('AUDIT_LOGS.DESCRIPTION')"
-      :link-text="$t('AUDIT_LOGS.LEARN_MORE')"
-      feature-name="audit_logs"
-    />
-
-    <div class="mt-6 flex-1 text-n-slate-11">
-      <woot-loading-state
-        v-if="uiFlags.fetchingList"
-        :message="$t('AUDIT_LOGS.LOADING')"
+  <SettingsLayout
+    :is-loading="uiFlags.fetchingList"
+    :loading-message="$t('AUDIT_LOGS.LOADING')"
+    :no-records-found="!records.length"
+    :no-records-message="$t('AUDIT_LOGS.LIST.404')"
+  >
+    <template #header>
+      <BaseSettingsHeader
+        :title="$t('AUDIT_LOGS.HEADER')"
+        :description="$t('AUDIT_LOGS.DESCRIPTION')"
+        :link-text="$t('AUDIT_LOGS.LEARN_MORE')"
+        feature-name="audit_logs"
       />
       <p
         v-else-if="!validRecords.length"
@@ -132,12 +138,12 @@ const tableHeaders = computed(() => {
         </table>
         <TableFooter
           :current-page="Number(meta.currentPage)"
-          :total-count="meta.totalEntries"
-          :page-size="meta.perPage"
-          class="border-n-weak border-t !px-0 py-4"
-          @page-change="onPageChange"
+          :total-items="meta.totalEntries"
+          :items-per-page="meta.perPage"
+          class="!px-0"
+          @update:current-page="onPageChange"
         />
       </div>
-    </div>
-  </div>
+    </template>
+  </SettingsLayout>
 </template>

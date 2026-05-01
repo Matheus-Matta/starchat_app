@@ -4,7 +4,16 @@ RSpec.describe Cosmos::Llm::FaqGeneratorService do
   let(:content) { 'Sample content for FAQ generation' }
   let(:language) { 'english' }
   let(:service) { described_class.new(content, language) }
-  let(:client) { instance_double(OpenAI::Client) }
+  let(:mock_chat) { instance_double(RubyLLM::Chat) }
+  let(:sample_faqs) do
+    [
+      { 'question' => 'What is this service?', 'answer' => 'It generates FAQs.' },
+      { 'question' => 'How does it work?', 'answer' => 'Using AI technology.' }
+    ]
+  end
+  let(:mock_response) do
+    instance_double(RubyLLM::Message, content: { faqs: sample_faqs }.to_json)
+  end
 
   before do
     create(:installation_config, name: 'COSMOS_OPEN_AI_API_KEY', value: 'test-key')
@@ -12,25 +21,6 @@ RSpec.describe Cosmos::Llm::FaqGeneratorService do
   end
 
   describe '#generate' do
-    let(:sample_faqs) do
-      [
-        { 'question' => 'What is this service?', 'answer' => 'It generates FAQs.' },
-        { 'question' => 'How does it work?', 'answer' => 'Using AI technology.' }
-      ]
-    end
-
-    let(:openai_response) do
-      {
-        'choices' => [
-          {
-            'message' => {
-              'content' => { faqs: sample_faqs }.to_json
-            }
-          }
-        ]
-      }
-    end
-
     context 'when successful' do
       before do
         allow(client).to receive(:chat).and_return(openai_response)
@@ -42,15 +32,8 @@ RSpec.describe Cosmos::Llm::FaqGeneratorService do
         expect(result).to eq(sample_faqs)
       end
 
-      it 'calls OpenAI client with chat parameters' do
-        expect(client).to receive(:chat).with(parameters: hash_including(
-          model: 'gpt-4o-mini',
-          response_format: { type: 'json_object' },
-          messages: array_including(
-            hash_including(role: 'system'),
-            hash_including(role: 'user', content: content)
-          )
-        ))
+      it 'sends content to LLM with JSON response format' do
+        expect(mock_chat).to receive(:with_params).with(response_format: { type: 'json_object' }).and_return(mock_chat)
         service.generate
       end
 
@@ -63,23 +46,57 @@ RSpec.describe Cosmos::Llm::FaqGeneratorService do
     context 'with different language' do
       let(:language) { 'spanish' }
 
-      before do
-        allow(client).to receive(:chat).and_return(openai_response)
-      end
-
       it 'passes the correct language to SystemPromptsService' do
         expect(Cosmos::Llm::SystemPromptsService).to receive(:faq_generator).with('spanish')
         service.generate
       end
     end
 
-    context 'when OpenAI API fails' do
+    context 'when LLM API fails' do
       before do
-        allow(client).to receive(:chat).and_raise(OpenAI::Error.new('API Error'))
+        allow(mock_chat).to receive(:ask).and_raise(RubyLLM::Error.new(nil, 'API Error'))
+        allow(Rails.logger).to receive(:error)
       end
 
-      it 'handles the error and returns empty array' do
-        expect(Rails.logger).to receive(:error).with('OpenAI API Error: API Error')
+      it 'returns empty array and logs the error' do
+        expect(Rails.logger).to receive(:error).with('LLM API Error: API Error')
+        expect(service.generate).to eq([])
+      end
+    end
+
+    context 'when response content is nil' do
+      let(:nil_response) { instance_double(RubyLLM::Message, content: nil) }
+
+      before do
+        allow(mock_chat).to receive(:ask).and_return(nil_response)
+      end
+
+      it 'returns empty array' do
+        expect(service.generate).to eq([])
+      end
+    end
+
+    context 'when JSON parsing fails' do
+      let(:invalid_response) { instance_double(RubyLLM::Message, content: 'invalid json') }
+
+      before do
+        allow(mock_chat).to receive(:ask).and_return(invalid_response)
+      end
+
+      it 'logs error and returns empty array' do
+        expect(Rails.logger).to receive(:error).with(/Error in parsing GPT processed response:/)
+        expect(service.generate).to eq([])
+      end
+    end
+
+    context 'when response is missing faqs key' do
+      let(:missing_key_response) { instance_double(RubyLLM::Message, content: '{"data": []}') }
+
+      before do
+        allow(mock_chat).to receive(:ask).and_return(missing_key_response)
+      end
+
+      it 'returns empty array via KeyError rescue' do
         expect(service.generate).to eq([])
       end
     end

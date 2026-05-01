@@ -23,6 +23,12 @@ const meta = {
   installationTypes: [INSTALLATION_TYPES.CLOUD, INSTALLATION_TYPES.ENTERPRISE],
 };
 
+const metaCustomTools = {
+  permissions: ['administrator', 'agent'],
+  featureFlag: FEATURE_FLAGS.CAPTAIN_CUSTOM_TOOLS,
+  installationTypes: [INSTALLATION_TYPES.CLOUD, INSTALLATION_TYPES.ENTERPRISE],
+};
+
 const metaV2 = {
   permissions: ['administrator', 'agent'],
   featureFlag: FEATURE_FLAGS.COSMOS_V2,

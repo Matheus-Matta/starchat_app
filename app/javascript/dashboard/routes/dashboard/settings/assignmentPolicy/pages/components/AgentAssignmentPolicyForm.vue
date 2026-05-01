@@ -1,9 +1,10 @@
 <script setup>
 import { computed, reactive, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { useConfig } from 'dashboard/composables/useConfig';
+import { useRoute } from 'vue-router';
+import { useMapGetter } from 'dashboard/composables/store';
 import BaseInfo from 'dashboard/components-next/AssignmentPolicy/components/BaseInfo.vue';
-import RadioCard from 'dashboard/components-next/AssignmentPolicy/components/RadioCard.vue';
+import RadioCard from 'dashboard/components-next/radioCard/RadioCard.vue';
 import FairDistribution from 'dashboard/components-next/AssignmentPolicy/components/FairDistribution.vue';
 import DataTable from 'dashboard/components-next/AssignmentPolicy/components/DataTable.vue';
 import AddDataDropdown from 'dashboard/components-next/AssignmentPolicy/components/AddDataDropdown.vue';
@@ -54,7 +55,12 @@ const props = defineProps({
 const emit = defineEmits(['submit', 'addInbox', 'deleteInbox', 'validationChange']);
 
 const { t } = useI18n();
-const { isEnterprise } = useConfig();
+const route = useRoute();
+
+const accountId = computed(() => Number(route.params.accountId));
+const isFeatureEnabledonAccount = useMapGetter(
+  'accounts/isFeatureEnabledonAccount'
+);
 
 const BASE_KEY = 'ASSIGNMENT_POLICY.AGENT_ASSIGNMENT_POLICY';
 
@@ -274,15 +280,10 @@ defineExpose({ resetForm });
       <BaseInfo
         v-model:policy-name="state.name"
         v-model:description="state.description"
-        v-model:enabled="state.enabled"
         :name-label="t(`${BASE_KEY}.FORM.NAME.LABEL`)"
         :name-placeholder="t(`${BASE_KEY}.FORM.NAME.PLACEHOLDER`)"
         :description-label="t(`${BASE_KEY}.FORM.DESCRIPTION.LABEL`)"
         :description-placeholder="t(`${BASE_KEY}.FORM.DESCRIPTION.PLACEHOLDER`)"
-        :status-label="t(`${BASE_KEY}.FORM.STATUS.LABEL`)"
-        :status-placeholder="
-          t(`${BASE_KEY}.FORM.STATUS.${state.enabled ? 'ACTIVE' : 'INACTIVE'}`)
-        "
         @validation-change="handleValidationChange"
       />
 
@@ -568,6 +569,7 @@ defineExpose({ resetForm });
         :is-fetching="isInboxLoading"
         :empty-state-message="t(`${BASE_KEY}.FORM.INBOXES.EMPTY_STATE`)"
         @delete="$emit('deleteInbox', $event)"
+        @navigate="$emit('navigateToInbox', $event)"
       />
     </div>
   </form>

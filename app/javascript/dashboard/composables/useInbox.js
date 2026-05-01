@@ -17,6 +17,7 @@ export const INBOX_FEATURE_MAP = {
     INBOX_TYPES.TWITTER,
     INBOX_TYPES.WHATSAPP,
     INBOX_TYPES.TELEGRAM,
+    INBOX_TYPES.TIKTOK,
     INBOX_TYPES.API,
   ],
   [INBOX_FEATURES.REPLY_TO_OUTGOING]: [
@@ -24,6 +25,7 @@ export const INBOX_FEATURE_MAP = {
     INBOX_TYPES.TWITTER,
     INBOX_TYPES.WHATSAPP,
     INBOX_TYPES.TELEGRAM,
+    INBOX_TYPES.TIKTOK,
     INBOX_TYPES.API,
   ],
 };
@@ -133,6 +135,10 @@ export const useInbox = (inboxId = null) => {
     return channelType.value === INBOX_TYPES.INSTAGRAM;
   });
 
+  const isATiktokChannel = computed(() => {
+    return channelType.value === INBOX_TYPES.TIKTOK;
+  });
+
   const isAVoiceChannel = computed(() => {
     return channelType.value === INBOX_TYPES.VOICE;
   });
@@ -154,6 +160,7 @@ export const useInbox = (inboxId = null) => {
     is360DialogWhatsAppChannel,
     isAnEmailChannel,
     isAnInstagramChannel,
+    isATiktokChannel,
     isAVoiceChannel,
   };
 };

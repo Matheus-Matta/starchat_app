@@ -42,6 +42,10 @@ class Cosmos::Scenario < ApplicationRecord
 
   before_save :resolve_tool_references
 
+  def handoff_key
+    [handoff_id_key, compact_handoff_slug, HANDOFF_KEY_SUFFIX].compact.join('_')
+  end
+
   def prompt_context
     {
       title: title,
@@ -56,7 +60,28 @@ class Cosmos::Scenario < ApplicationRecord
   private
 
   def agent_name
-    "#{title} Agent".parameterize(separator: '_')
+    handoff_key
+  end
+
+  def handoff_id_key
+    return "#{HANDOFF_KEY_PREFIX}_#{id}" if id.present?
+
+    "#{HANDOFF_KEY_PREFIX}_draft"
+  end
+
+  def compact_handoff_slug
+    slug = title.to_s.parameterize(separator: '_').presence
+    return nil if slug.blank?
+
+    max_slug_length = [MAX_HANDOFF_SLUG_LENGTH, dynamic_slug_max_length].min
+    return nil if max_slug_length <= 0
+
+    slug.first(max_slug_length).sub(/_+\z/, '').presence
+  end
+
+  def dynamic_slug_max_length
+    # handoff_to_#{scenario_<id>_<slug>_agent}
+    MAX_AGENT_NAME_LENGTH - handoff_id_key.length - HANDOFF_KEY_SUFFIX.length - 2
   end
 
   def agent_tools

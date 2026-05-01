@@ -1,5 +1,4 @@
 require 'rails_helper'
-require 'custom_exceptions/pdf_processing_error'
 
 RSpec.describe Cosmos::Llm::PaginatedFaqGeneratorService do
   let(:document) { create(:cosmos_document) }
@@ -23,7 +22,7 @@ RSpec.describe Cosmos::Llm::PaginatedFaqGeneratorService do
       end
 
       it 'raises an error' do
-        expect { service.generate }.to raise_error(CustomExceptions::PdfFaqGenerationError)
+        expect { service.generate }.to raise_error(CustomExceptions::Pdf::FaqGenerationError)
       end
     end
 

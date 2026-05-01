@@ -5,6 +5,7 @@ class AutoAssignment::AssignmentService
 
   def perform_bulk_assignment(limit: 100)
     return 0 unless inbox.auto_assignment_v2_enabled?
+    return 0 unless inbox.enable_auto_assignment?
 
     assigned_count = 0
 
@@ -70,7 +71,9 @@ class AutoAssignment::AssignmentService
   def unassigned_conversations(limit)
     scope = inbox.conversations.unassigned.open
 
-    scope = if assignment_config['conversation_priority'].to_s == 'longest_waiting'
+    # Apply conversation priority using assignment policy if available
+    policy = inbox.assignment_policy
+    scope = if policy&.longest_waiting?
               scope.reorder(last_activity_at: :asc, created_at: :asc)
             else
               scope.reorder(created_at: :asc)
@@ -93,6 +96,16 @@ class AutoAssignment::AssignmentService
     selected
   end
 
+  def filter_agents_by_team(agents, conversation)
+    return agents if conversation&.team_id.blank?
+
+    team = conversation.team
+    return nil if team.blank? || team.allow_auto_assign.blank?
+
+    team_member_ids = team.members.ids
+    agents.where(user_id: team_member_ids)
+  end
+
   def filter_agents_by_rate_limit(agents)
     agents.select do |agent_member|
       rate_limiter = build_rate_limiter(agent_member.user)
@@ -101,7 +114,9 @@ class AutoAssignment::AssignmentService
   end
 
   def assign_conversation(conversation, agent)
+    Current.executed_by = inbox.assignment_policy || inbox
     conversation.update!(assignee: agent)
+    Current.executed_by = nil
 
     rate_limiter = build_rate_limiter(agent)
     rate_limiter.track_assignment(conversation)
@@ -109,6 +124,8 @@ class AutoAssignment::AssignmentService
     log_assignment_audit(conversation, agent)
     dispatch_assignment_event(conversation, agent)
     true
+  ensure
+    Current.executed_by = nil
   end
 
   def dispatch_assignment_event(conversation, agent)

@@ -25,9 +25,12 @@ export default createStore({
       }
     },
 
-    handleBulkDelete: async function handleBulkDelete({ dispatch }, ids) {
+    handleBulkDelete: async function handleBulkDelete(
+      { dispatch },
+      { type = 'AssistantResponse', ids }
+    ) {
       const response = await dispatch('processBulkAction', {
-        type: 'AssistantResponse',
+        type,
         actionType: 'delete',
         ids,
       });

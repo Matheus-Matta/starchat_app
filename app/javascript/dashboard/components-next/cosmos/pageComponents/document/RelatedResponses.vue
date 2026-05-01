@@ -19,6 +19,7 @@ const dialogRef = ref(null);
 const uiFlags = useMapGetter('cosmosResponses/getUIFlags');
 const responses = useMapGetter('cosmosResponses/getRecords');
 const isFetching = computed(() => uiFlags.value.fetchingList);
+const totalCount = computed(() => meta.value.totalCount || 0);
 
 const handleClose = () => {
   emit('close');

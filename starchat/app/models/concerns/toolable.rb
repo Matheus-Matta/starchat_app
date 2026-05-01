@@ -1,14 +1,21 @@
 module Concerns::Toolable
   extend ActiveSupport::Concern
 
-  def tool(assistant)
+  # Isolated namespace for user-defined custom tool classes.
+  # Keeps them separate from built-in classes in Captain::Tools (e.g., HttpTool, CustomHttpTool).
+  module CustomTools; end
+
+  def tool(assistant, base_class: Captain::Tools::HttpTool, **)
     custom_tool_record = self
-    # Convert slug to valid Ruby constant name (replace hyphens with underscores, then camelize)
     class_name = custom_tool_record.slug.underscore.camelize
 
     # Always create a fresh class to reflect current metadata
     tool_class = Class.new(Cosmos::Tools::HttpTool) do
       description custom_tool_record.description
+
+      # Override name to use the slug directly, avoiding the namespace prefix
+      # that RubyLLM's default normalization would produce (e.g., "captain--tools--custom_dog_facts").
+      define_method(:name) { tool_slug }
 
       custom_tool_record.param_schema.each do |param_def|
         param param_def['name'].to_sym,
@@ -28,7 +35,7 @@ module Concerns::Toolable
     Cosmos::Tools.send(:remove_const, class_name) if Cosmos::Tools.const_defined?(class_name, false)
     Cosmos::Tools.const_set(class_name, tool_class)
 
-    tool_class.new(assistant, self)
+    tool_class.new(assistant, self, **)
   end
 
   def build_request_url(params)
@@ -64,6 +71,37 @@ module Concerns::Toolable
     return nil unless auth_type == 'basic'
 
     [auth_config['username'], auth_config['password']]
+  end
+
+  def build_metadata_headers(state)
+    {}.tap do |headers|
+      add_base_headers(headers, state)
+      add_conversation_headers(headers, state[:conversation]) if state[:conversation]
+      add_contact_headers(headers, state[:contact]) if state[:contact]
+      add_contact_inbox_headers(headers, state[:contact_inbox])
+    end
+  end
+
+  def add_base_headers(headers, state)
+    headers['X-Chatwoot-Account-Id'] = state[:account_id].to_s if state[:account_id]
+    headers['X-Chatwoot-Assistant-Id'] = state[:assistant_id].to_s if state[:assistant_id]
+    headers['X-Chatwoot-Tool-Slug'] = slug if slug.present?
+  end
+
+  def add_conversation_headers(headers, conversation)
+    headers['X-Chatwoot-Conversation-Id'] = conversation[:id].to_s if conversation[:id]
+    headers['X-Chatwoot-Conversation-Display-Id'] = conversation[:display_id].to_s if conversation[:display_id]
+  end
+
+  def add_contact_headers(headers, contact)
+    headers['X-Chatwoot-Contact-Id'] = contact[:id].to_s if contact[:id]
+    headers['X-Chatwoot-Contact-Email'] = contact[:email].to_s if contact[:email].present?
+    headers['X-Chatwoot-Contact-Phone'] = contact[:phone_number].to_s if contact[:phone_number].present?
+  end
+
+  def add_contact_inbox_headers(headers, contact_inbox)
+    headers['X-Chatwoot-Contact-Inbox-Id'] = contact_inbox[:id].to_s if contact_inbox&.[](:id)
+    headers['X-Chatwoot-Contact-Inbox-Verified'] = (contact_inbox&.[](:hmac_verified) || false).to_s
   end
 
   def format_response(raw_response_body)

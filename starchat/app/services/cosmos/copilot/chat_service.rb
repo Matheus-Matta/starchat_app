@@ -13,9 +13,12 @@ class Cosmos::Copilot::ChatService < Llm::BaseOpenAiService
     @user = nil
     @copilot_thread = nil
     @previous_history = []
+    @conversation = @account.conversations.find_by(display_id: config[:conversation_id])
+    @conversation_id = @conversation&.display_id
+
     setup_user(config)
     setup_message_history(config)
-    register_tools
+    @tools = build_tools
     @messages = build_messages(config)
   end
 
@@ -76,10 +79,14 @@ class Cosmos::Copilot::ChatService < Llm::BaseOpenAiService
       role: 'system',
       content: Cosmos::Llm::SystemPromptsService.copilot_response_generator(
         @assistant.config['product_name'],
-        @tool_registry.tools_summary,
+        tools_summary,
         @assistant.config
       )
     }
+  end
+
+  def tools_summary
+    @tools.map { |tool| "- #{tool.class.name}: #{tool.class.description}" }.join("\n")
   end
 
   def account_id_context
@@ -112,5 +119,9 @@ class Cosmos::Copilot::ChatService < Llm::BaseOpenAiService
       message: message,
       message_type: message_type
     )
+  end
+
+  def feature_name
+    'copilot'
   end
 end

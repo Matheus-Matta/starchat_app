@@ -16,7 +16,8 @@ class OnlineStatusTracker
 
   def self.get_presence(account_id, obj_type, obj_id)
     connected_time = ::Redis::Alfred.zscore(presence_key(account_id, obj_type), obj_id)
-    connected_time && connected_time > (Time.zone.now - PRESENCE_DURATION).to_i
+    duration = obj_type == 'Contact' ? CONTACT_PRESENCE_DURATION : PRESENCE_DURATION
+    connected_time && connected_time > (Time.zone.now - duration).to_i
   end
 
   def self.presence_key(account_id, type)
@@ -44,7 +45,7 @@ class OnlineStatusTracker
   end
 
   def self.get_available_contact_ids(account_id)
-    range_start = (Time.zone.now - PRESENCE_DURATION).to_i
+    range_start = (Time.zone.now - CONTACT_PRESENCE_DURATION).to_i
     # exclusive minimum score is specified by prefixing (
     # we are clearing old records because this could clogg up the sorted set
     ::Redis::Alfred.zremrangebyscore(presence_key(account_id, 'Contact'), '-inf', "(#{range_start}")

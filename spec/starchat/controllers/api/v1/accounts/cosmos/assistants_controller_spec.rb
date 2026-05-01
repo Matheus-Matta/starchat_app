@@ -259,10 +259,12 @@ RSpec.describe 'Api::V1::Accounts::Cosmos::Assistants', type: :request do
         message_content: 'Hello assistant',
         message_history: [
           { role: 'user', content: 'Previous message' },
-          { role: 'assistant', content: 'Previous response' }
+          { role: 'assistant', content: 'Previous response', agent_name: 'billing_scenario' }
         ]
       }
     end
+    let(:chat_service) { instance_double(Captain::Llm::AssistantChatService) }
+    let(:agent_runner_service) { instance_double(Captain::Assistant::AgentRunnerService) }
 
     context 'when it is an un-authenticated user' do
       it 'returns unauthorized' do
@@ -279,6 +281,7 @@ RSpec.describe 'Api::V1::Accounts::Cosmos::Assistants', type: :request do
         chat_service = instance_double(Cosmos::Llm::AssistantChatService)
         allow(Cosmos::Llm::AssistantChatService).to receive(:new).with(assistant: assistant).and_return(chat_service)
         allow(chat_service).to receive(:generate_response).and_return({ content: 'Assistant response' })
+        expect(Captain::Assistant::AgentRunnerService).not_to receive(:new)
 
         post "/api/v1/accounts/#{account.id}/cosmos/assistants/#{assistant.id}/playground",
              params: valid_params,
@@ -292,14 +295,13 @@ RSpec.describe 'Api::V1::Accounts::Cosmos::Assistants', type: :request do
         )
         expect(json_response[:content]).to eq('Assistant response')
       end
-    end
 
-    context 'when message_history is not provided' do
       it 'uses empty array as default' do
         params_without_history = { message_content: 'Hello assistant' }
         chat_service = instance_double(Cosmos::Llm::AssistantChatService)
         allow(Cosmos::Llm::AssistantChatService).to receive(:new).with(assistant: assistant).and_return(chat_service)
         allow(chat_service).to receive(:generate_response).and_return({ content: 'Assistant response' })
+        expect(Captain::Assistant::AgentRunnerService).not_to receive(:new)
 
         post "/api/v1/accounts/#{account.id}/cosmos/assistants/#{assistant.id}/playground",
              params: params_without_history,
@@ -310,6 +312,54 @@ RSpec.describe 'Api::V1::Accounts::Cosmos::Assistants', type: :request do
         expect(chat_service).to have_received(:generate_response).with(
           additional_message: params_without_history[:message_content],
           message_history: []
+        )
+      end
+    end
+
+    context 'when captain v2 is enabled' do
+      before do
+        account.enable_features('captain_integration_v2')
+      end
+
+      it 'generates a response with the agent runner service' do
+        allow(Captain::Assistant::AgentRunnerService).to receive(:new).with(
+          assistant: assistant,
+          source: 'playground'
+        ).and_return(agent_runner_service)
+        allow(agent_runner_service).to receive(:generate_response).and_return({ response: 'Assistant response' })
+        expect(Captain::Llm::AssistantChatService).not_to receive(:new)
+
+        post "/api/v1/accounts/#{account.id}/captain/assistants/#{assistant.id}/playground",
+             params: valid_params,
+             headers: agent.create_new_auth_token,
+             as: :json
+
+        expect(response).to have_http_status(:success)
+        expect(agent_runner_service).to have_received(:generate_response).with(
+          message_history: valid_params[:message_history] + [{ role: 'user', content: valid_params[:message_content] }]
+        )
+        expect(json_response[:response]).to eq('Assistant response')
+      end
+
+      it 'does not duplicate the latest user message if it is already in history' do
+        params_with_latest_message = {
+          message_content: 'Hello assistant',
+          message_history: [{ role: 'user', content: 'Hello assistant' }]
+        }
+        allow(Captain::Assistant::AgentRunnerService).to receive(:new).with(
+          assistant: assistant,
+          source: 'playground'
+        ).and_return(agent_runner_service)
+        allow(agent_runner_service).to receive(:generate_response).and_return({ response: 'Assistant response' })
+
+        post "/api/v1/accounts/#{account.id}/captain/assistants/#{assistant.id}/playground",
+             params: params_with_latest_message,
+             headers: agent.create_new_auth_token,
+             as: :json
+
+        expect(response).to have_http_status(:success)
+        expect(agent_runner_service).to have_received(:generate_response).with(
+          message_history: params_with_latest_message[:message_history]
         )
       end
     end

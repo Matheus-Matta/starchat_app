@@ -65,6 +65,12 @@ Style/SymbolArray:
 Style/OpenStructUse:
   Enabled: false
 
+Chatwoot/AttachmentDownload:
+  Enabled: true
+  Exclude:
+    - 'spec/**/*'
+    - 'test/**/*'
+
 Style/OptionalBooleanParameter:
   Exclude:
     - 'app/services/email_templates/db_resolver_service.rb'
@@ -193,6 +199,9 @@ RSpec/MultipleExpectations:
 
 RSpec/MultipleMemoizedHelpers:
   Max: 20
+
+Style/OneClassPerFile:
+  Enabled: true
 
 AllCops:
   NewCops: enable

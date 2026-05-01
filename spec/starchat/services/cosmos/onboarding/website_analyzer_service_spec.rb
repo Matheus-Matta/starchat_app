@@ -14,30 +14,15 @@ RSpec.describe Cosmos::Onboarding::WebsiteAnalyzerService do
   end
 
   describe '#analyze' do
-    context 'when website content is available and OpenAI call is successful' do
-      let(:openai_response) do
-        {
-          'choices' => [{
-            'message' => {
-              'content' => {
-                'business_name' => 'Example Corp',
-                'suggested_assistant_name' => 'Alex from Example Corp',
-                'description' => 'You specialize in helping customers with business solutions and support'
-              }.to_json
-            }
-          }]
-        }
-      end
-
+    context 'when website content is available and LLM call is successful' do
       before do
         allow(mock_crawler).to receive(:body_text_content).and_return('Welcome to Example Corp')
         allow(mock_crawler).to receive(:page_title).and_return('Example Corp - Home')
         allow(mock_crawler).to receive(:meta_description).and_return('Leading provider of business solutions')
         allow(mock_crawler).to receive(:favicon_url).and_return('https://example.com/favicon.ico')
-        allow(mock_client).to receive(:chat).and_return(openai_response)
       end
 
-      it 'returns success' do
+      it 'returns successful analysis with extracted business info' do
         result = service.analyze
 
         expect(result[:success]).to be true
@@ -49,14 +34,19 @@ RSpec.describe Cosmos::Onboarding::WebsiteAnalyzerService do
           favicon_url: 'https://example.com/favicon.ico'
         )
       end
+
+      it 'uses low temperature for deterministic analysis' do
+        expect(mock_chat).to receive(:with_temperature).with(0.1).and_return(mock_chat)
+        service.analyze
+      end
     end
 
-    context 'when website content is errored' do
+    context 'when website content fetch raises an error' do
       before do
         allow(mock_crawler).to receive(:body_text_content).and_raise(StandardError, 'Network error')
       end
 
-      it 'returns error' do
+      it 'returns error response' do
         result = service.analyze
 
         expect(result[:success]).to be false
@@ -64,14 +54,14 @@ RSpec.describe Cosmos::Onboarding::WebsiteAnalyzerService do
       end
     end
 
-    context 'when website content is unavailable' do
+    context 'when website content is empty' do
       before do
         allow(mock_crawler).to receive(:body_text_content).and_return('')
         allow(mock_crawler).to receive(:page_title).and_return('')
         allow(mock_crawler).to receive(:meta_description).and_return('')
       end
 
-      it 'returns error' do
+      it 'returns error for unavailable content' do
         result = service.analyze
 
         expect(result[:success]).to be false
@@ -79,20 +69,56 @@ RSpec.describe Cosmos::Onboarding::WebsiteAnalyzerService do
       end
     end
 
-    context 'when OpenAI error' do
+    context 'when LLM call fails' do
       before do
         allow(mock_crawler).to receive(:body_text_content).and_return('Welcome to Example Corp')
         allow(mock_crawler).to receive(:page_title).and_return('Example Corp - Home')
         allow(mock_crawler).to receive(:meta_description).and_return('Leading provider of business solutions')
         allow(mock_crawler).to receive(:favicon_url).and_return('https://example.com/favicon.ico')
-        allow(mock_client).to receive(:chat).and_raise(StandardError, 'API error')
+        allow(mock_chat).to receive(:ask).and_raise(StandardError, 'API error')
       end
 
-      it 'returns error' do
+      it 'returns error response with message' do
         result = service.analyze
 
         expect(result[:success]).to be false
         expect(result[:error]).to eq('API error')
+      end
+    end
+
+    context 'when LLM returns invalid JSON' do
+      let(:invalid_response) { instance_double(RubyLLM::Message, content: 'not valid json') }
+
+      before do
+        allow(mock_crawler).to receive(:body_text_content).and_return('Welcome to Example Corp')
+        allow(mock_crawler).to receive(:page_title).and_return('Example Corp - Home')
+        allow(mock_crawler).to receive(:meta_description).and_return('Leading provider of business solutions')
+        allow(mock_crawler).to receive(:favicon_url).and_return('https://example.com/favicon.ico')
+        allow(mock_chat).to receive(:ask).and_return(invalid_response)
+      end
+
+      it 'returns error for parsing failure' do
+        result = service.analyze
+
+        expect(result[:success]).to be false
+        expect(result[:error]).to eq('Failed to parse business information from website')
+      end
+    end
+
+    context 'when URL normalization is needed' do
+      let(:website_url) { 'example.com' }
+
+      before do
+        allow(mock_crawler).to receive(:body_text_content).and_return('Welcome')
+        allow(mock_crawler).to receive(:page_title).and_return('Example')
+        allow(mock_crawler).to receive(:meta_description).and_return('Description')
+        allow(mock_crawler).to receive(:favicon_url).and_return(nil)
+      end
+
+      it 'normalizes URL by adding https prefix' do
+        result = service.analyze
+
+        expect(result[:data][:website_url]).to eq('https://example.com')
       end
     end
   end

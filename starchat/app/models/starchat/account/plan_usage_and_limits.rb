@@ -109,6 +109,27 @@ module Starchat::Account::PlanUsageAndLimits
     ChatwootApp.max_limit
   end
 
+  # Atomic jsonb_set to avoid clobbering concurrent writes to other custom_attributes keys.
+  # Goes through Account relation (rather than raw connection) so shard routing is respected.
+  # rubocop:disable Rails/SkipsModelValidations
+  def update_custom_attribute(key, value)
+    Account.where(id: id).update_all([
+                                       "custom_attributes = jsonb_set(COALESCE(custom_attributes, '{}'), ARRAY[:key], :value::jsonb)",
+                                       { key: key, value: value.to_json }
+                                     ])
+    custom_attributes[key] = value
+  end
+
+  def increment_custom_attribute(key)
+    Account.where(id: id).update_all([
+                                       "custom_attributes = jsonb_set(COALESCE(custom_attributes, '{}'), ARRAY[:key], " \
+                                       '(COALESCE((custom_attributes ->> :key)::int, 0) + 1)::text::jsonb)',
+                                       { key: key }
+                                     ])
+    custom_attributes[key] = custom_attributes[key].to_i + 1
+  end
+  # rubocop:enable Rails/SkipsModelValidations
+
   def validate_limit_keys
     errors.add(:limits, ': Invalid data') unless self[:limits].is_a? Hash
     self[:limits] = {} if self[:limits].blank?
