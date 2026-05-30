@@ -239,7 +239,8 @@
       "DARK_MODE": "Dunkel",
       "SYSTEM_MODE": "System",
       "SNOOZE_NOTIFICATION": "Ungelesene Benachrichtigungen"
-    }
+    },
+    "SNOOZE_PLACEHOLDER": "Type a time e.g. tomorrow, 2 hours, next friday, jan 15..."
   },
   "DASHBOARD_APPS": {
     "LOADING_MESSAGE": "Dashboard-App wird geladen..."

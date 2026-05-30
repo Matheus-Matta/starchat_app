@@ -13,7 +13,7 @@
       "UPGRADE_NOW": "Upgrade now",
       "CANCEL_ANYTIME": "You can change or cancel your plan anytime"
     },
-    "ENTERPRISE_PAYWALL": {
+    "STARCHAT_PAYWALL": {
       "AVAILABLE_ON": "The SLA feature is only available in the paid plans.",
       "UPGRADE_PROMPT": "Upgrade to a paid plan to access advanced features like audit logs, agent capacity, and more.",
       "ASK_ADMIN": "Please reach out to your administrator for the upgrade."
@@ -37,6 +37,10 @@
           "NRT": "NRT",
           "RT": "RT"
         }
+      },
+      "TABLE_HEADER": {
+        "SLA": "SLA",
+        "BUSINESS_HOURS": "服務時間"
       }
     },
     "FORM": {
@@ -103,6 +107,16 @@
       "RT": "Resolution time",
       "SHOW_MORE": "{count} more",
       "HIDE": "Hide {count} rows"
+    },
+    "COUNT": "{n} 個 SLA | {n} 個 SLA",
+    "SEARCH_PLACEHOLDER": "搜尋 SLA...",
+    "SEARCH": {
+      "NO_RESULTS": "找不到符合搜尋條件的 SLA"
+    },
+    "ENTERPRISE_PAYWALL": {
+      "AVAILABLE_ON": "SLA 功能僅在付費方案中提供。",
+      "UPGRADE_PROMPT": "升級至付費方案以使用進階功能，如稽核紀錄、客服人員容量等。",
+      "ASK_ADMIN": "請聯繫您的管理員進行升級。"
     }
   }
 }

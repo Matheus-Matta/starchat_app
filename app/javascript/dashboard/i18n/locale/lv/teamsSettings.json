@@ -116,6 +116,9 @@
         "LABEL": "Atļaut automātiskai piešķirt šai komandai."
       },
       "SUBMIT_CREATE": "Izveidot komandu"
-    }
+    },
+    "COUNT": "{n} team | {n} teams",
+    "SEARCH_PLACEHOLDER": "Meklēt komandas...",
+    "NO_RESULTS": "No teams found matching your search"
   }
 }

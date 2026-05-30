@@ -68,7 +68,8 @@
         "API_SUCCESS": "Signature saved successfully",
         "IMAGE_UPLOAD_ERROR": "Couldn't upload image! Try again",
         "IMAGE_UPLOAD_SUCCESS": "Image added successfully. Please click on save to save the signature",
-        "IMAGE_UPLOAD_SIZE_ERROR": "Image size should be less than {size}MB"
+        "IMAGE_UPLOAD_SIZE_ERROR": "Image size should be less than {size}MB",
+        "INLINE_IMAGE_WARNING": "Pasted inline images were removed. Please use the image upload button to add images to your signature."
       },
       "MESSAGE_SIGNATURE": {
         "LABEL": "Message Signature",
@@ -219,6 +220,11 @@
         "LABEL": "Confirm new password",
         "ERROR": "Confirm password should match the password",
         "PLACEHOLDER": "Please re-enter your new password"
+      },
+      "SECURITY_SECTION": {
+        "TITLE": "سیکیورٹی",
+        "NOTE": "اپنے اکاؤنٹ کے لیے اضافی سیکیورٹی فیچرز کا انتظام کریں۔.",
+        "MFA_BUTTON": "دوہری تصدیق کا انتظام کریں"
       }
     }
   },
@@ -234,7 +240,8 @@
     "SUPER_ADMIN_CONSOLE": "SuperAdmin console",
     "DOCS": "Read documentation",
     "LOGOUT": "Log out",
-    "CHANGELOG": "Changelog"
+    "CHANGELOG": "Changelog",
+    "YEAR_IN_REVIEW": "سال کا جائزہ"
   },
   "APP_GLOBAL": {
     "TRIAL_MESSAGE": "days trial remaining.",
@@ -246,6 +253,12 @@
     "ACCOUNT_SUSPENDED": {
       "TITLE": "Account Suspended",
       "MESSAGE": "Your account is suspended. Please reach out to the support team for more information."
+    },
+    "NO_ACCOUNTS": {
+      "TITLE": "کوئی اکاؤنٹ نہیں ملا",
+      "MESSAGE_CLOUD": "آپ اس وقت کسی بھی اکاؤنٹ کا حصہ نہیں ہیں۔ اگر آپ کو لگتا ہے کہ یہ غلطی ہے، تو براہ کرم ہماری سپورٹ ٹیم سے رابطہ کریں۔.",
+      "MESSAGE_SELF_HOSTED": "آپ اس وقت کسی بھی اکاؤنٹ کا حصہ نہیں ہیں۔ براہ کرم اپنے ایڈمنسٹریٹر سے رابطہ کریں۔.",
+      "LOGOUT": "لاگ آؤٹ"
     }
   },
   "COMPONENTS": {
@@ -261,7 +274,8 @@
     "FILE_BUBBLE": {
       "DOWNLOAD": "Download",
       "UPLOADING": "Uploading...",
-      "INSTAGRAM_STORY_UNAVAILABLE": "This story is no longer available."
+      "INSTAGRAM_STORY_UNAVAILABLE": "This story is no longer available.",
+      "INSTAGRAM_STORY_REPLY": "آپ کی کہانی کا جواب دیا گیا:"
     },
     "LOCATION_BUBBLE": {
       "SEE_ON_MAP": "See on map"
@@ -358,11 +372,21 @@
       "INFO_SHORT": "Automatically mark offline when you aren't using the app."
     },
     "DOCS": "Read docs",
-    "COSMOS": "Cosmos",
-    "COSMOS_ASSISTANTS": "Assistants",
-    "COSMOS_DOCUMENTS": "Documents",
-    "COSMOS_RESPONSES": "FAQs",
-    "AGENT_ASSIGNMENT": "Agent Assignment"
+    "AGENT_ASSIGNMENT": "Agent Assignment",
+    "COMPANIES": "کمپنیاں",
+    "ALL_COMPANIES": "تمام کمپنیاں",
+    "CAPTAIN": "کپتان",
+    "CAPTAIN_ASSISTANTS": "اسسٹنٹس",
+    "CAPTAIN_DOCUMENTS": "دستاویزات",
+    "CAPTAIN_RESPONSES": "اکثر پوچھے جانے والے سوالات",
+    "CAPTAIN_TOOLS": "ٹولز",
+    "CAPTAIN_SCENARIOS": "مناظر",
+    "CAPTAIN_PLAYGROUND": "پلے گراؤنڈ",
+    "CAPTAIN_INBOXES": "ان باکسز",
+    "CAPTAIN_SETTINGS": "ترتیبات",
+    "SECURITY": "سیکیورٹی",
+    "CAPTAIN_AI": "کپتان",
+    "CONVERSATION_WORKFLOW": "گفتگو کا ورک فلو"
   },
   "BILLING_SETTINGS": {
     "TITLE": "Billing",
@@ -385,7 +409,7 @@
       "BUTTON_TXT": "Buy more credits",
       "DOCUMENTS": "Documents",
       "RESPONSES": "Responses",
-      "UPGRADE": "Cosmos is not available on the free plan, upgrade now to get access to assistants, cosmos and more."
+      "UPGRADE": "Cosmos is not available on the free plan, upgrade now to get access to assistants, copilot and more."
     },
     "CHAT_WITH_US": {
       "TITLE": "Need help?",
@@ -393,13 +417,37 @@
       "BUTTON_TXT": "Chat with us"
     },
     "NO_BILLING_USER": "Your billing account is being configured. Please refresh the page and try again.",
-    "COSMOS": {
-      "TITLE": "Cosmos",
-      "DESCRIPTION": "Manage usage and credits for Cosmos AI.",
-      "BUTTON_TXT": "Buy more credits",
-      "DOCUMENTS": "Documents",
+    "CAPTAIN": {
+      "TITLE": "کپتان",
+      "DESCRIPTION": "Captain AI کے استعمال اور کریڈٹس کا انتظام کریں۔.",
+      "BUTTON_TXT": "مزید کریڈٹس خریدیں",
+      "DOCUMENTS": "دستاویزات",
       "RESPONSES": "Responses",
-      "UPGRADE": "Cosmos is not available on the free plan, upgrade now to get access to assistants, copilot and more."
+      "UPGRADE": "Captain مفت پلان پر دستیاب نہیں ہے، اسسٹنٹس، کوپائلٹ اور مزید تک رسائی کے لیے ابھی اپ گریڈ کریں۔.",
+      "REFRESH_CREDITS": "تازہ کریں"
+    },
+    "TOPUP": {
+      "BUY_CREDITS": "مزید کریڈٹس خریدیں",
+      "MODAL_TITLE": "AI کریڈٹس خریدیں",
+      "MODAL_DESCRIPTION": "Captain AI کے لیے اضافی کریڈٹس خریدیں۔.",
+      "CREDITS": "کریڈٹس",
+      "ONE_TIME": "ایک بار",
+      "POPULAR": "سب سے زیادہ مقبول",
+      "NOTE_TITLE": "نوٹ:",
+      "NOTE_DESCRIPTION": "کریڈٹس فوری طور پر شامل کیے جاتے ہیں اور 6 ماہ میں ختم ہو جاتے ہیں۔ کریڈٹس استعمال کرنے کے لیے ایک فعال سبسکرپشن ضروری ہے۔ خریدے گئے کریڈٹس آپ کے ماہانہ پلان کے کریڈٹس کے بعد استعمال ہوتے ہیں۔",
+      "CANCEL": "منسوخ کریں",
+      "PURCHASE": "کریڈٹس خریدیں",
+      "LOADING": "آپشنز لوڈ ہو رہے ہیں...",
+      "FETCH_ERROR": "کریڈٹ آپشنز لوڈ کرنے میں ناکامی۔ براہ کرم دوبارہ کوشش کریں۔.",
+      "PURCHASE_ERROR": "خریداری کے عمل میں ناکامی۔ براہ کرم دوبارہ کوشش کریں۔.",
+      "PURCHASE_SUCCESS": "آپ کے اکاؤنٹ میں کامیابی سے {credits} کریڈٹس شامل کر دیے گئے ہیں",
+      "CONFIRM": {
+        "TITLE": "خریداری کی تصدیق کریں",
+        "DESCRIPTION": "آپ {amount} کے بدلے {credits} کریڈٹس خریدنے والے ہیں۔.",
+        "INSTANT_DEDUCTION_NOTE": "تصدیق کے فوراً بعد آپ کے محفوظ کردہ کارڈ سے چارج کیا جائے گا۔.",
+        "GO_BACK": "واپس جائیں",
+        "CONFIRM_PURCHASE": "خریداری کی تصدیق کریں"
+      }
     }
   },
   "CREATE_ACCOUNT": {
@@ -487,7 +535,8 @@
         "CREATE_BUTTON": "Create policy",
         "API": {
           "SUCCESS_MESSAGE": "Assignment policy created successfully",
-          "ERROR_MESSAGE": "Failed to create assignment policy"
+          "ERROR_MESSAGE": "Failed to create assignment policy",
+          "INBOX_LINKED": "ان باکس کو پالیسی سے منسلک کر دیا گیا ہے"
         }
       },
       "EDIT": {
@@ -514,6 +563,12 @@
             "SUCCESS_MESSAGE": "Inbox removed from policy successfully",
             "ERROR_MESSAGE": "Failed to remove inbox from policy"
           }
+        },
+        "INBOX_LINK_PROMPT": {
+          "TITLE": "پالیسی سے ان باکس کو منسلک کریں",
+          "DESCRIPTION": "کیا آپ اس ان باکس کو اسائنمنٹ پالیسی سے منسلک کرنا چاہتے ہیں؟",
+          "LINK_BUTTON": "ان باکس منسلک کریں",
+          "CANCEL_BUTTON": "چھوڑ دیں"
         }
       },
       "FORM": {
@@ -539,7 +594,9 @@
           },
           "BALANCED": {
             "LABEL": "Balanced",
-            "DESCRIPTION": "Assign conversations based on available capacity."
+            "DESCRIPTION": "Assign conversations based on available capacity.",
+            "PREMIUM_MESSAGE": "متوازن تفویض اور ایجنٹ کی صلاحیت کے انتظام تک رسائی کے لیے اپ گریڈ کریں۔.",
+            "PREMIUM_BADGE": "پریمیم"
           }
         },
         "ASSIGNMENT_PRIORITY": {
@@ -625,6 +682,20 @@
             "SUCCESS_MESSAGE": "Agent removed from policy successfully",
             "ERROR_MESSAGE": "Failed to remove agent from policy"
           }
+        },
+        "INBOX_LIMIT_API": {
+          "ADD": {
+            "SUCCESS_MESSAGE": "ان باکس کی حد کامیابی سے شامل کر دی گئی",
+            "ERROR_MESSAGE": "ان باکس کی حد شامل کرنے میں ناکامی"
+          },
+          "UPDATE": {
+            "SUCCESS_MESSAGE": "ان باکس کی حد کامیابی سے اپ ڈیٹ کر دی گئی",
+            "ERROR_MESSAGE": "ان باکس کی حد اپ ڈیٹ کرنے میں ناکامی"
+          },
+          "DELETE": {
+            "SUCCESS_MESSAGE": "ان باکس کی حد کامیابی سے حذف کر دی گئی",
+            "ERROR_MESSAGE": "ان باکس کی حد حذف کرنے میں ناکامی"
+          }
         }
       },
       "FORM": {
@@ -687,6 +758,178 @@
       "DESCRIPTION": "Are you sure you want to delete this policy? This action cannot be undone.",
       "CONFIRM_BUTTON_LABEL": "Delete",
       "CANCEL_BUTTON_LABEL": "Cancel"
+    }
+  },
+  "CAPTAIN_SETTINGS": {
+    "TITLE": "کپتان کی ترتیبات",
+    "DESCRIPTION": "Captain کے لیے اپنے AI ماڈلز اور فیچرز کو ترتیب دیں۔ Captain کریڈٹ پر مبنی بلنگ پر عمل کرتا ہے، آپ کو منتخب کردہ ماڈل کی بنیاد پر ہر ایکشن کے لیے کریڈٹس چارج کیے جائیں گے۔.",
+    "LOADING": "کپتان کی ترتیب لوڈ ہو رہی ہے...",
+    "LINK_TEXT": "کپتان کریڈٹس کے بارے میں مزید جانیں",
+    "NOT_ENABLED": "آپ کے اکاؤنٹ کے لیے Captain فعال نہیں ہے۔ Captain فیچرز تک رسائی کے لیے اپنا پلان اپ گریڈ کریں۔.",
+    "MODEL_CONFIG": {
+      "TITLE": "ماڈل کی ترتیب",
+      "DESCRIPTION": "مختلف فیچرز کے لیے AI ماڈلز منتخب کریں۔.",
+      "SELECT_MODEL": "ماڈل منتخب کریں",
+      "CREDITS_PER_MESSAGE": "{credits} کریڈٹ/پیغام",
+      "COMING_SOON": "جلد آ رہا ہے",
+      "EDITOR": {
+        "TITLE": "ایڈیٹر فیچرز",
+        "DESCRIPTION": "آپ کے پیغام ایڈیٹر میں اسمارٹ کمپوز، گرامر کی اصلاحات، لہجے کی تبدیلیاں، اور مواد کی بہتری کو طاقت دیتا ہے۔."
+      },
+      "ASSISTANT": {
+        "TITLE": "اسسٹنٹ",
+        "DESCRIPTION": "خودکار جوابات، گفتگو کے خلاصے، اور صارف کے تعاملات کے لیے ذہین جواب کی تجاویز فراہم کرتا ہے۔."
+      },
+      "COPILOT": {
+        "TITLE": "کو-پائلٹ",
+        "DESCRIPTION": "گفتگوؤں کے دوران حقیقی وقت میں سیاق و سباق کی تجاویز، نالج بیس کی سفارشات، اور پیشگی بصیرت فراہم کرتا ہے۔."
+      }
+    },
+    "FEATURES": {
+      "TITLE": "خصوصیات",
+      "DESCRIPTION": "AI سے چلنے والے فیچرز کو فعال یا غیر فعال کریں۔.",
+      "AUDIO_TRANSCRIPTION": {
+        "TITLE": "آڈیو ٹرانسکرپشن",
+        "DESCRIPTION": "وائس میسجز اور کال ریکارڈنگز کو خود بخود قابل تلاش متن میں تبدیل کریں۔."
+      },
+      "HELP_CENTER_SEARCH": {
+        "TITLE": "ہیلپ سینٹر سرچ انڈیکسنگ",
+        "DESCRIPTION": "اپنے ہیلپ سینٹر آرٹیکلز میں سیاق و سباق سے آگاہ تلاش کے لیے AI استعمال کریں۔."
+      },
+      "LABEL_SUGGESTION": {
+        "TITLE": "لیبل کی تجویز",
+        "DESCRIPTION": "مواد کے تجزیے اور سیاق و سباق کی بنیاد پر گفتگوؤں کے لیے متعلقہ لیبلز اور ٹیگز خود بخود تجویز کریں۔.",
+        "MODEL_TITLE": "لیبل تجویز ماڈل",
+        "MODEL_DESCRIPTION": "گفتگوؤں کا تجزیہ کرنے اور مناسب لیبلز تجویز کرنے کے لیے AI ماڈل منتخب کریں"
+      }
+    },
+    "API": {
+      "SUCCESS": "Captain کی ترتیبات کامیابی سے اپ ڈیٹ ہو گئیں۔.",
+      "ERROR": "Captain کی ترتیبات کو اپ ڈیٹ کرنے میں ناکامی۔ براہ کرم دوبارہ کوشش کریں۔."
+    }
+  },
+  "SECURITY_SETTINGS": {
+    "TITLE": "سیکیورٹی",
+    "DESCRIPTION": "اپنے اکاؤنٹ کی سیکیورٹی کی ترتیبات کا انتظام کریں۔.",
+    "LINK_TEXT": "SAML SSO کے بارے میں مزید جانیں",
+    "SAML_DISABLED_MESSAGE": "SAML SSO فی الحال غیر فعال ہے۔ براہ کرم اسے فعال کرنے کے لیے اپنے ایڈمنسٹریٹر سے رابطہ کریں۔.",
+    "SAML": {
+      "TITLE": "SAML SSO",
+      "NOTE": "اپنے اکاؤنٹ کے لیے SAML سنگل سائن آن ترتیب دیں۔ صارفین ای میل/پاس ورڈ کے بجائے آپ کے شناختی فراہم کنندہ کے ذریعے تصدیق کریں گے۔.",
+      "ACS_URL": {
+        "LABEL": "ACS URL",
+        "TOOLTIP": "اسرار کنزیومر سروس URL - اس URL کو اپنے IdP میں SAML جوابات کے لیے منزل کے طور پر ترتیب دیں"
+      },
+      "SSO_URL": {
+        "LABEL": "SSO URL",
+        "HELP": "وہ URL جہاں SAML تصدیقی درخواستیں بھیجی جائیں گی",
+        "PLACEHOLDER": "https://your-idp.com/saml/sso"
+      },
+      "CERTIFICATE": {
+        "LABEL": "PEM فارمیٹ میں دستخطی سرٹیفکیٹ",
+        "HELP": "آپ کے شناختی فراہم کنندہ کا عوامی سرٹیفکیٹ جو SAML جوابات کی تصدیق کے لیے استعمال ہوتا ہے",
+        "PLACEHOLDER": "-----BEGIN CERTIFICATE-----\nMIIC..."
+      },
+      "FINGERPRINT": {
+        "LABEL": "فنگر پرنٹ",
+        "TOOLTIP": "سرٹیفکیٹ کا SHA-1 فنگر پرنٹ - اپنے IdP کی ترتیب میں سرٹیفکیٹ کی تصدیق کے لیے استعمال کریں"
+      },
+      "COPY_SUCCESS": "Code copied to clipboard successfully",
+      "SP_ENTITY_ID": {
+        "LABEL": "SP ادارہ شناخت",
+        "HELP": "اس ایپلیکیشن کے لیے منفرد شناخت کنندہ بطور سروس پرووائیڈر (خودکار طور پر تیار شدہ)۔.",
+        "TOOLTIP": "Chatwoot کے لیے سروس پرووائیڈر کا منفرد شناخت کنندہ - اسے اپنے IdP کی ترتیبات میں ترتیب دیں"
+      },
+      "IDP_ENTITY_ID": {
+        "LABEL": "شناختی فراہم کنندہ کا Entity ID",
+        "HELP": "آپ کے شناختی فراہم کنندہ کا منفرد شناخت کنندہ (عام طور پر IdP کی ترتیب میں ملتا ہے)",
+        "PLACEHOLDER": "https://your-idp.com/saml"
+      },
+      "UPDATE_BUTTON": "SAML کی ترتیبات کو اپ ڈیٹ کریں",
+      "API": {
+        "SUCCESS": "SAML کی ترتیبات کامیابی سے اپ ڈیٹ ہو گئیں",
+        "ERROR": "SAML کی ترتیبات کو اپ ڈیٹ کرنے میں ناکامی",
+        "ERROR_LOADING": "SAML کی ترتیبات لوڈ کرنے میں ناکامی",
+        "DISABLED": "SAML کی ترتیبات کامیابی سے غیر فعال ہو گئیں"
+      },
+      "VALIDATION": {
+        "REQUIRED_FIELDS": "SSO URL، شناختی فراہم کنندہ کا Entity ID، اور سرٹیفکیٹ لازمی فیلڈز ہیں",
+        "SSO_URL_ERROR": "براہ کرم ایک درست SSO URL درج کریں",
+        "CERTIFICATE_ERROR": "سرٹیفکیٹ ضروری ہے",
+        "IDP_ENTITY_ID_ERROR": "شناختی فراہم کنندہ کا Entity ID ضروری ہے"
+      },
+      "ENTERPRISE_PAYWALL": {
+        "AVAILABLE_ON": "SAML SSO فیچر صرف انٹرپرائز پلانز میں دستیاب ہے۔.",
+        "UPGRADE_PROMPT": "SAML سنگل سائن آن اور دیگر جدید سیکیورٹی فیچرز تک رسائی کے لیے انٹرپرائز پلان میں اپ گریڈ کریں۔.",
+        "ASK_ADMIN": "براہ کرم اپ گریڈ کے لیے اپنے ایڈمنسٹریٹر سے رابطہ کریں۔."
+      },
+      "PAYWALL": {
+        "TITLE": "SAML SSO فعال کرنے کے لیے اپ گریڈ کریں",
+        "AVAILABLE_ON": "SAML SSO فیچر صرف انٹرپرائز پلانز میں دستیاب ہے۔.",
+        "UPGRADE_PROMPT": "SAML سنگل سائن آن اور دیگر جدید فیچرز تک رسائی کے لیے اپنا پلان اپ گریڈ کریں۔.",
+        "UPGRADE_NOW": "ابھی اپ گریڈ کریں",
+        "CANCEL_ANYTIME": "آپ کسی بھی وقت اپنا پلان تبدیل یا منسوخ کر سکتے ہیں"
+      },
+      "ATTRIBUTE_MAPPING": {
+        "TITLE": "SAML ایٹریبیوٹ سیٹ اپ",
+        "DESCRIPTION": "مندرجہ ذیل ایٹریبیوٹ میپنگز کو آپ کے شناختی فراہم کنندہ میں ترتیب دینا ضروری ہے"
+      },
+      "INFO_SECTION": {
+        "TITLE": "سروس پرووائیڈر کی معلومات",
+        "TOOLTIP": "ان اقدار کو کاپی کریں اور SAML کنکشن قائم کرنے کے لیے اپنے شناختی فراہم کنندہ میں ترتیب دیں"
+      }
+    }
+  },
+  "CONVERSATION_WORKFLOW": {
+    "INDEX": {
+      "HEADER": {
+        "TITLE": "گفتگو کے ورک فلو",
+        "DESCRIPTION": "گفتگو کے حل کے لیے قواعد اور ضروری فیلڈز ترتیب دیں۔."
+      }
+    },
+    "REQUIRED_ATTRIBUTES": {
+      "TITLE": "حل کے وقت درکار خصوصیات",
+      "DESCRIPTION": "جب گفتگو حل کی جا رہی ہو تو اگر ایجنٹس نے ابھی تک یہ صفات نہیں بھریں تو انہیں پُر کرنے کی ترغیب دی جائے گی۔.",
+      "NO_ATTRIBUTES": "ابھی تک کوئی خصوصیات شامل نہیں کی گئیں",
+      "ADD": {
+        "TITLE": "خصوصیات شامل کریں",
+        "SEARCH_PLACEHOLDER": "خصوصیات تلاش کریں"
+      },
+      "SAVE": {
+        "SUCCESS": "ضروری خصوصیات اپ ڈیٹ ہو گئیں",
+        "ERROR": "ضروری خصوصیات کو اپ ڈیٹ نہیں کیا جا سکا، براہ کرم دوبارہ کوشش کریں"
+      },
+      "MODAL": {
+        "TITLE": "گفتگو کو حل کریں",
+        "DESCRIPTION": "براہ کرم اس گفتگو کو حل کرنے سے پہلے درج ذیل کسٹم خصوصیات بھریں",
+        "ACTIONS": {
+          "RESOLVE": "گفتگو کو حل کریں",
+          "CANCEL": "منسوخ کریں"
+        },
+        "PLACEHOLDERS": {
+          "TEXT": "نوٹ لکھیں...",
+          "NUMBER": "ایک نمبر درج کریں",
+          "LINK": "ایک لنک شامل کریں",
+          "DATE": "تاریخ منتخب کریں",
+          "LIST": "ایک آپشن منتخب کریں"
+        },
+        "CHECKBOX": {
+          "YES": "ہاں",
+          "NO": "نہیں"
+        }
+      },
+      "PAYWALL": {
+        "TITLE": "ضروری خصوصیات استعمال کرنے کے لیے اپ گریڈ کریں",
+        "AVAILABLE_ON": "ضروری گفتگو کی صفات کا فیچر بزنس اور انٹرپرائز پلانز میں دستیاب ہے۔.",
+        "UPGRADE_PROMPT": "گفتگو کے حل سے پہلے ایجنٹس کو ضروری صفات پُر کرنے کی ترغیب دینے کے لیے اپنا پلان اپ گریڈ کریں۔.",
+        "UPGRADE_NOW": "ابھی اپ گریڈ کریں",
+        "CANCEL_ANYTIME": "آپ کسی بھی وقت اپنا پلان تبدیل یا منسوخ کر سکتے ہیں"
+      },
+      "ENTERPRISE_PAYWALL": {
+        "AVAILABLE_ON": "ضروری گفتگو کی صفات کا فیچر ادائیگی شدہ پلانز میں دستیاب ہے۔.",
+        "UPGRADE_PROMPT": "گفتگو کے حل سے پہلے ضروری صفات کو نافذ کرنے کے لیے ادائیگی شدہ پلان میں اپ گریڈ کریں۔.",
+        "ASK_ADMIN": "براہ کرم اپ گریڈ کے لیے اپنے ایڈمنسٹریٹر سے رابطہ کریں۔."
+      }
     }
   }
 }

@@ -68,7 +68,8 @@
         "API_SUCCESS": "החתימה נשמרה בהצלחה",
         "IMAGE_UPLOAD_ERROR": "לא ניתן להעלות את התמונה! נסה שוב",
         "IMAGE_UPLOAD_SUCCESS": "התמונה נוספה בהצלחה. אנא לחץ על שמור כדי לשמור את החתימה",
-        "IMAGE_UPLOAD_SIZE_ERROR": "גודל התמונה צריך להיות פחות מ-{size}MB"
+        "IMAGE_UPLOAD_SIZE_ERROR": "גודל התמונה צריך להיות פחות מ-{size}MB",
+        "INLINE_IMAGE_WARNING": "Pasted inline images were removed. Please use the image upload button to add images to your signature."
       },
       "MESSAGE_SIGNATURE": {
         "LABEL": "חתימת הודעה",
@@ -219,6 +220,11 @@
         "LABEL": "תאשר סיסמא חדשה",
         "ERROR": "אשר את הסיסמה צריכה להתאים לסיסמה",
         "PLACEHOLDER": "אנא הזן מחדש את הסיסמה החדשה שלך"
+      },
+      "SECURITY_SECTION": {
+        "TITLE": "אבטחה",
+        "NOTE": "נהל תכונות אבטחה נוספות עבור חשבונך.",
+        "MFA_BUTTON": "Manage Two-Factor Authentication"
       }
     }
   },
@@ -234,7 +240,8 @@
     "SUPER_ADMIN_CONSOLE": "SuperAdmin console",
     "DOCS": "Read documentation",
     "LOGOUT": "Log out",
-    "CHANGELOG": "Changelog"
+    "CHANGELOG": "Changelog",
+    "YEAR_IN_REVIEW": "Year in Review"
   },
   "APP_GLOBAL": {
     "TRIAL_MESSAGE": "שנותרו ימי ניסיון.",
@@ -246,6 +253,12 @@
     "ACCOUNT_SUSPENDED": {
       "TITLE": "חשבון מושעה",
       "MESSAGE": "החשבון שלך מושעה. אנא פנה לצוות התמיכה לקבלת מידע נוסף."
+    },
+    "NO_ACCOUNTS": {
+      "TITLE": "לא נמצא חשבון",
+      "MESSAGE_CLOUD": "אינך חלק משום חשבון כרגע. אם אתה חושב שזו טעות, אנא פנה לצוות התמיכה שלנו.",
+      "MESSAGE_SELF_HOSTED": "אינך חלק משום חשבון כרגע. אנא פנה למנהל המערכת שלך.",
+      "LOGOUT": "התנתק"
     }
   },
   "COMPONENTS": {
@@ -261,7 +274,8 @@
     "FILE_BUBBLE": {
       "DOWNLOAD": "הורד",
       "UPLOADING": "מעלה...",
-      "INSTAGRAM_STORY_UNAVAILABLE": "הסיפור הזה כבר לא זמין."
+      "INSTAGRAM_STORY_UNAVAILABLE": "הסיפור הזה כבר לא זמין.",
+      "INSTAGRAM_STORY_REPLY": "השיב/ה לסטורי שלך:"
     },
     "LOCATION_BUBBLE": {
       "SEE_ON_MAP": "ראה במפה"
@@ -358,11 +372,21 @@
       "INFO_SHORT": "Automatically mark offline when you aren't using the app."
     },
     "DOCS": "קרא מסמכים",
-    "COSMOS": "Cosmos",
-    "COSMOS_ASSISTANTS": "Assistants",
-    "COSMOS_DOCUMENTS": "Documents",
-    "COSMOS_RESPONSES": "FAQs",
-    "AGENT_ASSIGNMENT": "Agent Assignment"
+    "AGENT_ASSIGNMENT": "Agent Assignment",
+    "COMPANIES": "Companies",
+    "ALL_COMPANIES": "All Companies",
+    "CAPTAIN": "קפטן",
+    "CAPTAIN_ASSISTANTS": "עוזרים",
+    "CAPTAIN_DOCUMENTS": "מסמכים",
+    "CAPTAIN_RESPONSES": "שאלות נפוצות",
+    "CAPTAIN_TOOLS": "כלים",
+    "CAPTAIN_SCENARIOS": "תרחישים",
+    "CAPTAIN_PLAYGROUND": "מגרש משחקים",
+    "CAPTAIN_INBOXES": "תיבות דואר נכנס",
+    "CAPTAIN_SETTINGS": "הגדרות",
+    "SECURITY": "אבטחה",
+    "CAPTAIN_AI": "קפטן",
+    "CONVERSATION_WORKFLOW": "Conversation Workflow"
   },
   "BILLING_SETTINGS": {
     "TITLE": "חיוב",
@@ -385,7 +409,7 @@
       "BUTTON_TXT": "Buy more credits",
       "DOCUMENTS": "Documents",
       "RESPONSES": "Responses",
-      "UPGRADE": "Cosmos is not available on the free plan, upgrade now to get access to assistants, cosmos and more."
+      "UPGRADE": "Cosmos is not available on the free plan, upgrade now to get access to assistants, copilot and more."
     },
     "CHAT_WITH_US": {
       "TITLE": "זקוק לעזרה?",
@@ -393,13 +417,37 @@
       "BUTTON_TXT": "דבר איתנו"
     },
     "NO_BILLING_USER": "חשבון החיוב שלך מוגדר. אנא רענן את הדף ונסה שוב.",
-    "COSMOS": {
-      "TITLE": "Cosmos",
-      "DESCRIPTION": "Manage usage and credits for Cosmos AI.",
-      "BUTTON_TXT": "Buy more credits",
-      "DOCUMENTS": "Documents",
-      "RESPONSES": "Responses",
-      "UPGRADE": "Cosmos is not available on the free plan, upgrade now to get access to assistants, copilot and more."
+    "CAPTAIN": {
+      "TITLE": "קפטן",
+      "DESCRIPTION": "נהל שימוש וזיכויים עבור Captain AI.",
+      "BUTTON_TXT": "קנה עוד זיכויים",
+      "DOCUMENTS": "מסמכים",
+      "RESPONSES": "תגובות",
+      "UPGRADE": "Captain אינו זמין בתוכנית החינמית, שדרג עכשיו כדי לקבל גישה לעוזרים, ל-Copilot ועוד.",
+      "REFRESH_CREDITS": "רענן"
+    },
+    "TOPUP": {
+      "BUY_CREDITS": "קנה עוד זיכויים",
+      "MODAL_TITLE": "Buy AI Credits",
+      "MODAL_DESCRIPTION": "Purchase additional credits for Captain AI.",
+      "CREDITS": "CREDITS",
+      "ONE_TIME": "one-time",
+      "POPULAR": "Most Popular",
+      "NOTE_TITLE": "הערה:",
+      "NOTE_DESCRIPTION": "Credits are added immediately and expire in 6 months. An active subscription is required to use credits. Purchased credits are consumed after your monthly plan credits.",
+      "CANCEL": "ביטול",
+      "PURCHASE": "Purchase Credits",
+      "LOADING": "Loading options...",
+      "FETCH_ERROR": "Failed to load credit options. Please try again.",
+      "PURCHASE_ERROR": "Failed to process purchase. Please try again.",
+      "PURCHASE_SUCCESS": "Successfully added {credits} credits to your account",
+      "CONFIRM": {
+        "TITLE": "Confirm Purchase",
+        "DESCRIPTION": "You are about to purchase {credits} credits for {amount}.",
+        "INSTANT_DEDUCTION_NOTE": "Your saved card will be charged immediately upon confirmation.",
+        "GO_BACK": "חזור",
+        "CONFIRM_PURCHASE": "Confirm Purchase"
+      }
     }
   },
   "CREATE_ACCOUNT": {
@@ -487,7 +535,8 @@
         "CREATE_BUTTON": "Create policy",
         "API": {
           "SUCCESS_MESSAGE": "Assignment policy created successfully",
-          "ERROR_MESSAGE": "Failed to create assignment policy"
+          "ERROR_MESSAGE": "Failed to create assignment policy",
+          "INBOX_LINKED": "Inbox has been linked to the policy"
         }
       },
       "EDIT": {
@@ -514,6 +563,12 @@
             "SUCCESS_MESSAGE": "Inbox removed from policy successfully",
             "ERROR_MESSAGE": "Failed to remove inbox from policy"
           }
+        },
+        "INBOX_LINK_PROMPT": {
+          "TITLE": "Link inbox to policy",
+          "DESCRIPTION": "Would you like to link this inbox to the assignment policy?",
+          "LINK_BUTTON": "Link inbox",
+          "CANCEL_BUTTON": "Skip"
         }
       },
       "FORM": {
@@ -539,7 +594,9 @@
           },
           "BALANCED": {
             "LABEL": "Balanced",
-            "DESCRIPTION": "Assign conversations based on available capacity."
+            "DESCRIPTION": "Assign conversations based on available capacity.",
+            "PREMIUM_MESSAGE": "Upgrade to access balanced assignment and agent capacity management.",
+            "PREMIUM_BADGE": "Premium"
           }
         },
         "ASSIGNMENT_PRIORITY": {
@@ -625,6 +682,20 @@
             "SUCCESS_MESSAGE": "Agent removed from policy successfully",
             "ERROR_MESSAGE": "Failed to remove agent from policy"
           }
+        },
+        "INBOX_LIMIT_API": {
+          "ADD": {
+            "SUCCESS_MESSAGE": "Inbox limit added successfully",
+            "ERROR_MESSAGE": "Failed to add inbox limit"
+          },
+          "UPDATE": {
+            "SUCCESS_MESSAGE": "Inbox limit updated successfully",
+            "ERROR_MESSAGE": "Failed to update inbox limit"
+          },
+          "DELETE": {
+            "SUCCESS_MESSAGE": "Inbox limit deleted successfully",
+            "ERROR_MESSAGE": "Failed to delete inbox limit"
+          }
         }
       },
       "FORM": {
@@ -687,6 +758,178 @@
       "DESCRIPTION": "Are you sure you want to delete this policy? This action cannot be undone.",
       "CONFIRM_BUTTON_LABEL": "מחק",
       "CANCEL_BUTTON_LABEL": "ביטול"
+    }
+  },
+  "CAPTAIN_SETTINGS": {
+    "TITLE": "Captain Settings",
+    "DESCRIPTION": "Configure your AI models and features for Captain. Captain follows a credit based billing, you will be charged credits for every action Captain takes based on the model selected.",
+    "LOADING": "Loading Captain configuration...",
+    "LINK_TEXT": "Learn more about Captain Credits",
+    "NOT_ENABLED": "Captain is not enabled for your account. Please upgrade your plan to access Captain features.",
+    "MODEL_CONFIG": {
+      "TITLE": "Model Configuration",
+      "DESCRIPTION": "Select AI models for different features.",
+      "SELECT_MODEL": "Select model",
+      "CREDITS_PER_MESSAGE": "{credits} credit/message",
+      "COMING_SOON": "Coming soon",
+      "EDITOR": {
+        "TITLE": "Editor Features",
+        "DESCRIPTION": "Powers smart compose, grammar corrections, tone adjustments, and content enhancement in your message editor."
+      },
+      "ASSISTANT": {
+        "TITLE": "עוזר",
+        "DESCRIPTION": "Handles automated responses, conversation summaries, and intelligent reply suggestions for customer interactions."
+      },
+      "COPILOT": {
+        "TITLE": "Co-pilot",
+        "DESCRIPTION": "Provides real-time contextual suggestions, knowledge base recommendations, and proactive insights during conversations."
+      }
+    },
+    "FEATURES": {
+      "TITLE": "מאפיינים",
+      "DESCRIPTION": "Enable or disable AI-powered features.",
+      "AUDIO_TRANSCRIPTION": {
+        "TITLE": "Audio Transcription",
+        "DESCRIPTION": "Automatically convert voice messages and call recordings into searchable text transcripts."
+      },
+      "HELP_CENTER_SEARCH": {
+        "TITLE": "Help Center Search Indexing",
+        "DESCRIPTION": "Use AI for context aware search inside your help center articles."
+      },
+      "LABEL_SUGGESTION": {
+        "TITLE": "Label Suggestion",
+        "DESCRIPTION": "Automatically suggest relevant labels and tags for conversations based on content analysis and context.",
+        "MODEL_TITLE": "Label Suggestion Model",
+        "MODEL_DESCRIPTION": "Select the AI model to use for analyzing conversations and suggesting appropriate labels"
+      }
+    },
+    "API": {
+      "SUCCESS": "Captain settings updated successfully.",
+      "ERROR": "Failed to update Captain settings. Please try again."
+    }
+  },
+  "SECURITY_SETTINGS": {
+    "TITLE": "אבטחה",
+    "DESCRIPTION": "נהל את הגדרות האבטחה של חשבונך.",
+    "LINK_TEXT": "למד עוד על SAML SSO",
+    "SAML_DISABLED_MESSAGE": "SAML SSO is currently disabled. Please contact your administrator to enable this feature.",
+    "SAML": {
+      "TITLE": "SAML SSO",
+      "NOTE": "Configure SAML single sign-on for your account. Users will authenticate through your identity provider instead of using email/password.",
+      "ACS_URL": {
+        "LABEL": "כתובת URL של ACS",
+        "TOOLTIP": "Assertion Consumer Service URL - Configure this URL in your IdP as the destination for SAML responses"
+      },
+      "SSO_URL": {
+        "LABEL": "כתובת URL של SSO",
+        "HELP": "כתובת ה-URL שאליה יישלחו בקשות אימות SAML",
+        "PLACEHOLDER": "https://your-idp.com/saml/sso"
+      },
+      "CERTIFICATE": {
+        "LABEL": "אישור חתימה בפורמט PEM",
+        "HELP": "האישור הציבורי מספק הזהויות שלך המשמש לאימות תגובות SAML",
+        "PLACEHOLDER": "-----BEGIN CERTIFICATE-----\nMIIC..."
+      },
+      "FINGERPRINT": {
+        "LABEL": "טביעת אצבע",
+        "TOOLTIP": "SHA-1 fingerprint of the certificate - Use this to verify the certificate in your IdP configuration"
+      },
+      "COPY_SUCCESS": "הקוד הועתק ללוח בהצלחה",
+      "SP_ENTITY_ID": {
+        "LABEL": "מזהה ישות SP",
+        "HELP": "Unique identifier for this application as a service provider (auto-generated).",
+        "TOOLTIP": "Unique identifier for Chatwoot as the Service Provider - Configure this in your IdP settings"
+      },
+      "IDP_ENTITY_ID": {
+        "LABEL": "מזהה ישות של ספק הזהויות",
+        "HELP": "מזהה ייחודי עבור ספק הזהויות שלך (נמצא בדרך כלל בהגדרות IdP)",
+        "PLACEHOLDER": "https://your-idp.com/saml"
+      },
+      "UPDATE_BUTTON": "עדכן הגדרות SAML",
+      "API": {
+        "SUCCESS": "הגדרות SAML עודכנו בהצלחה",
+        "ERROR": "העדכון של הגדרות SAML נכשל",
+        "ERROR_LOADING": "טעינת הגדרות SAML נכשלה",
+        "DISABLED": "הגדרות SAML הושבתו בהצלחה"
+      },
+      "VALIDATION": {
+        "REQUIRED_FIELDS": "כתובת URL של SSO, מזהה ישות של ספק הזהויות ואישור הם שדות נדרשים",
+        "SSO_URL_ERROR": "אנא הזן כתובת URL חוקית של SSO",
+        "CERTIFICATE_ERROR": "אישור נדרש",
+        "IDP_ENTITY_ID_ERROR": "מזהה ישות של ספק הזהויות נדרש"
+      },
+      "ENTERPRISE_PAYWALL": {
+        "AVAILABLE_ON": "תכונת SAML SSO זמינה רק בתוכניות Enterprise.",
+        "UPGRADE_PROMPT": "Upgrade to an Enterprise plan to access SAML single sign-on and other advanced security features.",
+        "ASK_ADMIN": "אנא פנה למנהל המערכת שלך לצורך השדרוג."
+      },
+      "PAYWALL": {
+        "TITLE": "שדרג כדי להפעיל SAML SSO",
+        "AVAILABLE_ON": "תכונת SAML SSO זמינה רק בתוכניות Enterprise.",
+        "UPGRADE_PROMPT": "Upgrade your plan to get access to SAML single sign-on and other advanced features.",
+        "UPGRADE_NOW": "שדרג עכשיו",
+        "CANCEL_ANYTIME": "תוכל לשנות או לבטל את התוכנית שלך בכל עת"
+      },
+      "ATTRIBUTE_MAPPING": {
+        "TITLE": "הגדרת תכונת SAML",
+        "DESCRIPTION": "יש להגדיר את מיפויי התכונות הבאים בספק הזהויות שלך"
+      },
+      "INFO_SECTION": {
+        "TITLE": "מידע על ספק השירות",
+        "TOOLTIP": "העתק ערכים אלה והגדר אותם בספק הזהויות שלך כדי ליצור את חיבור SAML"
+      }
+    }
+  },
+  "CONVERSATION_WORKFLOW": {
+    "INDEX": {
+      "HEADER": {
+        "TITLE": "Conversation Workflows",
+        "DESCRIPTION": "Configure rules and required fields for conversation resolution."
+      }
+    },
+    "REQUIRED_ATTRIBUTES": {
+      "TITLE": "Attributes required on resolution",
+      "DESCRIPTION": "When resolving a conversation, agents will be prompted to fill these attributes if they haven't yet.",
+      "NO_ATTRIBUTES": "No attributes added yet",
+      "ADD": {
+        "TITLE": "Add Attributes",
+        "SEARCH_PLACEHOLDER": "חפש מאפיין"
+      },
+      "SAVE": {
+        "SUCCESS": "Required attributes updated",
+        "ERROR": "Could not update required attributes, please try again"
+      },
+      "MODAL": {
+        "TITLE": "פתור את השיחה",
+        "DESCRIPTION": "Please fill in the following custom attributes before resolving this conversation",
+        "ACTIONS": {
+          "RESOLVE": "פתור את השיחה",
+          "CANCEL": "ביטול"
+        },
+        "PLACEHOLDERS": {
+          "TEXT": "Write a note...",
+          "NUMBER": "Enter a number",
+          "LINK": "Add a link",
+          "DATE": "Pick a date",
+          "LIST": "בחר אפשרות"
+        },
+        "CHECKBOX": {
+          "YES": "כן",
+          "NO": "לא"
+        }
+      },
+      "PAYWALL": {
+        "TITLE": "Upgrade to use required attributes",
+        "AVAILABLE_ON": "The required conversation attributes feature is available on the Business and Enterprise plans.",
+        "UPGRADE_PROMPT": "Upgrade your plan to prompt agents to fill required attributes before conversation resolution.",
+        "UPGRADE_NOW": "שדרג עכשיו",
+        "CANCEL_ANYTIME": "תוכל לשנות או לבטל את התוכנית שלך בכל עת"
+      },
+      "ENTERPRISE_PAYWALL": {
+        "AVAILABLE_ON": "The required conversation attributes feature is available on the paid plans.",
+        "UPGRADE_PROMPT": "Upgrade to a paid plan to enforce required attributes before conversation resolution.",
+        "ASK_ADMIN": "אנא פנה למנהל המערכת שלך לצורך השדרוג."
+      }
     }
   }
 }

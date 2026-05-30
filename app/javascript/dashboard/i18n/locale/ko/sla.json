@@ -13,7 +13,7 @@
       "UPGRADE_NOW": "Upgrade now",
       "CANCEL_ANYTIME": "You can change or cancel your plan anytime"
     },
-    "ENTERPRISE_PAYWALL": {
+    "STARCHAT_PAYWALL": {
       "AVAILABLE_ON": "The SLA feature is only available in the paid plans.",
       "UPGRADE_PROMPT": "Upgrade to a paid plan to access advanced features like audit logs, agent capacity, and more.",
       "ASK_ADMIN": "Please reach out to your administrator for the upgrade."
@@ -37,6 +37,10 @@
           "NRT": "NRT",
           "RT": "RT"
         }
+      },
+      "TABLE_HEADER": {
+        "SLA": "SLA",
+        "BUSINESS_HOURS": "영업시간"
       }
     },
     "FORM": {
@@ -103,6 +107,16 @@
       "RT": "Resolution time",
       "SHOW_MORE": "{count} more",
       "HIDE": "Hide {count} rows"
+    },
+    "COUNT": "{n}개의 SLA | {n}개의 SLA",
+    "SEARCH_PLACEHOLDER": "SLA 검색...",
+    "SEARCH": {
+      "NO_RESULTS": "검색과 일치하는 SLA가 없습니다"
+    },
+    "ENTERPRISE_PAYWALL": {
+      "AVAILABLE_ON": "SLA 기능은 유료 플랜에서만 사용할 수 있습니다.",
+      "UPGRADE_PROMPT": "감사 로그, 에이전트 용량 등 고급 기능에 접근하려면 유료 플랜으로 업그레이드하십시오.",
+      "ASK_ADMIN": "업그레이드에 대해 관리자에게 문의하십시오."
     }
   }
 }

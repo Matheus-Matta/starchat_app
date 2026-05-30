@@ -3,6 +3,10 @@
 require 'rails_helper'
 
 RSpec.describe Channel::Voice do
+  before do
+    allow_any_instance_of(Twilio::VoiceWebhookSetupService).to receive(:perform).and_return("AP#{SecureRandom.hex(16)}")
+  end
+
   let(:channel) { create(:channel_voice) }
 
   it 'has a valid factory' do
@@ -45,7 +49,8 @@ RSpec.describe Channel::Voice do
         account_sid: 'test_sid',
         auth_token: 'test_token',
         api_key_sid: 'test_key',
-        api_key_secret: 'test_secret'
+        api_key_secret: 'test_secret',
+        twiml_app_sid: 'AP_test_app_sid'
       }
       expect(channel).to be_valid
     end

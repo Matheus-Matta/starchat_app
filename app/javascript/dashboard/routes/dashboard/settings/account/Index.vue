@@ -17,6 +17,7 @@ import AccountDelete from './components/AccountDelete.vue';
 import AudioTranscription from './components/AudioTranscription.vue';
 import SectionLayout from './components/SectionLayout.vue';
 import MessagingPreferences from './components/MessagingPreferences.vue';
+import AutoResolve from './components/AutoResolve.vue';
 
 export default {
   components: {
@@ -30,6 +31,7 @@ export default {
     WithLabel,
     NextInput,
     MessagingPreferences,
+    AutoResolve,
   },
   setup() {
     const { updateUISettings, uiSettings } = useUISettings();
@@ -64,6 +66,12 @@ export default {
       isFeatureEnabledonAccount: 'accounts/isFeatureEnabledonAccount',
       isOnChatwootCloud: 'globalConfig/isOnChatwootCloud',
     }),
+    showAutoResolutionConfig() {
+      return this.isFeatureEnabledonAccount(
+        this.accountId,
+        FEATURE_FLAGS.AUTO_RESOLVE_CONVERSATIONS
+      );
+    },
     showAudioTranscriptionConfig() {
       return this.isFeatureEnabledonAccount(
         this.accountId,

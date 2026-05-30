@@ -291,6 +291,7 @@ class Conversation < ApplicationRecord
   end
 
   def ensure_waiting_since
+    self.created_at ||= Time.current
     self.waiting_since = created_at
   end
 

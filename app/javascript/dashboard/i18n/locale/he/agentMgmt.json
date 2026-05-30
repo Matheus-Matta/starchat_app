@@ -119,6 +119,9 @@
           "INPUT": "חפש נציגים"
         }
       }
-    }
+    },
+    "COUNT": "{n} agent | {n} agents",
+    "SEARCH_PLACEHOLDER": "חפש סוכנים...",
+    "NO_RESULTS": "No agents found matching your search"
   }
 }

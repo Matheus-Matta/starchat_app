@@ -150,8 +150,8 @@
       "EMPTY_MESSAGE": "ไม่มีการแจ้งเตือนที่ยังไม่ได้อ่าน"
     },
     "LIST": {
-      "LOADING_MESSAGE": "กำลังโหลดการแจ้งเตือน",
       "404": "ไม่มีการแจ้งเตือน",
+      "LOADING_MESSAGE": "กำลังโหลดการแจ้งเตือน",
       "TABLE_HEADER": [
         "ชื่อ",
         "หมายเลขโทรศัพท์",
@@ -239,7 +239,8 @@
       "DARK_MODE": "Dark",
       "SYSTEM_MODE": "System",
       "SNOOZE_NOTIFICATION": "Snooze Notification"
-    }
+    },
+    "SNOOZE_PLACEHOLDER": "Type a time e.g. tomorrow, 2 hours, next friday, jan 15..."
   },
   "DASHBOARD_APPS": {
     "LOADING_MESSAGE": "Loading Dashboard App..."

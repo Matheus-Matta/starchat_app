@@ -24,10 +24,17 @@ class Api::V1::Accounts::Cosmos::AssistantsController < Api::V1::Accounts::BaseC
   end
 
   def playground
-    response = Cosmos::Llm::AssistantChatService.new(assistant: @assistant).generate_response(
-      additional_message: playground_params[:message_content],
-      message_history: message_history
-    )
+    response = if Current.account.feature_enabled?('cosmos_integration_v2')
+                 Cosmos::Assistant::AgentRunnerService.new(
+                   assistant: @assistant,
+                   source: 'playground'
+                 ).generate_response(message_history: agent_runner_message_history)
+               else
+                 Cosmos::Llm::AssistantChatService.new(assistant: @assistant).generate_response(
+                   additional_message: playground_params[:message_content],
+                   message_history: message_history
+                 )
+               end
 
     render json: response
   rescue StandardError => e
@@ -63,10 +70,22 @@ class Api::V1::Accounts::Cosmos::AssistantsController < Api::V1::Accounts::BaseC
   end
 
   def playground_params
-    params.require(:assistant).permit(:message_content, message_history: [:role, :content])
+    params.require(:assistant).permit(:message_content, message_history: [:role, :content, :agent_name])
   end
 
   def message_history
-    (playground_params[:message_history] || []).map { |message| { role: message[:role], content: message[:content] } }
+    (playground_params[:message_history] || []).map do |message|
+      msg = { role: message[:role], content: message[:content] }
+      msg[:agent_name] = message[:agent_name] if message[:agent_name].present?
+      msg
+    end
+  end
+
+  def agent_runner_message_history
+    history = message_history
+    user_message = { role: 'user', content: playground_params[:message_content] }
+    return history if history.last == user_message
+
+    history + [user_message]
   end
 end

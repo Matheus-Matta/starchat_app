@@ -116,6 +116,9 @@
         "LABEL": "Allow auto assign for this team."
       },
       "SUBMIT_CREATE": "Vytvoriť tím"
-    }
+    },
+    "COUNT": "{n} team | {n} teams",
+    "SEARCH_PLACEHOLDER": "Hľadať tímy...",
+    "NO_RESULTS": "No teams found matching your search"
   }
 }

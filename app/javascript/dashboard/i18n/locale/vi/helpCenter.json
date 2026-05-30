@@ -157,6 +157,12 @@
             "DELETE_SUCCESS": "Đã xóa cổng thông tin thành công",
             "DELETE_ERROR": "Lỗi khi xóa cổng thông tin"
           }
+        },
+        "SEND_CNAME_INSTRUCTIONS": {
+          "API": {
+            "SUCCESS_MESSAGE": "CNAME instructions sent successfully",
+            "ERROR_MESSAGE": "Error while sending CNAME instructions"
+          }
         }
       },
       "EDIT": {
@@ -310,11 +316,23 @@
           "SUCCESS_MESSAGE": "Ngôn ngữ đã được gỡ bỏ thành công khỏi cổng thông tin",
           "ERROR_MESSAGE": "Không thể gỡ ngôn ngữ khỏi cổng thông tin. Vui lòng thử lại."
         }
+      },
+      "DRAFT_LOCALE": {
+        "API": {
+          "SUCCESS_MESSAGE": "Locale moved to draft successfully",
+          "ERROR_MESSAGE": "Unable to move locale to draft. Try again."
+        }
+      },
+      "PUBLISH_LOCALE": {
+        "API": {
+          "SUCCESS_MESSAGE": "Locale published successfully",
+          "ERROR_MESSAGE": "Unable to publish locale. Try again."
+        }
       }
     },
     "TABLE": {
-      "LOADING_MESSAGE": "Đang tải nội dung...",
       "404": "Không có bài viết nào phù hợp với tìm kiếm của bạn 🔍",
+      "LOADING_MESSAGE": "Đang tải nội dung...",
       "NO_ARTICLES": "Không có bài viết nào có sẵn",
       "HEADERS": {
         "TITLE": "Tiêu đề",
@@ -497,7 +515,8 @@
             "PUBLISH": "Phát hành",
             "DRAFT": "Nháp",
             "ARCHIVE": "Archive",
-            "DELETE": "Xoá"
+            "DELETE": "Xoá",
+            "TRANSLATE": "Translate"
           },
           "STATUS": {
             "DRAFT": "Nháp",
@@ -551,6 +570,41 @@
           "TITLE": "There are no articles in this category",
           "SUBTITLE": "Articles in this category will appear here"
         }
+      },
+      "BULK_TRANSLATE": {
+        "TITLE": "Translate article | Translate {count} articles",
+        "DESCRIPTION": "Translate the selected article to another language. | Translate the selected articles to another language.",
+        "LOCALE_LABEL": "Target language",
+        "LOCALE_PLACEHOLDER": "Select a language",
+        "CATEGORY_LABEL": "Target category",
+        "CATEGORY_PLACEHOLDER": "Select a category",
+        "OPTIONAL": "(optional)",
+        "CONFIRM": "Translate",
+        "SELECT_ALL": "Select all ({count})",
+        "SELECTED_COUNT": "{count} selected",
+        "CLEAR_SELECTION": "Clear selection",
+        "TRANSLATE_BUTTON": "Translate",
+        "CONFIRM_OVERWRITE": "Overwrite and translate",
+        "DUPLICATE_WARNING": "A translation already exists for this article in the selected language. | Translations already exist for {count} articles in the selected language.",
+        "DUPLICATE_CONFIRM_HINT": "Click translate again to overwrite the existing translation.",
+        "API": {
+          "SUCCESS_MESSAGE": "Translation in progress. The article will appear as a draft once ready.",
+          "ERROR_MESSAGE": "Failed to start translation. Please try again."
+        }
+      },
+      "BULK_ACTIONS": {
+        "PUBLISH": "Phát hành",
+        "DRAFT": "Nháp",
+        "ARCHIVE": "Archive",
+        "TRANSLATE": "Translate",
+        "DELETE": "Xoá",
+        "STATUS_SUCCESS": "Articles updated successfully",
+        "STATUS_ERROR": "Failed to update articles",
+        "DELETE_CONFIRM_TITLE": "Delete article | Delete {count} articles",
+        "DELETE_CONFIRM_DESCRIPTION": "This will permanently delete the selected article. This action cannot be undone. | This will permanently delete {count} selected articles. This action cannot be undone.",
+        "DELETE_CONFIRM": "Xoá",
+        "DELETE_SUCCESS": "Articles deleted successfully",
+        "DELETE_ERROR": "Failed to delete articles"
       }
     },
     "CATEGORY_PAGE": {
@@ -630,8 +684,11 @@
         "DEFAULT": "Mặc định",
         "DROPDOWN_MENU": {
           "MAKE_DEFAULT": "Make default",
-          "DELETE": "Xoá"
-        }
+          "DELETE": "Xoá",
+          "MOVE_TO_DRAFT": "Move to draft",
+          "PUBLISH_LOCALE": "Publish locale"
+        },
+        "DRAFT": "Nháp"
       },
       "ADD_LOCALE_DIALOG": {
         "TITLE": "Thêm ngôn ngữ",
@@ -642,6 +699,13 @@
         "API": {
           "SUCCESS_MESSAGE": "Ngôn ngữ được thêm thành công",
           "ERROR_MESSAGE": "Không thể thêm ngôn ngữ. Vui lòng thử lại."
+        },
+        "STATUS": {
+          "LABEL": "Trạng thái",
+          "OPTIONS": {
+            "LIVE": "Đã phát hành",
+            "DRAFT": "Nháp"
+          }
         }
       }
     },
@@ -735,7 +799,8 @@
         "LIVE_CHAT_WIDGET": {
           "LABEL": "Live chat widget",
           "PLACEHOLDER": "Select live chat widget",
-          "HELP_TEXT": "Select a live chat widget that will appear on your help center"
+          "HELP_TEXT": "Select a live chat widget that will appear on your help center",
+          "NONE_OPTION": "No widget"
         },
         "BRAND_COLOR": {
           "LABEL": "Brand color"
@@ -757,13 +822,28 @@
             "EDIT_CONFIRM_BUTTON_LABEL": "Update domain",
             "LABEL": "Tên miền tuỳ chỉnh",
             "PLACEHOLDER": "Tên miền tuỳ biến cổng",
-            "ERROR": "Custom domain is required"
+            "ERROR": "Custom domain is required",
+            "FORMAT_ERROR": "Please enter a valid domain URL e.g. docs.yourdomain.com"
           },
           "DNS_CONFIGURATION_DIALOG": {
             "HEADER": "DNS configuration",
             "DESCRIPTION": "Log in to the account you have with your DNS provider, and add a CNAME record for subdomain pointing to chatwoot.help",
             "HELP_TEXT": "Once this is done, you can reach out to our support to request for the auto-generated SSL certificate.",
-            "CONFIRM_BUTTON_LABEL": "Got it!"
+            "CONFIRM_BUTTON_LABEL": "Got it!",
+            "COPY": "Successfully copied CNAME",
+            "SEND_INSTRUCTIONS": {
+              "HEADER": "Send instructions",
+              "DESCRIPTION": "If you would prefer to have someone from your development team to handle this step, you can enter email address below, and we will send them the required instructions.",
+              "PLACEHOLDER": "Enter their email",
+              "ERROR": "Enter a valid email address",
+              "SEND_BUTTON": "Gửi"
+            }
+          },
+          "STATUS_DESCRIPTION": "Your custom portal will start working as soon as it is verified.",
+          "STATUS": {
+            "LIVE": "Trực tuyến",
+            "PENDING": "Awaiting verification",
+            "ERROR": "Verification failed"
           }
         },
         "DELETE_PORTAL": {
@@ -840,6 +920,16 @@
       "FROM_DOCUMENT": "From document",
       "NO_CONTENT": "No generated content available. Upload a PDF document to get started.",
       "LOADING": "Loading generated content..."
+    },
+    "REORDER_ARTICLE": {
+      "API": {
+        "ERROR_MESSAGE": "Unable to reorder articles. Please try again."
+      }
+    },
+    "REORDER_CATEGORY": {
+      "API": {
+        "ERROR_MESSAGE": "Unable to reorder categories. Please try again."
+      }
     }
   }
 }

@@ -23,7 +23,6 @@ class DashboardController < ActionController::Base
     LOGOUT_REDIRECT_LINK
     DISABLE_USER_PROFILE_UPDATE
     DEPLOYMENT_ENV
-    INSTALLATION_PRICING_PLAN
   ].freeze
 
   before_action :set_application_pack
@@ -87,7 +86,7 @@ class DashboardController < ActionController::Base
   def allowed_login_methods
     methods = ['email']
     methods << 'google_oauth' if GlobalConfigService.load('ENABLE_GOOGLE_OAUTH_LOGIN', 'true').to_s != 'false'
-    methods << 'saml' if ChatwootHub.pricing_plan != 'community' && GlobalConfigService.load('ENABLE_SAML_SSO_LOGIN', 'true').to_s != 'false'
+    methods << 'saml' if GlobalConfigService.load('ENABLE_SAML_SSO_LOGIN', 'true').to_s != 'false'
     methods
   end
 

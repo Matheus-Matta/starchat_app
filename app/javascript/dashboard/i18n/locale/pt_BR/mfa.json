@@ -58,7 +58,11 @@
       "CONFIRM": "Disable 2FA",
       "CANCEL": "Cancelar",
       "SUCCESS": "Two-factor authentication has been disabled",
-      "ERROR": "Failed to disable MFA. Please check your credentials."
+      "ERROR": "Failed to disable MFA. Please check your credentials.",
+      "BACKUP_CODE": "Código de Recuperação",
+      "BACKUP_CODE_PLACEHOLDER": "Insira um dos seus códigos de recuperação",
+      "USE_BACKUP_CODE": "Perdeu o acesso ao seu autenticador? Use um código de recuperação em vez disso",
+      "USE_OTP_CODE": "Use um código de verificação do seu aplicativo de autenticação"
     },
     "REGENERATE": {
       "TITLE": "Regenerate Backup Codes",

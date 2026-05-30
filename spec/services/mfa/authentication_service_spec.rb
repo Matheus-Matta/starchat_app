@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Mfa::AuthenticationService do
+describe MFA::AuthenticationService do
   before do
     skip('Skipping since MFA is not configured in this environment') unless Chatwoot.encryption_configured?
     user.enable_two_factor!

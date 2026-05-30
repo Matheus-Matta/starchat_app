@@ -150,8 +150,8 @@
       "EMPTY_MESSAGE": "你沒有未讀取的通知"
     },
     "LIST": {
-      "LOADING_MESSAGE": "載入更多通知...",
       "404": "沒有通知",
+      "LOADING_MESSAGE": "載入更多通知...",
       "TABLE_HEADER": [
         "姓名",
         "聯絡人電話",
@@ -239,7 +239,8 @@
       "DARK_MODE": "Dark",
       "SYSTEM_MODE": "System",
       "SNOOZE_NOTIFICATION": "Snooze Notification"
-    }
+    },
+    "SNOOZE_PLACEHOLDER": "輸入時間，例如：明天、2 小時後、下週五、1月15日..."
   },
   "DASHBOARD_APPS": {
     "LOADING_MESSAGE": "Loading Dashboard App..."

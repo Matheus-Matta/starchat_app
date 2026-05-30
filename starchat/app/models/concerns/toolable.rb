@@ -2,10 +2,10 @@ module Concerns::Toolable
   extend ActiveSupport::Concern
 
   # Isolated namespace for user-defined custom tool classes.
-  # Keeps them separate from built-in classes in Captain::Tools (e.g., HttpTool, CustomHttpTool).
+  # Keeps them separate from built-in classes in Cosmos::Tools (e.g., HttpTool, CustomHttpTool).
   module CustomTools; end
 
-  def tool(assistant, base_class: Captain::Tools::HttpTool, **)
+  def tool(assistant, base_class: Cosmos::Tools::HttpTool, **)
     custom_tool_record = self
     class_name = custom_tool_record.slug.underscore.camelize
 
@@ -14,7 +14,7 @@ module Concerns::Toolable
       description custom_tool_record.description
 
       # Override name to use the slug directly, avoiding the namespace prefix
-      # that RubyLLM's default normalization would produce (e.g., "captain--tools--custom_dog_facts").
+      # that RubyLLM's default normalization would produce (e.g., "cosmos--tools--custom_dog_facts").
       define_method(:name) { tool_slug }
 
       custom_tool_record.param_schema.each do |param_def|

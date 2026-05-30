@@ -13,7 +13,8 @@
       "TABLE_HEADER": {
         "NAME": "Név",
         "DESCRIPTION": "Leírás",
-        "COLOR": "Szín"
+        "COLOR": "Szín",
+        "ACTION": "Műveletek"
       }
     },
     "FORM": {
@@ -80,6 +81,9 @@
         "YES": "Igen, Törlés ",
         "NO": "Nem, Mégse "
       }
-    }
+    },
+    "COUNT": "{n} label | {n} labels",
+    "SEARCH_PLACEHOLDER": "Címkék keresése...",
+    "NO_RESULTS": "No labels found matching your search"
   }
 }

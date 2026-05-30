@@ -17,7 +17,7 @@ json.config do
   end
 end
 
-if portal.channel_web_widget
+if portal.channel_web_widget&.inbox
   json.inbox do
     json.partial! 'api/v1/models/inbox', formats: [:json], resource: portal.channel_web_widget.inbox
   end

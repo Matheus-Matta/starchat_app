@@ -116,6 +116,9 @@
         "LABEL": "السماح بالتكليف التلقائي لهذا الفريق."
       },
       "SUBMIT_CREATE": "إنشاء فريق جديد"
-    }
+    },
+    "COUNT": "{n} team | {n} teams",
+    "SEARCH_PLACEHOLDER": "البحث عن فريق...",
+    "NO_RESULTS": "No teams found matching your search"
   }
 }

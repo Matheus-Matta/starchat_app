@@ -10,7 +10,7 @@
 
 class Seeders::AccountSeeder
   def initialize(account:)
-    raise 'Account Seeding is not allowed.' unless ENV.fetch('ENABLE_ACCOUNT_SEEDING', !Rails.env.production?)
+    raise 'Account Seeding is not allowed.' unless account_seeding_allowed?
 
     @account_data = ActiveSupport::HashWithIndifferentAccess.new(YAML.safe_load(Rails.root.join('lib/seeders/seed_data.yml').read))
     @account = account
@@ -69,6 +69,12 @@ class Seeders::AccountSeeder
   end
 
   private
+
+  def account_seeding_allowed?
+    return false if Rails.env.production?
+
+    ActiveModel::Type::Boolean.new.cast(ENV.fetch('ENABLE_ACCOUNT_SEEDING', true))
+  end
 
   def create_user_record(user)
     user_record = User.create_with(name: user['name'], password: 'Password1!.').find_or_create_by!(email: user['email'].to_s)

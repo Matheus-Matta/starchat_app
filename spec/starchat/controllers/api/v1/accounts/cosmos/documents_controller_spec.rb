@@ -1,17 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe 'Api::V1::Accounts::Cosmos::Documents', type: :request do
-  let(:account) { create(:account, custom_attributes: { plan_name: 'startups' }) }
+  let(:account) { create(:account) }
   let(:admin) { create(:user, account: account, role: :administrator) }
   let(:agent) { create(:user, account: account, role: :agent) }
   let(:assistant) { create(:cosmos_assistant, account: account) }
   let(:assistant2) { create(:cosmos_assistant, account: account) }
   let(:document) { create(:cosmos_document, assistant: assistant, account: account) }
-  let(:cosmos_limits) do
-    {
-      :startups => { :documents => 1, :responses => 100 }
-    }.with_indifferent_access
-  end
 
   def json_response
     JSON.parse(response.body, symbolize_names: true)
@@ -222,7 +217,7 @@ RSpec.describe 'Api::V1::Accounts::Cosmos::Documents', type: :request do
         before do
           create_list(:cosmos_document, 5, assistant: assistant, account: account)
 
-          create(:installation_config, name: 'cosmos_CLOUD_PLAN_LIMITS', value: cosmos_limits.to_json)
+          account.update!(limits: { cosmos_documents: 5 })
           post "/api/v1/accounts/#{account.id}/cosmos/documents",
                params: valid_attributes,
                headers: admin.create_new_auth_token

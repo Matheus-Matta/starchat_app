@@ -40,13 +40,14 @@
       }
     },
     "LIST": {
+      "404": "לא נמצאו אוטומציות",
       "TABLE_HEADER": {
         "NAME": "שם",
         "DESCRIPTION": "תיאור",
         "ACTIVE": "פעיל",
-        "CREATED_ON": "נוצר ב"
-      },
-      "404": "לא נמצאו אוטומציות"
+        "CREATED_ON": "נוצר ב",
+        "ACTIONS": "פעולות"
+      }
     },
     "DELETE": {
       "TITLE": "מחק אוטומציה",
@@ -131,7 +132,8 @@
       "CONVERSATION_CREATED": "השיחה נוצרה",
       "CONVERSATION_UPDATED": "השיחה עודכנה",
       "MESSAGE_CREATED": "Message Created",
-      "CONVERSATION_OPENED": "השיחה נפתחה"
+      "CONVERSATION_OPENED": "השיחה נפתחה",
+      "CONVERSATION_RESOLVED": "שיחה נפתרה"
     },
     "ACTIONS": {
       "ASSIGN_AGENT": "Assign to Agent",
@@ -149,7 +151,10 @@
       "ADD_PRIVATE_NOTE": "Add a Private Note",
       "CHANGE_PRIORITY": "Change Priority",
       "ADD_SLA": "Add SLA",
-      "OPEN_CONVERSATION": "שיחה פתוחה"
+      "OPEN_CONVERSATION": "שיחה פתוחה",
+      "REMOVE_ASSIGNED_AGENT": "Remove Assigned Agent",
+      "REMOVE_ASSIGNED_TEAM": "הסר צוות שהוקצה",
+      "PENDING_CONVERSATION": "Mark conversation as pending"
     },
     "MESSAGE_TYPES": {
       "INCOMING": "Incoming Message",
@@ -176,7 +181,14 @@
       "REFERER_LINK": "Referrer Link",
       "ASSIGNEE_NAME": "Assignee",
       "TEAM_NAME": "צוות",
-      "PRIORITY": "Priority"
-    }
+      "PRIORITY": "Priority",
+      "PRIVATE_NOTE": "הערה פרטית",
+      "COMPANY_NAME": "חברה",
+      "LABELS": "תוויות"
+    },
+    "COUNT": "{n} automation | {n} automations",
+    "SEARCH_PLACEHOLDER": "Search automation rules...",
+    "NO_RESULTS": "No automation rules found matching your search",
+    "LAST_RESPONDING_AGENT": "Last Responding Agent"
   }
 }

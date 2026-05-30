@@ -40,13 +40,14 @@
       }
     },
     "LIST": {
+      "404": "Правила автоматизации не найдены",
       "TABLE_HEADER": {
         "NAME": "Имя",
         "DESCRIPTION": "Описание",
         "ACTIVE": "Активно",
-        "CREATED_ON": "Создано"
-      },
-      "404": "Правила автоматизации не найдены"
+        "CREATED_ON": "Создано",
+        "ACTIONS": "Действия"
+      }
     },
     "DELETE": {
       "TITLE": "Удалить правило автоматизации",
@@ -131,7 +132,8 @@
       "CONVERSATION_CREATED": "Диалог создан",
       "CONVERSATION_UPDATED": "Диалог обновлён",
       "MESSAGE_CREATED": "Сообщение создано",
-      "CONVERSATION_OPENED": "Conversation Opened"
+      "CONVERSATION_OPENED": "Conversation Opened",
+      "CONVERSATION_RESOLVED": "Диалог завершён"
     },
     "ACTIONS": {
       "ASSIGN_AGENT": "Назначить агента",
@@ -149,7 +151,10 @@
       "ADD_PRIVATE_NOTE": "Add a Private Note",
       "CHANGE_PRIORITY": "Изменить приоритет",
       "ADD_SLA": "Добавить SLA",
-      "OPEN_CONVERSATION": "Открыть беседу"
+      "OPEN_CONVERSATION": "Открыть беседу",
+      "REMOVE_ASSIGNED_AGENT": "Remove Assigned Agent",
+      "REMOVE_ASSIGNED_TEAM": "Удалить назначенную команду",
+      "PENDING_CONVERSATION": "Пометить разговор как ожидающий"
     },
     "MESSAGE_TYPES": {
       "INCOMING": "Incoming Message",
@@ -176,7 +181,14 @@
       "REFERER_LINK": "Referrer Link",
       "ASSIGNEE_NAME": "Назначено",
       "TEAM_NAME": "Команда",
-      "PRIORITY": "Приоритет"
-    }
+      "PRIORITY": "Приоритет",
+      "PRIVATE_NOTE": "Личная заметка",
+      "COMPANY_NAME": "Компания",
+      "LABELS": "Метки"
+    },
+    "COUNT": "{n} автоматизация | {n} автоматизаций",
+    "SEARCH_PLACEHOLDER": "Поиск правил автоматизации...",
+    "NO_RESULTS": "Не найдено правил автоматизации, соответствующих вашему запросу",
+    "LAST_RESPONDING_AGENT": "Last Responding Agent"
   }
 }

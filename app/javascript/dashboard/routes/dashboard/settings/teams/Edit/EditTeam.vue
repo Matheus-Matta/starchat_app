@@ -3,7 +3,6 @@ import { mapGetters } from 'vuex';
 import { useAlert } from 'dashboard/composables';
 
 import TeamForm from '../TeamForm.vue';
-import router from '../../../../index';
 import PageHeader from '../../SettingsSubPageHeader.vue';
 import Spinner from 'shared/components/Spinner.vue';
 
@@ -41,7 +40,7 @@ export default {
           ...data,
         });
 
-        router.replace({
+        this.$router.replace({
           name: 'settings_teams_edit_members',
           params: {
             page: 'edit',

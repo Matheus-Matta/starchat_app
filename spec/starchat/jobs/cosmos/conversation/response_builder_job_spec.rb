@@ -7,7 +7,7 @@ RSpec.describe Cosmos::Conversation::ResponseBuilderJob, type: :job do
   let(:cosmos_inbox_association) { create(:cosmos_inbox, cosmos_assistant: assistant, inbox: inbox) }
 
   describe '#perform' do
-    let(:conversation) { create(:conversation, inbox: inbox, account: account) }
+    let(:conversation) { create(:conversation, inbox: inbox, account: account, status: :pending) }
     let(:mock_llm_chat_service) { instance_double(Cosmos::Llm::AssistantChatService) }
     let(:mock_agent_runner_service) { instance_double(Cosmos::Assistant::AgentRunnerService) }
 
@@ -32,20 +32,20 @@ RSpec.describe Cosmos::Conversation::ResponseBuilderJob, type: :job do
         expect(Cosmos::Assistant::AgentRunnerService).not_to receive(:new)
 
         described_class.perform_now(conversation, assistant)
-        expect(conversation.messages.last.content).to eq('Hey, welcome to Cosmos Specs')
+        expect(conversation.messages.last.content).to eq('Hey, welcome to cosmos Specs')
       end
 
       it 'generates and processes response' do
         described_class.perform_now(conversation, assistant)
         expect(conversation.messages.count).to eq(2)
         expect(conversation.messages.outgoing.count).to eq(1)
-        expect(conversation.messages.last.content).to eq('Hey, welcome to Cosmos Specs')
+        expect(conversation.messages.last.content).to eq('Hey, welcome to cosmos Specs')
       end
 
       it 'increments usage response' do
         described_class.perform_now(conversation, assistant)
         account.reload
-        expect(account.usage_limits[:Cosmos][:responses][:consumed]).to eq(1)
+        expect(account.usage_limits[:cosmos][:responses][:consumed]).to eq(1)
       end
 
       context 'when message contains an image' do
@@ -75,7 +75,7 @@ RSpec.describe Cosmos::Conversation::ResponseBuilderJob, type: :job do
     end
 
     describe 'retry mechanisms for image processing' do
-      let(:conversation) { create(:conversation, inbox: inbox, account: account) }
+      let(:conversation) { create(:conversation, inbox: inbox, account: account, status: :pending) }
       let(:mock_llm_chat_service) { instance_double(Cosmos::Llm::AssistantChatService) }
       let(:mock_message_builder) { instance_double(Cosmos::OpenAiMessageBuilderService) }
 

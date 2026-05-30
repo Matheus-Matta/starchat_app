@@ -13,7 +13,12 @@
       "LAST_3_MONTHS": "Last 3 months",
       "LAST_6_MONTHS": "Last 6 months",
       "LAST_YEAR": "Last year",
-      "CUSTOM_RANGE": "Custom date range"
-    }
+      "CUSTOM_RANGE": "Custom date range",
+      "THIS_WEEK": "이번 주",
+      "MONTH_TO_DATE": "이번 달"
+    },
+    "PREVIOUS_PERIOD": "이전 기간",
+    "NEXT_PERIOD": "다음 기간",
+    "WEEK_NUMBER": "{weekNumber}주차"
   }
 }

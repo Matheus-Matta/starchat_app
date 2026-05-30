@@ -13,7 +13,7 @@
       "UPGRADE_NOW": "Оновити зараз",
       "CANCEL_ANYTIME": "Ви можете змінити або скасувати план у будь-який час"
     },
-    "ENTERPRISE_PAYWALL": {
+    "STARCHAT_PAYWALL": {
       "AVAILABLE_ON": "Функція SLA доступна тільки в платних планах.",
       "UPGRADE_PROMPT": "Оновіться до платного плану для доступу до додаткових функцій, таких як аудиторські журнали, здатність агентів, тощо.",
       "ASK_ADMIN": "Будь ласка, зверніться до адміністратора для оновлення."
@@ -37,6 +37,10 @@
           "NRT": "NRT",
           "RT": "RT"
         }
+      },
+      "TABLE_HEADER": {
+        "SLA": "SLA",
+        "BUSINESS_HOURS": "Business hours"
       }
     },
     "FORM": {
@@ -103,6 +107,16 @@
       "RT": "Час вирішення",
       "SHOW_MORE": "{count} більше",
       "HIDE": "Приховати рядки {count}"
+    },
+    "COUNT": "{n} SLA | {n} SLAs",
+    "SEARCH_PLACEHOLDER": "Search SLA...",
+    "SEARCH": {
+      "NO_RESULTS": "No SLA found matching your search"
+    },
+    "ENTERPRISE_PAYWALL": {
+      "AVAILABLE_ON": "Функція SLA доступна тільки в платних планах.",
+      "UPGRADE_PROMPT": "Оновіться до платного плану для доступу до додаткових функцій, таких як аудиторські журнали, здатність агентів, тощо.",
+      "ASK_ADMIN": "Будь ласка, зверніться до адміністратора для оновлення."
     }
   }
 }

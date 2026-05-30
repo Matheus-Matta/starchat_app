@@ -68,7 +68,8 @@
         "API_SUCCESS": "Signature saved successfully",
         "IMAGE_UPLOAD_ERROR": "Couldn't upload image! Try again",
         "IMAGE_UPLOAD_SUCCESS": "Image added successfully. Please click on save to save the signature",
-        "IMAGE_UPLOAD_SIZE_ERROR": "Image size should be less than {size}MB"
+        "IMAGE_UPLOAD_SIZE_ERROR": "Image size should be less than {size}MB",
+        "INLINE_IMAGE_WARNING": "Pasted inline images were removed. Please use the image upload button to add images to your signature."
       },
       "MESSAGE_SIGNATURE": {
         "LABEL": "Message Signature",
@@ -239,7 +240,8 @@
     "SUPER_ADMIN_CONSOLE": "SuperAdmin console",
     "DOCS": "Read documentation",
     "CHANGELOG": "Changelog",
-    "LOGOUT": "Log out"
+    "LOGOUT": "Log out",
+    "YEAR_IN_REVIEW": "বছরের পর্যালোচনা"
   },
   "APP_GLOBAL": {
     "TRIAL_MESSAGE": "days trial remaining.",
@@ -272,7 +274,8 @@
     "FILE_BUBBLE": {
       "DOWNLOAD": "Download",
       "UPLOADING": "Uploading...",
-      "INSTAGRAM_STORY_UNAVAILABLE": "This story is no longer available."
+      "INSTAGRAM_STORY_UNAVAILABLE": "This story is no longer available.",
+      "INSTAGRAM_STORY_REPLY": "আপনার স্টোরিতে উত্তর দিয়েছেন:"
     },
     "LOCATION_BUBBLE": {
       "SEE_ON_MAP": "See on map"
@@ -375,7 +378,20 @@
       "INFO_SHORT": "Automatically mark offline when you aren't using the app."
     },
     "DOCS": "Read docs",
-    "SECURITY": "Security"
+    "SECURITY": "Security",
+    "COMPANIES": "কোম্পানি",
+    "ALL_COMPANIES": "সমস্ত কোম্পানি",
+    "CAPTAIN": "ক্যাপ্টেন",
+    "CAPTAIN_ASSISTANTS": "সহকারী",
+    "CAPTAIN_DOCUMENTS": "ডকুমেন্ট",
+    "CAPTAIN_RESPONSES": "প্রশ্নাবলী",
+    "CAPTAIN_TOOLS": "টুলস",
+    "CAPTAIN_SCENARIOS": "পরিস্থিতি",
+    "CAPTAIN_PLAYGROUND": "খেলার মাঠ",
+    "CAPTAIN_INBOXES": "ইনবক্স",
+    "CAPTAIN_SETTINGS": "সেটিংস",
+    "CAPTAIN_AI": "ক্যাপ্টেন",
+    "CONVERSATION_WORKFLOW": "কথোপকথন ওয়ার্কফ্লো"
   },
   "BILLING_SETTINGS": {
     "TITLE": "Billing",
@@ -405,7 +421,39 @@
       "DESCRIPTION": "Do you face any issues in billing? We are here to help.",
       "BUTTON_TXT": "Chat with us"
     },
-    "NO_BILLING_USER": "Your billing account is being configured. Please refresh the page and try again."
+    "NO_BILLING_USER": "Your billing account is being configured. Please refresh the page and try again.",
+    "CAPTAIN": {
+      "TITLE": "ক্যাপ্টেন",
+      "DESCRIPTION": "Captain AI-এর জন্য ব্যবহার এবং ক্রেডিট পরিচালনা করুন।.",
+      "BUTTON_TXT": "আরও ক্রেডিট কিনুন",
+      "DOCUMENTS": "নথিপত্র",
+      "RESPONSES": "Responses",
+      "UPGRADE": "Captain ফ্রি প্ল্যানে উপলব্ধ নয়, সহকারী, কপাইলট এবং আরও অনেক কিছু অ্যাক্সেস পেতে এখনই আপগ্রেড করুন.",
+      "REFRESH_CREDITS": "রিফ্রেশ"
+    },
+    "TOPUP": {
+      "BUY_CREDITS": "আরও ক্রেডিট কিনুন",
+      "MODAL_TITLE": "AI ক্রেডিট কিনুন",
+      "MODAL_DESCRIPTION": "Captain AI-এর জন্য অতিরিক্ত ক্রেডিট কিনুন।.",
+      "CREDITS": "ক্রেডিট",
+      "ONE_TIME": "এককালীন",
+      "POPULAR": "সর্বাধিক জনপ্রিয়",
+      "NOTE_TITLE": "নোট:",
+      "NOTE_DESCRIPTION": "ক্রেডিটগুলি সঙ্গে সঙ্গে যোগ হয় এবং ৬ মাসের মধ্যে মেয়াদোত্তীর্ণ হয়। ক্রেডিট ব্যবহার করতে একটি সক্রিয় সাবস্ক্রিপশন প্রয়োজন। কেনা ক্রেডিটগুলি আপনার মাসিক প্ল্যান ক্রেডিটের পরে ব্যবহার হয়।.",
+      "CANCEL": "বাতিল করুন",
+      "PURCHASE": "ক্রেডিট ক্রয় করুন",
+      "LOADING": "অপশনগুলি লোড হচ্ছে...",
+      "FETCH_ERROR": "ক্রেডিট অপশনগুলি লোড করতে ব্যর্থ হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন।.",
+      "PURCHASE_ERROR": "ক্রয় প্রক্রিয়া করতে ব্যর্থ হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন।.",
+      "PURCHASE_SUCCESS": "আপনার অ্যাকাউন্টে সফলভাবে {credits} ক্রেডিট যোগ করা হয়েছে",
+      "CONFIRM": {
+        "TITLE": "ক্রয় নিশ্চিত করুন",
+        "DESCRIPTION": "আপনি {amount} এর জন্য {credits} ক্রেডিট কিনতে যাচ্ছেন।.",
+        "INSTANT_DEDUCTION_NOTE": "নিশ্চিতকরণের সঙ্গে সঙ্গে আপনার সংরক্ষিত কার্ড থেকে টাকা কেটে নেওয়া হবে।.",
+        "GO_BACK": "ফিরে যান",
+        "CONFIRM_PURCHASE": "ক্রয় নিশ্চিত করুন"
+      }
+    }
   },
   "SECURITY_SETTINGS": {
     "TITLE": "Security",
@@ -456,7 +504,7 @@
         "CERTIFICATE_ERROR": "Certificate is required",
         "IDP_ENTITY_ID_ERROR": "Identity Provider Entity ID is required"
       },
-      "ENTERPRISE_PAYWALL": {
+      "STARCHAT_PAYWALL": {
         "AVAILABLE_ON": "The SAML SSO feature is only available in the Enterprise plans.",
         "UPGRADE_PROMPT": "Upgrade to an Enterprise plan to access SAML single sign-on and other advanced security features.",
         "ASK_ADMIN": "Please reach out to your administrator for the upgrade."
@@ -475,8 +523,14 @@
       "INFO_SECTION": {
         "TITLE": "Service Provider Information",
         "TOOLTIP": "Copy these values and configure them in your Identity Provider to establish the SAML connection"
+      },
+      "ENTERPRISE_PAYWALL": {
+        "AVAILABLE_ON": "SAML SSO ফিচার শুধুমাত্র এন্টারপ্রাইজ প্ল্যানগুলিতে উপলব্ধ।.",
+        "UPGRADE_PROMPT": "SAML সিঙ্গেল সাইন-অন এবং অন্যান্য উন্নত নিরাপত্তা বৈশিষ্ট্যগুলিতে অ্যাক্সেস পেতে একটি এন্টারপ্রাইজ প্ল্যানে আপগ্রেড করুন।.",
+        "ASK_ADMIN": "আপগ্রেডের জন্য অনুগ্রহ করে আপনার প্রশাসকের সাথে যোগাযোগ করুন।."
       }
-    }
+    },
+    "SAML_DISABLED_MESSAGE": "SAML SSO বর্তমানে নিষ্ক্রিয়। এই ফিচারটি সক্রিয় করতে আপনার প্রশাসকের সাথে যোগাযোগ করুন।."
   },
   "CREATE_ACCOUNT": {
     "NO_ACCOUNT_WARNING": "Uh oh! We could not find any Chatwoot accounts. Please create a new account to continue.",
@@ -563,7 +617,8 @@
         "CREATE_BUTTON": "Create policy",
         "API": {
           "SUCCESS_MESSAGE": "Assignment policy created successfully",
-          "ERROR_MESSAGE": "Failed to create assignment policy"
+          "ERROR_MESSAGE": "Failed to create assignment policy",
+          "INBOX_LINKED": "ইনবক্স নীতির সাথে সংযুক্ত হয়েছে"
         }
       },
       "EDIT": {
@@ -590,6 +645,12 @@
             "SUCCESS_MESSAGE": "Inbox removed from policy successfully",
             "ERROR_MESSAGE": "Failed to remove inbox from policy"
           }
+        },
+        "INBOX_LINK_PROMPT": {
+          "TITLE": "নীতির সাথে ইনবক্স সংযুক্ত করুন",
+          "DESCRIPTION": "আপনি কি এই ইনবক্সটি অ্যাসাইনমেন্ট নীতির সাথে সংযুক্ত করতে চান?",
+          "LINK_BUTTON": "ইনবক্স সংযুক্ত করুন",
+          "CANCEL_BUTTON": "এড়িয়ে যান"
         }
       },
       "FORM": {
@@ -615,7 +676,9 @@
           },
           "BALANCED": {
             "LABEL": "Balanced",
-            "DESCRIPTION": "Assign conversations based on available capacity."
+            "DESCRIPTION": "Assign conversations based on available capacity.",
+            "PREMIUM_MESSAGE": "সামঞ্জস্যপূর্ণ অ্যাসাইনমেন্ট এবং এজেন্ট ক্যাপাসিটি ব্যবস্থাপনার জন্য আপগ্রেড করুন.",
+            "PREMIUM_BADGE": "প্রিমিয়াম"
           }
         },
         "ASSIGNMENT_PRIORITY": {
@@ -701,6 +764,20 @@
             "SUCCESS_MESSAGE": "Agent removed from policy successfully",
             "ERROR_MESSAGE": "Failed to remove agent from policy"
           }
+        },
+        "INBOX_LIMIT_API": {
+          "ADD": {
+            "SUCCESS_MESSAGE": "ইনবক্স সীমা সফলভাবে যোগ করা হয়েছে",
+            "ERROR_MESSAGE": "ইনবক্স সীমা যোগ করতে ব্যর্থ হয়েছে"
+          },
+          "UPDATE": {
+            "SUCCESS_MESSAGE": "ইনবক্স সীমা সফলভাবে আপডেট হয়েছে",
+            "ERROR_MESSAGE": "ইনবক্স সীমা আপডেট করতে ব্যর্থ হয়েছে"
+          },
+          "DELETE": {
+            "SUCCESS_MESSAGE": "ইনবক্স সীমা সফলভাবে মুছে ফেলা হয়েছে",
+            "ERROR_MESSAGE": "ইনবক্স সীমা মুছে ফেলতে ব্যর্থ হয়েছে"
+          }
         }
       },
       "FORM": {
@@ -763,6 +840,106 @@
       "DESCRIPTION": "Are you sure you want to delete this policy? This action cannot be undone.",
       "CONFIRM_BUTTON_LABEL": "Delete",
       "CANCEL_BUTTON_LABEL": "Cancel"
+    }
+  },
+  "CAPTAIN_SETTINGS": {
+    "TITLE": "ক্যাপ্টেন সেটিংস",
+    "DESCRIPTION": "ক্যাপ্টেনের জন্য আপনার AI মডেল এবং বৈশিষ্ট্যগুলি কনফিগার করুন। ক্যাপ্টেন একটি ক্রেডিট ভিত্তিক বিলিং অনুসরণ করে, নির্বাচিত মডেলের উপর ভিত্তি করে ক্যাপ্টেন যে প্রতিটি ক্রিয়া গ্রহণ করে তার জন্য আপনাকে ক্রেডিট চার্জ করা হবে।.",
+    "LOADING": "ক্যাপ্টেন কনফিগারেশন লোড হচ্ছে...",
+    "LINK_TEXT": "ক্যাপ্টেন ক্রেডিট সম্পর্কে আরও জানুন",
+    "NOT_ENABLED": "আপনার অ্যাকাউন্টের জন্য ক্যাপ্টেন সক্রিয় নয়। ক্যাপ্টেন ফিচার ব্যবহারের জন্য অনুগ্রহ করে আপনার প্ল্যান আপগ্রেড করুন।.",
+    "MODEL_CONFIG": {
+      "TITLE": "মডেল কনফিগারেশন",
+      "DESCRIPTION": "বিভিন্ন ফিচারের জন্য AI মডেল নির্বাচন করুন।.",
+      "SELECT_MODEL": "মডেল নির্বাচন করুন",
+      "CREDITS_PER_MESSAGE": "{credits} ক্রেডিট/বার্তা",
+      "COMING_SOON": "শীঘ্রই আসছে",
+      "EDITOR": {
+        "TITLE": "সম্পাদক বৈশিষ্ট্য",
+        "DESCRIPTION": "আপনার বার্তা সম্পাদককে স্মার্ট কম্পোজ, ব্যাকরণ সংশোধন, স্বর সমন্বয় এবং বিষয়বস্তু উন্নত করার ক্ষমতা প্রদান করে."
+      },
+      "ASSISTANT": {
+        "TITLE": "সহকারী",
+        "DESCRIPTION": "গ্রাহক সংলাপের জন্য স্বয়ংক্রিয় প্রতিক্রিয়া, কথোপকথনের সারাংশ এবং বুদ্ধিমান উত্তর পরামর্শ পরিচালনা করে."
+      },
+      "COPILOT": {
+        "TITLE": "কো-পাইলট",
+        "DESCRIPTION": "কথোপকথনের সময় রিয়েল-টাইম প্রাসঙ্গিক পরামর্শ, নলেজ বেস সুপারিশ এবং সক্রিয় অন্তর্দৃষ্টি প্রদান করে।."
+      }
+    },
+    "FEATURES": {
+      "TITLE": "বৈশিষ্ট্যসমূহ",
+      "DESCRIPTION": "AI-চালিত বৈশিষ্ট্যগুলি সক্রিয় বা নিষ্ক্রিয় করুন।.",
+      "AUDIO_TRANSCRIPTION": {
+        "TITLE": "অডিও ট্রান্সক্রিপশন",
+        "DESCRIPTION": "স্বয়ংক্রিয়ভাবে ভয়েস মেসেজ এবং কল রেকর্ডিং অনুসন্ধানযোগ্য টেক্সট ট্রান্সক্রিপ্টে রূপান্তর করুন।."
+      },
+      "HELP_CENTER_SEARCH": {
+        "TITLE": "হেল্প সেন্টার সার্চ ইনডেক্সিং",
+        "DESCRIPTION": "আপনার হেল্প সেন্টার আর্টিকেলগুলির মধ্যে প্রসঙ্গ-সচেতন অনুসন্ধানের জন্য AI ব্যবহার করুন।."
+      },
+      "LABEL_SUGGESTION": {
+        "TITLE": "লেবেল পরামর্শ",
+        "DESCRIPTION": "বিষয়বস্তু বিশ্লেষণ এবং প্রসঙ্গের ভিত্তিতে স্বয়ংক্রিয়ভাবে কথোপকথনের জন্য প্রাসঙ্গিক লেবেল এবং ট্যাগ প্রস্তাব করুন।.",
+        "MODEL_TITLE": "লেবেল পরামর্শ মডেল",
+        "MODEL_DESCRIPTION": "কথোপকথন বিশ্লেষণ এবং উপযুক্ত লেবেল প্রস্তাব করার জন্য ব্যবহৃত AI মডেল নির্বাচন করুন"
+      }
+    },
+    "API": {
+      "SUCCESS": "ক্যাপ্টেন সেটিংস সফলভাবে আপডেট হয়েছে।.",
+      "ERROR": "ক্যাপ্টেন সেটিংস আপডেট করতে ব্যর্থ হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন."
+    }
+  },
+  "CONVERSATION_WORKFLOW": {
+    "INDEX": {
+      "HEADER": {
+        "TITLE": "কথোপকথন ওয়ার্কফ্লোসমূহ",
+        "DESCRIPTION": "কথোপকথন সমাধানের জন্য নিয়ম এবং প্রয়োজনীয় ক্ষেত্রগুলি কনফিগার করুন."
+      }
+    },
+    "REQUIRED_ATTRIBUTES": {
+      "TITLE": "সমাধানের জন্য প্রয়োজনীয় বৈশিষ্ট্যসমূহ",
+      "DESCRIPTION": "কথোপকথন সমাধান করার সময়, এজেন্টদের যদি এখনও পূরণ না করে থাকে তবে এই বৈশিষ্ট্যগুলি পূরণ করতে বলা হবে.",
+      "NO_ATTRIBUTES": "এখনও কোনো বৈশিষ্ট্য যোগ করা হয়নি",
+      "ADD": {
+        "TITLE": "বৈশিষ্ট্য যোগ করুন",
+        "SEARCH_PLACEHOLDER": "বৈশিষ্ট্য অনুসন্ধান করুন"
+      },
+      "SAVE": {
+        "SUCCESS": "প্রয়োজনীয় বৈশিষ্ট্যগুলি আপডেট হয়েছে",
+        "ERROR": "প্রয়োজনীয় বৈশিষ্ট্যগুলি আপডেট করা যায়নি, অনুগ্রহ করে আবার চেষ্টা করুন"
+      },
+      "MODAL": {
+        "TITLE": "কথোপকথন সমাধান করুন",
+        "DESCRIPTION": "এই কথোপকথন সমাধান করার আগে অনুগ্রহ করে নিম্নলিখিত কাস্টম বৈশিষ্ট্যগুলি পূরণ করুন",
+        "ACTIONS": {
+          "RESOLVE": "কথোপকথন সমাধান করুন",
+          "CANCEL": "বাতিল করুন"
+        },
+        "PLACEHOLDERS": {
+          "TEXT": "একটি নোট লিখুন...",
+          "NUMBER": "একটি সংখ্যা লিখুন",
+          "LINK": "একটি লিঙ্ক যোগ করুন",
+          "DATE": "একটি তারিখ নির্বাচন করুন",
+          "LIST": "একটি বিকল্প নির্বাচন করুন"
+        },
+        "CHECKBOX": {
+          "YES": "হ্যাঁ",
+          "NO": "না"
+        }
+      },
+      "PAYWALL": {
+        "TITLE": "প্রয়োজনীয় অ্যাট্রিবিউট ব্যবহার করতে আপগ্রেড করুন",
+        "AVAILABLE_ON": "প্রয়োজনীয় কথোপকথন অ্যাট্রিবিউট ফিচারটি বিজনেস এবং এন্টারপ্রাইজ প্ল্যানে উপলব্ধ.",
+        "UPGRADE_PROMPT": "কথোপকথন সমাধানের আগে এজেন্টদের প্রয়োজনীয় অ্যাট্রিবিউট পূরণ করতে প্রম্পট করার জন্য আপনার প্ল্যান আপগ্রেড করুন.",
+        "UPGRADE_NOW": "এখনই আপগ্রেড করুন",
+        "CANCEL_ANYTIME": "আপনি যেকোনো সময় আপনার পরিকল্পনা পরিবর্তন বা বাতিল করতে পারেন"
+      },
+      "ENTERPRISE_PAYWALL": {
+        "AVAILABLE_ON": "প্রয়োজনীয় কথোপকথন বৈশিষ্ট্যগুলি পেইড প্ল্যানে উপলব্ধ.",
+        "UPGRADE_PROMPT": "কথোপকথন সমাধানের আগে প্রয়োজনীয় বৈশিষ্ট্যগুলি কার্যকর করতে একটি পেইড প্ল্যানে আপগ্রেড করুন.",
+        "ASK_ADMIN": "আপগ্রেডের জন্য অনুগ্রহ করে আপনার প্রশাসকের সাথে যোগাযোগ করুন."
+      }
     }
   }
 }

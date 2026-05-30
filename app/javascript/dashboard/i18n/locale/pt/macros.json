@@ -25,13 +25,14 @@
       }
     },
     "LIST": {
+      "404": "Nenhuma macro encontrada",
       "TABLE_HEADER": {
         "NAME": "Nome:",
         "CREATED BY": "Criada por",
         "LAST_UPDATED_BY": "Ultima atualização por",
-        "VISIBILITY": "Visibilidade"
-      },
-      "404": "Nenhuma macro encontrada"
+        "VISIBILITY": "Visibilidade",
+        "ACTIONS": "Ações"
+      }
     },
     "DELETE": {
       "TOOLTIP": "Apagar macro",
@@ -62,7 +63,9 @@
         "LABEL": "Visibilidade da macro",
         "GLOBAL": {
           "LABEL": "Pública",
-          "DESCRIPTION": "Esta macro está disponível publicamente para todos os agentes nesta conta."
+          "DESCRIPTION": "Esta macro está disponível publicamente para todos os agentes nesta conta.",
+          "CREATE_DISABLED_DESCRIPTION": "Only administrators can create public macros.",
+          "EDIT_DISABLED_DESCRIPTION": "Only administrators can edit public macros."
         },
         "PERSONAL": {
           "LABEL": "Privada",
@@ -98,7 +101,8 @@
       "SEND_MESSAGE": "Enviar uma Mensagem",
       "CHANGE_PRIORITY": "Alterar prioridade",
       "ADD_PRIVATE_NOTE": "Adicionar uma Nota Privada",
-      "SEND_WEBHOOK_EVENT": "Enviar evento webhook"
+      "SEND_WEBHOOK_EVENT": "Enviar evento webhook",
+      "REMOVE_ASSIGNED_AGENT": "Remove Assigned Agent"
     },
     "PRIORITY_TYPES": {
       "NONE": "Nenhuma",
@@ -106,6 +110,12 @@
       "MEDIUM": "Média",
       "HIGH": "Elevada",
       "URGENT": "Urgente"
+    },
+    "COUNT": "{n} macro | {n} macros",
+    "SEARCH_PLACEHOLDER": "Search macros...",
+    "NO_RESULTS": "No macros found matching your search",
+    "VIEW": {
+      "TOOLTIP": "View macro"
     }
   }
 }

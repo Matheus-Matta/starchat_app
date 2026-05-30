@@ -576,6 +576,7 @@ Rails.application.routes.draw do
   get 'webhooks/instagram', to: 'webhooks/instagram#verify'
   post 'webhooks/instagram', to: 'webhooks/instagram#events'
   post 'webhooks/evolution/:inbox_id', to: 'webhooks/evolution#process_payload'
+  post 'webhooks/tiktok', to: 'webhooks/tiktok#events'
 
   namespace :twitter do
     resource :callback, only: [:show]
@@ -659,10 +660,28 @@ Rails.application.routes.draw do
     post 'onboarding', to: 'onboarding#create'
   end
 
+  namespace :starchat do
+    namespace :api do
+      namespace :v1 do
+        resources :accounts, only: [] do
+          member do
+            get :limits, to: 'accounts#limits'
+            post :toggle_deletion, to: 'accounts#toggle_deletion'
+          end
+        end
+      end
+    end
+
+    namespace :webhooks do
+      post 'firecrawl', to: 'firecrawl#process_payload'
+    end
+  end
+
   # ---------------------------------------------------------------------
   # Routes for API documentation
   get '/doc/*path', to: 'doc#respond'
   get '/doc', to: 'doc#respond'
+  get '/swagger', to: 'doc#respond'
 
   # ----------------------------------------------------------------------
   # Routes for testing

@@ -13,7 +13,8 @@
       "TABLE_HEADER": {
         "NAME": "نام",
         "DESCRIPTION": "Description",
-        "COLOR": "Color"
+        "COLOR": "Color",
+        "ACTION": "عمل"
       }
     },
     "FORM": {
@@ -80,6 +81,9 @@
         "YES": "ہاں، حذف کریں۔ ",
         "NO": "نہیں ، رہنے دیں "
       }
-    }
+    },
+    "COUNT": "{n} label | {n} labels",
+    "SEARCH_PLACEHOLDER": "Search labels...",
+    "NO_RESULTS": "No labels found matching your search"
   }
 }

@@ -9,7 +9,7 @@ import BasePaywallModal from 'dashboard/routes/dashboard/settings/components/Bas
 defineProps({
   featurePrefix: {
     type: String,
-    default: 'CAPTAIN',
+    default: 'COSMOS',
   },
 });
 
@@ -22,7 +22,7 @@ const isSuperAdmin = computed(() => {
 const { accountId, isOnChatwootCloud } = useAccount();
 
 const i18nKey = computed(() =>
-  isOnChatwootCloud.value ? 'PAYWALL' : 'ENTERPRISE_PAYWALL'
+  isOnChatwootCloud.value ? 'PAYWALL' : 'STARCHAT_PAYWALL'
 );
 const openBilling = () => {
   router.push({

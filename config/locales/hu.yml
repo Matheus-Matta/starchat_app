@@ -699,9 +699,9 @@ hu:
     copilot_message_required: Üzenet kötelező
     copilot_error: 'Please connect an assistant to this inbox to use Copilot'
     copilot_limit: 'You are out of Copilot credits. You can buy more credits from the billing section.'
-    upgrade: 'Frissítse csomagját a Captain AI használatának engedélyezéséhez'
-    disabled: 'A Captain AI le van tiltva ezen a fiókon.'
-    api_key_missing: 'A Captain AI API kulcs nincs konfigurálva.'
+    upgrade: 'Frissítse csomagját a Cosmos AI használatának engedélyezéséhez'
+    disabled: 'A Cosmos AI le van tiltva ezen a fiókon.'
+    api_key_missing: 'A Cosmos AI API kulcs nincs konfigurálva.'
     copilot:
       using_tool: '%{function_name} eszköz használata'
       completed_tool_call: 'Befejezett %{function_name} eszközhívás'

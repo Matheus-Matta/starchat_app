@@ -407,7 +407,8 @@
       "ACTIVE_FILTERS": {
         "MORE_FILTERS": "+ {count} more filters",
         "CLEAR_FILTERS": "Մաքրել զտիչները"
-      }
+      },
+      "COMPANY": "Ընկերություն"
     },
     "CARD": {
       "OF": "of",

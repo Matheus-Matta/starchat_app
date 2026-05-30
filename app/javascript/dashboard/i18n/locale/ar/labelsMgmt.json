@@ -13,7 +13,8 @@
       "TABLE_HEADER": {
         "NAME": "الاسم",
         "DESCRIPTION": "الوصف",
-        "COLOR": "اللون"
+        "COLOR": "اللون",
+        "ACTION": "الإجراءات"
       }
     },
     "FORM": {
@@ -80,6 +81,9 @@
         "YES": "نعم، احذف ",
         "NO": "لا، احتفظ "
       }
-    }
+    },
+    "COUNT": "{n} label | {n} labels",
+    "SEARCH_PLACEHOLDER": "ابحث عن تصنيفات...",
+    "NO_RESULTS": "No labels found matching your search"
   }
 }

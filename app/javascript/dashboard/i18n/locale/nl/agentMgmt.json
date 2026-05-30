@@ -119,6 +119,9 @@
           "INPUT": "Zoeken naar agents"
         }
       }
-    }
+    },
+    "COUNT": "{n} agent | {n} agents",
+    "SEARCH_PLACEHOLDER": "Zoek agenten...",
+    "NO_RESULTS": "No agents found matching your search"
   }
 }

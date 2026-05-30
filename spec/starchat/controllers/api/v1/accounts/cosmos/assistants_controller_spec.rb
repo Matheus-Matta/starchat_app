@@ -263,8 +263,8 @@ RSpec.describe 'Api::V1::Accounts::Cosmos::Assistants', type: :request do
         ]
       }
     end
-    let(:chat_service) { instance_double(Captain::Llm::AssistantChatService) }
-    let(:agent_runner_service) { instance_double(Captain::Assistant::AgentRunnerService) }
+    let(:chat_service) { instance_double(Cosmos::Llm::AssistantChatService) }
+    let(:agent_runner_service) { instance_double(Cosmos::Assistant::AgentRunnerService) }
 
     context 'when it is an un-authenticated user' do
       it 'returns unauthorized' do
@@ -281,7 +281,7 @@ RSpec.describe 'Api::V1::Accounts::Cosmos::Assistants', type: :request do
         chat_service = instance_double(Cosmos::Llm::AssistantChatService)
         allow(Cosmos::Llm::AssistantChatService).to receive(:new).with(assistant: assistant).and_return(chat_service)
         allow(chat_service).to receive(:generate_response).and_return({ content: 'Assistant response' })
-        expect(Captain::Assistant::AgentRunnerService).not_to receive(:new)
+        expect(Cosmos::Assistant::AgentRunnerService).not_to receive(:new)
 
         post "/api/v1/accounts/#{account.id}/cosmos/assistants/#{assistant.id}/playground",
              params: valid_params,
@@ -301,7 +301,7 @@ RSpec.describe 'Api::V1::Accounts::Cosmos::Assistants', type: :request do
         chat_service = instance_double(Cosmos::Llm::AssistantChatService)
         allow(Cosmos::Llm::AssistantChatService).to receive(:new).with(assistant: assistant).and_return(chat_service)
         allow(chat_service).to receive(:generate_response).and_return({ content: 'Assistant response' })
-        expect(Captain::Assistant::AgentRunnerService).not_to receive(:new)
+        expect(Cosmos::Assistant::AgentRunnerService).not_to receive(:new)
 
         post "/api/v1/accounts/#{account.id}/cosmos/assistants/#{assistant.id}/playground",
              params: params_without_history,
@@ -316,20 +316,20 @@ RSpec.describe 'Api::V1::Accounts::Cosmos::Assistants', type: :request do
       end
     end
 
-    context 'when captain v2 is enabled' do
+    context 'when cosmos v2 is enabled' do
       before do
-        account.enable_features('captain_integration_v2')
+        account.enable_features('cosmos_integration_v2')
       end
 
       it 'generates a response with the agent runner service' do
-        allow(Captain::Assistant::AgentRunnerService).to receive(:new).with(
+        allow(Cosmos::Assistant::AgentRunnerService).to receive(:new).with(
           assistant: assistant,
           source: 'playground'
         ).and_return(agent_runner_service)
         allow(agent_runner_service).to receive(:generate_response).and_return({ response: 'Assistant response' })
-        expect(Captain::Llm::AssistantChatService).not_to receive(:new)
+        expect(Cosmos::Llm::AssistantChatService).not_to receive(:new)
 
-        post "/api/v1/accounts/#{account.id}/captain/assistants/#{assistant.id}/playground",
+        post "/api/v1/accounts/#{account.id}/cosmos/assistants/#{assistant.id}/playground",
              params: valid_params,
              headers: agent.create_new_auth_token,
              as: :json
@@ -346,13 +346,13 @@ RSpec.describe 'Api::V1::Accounts::Cosmos::Assistants', type: :request do
           message_content: 'Hello assistant',
           message_history: [{ role: 'user', content: 'Hello assistant' }]
         }
-        allow(Captain::Assistant::AgentRunnerService).to receive(:new).with(
+        allow(Cosmos::Assistant::AgentRunnerService).to receive(:new).with(
           assistant: assistant,
           source: 'playground'
         ).and_return(agent_runner_service)
         allow(agent_runner_service).to receive(:generate_response).and_return({ response: 'Assistant response' })
 
-        post "/api/v1/accounts/#{account.id}/captain/assistants/#{assistant.id}/playground",
+        post "/api/v1/accounts/#{account.id}/cosmos/assistants/#{assistant.id}/playground",
              params: params_with_latest_message,
              headers: agent.create_new_auth_token,
              as: :json

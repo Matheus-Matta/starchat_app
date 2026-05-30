@@ -53,6 +53,18 @@ class Whatsapp::Providers::WhatsappCloudService < Whatsapp::Providers::BaseServi
     response['paging'] ? response['paging']['next'] : ''
   end
 
+  def create_csat_template(template_config)
+    csat_template_service.create_template(template_config)
+  end
+
+  def delete_csat_template(template_name = "customer_satisfaction_survey_#{whatsapp_channel.inbox.id}")
+    csat_template_service.delete_template(template_name)
+  end
+
+  def get_template_status(template_name)
+    csat_template_service.get_template_status(template_name)
+  end
+
   def validate_provider_config?
     response = HTTParty.get("#{business_account_path}/message_templates?access_token=#{whatsapp_channel.provider_config['api_key']}")
     response.success?
@@ -184,5 +196,11 @@ class Whatsapp::Providers::WhatsappCloudService < Whatsapp::Providers::BaseServi
     )
 
     process_response(response, message)
+  end
+
+  private
+
+  def csat_template_service
+    @csat_template_service ||= Whatsapp::CsatTemplateService.new(whatsapp_channel)
   end
 end

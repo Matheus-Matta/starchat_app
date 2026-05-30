@@ -32,8 +32,8 @@ RSpec.describe 'Platform Accounts API', type: :request do
       end
 
       it 'creates an account with locale' do
-        InstallationConfig.where(name: 'ACCOUNT_LEVEL_FEATURE_DEFAULTS').first_or_create!(value: [{ 'name' => 'agent_management',
-                                                                                                    'enabled' => true }])
+        InstallationConfig.find_or_initialize_by(name: 'ACCOUNT_LEVEL_FEATURE_DEFAULTS').update!(value: [{ 'name' => 'agent_management',
+                                                                                                            'enabled' => true }])
         post '/platform/api/v1/accounts', params: { name: 'Test Account', locale: 'es' },
                                           headers: { api_access_token: platform_app.access_token.token }, as: :json
 
@@ -46,12 +46,12 @@ RSpec.describe 'Platform Accounts API', type: :request do
       end
 
       it 'creates an account with feature flags' do
-        InstallationConfig.where(name: 'ACCOUNT_LEVEL_FEATURE_DEFAULTS').first_or_create!(value: [{ 'name' => 'inbox_management',
-                                                                                                    'enabled' => true },
-                                                                                                  { 'name' => 'disable_branding',
-                                                                                                    'enabled' => true },
-                                                                                                  { 'name' => 'help_center',
-                                                                                                    'enabled' => false }])
+        InstallationConfig.find_or_initialize_by(name: 'ACCOUNT_LEVEL_FEATURE_DEFAULTS').update!(value: [{ 'name' => 'inbox_management',
+                                                                                                            'enabled' => true },
+                                                                                                          { 'name' => 'disable_branding',
+                                                                                                            'enabled' => true },
+                                                                                                          { 'name' => 'help_center',
+                                                                                                            'enabled' => false }])
 
         post '/platform/api/v1/accounts', params: { name: 'Test Account', features: {
           ip_lookup: true,
@@ -177,6 +177,7 @@ RSpec.describe 'Platform Accounts API', type: :request do
 
       it 'updates an account when its permissible object' do
         create(:platform_app_permissible, platform_app: platform_app, permissible: account)
+        account.update!(feature_flags: 0)
         account.enable_features!('inbox_management', 'channel_facebook')
 
         patch "/platform/api/v1/accounts/#{account.id}", params: {

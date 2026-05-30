@@ -261,8 +261,8 @@ export default {
               @click="updateAllowedDomains"
             />
           </div>
-        </div>
-      </SettingsSection>
+        </template>
+      </SettingsToggleSection>
 
       <SettingsSection
         :title="$t('INBOX_MGMT.SETTINGS_POPUP.HMAC_VERIFICATION')"
@@ -278,7 +278,7 @@ export default {
             {{ $t('INBOX_MGMT.SETTINGS_POPUP.HMAC_LINK_TO_DOCS') }}
           </a>
         </template>
-      </SettingsToggleSection>
+      </SettingsSection>
       <SettingsToggleSection
         v-model="allowMobileWebview"
         :header="$t('INBOX_MGMT.SETTINGS_POPUP.ALLOW_MOBILE_WEBVIEW.LABEL')"

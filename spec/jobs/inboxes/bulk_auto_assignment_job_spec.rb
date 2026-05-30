@@ -8,7 +8,7 @@ require 'rails_helper'
 #     1. Usa AssignmentService.perform_bulk_assignment (policy-aware)
 #     2. Loga o número de atribuições
 #     3. Skips inboxes com auto_assignment desabilitado
-#     4. Skips conta em default plan (cloud only)
+#     4. Processes cloud accounts without plan gating
 #
 #   v2 desabilitado (legado):
 #     5. Usa AgentAssignmentService por conversa
@@ -19,7 +19,7 @@ require 'rails_helper'
 #     8. Não processa quando feature assignment_v2 está desabilitada
 # ─────────────────────────────────────────────────────────────────────────────
 RSpec.describe Inboxes::BulkAutoAssignmentJob do
-  let(:account) { create(:account, custom_attributes: { 'plan_name' => 'Startups' }) }
+  let(:account) { create(:account) }
   let(:agent)   { create(:user, account: account, role: :agent, auto_offline: false) }
   let(:inbox)   { create(:inbox, account: account, enable_auto_assignment: true) }
   let!(:conversation) { create(:conversation, account: account, inbox: inbox, assignee: nil, status: :open) }
@@ -70,17 +70,15 @@ RSpec.describe Inboxes::BulkAutoAssignmentJob do
       described_class.perform_now
     end
 
-    context 'quando conta está em default plan no chatwoot cloud' do
+    context 'quando conta está no chatwoot cloud' do
       before do
         account.update!(custom_attributes: {})
-        InstallationConfig.create(name: 'CHATWOOT_CLOUD_PLANS', value: [{ 'name' => 'default' }])
         allow(ChatwootApp).to receive(:chatwoot_cloud?).and_return(true)
       end
 
-      it 'skipa auto assignment e loga aviso' do
-        allow(Rails.logger).to receive(:info)
-        expect(Rails.logger).to receive(:info).with("Skipping auto assignment for account #{account.id}")
-        expect(AutoAssignment::AssignmentService).not_to receive(:new)
+      it 'processa auto assignment normalmente' do
+        assignment_service = instance_double(AutoAssignment::AssignmentService, perform_bulk_assignment: 1)
+        expect(AutoAssignment::AssignmentService).to receive(:new).with(inbox: inbox).and_return(assignment_service)
 
         described_class.perform_now
       end
@@ -155,4 +153,3 @@ RSpec.describe Inboxes::BulkAutoAssignmentJob do
     end
   end
 end
-

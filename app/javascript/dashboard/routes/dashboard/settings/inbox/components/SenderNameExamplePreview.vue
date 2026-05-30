@@ -1,11 +1,11 @@
-<script>
+<script setup>
 import PreviewCard from 'dashboard/components/ui/PreviewCard.vue';
 import Thumbnail from 'dashboard/components/widgets/Thumbnail.vue';
 
-export default {
-  components: {
-    PreviewCard,
-    Thumbnail,
+const props = defineProps({
+  senderNameType: {
+    type: String,
+    default: 'friendly',
   },
   businessName: {
     type: String,
@@ -16,6 +16,8 @@ export default {
     default: false,
   },
 });
+
+const { senderNameType, businessName, isWebsiteChannel } = toRefs(props);
 
 const emit = defineEmits(['update']);
 
@@ -28,56 +30,18 @@ const senderNameKeyOptions = computed(() => [
     content: t('INBOX_MGMT.EDIT.SENDER_NAME_SECTION.FRIENDLY.SUBTITLE'),
     preview: {
       senderName: 'Smith',
-      businessName: 'Chatwoot',
+      businessName: 'Starchats',
       email: '<support@yourbusiness.com>',
     },
   },
-  emits: ['update'],
-  data() {
-    return {
-      senderNameKeyOptions: [
-        {
-          key: 'friendly',
-          heading: this.$t(
-            'INBOX_MGMT.EDIT.SENDER_NAME_SECTION.FRIENDLY.TITLE'
-          ),
-          content: this.$t(
-            'INBOX_MGMT.EDIT.SENDER_NAME_SECTION.FRIENDLY.SUBTITLE'
-          ),
-          preview: {
-            senderName: 'Smith',
-            businessName: 'Starchats',
-            email: '<support@yourbusiness.com>',
-          },
-        },
-        {
-          key: 'professional',
-          heading: this.$t(
-            'INBOX_MGMT.EDIT.SENDER_NAME_SECTION.PROFESSIONAL.TITLE'
-          ),
-          content: this.$t(
-            'INBOX_MGMT.EDIT.SENDER_NAME_SECTION.PROFESSIONAL.SUBTITLE'
-          ),
-          preview: {
-            senderName: '',
-            businessName: 'Starchats',
-            email: '<support@yourbusiness.com>',
-          },
-        },
-      ],
-    };
-  },
-  methods: {
-    isKeyOptionFriendly(key) {
-      return key === 'friendly';
-    },
-    userName(keyOption) {
-      return this.isKeyOptionFriendly(keyOption.key)
-        ? keyOption.preview.senderName
-        : keyOption.preview.businessName;
-    },
-    toggleSenderNameType(key) {
-      this.$emit('update', key);
+  {
+    key: 'professional',
+    heading: t('INBOX_MGMT.EDIT.SENDER_NAME_SECTION.PROFESSIONAL.TITLE'),
+    content: t('INBOX_MGMT.EDIT.SENDER_NAME_SECTION.PROFESSIONAL.SUBTITLE'),
+    preview: {
+      senderName: '',
+      businessName: 'Starchats',
+      email: '<support@yourbusiness.com>',
     },
   },
 ]);
@@ -146,7 +110,7 @@ const toggleSenderNameType = key => {
             {{ keyOption.preview.email }}
           </span>
         </div>
-      </div>
+      </PreviewCard>
     </RadioCard>
   </div>
 </template>

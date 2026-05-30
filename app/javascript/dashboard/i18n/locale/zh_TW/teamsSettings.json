@@ -116,6 +116,9 @@
         "LABEL": "允許在團隊中自動指派"
       },
       "SUBMIT_CREATE": "建立團隊"
-    }
+    },
+    "COUNT": "{n} 個團隊 | {n} 個團隊",
+    "SEARCH_PLACEHOLDER": "搜尋團隊...",
+    "NO_RESULTS": "找不到符合搜尋條件的團隊"
   }
 }

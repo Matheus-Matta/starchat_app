@@ -27,6 +27,42 @@
     "WROTE": "書き込み:",
     "FROM": "差出人:",
     "EMAIL": "eメール",
-    "EMAIL_SUBJECT": "件名を入力してください"
+    "EMAIL_SUBJECT": "件名を入力してください",
+    "RECENT_SEARCHES": "Recent searches",
+    "CLEAR_ALL": "すべてクリア",
+    "MOST_RECENT": "Most recent",
+    "READ_LESS": "Read less",
+    "PRIVATE": "Private note",
+    "TRANSCRIPT": "Transcript",
+    "CREATED_AT": "{time} に作成",
+    "UPDATED_AT": "updated {time}",
+    "SORT_BY": {
+      "RELEVANCE": "Relevance"
+    },
+    "DATE_RANGE": {
+      "LAST_7_DAYS": "過去3か月",
+      "LAST_30_DAYS": "過去6か月",
+      "LAST_60_DAYS": "過去 60 日間",
+      "LAST_90_DAYS": "過去 90 日間",
+      "CUSTOM_RANGE": "Custom range:",
+      "CREATED_BETWEEN": "Created between",
+      "AND": "と",
+      "APPLY": "適用",
+      "BEFORE_DATE": "Before {date}",
+      "AFTER_DATE": "After {date}",
+      "TIME_RANGE": "Filter by time",
+      "CLEAR_FILTER": "フィルターをクリア"
+    },
+    "FILTERS": {
+      "FILTER_MESSAGE": "Filter messages by:",
+      "FROM": "Sender",
+      "IN": "受信トレイ",
+      "AGENTS": "担当者",
+      "CONTACTS": "連絡先",
+      "INBOXES": "受信トレイ",
+      "NO_AGENTS": "担当者が見つかりません",
+      "NO_CONTACTS": "Start by searching to see results",
+      "NO_INBOXES": "No inboxes found"
+    }
   }
 }

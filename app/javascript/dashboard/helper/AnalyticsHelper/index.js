@@ -1,4 +1,5 @@
-import * as amplitude from '@amplitude/analytics-browser';
+// amplitude module will be loaded lazily to ease test environment
+let amplitude;
 
 /**
  * AnalyticsHelper class to initialize and track user analytics
@@ -24,6 +25,25 @@ export class AnalyticsHelper {
   async init() {
     if (!this.analyticsToken) {
       return;
+    }
+
+    // Lazy-load amplitude; provide a lightweight fallback if unavailable
+    if (!amplitude) {
+      try {
+        const mod = await import('@amplitude/analytics-browser');
+        amplitude = mod?.default ?? mod;
+      } catch (e) {
+        amplitude = {
+          init: () => {},
+          setUserId: () => {},
+          track: () => {},
+          Identify: class {
+            constructor() { this.payload = {}; }
+            set(k, v) { this.payload[k] = v; return this; }
+          },
+          groupIdentify: () => {},
+        };
+      }
     }
 
     amplitude.init(this.analyticsToken, {

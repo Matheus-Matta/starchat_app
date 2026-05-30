@@ -27,6 +27,42 @@
     "WROTE": "wrote:",
     "FROM": "നിന്ന്",
     "EMAIL": "ഇമെയിൽ",
-    "EMAIL_SUBJECT": "വിഷയം"
+    "EMAIL_SUBJECT": "വിഷയം",
+    "RECENT_SEARCHES": "Recent searches",
+    "CLEAR_ALL": "Clear all",
+    "MOST_RECENT": "Most recent",
+    "READ_LESS": "Read less",
+    "PRIVATE": "Private note",
+    "TRANSCRIPT": "Transcript",
+    "CREATED_AT": "created {time}",
+    "UPDATED_AT": "updated {time}",
+    "SORT_BY": {
+      "RELEVANCE": "Relevance"
+    },
+    "DATE_RANGE": {
+      "LAST_7_DAYS": "കഴിഞ്ഞ 7 ദിവസം",
+      "LAST_30_DAYS": "കഴിഞ്ഞ 30 ദിവസം",
+      "LAST_60_DAYS": "കഴിഞ്ഞ 60 ദിവസം",
+      "LAST_90_DAYS": "കഴിഞ്ഞ 90 ദിവസം",
+      "CUSTOM_RANGE": "Custom range:",
+      "CREATED_BETWEEN": "Created between",
+      "AND": "and",
+      "APPLY": "അപേക്ഷിക്കുക",
+      "BEFORE_DATE": "Before {date}",
+      "AFTER_DATE": "After {date}",
+      "TIME_RANGE": "Filter by time",
+      "CLEAR_FILTER": "Clear filter"
+    },
+    "FILTERS": {
+      "FILTER_MESSAGE": "Filter messages by:",
+      "FROM": "അയച്ചയാൾ",
+      "IN": "ഇൻബോക്സ്",
+      "AGENTS": "ഏജന്റുമാർ",
+      "CONTACTS": "കോൺ‌ടാക്റ്റുകൾ",
+      "INBOXES": "ഇൻ‌ബോക്സുകൾ",
+      "NO_AGENTS": "ഏജന്റകളെ ഒന്നും കണ്ടെത്താൻ സാധിച്ചില്ല",
+      "NO_CONTACTS": "Start by searching to see results",
+      "NO_INBOXES": "No inboxes found"
+    }
   }
 }

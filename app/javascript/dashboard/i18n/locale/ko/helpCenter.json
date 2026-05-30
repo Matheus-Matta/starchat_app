@@ -157,6 +157,12 @@
             "DELETE_SUCCESS": "Portal deleted successfully",
             "DELETE_ERROR": "Error while deleting portal"
           }
+        },
+        "SEND_CNAME_INSTRUCTIONS": {
+          "API": {
+            "SUCCESS_MESSAGE": "CNAME 안내가 성공적으로 전송되었습니다",
+            "ERROR_MESSAGE": "CNAME 안내 전송 중 오류가 발생했습니다"
+          }
         }
       },
       "EDIT": {
@@ -310,11 +316,23 @@
           "SUCCESS_MESSAGE": "Locale removed from portal successfully",
           "ERROR_MESSAGE": "Unable to remove locale from portal. Try again."
         }
+      },
+      "DRAFT_LOCALE": {
+        "API": {
+          "SUCCESS_MESSAGE": "Locale moved to draft successfully",
+          "ERROR_MESSAGE": "Unable to move locale to draft. Try again."
+        }
+      },
+      "PUBLISH_LOCALE": {
+        "API": {
+          "SUCCESS_MESSAGE": "Locale published successfully",
+          "ERROR_MESSAGE": "Unable to publish locale. Try again."
+        }
       }
     },
     "TABLE": {
-      "LOADING_MESSAGE": "Loading articles...",
       "404": "No articles matches your search 🔍",
+      "LOADING_MESSAGE": "Loading articles...",
       "NO_ARTICLES": "There are no available articles",
       "HEADERS": {
         "TITLE": "Title",
@@ -497,7 +515,8 @@
             "PUBLISH": "Publish",
             "DRAFT": "Draft",
             "ARCHIVE": "Archive",
-            "DELETE": "삭제"
+            "DELETE": "삭제",
+            "TRANSLATE": "번역"
           },
           "STATUS": {
             "DRAFT": "Draft",
@@ -551,6 +570,41 @@
           "TITLE": "There are no articles in this category",
           "SUBTITLE": "Articles in this category will appear here"
         }
+      },
+      "BULK_TRANSLATE": {
+        "TITLE": "Translate article | Translate {count} articles",
+        "DESCRIPTION": "Translate the selected article to another language. | Translate the selected articles to another language.",
+        "LOCALE_LABEL": "Target language",
+        "LOCALE_PLACEHOLDER": "Select a language",
+        "CATEGORY_LABEL": "Target category",
+        "CATEGORY_PLACEHOLDER": "Select a category",
+        "OPTIONAL": "(optional)",
+        "CONFIRM": "번역",
+        "SELECT_ALL": "전체 선택 ({count})",
+        "SELECTED_COUNT": "{count}개 선택됨",
+        "CLEAR_SELECTION": "선택 해제",
+        "TRANSLATE_BUTTON": "번역",
+        "CONFIRM_OVERWRITE": "Overwrite and translate",
+        "DUPLICATE_WARNING": "A translation already exists for this article in the selected language. | Translations already exist for {count} articles in the selected language.",
+        "DUPLICATE_CONFIRM_HINT": "Click translate again to overwrite the existing translation.",
+        "API": {
+          "SUCCESS_MESSAGE": "Translation in progress. The article will appear as a draft once ready.",
+          "ERROR_MESSAGE": "Failed to start translation. Please try again."
+        }
+      },
+      "BULK_ACTIONS": {
+        "PUBLISH": "게시",
+        "DRAFT": "임시 저장",
+        "ARCHIVE": "보관",
+        "TRANSLATE": "번역",
+        "DELETE": "삭제",
+        "STATUS_SUCCESS": "Articles updated successfully",
+        "STATUS_ERROR": "Failed to update articles",
+        "DELETE_CONFIRM_TITLE": "Delete article | Delete {count} articles",
+        "DELETE_CONFIRM_DESCRIPTION": "This will permanently delete the selected article. This action cannot be undone. | This will permanently delete {count} selected articles. This action cannot be undone.",
+        "DELETE_CONFIRM": "삭제",
+        "DELETE_SUCCESS": "Articles deleted successfully",
+        "DELETE_ERROR": "Failed to delete articles"
       }
     },
     "CATEGORY_PAGE": {
@@ -630,8 +684,11 @@
         "DEFAULT": "Default",
         "DROPDOWN_MENU": {
           "MAKE_DEFAULT": "Make default",
-          "DELETE": "삭제"
-        }
+          "DELETE": "삭제",
+          "MOVE_TO_DRAFT": "Move to draft",
+          "PUBLISH_LOCALE": "Publish locale"
+        },
+        "DRAFT": "임시 저장"
       },
       "ADD_LOCALE_DIALOG": {
         "TITLE": "Add a new locale",
@@ -642,6 +699,13 @@
         "API": {
           "SUCCESS_MESSAGE": "Locale added successfully",
           "ERROR_MESSAGE": "Unable to add locale. Try again."
+        },
+        "STATUS": {
+          "LABEL": "상태",
+          "OPTIONS": {
+            "LIVE": "게시됨",
+            "DRAFT": "임시 저장"
+          }
         }
       }
     },
@@ -735,7 +799,8 @@
         "LIVE_CHAT_WIDGET": {
           "LABEL": "Live chat widget",
           "PLACEHOLDER": "Select live chat widget",
-          "HELP_TEXT": "Select a live chat widget that will appear on your help center"
+          "HELP_TEXT": "Select a live chat widget that will appear on your help center",
+          "NONE_OPTION": "위젯 없음"
         },
         "BRAND_COLOR": {
           "LABEL": "Brand color"
@@ -757,13 +822,28 @@
             "EDIT_CONFIRM_BUTTON_LABEL": "Update domain",
             "LABEL": "Custom domain",
             "PLACEHOLDER": "Portal custom domain",
-            "ERROR": "Custom domain is required"
+            "ERROR": "Custom domain is required",
+            "FORMAT_ERROR": "유효한 도메인 URL을 입력하십시오. 예: docs.yourdomain.com"
           },
           "DNS_CONFIGURATION_DIALOG": {
             "HEADER": "DNS configuration",
             "DESCRIPTION": "Log in to the account you have with your DNS provider, and add a CNAME record for subdomain pointing to chatwoot.help",
             "HELP_TEXT": "Once this is done, you can reach out to our support to request for the auto-generated SSL certificate.",
-            "CONFIRM_BUTTON_LABEL": "Got it!"
+            "CONFIRM_BUTTON_LABEL": "Got it!",
+            "COPY": "CNAME이 성공적으로 복사되었습니다",
+            "SEND_INSTRUCTIONS": {
+              "HEADER": "안내 전송",
+              "DESCRIPTION": "개발 팀의 담당자가 이 단계를 처리하도록 하려면 아래에 이메일 주소를 입력하시면 필요한 안내를 보내드립니다.",
+              "PLACEHOLDER": "이메일을 입력하십시오",
+              "ERROR": "유효한 이메일 주소를 입력하십시오",
+              "SEND_BUTTON": "보내기"
+            }
+          },
+          "STATUS_DESCRIPTION": "사용자 지정 포털은 확인되는 즉시 작동합니다.",
+          "STATUS": {
+            "LIVE": "활성",
+            "PENDING": "확인 대기 중",
+            "ERROR": "확인 실패"
           }
         },
         "DELETE_PORTAL": {
@@ -840,6 +920,16 @@
       "FROM_DOCUMENT": "From document",
       "NO_CONTENT": "No generated content available. Upload a PDF document to get started.",
       "LOADING": "Loading generated content..."
+    },
+    "REORDER_ARTICLE": {
+      "API": {
+        "ERROR_MESSAGE": "문서 순서를 변경할 수 없습니다. 다시 시도하십시오."
+      }
+    },
+    "REORDER_CATEGORY": {
+      "API": {
+        "ERROR_MESSAGE": "카테고리 순서를 변경할 수 없습니다. 다시 시도하십시오."
+      }
     }
   }
 }

@@ -116,6 +116,9 @@
         "LABEL": "אפשר הקצאה אוטומטית עבור הצוות הזה."
       },
       "SUBMIT_CREATE": "צור צוות"
-    }
+    },
+    "COUNT": "{n} team | {n} teams",
+    "SEARCH_PLACEHOLDER": "חפש צוותים...",
+    "NO_RESULTS": "No teams found matching your search"
   }
 }

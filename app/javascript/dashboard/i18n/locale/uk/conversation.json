@@ -1,8 +1,8 @@
 {
   "CONVERSATION": {
+    "404": "На жаль, не вдалося знайти розмову. Будь ласка, спробуйте ще раз",
     "SELECT_A_CONVERSATION": "Будь ласка, виберіть бесіду з лівої панелі",
     "CSAT_REPLY_MESSAGE": "Будь ласка, оцініть розмову",
-    "404": "На жаль, не вдалося знайти розмову. Будь ласка, спробуйте ще раз",
     "SWITCH_VIEW_LAYOUT": "Змінити розкладку",
     "DASHBOARD_APP_TAB_MESSAGES": "Текст повідомлень",
     "UNVERIFIED_SESSION": "Користувач не верифікований",
@@ -69,7 +69,8 @@
     "REPLY_MESSAGE_NOT_FOUND": "Повідомлення недоступне",
     "CARD": {
       "SHOW_LABELS": "Показати мітки",
-      "HIDE_LABELS": "Сховати мітки"
+      "HIDE_LABELS": "Сховати мітки",
+      "LABELS_COUNT": "{count} labels"
     },
     "VOICE_CALL": {
       "INCOMING_CALL": "Incoming call",
@@ -80,7 +81,9 @@
       "CALL_ENDED": "Call ended",
       "NOT_ANSWERED_YET": "Not answered yet",
       "THEY_ANSWERED": "They answered",
-      "YOU_ANSWERED": "You answered"
+      "YOU_ANSWERED": "You answered",
+      "AGENT_ANSWERED": "{agentName} answered",
+      "JOIN_CALL": "Доєднатися до виклику"
     },
     "HEADER": {
       "RESOLVE_ACTION": "Вирішити",
@@ -100,7 +103,8 @@
         "RT": "RT {status}",
         "MISSED": "пропущено",
         "DUE": "до"
-      }
+      },
+      "COPY_ID_SUCCESS": "Conversation ID copied to clipboard"
     },
     "RESOLVE_DROPDOWN": {
       "MARK_PENDING": "Позначити як \"В очікуванні\"",
@@ -172,8 +176,15 @@
         "TEAM_ASSIGNMENT": {
           "SUCCESFUL": "Призначено команду \"#{team}\" до ID розмови {conversationId}",
           "FAILED": "Не вдалося призначити команду. Будь ласка, спробуйте ще раз."
+        },
+        "LABEL_REMOVAL": {
+          "SUCCESFUL": "Removed label #{labelName} from conversation id {conversationId}",
+          "FAILED": "Couldn't remove label. Please try again."
         }
-      }
+      },
+      "OPEN_IN_NEW_TAB": "Open in new tab",
+      "COPY_LINK": "Copy conversation link",
+      "COPY_LINK_SUCCESS": "Conversation link copied to clipboard"
     },
     "FOOTER": {
       "MESSAGE_SIGN_TOOLTIP": "Підпис повідомлення",
@@ -183,7 +194,11 @@
       "PRIVATE_MSG_INPUT": "Shift + Enter для нового рядка. Видиме лише для співробітників",
       "MESSAGE_SIGNATURE_NOT_CONFIGURED": "Не налаштовано підпис повідомлення, будь ласка, налаштуйте його в налаштуваннях профілю.",
       "CLICK_HERE": "Натисніть тут для оновлення",
-      "WHATSAPP_TEMPLATES": "Шаблони Whatsapp"
+      "WHATSAPP_TEMPLATES": "Шаблони Whatsapp",
+      "MESSAGING_RESTRICTED": "You cannot reply to this conversation",
+      "MESSAGING_RESTRICTED_WHATSAPP": "You can only reply using a template message due to 24-hour message window restriction",
+      "MESSAGING_RESTRICTED_API": "You can only reply using a template message due to message window restriction",
+      "COPILOT_MSG_INPUT": "Надайте Copilot додаткові підказки або запитайте що-небудь ще... Натисніть Enter для відправлення відповіді"
     },
     "REPLYBOX": {
       "REPLY": "Відповісти",
@@ -224,6 +239,14 @@
           "YES": "Надіслати",
           "CANCEL": "Скасувати"
         }
+      },
+      "COPILOT_THINKING": "Copilot думає",
+      "QUOTED_REPLY": {
+        "ENABLE_TOOLTIP": "Include quoted email thread",
+        "DISABLE_TOOLTIP": "Don't include quoted email thread",
+        "REMOVE_PREVIEW": "Remove quoted email thread",
+        "COLLAPSE": "Collapse preview",
+        "EXPAND": "Expand preview"
       }
     },
     "VISIBLE_TO_AGENTS": "Приватна нотатка: видима тільки вам та вашій команді",
@@ -265,6 +288,21 @@
     "SIDEBAR": {
       "CONTACT": "Контакт",
       "COPILOT": "Cosmos"
+    },
+    "48_HOURS_WINDOW": "48-годинне обмеження на повідомлення",
+    "UNSUPPORTED_MESSAGE_TIKTOK": "This message is unsupported. You can view this message on the TikTok app.",
+    "FILE_TYPE_NOT_SUPPORTED": "Тип файлу {fileName} не підтримується у цій розмові",
+    "NATIVE_APP": "Native app",
+    "NATIVE_APP_ADVISORY": "This message was sent from the native app. Reply from Chatwoot to maintain the message window.",
+    "VOICE_WIDGET": {
+      "INCOMING_CALL": "Incoming call",
+      "OUTGOING_CALL": "Outgoing call",
+      "CALL_IN_PROGRESS": "Call in progress",
+      "NOT_ANSWERED_YET": "Not answered yet",
+      "HANDLED_IN_ANOTHER_TAB": "Оброблюється в іншій вкладці",
+      "REJECT_CALL": "Відхилити",
+      "JOIN_CALL": "Доєднатися до виклику",
+      "END_CALL": "Завершити виклик"
     }
   },
   "EMAIL_TRANSCRIPT": {
@@ -282,7 +320,8 @@
         "PLACEHOLDER": "Введіть адресу електронної пошти",
         "ERROR": "Будь ласка, введіть коректну адресу електронної пошти"
       }
-    }
+    },
+    "SEND_EMAIL_PAYMENT_REQUIRED": "Email transcript is not available on your current plan. Please upgrade to use this feature."
   },
   "ONBOARDING": {
     "TITLE": "Привіт, 👋, Ласкаво просимо на {installationName}!",
@@ -329,7 +368,8 @@
       "PREVIOUS_CONVERSATION": "Попередні бесіди",
       "MACROS": "Макрос",
       "LINEAR_ISSUES": "Linked Linear Issues",
-      "SHOPIFY_ORDERS": "Shopify Orders"
+      "SHOPIFY_ORDERS": "Shopify Orders",
+      "SHARED_FILES": "Attachments"
     },
     "SHOPIFY": {
       "ORDER_ID": "Order #{id}",
@@ -349,6 +389,17 @@
         "PARTIALLY_FULFILLED": "Partially Fulfilled",
         "UNFULFILLED": "Unfulfilled"
       }
+    },
+    "SHARED_FILES": {
+      "EMPTY": "No attachments yet",
+      "DOWNLOAD": "Download file",
+      "DOWNLOAD_ERROR": "Could not download the file. Please try again.",
+      "MEDIA_HEADING": "Media",
+      "FILES_HEADING": "Files",
+      "VIEW_ALL": "Переглянути все",
+      "SHOW_LESS": "Show less",
+      "MORE_COUNT": "+{count}",
+      "UNTITLED_FILE": "Untitled file"
     }
   },
   "CONVERSATION_CUSTOM_ATTRIBUTES": {

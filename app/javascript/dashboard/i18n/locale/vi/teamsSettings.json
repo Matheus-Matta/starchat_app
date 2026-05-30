@@ -116,6 +116,9 @@
         "LABEL": "Cho phép tự động phân công đối với nhóm này."
       },
       "SUBMIT_CREATE": "Tạo nhóm"
-    }
+    },
+    "COUNT": "{n} team | {n} teams",
+    "SEARCH_PLACEHOLDER": "Tìm kiếm nhóm...",
+    "NO_RESULTS": "No teams found matching your search"
   }
 }

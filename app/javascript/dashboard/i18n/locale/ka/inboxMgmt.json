@@ -110,6 +110,14 @@
         "SUBMIT_BUTTON": "Create inbox",
         "API": {
           "ERROR_MESSAGE": "We were not able to create a website channel, please try again"
+        },
+        "CHANNEL_WEBHOOK_SECRET": {
+          "LABEL": "Webhook Secret",
+          "COPY": "საიდუმლოს კოპირება კლიპბორდზე",
+          "COPY_SUCCESS": "საიდუმლო კლიპბორდზე გადაწერილია",
+          "TOGGLE": "საიდუმლოს ხილვადობის გადართვა",
+          "RESET_SUCCESS": "Webhook secret regenerated successfully",
+          "RESET_ERROR": "Unable to regenerate webhook secret. Please try again"
         }
       },
       "TWILIO": {
@@ -291,7 +299,13 @@
           "INVALID_BUSINESS_DATA": "Invalid business data received from Facebook. Please try again.",
           "SIGNUP_ERROR": "Signup error occurred",
           "AUTH_NOT_COMPLETED": "Authentication not completed. Please restart the process.",
-          "SUCCESS_FALLBACK": "WhatsApp Business Account has been successfully configured"
+          "SUCCESS_FALLBACK": "WhatsApp Business Account has been successfully configured",
+          "LEARN_MORE": {
+            "TEXT": "ინტეგრირებული რეგისტრაციის, ფასების და შეზღუდვების შესახებ მეტი ინფორმაციის მისაღებად, ეწვიეთ {link}.",
+            "LINK_TEXT": "ეს ბმული"
+          },
+          "MANUAL_FALLBACK": "თუ თქვენი ნომერი უკვე დაკავშირებულია WhatsApp Business Platform (API)-სთან, ან თუ თქვენ ტექნიკური მიმწოდებელი ხართ და საკუთარ ნომერს ამატებთ, გთხოვთ გამოიყენოთ {link} პროცესი",
+          "MANUAL_LINK_TEXT": "მანუალური დაყენების პროცესი"
         },
         "API": {
           "ERROR_MESSAGE": "We were not able to save the WhatsApp channel"
@@ -373,7 +387,11 @@
         "API": {
           "ERROR_MESSAGE": "We were not able to save the email channel"
         },
-        "FINISH_MESSAGE": "Start forwarding your emails to the following email address."
+        "FINISH_MESSAGE": "Start forwarding your emails to the following email address.",
+        "FINISH_MESSAGE_NO_FORWARDING": "Your email inbox has been created successfully! You need to configure SMTP and IMAP credentials to send and receive emails. Without these settings, no emails will be processed.",
+        "FORWARDING_ADDRESS_LABEL": "გადამისამართეთ ელფოსტები ამ მისამართზე:",
+        "CONFIGURE_SMTP_IMAP_LINK": "დააჭირეთ აქ",
+        "CONFIGURE_SMTP_IMAP_TEXT": " IMAP და SMTP პარამეტრების კონფიგურაციისთვის"
       },
       "LINE_CHANNEL": {
         "TITLE": "LINE Channel",
@@ -462,6 +480,10 @@
           "VOICE": {
             "TITLE": "Voice",
             "DESCRIPTION": "Integrate with Twilio Voice"
+          },
+          "TIKTOK": {
+            "TITLE": "TikTok",
+            "DESCRIPTION": "გაერთიანეთ თქვენი TikTok ანგარიში"
           }
         }
       },
@@ -496,6 +518,13 @@
         "SIGN_IN": "Sign in with Google",
         "EMAIL_PLACEHOLDER": "Enter email address",
         "ERROR_MESSAGE": "There was an error connecting to Google, please try again"
+      },
+      "TIKTOK": {
+        "CONTINUE_WITH_TIKTOK": "გაგრძელება TikTok-ით",
+        "CONNECT_YOUR_TIKTOK_PROFILE": "დაკავშირეთ თქვენი TikTok პროფილი",
+        "HELP": "თქვენი TikTok პროფილის არხად დასამატებლად, საჭიროა ავთენტიფიცირება TikTok პროფილზე, დააჭირეთ 'გაგრძელება TikTok-ით' ",
+        "ERROR_MESSAGE": "TikTok-თან დაკავშირებისას მოხდა შეცდომა, გთხოვთ, სცადეთ თავიდან",
+        "ERROR_AUTH": "TikTok-თან დაკავშირებისას მოხდა შეცდომა, გთხოვთ, სცადეთ თავიდან"
       }
     },
     "DETAILS": {
@@ -567,7 +596,9 @@
       },
       "LOCK_TO_SINGLE_CONVERSATION": {
         "ENABLED": "Enabled",
-        "DISABLED": "Disabled"
+        "DISABLED": "Disabled",
+        "ENABLED_DESCRIPTION": "როდესაც კონტაქტი კვლავ მოგვწერს, წინა საუბარი გაიხსნება.",
+        "DISABLED_DESCRIPTION": "ყოველ ჯერზე წინა საუბრის დასრულების შემდეგ ახალი საუბარი შეიქმნება."
       },
       "ENABLE_HMAC": {
         "LABEL": "Enable"
@@ -599,7 +630,9 @@
       "BUSINESS_HOURS": "Business Hours",
       "WIDGET_BUILDER": "Widget Builder",
       "BOT_CONFIGURATION": "Bot Configuration",
-      "CSAT": "CSAT"
+      "CSAT": "CSAT",
+      "ACCOUNT_HEALTH": "ანგარიშის ჯანმრთელობა",
+      "VOICE": "ხმოვანი"
     },
     "SETTINGS": "Settings",
     "FEATURES": {
@@ -652,14 +685,49 @@
       "WHATSAPP_TEMPLATES_SYNC_SUBHEADER": "Manually sync message templates from WhatsApp to update your available templates.",
       "WHATSAPP_TEMPLATES_SYNC_BUTTON": "Sync Templates",
       "WHATSAPP_TEMPLATES_SYNC_SUCCESS": "Templates sync initiated successfully. It may take a couple of minutes to update.",
-      "UPDATE_PRE_CHAT_FORM_SETTINGS": "Update Pre Chat Form Settings"
+      "UPDATE_PRE_CHAT_FORM_SETTINGS": "Update Pre Chat Form Settings",
+      "ALLOWED_DOMAINS": {
+        "TITLE": "ნებადართული დომენები",
+        "DESCRIPTION": "Restrict which websites can embed your chat widget. For security, only add domains you own and trust. Add one or more domains separated by commas. Leave blank to allow all domains (not recommended for production).",
+        "PLACEHOLDER": "example.com, www.example.com, app.example.com"
+      },
+      "ALLOW_MOBILE_WEBVIEW": {
+        "LABEL": "Enable widget in mobile apps",
+        "SUBTITLE": "Check this if you embed the widget in iOS or Android apps. Mobile apps don't send domain information, so they would be blocked by domain restrictions unless this is enabled."
+      },
+      "IDENTITY_VALIDATION": {
+        "TITLE": "Identity Validation",
+        "DESCRIPTION": "Verify user authenticity by generating secure tokens. This prevents unauthorized users from impersonating others in your chat.",
+        "SECRET_KEY": "საიდუმლო გასაღები",
+        "VIEW_DOCS": "View documentation",
+        "REQUIRE_LABEL": "Require identity validation for all conversations",
+        "REQUIRE_DESCRIPTION": "When enabled, users must provide a valid identity token to start conversations. Requests without valid tokens will be rejected."
+      },
+      "ENABLE_CONTINUITY_VIA_EMAIL_DISABLED_TEXT": "This feature is available on a paid plan. Upgrade to enable conversation continuity via email.",
+      "FORWARD_EMAIL_NOT_CONFIGURED": "ელფოსტების გადამისამართება თქვენს ინბოქსში ამ ინსტალაციაზე ამჟამად გამორთულია. ამ ფუნქციის გამოყენებისთვის საჭიროა ადმინისტრატორის ჩართვა. გთხოვთ, დაუკავშირდით მათ გაგრძელებისთვის.",
+      "WHATSAPP_EMBEDDED_SIGNUP_TITLE": "WhatsApp-ის ჩაშენებული რეგისტრაცია",
+      "WHATSAPP_EMBEDDED_SIGNUP_SUBHEADER": "ეს ინბოქსი დაკავშირებულია WhatsApp-ის ჩაშენებული რეგისტრაციის მეშვეობით.",
+      "WHATSAPP_EMBEDDED_SIGNUP_DESCRIPTION": "შეგიძლიათ ხელახლა დააყენოთ ეს ინბოქსი თქვენი WhatsApp Business-ის პარამეტრების განახლებისთვის.",
+      "WHATSAPP_RECONFIGURE_BUTTON": "ხელახლა დააყენე",
+      "WHATSAPP_CONNECT_TITLE": "დაკავშირება WhatsApp Business-თან",
+      "WHATSAPP_CONNECT_SUBHEADER": "გააუმჯობესეთ WhatsApp-ის ჩაშენებული რეგისტრაციით მარტივი მართვისთვის.",
+      "WHATSAPP_CONNECT_DESCRIPTION": "დააკავშირეთ ეს ინბოქსი WhatsApp Business-თან გაფართოებული ფუნქციებისა და მარტივი მართვისთვის.",
+      "WHATSAPP_CONNECT_BUTTON": "დაკავშირება",
+      "WHATSAPP_CONNECT_SUCCESS": "WhatsApp Business-თან წარმატებით დაკავშირებული!",
+      "WHATSAPP_CONNECT_ERROR": "WhatsApp Business-სთან დაკავშირება ვერ მოხერხდა. გთხოვთ, სცადეთ თავიდან.",
+      "WHATSAPP_RECONFIGURE_SUCCESS": "WhatsApp Business წარმატებით გადაკონფიგურირდა!",
+      "WHATSAPP_RECONFIGURE_ERROR": "WhatsApp Business-ის გადაკონფიგურება ვერ მოხერხდა. გთხოვთ, სცადეთ თავიდან.",
+      "WHATSAPP_APP_ID_MISSING": "WhatsApp აპლიკაციის ID არ არის კონფიგურირებული. გთხოვთ, დაუკავშირდით ადმინისტრატორს.",
+      "WHATSAPP_CONFIG_ID_MISSING": "WhatsApp კონფიგურაციის ID არ არის კონფიგურირებული. გთხოვთ, დაუკავშირდით ადმინისტრატორს.",
+      "WHATSAPP_LOGIN_CANCELLED": "WhatsApp–ში შესვლა გაუქმდა. გთხოვთ, სცადეთ თავიდან."
     },
     "HELP_CENTER": {
       "LABEL": "Help Center",
       "PLACEHOLDER": "Select Help Center",
       "SELECT_PLACEHOLDER": "Select Help Center",
       "REMOVE": "Remove Help Center",
-      "SUB_TEXT": "Attach a Help Center with the inbox"
+      "SUB_TEXT": "Attach a Help Center with the inbox",
+      "NONE": "არცერთი"
     },
     "AUTO_ASSIGNMENT": {
       "MAX_ASSIGNMENT_LIMIT": "Auto assignment limit",
@@ -722,7 +790,51 @@
       "API": {
         "SUCCESS_MESSAGE": "CSAT settings updated successfully",
         "ERROR_MESSAGE": "We couldn't update CSAT settings. Please try again later."
-      }
+      },
+      "BUTTON_TEXT": {
+        "LABEL": "ღილაკის ტექსტი",
+        "PLACEHOLDER": "გთხოვთ, შეაფასეთ ჩვენ"
+      },
+      "LANGUAGE": {
+        "LABEL": "ენა",
+        "PLACEHOLDER": "აირჩიეთ შაბლონის ენა"
+      },
+      "MESSAGE_PREVIEW": {
+        "LABEL": "მესიჯის წინასწარი ნახვა",
+        "TOOLTIP": "ეს შეიძლება ოდნავ განსხვავდებოდეს WhatsApp-ის პლატფორმაზე ჩვენებისას."
+      },
+      "TEMPLATE_STATUS": {
+        "APPROVED": "დამტკიცებულია WhatsApp-ის მიერ",
+        "PENDING": "მოლოდინშია WhatsApp-ის დამტკიცება",
+        "REJECTED": "Meta-მ უარყო შაბლონი",
+        "DEFAULT": "საჭიროა WhatsApp-ის დამტკიცება",
+        "NOT_FOUND": "თემპლატი Meta პლატფორმაზე არ არსებობს."
+      },
+      "TEMPLATE_CREATION": {
+        "SUCCESS_MESSAGE": "WhatsApp-ის თემპლატი წარმატებით შეიქმნა და გაგზავნილია დამტკიცებისთვის",
+        "ERROR_MESSAGE": "WhatsApp-ის თემპლატის შექმნა ვერ მოხერხდა"
+      },
+      "TEMPLATE_UPDATE_DIALOG": {
+        "TITLE": "გამოკითხვის დეტალების რედაქტირება",
+        "DESCRIPTION": "ჩვენ წავშლით წინა თემპლატს და შევქმნით ახალს, რომელიც კვლავ გაიგზავნება WhatsApp-ის დამტკიცებისთვის",
+        "CONFIRM": "ახალი შაბლონის შექმნა",
+        "CANCEL": "უკან დაბრუნება"
+      },
+      "UTILITY_ANALYZER": {
+        "ACTION": "გამოწერეთ სარგებლიანობის შესაბამისობა",
+        "HELPER_NOTE": "გაგზავნამდე შეამოწმეთ ეს შეტყობინება სარგებლიანობის შესაბამისობის გასაუმჯობესებლად. სისტემა ქმნის სპეციალურ CSAT შაბლონს ანგარიშგებისთვის ღილაკებით და აგზავნის მას როგორც სარგებლიანობას; Meta შესაძლოა კვლავ დაახარისხოს იგი მარკეტინგად შინაარსის მიხედვით.",
+        "RESULT_LABEL": "Meta კატეგორიის პროგნოზი",
+        "GUIDANCE_NOTE": "ეს არის მითითების შემოწმება, არა Meta-ს დამტკიცების გარანტია.",
+        "SUGGESTION_LABEL": "შეთავაზებული უსაფრთხო გადამუშავება",
+        "APPLY": "გამოიყენეთ ეს გადამუშავება",
+        "ERROR_MESSAGE": "შეტყობინების ანალიზი ვერ მოხერხდა. გთხოვთ, სცადეთ თავიდან.",
+        "CLASSIFICATION": {
+          "LIKELY_UTILITY": "მომგებიანი გამოყენება",
+          "LIKELY_MARKETING": "მარკეტინგის ალბათობა",
+          "UNCLEAR": "საჭიროა განმარტება"
+        }
+      },
+      "WHATSAPP_NOTE": "შენიშვნა: შენახვისას სისტემა ქმნის სპეციალურ CSAT შაბლონს WhatsApp-ში (გამოიყენება შეფასებისა და გამოხმაურების აღსაწერად ანგარიშებში) და წარადგენს მას Utility-ს დამტკიცებისთვის. Meta შესაძლოა კვლავ დაახარისხოს როგორც მარკეტინგი კონტენტის მიხედვით. დამტკიცების შემდეგ, გამოკითხვები იგზავნება მხოლოდ ერთხელ თითოეული საუბრისთვის გამოკითხვის წესის შესაბამისად."
     },
     "BUSINESS_HOURS": {
       "TITLE": "Set your availability",
@@ -738,7 +850,9 @@
         "UNAVAILABLE": "Unavailable",
         "HOURS": "hours",
         "VALIDATION_ERROR": "Starting time should be before closing time.",
-        "CHOOSE": "Choose"
+        "CHOOSE": "Choose",
+        "DAY": "დღე",
+        "AVAILABILITY": "ხელმისაწვდომობა"
       },
       "ALL_DAY": "All-Day"
     },
@@ -769,7 +883,8 @@
         "LABEL": "Password",
         "PLACE_HOLDER": "Password"
       },
-      "ENABLE_SSL": "Enable SSL"
+      "ENABLE_SSL": "Enable SSL",
+      "AUTH_MECHANISM": "ავტორიზაცია"
     },
     "MICROSOFT": {
       "TITLE": "Microsoft",
@@ -868,7 +983,8 @@
         "WIDGET_BUBBLE_TYPE": {
           "STANDARD": "Standard",
           "EXPANDED_BUBBLE": "Expanded Bubble"
-        }
+        },
+        "WIDGET_BUBBLE": "ბუშტი"
       },
       "WIDGET_SCREEN": {
         "DEFAULT": "Default",
@@ -920,7 +1036,136 @@
       "LINE": "Line",
       "API": "API Channel",
       "INSTAGRAM": "Instagram",
-      "VOICE": "Voice"
+      "VOICE": "Voice",
+      "TIKTOK": "TikTok"
+    },
+    "COUNT": "{n} ინბოქსი | {n} ინბოქსი",
+    "SEARCH_PLACEHOLDER": "ინბოქსების ძებნა...",
+    "NO_RESULTS": "ინბოქსები ვერ მოიძებნა თქვენი ძიების მიხედვით",
+    "WHATSAPP_REGISTRATION_INCOMPLETE": "თქვენი WhatsApp Business რეგისტრაცია არ არის დასრულებული. გთხოვთ, გადაამოწმოთ თქვენი სახელის სტატუსი Meta Business Manager-ში, სანამ ხელახლა დაუკავშირდებით.",
+    "COMPLETE_REGISTRATION": "რეგისტრაციის დასრულება",
+    "VOICE_CONFIGURATION": {
+      "ENABLE_VOICE": {
+        "LABEL": "Enable Voice Calling",
+        "DESCRIPTION": "Enable voice calling on this inbox. Agents will be able to make and receive phone calls."
+      },
+      "CREDENTIALS": {
+        "DESCRIPTION": "Voice calling requires Twilio API Key credentials. These are used to generate tokens for agent voice connections."
+      }
+    },
+    "CHANNEL_PREFERENCES": "არხის პარამეტრები",
+    "WIDGET_FEATURES": "ვიჯეტის ფუნქციები",
+    "ACCOUNT_HEALTH": {
+      "TITLE": "მართეთ თქვენი WhatsApp ანგარიში",
+      "DESCRIPTION": "დაათვალიერეთ თქვენი WhatsApp ანგარიშის სტატუსი, შეტყობინებების ლიმიტები და ხარისხი. განაახლეთ პარამეტრები ან მოაგვარეთ პრობლემები საჭიროების შემთხვევაში",
+      "GO_TO_SETTINGS": "გადადით Meta Business Manager-ში",
+      "NO_DATA": "ჯანმრთელობის მონაცემები მიუწვდომელია",
+      "FIELDS": {
+        "DISPLAY_PHONE_NUMBER": {
+          "LABEL": "ტელეფონის ნომრის ჩვენება",
+          "TOOLTIP": "ტელეფონის ნომერი, რომელიც ჩანს მომხმარებლებისთვის"
+        },
+        "VERIFIED_NAME": {
+          "LABEL": "ბიზნესის სახელი",
+          "TOOLTIP": "ბიზნესის სახელი, რომელიც დადასტურებულია WhatsApp-ის მიერ"
+        },
+        "DISPLAY_NAME_STATUS": {
+          "LABEL": "ჩვენების სახელის სტატუსი",
+          "TOOLTIP": "თქვენი ბიზნესის სახელის გადამოწმების სტატუსი"
+        },
+        "QUALITY_RATING": {
+          "LABEL": "ხარისხის შეფასება",
+          "TOOLTIP": "WhatsApp-ის ხარისხის შეფასება თქვენი ანგარიშისთვის"
+        },
+        "MESSAGING_LIMIT_TIER": {
+          "LABEL": "შეტყობინებების ლიმიტის დონე",
+          "TOOLTIP": "დღიური შეტყობინებების ლიმიტი თქვენი ანგარიშისთვის"
+        },
+        "ACCOUNT_MODE": {
+          "LABEL": "ანგარიშის რეჟიმი",
+          "TOOLTIP": "WhatsApp ანგარიშის მიმდინარე ოპერაციული რეჟიმი"
+        }
+      },
+      "VALUES": {
+        "TIERS": {
+          "TIER_250": "250 მომხმარებელი დღეში",
+          "TIER_1000": "1K მომხმარებელი დღეში",
+          "TIER_1K": "1K მომხმარებელი დღეში",
+          "TIER_10K": "10K მომხმარებელი დღეში",
+          "TIER_100K": "100K მომხმარებელი დღეში",
+          "TIER_UNLIMITED": "შეუზღუდავი მომხმარებელი დღეში",
+          "UNKNOWN": "რეიტინგი მიუწვდომელია"
+        },
+        "STATUSES": {
+          "APPROVED": "დამტკიცებული",
+          "PENDING_REVIEW": "მიმდინარე გადახედვა",
+          "AVAILABLE_WITHOUT_REVIEW": "ხელმისაწვდომია გადახედვის გარეშე",
+          "REJECTED": "უარყოფილი",
+          "DECLINED": "უარი",
+          "NON_EXISTS": "არ არსებობს"
+        },
+        "MODES": {
+          "SANDBOX": "სანდბოქსი",
+          "LIVE": "ცოცხალი"
+        }
+      },
+      "WEBHOOK": {
+        "TITLE": "Webhook-ის კონფიგურაცია",
+        "DESCRIPTION": "Webhook URL აუცილებელია თქვენი WhatsApp Business ანგარიშისთვის, რათა მიიღოთ შეტყობინებები მომხმარებლებისგან",
+        "ACTION_REQUIRED": "Webhook არ არის კონფიგურირებული",
+        "REGISTER_BUTTON": "Webhook-ის რეგისტრაცია",
+        "REGISTER_SUCCESS": "Webhook წარმატებით დარეგისტრირდა",
+        "REGISTER_ERROR": "Webhook-ის რეგისტრაცია ვერ მოხერხდა. გთხოვთ, სცადეთ თავიდან.",
+        "CONFIGURED_SUCCESS": "ვებჰუკი წარმატებით კონფიგურირდა",
+        "URL_MISMATCH": "ვებჰუკის URL არ ემთხვევა"
+      }
+    },
+    "ASSIGNMENT": {
+      "TITLE": "შეტყობინებების მინიჭება",
+      "DESCRIPTION": "ავტომატურად მიანიჭეთ შემომავალი შეტყობინებები ხელმისაწვდომ აგენტებს მინიჭების პოლიტიკის მიხედვით",
+      "ENABLE_AUTO_ASSIGNMENT": "ჩართეთ ავტომატური შეტყობინებების მინიჭება",
+      "DEFAULT_RULES_TITLE": "ნაგულისხმევი დანიშვნის წესები",
+      "DEFAULT_RULES_DESCRIPTION": "ყველა საუბრისთვის ნაგულისხმევი დანიშვნის ქცევის გამოყენება",
+      "DEFAULT_RULE_1": "პირველ რიგში ყველაზე ადრინდელი შექმნილი საუბრები",
+      "DEFAULT_RULE_2": "რაუნდ-რობინის პრინციპით განაწილება",
+      "CUSTOMIZE_WITH_POLICY": "დანიშვნის პოლიტიკით მორგება",
+      "USING_POLICY": "ამ ინბოქსისთვის კასტომიზირებული დანიშვნის პოლიტიკის გამოყენება",
+      "CUSTOMIZE_POLICY": "დანიშვნის პოლიტიკის კასტომიზაცია",
+      "DELETE_POLICY": "პოლიტიკის წაშლა",
+      "POLICY_LABEL": "მინიჭების პოლიტიკა",
+      "ASSIGNMENT_ORDER_LABEL": "დანიშვნის თანმიმდევრობა",
+      "ASSIGNMENT_METHOD_LABEL": "დანიშვნის მეთოდი",
+      "POLICY_STATUS": {
+        "ACTIVE": "აქტიური",
+        "INACTIVE": "არააქტიური"
+      },
+      "PRIORITY": {
+        "EARLIEST_CREATED": "ყველაზე ადრე შექმნილი",
+        "LONGEST_WAITING": "ყველაზე დიდხანს მოლოდინში"
+      },
+      "METHOD": {
+        "ROUND_ROBIN": "რაუნდ-რობინი",
+        "BALANCED": "ბალანსირებული დანიშვნა"
+      },
+      "UPGRADE_PROMPT": "მორგებული დანიშვნის პოლიტიკა ხელმისაწვდომია Business გეგმაზე",
+      "UPGRADE_TO_BUSINESS": "გადაინაცვლეთ Business გეგმაზე",
+      "DEFAULT_POLICY_LINKED": "ნაგულისხმევი პოლიტიკა დაკავშირებულია",
+      "DEFAULT_POLICY_DESCRIPTION": "დააკავშირეთ მორგებული დანიშვნის პოლიტიკა, რათა დაარეგულიროთ როგორ გადანაწილდება საუბრები აგენტებზე ამ ინბოქსში.",
+      "LINK_EXISTING_POLICY": "არსებული პოლიტიკის დაკავშირება",
+      "CREATE_NEW_POLICY": "ახალი პოლიტიკის შექმნა",
+      "NO_POLICIES": "მინიჭების პოლიტიკები ვერ მოიძებნა",
+      "VIEW_ALL_POLICIES": "ყველა პოლიტიკის ნახვა",
+      "CURRENT_BEHAVIOR": "ამჟამად გამოიყენება ნაგულისხმევი დანიშვნის ქცევა:",
+      "LINK_SUCCESS": "დანიშვნის პოლიტიკა წარმატებით დაკავშირებულია",
+      "LINK_ERROR": "მონაწილეობის პოლიტიკის დაკავშირება ვერ მოხერხდა"
+    },
+    "ASSIGNMENT_POLICY": {
+      "DELETE_CONFIRM_TITLE": "მონაწილეობის პოლიტიკის წაშლა?",
+      "DELETE_CONFIRM_MESSAGE": "დარწმუნებული ხართ, რომ გინდათ ამ მონაწილეობის პოლიტიკის ამოღება ამ ინბოქსიდან? ინბოქსი დაბრუნდება ნაგულისხმევ მონაწილეობის წესებზე.",
+      "CANCEL": "გაუქმება",
+      "CONFIRM_DELETE": "წაშლა",
+      "DELETE_SUCCESS": "დავალების პოლიტიკა წარმატებით წაიშალა",
+      "DELETE_ERROR": "დავალების პოლიტიკის წაშლა ვერ მოხერხდა"
     }
   }
 }

@@ -22,7 +22,9 @@ class ConversationPolicy < ApplicationPolicy
   end
 
   def agent_bot?
-    user.is_a?(AgentBot)
+    return false unless user.is_a?(AgentBot)
+
+    user.system_bot? || user.account_id == account&.id || user.inboxes.exists?(id: record.inbox_id)
   end
 
   def inbox_access?

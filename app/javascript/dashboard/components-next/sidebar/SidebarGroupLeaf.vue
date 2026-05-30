@@ -12,7 +12,8 @@ const props = defineProps({
   component: { type: Function, default: null },
 });
 
-const { resolvePermissions, resolveFeatureFlag } = useSidebarContext();
+const { resolvePermissions, resolveFeatureFlag, resolveInstallationType } =
+  useSidebarContext();
 
 const shouldRenderComponent = computed(() => {
   return typeof props.component === 'function' || isVNode(props.component);
@@ -24,6 +25,7 @@ const shouldRenderComponent = computed(() => {
   <Policy
     :permissions="resolvePermissions(to)"
     :feature-flag="resolveFeatureFlag(to)"
+    :installation-types="resolveInstallationType(to)"
     as="li"
     class="py-0.5 ltr:pl-2 rtl:pr-2 rtl:mr-3 ltr:ml-3 relative text-n-slate-11 child-item before:bg-n-slate-4 after:bg-transparent after:border-n-slate-4 before:left-0 rtl:before:right-0 min-w-0"
   >

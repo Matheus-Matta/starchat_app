@@ -150,8 +150,8 @@
       "EMPTY_MESSAGE": "Turite neperskaitytų perspėjimų"
     },
     "LIST": {
-      "LOADING_MESSAGE": "Perspėjimai parsiunčiami...",
       "404": "Nėra Perspėjimų",
+      "LOADING_MESSAGE": "Perspėjimai parsiunčiami...",
       "TABLE_HEADER": [
         "Vardas",
         "Telefono numeris",
@@ -239,7 +239,8 @@
       "DARK_MODE": "Tamsus",
       "SYSTEM_MODE": "Sistema",
       "SNOOZE_NOTIFICATION": "Atidėti pranešimą"
-    }
+    },
+    "SNOOZE_PLACEHOLDER": "Type a time e.g. tomorrow, 2 hours, next friday, jan 15..."
   },
   "DASHBOARD_APPS": {
     "LOADING_MESSAGE": "Paleidžiama informacijos suvestinės programa..."

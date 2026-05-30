@@ -40,13 +40,14 @@
       }
     },
     "LIST": {
+      "404": "Nem található automatizált szabály",
       "TABLE_HEADER": {
         "NAME": "Név",
         "DESCRIPTION": "Leírás",
         "ACTIVE": "Aktív",
-        "CREATED_ON": "Létrehozva"
-      },
-      "404": "Nem található automatizált szabály"
+        "CREATED_ON": "Létrehozva",
+        "ACTIONS": "Műveletek"
+      }
     },
     "DELETE": {
       "TITLE": "Automatizált szabály törlése",
@@ -131,7 +132,8 @@
       "CONVERSATION_CREATED": "Beszélgetés létrehozva",
       "CONVERSATION_UPDATED": "Beszélgetés frissítve",
       "MESSAGE_CREATED": "Message Created",
-      "CONVERSATION_OPENED": "Conversation Opened"
+      "CONVERSATION_OPENED": "Conversation Opened",
+      "CONVERSATION_RESOLVED": "Conversation Resolved"
     },
     "ACTIONS": {
       "ASSIGN_AGENT": "Assign to Agent",
@@ -149,7 +151,10 @@
       "ADD_PRIVATE_NOTE": "Add a Private Note",
       "CHANGE_PRIORITY": "Prioritás megváltoztatása",
       "ADD_SLA": "Add SLA",
-      "OPEN_CONVERSATION": "Beszélgetés megnyitása"
+      "OPEN_CONVERSATION": "Beszélgetés megnyitása",
+      "REMOVE_ASSIGNED_AGENT": "Remove Assigned Agent",
+      "REMOVE_ASSIGNED_TEAM": "Remove Assigned Team",
+      "PENDING_CONVERSATION": "Mark conversation as pending"
     },
     "MESSAGE_TYPES": {
       "INCOMING": "Incoming Message",
@@ -176,7 +181,14 @@
       "REFERER_LINK": "Referrer Link",
       "ASSIGNEE_NAME": "Assignee",
       "TEAM_NAME": "Csapat",
-      "PRIORITY": "Prioritás"
-    }
+      "PRIORITY": "Prioritás",
+      "PRIVATE_NOTE": "Privát üzenet",
+      "COMPANY_NAME": "Cég",
+      "LABELS": "Cimkék"
+    },
+    "COUNT": "{n} automation | {n} automations",
+    "SEARCH_PLACEHOLDER": "Search automation rules...",
+    "NO_RESULTS": "No automation rules found matching your search",
+    "LAST_RESPONDING_AGENT": "Last Responding Agent"
   }
 }

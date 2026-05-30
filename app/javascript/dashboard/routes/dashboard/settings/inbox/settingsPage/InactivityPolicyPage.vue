@@ -141,7 +141,7 @@ const toggleAutoResolve = async () => {
 </script>
 
 <template>
-  <div class="mx-8">
+  <div class="mx-8 mt-2">
     <SettingsSection
       :title="t('INBOX_MGMT.INACTIVITY_POLICY.TITLE')"
       :sub-title="t('INBOX_MGMT.INACTIVITY_POLICY.SUBTITLE')"

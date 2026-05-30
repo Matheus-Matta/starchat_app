@@ -1,8 +1,8 @@
 {
   "CONVERSATION": {
+    "404": "Siamo spiacenti, non siamo riusciti a trovare la conversazione. Riprova",
     "SELECT_A_CONVERSATION": "Si prega di selezionare una conversazione dal pannello sinistro",
     "CSAT_REPLY_MESSAGE": "Valuta la conversazione",
-    "404": "Siamo spiacenti, non siamo riusciti a trovare la conversazione. Riprova",
     "SWITCH_VIEW_LAYOUT": "Cambia il layout",
     "DASHBOARD_APP_TAB_MESSAGES": "Messaggi",
     "UNVERIFIED_SESSION": "L'identità di questo utente non è verificata",
@@ -69,7 +69,8 @@
     "REPLY_MESSAGE_NOT_FOUND": "Message not available",
     "CARD": {
       "SHOW_LABELS": "Show labels",
-      "HIDE_LABELS": "Hide labels"
+      "HIDE_LABELS": "Hide labels",
+      "LABELS_COUNT": "{count} etichette"
     },
     "VOICE_CALL": {
       "INCOMING_CALL": "Incoming call",
@@ -80,7 +81,9 @@
       "CALL_ENDED": "Call ended",
       "NOT_ANSWERED_YET": "Not answered yet",
       "THEY_ANSWERED": "They answered",
-      "YOU_ANSWERED": "You answered"
+      "YOU_ANSWERED": "You answered",
+      "AGENT_ANSWERED": "{agentName} ha risposto",
+      "JOIN_CALL": "Entra nella chiamata"
     },
     "HEADER": {
       "RESOLVE_ACTION": "Risolvi",
@@ -100,7 +103,8 @@
         "RT": "RT {status}",
         "MISSED": "missed",
         "DUE": "due"
-      }
+      },
+      "COPY_ID_SUCCESS": "ID conversazione copiato negli appunti"
     },
     "RESOLVE_DROPDOWN": {
       "MARK_PENDING": "Segna come in sospeso",
@@ -172,8 +176,15 @@
         "TEAM_ASSIGNMENT": {
           "SUCCESFUL": "Assegnato il team \"{team}\" all'id conversazione {conversationId}",
           "FAILED": "Impossibile assegnare il team. Riprova."
+        },
+        "LABEL_REMOVAL": {
+          "SUCCESFUL": "Rimossa etichetta #{labelName} dalla conversazione id {conversationId}",
+          "FAILED": "Impossibile rimuovere l'etichetta. Riprova."
         }
-      }
+      },
+      "OPEN_IN_NEW_TAB": "Apri in una nuova scheda",
+      "COPY_LINK": "Copia link conversazione",
+      "COPY_LINK_SUCCESS": "Link conversazione copiato negli appunti"
     },
     "FOOTER": {
       "MESSAGE_SIGN_TOOLTIP": "Firma del messaggio",
@@ -183,7 +194,11 @@
       "PRIVATE_MSG_INPUT": "MAIUSC + INVIO per nuova linea. Questo sarà visibile solo agli agenti",
       "MESSAGE_SIGNATURE_NOT_CONFIGURED": "La firma del messaggio non è configurata, configurala nelle impostazioni del profilo.",
       "CLICK_HERE": "Clicca qui per aggiornare",
-      "WHATSAPP_TEMPLATES": "Modelli Whatsapp"
+      "WHATSAPP_TEMPLATES": "Modelli Whatsapp",
+      "MESSAGING_RESTRICTED": "Non è possibile rispondere a questa conversazione",
+      "MESSAGING_RESTRICTED_WHATSAPP": "Puoi rispondere solamente con un messaggio modello: la finestra di 24 ore di WhatsApp è scaduta",
+      "MESSAGING_RESTRICTED_API": "Puoi rispondere solamente con un messaggio modello: la finestra di messaggistica è scaduta",
+      "COPILOT_MSG_INPUT": "Dai ulteriori istruzioni a Copilot o fai un’altra richiesta. Premi Invio per inviare il messaggio successivo"
     },
     "REPLYBOX": {
       "REPLY": "Rispondi",
@@ -224,6 +239,14 @@
           "YES": "Invia",
           "CANCEL": "annulla"
         }
+      },
+      "COPILOT_THINKING": "Copilot sta pensando",
+      "QUOTED_REPLY": {
+        "ENABLE_TOOLTIP": "Includi discussione email citata",
+        "DISABLE_TOOLTIP": "Non includere discussione email citata",
+        "REMOVE_PREVIEW": "Rimuovi discussione email citata",
+        "COLLAPSE": "Comprimi anteprima",
+        "EXPAND": "Espandi anteprima"
       }
     },
     "VISIBLE_TO_AGENTS": "Nota privata: visibile solo a te e al tuo team",
@@ -265,6 +288,21 @@
     "SIDEBAR": {
       "CONTACT": "Contatto",
       "COPILOT": "Cosmos"
+    },
+    "48_HOURS_WINDOW": "Restrizione finestra messaggio 48 ore",
+    "UNSUPPORTED_MESSAGE_TIKTOK": "Questo messaggio non è supportato. Puoi visualizzare questo messaggio sull'app TikTok.",
+    "FILE_TYPE_NOT_SUPPORTED": "I file di tipo {fileName} non sono supportati in questa conversazione",
+    "NATIVE_APP": "App nativa",
+    "NATIVE_APP_ADVISORY": "Questo messaggio è stato inviato da un'app nativa. Rispondi da qui per mantenere la finestra del messaggio.",
+    "VOICE_WIDGET": {
+      "INCOMING_CALL": "Chiamata in arrivo",
+      "OUTGOING_CALL": "Chiamata in uscita",
+      "CALL_IN_PROGRESS": "Chiamata in corso",
+      "NOT_ANSWERED_YET": "Non ancora risposta",
+      "HANDLED_IN_ANOTHER_TAB": "Gestita in un'altra scheda",
+      "REJECT_CALL": "Rifiuta",
+      "JOIN_CALL": "Entra nella chiamata",
+      "END_CALL": "Termina chiamata"
     }
   },
   "EMAIL_TRANSCRIPT": {
@@ -282,7 +320,8 @@
         "PLACEHOLDER": "Inserisci un indirizzo email",
         "ERROR": "Inserisci un indirizzo email valido"
       }
-    }
+    },
+    "SEND_EMAIL_PAYMENT_REQUIRED": "La trascrizione email non è disponibile sul tuo piano attuale. Per favore aggiorna per utilizzare questa funzionalità."
   },
   "ONBOARDING": {
     "TITLE": "Ehi 👋, Benvenuto in {installationName}!",
@@ -329,7 +368,8 @@
       "PREVIOUS_CONVERSATION": "Conversazioni precedenti",
       "MACROS": "Macros",
       "LINEAR_ISSUES": "Linked Linear Issues",
-      "SHOPIFY_ORDERS": "Shopify Orders"
+      "SHOPIFY_ORDERS": "Shopify Orders",
+      "SHARED_FILES": "Allegati"
     },
     "SHOPIFY": {
       "ORDER_ID": "Order #{id}",
@@ -349,6 +389,17 @@
         "PARTIALLY_FULFILLED": "Partially Fulfilled",
         "UNFULFILLED": "Unfulfilled"
       }
+    },
+    "SHARED_FILES": {
+      "EMPTY": "Nessun allegato",
+      "DOWNLOAD": "Scarica file",
+      "DOWNLOAD_ERROR": "Impossibile scaricare il file. Riprova.",
+      "MEDIA_HEADING": "Media",
+      "FILES_HEADING": "File",
+      "VIEW_ALL": "Vedi tutti",
+      "SHOW_LESS": "Mostra meno",
+      "MORE_COUNT": "+{count}",
+      "UNTITLED_FILE": "File senza titolo"
     }
   },
   "CONVERSATION_CUSTOM_ATTRIBUTES": {

@@ -6,5 +6,7 @@ module Starchat::Concerns::Inbox
     has_one :cosmos_assistant,
             through: :cosmos_inbox,
             class_name: 'Cosmos::Assistant'
+    has_many :inbox_capacity_limits, dependent: :destroy
+    has_many :calls, dependent: :destroy_async
   end
 end

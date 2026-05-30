@@ -13,7 +13,8 @@
       "TABLE_HEADER": {
         "NAME": "Namn",
         "DESCRIPTION": "Beskrivning",
-        "COLOR": "Färg"
+        "COLOR": "Färg",
+        "ACTION": "Åtgärder"
       }
     },
     "FORM": {
@@ -80,6 +81,9 @@
         "YES": "Ja, ta bort ",
         "NO": "Nej, behåll "
       }
-    }
+    },
+    "COUNT": "{n} label | {n} labels",
+    "SEARCH_PLACEHOLDER": "Sök etiketter...",
+    "NO_RESULTS": "No labels found matching your search"
   }
 }

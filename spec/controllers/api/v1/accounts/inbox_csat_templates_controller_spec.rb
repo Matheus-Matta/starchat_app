@@ -394,9 +394,9 @@ RSpec.describe Api::V1::Accounts::InboxCsatTemplatesController, type: :request d
       }
     end
 
-    context 'when captain_integration feature is disabled' do
+    context 'when cosmos_integration feature is disabled' do
       before do
-        account.disable_features!('captain_integration')
+        account.disable_features!('cosmos_integration')
       end
 
       it 'returns forbidden' do
@@ -406,13 +406,13 @@ RSpec.describe Api::V1::Accounts::InboxCsatTemplatesController, type: :request d
              as: :json
 
         expect(response).to have_http_status(:forbidden)
-        expect(response.parsed_body['error']).to eq('Captain is required for template analysis')
+        expect(response.parsed_body['error']).to eq('Cosmos is required for template analysis')
       end
     end
 
-    context 'when captain_integration feature is enabled' do
+    context 'when cosmos_integration feature is enabled' do
       before do
-        account.enable_features!('captain_integration')
+        account.enable_features!('cosmos_integration')
         account.reload
       end
 

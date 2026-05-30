@@ -19,6 +19,11 @@ RSpec.describe V2::Reports::Conversations::MetricBuilder, type: :model do
       expect(summary).to eq(
         {
           conversations_count: 42,
+          unique_contacts_count: 42,
+          status_open_count: 42,
+          status_resolved_count: 42,
+          status_snoozed_count: 42,
+          status_pending_count: 42,
           attendances_count: 42,
           incoming_messages_count: 42,
           outgoing_messages_count: 42,

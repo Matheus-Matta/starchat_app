@@ -150,8 +150,8 @@
       "EMPTY_MESSAGE": "Vous n’avez pas de notifications non lues"
     },
     "LIST": {
-      "LOADING_MESSAGE": "Chargement des notifications...",
       "404": "Aucune notification",
+      "LOADING_MESSAGE": "Chargement des notifications...",
       "TABLE_HEADER": [
         "Nom",
         "Numéro de téléphone",
@@ -239,7 +239,8 @@
       "DARK_MODE": "Sombre",
       "SYSTEM_MODE": "Système",
       "SNOOZE_NOTIFICATION": "Mettre la notification en veille"
-    }
+    },
+    "SNOOZE_PLACEHOLDER": "Type a time e.g. tomorrow, 2 hours, next friday, jan 15..."
   },
   "DASHBOARD_APPS": {
     "LOADING_MESSAGE": "Chargement de l'application du tableau de bord ..."

@@ -58,7 +58,11 @@
       "CONFIRM": "2FA'yı devre dışı bırak",
       "CANCEL": "İptal Et",
       "SUCCESS": "İki faktörlü kimlik doğrulama devre dışı bırakıldı",
-      "ERROR": "MFA devre dışı bırakılamadı. Lütfen kimlik bilgilerinizi kontrol edin."
+      "ERROR": "MFA devre dışı bırakılamadı. Lütfen kimlik bilgilerinizi kontrol edin.",
+      "BACKUP_CODE": "Yedek Kod",
+      "BACKUP_CODE_PLACEHOLDER": "Yedek kodlarınızdan birini girin",
+      "USE_BACKUP_CODE": "Lost access to your authenticator? Use a backup code instead",
+      "USE_OTP_CODE": "Use a verification code from your authenticator app"
     },
     "REGENERATE": {
       "TITLE": "Yedek Kodları Yeniden Oluştur",

@@ -34,7 +34,8 @@
       "LOADING": "Notiek robotu iegūšana...",
       "TABLE_HEADER": {
         "DETAILS": "Bot Details",
-        "URL": "Webhook URL"
+        "URL": "Webhook URL",
+        "ACTIONS": "Darbības"
       }
     },
     "DELETE": {
@@ -98,6 +99,19 @@
     },
     "TYPES": {
       "WEBHOOK": "Webhook robots"
+    },
+    "COUNT": "{n} bot | {n} bots",
+    "SEARCH_PLACEHOLDER": "Search bots...",
+    "NO_RESULTS": "No bots found matching your search",
+    "SECRET": {
+      "LABEL": "Webhook Secret",
+      "COPY": "Copy secret to clipboard",
+      "COPY_SUCCESS": "Secret copied to clipboard",
+      "TOGGLE": "Toggle secret visibility",
+      "CREATED_DESC": "Use the secret below to verify webhook signatures. Please copy it now, you can also find it later in the bot settings.",
+      "DONE": "Done",
+      "RESET_SUCCESS": "Webhook secret regenerated successfully",
+      "RESET_ERROR": "Unable to regenerate webhook secret. Please try again"
     }
   }
 }

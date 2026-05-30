@@ -13,7 +13,8 @@
       "TABLE_HEADER": {
         "NAME": "Nume",
         "DESCRIPTION": "Descriere",
-        "COLOR": "Culoare"
+        "COLOR": "Culoare",
+        "ACTION": "Actiuni"
       }
     },
     "FORM": {
@@ -80,6 +81,9 @@
         "YES": "Da, șterge ",
         "NO": "Nu, păstreaza "
       }
-    }
+    },
+    "COUNT": "{n} label | {n} labels",
+    "SEARCH_PLACEHOLDER": "Căutare etichete...",
+    "NO_RESULTS": "No labels found matching your search"
   }
 }

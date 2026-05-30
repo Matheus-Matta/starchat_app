@@ -27,7 +27,12 @@
       "LABEL": "Parola",
       "PLACEHOLDER": "Parola",
       "ERROR": "Parola çok kısa.",
-      "IS_INVALID_PASSWORD": "Şifre en az 1 büyük harf, 1 küçük harf, 1 rakam ve 1 özel karakter içermelidir."
+      "IS_INVALID_PASSWORD": "Şifre en az 1 büyük harf, 1 küçük harf, 1 rakam ve 1 özel karakter içermelidir.",
+      "REQUIREMENTS_LENGTH": "En az 6 karakter uzunluğunda olmalı",
+      "REQUIREMENTS_UPPERCASE": "En az bir büyük harf içermeli",
+      "REQUIREMENTS_LOWERCASE": "En az bir küçük harf içermeli",
+      "REQUIREMENTS_NUMBER": "En az bir rakam içermeli",
+      "REQUIREMENTS_SPECIAL": "En az bir özel karakter içermeli"
     },
     "CONFIRM_PASSWORD": {
       "LABEL": "Parolayı onayla",
@@ -39,6 +44,14 @@
       "ERROR_MESSAGE": "Woot sunucusuna bağlanılamadı. Lütfen tekrar deneyin."
     },
     "SUBMIT": "Hesap oluştur",
-    "HAVE_AN_ACCOUNT": "Hesabın var mı?"
+    "HAVE_AN_ACCOUNT": "Hesabın var mı?",
+    "GET_STARTED": "Get started with Chatwoot",
+    "VERIFY_EMAIL": {
+      "TITLE": "Check your inbox",
+      "DESCRIPTION": "We sent a verification link to {email}. Click the link to verify your email and get started.",
+      "RESEND": "Doğrulama E-Postasını tekrar gönder",
+      "RESEND_SUCCESS": "Verification email sent. Please check your inbox.",
+      "RESEND_ERROR": "Could not send verification email. Please try again."
+    }
   }
 }

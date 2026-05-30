@@ -7,12 +7,12 @@
 {% if message %}
   \u003cdiv style=\"margin: 20px 0;\"\u003e
     \u003ch4 style=\"margin: 0 0 8px 0; color: #6B7280; font-size: 14px; font-weight: 600;\"\u003e
-      {{ message.sender.name }}
+      {{ message.sender_display_name }}
     \u003c/h4\u003e
 
     \u003cdiv style=\"padding: 12px 16px; margin: 0; background: #FEF3C7; border-left: 3px solid #F59E0B; border-radius: 6px; font-family: 'Helvetica Neue',Tahoma,Arial,sans-serif; color: #374151; line-height: 1.6;\"\u003e
-      {% if message.content %}
-        {{ message.content }}
+      {% if message.text_content %}
+        {{ message.text_content }}
       {% endif %}
 
       {% if message.attachments %}

@@ -55,7 +55,10 @@
       "LAST_3_MONTHS": "Последние 3 месяца",
       "LAST_6_MONTHS": "Последние 6 месяцев",
       "LAST_YEAR": "За прошлый год",
-      "CUSTOM_DATE_RANGE": "Настраиваемый диапазон даты"
+      "CUSTOM_DATE_RANGE": "Настраиваемый диапазон даты",
+      "LAST_14_DAYS": "Последние 14 дней",
+      "THIS_MONTH": "This month",
+      "LAST_MONTH": "Last month"
     },
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "Применить",
@@ -121,7 +124,8 @@
     "PAGINATION": {
       "RESULTS": "Показаны {start} - {end} из {total} результатов",
       "PER_PAGE_TEMPLATE": "{size} / page"
-    }
+    },
+    "DOWNLOAD_CONVERSATION_REPORTS": "Download conversation reports"
   },
   "AGENT_REPORTS": {
     "HEADER": "Обзор агентов",
@@ -189,6 +193,11 @@
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "Применить",
       "PLACEHOLDER": "Выберите диапазон дат"
+    },
+    "FILTERS": {
+      "INPUT_PLACEHOLDER": {
+        "AGENTS": "Поиск агентов"
+      }
     }
   },
   "LABEL_REPORTS": {
@@ -257,6 +266,11 @@
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "Применить",
       "PLACEHOLDER": "Выберите диапазон дат"
+    },
+    "FILTERS": {
+      "INPUT_PLACEHOLDER": {
+        "LABELS": "Поиск меток"
+      }
     }
   },
   "INBOX_REPORTS": {
@@ -325,6 +339,13 @@
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "Применить",
       "PLACEHOLDER": "Выберите диапазон дат"
+    },
+    "ALL_INBOXES": "Все входящие",
+    "SEARCH_INBOX": "Поиск входящих",
+    "FILTERS": {
+      "INPUT_PLACEHOLDER": {
+        "INBOXES": "Search inboxes"
+      }
     }
   },
   "TEAM_REPORTS": {
@@ -393,6 +414,14 @@
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "Применить",
       "PLACEHOLDER": "Выберите диапазон дат"
+    },
+    "FILTERS": {
+      "ADD_FILTER": "Добавить фильтр",
+      "CLEAR_ALL": "Очистить всё",
+      "NO_FILTER": "Нет доступных фильтров",
+      "INPUT_PLACEHOLDER": {
+        "TEAMS": "Поиск команд"
+      }
     }
   },
   "CSAT_REPORTS": {
@@ -402,7 +431,26 @@
     "DOWNLOAD_FAILED": "Не удалось загрузить CSAT отчёты",
     "FILTERS": {
       "AGENTS": {
-        "PLACEHOLDER": "Выберите Операторов"
+        "PLACEHOLDER": "Выберите Операторов",
+        "LABEL": "Оператор"
+      },
+      "ADD_FILTER": "Добавить фильтр",
+      "CLEAR_ALL": "Очистить всё",
+      "NO_FILTER": "Нет доступных фильтров",
+      "INPUT_PLACEHOLDER": {
+        "AGENTS": "Поиск агентов",
+        "INBOXES": "Search inboxes",
+        "TEAMS": "Поиск команд",
+        "RATINGS": "Search ratings"
+      },
+      "INBOXES": {
+        "LABEL": "Электронная почта"
+      },
+      "TEAMS": {
+        "LABEL": "Команда"
+      },
+      "RATINGS": {
+        "LABEL": "Оценка"
       }
     },
     "TABLE": {
@@ -410,8 +458,13 @@
         "CONTACT_NAME": "Контакт",
         "AGENT_NAME": "Назначенный сотрудник",
         "RATING": "Оценка",
-        "FEEDBACK_TEXT": "Комментарий отзыва"
-      }
+        "FEEDBACK_TEXT": "Комментарий отзыва",
+        "CONVERSATION": "Диалоги",
+        "CUSTOMER": "Customer",
+        "RESPONSE": "Ответ",
+        "HANDLED_BY": "Handled by"
+      },
+      "UNKNOWN_CUSTOMER": "Unknown customer"
     },
     "METRIC": {
       "TOTAL_RESPONSES": {
@@ -425,6 +478,28 @@
       "RESPONSE_RATE": {
         "LABEL": "Доля откликов",
         "TOOLTIP": "Общее количество ответов / Общее количество отправленных сообщений CSAT опросов * 100"
+      },
+      "RATING_DISTRIBUTION": "Rating distribution"
+    },
+    "NO_RECORDS_DESCRIPTION": "CSAT survey responses will appear here once customers start providing feedback.",
+    "NO_AGENT": "No assigned agent",
+    "NO_FEEDBACK": "No feedback provided",
+    "REVIEW_NOTES": {
+      "TITLE": "Review notes",
+      "PLACEHOLDER": "Add review notes about this rating...",
+      "SAVE": "Сохранить",
+      "CANCEL": "Отменить",
+      "SAVING": "Сохранение...",
+      "SAVED": "Notes saved successfully",
+      "SAVE_ERROR": "Failed to save notes",
+      "UPDATED_BY": "Updated by {name} {time}",
+      "UPDATED_BY_LABEL": "Updated by",
+      "PAYWALL": {
+        "TITLE": "Upgrade to add review notes",
+        "AVAILABLE_ON": "The review notes feature is only available in the Business and Enterprise plans.",
+        "UPGRADE_PROMPT": "Add internal context to every CSAT response with review notes. Capture what really happened, spot patterns faster, and make better decisions from your feedback.",
+        "UPGRADE_NOW": "Обновить сейчас",
+        "CANCEL_ANYTIME": "Вы можете изменить или отменить ваш тарифный план в любое время"
       }
     }
   },
@@ -495,6 +570,13 @@
       "ONLINE": "В сети",
       "BUSY": "Занят",
       "OFFLINE": "Оффлайн"
+    },
+    "RESOLUTION_HEATMAP": {
+      "HEADER": "Резолюции",
+      "NO_CONVERSATIONS": "Нет сообщений",
+      "CONVERSATION": "{count} разговор",
+      "CONVERSATIONS": "{count} разговоров",
+      "DOWNLOAD_REPORT": "Скачать отчет"
     }
   },
   "DAYS_OF_WEEK": {

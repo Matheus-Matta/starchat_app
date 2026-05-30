@@ -209,12 +209,6 @@
   description: 'The FireCrawl API key for the Cosmos AI service'
   locked: false
   type: secret
-- name: COSMOS_CLOUD_PLAN_LIMITS
-  display_title: 'Cosmos Cloud Plan Limits'
-  description: 'The limits for the Cosmos AI service for different plans'
-  value:
-  type: code
-
 # End of Cosmos Config
 
 # ------- Context.dev Config ------- #
@@ -237,14 +231,6 @@
   description: 'The starchat Inbox HMAC Key for Contact Support in Cloud'
   locked: false
   type: secret
-- name: CHATWOOT_CLOUD_PLANS
-  display_title: 'Cloud Plans'
-  value:
-  description: 'Config to store stripe plans for cloud'
-- name: CHATWOOT_CLOUD_PLAN_FEATURES
-  display_title: 'Planwise Features List'
-  value:
-  description: 'Config to features and their associated plans'
 - name: DEPLOYMENT_ENV
   value: self-hosted
   description: 'The deployment environment of the installation, to differentiate between starchat cloud and self-hosted'
@@ -279,13 +265,6 @@
   type: code
 # ------- End of Chatwoot Internal Config for Cloud ----#
 
-# ------- Chatwoot Internal Config for Self Hosted ----#
-- name: INSTALLATION_PRICING_PLAN
-  value: 'Enterprise'
-  description: 'The pricing plan for the installation, retrieved from the billing API'
-- name: INSTALLATION_PRICING_PLAN_QUANTITY
-  value: 10000000
-  description: 'The number of licenses purchased for the installation, retrieved from the billing API'
 - name: CHATWOOT_SUPPORT_WEBSITE_TOKEN
   value:
   description: 'The starchat website token, used to identify the starchat inbox and display the "Contact Support" option on the billing page'

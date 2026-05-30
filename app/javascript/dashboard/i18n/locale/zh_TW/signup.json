@@ -27,7 +27,12 @@
       "LABEL": "密碼",
       "PLACEHOLDER": "密碼",
       "ERROR": "密碼太短了.",
-      "IS_INVALID_PASSWORD": "Password should contain atleast 1 uppercase letter, 1 lowercase letter, 1 number and 1 special character."
+      "IS_INVALID_PASSWORD": "Password should contain atleast 1 uppercase letter, 1 lowercase letter, 1 number and 1 special character.",
+      "REQUIREMENTS_LENGTH": "至少 6 個字元",
+      "REQUIREMENTS_UPPERCASE": "至少一個大寫字母",
+      "REQUIREMENTS_LOWERCASE": "至少一個小寫字母",
+      "REQUIREMENTS_NUMBER": "至少一個數字",
+      "REQUIREMENTS_SPECIAL": "至少一個特殊字元"
     },
     "CONFIRM_PASSWORD": {
       "LABEL": "Confirm password",
@@ -39,6 +44,14 @@
       "ERROR_MESSAGE": "Could not connect to Woot server. Please try again."
     },
     "SUBMIT": "Create account",
-    "HAVE_AN_ACCOUNT": "已經有帳號了嗎？"
+    "HAVE_AN_ACCOUNT": "已經有帳號了嗎？",
+    "GET_STARTED": "開始使用 Chatwoot",
+    "VERIFY_EMAIL": {
+      "TITLE": "請查看您的收件匣",
+      "DESCRIPTION": "我們已將驗證連結寄送至 {email}。請點擊連結驗證您的電子郵件並開始使用。",
+      "RESEND": "重新發送驗證信件",
+      "RESEND_SUCCESS": "驗證電子郵件已送出。請查看您的收件匣。",
+      "RESEND_ERROR": "無法送出驗證電子郵件。請再試一次。"
+    }
   }
 }

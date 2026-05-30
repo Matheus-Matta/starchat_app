@@ -55,7 +55,10 @@
     "CALL_UNDER_DEVELOPMENT": "Calling is under development",
     "VOICE_INBOX_PICKER": {
       "TITLE": "Choose a voice inbox"
-    }
+    },
+    "CALL_INITIATED": "Skambinama kontaktui...",
+    "CALL_FAILED": "Nepavyko pradėti skambučio. Bandykite dar kartą.",
+    "CLICK_TO_EDIT": "Click to edit"
   },
   "EDIT_CONTACT": {
     "BUTTON_LABEL": "Keisti Kontaktą",
@@ -405,7 +408,8 @@
       "ACTIVE_FILTERS": {
         "MORE_FILTERS": "+ {count} more filters",
         "CLEAR_FILTERS": "Išvalyti filtrus"
-      }
+      },
+      "COMPANY": "Įmonė"
     },
     "CARD": {
       "OF": "of",
@@ -461,6 +465,12 @@
           },
           "TWITTER": {
             "PLACEHOLDER": "Add Twitter"
+          },
+          "TELEGRAM": {
+            "PLACEHOLDER": "Add Telegram"
+          },
+          "TIKTOK": {
+            "PLACEHOLDER": "Add TikTok"
           }
         }
       },
@@ -557,7 +567,9 @@
         "EXPAND": "Išskleisti",
         "COLLAPSE": "Collapse",
         "NO_NOTES": "No notes, you can add notes from the contact details page.",
-        "EMPTY_STATE": "There are no notes associated to this contact. You can add a note by typing in the box above."
+        "EMPTY_STATE": "There are no notes associated to this contact. You can add a note by typing in the box above.",
+        "ADD_NOTE": "Add contact note",
+        "CONVERSATION_EMPTY_STATE": "There are no notes yet. Use the Add note button to create one."
       }
     },
     "EMPTY_STATE": {
@@ -567,7 +579,8 @@
       "SEARCH_EMPTY_STATE_TITLE": "Nė vienas kontaktas neatitinka jūsų paieškos 🔍",
       "LIST_EMPTY_STATE_TITLE": "No contacts available in this view 📋",
       "ACTIVE_EMPTY_STATE_TITLE": "No contacts are active at the moment 🌙"
-    }
+    },
+    "LOAD_MORE": "Load more"
   },
   "COMPOSE_NEW_CONVERSATION": {
     "CONTACT_SEARCH": {
@@ -623,6 +636,27 @@
           "SEND_MESSAGE": "Išsiųsti pranešimą"
         }
       }
+    }
+  },
+  "CONTACTS_BULK_ACTIONS": {
+    "ASSIGN_LABELS": "Priskirti etiketes",
+    "ASSIGN_LABELS_SUCCESS": "Etiketės sėkmingai priskirtos.",
+    "ASSIGN_LABELS_FAILED": "Failed to assign labels",
+    "DESCRIPTION": "Select the labels you want to add to the selected contacts.",
+    "NO_LABELS_FOUND": "No labels available yet.",
+    "SELECTED_COUNT": "{count} selected",
+    "CLEAR_SELECTION": "Clear selection",
+    "SELECT_ALL": "Select all ({count})",
+    "DELETE_CONTACTS": "Ištrinti",
+    "DELETE_SUCCESS": "Contacts deleted successfully.",
+    "DELETE_FAILED": "Failed to delete contacts.",
+    "DELETE_DIALOG": {
+      "TITLE": "Delete selected contacts",
+      "SINGULAR_TITLE": "Delete selected contact",
+      "DESCRIPTION": "This will permanently delete {count} selected contacts. This action cannot be undone.",
+      "SINGULAR_DESCRIPTION": "This will permanently delete the selected contact. This action cannot be undone.",
+      "CONFIRM_MULTIPLE": "Delete contacts",
+      "CONFIRM_SINGLE": "Trinti kontaktą"
     }
   }
 }

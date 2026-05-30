@@ -68,7 +68,8 @@
         "API_SUCCESS": "Signature saved successfully",
         "IMAGE_UPLOAD_ERROR": "Couldn't upload image! Try again",
         "IMAGE_UPLOAD_SUCCESS": "Image added successfully. Please click on save to save the signature",
-        "IMAGE_UPLOAD_SIZE_ERROR": "Image size should be less than {size}MB"
+        "IMAGE_UPLOAD_SIZE_ERROR": "Image size should be less than {size}MB",
+        "INLINE_IMAGE_WARNING": "Pasted inline images were removed. Please use the image upload button to add images to your signature."
       },
       "MESSAGE_SIGNATURE": {
         "LABEL": "Message Signature",
@@ -239,7 +240,8 @@
     "SUPER_ADMIN_CONSOLE": "SuperAdmin console",
     "DOCS": "Read documentation",
     "CHANGELOG": "Changelog",
-    "LOGOUT": "Log out"
+    "LOGOUT": "Log out",
+    "YEAR_IN_REVIEW": "Aasta ülevaade"
   },
   "APP_GLOBAL": {
     "TRIAL_MESSAGE": "days trial remaining.",
@@ -272,7 +274,8 @@
     "FILE_BUBBLE": {
       "DOWNLOAD": "Download",
       "UPLOADING": "Uploading...",
-      "INSTAGRAM_STORY_UNAVAILABLE": "This story is no longer available."
+      "INSTAGRAM_STORY_UNAVAILABLE": "This story is no longer available.",
+      "INSTAGRAM_STORY_REPLY": "Vastas su loole:"
     },
     "LOCATION_BUBBLE": {
       "SEE_ON_MAP": "See on map"
@@ -375,7 +378,20 @@
       "INFO_SHORT": "Automatically mark offline when you aren't using the app."
     },
     "DOCS": "Read docs",
-    "SECURITY": "Security"
+    "SECURITY": "Security",
+    "COMPANIES": "Ettevõtted",
+    "ALL_COMPANIES": "Kõik ettevõtted",
+    "CAPTAIN": "Kapten",
+    "CAPTAIN_ASSISTANTS": "Abilised",
+    "CAPTAIN_DOCUMENTS": "Dokumendid",
+    "CAPTAIN_RESPONSES": "KKK",
+    "CAPTAIN_TOOLS": "Tööriistad",
+    "CAPTAIN_SCENARIOS": "Stsenaariumid",
+    "CAPTAIN_PLAYGROUND": "Mänguväljak",
+    "CAPTAIN_INBOXES": "Postkastid",
+    "CAPTAIN_SETTINGS": "Seaded",
+    "CAPTAIN_AI": "Kapten",
+    "CONVERSATION_WORKFLOW": "Vestluse töövoog"
   },
   "BILLING_SETTINGS": {
     "TITLE": "Billing",
@@ -405,7 +421,39 @@
       "DESCRIPTION": "Do you face any issues in billing? We are here to help.",
       "BUTTON_TXT": "Chat with us"
     },
-    "NO_BILLING_USER": "Your billing account is being configured. Please refresh the page and try again."
+    "NO_BILLING_USER": "Your billing account is being configured. Please refresh the page and try again.",
+    "CAPTAIN": {
+      "TITLE": "Kapten",
+      "DESCRIPTION": "Halda Captain AI kasutust ja krediite.",
+      "BUTTON_TXT": "Osta rohkem krediite",
+      "DOCUMENTS": "Dokumendid",
+      "RESPONSES": "Responses",
+      "UPGRADE": "Captain ei ole tasuta plaanis saadaval, uuenda kohe, et saada ligipääs assistentidele, copilotile ja muule.",
+      "REFRESH_CREDITS": "Värskenda"
+    },
+    "TOPUP": {
+      "BUY_CREDITS": "Osta rohkem krediite",
+      "MODAL_TITLE": "Osta AI krediite",
+      "MODAL_DESCRIPTION": "Purchase additional credits for Captain AI.",
+      "CREDITS": "KREDIIDID",
+      "ONE_TIME": "ühekordne",
+      "POPULAR": "Kõige populaarsem",
+      "NOTE_TITLE": "Märkus:",
+      "NOTE_DESCRIPTION": "Krediidid lisatakse kohe ja aeguvad 6 kuu pärast. Krediitide kasutamiseks on vajalik aktiivne tellimus. Ostetud krediidid tarbitakse pärast teie kuupõhise plaani krediite.",
+      "CANCEL": "Tühista",
+      "PURCHASE": "Osta krediite",
+      "LOADING": "Valikute laadimine...",
+      "FETCH_ERROR": "Krediidivalikute laadimine ebaõnnestus. Palun proovi uuesti.",
+      "PURCHASE_ERROR": "Ostu töötlemine ebaõnnestus. Palun proovi uuesti.",
+      "PURCHASE_SUCCESS": "Kontole lisati edukalt {credits} krediiti",
+      "CONFIRM": {
+        "TITLE": "Kinnita ost",
+        "DESCRIPTION": "Oled ostmas {credits} krediiti hinnaga {amount}.",
+        "INSTANT_DEDUCTION_NOTE": "Sinu salvestatud kaardilt võetakse summa kohe pärast kinnitamist.",
+        "GO_BACK": "Tagasi",
+        "CONFIRM_PURCHASE": "Kinnita ost"
+      }
+    }
   },
   "SECURITY_SETTINGS": {
     "TITLE": "Security",
@@ -456,7 +504,7 @@
         "CERTIFICATE_ERROR": "Certificate is required",
         "IDP_ENTITY_ID_ERROR": "Identity Provider Entity ID is required"
       },
-      "ENTERPRISE_PAYWALL": {
+      "STARCHAT_PAYWALL": {
         "AVAILABLE_ON": "The SAML SSO feature is only available in the Enterprise plans.",
         "UPGRADE_PROMPT": "Upgrade to an Enterprise plan to access SAML single sign-on and other advanced security features.",
         "ASK_ADMIN": "Please reach out to your administrator for the upgrade."
@@ -475,8 +523,14 @@
       "INFO_SECTION": {
         "TITLE": "Service Provider Information",
         "TOOLTIP": "Copy these values and configure them in your Identity Provider to establish the SAML connection"
+      },
+      "ENTERPRISE_PAYWALL": {
+        "AVAILABLE_ON": "The SAML SSO feature is only available in the Enterprise plans.",
+        "UPGRADE_PROMPT": "Uuenda Enterprise plaanile, et kasutada SAML ühtset sisselogimist ja muid täiustatud turvafunktsioone.",
+        "ASK_ADMIN": "Palun pöördu uuendamiseks oma administraatori poole."
       }
-    }
+    },
+    "SAML_DISABLED_MESSAGE": "SAML SSO on hetkel keelatud. Palun võtke ühendust oma administraatoriga, et see funktsioon lubada."
   },
   "CREATE_ACCOUNT": {
     "NO_ACCOUNT_WARNING": "Uh oh! We could not find any Chatwoot accounts. Please create a new account to continue.",
@@ -563,7 +617,8 @@
         "CREATE_BUTTON": "Create policy",
         "API": {
           "SUCCESS_MESSAGE": "Assignment policy created successfully",
-          "ERROR_MESSAGE": "Failed to create assignment policy"
+          "ERROR_MESSAGE": "Failed to create assignment policy",
+          "INBOX_LINKED": "Sissetulek on poliitikaga seotud"
         }
       },
       "EDIT": {
@@ -590,6 +645,12 @@
             "SUCCESS_MESSAGE": "Inbox removed from policy successfully",
             "ERROR_MESSAGE": "Failed to remove inbox from policy"
           }
+        },
+        "INBOX_LINK_PROMPT": {
+          "TITLE": "Seosta sissetulek poliitikaga",
+          "DESCRIPTION": "Kas soovid selle sissetuleku siduda määramisreegliga?",
+          "LINK_BUTTON": "Seosta sissetulek",
+          "CANCEL_BUTTON": "Jäta vahele"
         }
       },
       "FORM": {
@@ -615,7 +676,9 @@
           },
           "BALANCED": {
             "LABEL": "Balanced",
-            "DESCRIPTION": "Assign conversations based on available capacity."
+            "DESCRIPTION": "Assign conversations based on available capacity.",
+            "PREMIUM_MESSAGE": "Uuenda, et kasutada tasakaalustatud määramist ja agendi võimekuse haldust.",
+            "PREMIUM_BADGE": "Premium"
           }
         },
         "ASSIGNMENT_PRIORITY": {
@@ -701,6 +764,20 @@
             "SUCCESS_MESSAGE": "Agent removed from policy successfully",
             "ERROR_MESSAGE": "Failed to remove agent from policy"
           }
+        },
+        "INBOX_LIMIT_API": {
+          "ADD": {
+            "SUCCESS_MESSAGE": "Sissetuleku limiit lisatud edukalt",
+            "ERROR_MESSAGE": "Sissetuleku limiidi lisamine ebaõnnestus"
+          },
+          "UPDATE": {
+            "SUCCESS_MESSAGE": "Sissetuleku limiit uuendatud edukalt",
+            "ERROR_MESSAGE": "Sissetuleku limiidi uuendamine ebaõnnestus"
+          },
+          "DELETE": {
+            "SUCCESS_MESSAGE": "Sissetuleku limiit kustutatud edukalt",
+            "ERROR_MESSAGE": "Sissetuleku limiidi kustutamine ebaõnnestus"
+          }
         }
       },
       "FORM": {
@@ -763,6 +840,106 @@
       "DESCRIPTION": "Are you sure you want to delete this policy? This action cannot be undone.",
       "CONFIRM_BUTTON_LABEL": "Delete",
       "CANCEL_BUTTON_LABEL": "Cancel"
+    }
+  },
+  "CAPTAIN_SETTINGS": {
+    "TITLE": "Captain Settings",
+    "DESCRIPTION": "Seadista oma AI mudelid ja funktsioonid Captainile. Captain kasutab krediidipõhist arveldamist, iga Captaini tegevuse eest valitud mudeli alusel võetakse krediite.",
+    "LOADING": "Loading Captain configuration...",
+    "LINK_TEXT": "Learn more about Captain Credits",
+    "NOT_ENABLED": "Captain ei ole sinu kontol lubatud. Palun uuenda oma plaani, et pääseda Captaini funktsioonidele ligi.",
+    "MODEL_CONFIG": {
+      "TITLE": "Mudeli seadistus",
+      "DESCRIPTION": "Vali AI mudelid erinevate funktsioonide jaoks.",
+      "SELECT_MODEL": "Vali mudel",
+      "CREDITS_PER_MESSAGE": "{credits} krediiti/sõnum",
+      "COMING_SOON": "Varsti saadaval",
+      "EDITOR": {
+        "TITLE": "Redaktori funktsioonid",
+        "DESCRIPTION": "Toetab nutikat kirjutamist, grammatikaparandusi, tooni kohandusi ja sisu täiustamist sõnumiredaktoris."
+      },
+      "ASSISTANT": {
+        "TITLE": "Assistent",
+        "DESCRIPTION": "Haldab automatiseeritud vastuseid, vestluste kokkuvõtteid ja nutikaid vastuseettepanekuid kliendisuhtluses."
+      },
+      "COPILOT": {
+        "TITLE": "Kaaspiloot",
+        "DESCRIPTION": "Provides real-time contextual suggestions, knowledge base recommendations, and proactive insights during conversations."
+      }
+    },
+    "FEATURES": {
+      "TITLE": "Funktsioonid",
+      "DESCRIPTION": "Luba või keela AI-põhised funktsioonid.",
+      "AUDIO_TRANSCRIPTION": {
+        "TITLE": "Heli transkriptsioon",
+        "DESCRIPTION": "Muutke automaatselt hääl- ja kõnesalvestused otsitavateks tekstikirjeldusteks."
+      },
+      "HELP_CENTER_SEARCH": {
+        "TITLE": "Abi keskuse otsingu indekseerimine",
+        "DESCRIPTION": "Use AI for context aware search inside your help center articles."
+      },
+      "LABEL_SUGGESTION": {
+        "TITLE": "Sildi soovitus",
+        "DESCRIPTION": "Paku automaatselt vestluste sisu analüüsi ja konteksti põhjal asjakohaseid silte ja märgendeid.",
+        "MODEL_TITLE": "Sildi soovituse mudel",
+        "MODEL_DESCRIPTION": "Vali AI mudel vestluste analüüsimiseks ja sobivate siltide soovitamiseks"
+      }
+    },
+    "API": {
+      "SUCCESS": "Captain settings updated successfully.",
+      "ERROR": "Failed to update Captain settings. Please try again."
+    }
+  },
+  "CONVERSATION_WORKFLOW": {
+    "INDEX": {
+      "HEADER": {
+        "TITLE": "Vestluse töövood",
+        "DESCRIPTION": "Seadista reeglid ja vajalikud väljad vestluse lahendamiseks."
+      }
+    },
+    "REQUIRED_ATTRIBUTES": {
+      "TITLE": "Lahendamisel nõutavad atribuudid",
+      "DESCRIPTION": "Vestlust lahendades palutakse agendil täita need atribuudid, kui need pole veel täidetud.",
+      "NO_ATTRIBUTES": "Atribuute pole veel lisatud",
+      "ADD": {
+        "TITLE": "Lisa atribuute",
+        "SEARCH_PLACEHOLDER": "Otsi atribuute"
+      },
+      "SAVE": {
+        "SUCCESS": "Nõutavad atribuudid uuendatud",
+        "ERROR": "Nõutavate atribuutide uuendamine ebaõnnestus, palun proovi uuesti"
+      },
+      "MODAL": {
+        "TITLE": "Lahenda vestlus",
+        "DESCRIPTION": "Palun täida enne selle vestluse lahendamist järgmised kohandatud atribuudid",
+        "ACTIONS": {
+          "RESOLVE": "Lahenda vestlus",
+          "CANCEL": "Tühista"
+        },
+        "PLACEHOLDERS": {
+          "TEXT": "Kirjuta märkus...",
+          "NUMBER": "Sisesta number",
+          "LINK": "Lisa link",
+          "DATE": "Vali kuupäev",
+          "LIST": "Vali valik"
+        },
+        "CHECKBOX": {
+          "YES": "Jah",
+          "NO": "Ei"
+        }
+      },
+      "PAYWALL": {
+        "TITLE": "Uuenda, et kasutada nõutavaid atribuute",
+        "AVAILABLE_ON": "The required conversation attributes feature is available on the Business and Enterprise plans.",
+        "UPGRADE_PROMPT": "Uuenda oma plaani, et paluda agentidel täita nõutavad atribuudid enne vestluse lahendamist.",
+        "UPGRADE_NOW": "Uuenda kohe",
+        "CANCEL_ANYTIME": "Saad oma plaani igal ajal muuta või tühistada"
+      },
+      "ENTERPRISE_PAYWALL": {
+        "AVAILABLE_ON": "Nõutavate vestluse atribuutide funktsioon on saadaval tasulistes plaanides.",
+        "UPGRADE_PROMPT": "Uuenda tasulisele plaanile, et nõuda atribuutide täitmist enne vestluse lõpetamist.",
+        "ASK_ADMIN": "Palun pöördu uuenduse saamiseks oma administraatori poole."
+      }
     }
   }
 }

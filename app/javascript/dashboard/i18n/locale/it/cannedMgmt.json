@@ -72,6 +72,9 @@
         "YES": "Yes, delete ",
         "NO": "No, keep "
       }
-    }
+    },
+    "COUNT": "{n} risposta predefinita | {n} risposte predefinite",
+    "SEARCH_PLACEHOLDER": "Cerca Risposte Predefinite...",
+    "NO_RESULTS": "Nessuna Risposta Predefinita trovata corrispondente alla tua ricerca"
   }
 }

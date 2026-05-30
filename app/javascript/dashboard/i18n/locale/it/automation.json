@@ -40,13 +40,14 @@
       }
     },
     "LIST": {
+      "404": "Nessuna regola di automazione trovata",
       "TABLE_HEADER": {
         "NAME": "Nome",
         "DESCRIPTION": "Descrizione",
         "ACTIVE": "Attivo",
-        "CREATED_ON": "Creato il"
-      },
-      "404": "Nessuna regola di automazione trovata"
+        "CREATED_ON": "Creato il",
+        "ACTIONS": "Azioni"
+      }
     },
     "DELETE": {
       "TITLE": "Elimina regola di automazione",
@@ -131,7 +132,8 @@
       "CONVERSATION_CREATED": "Conversazione creata",
       "CONVERSATION_UPDATED": "Conversazione aggiornata",
       "MESSAGE_CREATED": "Message Created",
-      "CONVERSATION_OPENED": "Conversation Opened"
+      "CONVERSATION_OPENED": "Conversation Opened",
+      "CONVERSATION_RESOLVED": "Conversazione Risolta"
     },
     "ACTIONS": {
       "ASSIGN_AGENT": "Assign to Agent",
@@ -149,7 +151,10 @@
       "ADD_PRIVATE_NOTE": "Add a Private Note",
       "CHANGE_PRIORITY": "Change Priority",
       "ADD_SLA": "Add SLA",
-      "OPEN_CONVERSATION": "Apri conversazione"
+      "OPEN_CONVERSATION": "Apri conversazione",
+      "REMOVE_ASSIGNED_AGENT": "Remove Assigned Agent",
+      "REMOVE_ASSIGNED_TEAM": "Rimuovi Team Assegnato",
+      "PENDING_CONVERSATION": "Segna conversazione come in sospeso"
     },
     "MESSAGE_TYPES": {
       "INCOMING": "Incoming Message",
@@ -176,7 +181,14 @@
       "REFERER_LINK": "Referrer Link",
       "ASSIGNEE_NAME": "Assignee",
       "TEAM_NAME": "Team",
-      "PRIORITY": "Priorità"
-    }
+      "PRIORITY": "Priorità",
+      "PRIVATE_NOTE": "Nota Privata",
+      "COMPANY_NAME": "Azienda",
+      "LABELS": "Etichette"
+    },
+    "COUNT": "{n} automazione | {n} automazioni",
+    "SEARCH_PLACEHOLDER": "Cerca regole di automazione...",
+    "NO_RESULTS": "Nessuna regola di automazione trovata corrispondente alla tua ricerca",
+    "LAST_RESPONDING_AGENT": "Ultimo Operatore che ha risposto"
   }
 }

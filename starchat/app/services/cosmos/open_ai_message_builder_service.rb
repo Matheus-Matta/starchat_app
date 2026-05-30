@@ -1,6 +1,18 @@
 class Cosmos::OpenAiMessageBuilderService
   pattr_initialize [:message!]
 
+  # Splits message content into text and attachment parts for RubyLLM consumption.
+  # Content can be a plain String or an Array of typed parts from generate_content.
+  def self.extract_text_and_attachments(content)
+    return [content.to_s, []] unless content.is_a?(Array)
+
+    text_parts = content.select { |p| p[:type] == 'text' || p['type'] == 'text' }
+    image_parts = content.select { |p| p[:type] == 'image_url' || p['type'] == 'image_url' }
+
+    text = text_parts.map { |p| p[:text] || p['text'] }.join(' ')
+    [text, image_parts]
+  end
+
   def generate_content
     parts = []
     parts << text_part(@message.content) if @message.content.present?

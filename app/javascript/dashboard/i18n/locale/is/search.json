@@ -27,6 +27,42 @@
     "WROTE": "wrote:",
     "FROM": "frá",
     "EMAIL": "tölvupóstfang",
-    "EMAIL_SUBJECT": "viðfangsefni"
+    "EMAIL_SUBJECT": "viðfangsefni",
+    "RECENT_SEARCHES": "Recent searches",
+    "CLEAR_ALL": "Clear all",
+    "MOST_RECENT": "Most recent",
+    "READ_LESS": "Read less",
+    "PRIVATE": "Private note",
+    "TRANSCRIPT": "Transcript",
+    "CREATED_AT": "created {time}",
+    "UPDATED_AT": "updated {time}",
+    "SORT_BY": {
+      "RELEVANCE": "Relevance"
+    },
+    "DATE_RANGE": {
+      "LAST_7_DAYS": "Síðustu 7 daga",
+      "LAST_30_DAYS": "Síðustu 30 daga",
+      "LAST_60_DAYS": "Síðustu 60 daga",
+      "LAST_90_DAYS": "Síðustu 90 daga",
+      "CUSTOM_RANGE": "Custom range:",
+      "CREATED_BETWEEN": "Created between",
+      "AND": "and",
+      "APPLY": "Apply",
+      "BEFORE_DATE": "Before {date}",
+      "AFTER_DATE": "After {date}",
+      "TIME_RANGE": "Filter by time",
+      "CLEAR_FILTER": "Clear filter"
+    },
+    "FILTERS": {
+      "FILTER_MESSAGE": "Filter messages by:",
+      "FROM": "Sender",
+      "IN": "Innhólf",
+      "AGENTS": "Þjónustufulltrúar",
+      "CONTACTS": "Tengiliðir",
+      "INBOXES": "Innhólf",
+      "NO_AGENTS": "Engir þjónustufulltrúar fundust",
+      "NO_CONTACTS": "Start by searching to see results",
+      "NO_INBOXES": "No inboxes found"
+    }
   }
 }

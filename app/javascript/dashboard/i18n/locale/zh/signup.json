@@ -16,7 +16,13 @@
     "PASSWORD": {
       "LABEL": "密码",
       "PLACEHOLDER": "密码",
-      "ERROR": "密码太短了"
+      "ERROR": "密码太短了",
+      "IS_INVALID_PASSWORD": "密码应至少应该包含：1个大写字母、1个小写字母、1个数字和1个特殊字符。",
+      "REQUIREMENTS_LENGTH": "At least 6 characters long",
+      "REQUIREMENTS_UPPERCASE": "At least one uppercase letter",
+      "REQUIREMENTS_LOWERCASE": "At least one lowercase letter",
+      "REQUIREMENTS_NUMBER": "At least one number",
+      "REQUIREMENTS_SPECIAL": "At least one special character"
     },
     "CONFIRM_PASSWORD": {
       "LABEL": "请确认密码",
@@ -27,6 +33,23 @@
       "SUCCESS_MESSAGE": "注册成功",
       "ERROR_MESSAGE": "无法连接服务器，请稍后再试"
     },
-    "SUBMIT": "提交"
+    "SUBMIT": "提交",
+    "GET_STARTED": "开始使用Chatwoot",
+    "TESTIMONIAL_HEADER": "只差最后一步就可以了",
+    "TESTIMONIAL_CONTENT": "您离吸引客户、留住客户和寻找新客户仅一步之遥。",
+    "OAUTH": {
+      "GOOGLE_SIGNUP": "使用 Google 注册"
+    },
+    "COMPANY_NAME": {
+      "LABEL": "公司名称",
+      "PLACEHOLDER": "输入您的公司名称。例如, Wayne Enterprises",
+      "ERROR": "公司名称太短了。"
+    },
+    "FULL_NAME": {
+      "LABEL": "名字",
+      "PLACEHOLDER": "输入您的全名，例如 Bruce Wayne",
+      "ERROR": "帐号名称太短了."
+    },
+    "HAVE_AN_ACCOUNT": "已经有帐号？"
   }
 }

@@ -22,6 +22,19 @@ class AutomationRules::ActionService < ActionService
 
   private
 
+  def assign_agent(agent_ids = [])
+    if agent_ids[0] == 'last_responding_agent'
+      last_agent = @conversation.messages.outgoing.where.not(sender_id: nil)
+                                 .order(created_at: :desc)
+                                 .first&.sender
+      return @conversation.update!(assignee: last_agent) if last_agent.is_a?(User)
+
+      return
+    end
+
+    super
+  end
+
   def send_attachment(blob_ids)
     return if conversation_a_tweet?
 

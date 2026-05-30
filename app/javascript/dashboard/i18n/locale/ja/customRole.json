@@ -13,7 +13,7 @@
       "UPGRADE_NOW": "今すぐアップグレード",
       "CANCEL_ANYTIME": "プランはいつでも変更またはキャンセルできます"
     },
-    "ENTERPRISE_PAYWALL": {
+    "STARCHAT_PAYWALL": {
       "AVAILABLE_ON": "カスタムロール機能は有料プランでのみ利用可能です。",
       "UPGRADE_PROMPT": "監査ログ、担当者キャパシティなどの高度な機能にアクセスするために有料プランにアップグレードしてください。",
       "ASK_ADMIN": "アップグレードについては管理者にお問い合わせください。"
@@ -87,6 +87,14 @@
         "YES": "はい、削除します",
         "NO": "いいえ、保持します"
       }
+    },
+    "COUNT": "{n} custom role | {n} custom roles",
+    "SEARCH_PLACEHOLDER": "Search custom roles...",
+    "NO_RESULTS": "No custom roles found matching your search",
+    "ENTERPRISE_PAYWALL": {
+      "AVAILABLE_ON": "カスタムロール機能は有料プランでのみ利用可能です。",
+      "UPGRADE_PROMPT": "監査ログ、担当者キャパシティなどの高度な機能にアクセスするために有料プランにアップグレードしてください。",
+      "ASK_ADMIN": "アップグレードについては管理者にお問い合わせください。"
     }
   }
 }

@@ -33,10 +33,7 @@ module Starchat::Account::PlanUsageAndLimits
   end
 
   def subscribed_features
-    plan_features = InstallationConfig.find_by(name: 'CHATWOOT_CLOUD_PLAN_FEATURES')&.value
-    return [] if plan_features.blank?
-
-    plan_features[plan_name]
+    enabled_features.keys
   end
 
   def cosmos_monthly_limit
@@ -70,29 +67,8 @@ module Starchat::Account::PlanUsageAndLimits
 
   def default_cosmos_limits
     max_limits = { documents: ChatwootApp.max_limit, responses: ChatwootApp.max_limit }.with_indifferent_access
-    zero_limits = { documents: 0, responses: 0 }.with_indifferent_access
-    plan_quota = InstallationConfig.find_by(name: 'COSMOS_CLOUD_PLAN_LIMITS')&.value
 
-    # If there are no limits configured, we allow max usage
-    return max_limits if plan_quota.blank?
-
-    # if there is plan_quota configred, but plan_name is not present, we return zero limits
-    return zero_limits if plan_name.blank?
-
-    begin
-      # Now we parse the plan_quota and return the limits for the plan name
-      # but if there's no plan_name present in the plan_quota, we return zero limits
-      plan_quota = JSON.parse(plan_quota) if plan_quota.present?
-      plan_quota[plan_name.downcase] || zero_limits
-    rescue StandardError
-      # if there's any error in parsing the plan_quota, we return max limits
-      # this is to ensure that we don't block the user from using the product
-      max_limits
-    end
-  end
-
-  def plan_name
-    custom_attributes['plan_name']
+    max_limits
   end
 
   def agent_limits
@@ -140,7 +116,8 @@ module Starchat::Account::PlanUsageAndLimits
         'inboxes' => { 'type': 'number' },
         'agents' => { 'type': 'number' },
         'cosmos_responses' => { 'type': 'number' },
-        'cosmos_documents' => { 'type': 'number' }
+        'cosmos_documents' => { 'type': 'number' },
+        'emails' => { 'type': 'number' }
       },
       'required' => [],
       'additionalProperties' => false

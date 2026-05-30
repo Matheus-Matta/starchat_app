@@ -13,7 +13,8 @@
       "TABLE_HEADER": {
         "NAME": "姓名",
         "DESCRIPTION": "描述資訊",
-        "COLOR": "顏色"
+        "COLOR": "顏色",
+        "ACTION": "操作"
       }
     },
     "FORM": {
@@ -80,6 +81,9 @@
         "YES": "是，刪除 ",
         "NO": "不，保留 "
       }
-    }
+    },
+    "COUNT": "{n} 個標籤 | {n} 個標籤",
+    "SEARCH_PLACEHOLDER": "搜尋標籤...",
+    "NO_RESULTS": "找不到符合搜尋條件的標籤"
   }
 }

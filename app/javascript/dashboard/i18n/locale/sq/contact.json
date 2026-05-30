@@ -407,7 +407,8 @@
       "ACTIVE_FILTERS": {
         "MORE_FILTERS": "+ {count} filtra të tjerë",
         "CLEAR_FILTERS": "Pastro filtrat"
-      }
+      },
+      "COMPANY": "Kompania"
     },
     "CARD": {
       "OF": "e",

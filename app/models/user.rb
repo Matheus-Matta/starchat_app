@@ -88,7 +88,7 @@ class User < ApplicationRecord
   accepts_nested_attributes_for :account_users
 
   has_many :assigned_conversations, foreign_key: 'assignee_id', class_name: 'Conversation', dependent: :nullify, inverse_of: :assignee
-  alias_attribute :conversations, :assigned_conversations
+  alias_method :conversations, :assigned_conversations
   has_many :csat_survey_responses, foreign_key: 'assigned_agent_id', dependent: :nullify, inverse_of: :assigned_agent
   has_many :contact_responsible_agents, foreign_key: :user_id, dependent: :destroy
   has_many :responsible_contacts, through: :contact_responsible_agents, class_name: 'Contact', source: :contact
@@ -172,9 +172,9 @@ class User < ApplicationRecord
   end
 
   # 2FA/MFA Methods
-  # Delegated to Mfa::ManagementService for better separation of concerns
+  # Delegated to MFA::ManagementService for better separation of concerns
   def mfa_service
-    @mfa_service ||= Mfa::ManagementService.new(user: self)
+    @mfa_service ||= MFA::ManagementService.new(user: self)
   end
 
   delegate :two_factor_provisioning_uri, to: :mfa_service
@@ -186,6 +186,10 @@ class User < ApplicationRecord
 
   def mfa_enabled?
     otp_required_for_login?
+  end
+
+  def mfa
+    mfa_enabled? ? 'Enabled' : 'Disabled'
   end
 
   def mfa_feature_available?

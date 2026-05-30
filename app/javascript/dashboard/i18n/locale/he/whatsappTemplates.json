@@ -1,29 +1,47 @@
 {
-    "WHATSAPP_TEMPLATES": {
-        "MODAL": {
-            "TITLE": "תבניות וואטסאפ",
-            "SUBTITLE": "בחר את תבנית הווטסאפ שברצונך לשלוח",
-            "TEMPLATE_SELECTED_SUBTITLE": "עיבוד {templateName}"
-        },
-        "PICKER": {
-            "SEARCH_PLACEHOLDER": "חפש תבניות",
-            "NO_TEMPLATES_FOUND": "לא נמצאו תבניות עבור",
-            "NO_TEMPLATES_AVAILABLE": "No WhatsApp templates available. Click refresh to sync templates from WhatsApp.",
-            "REFRESH_BUTTON": "Refresh templates",
-            "REFRESH_SUCCESS": "Templates refresh initiated. It may take a couple of minutes to update.",
-            "REFRESH_ERROR": "Failed to refresh templates. Please try again.",
-            "LABELS": {
-                "LANGUAGE": "שפה",
-                "TEMPLATE_BODY": "גוף התבנית",
-                "CATEGORY": "קטגוריה"
-            }
-        },
-        "PARSER": {
-            "VARIABLES_LABEL": "משתנים",
-            "VARIABLE_PLACEHOLDER": "הזן ערך {variable}",
-            "GO_BACK_LABEL": "חזור",
-            "SEND_MESSAGE_LABEL": "לשלוח הודעה",
-            "FORM_ERROR_MESSAGE": "נא למלא את כל המשתנים לפני השליחה"
-        }
+  "WHATSAPP_TEMPLATES": {
+    "MODAL": {
+      "TITLE": "תבניות וואטסאפ",
+      "SUBTITLE": "בחר את תבנית הווטסאפ שברצונך לשלוח",
+      "TEMPLATE_SELECTED_SUBTITLE": "עיבוד {templateName}"
+    },
+    "PICKER": {
+      "SEARCH_PLACEHOLDER": "חפש תבניות",
+      "NO_TEMPLATES_FOUND": "לא נמצאו תבניות עבור",
+      "NO_TEMPLATES_AVAILABLE": "No WhatsApp templates available. Click refresh to sync templates from WhatsApp.",
+      "REFRESH_BUTTON": "Refresh templates",
+      "REFRESH_SUCCESS": "Templates refresh initiated. It may take a couple of minutes to update.",
+      "REFRESH_ERROR": "Failed to refresh templates. Please try again.",
+      "LABELS": {
+        "LANGUAGE": "שפה",
+        "TEMPLATE_BODY": "גוף התבנית",
+        "CATEGORY": "קטגוריה"
+      },
+      "HEADER": "כותרת עליונה",
+      "BODY": "גוף",
+      "FOOTER": "כותרת תחתונה",
+      "BUTTONS": "כפתורים",
+      "CATEGORY": "קטגוריה",
+      "MEDIA_CONTENT": "תוכן מדיה",
+      "MEDIA_CONTENT_FALLBACK": "תוכן מדיה"
+    },
+    "PARSER": {
+      "VARIABLES_LABEL": "משתנים",
+      "VARIABLE_PLACEHOLDER": "הזן ערך {variable}",
+      "GO_BACK_LABEL": "חזור",
+      "SEND_MESSAGE_LABEL": "לשלוח הודעה",
+      "FORM_ERROR_MESSAGE": "נא למלא את כל המשתנים לפני השליחה",
+      "LANGUAGE": "שפה",
+      "CATEGORY": "קטגוריה",
+      "MEDIA_HEADER_LABEL": "כותרת עליונה {type}",
+      "OTP_CODE": "Enter 4-8 digit OTP",
+      "EXPIRY_MINUTES": "הזן דקות תפוגה",
+      "BUTTON_PARAMETERS": "פרמטרים של כפתורים",
+      "BUTTON_LABEL": "כפתור {index}",
+      "COUPON_CODE": "הזן קוד קופון (מקסימום 15 תווים)",
+      "MEDIA_URL_LABEL": "הזן כתובת URL של {type}",
+      "DOCUMENT_NAME_PLACEHOLDER": "הזן שם קובץ מסמך (לדוגמה, Invoice_2025.pdf)",
+      "BUTTON_PARAMETER": "הזן פרמטר כפתור"
     }
+  }
 }

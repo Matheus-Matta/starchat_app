@@ -187,6 +187,10 @@ class Inbox < ApplicationRecord
     channel_type == 'Channel::TwilioSms'
   end
 
+  def twilio_whatsapp?
+    twilio? && channel.whatsapp?
+  end
+
   def twitter?
     channel_type == 'Channel::TwitterProfile'
   end

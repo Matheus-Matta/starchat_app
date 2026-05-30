@@ -110,6 +110,14 @@
         "SUBMIT_BUTTON": "Create inbox",
         "API": {
           "ERROR_MESSAGE": "We were not able to create a website channel, please try again"
+        },
+        "CHANNEL_WEBHOOK_SECRET": {
+          "LABEL": "Webhook Secret",
+          "COPY": "Պատճենել գաղտնաբառը",
+          "COPY_SUCCESS": "Գաղտնաբառը պատճենվել է",
+          "TOGGLE": "Ցուցադրել/թաքցնել գաղտնաբառը",
+          "RESET_SUCCESS": "Webhook secret regenerated successfully",
+          "RESET_ERROR": "Unable to regenerate webhook secret. Please try again"
         }
       },
       "TWILIO": {
@@ -291,7 +299,13 @@
           "INVALID_BUSINESS_DATA": "Invalid business data received from Facebook. Please try again.",
           "SIGNUP_ERROR": "Signup error occurred",
           "AUTH_NOT_COMPLETED": "Authentication not completed. Please restart the process.",
-          "SUCCESS_FALLBACK": "WhatsApp Business Account has been successfully configured"
+          "SUCCESS_FALLBACK": "WhatsApp Business Account has been successfully configured",
+          "LEARN_MORE": {
+            "TEXT": "Ներկայացված գրանցման, գների և սահմանափակումների մասին ավելին իմանալու համար այցելեք {link}։",
+            "LINK_TEXT": "այս հղումը"
+          },
+          "MANUAL_FALLBACK": "Եթե ձեր համարը արդեն միացված է WhatsApp Business Platform (API)-ին, կամ եթե դուք տեխնոլոգիական մատակարար եք, որը միացնում է իր սեփական համարը, խնդրում ենք օգտագործել {link} ընթացքը",
+          "MANUAL_LINK_TEXT": "ձեռնարկային կարգավորման ընթացք"
         },
         "API": {
           "ERROR_MESSAGE": "We were not able to save the WhatsApp channel"
@@ -373,7 +387,11 @@
         "API": {
           "ERROR_MESSAGE": "We were not able to save the email channel"
         },
-        "FINISH_MESSAGE": "Start forwarding your emails to the following email address."
+        "FINISH_MESSAGE": "Start forwarding your emails to the following email address.",
+        "FINISH_MESSAGE_NO_FORWARDING": "Ձեր էլփոստի մուտքի արկղը հաջողությամբ ստեղծվել է։ Պետք է կարգավորեք SMTP և IMAP հավատարմագրերը՝ էլփոստեր ուղարկելու և ստանալու համար։ Այս կարգավորումներ չլինելու դեպքում էլփոստերը չեն մշակվի։",
+        "FORWARDING_ADDRESS_LABEL": "Էլ. փոստերը փոխանցել այս հասցեին:",
+        "CONFIGURE_SMTP_IMAP_LINK": "Սեղմեք այստեղ",
+        "CONFIGURE_SMTP_IMAP_TEXT": " ՝ IMAP և SMTP կարգավորումները սահմանելու համար"
       },
       "LINE_CHANNEL": {
         "TITLE": "LINE Channel",
@@ -462,6 +480,10 @@
           "VOICE": {
             "TITLE": "Voice",
             "DESCRIPTION": "Integrate with Twilio Voice"
+          },
+          "TIKTOK": {
+            "TITLE": "TikTok",
+            "DESCRIPTION": "Կապեք ձեր TikTok հաշիվը"
           }
         }
       },
@@ -496,6 +518,13 @@
         "SIGN_IN": "Sign in with Google",
         "EMAIL_PLACEHOLDER": "Enter email address",
         "ERROR_MESSAGE": "There was an error connecting to Google, please try again"
+      },
+      "TIKTOK": {
+        "CONTINUE_WITH_TIKTOK": "Շարունակել TikTok-ով",
+        "CONNECT_YOUR_TIKTOK_PROFILE": "Կապեք ձեր TikTok պրոֆիլը",
+        "HELP": "Ձեր TikTok պրոֆիլը որպես ալիք ավելացնելու համար անհրաժեշտ է հաստատել ձեր TikTok պրոֆիլը՝ սեղմելով «Շարունակել TikTok-ով» կոճակը։ ",
+        "ERROR_MESSAGE": "TikTok-ին միանալու ընթացքում սխալ է տեղի ունեցել, խնդրում ենք փորձել կրկին",
+        "ERROR_AUTH": "TikTok-ին միանալու ընթացքում սխալ է տեղի ունեցել, խնդրում ենք փորձել կրկին"
       }
     },
     "DETAILS": {
@@ -567,7 +596,9 @@
       },
       "LOCK_TO_SINGLE_CONVERSATION": {
         "ENABLED": "Enabled",
-        "DISABLED": "Disabled"
+        "DISABLED": "Disabled",
+        "ENABLED_DESCRIPTION": "Երբ կոնտակտը կրկին հաղորդագրություն է ուղարկում, նախորդ զրույցը կվերաբացվի։",
+        "DISABLED_DESCRIPTION": "Նոր զրույց կստեղծվի յուրաքանչյուր անգամ նախորդը լուծվելուց հետո։"
       },
       "ENABLE_HMAC": {
         "LABEL": "Enable"
@@ -599,7 +630,9 @@
       "BUSINESS_HOURS": "Business Hours",
       "WIDGET_BUILDER": "Widget Builder",
       "BOT_CONFIGURATION": "Bot Configuration",
-      "CSAT": "CSAT"
+      "CSAT": "CSAT",
+      "ACCOUNT_HEALTH": "Հաշվի առողջություն",
+      "VOICE": "Ձայն"
     },
     "SETTINGS": "Settings",
     "FEATURES": {
@@ -652,14 +685,49 @@
       "WHATSAPP_TEMPLATES_SYNC_SUBHEADER": "Manually sync message templates from WhatsApp to update your available templates.",
       "WHATSAPP_TEMPLATES_SYNC_BUTTON": "Sync Templates",
       "WHATSAPP_TEMPLATES_SYNC_SUCCESS": "Templates sync initiated successfully. It may take a couple of minutes to update.",
-      "UPDATE_PRE_CHAT_FORM_SETTINGS": "Update Pre Chat Form Settings"
+      "UPDATE_PRE_CHAT_FORM_SETTINGS": "Update Pre Chat Form Settings",
+      "ALLOWED_DOMAINS": {
+        "TITLE": "Թույլատրված տիրույթներ",
+        "DESCRIPTION": "Սահմանափակեք, թե որ կայքերն են կարողանում տեղադրել ձեր զրույցի վիջեթը: Անվտանգության համար ավելացրեք միայն այն դոմեյնները, որոնք պատկանում են ձեզ և որոնց վստահում եք: Ավելացրեք մեկ կամ ավելի դոմեյններ՝ բաժանված ստորակետերով: Թողեք դատարկ՝ թույլ տալու բոլոր դոմեյնները (չի խորհուրդրվում արտադրության համար)։",
+        "PLACEHOLDER": "example.com, www.example.com, app.example.com"
+      },
+      "ALLOW_MOBILE_WEBVIEW": {
+        "LABEL": "Միացնել վիջեթը շարժական հավելվածներում",
+        "SUBTITLE": "Մշակեք այս տարբերակը, եթե վիջեթը տեղադրում եք iOS կամ Android հավելվածներում։ Շարժական հավելվածները չեն ուղարկում դոմեյնի տեղեկություններ, ուստի դրանք կարգելափակվեն դոմեյնների սահմանափակումների կողմից, եթե այս տարբերակը միացված չէ։"
+      },
+      "IDENTITY_VALIDATION": {
+        "TITLE": "Հայտնության հաստատում",
+        "DESCRIPTION": "Հաստատեք օգտվողի իսկությունը՝ ստեղծելով անվտանգ տոկեններ։ Սա կանխում է չարտոնված օգտվողների կողմից ուրիշների անվան տակ զրույցներ վարելը։",
+        "SECRET_KEY": "Գաղտնի բանալի",
+        "VIEW_DOCS": "Դիտել փաստաթղթերը",
+        "REQUIRE_LABEL": "Պահանջել հայտնության հաստատում բոլոր զրույցների համար",
+        "REQUIRE_DESCRIPTION": "Երբ ակտիվացված է, օգտատերերը պետք է տրամադրեն վավեր ինքնության տոկեն՝ զրույց սկսելու համար։ Հարցումները, որոնք չունեն վավեր տոկեններ, մերժվելու են։"
+      },
+      "ENABLE_CONTINUITY_VIA_EMAIL_DISABLED_TEXT": "This feature is available on a paid plan. Upgrade to enable conversation continuity via email.",
+      "FORWARD_EMAIL_NOT_CONFIGURED": "Էլ. փոստերի փոխանցումը ձեր մուտքագրման արկղին այս պահին անջատված է այս տեղադրման վրա։ Այս ֆունկցիան օգտագործելու համար այն պետք է միացվի ձեր ադմինիստրատորի կողմից։ Խնդրում ենք կապ հաստատել նրանց հետ շարունակելու համար։",
+      "WHATSAPP_EMBEDDED_SIGNUP_TITLE": "WhatsApp-ի ներառված գրանցում",
+      "WHATSAPP_EMBEDDED_SIGNUP_SUBHEADER": "Այս մուտքի արկղը միացված է WhatsApp-ի ներառված գրանցման միջոցով։",
+      "WHATSAPP_EMBEDDED_SIGNUP_DESCRIPTION": "Դուք կարող եք վերակազմակերպել այս մուտքի արկղը՝ թարմացնելու ձեր WhatsApp Business կարգավորումները։",
+      "WHATSAPP_RECONFIGURE_BUTTON": "Վերակազմակերպել",
+      "WHATSAPP_CONNECT_TITLE": "Կապվել WhatsApp Business-ի հետ",
+      "WHATSAPP_CONNECT_SUBHEADER": "Թարմացեք WhatsApp-ի ներկառուցված գրանցմանը՝ ավելի հեշտ կառավարման համար։",
+      "WHATSAPP_CONNECT_DESCRIPTION": "Կապեք այս մուտքի արկղը WhatsApp Business-ի հետ՝ բարելավված հնարավորություններով և ավելի հեշտ կառավարման համար։",
+      "WHATSAPP_CONNECT_BUTTON": "Կապվել",
+      "WHATSAPP_CONNECT_SUCCESS": "Հաջողությամբ միացվեց WhatsApp Business-ին։",
+      "WHATSAPP_CONNECT_ERROR": "Չհաջողվեց միանալ WhatsApp Business-ին։ Խնդրում ենք փորձել կրկին։",
+      "WHATSAPP_RECONFIGURE_SUCCESS": "Հաջողությամբ վերակազմակերպվեց WhatsApp Business-ը։",
+      "WHATSAPP_RECONFIGURE_ERROR": "Չհաջողվեց վերակազմակերպել WhatsApp Business-ը։ Խնդրում ենք փորձել կրկին։",
+      "WHATSAPP_APP_ID_MISSING": "WhatsApp հավելվածի ID-ն կարգավորված չէ։ Խնդրում ենք կապ հաստատել ձեր ադմինիստրատորի հետ։",
+      "WHATSAPP_CONFIG_ID_MISSING": "WhatsApp կարգավորման ID-ն կարգավորված չէ։ Խնդրում ենք կապ հաստատել ձեր ադմինիստրատորի հետ։",
+      "WHATSAPP_LOGIN_CANCELLED": "WhatsApp մուտքը չեղարկվեց։ Խնդրում ենք փորձել կրկին։"
     },
     "HELP_CENTER": {
       "LABEL": "Help Center",
       "PLACEHOLDER": "Select Help Center",
       "SELECT_PLACEHOLDER": "Select Help Center",
       "REMOVE": "Remove Help Center",
-      "SUB_TEXT": "Attach a Help Center with the inbox"
+      "SUB_TEXT": "Attach a Help Center with the inbox",
+      "NONE": "Ոչ մեկը"
     },
     "AUTO_ASSIGNMENT": {
       "MAX_ASSIGNMENT_LIMIT": "Auto assignment limit",
@@ -722,7 +790,51 @@
       "API": {
         "SUCCESS_MESSAGE": "CSAT settings updated successfully",
         "ERROR_MESSAGE": "We couldn't update CSAT settings. Please try again later."
-      }
+      },
+      "BUTTON_TEXT": {
+        "LABEL": "Կոճակի տեքստ",
+        "PLACEHOLDER": "Խնդրում ենք գնահատել մեզ"
+      },
+      "LANGUAGE": {
+        "LABEL": "Լեզու",
+        "PLACEHOLDER": "Ընտրեք տպագրության լեզուն"
+      },
+      "MESSAGE_PREVIEW": {
+        "LABEL": "Հաղորդագրության նախադիտում",
+        "TOOLTIP": "Սա կարող է փոքր-ինչ տարբերվել WhatsApp-ի հարթակում ցուցադրման ժամանակ։"
+      },
+      "TEMPLATE_STATUS": {
+        "APPROVED": "Հաստատված է WhatsApp-ի կողմից",
+        "PENDING": "Սպասում է WhatsApp-ի հաստատմանը",
+        "REJECTED": "Meta-ն մերժեց ձևանմուշը",
+        "DEFAULT": "Պահանջվում է WhatsApp-ի հաստատում",
+        "NOT_FOUND": "Ձևանմուշը գոյություն չունի Meta հարթակում։"
+      },
+      "TEMPLATE_CREATION": {
+        "SUCCESS_MESSAGE": "WhatsApp ձևանմուշը հաջողությամբ ստեղծվեց և ուղարկվեց հաստատման համար",
+        "ERROR_MESSAGE": "Չհաջողվեց ստեղծել WhatsApp ձևանմուշը"
+      },
+      "TEMPLATE_UPDATE_DIALOG": {
+        "TITLE": "Խմբագրել հարցման մանրամասները",
+        "DESCRIPTION": "Մենք կջնջենք նախորդ ձևանմուշը և կստեղծենք նոր, որը կրկին կուղարկվի WhatsApp-ի հաստատման համար",
+        "CONFIRM": "Ստեղծել նոր ձևանմուշ",
+        "CANCEL": "Վերադառնալ"
+      },
+      "UTILITY_ANALYZER": {
+        "ACTION": "Ստուգել օգտակարության համապատասխանությունը",
+        "HELPER_NOTE": "Նախքան ուղարկումը ստուգեք այս հաղորդագրությունը՝ օգտակարության համապատասխանությունը բարելավելու համար։ Համակարգը ստեղծում է հատուկ CSAT ձևանմուշ՝ զեկուցման կոճակներով և ուղարկում որպես օգտակարություն։ Meta-ն կարող է այն դեռ դասակարգել որպես մարքեթինգ՝ հիմնվելով բովանդակության վրա։",
+        "RESULT_LABEL": "Meta կատեգորիայի կանխատեսում",
+        "GUIDANCE_NOTE": "Սա ուղղորդիչ ստուգում է, ոչ Meta-ի հաստատման երաշխիք։",
+        "SUGGESTION_LABEL": "Առաջարկվող օգտակարության անվտանգ վերագրանցում",
+        "APPLY": "Օգտագործել այս վերագրանցումը",
+        "ERROR_MESSAGE": "Հաղորդագրությունը վերլուծել հնարավոր չեղավ։ Խնդրում ենք փորձել կրկին։",
+        "CLASSIFICATION": {
+          "LIKELY_UTILITY": "Հավանական օգտակարություն",
+          "LIKELY_MARKETING": "Հավանական մարքեթինգ",
+          "UNCLEAR": "Պետք է հստակեցում"
+        }
+      },
+      "WHATSAPP_NOTE": "Նշում․ Երբ պահում եք, համակարգը ստեղծում է հատուկ CSAT ձևանմուշ WhatsApp-ում (օգտագործվում է գնահատականը և արձագանքը հավաքելու համար զեկույցներում) և ուղարկում այն որպես Օգտակարություն հաստատման։ Meta-ն կարող է այն դասակարգել որպես Մարքեթինգ՝ հիմնվելով բովանդակության վրա։ Հաստատումից հետո հարցումները ուղարկվում են միայն մեկ անգամ յուրաքանչյուր զրույցի համար՝ համաձայն հարցման կանոնի։"
     },
     "BUSINESS_HOURS": {
       "TITLE": "Set your availability",
@@ -738,7 +850,9 @@
         "UNAVAILABLE": "Unavailable",
         "HOURS": "hours",
         "VALIDATION_ERROR": "Starting time should be before closing time.",
-        "CHOOSE": "Choose"
+        "CHOOSE": "Choose",
+        "DAY": "Օր",
+        "AVAILABILITY": "Հասանելիություն"
       },
       "ALL_DAY": "All-Day"
     },
@@ -769,7 +883,8 @@
         "LABEL": "Password",
         "PLACE_HOLDER": "Password"
       },
-      "ENABLE_SSL": "Enable SSL"
+      "ENABLE_SSL": "Enable SSL",
+      "AUTH_MECHANISM": "Հավաստագրում"
     },
     "MICROSOFT": {
       "TITLE": "Microsoft",
@@ -868,7 +983,8 @@
         "WIDGET_BUBBLE_TYPE": {
           "STANDARD": "Standard",
           "EXPANDED_BUBBLE": "Expanded Bubble"
-        }
+        },
+        "WIDGET_BUBBLE": "Փուչիկ"
       },
       "WIDGET_SCREEN": {
         "DEFAULT": "Default",
@@ -920,7 +1036,136 @@
       "LINE": "Line",
       "API": "API Channel",
       "INSTAGRAM": "Instagram",
-      "VOICE": "Voice"
+      "VOICE": "Voice",
+      "TIKTOK": "TikTok"
+    },
+    "COUNT": "{n} մուտք | {n} մուտքեր",
+    "SEARCH_PLACEHOLDER": "Փնտրել մուտքեր...",
+    "NO_RESULTS": "Ձեր որոնմանը համապատասխանող մուտքեր չեն գտնվել",
+    "WHATSAPP_REGISTRATION_INCOMPLETE": "Ձեր WhatsApp Business գրանցումը ավարտված չէ։ Խնդրում ենք ստուգել ձեր ցուցադրման անունի կարգավիճակը Meta Business Manager-ում, նախքան կրկին միանալը։",
+    "COMPLETE_REGISTRATION": "Ավարտել գրանցումը",
+    "VOICE_CONFIGURATION": {
+      "ENABLE_VOICE": {
+        "LABEL": "Enable Voice Calling",
+        "DESCRIPTION": "Enable voice calling on this inbox. Agents will be able to make and receive phone calls."
+      },
+      "CREDENTIALS": {
+        "DESCRIPTION": "Voice calling requires Twilio API Key credentials. These are used to generate tokens for agent voice connections."
+      }
+    },
+    "CHANNEL_PREFERENCES": "Անվճարների նախապատվություններ",
+    "WIDGET_FEATURES": "Վիջեթի հնարավորություններ",
+    "ACCOUNT_HEALTH": {
+      "TITLE": "Կառավարեք ձեր WhatsApp հաշիվը",
+      "DESCRIPTION": "Դիտարկեք ձեր WhatsApp հաշվի կարգավիճակը, հաղորդագրությունների սահմանները և որակը։ Թարմացրեք կարգավորումները կամ լուծեք խնդիրները, եթե անհրաժեշտ է",
+      "GO_TO_SETTINGS": "Գնալ Meta Business Manager",
+      "NO_DATA": "Առողջության տվյալները հասանելի չեն",
+      "FIELDS": {
+        "DISPLAY_PHONE_NUMBER": {
+          "LABEL": "Ցուցադրել հեռախոսահամարը",
+          "TOOLTIP": "Հեռախոսահամարը, որը ցուցադրվում է հաճախորդներին"
+        },
+        "VERIFIED_NAME": {
+          "LABEL": "Բիզնեսի անուն",
+          "TOOLTIP": "Բիզնեսի անունը հաստատված է WhatsApp-ով"
+        },
+        "DISPLAY_NAME_STATUS": {
+          "LABEL": "Ցուցադրման անվան կարգավիճակ",
+          "TOOLTIP": "Ձեր բիզնեսի անվան հաստատման կարգավիճակը"
+        },
+        "QUALITY_RATING": {
+          "LABEL": "Որակի գնահատական",
+          "TOOLTIP": "Ձեր հաշվի WhatsApp որակի գնահատականը"
+        },
+        "MESSAGING_LIMIT_TIER": {
+          "LABEL": "Հաղորդագրությունների սահմանաչափի մակարդակ",
+          "TOOLTIP": "Ձեր հաշվի օրական հաղորդագրությունների սահմանաչափ"
+        },
+        "ACCOUNT_MODE": {
+          "LABEL": "Հաշվի ռեժիմ",
+          "TOOLTIP": "Ձեր WhatsApp հաշվի ընթացիկ գործառնական ռեժիմը"
+        }
+      },
+      "VALUES": {
+        "TIERS": {
+          "TIER_250": "250 հաճախորդ 24h-ում",
+          "TIER_1000": "1K հաճախորդ 24h-ում",
+          "TIER_1K": "1K հաճախորդ 24h-ում",
+          "TIER_10K": "10K հաճախորդ 24h-ում",
+          "TIER_100K": "100K հաճախորդ 24h-ում",
+          "TIER_UNLIMITED": "Անսահմանափակ հաճախորդ 24h-ում",
+          "UNKNOWN": "Գնահատականը հասանելի չէ"
+        },
+        "STATUSES": {
+          "APPROVED": "Հաստատված",
+          "PENDING_REVIEW": "Սպասում է վերանայմանը",
+          "AVAILABLE_WITHOUT_REVIEW": "Հասանելի առանց վերանայման",
+          "REJECTED": "Մերժված",
+          "DECLINED": "Մերժվել է",
+          "NON_EXISTS": "Չկա"
+        },
+        "MODES": {
+          "SANDBOX": "Փորձարկման միջավայր",
+          "LIVE": "Ուղիղ ռեժիմ"
+        }
+      },
+      "WEBHOOK": {
+        "TITLE": "Webhook-ի կարգավորում",
+        "DESCRIPTION": "Webhook URL-ը անհրաժեշտ է ձեր WhatsApp Business հաշվի համար՝ հաճախորդներից հաղորդագրություններ ստանալու համար",
+        "ACTION_REQUIRED": "Webhook-ը կարգավորված չէ",
+        "REGISTER_BUTTON": "Գրանցել Webhook",
+        "REGISTER_SUCCESS": "Webhook-ը հաջողությամբ գրանցվեց",
+        "REGISTER_ERROR": "Webhook-ի գրանցումը ձախողվեց։ Խնդրում ենք փորձել կրկին։",
+        "CONFIGURED_SUCCESS": "Webhook-ը հաջողությամբ կարգավորվեց",
+        "URL_MISMATCH": "Webhook URL-ի անհամապատասխանություն"
+      }
+    },
+    "ASSIGNMENT": {
+      "TITLE": "Հաղորդակցության հանձնարարում",
+      "DESCRIPTION": "Ավտոմատ կերպով նշանակեք ներթափանցող զրույցները հասանելի գործակալներին՝ հիմնվելով նշանակման քաղաքականությունների վրա",
+      "ENABLE_AUTO_ASSIGNMENT": "Միացնել զրույցների ավտոմատ նշանակումը",
+      "DEFAULT_RULES_TITLE": "Նախնական նշանակման կանոններ",
+      "DEFAULT_RULES_DESCRIPTION": "Օգտագործել նախնական նշանակման վարքագիծը բոլոր զրույցների համար",
+      "DEFAULT_RULE_1": "Առաջին հերթին՝ ամենահին ստեղծված զրույցները",
+      "DEFAULT_RULE_2": "Շրջանաձև բաշխում",
+      "CUSTOMIZE_WITH_POLICY": "Անհատականացնել նշանակման քաղաքականությամբ",
+      "USING_POLICY": "Այս մուտքի համար օգտագործվում է անհատական նշանակման քաղաքականություն",
+      "CUSTOMIZE_POLICY": "Անհատականացնել նշանակման քաղաքականությամբ",
+      "DELETE_POLICY": "Ջնջել քաղաքականությունը",
+      "POLICY_LABEL": "Վերաբաշխման քաղաքականություն",
+      "ASSIGNMENT_ORDER_LABEL": "Վերաբաշխման կարգ",
+      "ASSIGNMENT_METHOD_LABEL": "Վերաբաշխման մեթոդ",
+      "POLICY_STATUS": {
+        "ACTIVE": "Ակտիվ",
+        "INACTIVE": "Անգործուն"
+      },
+      "PRIORITY": {
+        "EARLIEST_CREATED": "Ավելի վաղ ստեղծված",
+        "LONGEST_WAITING": "Ամենաերկար սպասող"
+      },
+      "METHOD": {
+        "ROUND_ROBIN": "Շրջանաձև հերթափոխ",
+        "BALANCED": "Համաչափ հանձնարարում"
+      },
+      "UPGRADE_PROMPT": "Հատուկ հանձնարարումների քաղաքականությունները հասանելի են Բիզնես պլանում",
+      "UPGRADE_TO_BUSINESS": "Թարմացնել դեպի Business",
+      "DEFAULT_POLICY_LINKED": "Նախնական քաղաքականությունը կապված է",
+      "DEFAULT_POLICY_DESCRIPTION": "Կապեք հարմարեցված նշանակման քաղաքականություն՝ հարմարեցնելու, թե ինչպես են զրույցները նշանակվում գործակալներին այս մուտքի արկղում։",
+      "LINK_EXISTING_POLICY": "Կապել գոյություն ունեցող քաղաքականությունը",
+      "CREATE_NEW_POLICY": "Ստեղծել նոր քաղաքականություն",
+      "NO_POLICIES": "Առանձնացման քաղաքականություններ չեն գտնվել",
+      "VIEW_ALL_POLICIES": "Դիտել բոլոր քաղաքականությունները",
+      "CURRENT_BEHAVIOR": "Ընթացիկ օգտագործվում է նախնական առանձնացման վարքագիծը:",
+      "LINK_SUCCESS": "Առանձնացման քաղաքականությունը հաջողությամբ կապվեց",
+      "LINK_ERROR": "Չհաջողվեց կապել առանձնացման քաղաքականությունը"
+    },
+    "ASSIGNMENT_POLICY": {
+      "DELETE_CONFIRM_TITLE": "Հեռացնել նշանակման քաղաքականությունը:",
+      "DELETE_CONFIRM_MESSAGE": "Համոզվա՞ծ եք, որ ցանկանում եք հեռացնել այս նշանակման քաղաքականությունը այս մուտքի արկղից: Մուտքի արկղը կվերադառնա նախնական նշանակման կանոններին։",
+      "CANCEL": "Չեղարկել",
+      "CONFIRM_DELETE": "Հեռացնել",
+      "DELETE_SUCCESS": "Նշանակման քաղաքականությունը հաջողությամբ հեռացվեց",
+      "DELETE_ERROR": "Չհաջողվեց հեռացնել նշանակման քաղաքականությունը"
     }
   }
 }

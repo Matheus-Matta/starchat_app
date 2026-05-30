@@ -51,6 +51,10 @@ module Chatwoot
     enterprise_initializers = Rails.root.join('enterprise/config/initializers')
     Dir[enterprise_initializers.join('**/*.rb')].each { |f| require f } if enterprise_initializers.exist?
 
+    # Load starchat initializers alongside standard initializers
+    starchat_initializers = Rails.root.join('starchat/config/initializers')
+    Dir[starchat_initializers.join('**/*.rb')].each { |f| require f } if starchat_initializers.exist?
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading

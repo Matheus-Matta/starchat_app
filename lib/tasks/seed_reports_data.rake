@@ -2,6 +2,11 @@ namespace :db do
   namespace :seed do
     desc 'Seed test data for reports with conversations, contacts, agents, teams, and realistic reporting events'
     task reports_data: :environment do
+      if Rails.env.production?
+        puts 'Reports data seeding is not allowed in production.'
+        exit 1
+      end
+
       if ENV['ACCOUNT_ID'].blank?
         puts 'Please provide an ACCOUNT_ID environment variable'
         puts 'Usage: ACCOUNT_ID=1 ENABLE_ACCOUNT_SEEDING=true bundle exec rake db:seed:reports_data'

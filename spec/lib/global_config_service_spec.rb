@@ -22,6 +22,8 @@ describe GlobalConfigService do
       # end
 
       it 'get value from env variable even if present on DB' do
+        InstallationConfig.where(name: 'ENABLE_ACCOUNT_SIGNUP').delete_all
+        GlobalConfig.clear_cache
         with_modified_env ENABLE_ACCOUNT_SIGNUP: 'false' do
           expect(InstallationConfig.find_by(name: 'ENABLE_ACCOUNT_SIGNUP')&.value).to be_nil
           value = described_class.load('ENABLE_ACCOUNT_SIGNUP', 'true')

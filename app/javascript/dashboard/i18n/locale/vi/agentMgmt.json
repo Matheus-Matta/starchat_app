@@ -119,6 +119,9 @@
           "INPUT": "Tìm nhân viên"
         }
       }
-    }
+    },
+    "COUNT": "{n} agent | {n} agents",
+    "SEARCH_PLACEHOLDER": "Tìm kiếm nhân viên...",
+    "NO_RESULTS": "No agents found matching your search"
   }
 }

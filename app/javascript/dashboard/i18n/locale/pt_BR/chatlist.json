@@ -76,6 +76,9 @@
       },
       "waiting_since_desc": {
         "TEXT": "Resposta pendente: Curtas primeiro"
+      },
+      "priority_desc_created_at_asc": {
+        "TEXT": "Prioridade: Maior primeiro, Criação: Mais antiga primeiro"
       }
     },
     "ATTACHMENTS": {
@@ -105,6 +108,9 @@
       },
       "sticker": {
         "CONTENT": "Figurinha recebida"
+      },
+      "embed": {
+        "CONTENT": "Conteúdo incorporado"
       }
     },
     "CHAT_SORT_BY_FILTER": {
@@ -137,6 +143,7 @@
     "HIDE_QUOTED_TEXT": "Ocultar Texto Citado",
     "SHOW_QUOTED_TEXT": "Mostrar Texto Citado",
     "MESSAGE_READ": "Lida",
-    "SENDING": "Enviando"
+    "SENDING": "Enviando",
+    "UNREAD_COUNT_OVERFLOW": "9+"
   }
 }

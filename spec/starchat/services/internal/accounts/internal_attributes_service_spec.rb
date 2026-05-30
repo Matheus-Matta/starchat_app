@@ -65,7 +65,7 @@ RSpec.describe Internal::Accounts::InternalAttributesService do
   end
 
   describe '#manually_managed_features=' do
-    # Use a real SLA feature which is in the BUSINESS_PLAN_FEATURES
+    # Use a real account feature
     let(:valid_feature) { 'sla' }
 
     before do

@@ -116,6 +116,9 @@
         "LABEL": "Consenti l'assegnazione automatica per questo team."
       },
       "SUBMIT_CREATE": "Crea un nuovo team"
-    }
+    },
+    "COUNT": "{n} team | {n} team",
+    "SEARCH_PLACEHOLDER": "Cerca team...",
+    "NO_RESULTS": "Nessun team trovato corrispondente alla tua ricerca"
   }
 }

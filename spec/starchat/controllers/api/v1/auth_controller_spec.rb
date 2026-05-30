@@ -58,7 +58,7 @@ RSpec.describe 'Api::V1::Auth', type: :request do
       it 'redirects to mobile deep link with error when target is mobile' do
         post '/api/v1/auth/saml_login', params: { email: user.email, target: 'mobile' }
 
-        expect(response.location).to eq('chatwootapp://auth/saml?error=saml-authentication-failed')
+        expect(response.location).to eq('starchatapp://auth/saml?error=saml-authentication-failed')
       end
     end
 

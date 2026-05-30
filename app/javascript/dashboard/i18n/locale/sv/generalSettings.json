@@ -150,8 +150,8 @@
       "EMPTY_MESSAGE": "You have no unread notifications"
     },
     "LIST": {
-      "LOADING_MESSAGE": "Laddar aviseringar...",
       "404": "Inga aviseringar",
+      "LOADING_MESSAGE": "Laddar aviseringar...",
       "TABLE_HEADER": [
         "Namn",
         "Telefonnummer",
@@ -239,7 +239,8 @@
       "DARK_MODE": "Dark",
       "SYSTEM_MODE": "System",
       "SNOOZE_NOTIFICATION": "Snooze Notification"
-    }
+    },
+    "SNOOZE_PLACEHOLDER": "Type a time e.g. tomorrow, 2 hours, next friday, jan 15..."
   },
   "DASHBOARD_APPS": {
     "LOADING_MESSAGE": "Loading Dashboard App..."

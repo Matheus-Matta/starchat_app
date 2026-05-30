@@ -64,7 +64,7 @@ describe('#StarchatAccountAPI', () => {
     it('#createTopupCheckout with credits', () => {
       accountAPI.createTopupCheckout(1000);
       expect(axiosMock.post).toHaveBeenCalledWith(
-        '/enterprise/api/v1/topup_checkout',
+        '/starchat/api/v1/topup_checkout',
         { credits: 1000 }
       );
     });
@@ -74,7 +74,7 @@ describe('#StarchatAccountAPI', () => {
       creditAmounts.forEach(credits => {
         accountAPI.createTopupCheckout(credits);
         expect(axiosMock.post).toHaveBeenCalledWith(
-          '/enterprise/api/v1/topup_checkout',
+          '/starchat/api/v1/topup_checkout',
           { credits }
         );
       });
@@ -82,7 +82,7 @@ describe('#StarchatAccountAPI', () => {
 
     it('#getLimits', () => {
       accountAPI.getLimits();
-      expect(axiosMock.get).toHaveBeenCalledWith('/enterprise/api/v1/limits');
+      expect(axiosMock.get).toHaveBeenCalledWith('/starchat/api/v1/limits');
     });
   });
 });

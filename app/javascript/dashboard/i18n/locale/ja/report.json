@@ -55,7 +55,10 @@
       "LAST_3_MONTHS": "過去 3 ヶ月",
       "LAST_6_MONTHS": "過去 6 ヶ月",
       "LAST_YEAR": "過去 1 年",
-      "CUSTOM_DATE_RANGE": "カスタム日付範囲"
+      "CUSTOM_DATE_RANGE": "カスタム日付範囲",
+      "LAST_14_DAYS": "過去 14 日間",
+      "THIS_MONTH": "This month",
+      "LAST_MONTH": "Last month"
     },
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "適用",
@@ -121,7 +124,8 @@
     "PAGINATION": {
       "RESULTS": "{start}件から{end}件まで表示中（全{total}件）",
       "PER_PAGE_TEMPLATE": "{size} / page"
-    }
+    },
+    "DOWNLOAD_CONVERSATION_REPORTS": "Download conversation reports"
   },
   "AGENT_REPORTS": {
     "HEADER": "担当者概要",
@@ -189,6 +193,11 @@
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "適用",
       "PLACEHOLDER": "日付範囲を選択"
+    },
+    "FILTERS": {
+      "INPUT_PLACEHOLDER": {
+        "AGENTS": "担当者を検索"
+      }
     }
   },
   "LABEL_REPORTS": {
@@ -257,6 +266,11 @@
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "適用",
       "PLACEHOLDER": "日付範囲を選択"
+    },
+    "FILTERS": {
+      "INPUT_PLACEHOLDER": {
+        "LABELS": "ラベルを検索"
+      }
     }
   },
   "INBOX_REPORTS": {
@@ -325,6 +339,13 @@
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "適用",
       "PLACEHOLDER": "日付範囲を選択"
+    },
+    "ALL_INBOXES": "All Inboxes",
+    "SEARCH_INBOX": "Search Inbox",
+    "FILTERS": {
+      "INPUT_PLACEHOLDER": {
+        "INBOXES": "Search inboxes"
+      }
     }
   },
   "TEAM_REPORTS": {
@@ -393,6 +414,14 @@
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "適用",
       "PLACEHOLDER": "日付範囲を選択"
+    },
+    "FILTERS": {
+      "ADD_FILTER": "フィルターを追加",
+      "CLEAR_ALL": "すべてクリア",
+      "NO_FILTER": "利用可能なフィルターがありません",
+      "INPUT_PLACEHOLDER": {
+        "TEAMS": "チームを検索"
+      }
     }
   },
   "CSAT_REPORTS": {
@@ -402,7 +431,26 @@
     "DOWNLOAD_FAILED": "CSATレポートのダウンロードに失敗しました",
     "FILTERS": {
       "AGENTS": {
-        "PLACEHOLDER": "担当者を選択"
+        "PLACEHOLDER": "担当者を選択",
+        "LABEL": "担当者"
+      },
+      "ADD_FILTER": "フィルターを追加",
+      "CLEAR_ALL": "すべてクリア",
+      "NO_FILTER": "利用可能なフィルターがありません",
+      "INPUT_PLACEHOLDER": {
+        "AGENTS": "担当者を検索",
+        "INBOXES": "Search inboxes",
+        "TEAMS": "チームを検索",
+        "RATINGS": "Search ratings"
+      },
+      "INBOXES": {
+        "LABEL": "受信トレイ"
+      },
+      "TEAMS": {
+        "LABEL": "チーム"
+      },
+      "RATINGS": {
+        "LABEL": "評価"
       }
     },
     "TABLE": {
@@ -410,8 +458,13 @@
         "CONTACT_NAME": "連絡先",
         "AGENT_NAME": "担当者",
         "RATING": "評価",
-        "FEEDBACK_TEXT": "フィードバックコメント"
-      }
+        "FEEDBACK_TEXT": "フィードバックコメント",
+        "CONVERSATION": "会話",
+        "CUSTOMER": "Customer",
+        "RESPONSE": "回答",
+        "HANDLED_BY": "Handled by"
+      },
+      "UNKNOWN_CUSTOMER": "Unknown customer"
     },
     "METRIC": {
       "TOTAL_RESPONSES": {
@@ -425,6 +478,28 @@
       "RESPONSE_RATE": {
         "LABEL": "回答率",
         "TOOLTIP": "回答数 / 送信されたCSATアンケートメッセージ数 × 100"
+      },
+      "RATING_DISTRIBUTION": "Rating distribution"
+    },
+    "NO_RECORDS_DESCRIPTION": "CSAT survey responses will appear here once customers start providing feedback.",
+    "NO_AGENT": "No assigned agent",
+    "NO_FEEDBACK": "No feedback provided",
+    "REVIEW_NOTES": {
+      "TITLE": "Review notes",
+      "PLACEHOLDER": "Add review notes about this rating...",
+      "SAVE": "保存",
+      "CANCEL": "キャンセル",
+      "SAVING": "保存中...",
+      "SAVED": "Notes saved successfully",
+      "SAVE_ERROR": "Failed to save notes",
+      "UPDATED_BY": "Updated by {name} {time}",
+      "UPDATED_BY_LABEL": "Updated by",
+      "PAYWALL": {
+        "TITLE": "Upgrade to add review notes",
+        "AVAILABLE_ON": "The review notes feature is only available in the Business and Enterprise plans.",
+        "UPGRADE_PROMPT": "Add internal context to every CSAT response with review notes. Capture what really happened, spot patterns faster, and make better decisions from your feedback.",
+        "UPGRADE_NOW": "今すぐアップグレード",
+        "CANCEL_ANYTIME": "プランはいつでも変更またはキャンセルできます"
       }
     }
   },
@@ -495,6 +570,13 @@
       "ONLINE": "オンライン",
       "BUSY": "取り込み中",
       "OFFLINE": "オフライン"
+    },
+    "RESOLUTION_HEATMAP": {
+      "HEADER": "Resolutions",
+      "NO_CONVERSATIONS": "会話がありません",
+      "CONVERSATION": "{count}件の会話",
+      "CONVERSATIONS": "{count}件の会話",
+      "DOWNLOAD_REPORT": "レポートをダウンロード"
     }
   },
   "DAYS_OF_WEEK": {

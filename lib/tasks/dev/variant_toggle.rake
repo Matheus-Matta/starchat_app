@@ -28,33 +28,27 @@ namespace :chatwoot do
 
       # Check InstallationConfig
       deployment_env = InstallationConfig.find_by(name: 'DEPLOYMENT_ENV')&.value
-      pricing_plan = InstallationConfig.find_by(name: 'INSTALLATION_PRICING_PLAN')&.value
-
       # Determine current variant based on configs
       current_variant = if deployment_env == 'cloud'
                           'Cloud'
-                        elsif pricing_plan == 'enterprise'
-                          'Enterprise'
                         else
-                          'Community'
+                          'Enterprise'
                         end
 
       puts "📊 Current Variant: #{current_variant}"
       puts "   Deployment Environment: #{deployment_env || 'Not set'}"
-      puts "   Pricing Plan: #{pricing_plan || 'community'}"
       puts ''
     end
 
     def show_variant_menu
       puts '🎯 Select a variant to switch to:'
       puts ''
-      puts '1. 🆓 Community   (Free version with basic features)'
-      puts '2. 🏢 Enterprise  (Self-hosted with premium features)'
-      puts '3. 🌥️  Cloud       (Cloud deployment with premium features)'
+      puts '1. 🏢 Enterprise  (Self-hosted with all configured features)'
+      puts '2. 🌥️  Cloud       (Cloud deployment with all configured features)'
       puts ''
       puts '0. ❌ Cancel'
       puts ''
-      print 'Enter your choice (0-3): '
+      print 'Enter your choice (0-2): '
     end
 
     def handle_user_selection
@@ -62,10 +56,8 @@ namespace :chatwoot do
 
       case choice
       when '1'
-        switch_to_variant('Community') { configure_community_variant }
-      when '2'
         switch_to_variant('Enterprise') { configure_enterprise_variant }
-      when '3'
+      when '2'
         switch_to_variant('Cloud') { configure_cloud_variant }
       when '0'
         cancel_operation
@@ -94,19 +86,12 @@ namespace :chatwoot do
       exit 1
     end
 
-    def configure_community_variant
-      update_installation_config('DEPLOYMENT_ENV', 'self-hosted')
-      update_installation_config('INSTALLATION_PRICING_PLAN', 'enterprise')
-    end
-
     def configure_enterprise_variant
       update_installation_config('DEPLOYMENT_ENV', 'self-hosted')
-      update_installation_config('INSTALLATION_PRICING_PLAN', 'enterprise')
     end
 
     def configure_cloud_variant
       update_installation_config('DEPLOYMENT_ENV', 'cloud')
-      update_installation_config('INSTALLATION_PRICING_PLAN', 'enterprise')
     end
 
     def update_installation_config(name, value)

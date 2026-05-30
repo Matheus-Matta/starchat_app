@@ -31,6 +31,16 @@
 
 en:
   hello: 'Hello world'
+  activerecord:
+    attributes:
+      user:
+        mfa: 'MFA'
+  helpers:
+    label:
+      user:
+        mfa: 'MFA'
+      users:
+        mfa: 'MFA'
   messages:
     reset_password_success: Woot! Request for password reset is successful. Check your mail for instructions.
     reset_password_failure: Uh ho! We could not find any user with the specified email.
@@ -151,6 +161,11 @@ en:
       inbox_connection_update: 'The connection for inbox %{inbox_name} changed to: %{status}. Please check your settings.'
       incoming_call: 'Inbox %{inbox_name} is receiving a call from %{from_number}.'
     email_subject:
+      conversation_creation: '%{agent_name}, A new conversation [ID - %{display_id}] has been created in %{inbox_name}.'
+      conversation_assignment: '%{agent_name}, A new conversation [ID - %{display_id}] has been assigned to you.'
+      conversation_mention: '%{agent_name}, You have been mentioned in conversation [ID - %{display_id}]'
+      assigned_conversation_new_message: '%{agent_name}, New message in your assigned conversation [ID - %{display_id}].'
+      participating_conversation_new_message: '%{agent_name}, New message in your participating conversation [ID - %{display_id}].'
       inbox_connection_update: 'URGENT: Connection updated for %{inbox_name} (%{status})'
   conversations:
     cosmos:
@@ -521,10 +536,10 @@ en:
       invalid_credentials: Invalid credentials or verification code
       feature_unavailable: MFA feature is not available. Please configure encryption keys.
     evolution:
-      phone_not_found: Error sending message. This number may not exist on WhatsApp.
-      connection_error: Connection error. Check your connection and try again.
-      media_error: Error sending file. Please check the file size and format.
-      generic: Error sending message. Please try again.
+      phone_not_found: Erro ao enviar mensagem. Este número pode não existir no WhatsApp.
+      connection_error: Erro de conexão. Verifique sua conexão e tente novamente.
+      media_error: Erro ao enviar arquivo. Verifique o tamanho e formato do arquivo.
+      generic: Erro ao enviar mensagem. Tente novamente.
   profile:
     mfa:
       enabled: MFA enabled successfully
@@ -605,6 +620,11 @@ en:
     notification_body:
       inbox_connection_update: 'The connection for inbox %{inbox_name} has been disconnected or updated. Please check your settings.'
     email_subject:
+      conversation_creation: '%{agent_name}, A new conversation [ID - %{display_id}] has been created in %{inbox_name}.'
+      conversation_assignment: '%{agent_name}, A new conversation [ID - %{display_id}] has been assigned to you.'
+      conversation_mention: '%{agent_name}, You have been mentioned in conversation [ID - %{display_id}]'
+      assigned_conversation_new_message: '%{agent_name}, New message in your assigned conversation [ID - %{display_id}].'
+      participating_conversation_new_message: '%{agent_name}, New message in your participating conversation [ID - %{display_id}].'
       inbox_connection_update: 'URGENT: Connection updated for %{inbox_name}'
     attachment: 'Attachment'
     no_content: 'No content'
@@ -743,9 +763,9 @@ en:
     copilot_message_required: Message is required
     copilot_error: 'Please connect an assistant to this inbox to use Copilot'
     copilot_limit: 'You are out of Copilot credits. You can buy more credits from the billing section.'
-    upgrade: 'Upgrade your plan to enable Captain AI'
-    disabled: 'Captain AI is disabled for this account.'
-    api_key_missing: 'Captain AI API key is not configured.'
+    upgrade: 'Upgrade your plan to enable Cosmos AI'
+    disabled: 'Cosmos AI is disabled for this account.'
+    api_key_missing: 'Cosmos AI API key is not configured.'
     copilot:
       using_tool: 'Using tool %{function_name}'
       completed_tool_call: 'Completed %{function_name} tool call'

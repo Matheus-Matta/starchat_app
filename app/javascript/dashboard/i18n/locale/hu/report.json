@@ -55,7 +55,10 @@
       "LAST_3_MONTHS": "Elmúlt 3 hónapban",
       "LAST_6_MONTHS": "Elmúlt 6 hónapban",
       "LAST_YEAR": "Elmúlt 1 évben",
-      "CUSTOM_DATE_RANGE": "Egyedi időszak"
+      "CUSTOM_DATE_RANGE": "Egyedi időszak",
+      "LAST_14_DAYS": "Utolsó 14 nap",
+      "THIS_MONTH": "This month",
+      "LAST_MONTH": "Last month"
     },
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "Alkalmaz",
@@ -121,7 +124,8 @@
     "PAGINATION": {
       "RESULTS": "Showing {start} to {end} of {total} results",
       "PER_PAGE_TEMPLATE": "{size} / page"
-    }
+    },
+    "DOWNLOAD_CONVERSATION_REPORTS": "Download conversation reports"
   },
   "AGENT_REPORTS": {
     "HEADER": "Ügynök áttekintés",
@@ -189,6 +193,11 @@
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "Alkalmaz",
       "PLACEHOLDER": "Dátumtartomány kiválasztása"
+    },
+    "FILTERS": {
+      "INPUT_PLACEHOLDER": {
+        "AGENTS": "Ügynökök keresése"
+      }
     }
   },
   "LABEL_REPORTS": {
@@ -257,6 +266,11 @@
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "Alkalmaz",
       "PLACEHOLDER": "Dátumtartomány kiválasztása"
+    },
+    "FILTERS": {
+      "INPUT_PLACEHOLDER": {
+        "LABELS": "Címkék keresése"
+      }
     }
   },
   "INBOX_REPORTS": {
@@ -325,6 +339,13 @@
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "Alkalmaz",
       "PLACEHOLDER": "Dátumtartomány kiválasztása"
+    },
+    "ALL_INBOXES": "All Inboxes",
+    "SEARCH_INBOX": "Search Inbox",
+    "FILTERS": {
+      "INPUT_PLACEHOLDER": {
+        "INBOXES": "Search inboxes"
+      }
     }
   },
   "TEAM_REPORTS": {
@@ -393,6 +414,14 @@
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "Alkalmaz",
       "PLACEHOLDER": "Dátumtartomány kiválasztása"
+    },
+    "FILTERS": {
+      "ADD_FILTER": "Szűrő hozzáadása",
+      "CLEAR_ALL": "Clear all",
+      "NO_FILTER": "No filters available",
+      "INPUT_PLACEHOLDER": {
+        "TEAMS": "Csapatok keresése"
+      }
     }
   },
   "CSAT_REPORTS": {
@@ -402,7 +431,26 @@
     "DOWNLOAD_FAILED": "Sikertelen a CSAT jelentés letöltése",
     "FILTERS": {
       "AGENTS": {
-        "PLACEHOLDER": "Ügynökök választása"
+        "PLACEHOLDER": "Ügynökök választása",
+        "LABEL": "Ügynök"
+      },
+      "ADD_FILTER": "Szűrő hozzáadása",
+      "CLEAR_ALL": "Clear all",
+      "NO_FILTER": "No filters available",
+      "INPUT_PLACEHOLDER": {
+        "AGENTS": "Ügynökök keresése",
+        "INBOXES": "Search inboxes",
+        "TEAMS": "Csapatok keresése",
+        "RATINGS": "Search ratings"
+      },
+      "INBOXES": {
+        "LABEL": "Fiók"
+      },
+      "TEAMS": {
+        "LABEL": "Csapat"
+      },
+      "RATINGS": {
+        "LABEL": "Értékelés"
       }
     },
     "TABLE": {
@@ -410,8 +458,13 @@
         "CONTACT_NAME": "Kontakt",
         "AGENT_NAME": "Hozzárendelt ügynök",
         "RATING": "Értékelés",
-        "FEEDBACK_TEXT": "Visszajelző komment"
-      }
+        "FEEDBACK_TEXT": "Visszajelző komment",
+        "CONVERSATION": "Beszélgetés",
+        "CUSTOMER": "Customer",
+        "RESPONSE": "Response",
+        "HANDLED_BY": "Handled by"
+      },
+      "UNKNOWN_CUSTOMER": "Unknown customer"
     },
     "METRIC": {
       "TOTAL_RESPONSES": {
@@ -425,6 +478,28 @@
       "RESPONSE_RATE": {
         "LABEL": "Válaszarány",
         "TOOLTIP": "Válaszok teljes száma / Az elküldött CSAT felmérési üzenetek teljes száma * 100"
+      },
+      "RATING_DISTRIBUTION": "Rating distribution"
+    },
+    "NO_RECORDS_DESCRIPTION": "CSAT survey responses will appear here once customers start providing feedback.",
+    "NO_AGENT": "No assigned agent",
+    "NO_FEEDBACK": "No feedback provided",
+    "REVIEW_NOTES": {
+      "TITLE": "Review notes",
+      "PLACEHOLDER": "Add review notes about this rating...",
+      "SAVE": "Mentés",
+      "CANCEL": "Mégse",
+      "SAVING": "Mentés...",
+      "SAVED": "Notes saved successfully",
+      "SAVE_ERROR": "Failed to save notes",
+      "UPDATED_BY": "Updated by {name} {time}",
+      "UPDATED_BY_LABEL": "Updated by",
+      "PAYWALL": {
+        "TITLE": "Upgrade to add review notes",
+        "AVAILABLE_ON": "The review notes feature is only available in the Business and Enterprise plans.",
+        "UPGRADE_PROMPT": "Add internal context to every CSAT response with review notes. Capture what really happened, spot patterns faster, and make better decisions from your feedback.",
+        "UPGRADE_NOW": "Upgrade now",
+        "CANCEL_ANYTIME": "You can change or cancel your plan anytime"
       }
     }
   },
@@ -495,6 +570,13 @@
       "ONLINE": "Online",
       "BUSY": "Foglalt",
       "OFFLINE": "Offline"
+    },
+    "RESOLUTION_HEATMAP": {
+      "HEADER": "Resolutions",
+      "NO_CONVERSATIONS": "Nincsennek beszélgetések",
+      "CONVERSATION": "{count} conversation",
+      "CONVERSATIONS": "{count} conversations",
+      "DOWNLOAD_REPORT": "Download report"
     }
   },
   "DAYS_OF_WEEK": {

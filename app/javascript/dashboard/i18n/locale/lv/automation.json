@@ -40,13 +40,14 @@
       }
     },
     "LIST": {
+      "404": "Automatizācijas noteikumi nav atrasti",
       "TABLE_HEADER": {
         "NAME": "Nosaukums",
         "DESCRIPTION": "Apraksts",
         "ACTIVE": "Aktīvs",
-        "CREATED_ON": "Izveidots"
-      },
-      "404": "Automatizācijas noteikumi nav atrasti"
+        "CREATED_ON": "Izveidots",
+        "ACTIONS": "Darbības"
+      }
     },
     "DELETE": {
       "TITLE": "Dzēst automatizācijas noteikumu",
@@ -131,7 +132,8 @@
       "CONVERSATION_CREATED": "Saruna izveidota",
       "CONVERSATION_UPDATED": "Saruna Atjaunināta",
       "MESSAGE_CREATED": "Ziņojums Izveidots",
-      "CONVERSATION_OPENED": "Saruna Atvērta"
+      "CONVERSATION_OPENED": "Saruna Atvērta",
+      "CONVERSATION_RESOLVED": "Conversation Resolved"
     },
     "ACTIONS": {
       "ASSIGN_AGENT": "Piešķirt Aģentam",
@@ -149,7 +151,10 @@
       "ADD_PRIVATE_NOTE": "Pievienot Privātu Piezīmi",
       "CHANGE_PRIORITY": "Mainīt prioritāti",
       "ADD_SLA": "Pievienot SLA",
-      "OPEN_CONVERSATION": "Atvērt sarunu"
+      "OPEN_CONVERSATION": "Atvērt sarunu",
+      "REMOVE_ASSIGNED_AGENT": "Remove Assigned Agent",
+      "REMOVE_ASSIGNED_TEAM": "Noņemt Piešķirto Komandu",
+      "PENDING_CONVERSATION": "Mark conversation as pending"
     },
     "MESSAGE_TYPES": {
       "INCOMING": "Incoming Message",
@@ -176,7 +181,14 @@
       "REFERER_LINK": "Novirzītāja Saite",
       "ASSIGNEE_NAME": "Uzdevuma saņēmējs",
       "TEAM_NAME": "Komanda",
-      "PRIORITY": "Prioritāte"
-    }
+      "PRIORITY": "Prioritāte",
+      "PRIVATE_NOTE": "Privāta Piezīme",
+      "COMPANY_NAME": "Uzņēmums",
+      "LABELS": "Etiķetes"
+    },
+    "COUNT": "{n} automation | {n} automations",
+    "SEARCH_PLACEHOLDER": "Search automation rules...",
+    "NO_RESULTS": "No automation rules found matching your search",
+    "LAST_RESPONDING_AGENT": "Last Responding Agent"
   }
 }

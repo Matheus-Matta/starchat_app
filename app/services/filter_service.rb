@@ -33,9 +33,13 @@ class FilterService
     when 'is_not_present'
       @filter_values["value_#{current_index}"] = 'IS NULL'
     when 'is_greater_than', 'is_less_than'
-      @filter_values["value_#{current_index}"] = lt_gt_filter_values(query_hash)
+      operator = query_hash['filter_operator'] == 'is_less_than' ? '<' : '>'
+      @filter_values["value_#{current_index}"] = parse_lt_gt_value(query_hash)
+      "#{operator} :value_#{current_index}"
     when 'days_before'
-      @filter_values["value_#{current_index}"] = days_before_filter_values(query_hash)
+      date = Time.zone.today - query_hash['values'][0].to_i.days
+      @filter_values["value_#{current_index}"] = date
+      "< :value_#{current_index}"
     else
       @filter_values["value_#{current_index}"] = filter_values(query_hash).to_s
       "= :value_#{current_index}"
@@ -81,21 +85,23 @@ class FilterService
     query_hash['values'].downcase
   end
 
-  def lt_gt_filter_values(query_hash)
+  def parse_lt_gt_value(query_hash)
     attribute_key = query_hash[:attribute_key]
     attribute_model = query_hash['custom_attribute_type'].presence || self.class::ATTRIBUTE_MODEL
     attribute_type = custom_attribute(attribute_key, @account, attribute_model).try(:attribute_display_type)
     attribute_data_type = self.class::ATTRIBUTE_TYPES[attribute_type]
-    value = query_hash['values'][0]
-    operator = query_hash['filter_operator'] == 'is_less_than' ? '<' : '>'
-    "#{operator} '#{value}'::#{attribute_data_type}"
-  end
+    raw_value = query_hash['values'][0].to_s
 
-  def days_before_filter_values(query_hash)
-    date = Time.zone.today - query_hash['values'][0].to_i.days
-    query_hash['values'] = [date.strftime]
-    query_hash['filter_operator'] = 'is_less_than'
-    lt_gt_filter_values(query_hash)
+    if attribute_data_type == 'numeric'
+      BigDecimal(raw_value)
+    else
+      # date type or nil (standard date columns like last_activity_at, created_at)
+      begin
+        Date.iso8601(raw_value)
+      rescue ArgumentError, Date::Error
+        raise CustomExceptions::CustomFilter::InvalidValue.new(attribute_name: attribute_key.to_s)
+      end
+    end
   end
 
   def set_count_for_all_conversations

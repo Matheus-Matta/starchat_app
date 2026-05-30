@@ -63,6 +63,13 @@ RSpec.describe 'Equal Distribution Assignment', type: :service do
   # ─── Setup padrão ─────────────────────────────────────────────────────────
 
   before do
+    account.enable_features!('assignment_v2')
+    # Clear all relevant Redis keys to prevent flakiness
+    Redis::Alfred.scan_each(match: "ASSIGNMENT::*") { |key| Redis::Alfred.delete(key) }
+    Redis::Alfred.delete(format(Redis::Alfred::ROUND_ROBIN_AGENTS, inbox_id: inbox.id))
+    Redis::Alfred.delete(OnlineStatusTracker.status_key(account.id))
+    Redis::Alfred.delete(OnlineStatusTracker.presence_key(account.id, 'User'))
+
     create(:inbox_member, inbox: inbox, user: agent1)
     create(:inbox_member, inbox: inbox, user: agent2)
     create(:inbox_member, inbox: inbox, user: agent3)
@@ -70,9 +77,6 @@ RSpec.describe 'Equal Distribution Assignment', type: :service do
     create(:inbox_assignment_policy, inbox: inbox, assignment_policy: policy)
 
     set_online(agent1, agent2, agent3)
-
-    allow(account).to receive(:feature_enabled?).and_return(false)
-    allow(account).to receive(:feature_enabled?).with('assignment_v2').and_return(true)
   end
 
   # ══════════════════════════════════════════════════════════════════════════

@@ -55,7 +55,10 @@
       "LAST_3_MONTHS": "آخر 3 أشهر",
       "LAST_6_MONTHS": "آخر 6 أشهر",
       "LAST_YEAR": "العام الماضي",
-      "CUSTOM_DATE_RANGE": "تحديد نطاق المدة"
+      "CUSTOM_DATE_RANGE": "تحديد نطاق المدة",
+      "LAST_14_DAYS": "آخر 14 يوماً",
+      "THIS_MONTH": "This month",
+      "LAST_MONTH": "Last month"
     },
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "تطبيق",
@@ -121,7 +124,8 @@
     "PAGINATION": {
       "RESULTS": "Showing {start} to {end} of {total} results",
       "PER_PAGE_TEMPLATE": "{size} / page"
-    }
+    },
+    "DOWNLOAD_CONVERSATION_REPORTS": "تنزيل تقارير المحادثات"
   },
   "AGENT_REPORTS": {
     "HEADER": "نظرة عامة للوكلاء",
@@ -189,6 +193,11 @@
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "تطبيق",
       "PLACEHOLDER": "اختر نطاق المدة"
+    },
+    "FILTERS": {
+      "INPUT_PLACEHOLDER": {
+        "AGENTS": "البحث عن وكلاء"
+      }
     }
   },
   "LABEL_REPORTS": {
@@ -257,6 +266,11 @@
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "تطبيق",
       "PLACEHOLDER": "اختر نطاق المدة"
+    },
+    "FILTERS": {
+      "INPUT_PLACEHOLDER": {
+        "LABELS": "ابحث عن تصنيفات"
+      }
     }
   },
   "INBOX_REPORTS": {
@@ -325,6 +339,13 @@
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "تطبيق",
       "PLACEHOLDER": "اختر نطاق المدة"
+    },
+    "ALL_INBOXES": "All Inboxes",
+    "SEARCH_INBOX": "Search Inbox",
+    "FILTERS": {
+      "INPUT_PLACEHOLDER": {
+        "INBOXES": "Search inboxes"
+      }
     }
   },
   "TEAM_REPORTS": {
@@ -393,6 +414,14 @@
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "تطبيق",
       "PLACEHOLDER": "اختر نطاق المدة"
+    },
+    "FILTERS": {
+      "ADD_FILTER": "إضافة تصفية",
+      "CLEAR_ALL": "مسح الكل",
+      "NO_FILTER": "لا توجد عوامل تصفية متوفرة",
+      "INPUT_PLACEHOLDER": {
+        "TEAMS": "البحث عن فريق"
+      }
     }
   },
   "CSAT_REPORTS": {
@@ -402,7 +431,26 @@
     "DOWNLOAD_FAILED": "Failed to download CSAT Reports",
     "FILTERS": {
       "AGENTS": {
-        "PLACEHOLDER": "اختر الوكلاء"
+        "PLACEHOLDER": "اختر الوكلاء",
+        "LABEL": "وكيل الدعم"
+      },
+      "ADD_FILTER": "إضافة تصفية",
+      "CLEAR_ALL": "مسح الكل",
+      "NO_FILTER": "لا توجد عوامل تصفية متوفرة",
+      "INPUT_PLACEHOLDER": {
+        "AGENTS": "البحث عن وكلاء",
+        "INBOXES": "Search inboxes",
+        "TEAMS": "البحث عن فريق",
+        "RATINGS": "البحث في التقييمات"
+      },
+      "INBOXES": {
+        "LABEL": "صندوق الوارد"
+      },
+      "TEAMS": {
+        "LABEL": "الفريق"
+      },
+      "RATINGS": {
+        "LABEL": "التقييم"
       }
     },
     "TABLE": {
@@ -410,8 +458,13 @@
         "CONTACT_NAME": "جهات الاتصال",
         "AGENT_NAME": "الوكيل المكلف",
         "RATING": "التقييم",
-        "FEEDBACK_TEXT": "تعليق الملاحظات"
-      }
+        "FEEDBACK_TEXT": "تعليق الملاحظات",
+        "CONVERSATION": "المحادثات",
+        "CUSTOMER": "عميل",
+        "RESPONSE": "الردود",
+        "HANDLED_BY": "تمت معالجتها بواسطة"
+      },
+      "UNKNOWN_CUSTOMER": "عميل غير معروف"
     },
     "METRIC": {
       "TOTAL_RESPONSES": {
@@ -425,6 +478,28 @@
       "RESPONSE_RATE": {
         "LABEL": "معدل الاستجابة",
         "TOOLTIP": "العدد الإجمالي للردود / العدد الإجمالي لرسائل الاستقصاء التي أرسلتها CSAT * 100"
+      },
+      "RATING_DISTRIBUTION": "توزيع التقييم"
+    },
+    "NO_RECORDS_DESCRIPTION": "CSAT survey responses will appear here once customers start providing feedback.",
+    "NO_AGENT": "لم يتم تعيين وكيل",
+    "NO_FEEDBACK": "لا توجد ملاحظات مقدمة",
+    "REVIEW_NOTES": {
+      "TITLE": "ملاحظات المراجعة",
+      "PLACEHOLDER": "إضافة ملاحظات مراجعة حول هذا التقييم...",
+      "SAVE": "حفظ",
+      "CANCEL": "إلغاء",
+      "SAVING": "جاري الحفظ...",
+      "SAVED": "تم حفظ الملاحظات بنجاح",
+      "SAVE_ERROR": "فشل في حفظ الملاحظات",
+      "UPDATED_BY": "تم التحديث بواسطة {name} {time}",
+      "UPDATED_BY_LABEL": "تم التحديث بواسطة",
+      "PAYWALL": {
+        "TITLE": "قم بالترقية لإضافة ملاحظات المراجعة",
+        "AVAILABLE_ON": "ميزة مراجعة الملاحظات متاحة فقط في الخطط Business و Enterprise.",
+        "UPGRADE_PROMPT": "Add internal context to every CSAT response with review notes. Capture what really happened, spot patterns faster, and make better decisions from your feedback.",
+        "UPGRADE_NOW": "الترقية الآن",
+        "CANCEL_ANYTIME": "You can change or cancel your plan anytime"
       }
     }
   },
@@ -495,6 +570,13 @@
       "ONLINE": "متصل",
       "BUSY": "مشغول",
       "OFFLINE": "غير متصل"
+    },
+    "RESOLUTION_HEATMAP": {
+      "HEADER": "Resolutions",
+      "NO_CONVERSATIONS": "No conversations",
+      "CONVERSATION": "{count} conversation",
+      "CONVERSATIONS": "{count} conversations",
+      "DOWNLOAD_REPORT": "تنزيل التقرير"
     }
   },
   "DAYS_OF_WEEK": {

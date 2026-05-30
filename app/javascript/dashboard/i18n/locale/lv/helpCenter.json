@@ -157,6 +157,12 @@
             "DELETE_SUCCESS": "Portāls veiksmīgi izdzēsts",
             "DELETE_ERROR": "Dzēšot portālu, radās kļūda"
           }
+        },
+        "SEND_CNAME_INSTRUCTIONS": {
+          "API": {
+            "SUCCESS_MESSAGE": "CNAME instructions sent successfully",
+            "ERROR_MESSAGE": "Error while sending CNAME instructions"
+          }
         }
       },
       "EDIT": {
@@ -310,11 +316,23 @@
           "SUCCESS_MESSAGE": "Lokalizācija veiksmīgi noņemta no portāla",
           "ERROR_MESSAGE": "Nevar noņemt lokalizāciju no portāla. Mēģiniet vēlreiz."
         }
+      },
+      "DRAFT_LOCALE": {
+        "API": {
+          "SUCCESS_MESSAGE": "Locale moved to draft successfully",
+          "ERROR_MESSAGE": "Unable to move locale to draft. Try again."
+        }
+      },
+      "PUBLISH_LOCALE": {
+        "API": {
+          "SUCCESS_MESSAGE": "Locale published successfully",
+          "ERROR_MESSAGE": "Unable to publish locale. Try again."
+        }
       }
     },
     "TABLE": {
-      "LOADING_MESSAGE": "Notiek rakstu ielāde...",
       "404": "Neviens raksts neatbilst jūsu meklēšanas vaicājumam 🔍",
+      "LOADING_MESSAGE": "Notiek rakstu ielāde...",
       "NO_ARTICLES": "Raksti nav pieejami",
       "HEADERS": {
         "TITLE": "Nosaukums",
@@ -497,7 +515,8 @@
             "PUBLISH": "Publicēt",
             "DRAFT": "Melnraksts",
             "ARCHIVE": "Arhīvs",
-            "DELETE": "Dzēst"
+            "DELETE": "Dzēst",
+            "TRANSLATE": "Tulkot"
           },
           "STATUS": {
             "DRAFT": "Melnraksts",
@@ -551,6 +570,41 @@
           "TITLE": "Šajā kategorijā nav neviena raksta",
           "SUBTITLE": "Šīs kategorijas raksti tiks parādīti šeit"
         }
+      },
+      "BULK_TRANSLATE": {
+        "TITLE": "Translate article | Translate {count} articles",
+        "DESCRIPTION": "Translate the selected article to another language. | Translate the selected articles to another language.",
+        "LOCALE_LABEL": "Target language",
+        "LOCALE_PLACEHOLDER": "Select a language",
+        "CATEGORY_LABEL": "Target category",
+        "CATEGORY_PLACEHOLDER": "Select a category",
+        "OPTIONAL": "(optional)",
+        "CONFIRM": "Tulkot",
+        "SELECT_ALL": "Select all ({count})",
+        "SELECTED_COUNT": "Atlasīti {count}",
+        "CLEAR_SELECTION": "Clear selection",
+        "TRANSLATE_BUTTON": "Tulkot",
+        "CONFIRM_OVERWRITE": "Overwrite and translate",
+        "DUPLICATE_WARNING": "A translation already exists for this article in the selected language. | Translations already exist for {count} articles in the selected language.",
+        "DUPLICATE_CONFIRM_HINT": "Click translate again to overwrite the existing translation.",
+        "API": {
+          "SUCCESS_MESSAGE": "Translation in progress. The article will appear as a draft once ready.",
+          "ERROR_MESSAGE": "Failed to start translation. Please try again."
+        }
+      },
+      "BULK_ACTIONS": {
+        "PUBLISH": "Publicēt",
+        "DRAFT": "Melnraksts",
+        "ARCHIVE": "Arhīvs",
+        "TRANSLATE": "Tulkot",
+        "DELETE": "Dzēst",
+        "STATUS_SUCCESS": "Articles updated successfully",
+        "STATUS_ERROR": "Failed to update articles",
+        "DELETE_CONFIRM_TITLE": "Delete article | Delete {count} articles",
+        "DELETE_CONFIRM_DESCRIPTION": "This will permanently delete the selected article. This action cannot be undone. | This will permanently delete {count} selected articles. This action cannot be undone.",
+        "DELETE_CONFIRM": "Dzēst",
+        "DELETE_SUCCESS": "Articles deleted successfully",
+        "DELETE_ERROR": "Failed to delete articles"
       }
     },
     "CATEGORY_PAGE": {
@@ -630,8 +684,11 @@
         "DEFAULT": "Noklusējums",
         "DROPDOWN_MENU": {
           "MAKE_DEFAULT": "Padarīt par noklusēto",
-          "DELETE": "Dzēst"
-        }
+          "DELETE": "Dzēst",
+          "MOVE_TO_DRAFT": "Move to draft",
+          "PUBLISH_LOCALE": "Publish locale"
+        },
+        "DRAFT": "Melnraksts"
       },
       "ADD_LOCALE_DIALOG": {
         "TITLE": "Pievienot jaunu lokalizāciju",
@@ -642,6 +699,13 @@
         "API": {
           "SUCCESS_MESSAGE": "Lokalizācija ir veiksmīgi pievienota",
           "ERROR_MESSAGE": "Nevar pievienot lokalizāciju. Mēģiniet vēlreiz."
+        },
+        "STATUS": {
+          "LABEL": "Statuss",
+          "OPTIONS": {
+            "LIVE": "Publicēts",
+            "DRAFT": "Melnraksts"
+          }
         }
       }
     },
@@ -735,7 +799,8 @@
         "LIVE_CHAT_WIDGET": {
           "LABEL": "Tiešraides tērzēšanas widget",
           "PLACEHOLDER": "Izvēlieties tiešraides tērzēšanas widget",
-          "HELP_TEXT": "Izvēlieties tiešsaistes tērzēšanas widget, kas tiks parādīts jūsu palīdzības centrā"
+          "HELP_TEXT": "Izvēlieties tiešsaistes tērzēšanas widget, kas tiks parādīts jūsu palīdzības centrā",
+          "NONE_OPTION": "No widget"
         },
         "BRAND_COLOR": {
           "LABEL": "Zīmola krāsa"
@@ -757,13 +822,28 @@
             "EDIT_CONFIRM_BUTTON_LABEL": "Atjaunināt domēnu",
             "LABEL": "Pielāgots domēns",
             "PLACEHOLDER": "Portāla pielāgots domēns",
-            "ERROR": "Nepieciešams pielāgots domēns"
+            "ERROR": "Nepieciešams pielāgots domēns",
+            "FORMAT_ERROR": "Please enter a valid domain URL e.g. docs.yourdomain.com"
           },
           "DNS_CONFIGURATION_DIALOG": {
             "HEADER": "DNS konfigurācija",
             "DESCRIPTION": "Piesakieties sava DNS nodrošinātāja kontā un pievienojiet CNAME ierakstu apakšdomēnam, kas norāda uz chatwoot.help",
             "HELP_TEXT": "Kad tas ir izdarīts, varat sazināties ar mūsu atbalsta dienestu, lai pieprasītu automātiski ģenerētu SSL sertifikātu.",
-            "CONFIRM_BUTTON_LABEL": "Sapratu!"
+            "CONFIRM_BUTTON_LABEL": "Sapratu!",
+            "COPY": "Successfully copied CNAME",
+            "SEND_INSTRUCTIONS": {
+              "HEADER": "Send instructions",
+              "DESCRIPTION": "If you would prefer to have someone from your development team to handle this step, you can enter email address below, and we will send them the required instructions.",
+              "PLACEHOLDER": "Enter their email",
+              "ERROR": "Enter a valid email address",
+              "SEND_BUTTON": "Nosūtīt"
+            }
+          },
+          "STATUS_DESCRIPTION": "Your custom portal will start working as soon as it is verified.",
+          "STATUS": {
+            "LIVE": "Tiešraide",
+            "PENDING": "Awaiting verification",
+            "ERROR": "Verification failed"
           }
         },
         "DELETE_PORTAL": {
@@ -840,6 +920,16 @@
       "FROM_DOCUMENT": "From document",
       "NO_CONTENT": "No generated content available. Upload a PDF document to get started.",
       "LOADING": "Loading generated content..."
+    },
+    "REORDER_ARTICLE": {
+      "API": {
+        "ERROR_MESSAGE": "Unable to reorder articles. Please try again."
+      }
+    },
+    "REORDER_CATEGORY": {
+      "API": {
+        "ERROR_MESSAGE": "Unable to reorder categories. Please try again."
+      }
     }
   }
 }

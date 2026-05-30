@@ -1,29 +1,47 @@
 {
-    "WHATSAPP_TEMPLATES": {
-        "MODAL": {
-            "TITLE": "Whatsapp Templates",
-            "SUBTITLE": "Select the whatsapp template you want to send",
-            "TEMPLATE_SELECTED_SUBTITLE": "Process {templateName}"
-        },
-        "PICKER": {
-            "SEARCH_PLACEHOLDER": "Search Templates",
-            "NO_TEMPLATES_FOUND": "No templates found for",
-            "NO_TEMPLATES_AVAILABLE": "No WhatsApp templates available. Click refresh to sync templates from WhatsApp.",
-            "REFRESH_BUTTON": "Refresh templates",
-            "REFRESH_SUCCESS": "Templates refresh initiated. It may take a couple of minutes to update.",
-            "REFRESH_ERROR": "Failed to refresh templates. Please try again.",
-            "LABELS": {
-                "LANGUAGE": "언어",
-                "TEMPLATE_BODY": "Template Body",
-                "CATEGORY": "Category"
-            }
-        },
-        "PARSER": {
-            "VARIABLES_LABEL": "Variables",
-            "VARIABLE_PLACEHOLDER": "Enter {variable} value",
-            "GO_BACK_LABEL": "Go Back",
-            "SEND_MESSAGE_LABEL": "Send Message",
-            "FORM_ERROR_MESSAGE": "Please fill all variables before sending"
-        }
+  "WHATSAPP_TEMPLATES": {
+    "MODAL": {
+      "TITLE": "Whatsapp Templates",
+      "SUBTITLE": "Select the whatsapp template you want to send",
+      "TEMPLATE_SELECTED_SUBTITLE": "Process {templateName}"
+    },
+    "PICKER": {
+      "SEARCH_PLACEHOLDER": "Search Templates",
+      "NO_TEMPLATES_FOUND": "No templates found for",
+      "NO_TEMPLATES_AVAILABLE": "No WhatsApp templates available. Click refresh to sync templates from WhatsApp.",
+      "REFRESH_BUTTON": "Refresh templates",
+      "REFRESH_SUCCESS": "Templates refresh initiated. It may take a couple of minutes to update.",
+      "REFRESH_ERROR": "Failed to refresh templates. Please try again.",
+      "LABELS": {
+        "LANGUAGE": "언어",
+        "TEMPLATE_BODY": "Template Body",
+        "CATEGORY": "Category"
+      },
+      "HEADER": "헤더",
+      "BODY": "본문",
+      "FOOTER": "푸터",
+      "BUTTONS": "버튼",
+      "CATEGORY": "카테고리",
+      "MEDIA_CONTENT": "미디어 콘텐츠",
+      "MEDIA_CONTENT_FALLBACK": "미디어 콘텐츠"
+    },
+    "PARSER": {
+      "VARIABLES_LABEL": "Variables",
+      "VARIABLE_PLACEHOLDER": "Enter {variable} value",
+      "GO_BACK_LABEL": "Go Back",
+      "SEND_MESSAGE_LABEL": "Send Message",
+      "FORM_ERROR_MESSAGE": "Please fill all variables before sending",
+      "LANGUAGE": "언어",
+      "CATEGORY": "카테고리",
+      "MEDIA_HEADER_LABEL": "{type} 헤더",
+      "OTP_CODE": "4~8자리 OTP를 입력하십시오",
+      "EXPIRY_MINUTES": "만료 시간(분)을 입력하십시오",
+      "BUTTON_PARAMETERS": "버튼 매개변수",
+      "BUTTON_LABEL": "버튼 {index}",
+      "COUPON_CODE": "쿠폰 코드를 입력하십시오 (최대 15자)",
+      "MEDIA_URL_LABEL": "{type} URL을 입력하십시오",
+      "DOCUMENT_NAME_PLACEHOLDER": "문서 파일명을 입력하십시오 (예: Invoice_2025.pdf)",
+      "BUTTON_PARAMETER": "버튼 매개변수를 입력하십시오"
     }
+  }
 }

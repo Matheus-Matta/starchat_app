@@ -150,8 +150,8 @@
       "EMPTY_MESSAGE": "No tens notificacions no llegides"
     },
     "LIST": {
-      "LOADING_MESSAGE": "Carregant notificacions...",
       "404": "Cap Notificació",
+      "LOADING_MESSAGE": "Carregant notificacions...",
       "TABLE_HEADER": [
         "Nom",
         "Número de telèfon",
@@ -239,7 +239,8 @@
       "DARK_MODE": "Fosc",
       "SYSTEM_MODE": "Sistema",
       "SNOOZE_NOTIFICATION": "Posposa la notificació"
-    }
+    },
+    "SNOOZE_PLACEHOLDER": "Type a time e.g. tomorrow, 2 hours, next friday, jan 15..."
   },
   "DASHBOARD_APPS": {
     "LOADING_MESSAGE": "S'està carregant l'aplicació Tauler..."

@@ -38,7 +38,13 @@ class Cosmos::Tools::Copilot::SearchArticlesService < Cosmos::Tools::BaseService
   end
 
   def active?
-    user_has_permission('knowledge_base_manage')
+    return false if @user.blank?
+
+    account_user = AccountUser.find_by(account_id: @assistant.account_id, user_id: @user.id)
+    return false if account_user.nil?
+    return account_user.custom_role&.permissions&.include?('knowledge_base_manage') || false if account_user.custom_role_id.present?
+
+    true
   end
 
   private

@@ -150,8 +150,8 @@
       "EMPTY_MESSAGE": "Não há notificações não lidas"
     },
     "LIST": {
-      "LOADING_MESSAGE": "A carregar notificações...",
       "404": "Sem notificações",
+      "LOADING_MESSAGE": "A carregar notificações...",
       "TABLE_HEADER": [
         "Nome",
         "Número de telefone",
@@ -239,7 +239,8 @@
       "DARK_MODE": "Escuro",
       "SYSTEM_MODE": "Sistema",
       "SNOOZE_NOTIFICATION": "Suspender notificação"
-    }
+    },
+    "SNOOZE_PLACEHOLDER": "Type a time e.g. tomorrow, 2 hours, next friday, jan 15..."
   },
   "DASHBOARD_APPS": {
     "LOADING_MESSAGE": "A carregar app do dashboard..."

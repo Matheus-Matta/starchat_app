@@ -45,7 +45,8 @@
         "NAME": "Nom",
         "DESCRIPTION": "Description",
         "ACTIVE": "Actif",
-        "CREATED_ON": "Créé le"
+        "CREATED_ON": "Créé le",
+        "ACTIONS": "Actions"
       }
     },
     "DELETE": {
@@ -150,7 +151,10 @@
       "ADD_PRIVATE_NOTE": "Ajouter une note privée",
       "CHANGE_PRIORITY": "Modifier la priorité",
       "ADD_SLA": "Add SLA",
-      "OPEN_CONVERSATION": "Ouvrir la conversation"
+      "OPEN_CONVERSATION": "Ouvrir la conversation",
+      "REMOVE_ASSIGNED_AGENT": "Remove Assigned Agent",
+      "REMOVE_ASSIGNED_TEAM": "Supprimer l’équipe assignée",
+      "PENDING_CONVERSATION": "Mark conversation as pending"
     },
     "MESSAGE_TYPES": {
       "INCOMING": "Boite de réception",
@@ -177,7 +181,14 @@
       "REFERER_LINK": "Lien de référence",
       "ASSIGNEE_NAME": "Assignee",
       "TEAM_NAME": "Équipes",
-      "PRIORITY": "Priorité"
-    }
+      "PRIORITY": "Priorité",
+      "PRIVATE_NOTE": "Note privée",
+      "COMPANY_NAME": "Société",
+      "LABELS": "Étiquettes"
+    },
+    "COUNT": "{n} automation | {n} automations",
+    "SEARCH_PLACEHOLDER": "Search automation rules...",
+    "NO_RESULTS": "No automation rules found matching your search",
+    "LAST_RESPONDING_AGENT": "Last Responding Agent"
   }
 }

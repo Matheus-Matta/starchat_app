@@ -40,7 +40,7 @@ module MfaTasks
     user = find_user_or_exit(args[:email])
     abort "Error: MFA is not enabled for #{args[:email]}" unless user.otp_required_for_login?
 
-    service = Mfa::ManagementService.new(user: user)
+    service = MFA::ManagementService.new(user: user)
     codes = service.generate_backup_codes!
     puts "\nNew backup codes generated for #{args[:email]}:"
     codes.each { |code| puts code }

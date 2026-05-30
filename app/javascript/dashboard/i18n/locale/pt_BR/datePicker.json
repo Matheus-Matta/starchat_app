@@ -15,7 +15,12 @@
       "LAST_3_MONTHS": "Últimos 3 meses",
       "LAST_6_MONTHS": "Últimos 6 meses",
       "LAST_YEAR": "Ano passado",
-      "CUSTOM_RANGE": "Intervalo de tempo personalizado"
-    }
+      "CUSTOM_RANGE": "Intervalo de tempo personalizado",
+      "THIS_WEEK": "Esta semana",
+      "MONTH_TO_DATE": "Este mês"
+    },
+    "PREVIOUS_PERIOD": "Período anterior",
+    "NEXT_PERIOD": "Próximo período",
+    "WEEK_NUMBER": "Semana #{weekNumber}"
   }
 }

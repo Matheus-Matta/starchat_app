@@ -13,7 +13,7 @@ const props = defineProps({
 });
 
 const emit = defineEmits(['upgrade']);
-const i18nKey = props.isOnChatwootCloud ? 'PAYWALL' : 'ENTERPRISE_PAYWALL';
+const i18nKey = props.isOnChatwootCloud ? 'PAYWALL' : 'STARCHAT_PAYWALL';
 </script>
 
 <template>

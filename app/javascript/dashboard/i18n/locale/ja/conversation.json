@@ -1,8 +1,8 @@
 {
   "CONVERSATION": {
+    "404": "会話が見つかりませんでした。もう一度お試しください。",
     "SELECT_A_CONVERSATION": "左のリストから会話を選択してください",
     "CSAT_REPLY_MESSAGE": "会話の評価にご協力をお願いいたします。",
-    "404": "会話が見つかりませんでした。もう一度お試しください。",
     "SWITCH_VIEW_LAYOUT": "レイアウトを変更",
     "DASHBOARD_APP_TAB_MESSAGES": "メッセージ",
     "UNVERIFIED_SESSION": "このユーザーの身元は確認されていません",
@@ -69,7 +69,8 @@
     "REPLY_MESSAGE_NOT_FOUND": "メッセージは利用できません",
     "CARD": {
       "SHOW_LABELS": "ラベルを表示",
-      "HIDE_LABELS": "ラベルを隠す"
+      "HIDE_LABELS": "ラベルを隠す",
+      "LABELS_COUNT": "{count} labels"
     },
     "VOICE_CALL": {
       "INCOMING_CALL": "Incoming call",
@@ -80,7 +81,9 @@
       "CALL_ENDED": "Call ended",
       "NOT_ANSWERED_YET": "Not answered yet",
       "THEY_ANSWERED": "They answered",
-      "YOU_ANSWERED": "You answered"
+      "YOU_ANSWERED": "You answered",
+      "AGENT_ANSWERED": "{agentName} answered",
+      "JOIN_CALL": "Join call"
     },
     "HEADER": {
       "RESOLVE_ACTION": "解決する",
@@ -100,7 +103,8 @@
         "RT": "RT {status}",
         "MISSED": "不在",
         "DUE": "期限"
-      }
+      },
+      "COPY_ID_SUCCESS": "Conversation ID copied to clipboard"
     },
     "RESOLVE_DROPDOWN": {
       "MARK_PENDING": "保留としてマークする",
@@ -172,8 +176,15 @@
         "TEAM_ASSIGNMENT": {
           "SUCCESFUL": "会話ID {conversationId} に \"{team}\" チームを割り当てました",
           "FAILED": "チームを割り当てることができませんでした。もう一度お試しください。"
+        },
+        "LABEL_REMOVAL": {
+          "SUCCESFUL": "Removed label #{labelName} from conversation id {conversationId}",
+          "FAILED": "Couldn't remove label. Please try again."
         }
-      }
+      },
+      "OPEN_IN_NEW_TAB": "Open in new tab",
+      "COPY_LINK": "Copy conversation link",
+      "COPY_LINK_SUCCESS": "Conversation link copied to clipboard"
     },
     "FOOTER": {
       "MESSAGE_SIGN_TOOLTIP": "メッセージの署名",
@@ -183,7 +194,11 @@
       "PRIVATE_MSG_INPUT": "Shift + Enter で新しい行を作成します。これは担当者にのみ表示されます。",
       "MESSAGE_SIGNATURE_NOT_CONFIGURED": "メッセージ署名が構成されていません。プロフィール設定で構成してください。",
       "CLICK_HERE": "ここをクリックして更新",
-      "WHATSAPP_TEMPLATES": "Whatsapp テンプレート"
+      "WHATSAPP_TEMPLATES": "Whatsapp テンプレート",
+      "MESSAGING_RESTRICTED": "You cannot reply to this conversation",
+      "MESSAGING_RESTRICTED_WHATSAPP": "You can only reply using a template message due to 24-hour message window restriction",
+      "MESSAGING_RESTRICTED_API": "You can only reply using a template message due to message window restriction",
+      "COPILOT_MSG_INPUT": "Copilot に追加のプロンプトを送るか、ほかの質問をしてください… Enter キーでフォローアップを送信"
     },
     "REPLYBOX": {
       "REPLY": "返信",
@@ -224,6 +239,14 @@
           "YES": "送信",
           "CANCEL": "キャンセル"
         }
+      },
+      "COPILOT_THINKING": "Copilotが考え中",
+      "QUOTED_REPLY": {
+        "ENABLE_TOOLTIP": "Include quoted email thread",
+        "DISABLE_TOOLTIP": "Don't include quoted email thread",
+        "REMOVE_PREVIEW": "Remove quoted email thread",
+        "COLLAPSE": "Collapse preview",
+        "EXPAND": "Expand preview"
       }
     },
     "VISIBLE_TO_AGENTS": "非公開設定の注意：あなたとあなたのチームのみに表示されます",
@@ -265,6 +288,21 @@
     "SIDEBAR": {
       "CONTACT": "連絡先",
       "COPILOT": "コパイロット"
+    },
+    "48_HOURS_WINDOW": "48時間以内のメッセージウィンドウの制限",
+    "UNSUPPORTED_MESSAGE_TIKTOK": "This message is unsupported. You can view this message on the TikTok app.",
+    "FILE_TYPE_NOT_SUPPORTED": "This {fileName} file type is not supported in this conversation",
+    "NATIVE_APP": "Native app",
+    "NATIVE_APP_ADVISORY": "This message was sent from the native app. Reply from Chatwoot to maintain the message window.",
+    "VOICE_WIDGET": {
+      "INCOMING_CALL": "Incoming call",
+      "OUTGOING_CALL": "Outgoing call",
+      "CALL_IN_PROGRESS": "Call in progress",
+      "NOT_ANSWERED_YET": "Not answered yet",
+      "HANDLED_IN_ANOTHER_TAB": "Being handled in another tab",
+      "REJECT_CALL": "Reject",
+      "JOIN_CALL": "Join call",
+      "END_CALL": "End call"
     }
   },
   "EMAIL_TRANSCRIPT": {
@@ -282,7 +320,8 @@
         "PLACEHOLDER": "メールアドレスを入力する",
         "ERROR": "正しいメールアドレスを入力してください"
       }
-    }
+    },
+    "SEND_EMAIL_PAYMENT_REQUIRED": "Email transcript is not available on your current plan. Please upgrade to use this feature."
   },
   "ONBOARDING": {
     "TITLE": "こんにちは 👋, {installationName}へようこそ！",
@@ -329,7 +368,8 @@
       "PREVIOUS_CONVERSATION": "以前の会話",
       "MACROS": "マクロ",
       "LINEAR_ISSUES": "Linked Linear Issues",
-      "SHOPIFY_ORDERS": "Shopify Orders"
+      "SHOPIFY_ORDERS": "Shopify Orders",
+      "SHARED_FILES": "Attachments"
     },
     "SHOPIFY": {
       "ORDER_ID": "Order #{id}",
@@ -349,6 +389,17 @@
         "PARTIALLY_FULFILLED": "Partially Fulfilled",
         "UNFULFILLED": "Unfulfilled"
       }
+    },
+    "SHARED_FILES": {
+      "EMPTY": "No attachments yet",
+      "DOWNLOAD": "Download file",
+      "DOWNLOAD_ERROR": "Could not download the file. Please try again.",
+      "MEDIA_HEADING": "Media",
+      "FILES_HEADING": "Files",
+      "VIEW_ALL": "すべて表示",
+      "SHOW_LESS": "Show less",
+      "MORE_COUNT": "+{count}",
+      "UNTITLED_FILE": "Untitled file"
     }
   },
   "CONVERSATION_CUSTOM_ATTRIBUTES": {

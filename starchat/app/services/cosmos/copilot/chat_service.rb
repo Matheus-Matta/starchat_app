@@ -2,6 +2,7 @@ require 'openai'
 
 class Cosmos::Copilot::ChatService < Llm::BaseOpenAiService
   include Cosmos::ChatHelper
+  include Integrations::LlmInstrumentation
 
   attr_reader :assistant, :account, :user, :copilot_thread, :previous_history, :messages
 
@@ -62,16 +63,22 @@ class Cosmos::Copilot::ChatService < Llm::BaseOpenAiService
                         end
   end
 
+  def build_tools
+    [
+      Cosmos::Tools::SearchDocumentationService,
+      Cosmos::Tools::Copilot::GetArticleService,
+      Cosmos::Tools::Copilot::GetContactService,
+      Cosmos::Tools::Copilot::GetConversationService,
+      Cosmos::Tools::Copilot::SearchArticlesService,
+      Cosmos::Tools::Copilot::SearchContactsService,
+      Cosmos::Tools::Copilot::SearchConversationsService,
+      Cosmos::Tools::Copilot::SearchLinearIssuesService
+    ].map { |klass| klass.new(@assistant) }
+  end
+
   def register_tools
     @tool_registry = Cosmos::ToolRegistryService.new(@assistant, user: @user)
-    @tool_registry.register_tool(Cosmos::Tools::SearchDocumentationService)
-    @tool_registry.register_tool(Cosmos::Tools::Copilot::GetArticleService)
-    @tool_registry.register_tool(Cosmos::Tools::Copilot::GetContactService)
-    @tool_registry.register_tool(Cosmos::Tools::Copilot::GetConversationService)
-    @tool_registry.register_tool(Cosmos::Tools::Copilot::SearchArticlesService)
-    @tool_registry.register_tool(Cosmos::Tools::Copilot::SearchContactsService)
-    @tool_registry.register_tool(Cosmos::Tools::Copilot::SearchConversationsService)
-    @tool_registry.register_tool(Cosmos::Tools::Copilot::SearchLinearIssuesService)
+    @tools.each { |tool| @tool_registry.register_tool(tool.class) }
   end
 
   def system_message
@@ -86,7 +93,7 @@ class Cosmos::Copilot::ChatService < Llm::BaseOpenAiService
   end
 
   def tools_summary
-    @tools.map { |tool| "- #{tool.class.name}: #{tool.class.description}" }.join("\n")
+    @tools.map { |tool| "- #{tool.class.name}: #{tool.description}" }.join("\n")
   end
 
   def account_id_context
@@ -121,7 +128,25 @@ class Cosmos::Copilot::ChatService < Llm::BaseOpenAiService
     )
   end
 
+  def build_response(response)
+    parsed = JSON.parse(response.content)
+    persist_message(parsed)
+    parsed
+  rescue JSON::ParseError
+    {}
+  end
+
   def feature_name
     'copilot'
+  end
+
+  def instrumentation_params
+    {
+      span_name: 'llm.cosmos.copilot',
+      model: @model,
+      account_id: @account&.id,
+      feature_name: feature_name,
+      messages: @messages
+    }
   end
 end

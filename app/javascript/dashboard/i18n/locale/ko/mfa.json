@@ -58,7 +58,11 @@
       "CONFIRM": "2FA 비활성화",
       "CANCEL": "취소",
       "SUCCESS": "2단계 인증이 비활성화되었습니다",
-      "ERROR": "MFA 비활성화에 실패했습니다. 자격 증명을 확인해 주십시오."
+      "ERROR": "MFA 비활성화에 실패했습니다. 자격 증명을 확인해 주십시오.",
+      "BACKUP_CODE": "백업 코드",
+      "BACKUP_CODE_PLACEHOLDER": "백업 코드 중 하나를 입력하십시오",
+      "USE_BACKUP_CODE": "Lost access to your authenticator? Use a backup code instead",
+      "USE_OTP_CODE": "Use a verification code from your authenticator app"
     },
     "REGENERATE": {
       "TITLE": "백업 코드 재생성",

@@ -18,7 +18,7 @@
       "UPGRADE_NOW": "Upgrade now",
       "CANCEL_ANYTIME": "You can change or cancel your plan anytime"
     },
-    "ENTERPRISE_PAYWALL": {
+    "STARCHAT_PAYWALL": {
       "AVAILABLE_ON": "The SLA feature is only available in the paid plans.",
       "UPGRADE_PROMPT": "Upgrade to a paid plan to access advanced features like audit logs, agent capacity, and more.",
       "ASK_ADMIN": "Please reach out to your administrator for the upgrade."
@@ -112,6 +112,11 @@
       "RT": "Resolution time",
       "SHOW_MORE": "{count} more",
       "HIDE": "Hide {count} rows"
+    },
+    "ENTERPRISE_PAYWALL": {
+      "AVAILABLE_ON": "The SLA feature is only available in the paid plans.",
+      "UPGRADE_PROMPT": "Upgrade to a paid plan to access advanced features like audit logs, agent capacity, and more.",
+      "ASK_ADMIN": "Please reach out to your administrator for the upgrade."
     }
   }
 }

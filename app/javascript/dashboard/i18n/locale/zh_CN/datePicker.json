@@ -13,7 +13,12 @@
       "LAST_3_MONTHS": "最近3个月",
       "LAST_6_MONTHS": "最近6个月",
       "LAST_YEAR": "最近一年",
-      "CUSTOM_RANGE": "自定义日期范围"
-    }
+      "CUSTOM_RANGE": "自定义日期范围",
+      "THIS_WEEK": "本周",
+      "MONTH_TO_DATE": "This month"
+    },
+    "PREVIOUS_PERIOD": "上一个周期",
+    "NEXT_PERIOD": "下一个周期",
+    "WEEK_NUMBER": "周#{weekNumber}"
   }
 }

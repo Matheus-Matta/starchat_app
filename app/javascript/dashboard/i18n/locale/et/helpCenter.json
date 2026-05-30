@@ -316,11 +316,23 @@
           "SUCCESS_MESSAGE": "Locale removed from portal successfully",
           "ERROR_MESSAGE": "Unable to remove locale from portal. Try again."
         }
+      },
+      "DRAFT_LOCALE": {
+        "API": {
+          "SUCCESS_MESSAGE": "Locale moved to draft successfully",
+          "ERROR_MESSAGE": "Unable to move locale to draft. Try again."
+        }
+      },
+      "PUBLISH_LOCALE": {
+        "API": {
+          "SUCCESS_MESSAGE": "Locale published successfully",
+          "ERROR_MESSAGE": "Unable to publish locale. Try again."
+        }
       }
     },
     "TABLE": {
-      "LOADING_MESSAGE": "Loading articles...",
       "404": "No articles matches your search 🔍",
+      "LOADING_MESSAGE": "Loading articles...",
       "NO_ARTICLES": "There are no available articles",
       "HEADERS": {
         "TITLE": "Title",
@@ -503,7 +515,8 @@
             "PUBLISH": "Publish",
             "DRAFT": "Draft",
             "ARCHIVE": "Archive",
-            "DELETE": "Delete"
+            "DELETE": "Delete",
+            "TRANSLATE": "Tõlgi"
           },
           "STATUS": {
             "DRAFT": "Draft",
@@ -557,6 +570,41 @@
           "TITLE": "There are no articles in this category",
           "SUBTITLE": "Articles in this category will appear here"
         }
+      },
+      "BULK_TRANSLATE": {
+        "TITLE": "Translate article | Translate {count} articles",
+        "DESCRIPTION": "Translate the selected article to another language. | Translate the selected articles to another language.",
+        "LOCALE_LABEL": "Target language",
+        "LOCALE_PLACEHOLDER": "Select a language",
+        "CATEGORY_LABEL": "Target category",
+        "CATEGORY_PLACEHOLDER": "Select a category",
+        "OPTIONAL": "(optional)",
+        "CONFIRM": "Tõlgi",
+        "SELECT_ALL": "Select all ({count})",
+        "SELECTED_COUNT": "{count} valitud",
+        "CLEAR_SELECTION": "Tühjenda valik",
+        "TRANSLATE_BUTTON": "Tõlgi",
+        "CONFIRM_OVERWRITE": "Overwrite and translate",
+        "DUPLICATE_WARNING": "A translation already exists for this article in the selected language. | Translations already exist for {count} articles in the selected language.",
+        "DUPLICATE_CONFIRM_HINT": "Click translate again to overwrite the existing translation.",
+        "API": {
+          "SUCCESS_MESSAGE": "Translation in progress. The article will appear as a draft once ready.",
+          "ERROR_MESSAGE": "Failed to start translation. Please try again."
+        }
+      },
+      "BULK_ACTIONS": {
+        "PUBLISH": "Avalda",
+        "DRAFT": "Mustand",
+        "ARCHIVE": "Arhiveeri",
+        "TRANSLATE": "Tõlgi",
+        "DELETE": "Delete",
+        "STATUS_SUCCESS": "Articles updated successfully",
+        "STATUS_ERROR": "Failed to update articles",
+        "DELETE_CONFIRM_TITLE": "Delete article | Delete {count} articles",
+        "DELETE_CONFIRM_DESCRIPTION": "This will permanently delete the selected article. This action cannot be undone. | This will permanently delete {count} selected articles. This action cannot be undone.",
+        "DELETE_CONFIRM": "Delete",
+        "DELETE_SUCCESS": "Articles deleted successfully",
+        "DELETE_ERROR": "Failed to delete articles"
       }
     },
     "CATEGORY_PAGE": {
@@ -636,8 +684,11 @@
         "DEFAULT": "Default",
         "DROPDOWN_MENU": {
           "MAKE_DEFAULT": "Make default",
-          "DELETE": "Delete"
-        }
+          "DELETE": "Delete",
+          "MOVE_TO_DRAFT": "Move to draft",
+          "PUBLISH_LOCALE": "Publish locale"
+        },
+        "DRAFT": "Mustand"
       },
       "ADD_LOCALE_DIALOG": {
         "TITLE": "Add a new locale",
@@ -648,6 +699,13 @@
         "API": {
           "SUCCESS_MESSAGE": "Locale added successfully",
           "ERROR_MESSAGE": "Unable to add locale. Try again."
+        },
+        "STATUS": {
+          "LABEL": "Status",
+          "OPTIONS": {
+            "LIVE": "Avaldatud",
+            "DRAFT": "Mustand"
+          }
         }
       }
     },
@@ -860,6 +918,16 @@
       "FROM_DOCUMENT": "From document",
       "NO_CONTENT": "No generated content available. Upload a PDF document to get started.",
       "LOADING": "Loading generated content..."
+    },
+    "REORDER_ARTICLE": {
+      "API": {
+        "ERROR_MESSAGE": "Artiklite järjekorda ei õnnestunud muuta. Palun proovige uuesti."
+      }
+    },
+    "REORDER_CATEGORY": {
+      "API": {
+        "ERROR_MESSAGE": "Kategooriate järjekorda ei õnnestunud muuta. Palun proovige uuesti."
+      }
     }
   }
 }

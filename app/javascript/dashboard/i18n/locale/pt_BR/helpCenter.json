@@ -316,11 +316,23 @@
           "SUCCESS_MESSAGE": "Localização removida do portal com sucesso",
           "ERROR_MESSAGE": "Não é possível remover a localidade do portal. Tente novamente."
         }
+      },
+      "DRAFT_LOCALE": {
+        "API": {
+          "SUCCESS_MESSAGE": "Localidade movida para rascunho com sucesso",
+          "ERROR_MESSAGE": "Não foi possível mover a localidade para rascunho. Tente novamente."
+        }
+      },
+      "PUBLISH_LOCALE": {
+        "API": {
+          "SUCCESS_MESSAGE": "Localidade publicada com sucesso",
+          "ERROR_MESSAGE": "Não foi possível publicar a localidade. Tente novamente."
+        }
       }
     },
     "TABLE": {
-      "LOADING_MESSAGE": "Carregando artigos...",
       "404": "Nenhum artigo corresponde à sua pesquisa 🔍",
+      "LOADING_MESSAGE": "Carregando artigos...",
       "NO_ARTICLES": "Não há artigos disponíveis",
       "HEADERS": {
         "TITLE": "Título",
@@ -503,7 +515,8 @@
             "PUBLISH": "Publicar",
             "DRAFT": "Rascunho",
             "ARCHIVE": "Arquivar",
-            "DELETE": "Excluir"
+            "DELETE": "Excluir",
+            "TRANSLATE": "Traduzir"
           },
           "STATUS": {
             "DRAFT": "Rascunho",
@@ -557,6 +570,41 @@
           "TITLE": "Não há artigos nesta categoria",
           "SUBTITLE": "Os artigos nesta categoria aparecerão aqui"
         }
+      },
+      "BULK_TRANSLATE": {
+        "TITLE": "Traduzir artigo | Traduzir {count} artigos",
+        "DESCRIPTION": "Traduza o artigo selecionado para outro idioma. | Traduza os artigos selecionados para outro idioma.",
+        "LOCALE_LABEL": "Idioma alvo",
+        "LOCALE_PLACEHOLDER": "Selecione um idioma",
+        "CATEGORY_LABEL": "Categoria alvo",
+        "CATEGORY_PLACEHOLDER": "Selecione uma categoria",
+        "OPTIONAL": "(opcional)",
+        "CONFIRM": "Traduzir",
+        "SELECT_ALL": "Selecionar todos ({count})",
+        "SELECTED_COUNT": "{count} selecionado",
+        "CLEAR_SELECTION": "Limpar seleção",
+        "TRANSLATE_BUTTON": "Traduzir",
+        "CONFIRM_OVERWRITE": "Sobrescrever e traduzir",
+        "DUPLICATE_WARNING": "Uma tradução deste artigo já existe no idioma selecionado. | As traduções já existem para {count} artigos no idioma selecionado.",
+        "DUPLICATE_CONFIRM_HINT": "Clique em traduzir novamente para substituir a tradução existente.",
+        "API": {
+          "SUCCESS_MESSAGE": "Tradução em andamento. O artigo aparecerá como rascunho uma vez pronto.",
+          "ERROR_MESSAGE": "Falha ao iniciar a tradução. Por favor, tente novamente."
+        }
+      },
+      "BULK_ACTIONS": {
+        "PUBLISH": "Publicar",
+        "DRAFT": "Rascunho",
+        "ARCHIVE": "Arquivar",
+        "TRANSLATE": "Traduzir",
+        "DELETE": "Excluir",
+        "STATUS_SUCCESS": "Artigos atualizados com sucesso",
+        "STATUS_ERROR": "Falha ao atualizar artigos",
+        "DELETE_CONFIRM_TITLE": "Excluir artigo | Excluir {count} artigos",
+        "DELETE_CONFIRM_DESCRIPTION": "Isto irá apagar o artigo selecionado permanentemente. Esta ação não pode ser desfeita. | Isso irá apagar permanentemente {count} artigos selecionados. Esta ação não pode ser desfeita.",
+        "DELETE_CONFIRM": "Excluir",
+        "DELETE_SUCCESS": "Artigos excluídos com sucesso",
+        "DELETE_ERROR": "Falha ao excluir artigos"
       }
     },
     "CATEGORY_PAGE": {
@@ -636,8 +684,11 @@
         "DEFAULT": "Padrão",
         "DROPDOWN_MENU": {
           "MAKE_DEFAULT": "Tornar padrão",
-          "DELETE": "Excluir"
-        }
+          "DELETE": "Excluir",
+          "MOVE_TO_DRAFT": "Mover para rascunho",
+          "PUBLISH_LOCALE": "Publicar localidade"
+        },
+        "DRAFT": "Rascunho"
       },
       "ADD_LOCALE_DIALOG": {
         "TITLE": "Adicionar uma nova localidade",
@@ -648,6 +699,13 @@
         "API": {
           "SUCCESS_MESSAGE": "Localidade adicionada com sucesso",
           "ERROR_MESSAGE": "Não foi possível adicionar a localidade. Tente novamente."
+        },
+        "STATUS": {
+          "LABEL": "Status",
+          "OPTIONS": {
+            "LIVE": "Publicado",
+            "DRAFT": "Rascunho"
+          }
         }
       }
     },
@@ -741,7 +799,8 @@
         "LIVE_CHAT_WIDGET": {
           "LABEL": "Widget de chat ao vivo",
           "PLACEHOLDER": "Selecionar widget de chat ao vivo",
-          "HELP_TEXT": "Selecione um widget de chat ao vivo que aparecerá no centro de ajuda"
+          "HELP_TEXT": "Selecione um widget de chat ao vivo que aparecerá no centro de ajuda",
+          "NONE_OPTION": "Sem widget"
         },
         "BRAND_COLOR": {
           "LABEL": "Cor da Marca"
@@ -859,6 +918,16 @@
       "FROM_DOCUMENT": "From document",
       "NO_CONTENT": "No generated content available. Upload a PDF document to get started.",
       "LOADING": "Loading generated content..."
+    },
+    "REORDER_ARTICLE": {
+      "API": {
+        "ERROR_MESSAGE": "Não foi possível reordenar os artigos. Por favor, tente novamente."
+      }
+    },
+    "REORDER_CATEGORY": {
+      "API": {
+        "ERROR_MESSAGE": "Não foi possível reordenar as categorias. Por favor, tente novamente."
+      }
     }
   }
 }

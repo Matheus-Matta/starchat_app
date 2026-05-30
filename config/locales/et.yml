@@ -353,9 +353,9 @@ et:
     copilot_message_required: Message is required
     copilot_error: 'Please connect an assistant to this inbox to use Copilot'
     copilot_limit: 'You are out of Copilot credits. You can buy more credits from the billing section.'
-    upgrade: 'Luba Captain AI kasutamiseks uuenda oma plaani'
-    disabled: 'Captain AI on selle konto jaoks keelatud.'
-    api_key_missing: 'Captain AI API võti pole seadistatud.'
+    upgrade: 'Luba Cosmos AI kasutamiseks uuenda oma plaani'
+    disabled: 'Cosmos AI on selle konto jaoks keelatud.'
+    api_key_missing: 'Cosmos AI API võti pole seadistatud.'
     copilot:
       using_tool: 'Kasutatakse tööriista %{function_name}'
       completed_tool_call: 'Lõpetatud tööriista %{function_name} kutsumine'

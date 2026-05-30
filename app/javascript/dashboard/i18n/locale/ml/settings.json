@@ -68,7 +68,8 @@
         "API_SUCCESS": "Signature saved successfully",
         "IMAGE_UPLOAD_ERROR": "Couldn't upload image! Try again",
         "IMAGE_UPLOAD_SUCCESS": "Image added successfully. Please click on save to save the signature",
-        "IMAGE_UPLOAD_SIZE_ERROR": "Image size should be less than {size}MB"
+        "IMAGE_UPLOAD_SIZE_ERROR": "Image size should be less than {size}MB",
+        "INLINE_IMAGE_WARNING": "Pasted inline images were removed. Please use the image upload button to add images to your signature."
       },
       "MESSAGE_SIGNATURE": {
         "LABEL": "Message Signature",
@@ -219,6 +220,11 @@
         "LABEL": "പുതിയ പാസ്‌വേഡ് സ്ഥിരീകരിക്കുക",
         "ERROR": "പാസ്‌വേഡുകൾ പൊരുത്തപ്പെടുന്നില്ല",
         "PLACEHOLDER": "നിങ്ങളുടെ പുതിയ പാസ്‌വേഡ് വീണ്ടും നൽകുക"
+      },
+      "SECURITY_SECTION": {
+        "TITLE": "സുരക്ഷ",
+        "NOTE": "നിങ്ങളുടെ അക്കൗണ്ടിനായി അധിക സുരക്ഷാ സവിശേഷതകൾ നിയന്ത്രിക്കുക.",
+        "MFA_BUTTON": "രണ്ട് ഘട്ടം സ്ഥിരീകരണം നിയന്ത്രിക്കുക"
       }
     }
   },
@@ -234,7 +240,8 @@
     "SUPER_ADMIN_CONSOLE": "SuperAdmin console",
     "DOCS": "Read documentation",
     "LOGOUT": "Log out",
-    "CHANGELOG": "Changelog"
+    "CHANGELOG": "Changelog",
+    "YEAR_IN_REVIEW": "വാർഷിക അവലോകനം"
   },
   "APP_GLOBAL": {
     "TRIAL_MESSAGE": "ദിവസത്തെ ട്രയൽ ശേഷിക്കുന്നു.",
@@ -246,6 +253,12 @@
     "ACCOUNT_SUSPENDED": {
       "TITLE": "Account Suspended",
       "MESSAGE": "Your account is suspended. Please reach out to the support team for more information."
+    },
+    "NO_ACCOUNTS": {
+      "TITLE": "എന്തെങ്കിലും അക്കൗണ്ട് കണ്ടെത്തിയില്ല",
+      "MESSAGE_CLOUD": "നിങ്ങൾ ഇപ്പോൾ ഏതെങ്കിലും അക്കൗണ്ടിന്റെ ഭാഗമല്ല. ഇത് ഒരു പിശക് ആണെന്ന് നിങ്ങൾ കരുതുന്നുവെങ്കിൽ, ദയവായി ഞങ്ങളുടെ പിന്തുണ ടീമിനെ സമീപിക്കുക.",
+      "MESSAGE_SELF_HOSTED": "നിങ്ങൾ ഇപ്പോൾ ഏതെങ്കിലും അക്കൗണ്ടിന്റെ ഭാഗമല്ല. ദയവായി നിങ്ങളുടെ അഡ്മിനിസ്ട്രേറ്ററെ സമീപിക്കുക.",
+      "LOGOUT": "ലോഗ് ഔട്ട് ചെയ്യുക"
     }
   },
   "COMPONENTS": {
@@ -261,7 +274,8 @@
     "FILE_BUBBLE": {
       "DOWNLOAD": "ഡൗൺലോഡ്",
       "UPLOADING": "അപ്‌ലോഡുചെയ്യുന്നു...",
-      "INSTAGRAM_STORY_UNAVAILABLE": "This story is no longer available."
+      "INSTAGRAM_STORY_UNAVAILABLE": "This story is no longer available.",
+      "INSTAGRAM_STORY_REPLY": "നിങ്ങളുടെ സ്റ്റോറിയിൽ മറുപടി നൽകിയിരിക്കുന്നു:"
     },
     "LOCATION_BUBBLE": {
       "SEE_ON_MAP": "See on map"
@@ -358,11 +372,21 @@
       "INFO_SHORT": "Automatically mark offline when you aren't using the app."
     },
     "DOCS": "Read docs",
-    "COSMOS": "Cosmos",
-    "COSMOS_ASSISTANTS": "Assistants",
-    "COSMOS_DOCUMENTS": "Documents",
-    "COSMOS_RESPONSES": "FAQs",
-    "AGENT_ASSIGNMENT": "Agent Assignment"
+    "AGENT_ASSIGNMENT": "Agent Assignment",
+    "COMPANIES": "കമ്പനികൾ",
+    "ALL_COMPANIES": "എല്ലാ കമ്പനികളും",
+    "CAPTAIN": "ക്യാപ്റ്റൻ",
+    "CAPTAIN_ASSISTANTS": "അസിസ്റ്റന്റുകൾ",
+    "CAPTAIN_DOCUMENTS": "ഡോക്യുമെന്റുകൾ",
+    "CAPTAIN_RESPONSES": "അടിക്കുറിപ്പുകൾ",
+    "CAPTAIN_TOOLS": "ഉപകരണങ്ങൾ",
+    "CAPTAIN_SCENARIOS": "സന്നിവേശങ്ങൾ",
+    "CAPTAIN_PLAYGROUND": "പ്ലേഗ്രൗണ്ട്",
+    "CAPTAIN_INBOXES": "ഇൻ‌ബോക്സുകൾ",
+    "CAPTAIN_SETTINGS": "ക്രമീകരണങ്ങൾ",
+    "SECURITY": "സുരക്ഷ",
+    "CAPTAIN_AI": "ക്യാപ്റ്റൻ",
+    "CONVERSATION_WORKFLOW": "സംവാദ പ്രവാഹം"
   },
   "BILLING_SETTINGS": {
     "TITLE": "Billing",
@@ -385,7 +409,7 @@
       "BUTTON_TXT": "Buy more credits",
       "DOCUMENTS": "Documents",
       "RESPONSES": "Responses",
-      "UPGRADE": "Cosmos is not available on the free plan, upgrade now to get access to assistants, cosmos and more."
+      "UPGRADE": "Cosmos is not available on the free plan, upgrade now to get access to assistants, copilot and more."
     },
     "CHAT_WITH_US": {
       "TITLE": "Need help?",
@@ -393,13 +417,37 @@
       "BUTTON_TXT": "ഞങ്ങളുമായി ചാറ്റുചെയ്യുക"
     },
     "NO_BILLING_USER": "Your billing account is being configured. Please refresh the page and try again.",
-    "COSMOS": {
-      "TITLE": "Cosmos",
-      "DESCRIPTION": "Manage usage and credits for Cosmos AI.",
-      "BUTTON_TXT": "Buy more credits",
-      "DOCUMENTS": "Documents",
+    "CAPTAIN": {
+      "TITLE": "ക്യാപ്റ്റൻ",
+      "DESCRIPTION": "ക്യാപ്റ്റൻ AI-യുടെ ഉപയോഗവും ക്രെഡിറ്റുകളും നിയന്ത്രിക്കുക.",
+      "BUTTON_TXT": "കൂടുതൽ ക്രെഡിറ്റുകൾ വാങ്ങുക",
+      "DOCUMENTS": "ഡോക്യുമെന്റുകൾ",
       "RESPONSES": "Responses",
-      "UPGRADE": "Cosmos is not available on the free plan, upgrade now to get access to assistants, copilot and more."
+      "UPGRADE": "Captain സൗജന്യ പ്ലാനിൽ ലഭ്യമല്ല, അസിസ്റ്റന്റുകൾ, കോപൈലറ്റ് എന്നിവയ്ക്ക് ആക്‌സസ് നേടാൻ ഇപ്പോൾ അപ്‌ഗ്രേഡ് ചെയ്യുക.",
+      "REFRESH_CREDITS": "പുതുക്കുക"
+    },
+    "TOPUP": {
+      "BUY_CREDITS": "കൂടുതൽ ക്രെഡിറ്റുകൾ വാങ്ങുക",
+      "MODAL_TITLE": "AI ക്രെഡിറ്റുകൾ വാങ്ങുക",
+      "MODAL_DESCRIPTION": "Captain AI-ക്കായി അധിക ക്രെഡിറ്റുകൾ വാങ്ങുക.",
+      "CREDITS": "ക്രെഡിറ്റുകൾ",
+      "ONE_TIME": "ഒരിക്കൽ മാത്രം",
+      "POPULAR": "ഏറ്റവും പ്രശസ്തം",
+      "NOTE_TITLE": "കുറിപ്പ്:",
+      "NOTE_DESCRIPTION": "ക്രെഡിറ്റുകൾ ഉടൻ ചേർക്കപ്പെടുകയും 6 മാസത്തിനുള്ളിൽ കാലഹരണപ്പെടുകയും ചെയ്യും. ക്രെഡിറ്റുകൾ ഉപയോഗിക്കാൻ സജീവ സബ്സ്ക്രിപ്ഷൻ ആവശ്യമാണ്. വാങ്ങിയ ക്രെഡിറ്റുകൾ നിങ്ങളുടെ മാസാന്ത പ്ലാൻ ക്രെഡിറ്റുകൾ ഉപയോഗിച്ചതിന് ശേഷം ഉപയോക്താവാകും.",
+      "CANCEL": "റദ്ദാക്കുക",
+      "PURCHASE": "ക്രെഡിറ്റുകൾ വാങ്ങുക",
+      "LOADING": "ഓപ്ഷനുകൾ ലോഡ് ചെയ്യുന്നു...",
+      "FETCH_ERROR": "ക്രെഡിറ്റ് ഓപ്ഷനുകൾ ലോഡ് ചെയ്യാൻ പരാജയപ്പെട്ടു. ദയവായി വീണ്ടും ശ്രമിക്കുക.",
+      "PURCHASE_ERROR": "വാങ്ങൽ പ്രക്രിയ പരാജയപ്പെട്ടു. ദയവായി വീണ്ടും ശ്രമിക്കുക.",
+      "PURCHASE_SUCCESS": "നിങ്ങളുടെ അക്കൗണ്ടിലേക്ക് {credits} ക്രെഡിറ്റുകൾ വിജയകരമായി ചേർത്തു",
+      "CONFIRM": {
+        "TITLE": "വാങ്ങൽ സ്ഥിരീകരിക്കുക",
+        "DESCRIPTION": "നിങ്ങൾ {amount} വിലയ്ക്ക് {credits} ക്രെഡിറ്റുകൾ വാങ്ങാൻ പോകുന്നു.",
+        "INSTANT_DEDUCTION_NOTE": "സ്ഥിരപ്പെടുത്തിയ കാർഡിൽ സ്ഥിരീകരണത്തിന് ശേഷം ഉടൻ പണം വെട്ടിച്ചേർക്കും.",
+        "GO_BACK": "പിന്നിലേക്ക് പോകുക",
+        "CONFIRM_PURCHASE": "വാങ്ങൽ സ്ഥിരീകരിക്കുക"
+      }
     }
   },
   "CREATE_ACCOUNT": {
@@ -487,7 +535,8 @@
         "CREATE_BUTTON": "Create policy",
         "API": {
           "SUCCESS_MESSAGE": "Assignment policy created successfully",
-          "ERROR_MESSAGE": "Failed to create assignment policy"
+          "ERROR_MESSAGE": "Failed to create assignment policy",
+          "INBOX_LINKED": "ഇൻബോക്സ് നയം ബന്ധിപ്പിച്ചു"
         }
       },
       "EDIT": {
@@ -514,6 +563,12 @@
             "SUCCESS_MESSAGE": "Inbox removed from policy successfully",
             "ERROR_MESSAGE": "Failed to remove inbox from policy"
           }
+        },
+        "INBOX_LINK_PROMPT": {
+          "TITLE": "ഇൻബോക്സ് നയവുമായി ബന്ധിപ്പിക്കുക",
+          "DESCRIPTION": "ഈ ഇൻബോക്സ് അസൈൻമെന്റ് നയവുമായി ബന്ധിപ്പിക്കണോ?",
+          "LINK_BUTTON": "ഇൻബോക്സ് ബന്ധിപ്പിക്കുക",
+          "CANCEL_BUTTON": "വിടുക"
         }
       },
       "FORM": {
@@ -539,7 +594,9 @@
           },
           "BALANCED": {
             "LABEL": "Balanced",
-            "DESCRIPTION": "Assign conversations based on available capacity."
+            "DESCRIPTION": "Assign conversations based on available capacity.",
+            "PREMIUM_MESSAGE": "സമതുലിതമായ നിയോഗവും ഏജന്റ് ശേഷി മാനേജ്മെന്റും ലഭിക്കാൻ അപ്ഗ്രേഡ് ചെയ്യുക.",
+            "PREMIUM_BADGE": "പ്രീമിയം"
           }
         },
         "ASSIGNMENT_PRIORITY": {
@@ -625,6 +682,20 @@
             "SUCCESS_MESSAGE": "Agent removed from policy successfully",
             "ERROR_MESSAGE": "Failed to remove agent from policy"
           }
+        },
+        "INBOX_LIMIT_API": {
+          "ADD": {
+            "SUCCESS_MESSAGE": "ഇൻബോക്സ് പരിധി വിജയകരമായി ചേർത്തു",
+            "ERROR_MESSAGE": "ഇൻബോക്സ് പരിധി ചേർക്കാൻ പരാജയപ്പെട്ടു"
+          },
+          "UPDATE": {
+            "SUCCESS_MESSAGE": "ഇൻബോക്സ് പരിധി വിജയകരമായി അപ്ഡേറ്റ് ചെയ്തു",
+            "ERROR_MESSAGE": "ഇൻബോക്സ് പരിധി അപ്ഡേറ്റ് ചെയ്യാൻ പരാജയപ്പെട്ടു"
+          },
+          "DELETE": {
+            "SUCCESS_MESSAGE": "ഇൻബോക്സ് പരിധി വിജയകരമായി ഇല്ലാതാക്കി",
+            "ERROR_MESSAGE": "ഇൻബോക്സ് പരിധി ഇല്ലാതാക്കാൻ പരാജയപ്പെട്ടു"
+          }
         }
       },
       "FORM": {
@@ -687,6 +758,178 @@
       "DESCRIPTION": "Are you sure you want to delete this policy? This action cannot be undone.",
       "CONFIRM_BUTTON_LABEL": "ഇല്ലാതാക്കുക",
       "CANCEL_BUTTON_LABEL": "റദ്ദാക്കുക"
+    }
+  },
+  "CAPTAIN_SETTINGS": {
+    "TITLE": "ക്യാപ്റ്റൻ ക്രമീകരണങ്ങൾ",
+    "DESCRIPTION": "ക്യാപ്റ്റനായി നിങ്ങളുടെ AI മോഡലുകളും ഫീച്ചറുകളും ക്രമീകരിക്കുക. ക്യാപ്റ്റൻ ക്രെഡിറ്റ് അടിസ്ഥാനത്തിലുള്ള ബില്ലിംഗ് പിന്തുടരുന്നു, തിരഞ്ഞെടുക്കപ്പെട്ട മോഡലിന്റെ അടിസ്ഥാനത്തിൽ ക്യാപ്റ്റൻ എടുക്കുന്ന ഓരോ പ്രവർത്തനത്തിനും നിങ്ങൾക്ക് ക്രെഡിറ്റുകൾ ചാർജ് ചെയ്യപ്പെടും.",
+    "LOADING": "ക്യാപ്റ്റൻ കോൺഫിഗറേഷൻ ലോഡ് ചെയ്യുന്നു...",
+    "LINK_TEXT": "ക്യാപ്റ്റൻ ക്രെഡിറ്റുകൾക്കുറിച്ച് കൂടുതൽ അറിയുക",
+    "NOT_ENABLED": "നിങ്ങളുടെ അക്കൗണ്ടിന് ക്യാപ്റ്റൻ സജ്ജമാക്കിയിട്ടില്ല. ക്യാപ്റ്റൻ ഫീച്ചറുകൾ ഉപയോഗിക്കാൻ ദയവായി നിങ്ങളുടെ പ്ലാൻ അപ്ഗ്രേഡ് ചെയ്യുക.",
+    "MODEL_CONFIG": {
+      "TITLE": "മോഡൽ കോൺഫിഗറേഷൻ",
+      "DESCRIPTION": "വിവിധ ഫീച്ചറുകൾക്കായി AI മോഡലുകൾ തിരഞ്ഞെടുക്കുക.",
+      "SELECT_MODEL": "മോഡൽ തിരഞ്ഞെടുക്കുക",
+      "CREDITS_PER_MESSAGE": "{credits} ക്രെഡിറ്റ്/സന്ദേശം",
+      "COMING_SOON": "വളരെ ഉടൻ",
+      "EDITOR": {
+        "TITLE": "എഡിറ്റർ സവിശേഷതകൾ",
+        "DESCRIPTION": "നിങ്ങളുടെ സന്ദേശ എഡിറ്ററിൽ സ്മാർട്ട് കോമ്പോസ്, വ്യാകരണ തിരുത്തലുകൾ, ടോൺ ക്രമീകരണങ്ങൾ, ഉള്ളടക്ക മെച്ചപ്പെടുത്തൽ എന്നിവയ്ക്ക് ശക്തി നൽകുന്നു."
+      },
+      "ASSISTANT": {
+        "TITLE": "അസിസ്റ്റന്റ്",
+        "DESCRIPTION": "ഉപഭോക്തൃ ഇടപെടലുകൾക്കായി സ്വയംപ്രവർത്തിക്കുന്ന പ്രതികരണങ്ങൾ, സംഭാഷണ സംഗ്രഹങ്ങൾ, ബുദ്ധിമുട്ടുള്ള മറുപടി നിർദ്ദേശങ്ങൾ എന്നിവ കൈകാര്യം ചെയ്യുന്നു."
+      },
+      "COPILOT": {
+        "TITLE": "കോ-പൈലറ്റ്",
+        "DESCRIPTION": "സംഭാഷണങ്ങളുടെ സമയത്ത് യാഥാർത്ഥ്യപരമായ സാന്ദർഭിക നിർദ്ദേശങ്ങൾ, അറിവ് അടിസ്ഥാന ശുപാർശകൾ, പ്രോആക്റ്റീവ് ഉൾക്കാഴ്ചകൾ നൽകുന്നു."
+      }
+    },
+    "FEATURES": {
+      "TITLE": "സവിശേഷതകൾ",
+      "DESCRIPTION": "AI-ശക്തിയുള്ള ഫീച്ചറുകൾ സജീവമാക്കുക അല്ലെങ്കിൽ അപ്രാപ്തമാക്കുക.",
+      "AUDIO_TRANSCRIPTION": {
+        "TITLE": "ഓഡിയോ ട്രാൻസ്ക്രിപ്ഷൻ",
+        "DESCRIPTION": "വോയ്സ് സന്ദേശങ്ങളും കോൾ റെക്കോർഡിംഗുകളും സ്വയം തിരയാവുന്ന ടെക്സ്റ്റ് ട്രാൻസ്ക്രിപ്റ്റുകളായി മാറ്റുക."
+      },
+      "HELP_CENTER_SEARCH": {
+        "TITLE": "ഹെൽപ്പ് സെന്റർ സെർച്ച് ഇൻഡക്സിംഗ്",
+        "DESCRIPTION": "നിങ്ങളുടെ ഹെൽപ്പ് സെന്റർ ലേഖനങ്ങളിൽ സാന്ദർഭിക ബോധമുള്ള AI ഉപയോഗിച്ച് തിരയുക."
+      },
+      "LABEL_SUGGESTION": {
+        "TITLE": "ലേബൽ നിർദ്ദേശം",
+        "DESCRIPTION": "സംവാദങ്ങളുടെ ഉള്ളടക്ക വിശകലനവും സാഹചര്യവും അടിസ്ഥാനമാക്കി സ്വയംപ്രേരിതമായി അനുയോജ്യമായ ലേബലുകളും ടാഗുകളും നിർദ്ദേശിക്കുക.",
+        "MODEL_TITLE": "ലേബൽ നിർദ്ദേശ മോഡൽ",
+        "MODEL_DESCRIPTION": "സംവാദങ്ങൾ വിശകലനം ചെയ്ത് അനുയോജ്യമായ ലേബലുകൾ നിർദ്ദേശിക്കാൻ ഉപയോഗിക്കാനുള്ള AI മോഡൽ തിരഞ്ഞെടുക്കുക"
+      }
+    },
+    "API": {
+      "SUCCESS": "ക്യാപ്റ്റൻ ക്രമീകരണങ്ങൾ വിജയകരമായി അപ്ഡേറ്റ് ചെയ്തു.",
+      "ERROR": "Captain ക്രമീകരണങ്ങൾ അപ്ഡേറ്റ് ചെയ്യാൻ പരാജയപ്പെട്ടു. ദയവായി വീണ്ടും ശ്രമിക്കുക."
+    }
+  },
+  "SECURITY_SETTINGS": {
+    "TITLE": "സുരക്ഷ",
+    "DESCRIPTION": "നിങ്ങളുടെ അക്കൗണ്ട് സുരക്ഷാ ക്രമീകരണങ്ങൾ നിയന്ത്രിക്കുക.",
+    "LINK_TEXT": "SAML SSOയെക്കുറിച്ച് കൂടുതൽ അറിയുക",
+    "SAML_DISABLED_MESSAGE": "SAML SSO ഇപ്പോൾ പ്രവർത്തനരഹിതമാണ്. ഈ സവിശേഷത സജീവമാക്കാൻ ദയവായി നിങ്ങളുടെ അഡ്മിനിസ്ട്രേറ്ററെ ബന്ധപ്പെടുക.",
+    "SAML": {
+      "TITLE": "SAML SSO",
+      "NOTE": "നിങ്ങളുടെ അക്കൗണ്ടിനായി SAML സിംഗിൾ സൈൻ-ഓൺ ക്രമീകരിക്കുക. ഉപയോക്താക്കൾ ഇമെയിൽ/പാസ്‌വേഡ് ഉപയോഗിക്കുന്നതിന് പകരം നിങ്ങളുടെ ഐഡന്റിറ്റി പ്രൊവൈഡറിലൂടെ പ്രാമാണീകരിക്കും.",
+      "ACS_URL": {
+        "LABEL": "ACS URL",
+        "TOOLTIP": "അസർഷൻ കൺസ്യൂമർ സർവീസ് URL - SAML പ്രതികരണങ്ങളുടെ ലക്ഷ്യസ്ഥാനമായി നിങ്ങളുടെ IdP-യിൽ ഈ URL ക്രമീകരിക്കുക"
+      },
+      "SSO_URL": {
+        "LABEL": "SSO URL",
+        "HELP": "SAML പ്രാമാണീകരണ അഭ്യർത്ഥനകൾ അയയ്ക്കപ്പെടുന്ന URL",
+        "PLACEHOLDER": "https://your-idp.com/saml/sso"
+      },
+      "CERTIFICATE": {
+        "LABEL": "PEM ഫോർമാറ്റിലുള്ള സൈൻ ചെയ്യൽ സർട്ടിഫിക്കറ്റ്",
+        "HELP": "SAML പ്രതികരണങ്ങൾ പരിശോധിക്കാൻ നിങ്ങളുടെ ഐഡന്റിറ്റി പ്രൊവൈഡറിന്റെ പബ്ലിക് സർട്ടിഫിക്കറ്റ്",
+        "PLACEHOLDER": "-----BEGIN CERTIFICATE-----\nMIIC..."
+      },
+      "FINGERPRINT": {
+        "LABEL": "ഫിംഗർപ്രിന്റ്",
+        "TOOLTIP": "സർട്ടിഫിക്കറ്റിന്റെ SHA-1 ഫിംഗർപ്രിന്റ് - നിങ്ങളുടെ IdP കോൺഫിഗറേഷനിൽ സർട്ടിഫിക്കറ്റ് സ്ഥിരീകരിക്കാൻ ഇത് ഉപയോഗിക്കുക"
+      },
+      "COPY_SUCCESS": "കോഡ് ക്ലിപ്പ്ബോർഡിലേക്ക് വിജയകരമായി പകർത്തി",
+      "SP_ENTITY_ID": {
+        "LABEL": "SP എന്റിറ്റി ഐഡി",
+        "HELP": "സേവനദാതാവായി ഈ ആപ്ലിക്കേഷനു വേണ്ടി യുണീക്ക് ഐഡന്റിഫയർ (സ്വയം സൃഷ്ടിച്ചത്).",
+        "TOOLTIP": "സേവനദാതാവായി Chatwoot ന്റെ യുണീക്ക് ഐഡന്റിഫയർ - നിങ്ങളുടെ IdP ക്രമീകരണങ്ങളിൽ ഇത് ക്രമീകരിക്കുക"
+      },
+      "IDP_ENTITY_ID": {
+        "LABEL": "ഐഡന്റിറ്റി പ്രൊവൈഡർ എന്റിറ്റി ഐഡി",
+        "HELP": "നിങ്ങളുടെ ഐഡന്റിറ്റി പ്രൊവൈഡറിനുള്ള ഏകത്വ ഐഡന്റിഫയർ (സാധാരണയായി IdP കോൺഫിഗറേഷനിൽ കാണപ്പെടുന്നു)",
+        "PLACEHOLDER": "https://your-idp.com/saml"
+      },
+      "UPDATE_BUTTON": "SAML ക്രമീകരണങ്ങൾ അപ്ഡേറ്റ് ചെയ്യുക",
+      "API": {
+        "SUCCESS": "SAML ക്രമീകരണങ്ങൾ വിജയകരമായി അപ്ഡേറ്റ് ചെയ്തു",
+        "ERROR": "SAML ക്രമീകരണങ്ങൾ അപ്ഡേറ്റ് ചെയ്യാൻ പരാജയപ്പെട്ടു",
+        "ERROR_LOADING": "SAML ക്രമീകരണങ്ങൾ ലോഡ് ചെയ്യാൻ പരാജയപ്പെട്ടു",
+        "DISABLED": "SAML ക്രമീകരണങ്ങൾ വിജയകരമായി അപ്രാപ്തമാക്കി"
+      },
+      "VALIDATION": {
+        "REQUIRED_FIELDS": "SSO URL, ഐഡന്റിറ്റി പ്രൊവൈഡർ Entity ID, സർട്ടിഫിക്കറ്റ് എന്നിവ ആവശ്യമായ ഫീൽഡുകളാണ്",
+        "SSO_URL_ERROR": "ദയവായി സാധുവായ SSO URL നൽകുക",
+        "CERTIFICATE_ERROR": "സർട്ടിഫിക്കറ്റ് ആവശ്യമാണ്",
+        "IDP_ENTITY_ID_ERROR": "ഐഡന്റിറ്റി പ്രൊവൈഡർ എന്റിറ്റി ഐഡി ആവശ്യമാണ്"
+      },
+      "ENTERPRISE_PAYWALL": {
+        "AVAILABLE_ON": "SAML SSO ഫീച്ചർ എന്റർപ്രൈസ് പ്ലാനുകളിൽ മാത്രമേ ലഭ്യമാകൂ.",
+        "UPGRADE_PROMPT": "SAML സിംഗിൾ സൈൻ-ഓൺ ഉൾപ്പെടെയുള്ള മറ്റ് ആധുനിക സുരക്ഷാ ഫീച്ചറുകൾ ഉപയോഗിക്കാൻ എന്റർപ്രൈസ് പ്ലാനിലേക്ക് അപ്ഗ്രേഡ് ചെയ്യുക.",
+        "ASK_ADMIN": "അപ്ഗ്രേഡിനായി ദയവായി നിങ്ങളുടെ അഡ്മിനിസ്ട്രേറ്ററെ സമീപിക്കുക."
+      },
+      "PAYWALL": {
+        "TITLE": "SAML SSO സജീവമാക്കാൻ അപ്ഗ്രേഡ് ചെയ്യുക",
+        "AVAILABLE_ON": "SAML SSO ഫീച്ചർ എന്റർപ്രൈസ് പ്ലാനുകളിൽ മാത്രമേ ലഭ്യമാകൂ.",
+        "UPGRADE_PROMPT": "SAML സിംഗിൾ സൈൻ-ഓൺ ഉൾപ്പെടെ മറ്റ് പുരോഗമന ഫീച്ചറുകൾ ലഭിക്കാൻ നിങ്ങളുടെ പ്ലാൻ അപ്ഗ്രേഡ് ചെയ്യുക.",
+        "UPGRADE_NOW": "ഇപ്പോൾ അപ്ഗ്രേഡ് ചെയ്യുക",
+        "CANCEL_ANYTIME": "നിങ്ങൾക്ക് എപ്പോഴും നിങ്ങളുടെ പ്ലാൻ മാറ്റാനും റദ്ദാക്കാനും കഴിയും"
+      },
+      "ATTRIBUTE_MAPPING": {
+        "TITLE": "SAML ഗുണലക്ഷണ ക്രമീകരണം",
+        "DESCRIPTION": "താഴെപ്പറയുന്ന ഗുണലക്ഷണ മാപ്പിംഗ് നിങ്ങളുടെ ഐഡന്റിറ്റി പ്രൊവൈഡറിൽ ക്രമീകരിക്കണം"
+      },
+      "INFO_SECTION": {
+        "TITLE": "സർവീസ് പ്രൊവൈഡർ വിവരങ്ങൾ",
+        "TOOLTIP": "ഈ മൂല്യങ്ങൾ പകർത്തി നിങ്ങളുടെ ഐഡന്റിറ്റി പ്രൊവൈഡറിൽ ക്രമീകരിച്ച് SAML ബന്ധം സ്ഥാപിക്കുക"
+      }
+    }
+  },
+  "CONVERSATION_WORKFLOW": {
+    "INDEX": {
+      "HEADER": {
+        "TITLE": "സംവാദ പ്രവാഹങ്ങൾ",
+        "DESCRIPTION": "സംവാദ പരിഹാരത്തിനായി നിയമങ്ങളും ആവശ്യമായ ഫീൽഡുകളും ക്രമീകരിക്കുക."
+      }
+    },
+    "REQUIRED_ATTRIBUTES": {
+      "TITLE": "പരിഹാരത്തിന് ആവശ്യമായ ഗുണങ്ങൾ",
+      "DESCRIPTION": "ഒരു സംഭാഷണം പരിഹരിക്കുമ്പോൾ, ഏജന്റുകൾക്ക് ഈ ഗുണലക്ഷണങ്ങൾ പൂരിപ്പിക്കാൻ പ്രേരിപ്പിക്കപ്പെടും, അവർ ഇതുവരെ പൂരിപ്പിച്ചിട്ടില്ലെങ്കിൽ.",
+      "NO_ATTRIBUTES": "ഇപ്പോൾ വരെ ഗുണലക്ഷണങ്ങൾ ചേർത്തിട്ടില്ല",
+      "ADD": {
+        "TITLE": "ഗുണലക്ഷണങ്ങൾ ചേർക്കുക",
+        "SEARCH_PLACEHOLDER": "ഗുണലക്ഷണങ്ങൾ തിരയുക"
+      },
+      "SAVE": {
+        "SUCCESS": "ആവശ്യമായ ഗുണലക്ഷണങ്ങൾ അപ്ഡേറ്റ് ചെയ്തു",
+        "ERROR": "ആവശ്യമായ ഗുണങ്ങൾ അപ്ഡേറ്റ് ചെയ്യാൻ കഴിഞ്ഞില്ല, ദയവായി വീണ്ടും ശ്രമിക്കുക"
+      },
+      "MODAL": {
+        "TITLE": "സംഭാഷണം പരിഹരിക്കുക",
+        "DESCRIPTION": "ഈ സംഭാഷണം പരിഹരിക്കുന്നതിന് മുമ്പ് താഴെ കാണുന്ന കസ്റ്റം ഗുണങ്ങൾ പൂരിപ്പിക്കുക",
+        "ACTIONS": {
+          "RESOLVE": "സംഭാഷണം പരിഹരിക്കുക",
+          "CANCEL": "റദ്ദാക്കുക"
+        },
+        "PLACEHOLDERS": {
+          "TEXT": "ഒരു കുറിപ്പ് എഴുതുക...",
+          "NUMBER": "ഒരു നമ്പർ നൽകുക",
+          "LINK": "ഒരു ലിങ്ക് ചേർക്കുക",
+          "DATE": "ഒരു തീയതി തിരഞ്ഞെടുക്കുക",
+          "LIST": "ഒരു ഓപ്ഷൻ തിരഞ്ഞെടുക്കുക"
+        },
+        "CHECKBOX": {
+          "YES": "അതെ",
+          "NO": "ഇല്ല"
+        }
+      },
+      "PAYWALL": {
+        "TITLE": "ആവശ്യമായ ഗുണങ്ങൾ ഉപയോഗിക്കാൻ അപ്ഗ്രേഡ് ചെയ്യുക",
+        "AVAILABLE_ON": "ആവശ്യമായ സംഭാഷണ ഗുണങ്ങൾ ബിസിനസ്സ്, എന്റർപ്രൈസ് പ്ലാനുകളിൽ ലഭ്യമാണ്.",
+        "UPGRADE_PROMPT": "സംഭാഷണം പരിഹരിക്കുന്നതിന് മുമ്പ് ഏജന്റുമാരെ ആവശ്യമായ ഗുണങ്ങൾ പൂരിപ്പിക്കാൻ പ്രേരിപ്പിക്കാൻ നിങ്ങളുടെ പ്ലാൻ അപ്ഗ്രേഡ് ചെയ്യുക.",
+        "UPGRADE_NOW": "ഇപ്പോൾ അപ്ഗ്രേഡ് ചെയ്യുക",
+        "CANCEL_ANYTIME": "നിങ്ങളുടെ പ്ലാൻ എപ്പോഴും മാറ്റുകയോ റദ്ദാക്കുകയോ ചെയ്യാം"
+      },
+      "ENTERPRISE_PAYWALL": {
+        "AVAILABLE_ON": "ആവശ്യമായ സംഭാഷണ ഗുണങ്ങൾ പണമടയ്ക്കുന്ന പ്ലാനുകളിൽ ലഭ്യമാണ്.",
+        "UPGRADE_PROMPT": "സംഭാഷണം തീരുന്നതിന് മുമ്പ് ആവശ്യമായ ഗുണങ്ങൾ നിർബന്ധമാക്കാൻ പണമടയ്ക്കുന്ന പ്ലാനിലേക്ക് അപ്‌ഗ്രേഡ് ചെയ്യുക.",
+        "ASK_ADMIN": "അപ്‌ഗ്രേഡിനായി ദയവായി നിങ്ങളുടെ അഡ്മിനിസ്ട്രേറ്ററെ സമീപിക്കുക."
+      }
     }
   }
 }

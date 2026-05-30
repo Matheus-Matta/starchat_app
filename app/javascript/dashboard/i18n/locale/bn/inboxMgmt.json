@@ -112,6 +112,14 @@
         "SUBMIT_BUTTON": "Create inbox",
         "API": {
           "ERROR_MESSAGE": "We were not able to create a website channel, please try again"
+        },
+        "CHANNEL_WEBHOOK_SECRET": {
+          "LABEL": "Webhook Secret",
+          "COPY": "গোপন কোড ক্লিপবোর্ডে কপি করুন",
+          "COPY_SUCCESS": "গোপন কোড ক্লিপবোর্ডে কপি হয়েছে",
+          "TOGGLE": "গোপন কোডের দৃশ্যমানতা টগল করুন",
+          "RESET_SUCCESS": "Webhook secret regenerated successfully",
+          "RESET_ERROR": "Unable to regenerate webhook secret. Please try again"
         }
       },
       "TWILIO": {
@@ -381,7 +389,11 @@
         "API": {
           "ERROR_MESSAGE": "We were not able to save the email channel"
         },
-        "FINISH_MESSAGE": "Start forwarding your emails to the following email address."
+        "FINISH_MESSAGE": "Start forwarding your emails to the following email address.",
+        "FINISH_MESSAGE_NO_FORWARDING": "আপনার ইমেইল ইনবক্স সফলভাবে তৈরি হয়েছে! ইমেইল পাঠানো ও গ্রহণ করার জন্য আপনাকে SMTP এবং IMAP শংসাপত্র কনফিগার করতে হবে। এই সেটিংস ছাড়া কোনো ইমেইল প্রক্রিয়াকরণ হবে না।.",
+        "FORWARDING_ADDRESS_LABEL": "এই ঠিকানায় ইমেইল ফরওয়ার্ড করুন:",
+        "CONFIGURE_SMTP_IMAP_LINK": "এখানে ক্লিক করুন",
+        "CONFIGURE_SMTP_IMAP_TEXT": " imap এবং smtp সেটিংস কনফিগার করুন"
       },
       "LINE_CHANNEL": {
         "TITLE": "LINE Channel",
@@ -470,6 +482,10 @@
           "VOICE": {
             "TITLE": "Voice",
             "DESCRIPTION": "Integrate with Twilio Voice"
+          },
+          "TIKTOK": {
+            "TITLE": "TikTok",
+            "DESCRIPTION": "আপনার TikTok অ্যাকাউন্ট সংযুক্ত করুন"
           }
         }
       },
@@ -504,6 +520,13 @@
         "SIGN_IN": "Sign in with Google",
         "EMAIL_PLACEHOLDER": "Enter email address",
         "ERROR_MESSAGE": "There was an error connecting to Google, please try again"
+      },
+      "TIKTOK": {
+        "CONTINUE_WITH_TIKTOK": "TikTok দিয়ে চালিয়ে যান",
+        "CONNECT_YOUR_TIKTOK_PROFILE": "আপনার TikTok প্রোফাইল সংযুক্ত করুন",
+        "HELP": "আপনার TikTok প্রোফাইলকে একটি চ্যানেল হিসেবে যোগ করতে, আপনাকে 'TikTok দিয়ে চালিয়ে যান' ক্লিক করে TikTok প্রোফাইলটি প্রমাণীকরণ করতে হবে ",
+        "ERROR_MESSAGE": "TikTok-এ সংযোগ করতে সমস্যা হয়েছে, অনুগ্রহ করে আবার চেষ্টা করুন",
+        "ERROR_AUTH": "TikTok-এ সংযোগ করতে সমস্যা হয়েছে, অনুগ্রহ করে আবার চেষ্টা করুন"
       }
     },
     "DETAILS": {
@@ -575,7 +598,9 @@
       },
       "LOCK_TO_SINGLE_CONVERSATION": {
         "ENABLED": "Enabled",
-        "DISABLED": "Disabled"
+        "DISABLED": "Disabled",
+        "ENABLED_DESCRIPTION": "কোনো কন্টাক্ট আবার বার্তা পাঠালে, পূর্বের কথোপকথনটি পুনরায় খোলা হবে।.",
+        "DISABLED_DESCRIPTION": "প্রতিবার পূর্বের কথোপকথন সমাধান হলে একটি নতুন কথোপকথন তৈরি হবে।."
       },
       "ENABLE_HMAC": {
         "LABEL": "Enable"
@@ -608,7 +633,8 @@
       "WIDGET_BUILDER": "Widget Builder",
       "BOT_CONFIGURATION": "Bot Configuration",
       "ACCOUNT_HEALTH": "Account Health",
-      "CSAT": "CSAT"
+      "CSAT": "CSAT",
+      "VOICE": "ভয়েস"
     },
     "ACCOUNT_HEALTH": {
       "TITLE": "Manage your WhatsApp account",
@@ -663,6 +689,16 @@
           "SANDBOX": "Sandbox",
           "LIVE": "Live"
         }
+      },
+      "WEBHOOK": {
+        "TITLE": "Webhook কনফিগারেশন",
+        "DESCRIPTION": "আপনার WhatsApp Business Account-এ গ্রাহকদের কাছ থেকে বার্তা পেতে Webhook URL প্রয়োজন।",
+        "ACTION_REQUIRED": "Webhook কনফিগার করা হয়নি",
+        "REGISTER_BUTTON": "Webhook নিবন্ধন করুন",
+        "REGISTER_SUCCESS": "Webhook সফলভাবে নিবন্ধিত হয়েছে",
+        "REGISTER_ERROR": "Webhook নিবন্ধন করতে ব্যর্থ হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন।.",
+        "CONFIGURED_SUCCESS": "ওয়েবহুক সফলভাবে কনফিগার করা হয়েছে",
+        "URL_MISMATCH": "ওয়েবহুক URL মেলেনি"
       }
     },
     "SETTINGS": "Settings",
@@ -679,7 +715,8 @@
       "ALLOWED_DOMAINS": {
         "TITLE": "Allowed Domains",
         "SUBTITLE": "Add wildcard or regular domains separated by commas (leave blank to allow all), e.g. *.chatwoot.dev, starchats.com.br.",
-        "PLACEHOLDER": "Enter domains separated by commas (eg: *.chatwoot.dev, starchats.com.br)"
+        "PLACEHOLDER": "Enter domains separated by commas (eg: *.chatwoot.dev, starchats.com.br)",
+        "DESCRIPTION": "কোন ওয়েবসাইট আপনার চ্যাট উইজেট এম্বেড করতে পারবে তা সীমাবদ্ধ করুন। নিরাপত্তার জন্য, শুধুমাত্র আপনি মালিক এবং বিশ্বাস করেন এমন ডোমেইন যোগ করুন। কমা দিয়ে আলাদা করে এক বা একাধিক ডোমেইন যোগ করুন। সব ডোমেইন অনুমোদন করতে ফাঁকা রাখুন (প্রোডাকশনের জন্য এটি সুপারিশ করা হয় না)।."
       },
       "INBOX_AGENTS": "Agents",
       "INBOX_AGENTS_SUB_TEXT": "Add or remove agents from this inbox",
@@ -736,14 +773,29 @@
       "WHATSAPP_TEMPLATES_SYNC_SUBHEADER": "Manually sync message templates from WhatsApp to update your available templates.",
       "WHATSAPP_TEMPLATES_SYNC_BUTTON": "Sync Templates",
       "WHATSAPP_TEMPLATES_SYNC_SUCCESS": "Templates sync initiated successfully. It may take a couple of minutes to update.",
-      "UPDATE_PRE_CHAT_FORM_SETTINGS": "Update Pre Chat Form Settings"
+      "UPDATE_PRE_CHAT_FORM_SETTINGS": "Update Pre Chat Form Settings",
+      "ALLOW_MOBILE_WEBVIEW": {
+        "LABEL": "মোবাইল অ্যাপে উইজেট সক্রিয় করুন",
+        "SUBTITLE": "আপনি যদি উইজেটটি iOS বা Android অ্যাপে এম্বেড করেন, তাহলে এটি চেক করুন। মোবাইল অ্যাপ ডোমেইন তথ্য পাঠায় না, তাই এটি সক্রিয় না থাকলে ডোমেইন সীমাবদ্ধতার কারণে ব্লক হয়ে যাবে।."
+      },
+      "IDENTITY_VALIDATION": {
+        "TITLE": "পরিচয় যাচাইকরণ",
+        "DESCRIPTION": "নিরাপদ টোকেন তৈরি করে ব্যবহারকারীর সত্যতা যাচাই করুন। এটি অনুমোদনহীন ব্যবহারকারীদের আপনার চ্যাটে অন্যদের ছদ্মবেশ ধারণ করা থেকে রক্ষা করে।.",
+        "SECRET_KEY": "সিক্রেট কী",
+        "VIEW_DOCS": "ডকুমেন্টেশন দেখুন",
+        "REQUIRE_LABEL": "সব কথোপকথনের জন্য পরিচয় যাচাই বাধ্যতামূলক করুন",
+        "REQUIRE_DESCRIPTION": "এটি সক্রিয় করলে, ব্যবহারকারীদের কথোপকথন শুরু করতে একটি বৈধ পরিচয় টোকেন প্রদান করতে হবে। বৈধ টোকেন ছাড়া অনুরোধগুলি প্রত্যাখ্যান করা হবে।."
+      },
+      "ENABLE_CONTINUITY_VIA_EMAIL_DISABLED_TEXT": "This feature is available on a paid plan. Upgrade to enable conversation continuity via email.",
+      "FORWARD_EMAIL_NOT_CONFIGURED": "এই ইনস্টলেশনে আপনার ইনবক্সে ইমেইল ফরওয়ার্ডিং বর্তমানে নিষ্ক্রিয় রয়েছে। এই ফিচারটি ব্যবহার করতে হলে, আপনার অ্যাডমিনিস্ট্রেটরকে এটি সক্রিয় করতে হবে। দয়া করে তাদের সাথে যোগাযোগ করুন।."
     },
     "HELP_CENTER": {
       "LABEL": "Help Center",
       "PLACEHOLDER": "Select Help Center",
       "SELECT_PLACEHOLDER": "Select Help Center",
       "REMOVE": "Remove Help Center",
-      "SUB_TEXT": "Attach a Help Center with the inbox"
+      "SUB_TEXT": "Attach a Help Center with the inbox",
+      "NONE": "কিছুই না"
     },
     "AUTO_ASSIGNMENT": {
       "MAX_ASSIGNMENT_LIMIT": "Auto assignment limit",
@@ -806,7 +858,51 @@
       "API": {
         "SUCCESS_MESSAGE": "CSAT settings updated successfully",
         "ERROR_MESSAGE": "We couldn't update CSAT settings. Please try again later."
-      }
+      },
+      "BUTTON_TEXT": {
+        "LABEL": "বাটনের লেখা",
+        "PLACEHOLDER": "অনুগ্রহ করে আমাদের রেট করুন"
+      },
+      "LANGUAGE": {
+        "LABEL": "ভাষা",
+        "PLACEHOLDER": "টেমপ্লেটের ভাষা নির্বাচন করুন"
+      },
+      "MESSAGE_PREVIEW": {
+        "LABEL": "বার্তার প্রিভিউ",
+        "TOOLTIP": "WhatsApp-এর প্ল্যাটফর্মে প্রদর্শনের সময় এটি কিছুটা ভিন্ন হতে পারে।."
+      },
+      "TEMPLATE_STATUS": {
+        "APPROVED": "WhatsApp দ্বারা অনুমোদিত",
+        "PENDING": "WhatsApp অনুমোদনের জন্য অপেক্ষমাণ",
+        "REJECTED": "Meta টেমপ্লেটটি প্রত্যাখ্যান করেছে",
+        "DEFAULT": "WhatsApp অনুমোদন প্রয়োজন",
+        "NOT_FOUND": "Meta প্ল্যাটফর্মে টেমপ্লেটটি নেই।."
+      },
+      "TEMPLATE_CREATION": {
+        "SUCCESS_MESSAGE": "WhatsApp টেমপ্লেট সফলভাবে তৈরি হয়েছে এবং অনুমোদনের জন্য পাঠানো হয়েছে",
+        "ERROR_MESSAGE": "WhatsApp টেমপ্লেট তৈরি করতে ব্যর্থ হয়েছে"
+      },
+      "TEMPLATE_UPDATE_DIALOG": {
+        "TITLE": "সার্ভে বিবরণ সম্পাদনা করুন",
+        "DESCRIPTION": "আমরা পূর্বের টেমপ্লেটটি মুছে ফেলব এবং একটি নতুন টেমপ্লেট তৈরি করব, যা আবার WhatsApp অনুমোদনের জন্য পাঠানো হবে",
+        "CONFIRM": "নতুন টেমপ্লেট তৈরি করুন",
+        "CANCEL": "ফিরে যান"
+      },
+      "UTILITY_ANALYZER": {
+        "ACTION": "ইউটিলিটি ফিট যাচাই করুন",
+        "HELPER_NOTE": "ইউটিলিটি ফিট উন্নত করতে জমা দেওয়ার আগে এই বার্তাটি যাচাই করুন। সিস্টেমটি রিপোর্টিংয়ের জন্য বোতামসহ একটি নির্দিষ্ট CSAT টেমপ্লেট তৈরি করে এবং এটিকে ইউটিলিটি হিসেবে জমা দেয়; তবে বিষয়বস্তুর উপর ভিত্তি করে Meta এটিকে মার্কেটিং হিসেবেও পুনঃশ্রেণিবদ্ধ করতে পারে।.",
+        "RESULT_LABEL": "Meta ক্যাটাগরি পূর্বাভাস",
+        "GUIDANCE_NOTE": "এটি একটি দিকনির্দেশনা যাচাই, Meta অনুমোদনের নিশ্চয়তা নয়।.",
+        "SUGGESTION_LABEL": "প্রস্তাবিত নিরাপদ পুনর্লিখন",
+        "APPLY": "এই পুনর্লিখন ব্যবহার করুন",
+        "ERROR_MESSAGE": "বার্তাটি বিশ্লেষণ করা যায়নি। অনুগ্রহ করে আবার চেষ্টা করুন।.",
+        "CLASSIFICATION": {
+          "LIKELY_UTILITY": "সম্ভবত ইউটিলিটি",
+          "LIKELY_MARKETING": "সম্ভবত মার্কেটিং",
+          "UNCLEAR": "স্পষ্টতা প্রয়োজন"
+        }
+      },
+      "WHATSAPP_NOTE": "নোট: আপনি সংরক্ষণ করলে, সিস্টেমটি WhatsApp-এ একটি নির্দিষ্ট CSAT টেমপ্লেট তৈরি করে (যা রিপোর্টে রেটিং ও ফিডব্যাক সংগ্রহ করতে ব্যবহৃত হয়) এবং অনুমোদনের জন্য ইউটিলিটি হিসেবে জমা দেয়। বিষয়বস্তুর উপর ভিত্তি করে Meta এটিকে মার্কেটিং হিসেবেও শ্রেণিবদ্ধ করতে পারে। অনুমোদনের পর, সার্ভে নিয়ম অনুযায়ী প্রতি কথোপকথনে একবারই সার্ভে পাঠানো হবে।."
     },
     "BUSINESS_HOURS": {
       "TITLE": "Set your availability",
@@ -822,7 +918,9 @@
         "UNAVAILABLE": "Unavailable",
         "HOURS": "hours",
         "VALIDATION_ERROR": "Starting time should be before closing time.",
-        "CHOOSE": "Choose"
+        "CHOOSE": "Choose",
+        "DAY": "দিন",
+        "AVAILABILITY": "উপস্থিতি"
       },
       "ALL_DAY": "All-Day"
     },
@@ -853,7 +951,8 @@
         "LABEL": "Password",
         "PLACE_HOLDER": "Password"
       },
-      "ENABLE_SSL": "Enable SSL"
+      "ENABLE_SSL": "Enable SSL",
+      "AUTH_MECHANISM": "প্রমাণীকরণ"
     },
     "MICROSOFT": {
       "TITLE": "Microsoft",
@@ -952,7 +1051,8 @@
         "WIDGET_BUBBLE_TYPE": {
           "STANDARD": "Standard",
           "EXPANDED_BUBBLE": "Expanded Bubble"
-        }
+        },
+        "WIDGET_BUBBLE": "বাবল"
       },
       "WIDGET_SCREEN": {
         "DEFAULT": "Default",
@@ -1004,7 +1104,69 @@
       "LINE": "Line",
       "API": "API Channel",
       "INSTAGRAM": "Instagram",
-      "VOICE": "Voice"
+      "VOICE": "Voice",
+      "TIKTOK": "TikTok"
+    },
+    "COUNT": "{n} ইনবক্স | {n} ইনবক্সসমূহ",
+    "SEARCH_PLACEHOLDER": "ইনবক্স অনুসন্ধান করুন...",
+    "NO_RESULTS": "আপনার অনুসন্ধানের সাথে মিলে যাওয়া কোনো ইনবক্স পাওয়া যায়নি",
+    "VOICE_CONFIGURATION": {
+      "ENABLE_VOICE": {
+        "LABEL": "Enable Voice Calling",
+        "DESCRIPTION": "Enable voice calling on this inbox. Agents will be able to make and receive phone calls."
+      },
+      "CREDENTIALS": {
+        "DESCRIPTION": "Voice calling requires Twilio API Key credentials. These are used to generate tokens for agent voice connections."
+      }
+    },
+    "CHANNEL_PREFERENCES": "চ্যানেল পছন্দসমূহ",
+    "WIDGET_FEATURES": "উইজেট ফিচারসমূহ",
+    "ASSIGNMENT": {
+      "TITLE": "কথোপকথন বরাদ্দ",
+      "DESCRIPTION": "বরাদ্দ নীতিমালা অনুযায়ী আগত কথোপকথন স্বয়ংক্রিয়ভাবে উপলব্ধ এজেন্টদের মধ্যে ভাগ করে দিন",
+      "ENABLE_AUTO_ASSIGNMENT": "স্বয়ংক্রিয় কথোপকথন বরাদ্দ সক্রিয় করুন",
+      "DEFAULT_RULES_TITLE": "ডিফল্ট বরাদ্দ নিয়মাবলী",
+      "DEFAULT_RULES_DESCRIPTION": "সব কথোপকথনের জন্য ডিফল্ট বরাদ্দ আচরণ ব্যবহার করা হচ্ছে",
+      "DEFAULT_RULE_1": "সবচেয়ে আগে তৈরি হওয়া কথোপকথন আগে",
+      "DEFAULT_RULE_2": "রাউন্ড রবিন বিতরণ",
+      "CUSTOMIZE_WITH_POLICY": "অ্যাসাইনমেন্ট নীতিমালা দিয়ে কাস্টমাইজ করুন",
+      "USING_POLICY": "এই ইনবক্সের জন্য কাস্টম অ্যাসাইনমেন্ট নীতিমালা ব্যবহার করা হচ্ছে",
+      "CUSTOMIZE_POLICY": "অ্যাসাইনমেন্ট নীতিমালা দিয়ে কাস্টমাইজ করুন",
+      "DELETE_POLICY": "নীতি মুছুন",
+      "POLICY_LABEL": "অ্যাসাইনমেন্ট নীতি",
+      "ASSIGNMENT_ORDER_LABEL": "অ্যাসাইনমেন্টের ক্রম",
+      "ASSIGNMENT_METHOD_LABEL": "অ্যাসাইনমেন্ট পদ্ধতি",
+      "POLICY_STATUS": {
+        "ACTIVE": "সক্রিয়",
+        "INACTIVE": "নিষ্ক্রিয়"
+      },
+      "PRIORITY": {
+        "EARLIEST_CREATED": "সর্বপ্রথম তৈরি",
+        "LONGEST_WAITING": "সর্বাধিক অপেক্ষমাণ"
+      },
+      "METHOD": {
+        "ROUND_ROBIN": "রাউন্ড রবিন",
+        "BALANCED": "সুষম অ্যাসাইনমেন্ট"
+      },
+      "UPGRADE_PROMPT": "কাস্টম অ্যাসাইনমেন্ট নীতিমালা শুধুমাত্র বিজনেস প্ল্যানে উপলব্ধ",
+      "UPGRADE_TO_BUSINESS": "বিজনেস প্ল্যানে আপগ্রেড করুন",
+      "DEFAULT_POLICY_LINKED": "ডিফল্ট নীতিমালা সংযুক্ত হয়েছে",
+      "DEFAULT_POLICY_DESCRIPTION": "এই ইনবক্সে এজেন্টদের কাছে কথোপকথন কীভাবে অ্যাসাইন হবে তা কাস্টমাইজ করতে একটি কাস্টম অ্যাসাইনমেন্ট নীতিমালা সংযুক্ত করুন।.",
+      "LINK_EXISTING_POLICY": "বিদ্যমান নীতিমালা সংযুক্ত করুন",
+      "CREATE_NEW_POLICY": "নতুন নীতি তৈরি করুন",
+      "NO_POLICIES": "কোনো অ্যাসাইনমেন্ট নীতি পাওয়া যায়নি",
+      "VIEW_ALL_POLICIES": "সব নীতি দেখুন",
+      "CURRENT_BEHAVIOR": "বর্তমানে ডিফল্ট অ্যাসাইনমেন্ট আচরণ ব্যবহার করা হচ্ছে:",
+      "LINK_SUCCESS": "অ্যাসাইনমেন্ট নীতি সফলভাবে সংযুক্ত হয়েছে",
+      "LINK_ERROR": "অ্যাসাইনমেন্ট নীতি সংযুক্ত করতে ব্যর্থ হয়েছে"
+    },
+    "ASSIGNMENT_POLICY": {
+      "DELETE_CONFIRM_TITLE": "অ্যাসাইনমেন্ট নীতি মুছে ফেলবেন?",
+      "DELETE_CONFIRM_MESSAGE": "আপনি কি নিশ্চিত যে আপনি এই ইনবক্স থেকে অ্যাসাইনমেন্ট নীতি সরাতে চান? ইনবক্সটি ডিফল্ট অ্যাসাইনমেন্ট নিয়মে ফিরে যাবে।.",
+      "CANCEL": "বাতিল করুন",
+      "CONFIRM_DELETE": "মুছে ফেলুন",
+      "DELETE_SUCCESS": "অ্যাসাইনমেন্ট নীতি সফলভাবে অপসারণ করা হয়েছে",
+      "DELETE_ERROR": "অ্যাসাইনমেন্ট নীতি অপসারণে ব্যর্থ হয়েছে"
     }
   }
 }

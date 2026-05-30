@@ -52,7 +52,7 @@ module Starchat::Integrations::OpenaiProcessorService
       model: self.class::GPT_MODEL,
       messages: [
         { role: 'system',
-          content: prompt_from_file('summary', enterprise: true) },
+          content: prompt_from_file('summary', starchat: true) },
         { role: 'user', content: conversation_messages }
       ]
     }.to_json
@@ -69,7 +69,7 @@ module Starchat::Integrations::OpenaiProcessorService
       messages: [
         {
           role: 'system',
-          content: prompt_from_file('label_suggestion', enterprise: true)
+          content: prompt_from_file('label_suggestion', starchat: true)
         },
         { role: 'user', content: content }
       ]

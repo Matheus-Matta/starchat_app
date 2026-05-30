@@ -150,8 +150,8 @@
       "EMPTY_MESSAGE": "Nie masz żadnych nieprzeczytanych powiadomień"
     },
     "LIST": {
-      "LOADING_MESSAGE": "Ładowanie powiadomień...",
       "404": "Nie znaleziono powiadomień",
+      "LOADING_MESSAGE": "Ładowanie powiadomień...",
       "TABLE_HEADER": [
         "Nazwisko",
         "Numer telefonu",
@@ -239,7 +239,8 @@
       "DARK_MODE": "Dark",
       "SYSTEM_MODE": "System",
       "SNOOZE_NOTIFICATION": "Snooze Notification"
-    }
+    },
+    "SNOOZE_PLACEHOLDER": "Type a time e.g. tomorrow, 2 hours, next friday, jan 15..."
   },
   "DASHBOARD_APPS": {
     "LOADING_MESSAGE": "Ładowanie aplikacji pulpitu..."

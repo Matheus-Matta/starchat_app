@@ -13,7 +13,8 @@
       "TABLE_HEADER": {
         "NAME": "Navn",
         "DESCRIPTION": "Beskrivelse",
-        "COLOR": "Farge"
+        "COLOR": "Farge",
+        "ACTION": "Handlinger"
       }
     },
     "FORM": {
@@ -80,6 +81,9 @@
         "YES": "Ja, slett ",
         "NO": "Nei, behold "
       }
-    }
+    },
+    "COUNT": "{n} label | {n} labels",
+    "SEARCH_PLACEHOLDER": "Search labels...",
+    "NO_RESULTS": "No labels found matching your search"
   }
 }

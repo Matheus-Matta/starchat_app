@@ -19,7 +19,9 @@ class Conversations::PermissionFilterService
     inbox_ids = user.inboxes.where(account_id: account.id).select(:id)
     team_ids = account.teams.joins(:team_members).where(team_members: { user_id: user.id }).select(:id)
 
-    scope = conversations.where(inbox_id: inbox_ids).or(conversations.where(team_id: team_ids))
+    scope = conversations.where(inbox_id: inbox_ids)
+                         .or(conversations.where(team_id: team_ids))
+                         .or(conversations.where(assignee_id: user.id))
 
     perms = account_user&.permissions || []
 

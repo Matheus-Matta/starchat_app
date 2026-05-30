@@ -17,7 +17,8 @@
       "STATUS": "Status",
       "ACTIONS": "Actions",
       "VERIFIED": "Verified",
-      "VERIFICATION_PENDING": "Verification Pending"
+      "VERIFICATION_PENDING": "Verification Pending",
+      "AVAILABLE_CUSTOM_ROLE": "可自定义角色权限"
     },
     "ADD": {
       "TITLE": "Add agent to your team",
@@ -74,7 +75,12 @@
           "LABEL": "Email Address",
           "PLACEHOLDER": "Please enter an email address of the agent"
         },
-        "SUBMIT": "Edit Agent"
+        "SUBMIT": "Edit Agent",
+        "AGENT_AVAILABILITY": {
+          "LABEL": "有效的",
+          "PLACEHOLDER": "请选择一个可用状态",
+          "ERROR": "需要提供可用性信息"
+        }
       },
       "BUTTON_TEXT": "Edit",
       "CANCEL_BUTTON_TEXT": "Cancel",
@@ -91,6 +97,32 @@
     },
     "SEARCH": {
       "NO_RESULTS": "No agents found."
+    },
+    "DESCRIPTION": "客服代表是您的客户支持团队的成员，他们可以查看和回复用户信息。 下面的列表显示您帐户中的所有客服代表。",
+    "LEARN_MORE": "角色说明",
+    "COUNT": "{n} agent | {n} agents",
+    "SEARCH_PLACEHOLDER": "搜索客服代表...",
+    "NO_RESULTS": "No agents found matching your search",
+    "MULTI_SELECTOR": {
+      "PLACEHOLDER": "没有",
+      "TITLE": {
+        "AGENT": "选择客服代表",
+        "TEAM": "选择团队"
+      },
+      "LIST": {
+        "NONE": "无"
+      },
+      "SEARCH": {
+        "NO_RESULTS": {
+          "AGENT": "未找到客服代表",
+          "TEAM": "没有找到团队"
+        },
+        "PLACEHOLDER": {
+          "AGENT": "搜索客服代表",
+          "TEAM": "查找团队",
+          "INPUT": "查找客服代表"
+        }
+      }
     }
   }
 }

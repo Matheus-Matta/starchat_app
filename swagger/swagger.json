@@ -1620,7 +1620,7 @@
         ],
         "operationId": "get-account-audit-logs",
         "summary": "List Audit Logs in Account",
-        "description": "Get Details of Audit Log entries for an Account. This endpoint is only available in Enterprise editions and requires the audit_logs feature to be enabled.",
+        "description": "Get Details of Audit Log entries for an Account. This endpoint is only available in Starchat editions and requires the audit_logs feature to be enabled.",
         "security": [
           {
             "userApiKey": []
@@ -4711,7 +4711,7 @@
                   },
                   "sla_policy_id": {
                     "type": "number",
-                    "description": "The ID of the SLA policy (Available only in Enterprise edition)",
+                    "description": "The ID of the SLA policy (Available only in Starchat edition)",
                     "example": 1
                   }
                 }
@@ -8775,7 +8775,7 @@
             "userApiKey": []
           }
         ],
-        "description": "Get the count of outgoing messages grouped by a specified entity (agent, team, inbox, or label).\nWhen grouped by agent, messages sent by bots (AgentBot, Captain::Assistant) are excluded.\n\n**Note:** This API endpoint is available only in Chatwoot version 4.11.0 and above.\n",
+        "description": "Get the count of outgoing messages grouped by a specified entity (agent, team, inbox, or label).\nWhen grouped by agent, messages sent by bots (AgentBot, Cosmos::Assistant) are excluded.\n\n**Note:** This API endpoint is available only in Chatwoot version 4.11.0 and above.\n",
         "parameters": [
           {
             "in": "query",
@@ -9689,7 +9689,7 @@
               "Contact",
               "User",
               "AgentBot",
-              "Captain::Assistant",
+              "Cosmos::Assistant",
               null
             ],
             "description": "The type of the sender"
@@ -10492,7 +10492,7 @@
                 "items": {
                   "type": "string"
                 },
-                "description": "List of subscribed enterprise features (if enterprise edition is enabled)"
+                "description": "List of subscribed starchat features (if starchat edition is enabled)"
               }
             }
           }
@@ -11113,7 +11113,7 @@
           },
           "avatar_url": {
             "type": "string",
-            "description": "Avatar URL of the sender. Present for senders of type user, agent_bot, and captain_assistant. Not present for contact senders (use thumbnail instead)."
+            "description": "Avatar URL of the sender. Present for senders of type user, agent_bot, and cosmos_assistant. Not present for contact senders (use thumbnail instead)."
           },
           "thumbnail": {
             "type": "string",
@@ -11125,7 +11125,7 @@
               "contact",
               "user",
               "agent_bot",
-              "captain_assistant"
+              "cosmos_assistant"
             ],
             "description": "Type of the sender"
           },
@@ -11187,14 +11187,14 @@
               "string",
               "null"
             ],
-            "description": "Description when the sender is a captain assistant"
+            "description": "Description when the sender is a cosmos assistant"
           },
           "created_at": {
             "type": [
               "string",
               "null"
             ],
-            "description": "Created timestamp in ISO 8601 format when the sender is a captain assistant"
+            "description": "Created timestamp in ISO 8601 format when the sender is a cosmos assistant"
           }
         }
       },

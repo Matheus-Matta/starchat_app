@@ -61,7 +61,7 @@ RSpec.describe DeviseOverrides::SessionsController, type: :controller do
       end
 
       context 'when verifying MFA' do
-        let(:mfa_token) { Mfa::TokenService.new(user: user).generate_token }
+        let(:mfa_token) { MFA::TokenService.new(user: user).generate_token }
 
         it 'authenticates with valid OTP' do
           post :create, params: {
@@ -155,12 +155,11 @@ RSpec.describe DeviseOverrides::SessionsController, type: :controller do
 
   describe 'GET #new' do
     it 'redirects to frontend login page' do
-      allow(ENV).to receive(:fetch).and_call_original
-      allow(ENV).to receive(:fetch).with('FRONTEND_URL', nil).and_return('/frontend')
+      with_modified_env FRONTEND_URL: 'http://test.host/frontend' do
+        get :new
 
-      get :new
-
-      expect(response).to redirect_to('/frontend/app/login?error=access-denied')
+        expect(response).to redirect_to('http://test.host/frontend/app/login?error=access-denied')
+      end
     end
   end
 end

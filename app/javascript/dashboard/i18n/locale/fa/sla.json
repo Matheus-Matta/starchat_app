@@ -13,7 +13,7 @@
       "UPGRADE_NOW": "حالا ارتقا دهید",
       "CANCEL_ANYTIME": "You can change or cancel your plan anytime"
     },
-    "ENTERPRISE_PAYWALL": {
+    "STARCHAT_PAYWALL": {
       "AVAILABLE_ON": "قابلیت SLA فقط در نسخه Business و Enterprise وجود دارد.",
       "UPGRADE_PROMPT": "برای دسترسی به ویژگی‌های پیشرفته مانند گزارش‌های حسابرسی، ظرفیت اپراتور و غیره، به یک طرح پولی ارتقا دهید.",
       "ASK_ADMIN": "لطفاً برای ارتقا با ادمین خود تماس بگیرید."
@@ -37,6 +37,10 @@
           "NRT": "NRT",
           "RT": "RT"
         }
+      },
+      "TABLE_HEADER": {
+        "SLA": "SLA",
+        "BUSINESS_HOURS": "Business hours"
       }
     },
     "FORM": {
@@ -103,6 +107,16 @@
       "RT": "زمان تا حل شدن مساله",
       "SHOW_MORE": "{count} بیشتر",
       "HIDE": "مخفی کردم {count} مورد"
+    },
+    "COUNT": "{n} SLA | {n} SLAs",
+    "SEARCH_PLACEHOLDER": "Search SLA...",
+    "SEARCH": {
+      "NO_RESULTS": "No SLA found matching your search"
+    },
+    "ENTERPRISE_PAYWALL": {
+      "AVAILABLE_ON": "قابلیت SLA فقط در نسخه Business و Enterprise وجود دارد.",
+      "UPGRADE_PROMPT": "برای دسترسی به ویژگی‌های پیشرفته مانند گزارش‌های حسابرسی، ظرفیت اپراتور و غیره، به یک طرح پولی ارتقا دهید.",
+      "ASK_ADMIN": "لطفاً برای ارتقا با ادمین خود تماس بگیرید."
     }
   }
 }

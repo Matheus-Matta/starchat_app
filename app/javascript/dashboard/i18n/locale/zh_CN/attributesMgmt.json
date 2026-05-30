@@ -7,7 +7,8 @@
     "LEARN_MORE": "自定义属性说明",
     "ATTRIBUTE_MODELS": {
       "CONVERSATION": "会话",
-      "CONTACT": "联系人"
+      "CONTACT": "联系人",
+      "COMPANY": "公司"
     },
     "ATTRIBUTE_TYPES": {
       "TEXT": "文本",
@@ -63,6 +64,10 @@
         },
         "ENABLE_REGEX": {
           "LABEL": "启用正则表达式验证"
+        },
+        "BADGES": {
+          "PRE_CHAT": "Pre-chat",
+          "RESOLUTION": "Resolution"
         }
       },
       "API": {
@@ -101,7 +106,8 @@
     "TABS": {
       "HEADER": "自定义属性",
       "CONVERSATION": "会话",
-      "CONTACT": "联系人"
+      "CONTACT": "联系人",
+      "COMPANY": "公司"
     },
     "LIST": {
       "TABLE_HEADER": {
@@ -129,6 +135,13 @@
       "ENABLE_REGEX": {
         "LABEL": "启用正则表达式验证"
       }
+    },
+    "COUNT": "{n} attribute | {n} attributes",
+    "SEARCH_PLACEHOLDER": "搜索属性...",
+    "NO_RESULTS": "No attributes found matching your search",
+    "BADGES": {
+      "PRE_CHAT": "Pre-chat",
+      "RESOLUTION": "Resolution"
     }
   }
 }

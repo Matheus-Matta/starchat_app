@@ -7,7 +7,8 @@
     "LEARN_MORE": "Learn more about custom attributes",
     "ATTRIBUTE_MODELS": {
       "CONVERSATION": "Samtale",
-      "CONTACT": "Kontakt"
+      "CONTACT": "Kontakt",
+      "COMPANY": "Virksomhed"
     },
     "ATTRIBUTE_TYPES": {
       "TEXT": "Tekst",
@@ -63,6 +64,10 @@
         },
         "ENABLE_REGEX": {
           "LABEL": "Enable regex validation"
+        },
+        "BADGES": {
+          "PRE_CHAT": "Pre-chat",
+          "RESOLUTION": "Resolution"
         }
       },
       "API": {
@@ -101,7 +106,8 @@
     "TABS": {
       "HEADER": "Brugerdefinerede Egenskaber",
       "CONVERSATION": "Samtale",
-      "CONTACT": "Kontakt"
+      "CONTACT": "Kontakt",
+      "COMPANY": "Virksomhed"
     },
     "LIST": {
       "TABLE_HEADER": {
@@ -129,6 +135,13 @@
       "ENABLE_REGEX": {
         "LABEL": "Enable regex validation"
       }
+    },
+    "COUNT": "{n} attribute | {n} attributes",
+    "SEARCH_PLACEHOLDER": "Søg attributter...",
+    "NO_RESULTS": "No attributes found matching your search",
+    "BADGES": {
+      "PRE_CHAT": "Pre-chat",
+      "RESOLUTION": "Resolution"
     }
   }
 }

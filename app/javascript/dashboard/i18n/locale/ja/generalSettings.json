@@ -150,8 +150,8 @@
       "EMPTY_MESSAGE": "未読通知はありません"
     },
     "LIST": {
-      "LOADING_MESSAGE": "通知を読み込み中...",
       "404": "通知なし",
+      "LOADING_MESSAGE": "通知を読み込み中...",
       "TABLE_HEADER": [
         "名前",
         "電話番号",
@@ -239,7 +239,8 @@
       "DARK_MODE": "ダークモード",
       "SYSTEM_MODE": "システム設定",
       "SNOOZE_NOTIFICATION": "通知をスヌーズ"
-    }
+    },
+    "SNOOZE_PLACEHOLDER": "Type a time e.g. tomorrow, 2 hours, next friday, jan 15..."
   },
   "DASHBOARD_APPS": {
     "LOADING_MESSAGE": "ダッシュボードアプリを読み込み中..."

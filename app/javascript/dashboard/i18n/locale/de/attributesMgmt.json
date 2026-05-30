@@ -7,7 +7,8 @@
     "LEARN_MORE": "Learn more about custom attributes",
     "ATTRIBUTE_MODELS": {
       "CONVERSATION": "Konversation",
-      "CONTACT": "Kontakt"
+      "CONTACT": "Kontakt",
+      "COMPANY": "Firma"
     },
     "ATTRIBUTE_TYPES": {
       "TEXT": "Text",
@@ -63,6 +64,10 @@
         },
         "ENABLE_REGEX": {
           "LABEL": "Regex Validierung aktivieren"
+        },
+        "BADGES": {
+          "PRE_CHAT": "Pre-chat",
+          "RESOLUTION": "Resolution"
         }
       },
       "API": {
@@ -101,7 +106,8 @@
     "TABS": {
       "HEADER": "Benutzerdefinierte Attribute",
       "CONVERSATION": "Konversation",
-      "CONTACT": "Kontakt"
+      "CONTACT": "Kontakt",
+      "COMPANY": "Firma"
     },
     "LIST": {
       "TABLE_HEADER": {
@@ -129,6 +135,13 @@
       "ENABLE_REGEX": {
         "LABEL": "Regex Validierung aktivieren"
       }
+    },
+    "COUNT": "{n} attribute | {n} attributes",
+    "SEARCH_PLACEHOLDER": "Attribut suchen...",
+    "NO_RESULTS": "No attributes found matching your search",
+    "BADGES": {
+      "PRE_CHAT": "Pre-chat",
+      "RESOLUTION": "Resolution"
     }
   }
 }

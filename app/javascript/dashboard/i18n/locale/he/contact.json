@@ -50,6 +50,13 @@
       "CONTACT_LABELS": "תגיות אנשי קשר",
       "PREVIOUS_CONVERSATIONS": "שיחות קודמות",
       "NO_RECORDS_FOUND": "לא נמצאו מאפיינים"
+    },
+    "CALL": "התקשר",
+    "CALL_INITIATED": "Calling the contact…",
+    "CALL_FAILED": "Unable to start the call. Please try again.",
+    "CLICK_TO_EDIT": "Click to edit",
+    "VOICE_INBOX_PICKER": {
+      "TITLE": "בחר תיבת דואר קולי"
     }
   },
   "EDIT_CONTACT": {
@@ -400,7 +407,8 @@
       "ACTIVE_FILTERS": {
         "MORE_FILTERS": "+ {count} more filters",
         "CLEAR_FILTERS": "נקה מסננים"
-      }
+      },
+      "COMPANY": "חברה"
     },
     "CARD": {
       "OF": "of",
@@ -456,6 +464,12 @@
           },
           "TWITTER": {
             "PLACEHOLDER": "Add Twitter"
+          },
+          "TELEGRAM": {
+            "PLACEHOLDER": "Add Telegram"
+          },
+          "TIKTOK": {
+            "PLACEHOLDER": "Add TikTok"
           }
         }
       },
@@ -552,7 +566,9 @@
         "EXPAND": "Expand",
         "COLLAPSE": "Collapse",
         "NO_NOTES": "No notes, you can add notes from the contact details page.",
-        "EMPTY_STATE": "There are no notes associated to this contact. You can add a note by typing in the box above."
+        "EMPTY_STATE": "There are no notes associated to this contact. You can add a note by typing in the box above.",
+        "ADD_NOTE": "הוסף הערת איש קשר",
+        "CONVERSATION_EMPTY_STATE": "אין עדיין הערות. השתמש בלחצן 'הוסף הערה' כדי ליצור אחת."
       }
     },
     "EMPTY_STATE": {
@@ -562,7 +578,8 @@
       "SEARCH_EMPTY_STATE_TITLE": "אין אנשי קשר שתואמים לחיפוש שלך 🔍",
       "LIST_EMPTY_STATE_TITLE": "No contacts available in this view 📋",
       "ACTIVE_EMPTY_STATE_TITLE": "No contacts are active at the moment 🌙"
-    }
+    },
+    "LOAD_MORE": "טען עוד"
   },
   "COMPOSE_NEW_CONVERSATION": {
     "CONTACT_SEARCH": {
@@ -608,7 +625,37 @@
       "ACTION_BUTTONS": {
         "DISCARD": "Discard",
         "SEND": "Send ({keyCode})"
+      },
+      "TWILIO_OPTIONS": {
+        "LABEL": "בחר תבנית",
+        "SEARCH_PLACEHOLDER": "חפש תבניות",
+        "EMPTY_STATE": "לא נמצאו תבניות",
+        "TEMPLATE_PARSER": {
+          "BACK": "חזור",
+          "SEND_MESSAGE": "שלח הודעה"
+        }
       }
+    }
+  },
+  "CONTACTS_BULK_ACTIONS": {
+    "ASSIGN_LABELS": "הקצה תוויות",
+    "ASSIGN_LABELS_SUCCESS": "תוויות שוייכו בהצלחה.",
+    "ASSIGN_LABELS_FAILED": "ההקצאה של התוויות נכשלה",
+    "DESCRIPTION": "בחר את התוויות שברצונך להוסיף לאנשי הקשר שנבחרו.",
+    "NO_LABELS_FOUND": "אין עדיין תוויות זמינות.",
+    "SELECTED_COUNT": "{count} נבחרו",
+    "CLEAR_SELECTION": "נקה בחירה",
+    "SELECT_ALL": "בחר הכל ({count})",
+    "DELETE_CONTACTS": "מחק",
+    "DELETE_SUCCESS": "אנשי קשר נמחקו בהצלחה.",
+    "DELETE_FAILED": "מחיקת אנשי הקשר נכשלה.",
+    "DELETE_DIALOG": {
+      "TITLE": "מחק אנשי קשר שנבחרו",
+      "SINGULAR_TITLE": "מחק איש קשר שנבחר",
+      "DESCRIPTION": "פעולה זו תמחק לצמיתות {count} אנשי קשר שנבחרו. לא ניתן לבטל פעולה זו.",
+      "SINGULAR_DESCRIPTION": "פעולה זו תמחק לצמיתות את איש הקשר שנבחר. לא ניתן לבטל פעולה זו.",
+      "CONFIRM_MULTIPLE": "מחק אנשי קשר",
+      "CONFIRM_SINGLE": "מחק איש קשר"
     }
   }
 }

@@ -55,7 +55,10 @@
       "LAST_3_MONTHS": "最近3个月",
       "LAST_6_MONTHS": "最近6个月",
       "LAST_YEAR": "最近一年",
-      "CUSTOM_DATE_RANGE": "自定义日期范围"
+      "CUSTOM_DATE_RANGE": "自定义日期范围",
+      "LAST_14_DAYS": "最近14天",
+      "THIS_MONTH": "This month",
+      "LAST_MONTH": "Last month"
     },
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "应用",
@@ -121,7 +124,8 @@
     "PAGINATION": {
       "RESULTS": "显示 {start} 到 {end} 条，共 {total} 条结果",
       "PER_PAGE_TEMPLATE": "{size} / page"
-    }
+    },
+    "DOWNLOAD_CONVERSATION_REPORTS": "Download conversation reports"
   },
   "AGENT_REPORTS": {
     "HEADER": "客服概览",
@@ -189,6 +193,11 @@
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "应用",
       "PLACEHOLDER": "选择日期范围"
+    },
+    "FILTERS": {
+      "INPUT_PLACEHOLDER": {
+        "AGENTS": "搜索客服代表"
+      }
     }
   },
   "LABEL_REPORTS": {
@@ -257,6 +266,11 @@
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "应用",
       "PLACEHOLDER": "选择日期范围"
+    },
+    "FILTERS": {
+      "INPUT_PLACEHOLDER": {
+        "LABELS": "搜索标签"
+      }
     }
   },
   "INBOX_REPORTS": {
@@ -325,6 +339,13 @@
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "应用",
       "PLACEHOLDER": "选择日期范围"
+    },
+    "ALL_INBOXES": "All Inboxes",
+    "SEARCH_INBOX": "Search Inbox",
+    "FILTERS": {
+      "INPUT_PLACEHOLDER": {
+        "INBOXES": "Search inboxes"
+      }
     }
   },
   "TEAM_REPORTS": {
@@ -393,6 +414,14 @@
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "应用",
       "PLACEHOLDER": "选择日期范围"
+    },
+    "FILTERS": {
+      "ADD_FILTER": "添加过滤器",
+      "CLEAR_ALL": "清除全部",
+      "NO_FILTER": "没有可用的过滤器",
+      "INPUT_PLACEHOLDER": {
+        "TEAMS": "查找团队"
+      }
     }
   },
   "CSAT_REPORTS": {
@@ -402,7 +431,26 @@
     "DOWNLOAD_FAILED": "下载 CSAT 报告失败",
     "FILTERS": {
       "AGENTS": {
-        "PLACEHOLDER": "选择客服"
+        "PLACEHOLDER": "选择客服",
+        "LABEL": "客服"
+      },
+      "ADD_FILTER": "添加过滤器",
+      "CLEAR_ALL": "清除全部",
+      "NO_FILTER": "没有可用的过滤器",
+      "INPUT_PLACEHOLDER": {
+        "AGENTS": "搜索客服代表",
+        "INBOXES": "Search inboxes",
+        "TEAMS": "查找团队",
+        "RATINGS": "Search ratings"
+      },
+      "INBOXES": {
+        "LABEL": "收件箱"
+      },
+      "TEAMS": {
+        "LABEL": "团队"
+      },
+      "RATINGS": {
+        "LABEL": "评分"
       }
     },
     "TABLE": {
@@ -410,8 +458,13 @@
         "CONTACT_NAME": "联系人",
         "AGENT_NAME": "分配的客服",
         "RATING": "评分",
-        "FEEDBACK_TEXT": "反馈评论"
-      }
+        "FEEDBACK_TEXT": "反馈评论",
+        "CONVERSATION": "会话",
+        "CUSTOMER": "Customer",
+        "RESPONSE": "回复",
+        "HANDLED_BY": "Handled by"
+      },
+      "UNKNOWN_CUSTOMER": "Unknown customer"
     },
     "METRIC": {
       "TOTAL_RESPONSES": {
@@ -425,6 +478,28 @@
       "RESPONSE_RATE": {
         "LABEL": "回复率",
         "TOOLTIP": "总回复数 / 发送的 CSAT 调查消息总数 * 100"
+      },
+      "RATING_DISTRIBUTION": "Rating distribution"
+    },
+    "NO_RECORDS_DESCRIPTION": "CSAT survey responses will appear here once customers start providing feedback.",
+    "NO_AGENT": "No assigned agent",
+    "NO_FEEDBACK": "No feedback provided",
+    "REVIEW_NOTES": {
+      "TITLE": "Review notes",
+      "PLACEHOLDER": "Add review notes about this rating...",
+      "SAVE": "保存",
+      "CANCEL": "取消",
+      "SAVING": "保存中...",
+      "SAVED": "Notes saved successfully",
+      "SAVE_ERROR": "Failed to save notes",
+      "UPDATED_BY": "Updated by {name} {time}",
+      "UPDATED_BY_LABEL": "Updated by",
+      "PAYWALL": {
+        "TITLE": "Upgrade to add review notes",
+        "AVAILABLE_ON": "The review notes feature is only available in the Business and Enterprise plans.",
+        "UPGRADE_PROMPT": "Add internal context to every CSAT response with review notes. Capture what really happened, spot patterns faster, and make better decisions from your feedback.",
+        "UPGRADE_NOW": "立即升级",
+        "CANCEL_ANYTIME": "您可以随时更改或取消您的计划"
       }
     }
   },
@@ -495,6 +570,13 @@
       "ONLINE": "在线",
       "BUSY": "忙碌",
       "OFFLINE": "离线"
+    },
+    "RESOLUTION_HEATMAP": {
+      "HEADER": "Resolutions",
+      "NO_CONVERSATIONS": "没有会话",
+      "CONVERSATION": "{count} 个会话",
+      "CONVERSATIONS": "{count} 个会话",
+      "DOWNLOAD_REPORT": "下载报告"
     }
   },
   "DAYS_OF_WEEK": {

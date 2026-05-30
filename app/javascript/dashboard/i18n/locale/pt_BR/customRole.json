@@ -13,7 +13,7 @@
       "UPGRADE_NOW": "Atualizar agora",
       "CANCEL_ANYTIME": "Você pode alterar ou cancelar seu plano a qualquer momento"
     },
-    "ENTERPRISE_PAYWALL": {
+    "STARCHAT_PAYWALL": {
       "AVAILABLE_ON": "O recurso de função personalizada está disponível apenas nos planos pagos.",
       "UPGRADE_PROMPT": "Atualize para um plano pago para acessar recursos avançados como logs de auditoria, capacidade do agente e muito mais.",
       "ASK_ADMIN": "Entre em contato com seu administrador para fazer a atualização."
@@ -90,6 +90,14 @@
         "YES": "Sim, excluir ",
         "NO": "Não, manter "
       }
+    },
+    "COUNT": "{n} função personalizada | {n} funções personalizadas",
+    "SEARCH_PLACEHOLDER": "Pesquisar funções personalizadas...",
+    "NO_RESULTS": "Nenhuma função personalizada encontrada correspondente à sua busca",
+    "ENTERPRISE_PAYWALL": {
+      "AVAILABLE_ON": "O recurso de função personalizada está disponível apenas nos planos pagos.",
+      "UPGRADE_PROMPT": "Atualize para um plano pago para acessar recursos avançados como logs de auditoria, capacidade do agente e muito mais.",
+      "ASK_ADMIN": "Entre em contato com seu administrador para fazer a atualização."
     }
   }
 }

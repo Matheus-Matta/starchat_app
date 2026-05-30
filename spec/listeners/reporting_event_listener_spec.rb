@@ -309,32 +309,32 @@ describe ReportingEventListener do
     end
   end
 
-  describe '#conversation_captain_inference_resolved' do
-    it 'creates conversation_captain_inference_resolved event' do
-      expect(account.reporting_events.where(name: 'conversation_captain_inference_resolved').count).to be 0
+  describe '#conversation_cosmos_inference_resolved' do
+    it 'creates conversation_cosmos_inference_resolved event' do
+      expect(account.reporting_events.where(name: 'conversation_cosmos_inference_resolved').count).to be 0
       decision_time = conversation.created_at + 60.seconds
-      event = Events::Base.new('conversation.captain_inference_resolved', decision_time, conversation: conversation)
+      event = Events::Base.new('conversation.cosmos_inference_resolved', decision_time, conversation: conversation)
       allow(conversation).to receive(:updated_at).and_return(decision_time + 5.minutes)
 
-      listener.conversation_captain_inference_resolved(event)
+      listener.conversation_cosmos_inference_resolved(event)
 
-      reporting_event = account.reporting_events.where(name: 'conversation_captain_inference_resolved').first
+      reporting_event = account.reporting_events.where(name: 'conversation_cosmos_inference_resolved').first
       expect(reporting_event).to be_present
       expect(reporting_event.value).to eq 60
       expect(reporting_event.event_end_time).to be_within(1.second).of(decision_time)
     end
   end
 
-  describe '#conversation_captain_inference_handoff' do
-    it 'creates conversation_captain_inference_handoff event' do
-      expect(account.reporting_events.where(name: 'conversation_captain_inference_handoff').count).to be 0
+  describe '#conversation_cosmos_inference_handoff' do
+    it 'creates conversation_cosmos_inference_handoff event' do
+      expect(account.reporting_events.where(name: 'conversation_cosmos_inference_handoff').count).to be 0
       decision_time = conversation.created_at + 90.seconds
-      event = Events::Base.new('conversation.captain_inference_handoff', decision_time, conversation: conversation)
+      event = Events::Base.new('conversation.cosmos_inference_handoff', decision_time, conversation: conversation)
       allow(conversation).to receive(:updated_at).and_return(decision_time + 5.minutes)
 
-      listener.conversation_captain_inference_handoff(event)
+      listener.conversation_cosmos_inference_handoff(event)
 
-      reporting_event = account.reporting_events.where(name: 'conversation_captain_inference_handoff').first
+      reporting_event = account.reporting_events.where(name: 'conversation_cosmos_inference_handoff').first
       expect(reporting_event).to be_present
       expect(reporting_event.value).to eq 90
       expect(reporting_event.event_end_time).to be_within(1.second).of(decision_time)
@@ -361,8 +361,8 @@ describe ReportingEventListener do
     end
 
     context 'when conversation is reopened after being resolved' do
-      let(:resolved_time) { 2.hours.ago }
-      let(:reopened_time) { 1.hour.ago }
+      let(:resolved_time) { Time.zone.parse('2026-01-10 10:00:00') }
+      let(:reopened_time) { Time.zone.parse('2026-01-10 11:00:00') }
       let(:reopened_conversation) do
         create(:conversation, account: account, inbox: inbox, assignee: user, updated_at: reopened_time)
       end

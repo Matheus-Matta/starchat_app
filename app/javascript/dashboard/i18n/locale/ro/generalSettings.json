@@ -150,8 +150,8 @@
       "EMPTY_MESSAGE": "Nu aveți notificări necitite"
     },
     "LIST": {
-      "LOADING_MESSAGE": "Se încarcă contactele...",
       "404": "Notificări prin e-mail",
+      "LOADING_MESSAGE": "Se încarcă contactele...",
       "TABLE_HEADER": [
         "Nume",
         "Număr de telefon",
@@ -239,7 +239,8 @@
       "DARK_MODE": "Dark",
       "SYSTEM_MODE": "Sistem",
       "SNOOZE_NOTIFICATION": "Snooze Notification"
-    }
+    },
+    "SNOOZE_PLACEHOLDER": "Type a time e.g. tomorrow, 2 hours, next friday, jan 15..."
   },
   "DASHBOARD_APPS": {
     "LOADING_MESSAGE": "Se încarcă aplicația Dashboard..."

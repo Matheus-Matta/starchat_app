@@ -20,7 +20,7 @@ requestBody:
             example: 'high'
           sla_policy_id:
             type: number
-            description: 'The ID of the SLA policy (Available only in Enterprise edition)'
+            description: 'The ID of the SLA policy (Available only in Starchat edition)'
             example: 1
 responses:
   '200':

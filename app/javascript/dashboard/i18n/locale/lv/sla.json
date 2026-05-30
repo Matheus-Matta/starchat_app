@@ -13,7 +13,7 @@
       "UPGRADE_NOW": "Pāriet uz maksas versiju tagad",
       "CANCEL_ANYTIME": "Jūs varat jebkurā laikā mainīt vai atcelt savu versiju"
     },
-    "ENTERPRISE_PAYWALL": {
+    "STARCHAT_PAYWALL": {
       "AVAILABLE_ON": "SLA funkcija ir pieejama tikai maksas versijās.",
       "UPGRADE_PROMPT": "Pārejiet uz maksas versiju, lai piekļūtu papildu funkcijām. Piemēram: audita žurnāliem, aģentu kapacitātei, un citām.",
       "ASK_ADMIN": "Lai pārietu uz maksas versiju, lūdzu sazinieties ar savu administratoru."
@@ -37,6 +37,10 @@
           "NRT": "NRT",
           "RT": "RT"
         }
+      },
+      "TABLE_HEADER": {
+        "SLA": "SLA",
+        "BUSINESS_HOURS": "Business hours"
       }
     },
     "FORM": {
@@ -103,6 +107,16 @@
       "RT": "Atrisināšanas laiks",
       "SHOW_MORE": "{count} vairāk",
       "HIDE": "Slēpt {count} rindas"
+    },
+    "COUNT": "{n} SLA | {n} SLAs",
+    "SEARCH_PLACEHOLDER": "Search SLA...",
+    "SEARCH": {
+      "NO_RESULTS": "No SLA found matching your search"
+    },
+    "ENTERPRISE_PAYWALL": {
+      "AVAILABLE_ON": "SLA funkcija ir pieejama tikai maksas versijās.",
+      "UPGRADE_PROMPT": "Pārejiet uz maksas versiju, lai piekļūtu papildu funkcijām. Piemēram: audita žurnāliem, aģentu kapacitātei, un citām.",
+      "ASK_ADMIN": "Lai pārietu uz maksas versiju, lūdzu sazinieties ar savu administratoru."
     }
   }
 }

@@ -28,24 +28,17 @@ RSpec.describe Account, type: :model do
   end
 
   context 'with usage_limits' do
-    let(:cosmos_limits) do
-      {
-        :startups => { :documents => 100, :responses => 100 },
-        :business => { :documents => 200, :responses => 300 },
-        :enterprise => { :documents => 300, :responses => 500 }
-      }.with_indifferent_access
-    end
-    let(:account) { create(:account, { custom_attributes: { plan_name: 'startups' } }) }
+    let(:cosmos_limits) { { documents: ChatwootApp.max_limit, responses: ChatwootApp.max_limit }.with_indifferent_access }
+    let(:account) { create(:account) }
     let(:assistant) { create(:cosmos_assistant, account: account) }
 
     before do
       create(:installation_config, name: 'ACCOUNT_AGENTS_LIMIT', value: 20)
     end
 
-    describe 'when cosmos limits are configured' do
+    describe 'when cosmos limits are calculated' do
       before do
         create_list(:cosmos_document, 3, account: account, assistant: assistant, status: :available)
-        create(:installation_config, name: 'COSMOS_CLOUD_PLAN_LIMITS', value: cosmos_limits.to_json)
       end
 
       ## Document
@@ -64,7 +57,7 @@ RSpec.describe Account, type: :model do
         document_limits = account.usage_limits[:cosmos][:documents]
 
         expect(document_limits[:consumed]).to eq 3
-        expect(document_limits[:current_available]).to eq cosmos_limits[:startups][:documents] - 3
+        expect(document_limits[:current_available]).to eq cosmos_limits[:documents] - 3
       end
 
       ## Responses
@@ -75,7 +68,7 @@ RSpec.describe Account, type: :model do
 
         expect(account.custom_attributes['cosmos_responses_usage']).to eq 1
         expect(responses_limits[:consumed]).to eq 1
-        expect(responses_limits[:current_available]).to eq cosmos_limits[:startups][:responses] - 1
+        expect(responses_limits[:current_available]).to eq cosmos_limits[:responses] - 1
       end
 
       it 'reseting responses limits updates usage_limits' do
@@ -85,22 +78,18 @@ RSpec.describe Account, type: :model do
         responses_limits = account.usage_limits[:cosmos][:responses]
 
         expect(responses_limits[:consumed]).to eq 30
-        expect(responses_limits[:current_available]).to eq cosmos_limits[:startups][:responses] - 30
+        expect(responses_limits[:current_available]).to eq cosmos_limits[:responses] - 30
 
         account.reset_response_usage
         responses_limits = account.usage_limits[:cosmos][:responses]
 
         expect(account.custom_attributes['cosmos_responses_usage']).to eq 0
         expect(responses_limits[:consumed]).to eq 0
-        expect(responses_limits[:current_available]).to eq cosmos_limits[:startups][:responses]
+        expect(responses_limits[:current_available]).to eq cosmos_limits[:responses]
       end
 
       it 'returns monthly limit accurately' do
-        %w[startups business enterprise].each do |plan|
-          account.custom_attributes = { 'plan_name': plan }
-          account.save!
-          expect(account.cosmos_monthly_limit).to eq cosmos_limits[plan]
-        end
+        expect(account.cosmos_monthly_limit).to eq cosmos_limits
       end
 
       it 'current_available is never out of bounds' do
@@ -109,20 +98,19 @@ RSpec.describe Account, type: :model do
 
         responses_limits = account.usage_limits[:cosmos][:responses]
         expect(responses_limits[:consumed]).to eq 3000
-        expect(responses_limits[:current_available]).to eq 0
+        expect(responses_limits[:current_available]).to eq cosmos_limits[:responses] - 3000
 
         account.custom_attributes['cosmos_responses_usage'] = -100
         account.save!
 
         responses_limits = account.usage_limits[:cosmos][:responses]
         expect(responses_limits[:consumed]).to eq 0
-        expect(responses_limits[:current_available]).to eq cosmos_limits[:startups][:responses]
+        expect(responses_limits[:current_available]).to eq cosmos_limits[:responses]
       end
     end
 
     describe 'when cosmos limits are not configured' do
       it 'returns default values' do
-        account.custom_attributes = { 'plan_name': 'unknown' }
         expect(account.cosmos_monthly_limit).to eq(
           { documents: ChatwootApp.max_limit, responses: ChatwootApp.max_limit }.with_indifferent_access
         )
@@ -131,7 +119,6 @@ RSpec.describe Account, type: :model do
 
     describe 'when limits are configured for an account' do
       before do
-        create(:installation_config, name: 'COSMOS_CLOUD_PLAN_LIMITS', value: cosmos_limits.to_json)
         account.update(limits: { cosmos_documents: 5555, cosmos_responses: 9999 })
       end
 
@@ -150,7 +137,7 @@ RSpec.describe Account, type: :model do
 
       it 'creates audit logs when account is updated' do
         account.update(name: 'New Name')
-        expect(Audited::Audit.where(auditable_type: 'Account', action: 'update').count).to eq 1
+        expect(Audited::Audit.where(auditable_type: 'Account', action: 'update', auditable_id: account.id).count).to eq 1
       end
     end
 
@@ -183,42 +170,15 @@ RSpec.describe Account, type: :model do
 
   describe 'subscribed_features' do
     let(:account) { create(:account) }
-    let(:plan_features) do
-      {
-        'hacker' => %w[feature1 feature2],
-        'startups' => %w[feature1 feature2 feature3 feature4]
-      }
+
+    it 'returns the enabled account features' do
+      account.enable_features!(:sla, :custom_roles)
+
+      expect(account.subscribed_features).to include('sla', 'custom_roles')
     end
 
-    before do
-      InstallationConfig.where(name: 'CHATWOOT_CLOUD_PLAN_FEATURES').first_or_create(value: plan_features)
-    end
-
-    context 'when plan_name is hacker' do
-      it 'returns the features for the hacker plan' do
-        account.custom_attributes = { 'plan_name': 'hacker' }
-        account.save!
-
-        expect(account.subscribed_features).to eq(%w[feature1 feature2])
-      end
-    end
-
-    context 'when plan_name is startups' do
-      it 'returns the features for the startups plan' do
-        account.custom_attributes = { 'plan_name': 'startups' }
-        account.save!
-
-        expect(account.subscribed_features).to eq(%w[feature1 feature2 feature3 feature4])
-      end
-    end
-
-    context 'when plan_features is blank' do
-      it 'returns an empty array' do
-        account.custom_attributes = {}
-        account.save!
-
-        expect(account.subscribed_features).to be_nil
-      end
+    it 'returns the default enabled features for new accounts' do
+      expect(account.subscribed_features).to be_present
     end
   end
 

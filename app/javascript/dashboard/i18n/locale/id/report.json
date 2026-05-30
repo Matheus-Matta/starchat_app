@@ -55,7 +55,10 @@
       "LAST_3_MONTHS": "3 bulan terakhir",
       "LAST_6_MONTHS": "6 bulan terakhir",
       "LAST_YEAR": "Tahun terakhir",
-      "CUSTOM_DATE_RANGE": "Rentang tanggal kustom"
+      "CUSTOM_DATE_RANGE": "Rentang tanggal kustom",
+      "LAST_14_DAYS": "14 hari terakhir",
+      "THIS_MONTH": "This month",
+      "LAST_MONTH": "Last month"
     },
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "Terapkan",
@@ -121,7 +124,8 @@
     "PAGINATION": {
       "RESULTS": "Showing {start} to {end} of {total} results",
       "PER_PAGE_TEMPLATE": "{size} / page"
-    }
+    },
+    "DOWNLOAD_CONVERSATION_REPORTS": "Download conversation reports"
   },
   "AGENT_REPORTS": {
     "HEADER": "Gambaran Agen",
@@ -189,6 +193,11 @@
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "Terapkan",
       "PLACEHOLDER": "Pilih rentang tanggal"
+    },
+    "FILTERS": {
+      "INPUT_PLACEHOLDER": {
+        "AGENTS": "Mencari Agen"
+      }
     }
   },
   "LABEL_REPORTS": {
@@ -257,6 +266,11 @@
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "Terapkan",
       "PLACEHOLDER": "Pilih rentang tanggal"
+    },
+    "FILTERS": {
+      "INPUT_PLACEHOLDER": {
+        "LABELS": "Cari label"
+      }
     }
   },
   "INBOX_REPORTS": {
@@ -325,6 +339,13 @@
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "Terapkan",
       "PLACEHOLDER": "Pilih rentang tanggal"
+    },
+    "ALL_INBOXES": "All Inboxes",
+    "SEARCH_INBOX": "Search Inbox",
+    "FILTERS": {
+      "INPUT_PLACEHOLDER": {
+        "INBOXES": "Search inboxes"
+      }
     }
   },
   "TEAM_REPORTS": {
@@ -393,6 +414,14 @@
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "Terapkan",
       "PLACEHOLDER": "Pilih rentang tanggal"
+    },
+    "FILTERS": {
+      "ADD_FILTER": "Tambah filter",
+      "CLEAR_ALL": "Clear all",
+      "NO_FILTER": "No filters available",
+      "INPUT_PLACEHOLDER": {
+        "TEAMS": "Mencari tim"
+      }
     }
   },
   "CSAT_REPORTS": {
@@ -402,7 +431,26 @@
     "DOWNLOAD_FAILED": "Gagal mengunduh Laporan CSAT",
     "FILTERS": {
       "AGENTS": {
-        "PLACEHOLDER": "Pilih Agen"
+        "PLACEHOLDER": "Pilih Agen",
+        "LABEL": "Agen"
+      },
+      "ADD_FILTER": "Tambah filter",
+      "CLEAR_ALL": "Clear all",
+      "NO_FILTER": "No filters available",
+      "INPUT_PLACEHOLDER": {
+        "AGENTS": "Mencari Agen",
+        "INBOXES": "Search inboxes",
+        "TEAMS": "Mencari tim",
+        "RATINGS": "Search ratings"
+      },
+      "INBOXES": {
+        "LABEL": "Kotak masuk"
+      },
+      "TEAMS": {
+        "LABEL": "Tim"
+      },
+      "RATINGS": {
+        "LABEL": "Penilaian"
       }
     },
     "TABLE": {
@@ -410,8 +458,13 @@
         "CONTACT_NAME": "Kontak",
         "AGENT_NAME": "Agen yang ditugaskan",
         "RATING": "Peringkat",
-        "FEEDBACK_TEXT": "Komentar umpan balik"
-      }
+        "FEEDBACK_TEXT": "Komentar umpan balik",
+        "CONVERSATION": "Percakapan",
+        "CUSTOMER": "Customer",
+        "RESPONSE": "Response",
+        "HANDLED_BY": "Handled by"
+      },
+      "UNKNOWN_CUSTOMER": "Unknown customer"
     },
     "METRIC": {
       "TOTAL_RESPONSES": {
@@ -425,6 +478,28 @@
       "RESPONSE_RATE": {
         "LABEL": "Peringkat respons",
         "TOOLTIP": "Total jumlah respons / Total jumlah pesan survey CSAT yang terkirim * 100"
+      },
+      "RATING_DISTRIBUTION": "Rating distribution"
+    },
+    "NO_RECORDS_DESCRIPTION": "CSAT survey responses will appear here once customers start providing feedback.",
+    "NO_AGENT": "No assigned agent",
+    "NO_FEEDBACK": "No feedback provided",
+    "REVIEW_NOTES": {
+      "TITLE": "Review notes",
+      "PLACEHOLDER": "Add review notes about this rating...",
+      "SAVE": "Simpan",
+      "CANCEL": "Batalkan",
+      "SAVING": "Menyimpan...",
+      "SAVED": "Notes saved successfully",
+      "SAVE_ERROR": "Failed to save notes",
+      "UPDATED_BY": "Updated by {name} {time}",
+      "UPDATED_BY_LABEL": "Updated by",
+      "PAYWALL": {
+        "TITLE": "Upgrade to add review notes",
+        "AVAILABLE_ON": "The review notes feature is only available in the Business and Enterprise plans.",
+        "UPGRADE_PROMPT": "Add internal context to every CSAT response with review notes. Capture what really happened, spot patterns faster, and make better decisions from your feedback.",
+        "UPGRADE_NOW": "Upgrade now",
+        "CANCEL_ANYTIME": "You can change or cancel your plan anytime"
       }
     }
   },
@@ -495,6 +570,13 @@
       "ONLINE": "Online",
       "BUSY": "Sibuk",
       "OFFLINE": "Offline"
+    },
+    "RESOLUTION_HEATMAP": {
+      "HEADER": "Resolutions",
+      "NO_CONVERSATIONS": "Tidak ada percakapan",
+      "CONVERSATION": "{count} percakapan",
+      "CONVERSATIONS": "{count} percakapan",
+      "DOWNLOAD_REPORT": "Download report"
     }
   },
   "DAYS_OF_WEEK": {

@@ -39,54 +39,6 @@ const rules = {
       businessEmailValidator(value) {
         return CompanyEmailValidator.isCompanyEmail(value);
       },
-      didCaptchaReset: false,
-      isSignupInProgress: false,
-      error: '',
-    };
-  },
-  validations() {
-    return {
-      credentials: {
-        accountName: {
-          required,
-          minLength: minLength(2),
-        },
-        fullName: {
-          required,
-          minLength: minLength(2),
-        },
-        email: {
-          required,
-          email,
-          businessEmailValidator(value) {
-            return CompanyEmailValidator.isCompanyEmail(value);
-          },
-        },
-        password: {
-          required,
-          isValidPassword,
-          minLength: minLength(MIN_PASSWORD_LENGTH),
-        },
-        confirmPassword: {
-          required,
-          minLength: minLength(MIN_PASSWORD_LENGTH),
-          sameAsPassword: sameAs(this.credentials.password),
-        },
-      },
-    };
-  },
-  computed: {
-    ...mapGetters({ globalConfig: 'globalConfig/get' }),
-    termsLink() {
-      return this.$t('REGISTER.TERMS_ACCEPT')
-        .replace(
-          'https://www.starchats.com.br/terms',
-          this.globalConfig.termsURL
-        )
-        .replace(
-          'https://www.starchats.com.br/privacy-policy',
-          this.globalConfig.privacyURL
-        );
     },
     password: {
       required,

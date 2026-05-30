@@ -116,6 +116,9 @@
         "LABEL": "مجاز به تعیین خودکار برای این تیم."
       },
       "SUBMIT_CREATE": "ایجاد تیم"
-    }
+    },
+    "COUNT": "{n} team | {n} teams",
+    "SEARCH_PLACEHOLDER": "جستجوی تیم...",
+    "NO_RESULTS": "No teams found matching your search"
   }
 }

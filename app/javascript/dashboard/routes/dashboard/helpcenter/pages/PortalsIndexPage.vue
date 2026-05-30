@@ -54,9 +54,12 @@ const routeToLastActivePortal = () => {
 
   const navigateTo = isAValidRoute ? navigationPath : 'portals_articles_index';
   if (params) {
-    return routeToView(navigateTo, params);
+    return routeToView(navigateTo, {
+      accountId: route.params.accountId,
+      ...params,
+    });
   }
-  return routeToView('portals_new', {});
+  return routeToView('portals_new', { accountId: route.params.accountId });
 };
 
 const performRouting = async () => {

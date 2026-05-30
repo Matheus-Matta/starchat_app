@@ -55,7 +55,10 @@
       "LAST_3_MONTHS": "Останні 3 місяці",
       "LAST_6_MONTHS": "Останні 6 місяців",
       "LAST_YEAR": "Минулий рік",
-      "CUSTOM_DATE_RANGE": "Довільний діапазон дат"
+      "CUSTOM_DATE_RANGE": "Довільний діапазон дат",
+      "LAST_14_DAYS": "Останні 14 днів",
+      "THIS_MONTH": "This month",
+      "LAST_MONTH": "Last month"
     },
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "Підтвердити",
@@ -121,7 +124,8 @@
     "PAGINATION": {
       "RESULTS": "Showing {start} to {end} of {total} results",
       "PER_PAGE_TEMPLATE": "{size} / page"
-    }
+    },
+    "DOWNLOAD_CONVERSATION_REPORTS": "Download conversation reports"
   },
   "AGENT_REPORTS": {
     "HEADER": "Огляд Агентів",
@@ -189,6 +193,11 @@
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "Підтвердити",
       "PLACEHOLDER": "Виберіть діапазон дат"
+    },
+    "FILTERS": {
+      "INPUT_PLACEHOLDER": {
+        "AGENTS": "Пошук агентів"
+      }
     }
   },
   "LABEL_REPORTS": {
@@ -257,6 +266,11 @@
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "Підтвердити",
       "PLACEHOLDER": "Виберіть діапазон дат"
+    },
+    "FILTERS": {
+      "INPUT_PLACEHOLDER": {
+        "LABELS": "Пошук міток"
+      }
     }
   },
   "INBOX_REPORTS": {
@@ -325,6 +339,13 @@
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "Прийняти",
       "PLACEHOLDER": "Виберіть діапазон дат"
+    },
+    "ALL_INBOXES": "All Inboxes",
+    "SEARCH_INBOX": "Search Inbox",
+    "FILTERS": {
+      "INPUT_PLACEHOLDER": {
+        "INBOXES": "Search inboxes"
+      }
     }
   },
   "TEAM_REPORTS": {
@@ -393,6 +414,14 @@
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "Прийняти",
       "PLACEHOLDER": "Виберіть діапазон дат"
+    },
+    "FILTERS": {
+      "ADD_FILTER": "Додати фільтр",
+      "CLEAR_ALL": "Очистити все",
+      "NO_FILTER": "Немає доступних фільтрів",
+      "INPUT_PLACEHOLDER": {
+        "TEAMS": "Пошук команд"
+      }
     }
   },
   "CSAT_REPORTS": {
@@ -402,7 +431,26 @@
     "DOWNLOAD_FAILED": "Не вдалося завантажити звіти CSAT",
     "FILTERS": {
       "AGENTS": {
-        "PLACEHOLDER": "Виберіть Агентів"
+        "PLACEHOLDER": "Виберіть Агентів",
+        "LABEL": "Агент"
+      },
+      "ADD_FILTER": "Додати фільтр",
+      "CLEAR_ALL": "Очистити все",
+      "NO_FILTER": "Немає доступних фільтрів",
+      "INPUT_PLACEHOLDER": {
+        "AGENTS": "Пошук агентів",
+        "INBOXES": "Search inboxes",
+        "TEAMS": "Пошук команд",
+        "RATINGS": "Search ratings"
+      },
+      "INBOXES": {
+        "LABEL": "Вхідні"
+      },
+      "TEAMS": {
+        "LABEL": "Команда"
+      },
+      "RATINGS": {
+        "LABEL": "Оцінка"
       }
     },
     "TABLE": {
@@ -410,8 +458,13 @@
         "CONTACT_NAME": "Контакт",
         "AGENT_NAME": "Призначений агент",
         "RATING": "Оцінка",
-        "FEEDBACK_TEXT": "Відгук"
-      }
+        "FEEDBACK_TEXT": "Відгук",
+        "CONVERSATION": "Діалог",
+        "CUSTOMER": "Customer",
+        "RESPONSE": "Response",
+        "HANDLED_BY": "Handled by"
+      },
+      "UNKNOWN_CUSTOMER": "Unknown customer"
     },
     "METRIC": {
       "TOTAL_RESPONSES": {
@@ -425,6 +478,28 @@
       "RESPONSE_RATE": {
         "LABEL": "Показник відповідей",
         "TOOLTIP": "Загальна кількість відповідей / Загальна кількість повідомлень опитування CSAT відправлено * 100"
+      },
+      "RATING_DISTRIBUTION": "Rating distribution"
+    },
+    "NO_RECORDS_DESCRIPTION": "CSAT survey responses will appear here once customers start providing feedback.",
+    "NO_AGENT": "No assigned agent",
+    "NO_FEEDBACK": "No feedback provided",
+    "REVIEW_NOTES": {
+      "TITLE": "Review notes",
+      "PLACEHOLDER": "Add review notes about this rating...",
+      "SAVE": "Зберегти",
+      "CANCEL": "Скасувати",
+      "SAVING": "Збереження...",
+      "SAVED": "Notes saved successfully",
+      "SAVE_ERROR": "Failed to save notes",
+      "UPDATED_BY": "Updated by {name} {time}",
+      "UPDATED_BY_LABEL": "Updated by",
+      "PAYWALL": {
+        "TITLE": "Upgrade to add review notes",
+        "AVAILABLE_ON": "The review notes feature is only available in the Business and Enterprise plans.",
+        "UPGRADE_PROMPT": "Add internal context to every CSAT response with review notes. Capture what really happened, spot patterns faster, and make better decisions from your feedback.",
+        "UPGRADE_NOW": "Оновити зараз",
+        "CANCEL_ANYTIME": "Ви можете змінити або скасувати план у будь-який час"
       }
     }
   },
@@ -495,6 +570,13 @@
       "ONLINE": "Онлайн",
       "BUSY": "Зайнятий",
       "OFFLINE": "Не в мережі"
+    },
+    "RESOLUTION_HEATMAP": {
+      "HEADER": "Resolutions",
+      "NO_CONVERSATIONS": "Немає бесід",
+      "CONVERSATION": "{count} бесід",
+      "CONVERSATIONS": "{count} бесід",
+      "DOWNLOAD_REPORT": "Download report"
     }
   },
   "DAYS_OF_WEEK": {

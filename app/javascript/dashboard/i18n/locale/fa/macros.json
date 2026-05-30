@@ -25,13 +25,14 @@
       }
     },
     "LIST": {
+      "404": "هیچ ماکروی یافت نشد",
       "TABLE_HEADER": {
         "NAME": "نام",
         "CREATED BY": "ايجاد شده توسط",
         "LAST_UPDATED_BY": "آخرین به‌روزرسانی توسط",
-        "VISIBILITY": "دید"
-      },
-      "404": "هیچ ماکروی یافت نشد"
+        "VISIBILITY": "دید",
+        "ACTIONS": "عملیات"
+      }
     },
     "DELETE": {
       "TOOLTIP": "حذف ماکرو",
@@ -62,7 +63,9 @@
         "LABEL": "دید ماکرو",
         "GLOBAL": {
           "LABEL": "عمومی",
-          "DESCRIPTION": "این ماکرو به صورت عمومی برای همه نمایندگان این حساب در دسترس است."
+          "DESCRIPTION": "این ماکرو به صورت عمومی برای همه نمایندگان این حساب در دسترس است.",
+          "CREATE_DISABLED_DESCRIPTION": "Only administrators can create public macros.",
+          "EDIT_DISABLED_DESCRIPTION": "Only administrators can edit public macros."
         },
         "PERSONAL": {
           "LABEL": "خصوصی",
@@ -98,7 +101,8 @@
       "SEND_MESSAGE": "Send a Message",
       "CHANGE_PRIORITY": "تغییر اولویت",
       "ADD_PRIVATE_NOTE": "Add a Private Note",
-      "SEND_WEBHOOK_EVENT": "Send Webhook Event"
+      "SEND_WEBHOOK_EVENT": "Send Webhook Event",
+      "REMOVE_ASSIGNED_AGENT": "Remove Assigned Agent"
     },
     "PRIORITY_TYPES": {
       "NONE": "هیچکدام",
@@ -106,6 +110,12 @@
       "MEDIUM": "متوسط",
       "HIGH": "بالا",
       "URGENT": "فوری"
+    },
+    "COUNT": "{n} macro | {n} macros",
+    "SEARCH_PLACEHOLDER": "Search macros...",
+    "NO_RESULTS": "No macros found matching your search",
+    "VIEW": {
+      "TOOLTIP": "View macro"
     }
   }
 }

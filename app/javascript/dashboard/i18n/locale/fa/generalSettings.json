@@ -150,8 +150,8 @@
       "EMPTY_MESSAGE": "شما هیچ آگاه‌سازی‌ خوانده نشده‌ای ندارید"
     },
     "LIST": {
-      "LOADING_MESSAGE": "در حال بارگیری اعلان ها...",
       "404": "اعلانی وجود ندارد",
+      "LOADING_MESSAGE": "در حال بارگیری اعلان ها...",
       "TABLE_HEADER": [
         "نام",
         "شماره تلفن",
@@ -239,7 +239,8 @@
       "DARK_MODE": "تیره",
       "SYSTEM_MODE": "سیستم",
       "SNOOZE_NOTIFICATION": "به تعویق انداختن آگاه‌سازی"
-    }
+    },
+    "SNOOZE_PLACEHOLDER": "Type a time e.g. tomorrow, 2 hours, next friday, jan 15..."
   },
   "DASHBOARD_APPS": {
     "LOADING_MESSAGE": "در حال بارگیری برنامه پیشخوان..."

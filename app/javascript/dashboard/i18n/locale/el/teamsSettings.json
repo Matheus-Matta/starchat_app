@@ -116,6 +116,9 @@
         "LABEL": "Επιτρέψτε την αυτόματη ανάθεση σε αυτήν την ομάδα."
       },
       "SUBMIT_CREATE": "Δημιουργία Ομάδας"
-    }
+    },
+    "COUNT": "{n} team | {n} teams",
+    "SEARCH_PLACEHOLDER": "Αναζήτηση ομάδων...",
+    "NO_RESULTS": "No teams found matching your search"
   }
 }

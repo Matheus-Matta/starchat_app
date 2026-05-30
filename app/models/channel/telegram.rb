@@ -102,9 +102,10 @@ class Channel::Telegram < ApplicationRecord
   end
 
   def send_message(message)
+    text = convert_markdown_to_telegram_html(message.outgoing_content)
     response = message_request(
       chat_id(message),
-      message.outgoing_content,
+      text,
       reply_markup(message),
       reply_to_message_id(message),
       business_connection_id: business_connection_id(message)

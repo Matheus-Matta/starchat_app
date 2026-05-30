@@ -58,7 +58,11 @@
       "CONFIRM": "השבת 2FA",
       "CANCEL": "ביטול",
       "SUCCESS": "Two-factor authentication has been disabled",
-      "ERROR": "השבתת MFA נכשלה. אנא בדוק את פרטי הכניסה שלך."
+      "ERROR": "השבתת MFA נכשלה. אנא בדוק את פרטי הכניסה שלך.",
+      "BACKUP_CODE": "קוד גיבוי",
+      "BACKUP_CODE_PLACEHOLDER": "הזן אחד מקודי הגיבוי שלך",
+      "USE_BACKUP_CODE": "Lost access to your authenticator? Use a backup code instead",
+      "USE_OTP_CODE": "Use a verification code from your authenticator app"
     },
     "REGENERATE": {
       "TITLE": "צור מחדש קודי גיבוי",

@@ -119,6 +119,9 @@
           "INPUT": "Pesquisar por agentes"
         }
       }
-    }
+    },
+    "COUNT": "{n} agente | {n} agentes",
+    "SEARCH_PLACEHOLDER": "Pesquisar agentes...",
+    "NO_RESULTS": "Nenhum agente encontrado correspondente à sua busca"
   }
 }

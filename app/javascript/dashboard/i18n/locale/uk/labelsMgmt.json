@@ -13,7 +13,8 @@
       "TABLE_HEADER": {
         "NAME": "Ім'я",
         "DESCRIPTION": "Опис",
-        "COLOR": "Колір"
+        "COLOR": "Колір",
+        "ACTION": "Дії"
       }
     },
     "FORM": {
@@ -80,6 +81,9 @@
         "YES": "Так, видалити ",
         "NO": "Ні, залишити "
       }
-    }
+    },
+    "COUNT": "{n} label | {n} labels",
+    "SEARCH_PLACEHOLDER": "Пошук міток...",
+    "NO_RESULTS": "No labels found matching your search"
   }
 }

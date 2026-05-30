@@ -22,7 +22,7 @@ describe('useChannelIcon', () => {
   it('returns correct icon for Voice channel', () => {
     const inbox = { channel_type: 'Channel::Voice' };
     const { value: icon } = useChannelIcon(inbox);
-    expect(icon).toBe('i-woot-voice');
+    expect(icon).toBe('i-ri-phone-fill');
   });
 
   it('returns correct icon for Line channel', () => {
@@ -64,7 +64,7 @@ describe('useChannelIcon', () => {
   it('returns correct icon for TikTok channel', () => {
     const inbox = { channel_type: 'Channel::Tiktok' };
     const { value: icon } = useChannelIcon(inbox);
-    expect(icon).toBe('i-woot-tiktok');
+    expect(icon).toBe('i-ri-tiktok-fill');
   });
 
   describe('TwilioSms channel', () => {

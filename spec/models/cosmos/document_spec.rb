@@ -13,7 +13,7 @@ RSpec.describe Cosmos::Document, type: :model do
       it 'allows XLSX' do
         # We simulate the blob check indirectly or via mock
         blob = instance_double(ActiveStorage::Blob, content_type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', byte_size: 1000)
-        attachment = instance_double(ActiveStorage::Attached::One, attached?: true, blob: blob)
+        attachment = double('attachment', attached?: true, blob: blob)
         allow(document).to receive(:pdf_file).and_return(attachment)
 
         document.send(:validate_file_format)
@@ -22,7 +22,7 @@ RSpec.describe Cosmos::Document, type: :model do
 
       it 'allows CSV' do
         blob = instance_double(ActiveStorage::Blob, content_type: 'text/csv', byte_size: 1000)
-        attachment = instance_double(ActiveStorage::Attached::One, attached?: true, blob: blob)
+        attachment = double('attachment', attached?: true, blob: blob)
         allow(document).to receive(:pdf_file).and_return(attachment)
 
         document.send(:validate_file_format)
@@ -31,7 +31,7 @@ RSpec.describe Cosmos::Document, type: :model do
 
       it 'rejects JPG' do
         blob = instance_double(ActiveStorage::Blob, content_type: 'image/jpeg', byte_size: 1000)
-        attachment = instance_double(ActiveStorage::Attached::One, attached?: true, blob: blob)
+        attachment = double('attachment', attached?: true, blob: blob)
         allow(document).to receive(:pdf_file).and_return(attachment)
 
         document.send(:validate_file_format)

@@ -33,7 +33,8 @@
       "INBOX": "Iesūtne",
       "DELETE": {
         "BUTTON_TEXT": "Dzēst"
-      }
+      },
+      "ACTIONS": "Darbības"
     },
     "ADD": {
       "FORM": {
@@ -57,6 +58,9 @@
     },
     "SIDEBAR_DESCRIPTION": {
       "DIALOGFLOW": "Dialogflow ir dabiskas valodas apstrādes platforma, sarunvalodas interfeisa veidošanai. Integrējot to ar {installationName}, roboti vispirms apstrādās vaicājumus un vajadzības gadījumā pārsūtīs tos aģentiem. Tas palīdz kvalificēt potenciālos klientus un samazināt aģentu darba slodzi, atbildot uz bieži uzdotajiem jautājimiem. Lai pievienotu Dialogflow, pakalpojumā Google Console izveidojiet Service Account un kopīgojiet akreditācijas datus. Sīkāku informāciju skatiet dokumentācijā"
-    }
+    },
+    "COUNT": "{n} integration | {n} integrations",
+    "SEARCH_PLACEHOLDER": "Meklēt...",
+    "NO_RESULTS": "No results found matching your search"
   }
 }

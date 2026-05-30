@@ -72,6 +72,9 @@
         "YES": "Sí, eliminar ",
         "NO": "No, mantenerlo "
       }
-    }
+    },
+    "COUNT": "{n} canned response | {n} canned responses",
+    "SEARCH_PLACEHOLDER": "Search canned responses...",
+    "NO_RESULTS": "No canned responses found matching your search"
   }
 }

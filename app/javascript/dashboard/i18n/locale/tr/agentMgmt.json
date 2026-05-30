@@ -119,6 +119,9 @@
           "INPUT": "Temsilci Arama"
         }
       }
-    }
+    },
+    "COUNT": "{n} agent | {n} agents",
+    "SEARCH_PLACEHOLDER": "Temsilci ara...",
+    "NO_RESULTS": "No agents found matching your search"
   }
 }

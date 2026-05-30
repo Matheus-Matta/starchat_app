@@ -88,7 +88,7 @@ const metrics = computed(() => {
 
 <template>
   <section
-    class="shadow outline-1 outline outline-n-container rounded-xl bg-n-solid-2 px-6 py-5"
+    class="shadow-sm outline-1 outline outline-n-container rounded-xl bg-n-solid-2 px-4 py-5 lg:px-5"
     data-testid="monitoring-summary"
   >
     <header class="flex flex-wrap items-center justify-between gap-3">
@@ -123,12 +123,12 @@ const metrics = computed(() => {
 
     <div
       v-else
-      class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+      class="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
     >
       <article
         v-for="metric in metrics"
         :key="metric.label"
-        class="rounded-xl border border-n-weak bg-n-solid-1 px-5 py-4 text-n-slate-12"
+        class="rounded-lg border border-n-weak bg-n-solid-1 px-4 py-3.5 text-n-slate-12"
       >
         <div class="flex items-center justify-between gap-3">
           <p

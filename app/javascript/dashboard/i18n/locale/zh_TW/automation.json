@@ -40,13 +40,14 @@
       }
     },
     "LIST": {
+      "404": "No automation rules found",
       "TABLE_HEADER": {
         "NAME": "姓名",
         "DESCRIPTION": "描述資訊",
         "ACTIVE": "Active",
-        "CREATED_ON": "Created on"
-      },
-      "404": "No automation rules found"
+        "CREATED_ON": "Created on",
+        "ACTIONS": "操作"
+      }
     },
     "DELETE": {
       "TITLE": "刪除自動化規則",
@@ -131,7 +132,8 @@
       "CONVERSATION_CREATED": "Conversation Created",
       "CONVERSATION_UPDATED": "Conversation Updated",
       "MESSAGE_CREATED": "Message Created",
-      "CONVERSATION_OPENED": "Conversation Opened"
+      "CONVERSATION_OPENED": "Conversation Opened",
+      "CONVERSATION_RESOLVED": "對話已解決"
     },
     "ACTIONS": {
       "ASSIGN_AGENT": "Assign to Agent",
@@ -149,7 +151,10 @@
       "ADD_PRIVATE_NOTE": "Add a Private Note",
       "CHANGE_PRIORITY": "Change Priority",
       "ADD_SLA": "Add SLA",
-      "OPEN_CONVERSATION": "開啟對話"
+      "OPEN_CONVERSATION": "開啟對話",
+      "REMOVE_ASSIGNED_AGENT": "移除已指派的客服人員",
+      "REMOVE_ASSIGNED_TEAM": "移除已指派的團隊",
+      "PENDING_CONVERSATION": "將對話標記為待處理"
     },
     "MESSAGE_TYPES": {
       "INCOMING": "Incoming Message",
@@ -176,7 +181,14 @@
       "REFERER_LINK": "Referrer Link",
       "ASSIGNEE_NAME": "Assignee",
       "TEAM_NAME": "Team",
-      "PRIORITY": "優先程度"
-    }
+      "PRIORITY": "優先程度",
+      "PRIVATE_NOTE": "私人筆記",
+      "COMPANY_NAME": "公司",
+      "LABELS": "標籤"
+    },
+    "COUNT": "{n} 條自動化規則 | {n} 條自動化規則",
+    "SEARCH_PLACEHOLDER": "搜尋自動化規則...",
+    "NO_RESULTS": "找不到符合搜尋條件的自動化規則",
+    "LAST_RESPONDING_AGENT": "Last Responding Agent"
   }
 }

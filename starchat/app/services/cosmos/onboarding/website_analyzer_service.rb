@@ -70,7 +70,7 @@ class Cosmos::Onboarding::WebsiteAnalyzerService < Llm::BaseOpenAiService
 
   def instrumentation_params
     {
-      span_name: 'llm.captain.website_analyzer',
+      span_name: 'llm.cosmos.website_analyzer',
       model: @model,
       temperature: 0.1,
       feature_name: 'website_analyzer',

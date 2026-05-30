@@ -16,14 +16,32 @@
         "LANGUAGE": "Idioma",
         "TEMPLATE_BODY": "Corpo do Template",
         "CATEGORY": "Categoria"
-      }
+      },
+      "HEADER": "Header",
+      "BODY": "Body",
+      "FOOTER": "Footer",
+      "BUTTONS": "Buttons",
+      "CATEGORY": "Categoria",
+      "MEDIA_CONTENT": "Media Content",
+      "MEDIA_CONTENT_FALLBACK": "media content"
     },
     "PARSER": {
       "VARIABLES_LABEL": "Variáveis",
       "VARIABLE_PLACEHOLDER": "Digite o valor {variable}",
       "GO_BACK_LABEL": "Voltar",
       "SEND_MESSAGE_LABEL": "Enviar mensagem",
-      "FORM_ERROR_MESSAGE": "Preencha todas as variáveis antes de enviar"
+      "FORM_ERROR_MESSAGE": "Preencha todas as variáveis antes de enviar",
+      "LANGUAGE": "Idioma",
+      "CATEGORY": "Categoria",
+      "MEDIA_HEADER_LABEL": "{type} Header",
+      "OTP_CODE": "Enter 4-8 digit OTP",
+      "EXPIRY_MINUTES": "Enter expiry minutes",
+      "BUTTON_PARAMETERS": "Button Parameters",
+      "BUTTON_LABEL": "Button {index}",
+      "COUPON_CODE": "Enter coupon code (max 15 chars)",
+      "MEDIA_URL_LABEL": "Enter {type} URL",
+      "DOCUMENT_NAME_PLACEHOLDER": "Enter document filename (e.g., Invoice_2025.pdf)",
+      "BUTTON_PARAMETER": "Enter button parameter"
     }
   }
 }

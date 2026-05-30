@@ -35,6 +35,9 @@ class Cosmos::CustomTool < ApplicationRecord
   # verbatim as the tool name in LLM requests, so it must fit within this limit.
   MAX_SLUG_LENGTH = 64
   COLLISION_SUFFIX_LENGTH = 7 # "_" + 6 random alphanumeric chars
+  MAX_PER_ACCOUNT = 50
+
+  class LimitExceededError < StandardError; end
   PARAM_SCHEMA_VALIDATION = {
     'type': 'array',
     'items': {
@@ -81,9 +84,9 @@ class Cosmos::CustomTool < ApplicationRecord
   def ensure_within_limit
     # Lock the account row to serialize concurrent creates and prevent exceeding the cap
     Account.lock.find(account_id)
-    return if account.captain_custom_tools.count < MAX_PER_ACCOUNT
+    return if account.cosmos_custom_tools.count < MAX_PER_ACCOUNT
 
-    raise LimitExceededError, I18n.t('captain.custom_tool.limit_exceeded', limit: MAX_PER_ACCOUNT)
+    raise LimitExceededError, I18n.t('cosmos.custom_tool.limit_exceeded', limit: MAX_PER_ACCOUNT)
   end
 
   def generate_slug

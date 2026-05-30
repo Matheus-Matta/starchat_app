@@ -189,7 +189,8 @@ class Api::V1::Accounts::InboxesController < Api::V1::Accounts::BaseController
      :lock_to_single_conversation, :portal_id, :sender_name_type, :business_name,
      :auto_resolve_duration, :auto_resolve_message, :auto_resolve_ignore_waiting, :auto_resolve_label,
      :protocol_policy_id,
-     { csat_config: [:display_type, :message, { survey_rules: [:operator, { values: [] }] }] },
+     { csat_config: [:display_type, :message, { survey_rules: [:operator, { values: [] }] },
+                     { template: [:name, :template_id, :language, :created_at] }] },
      { anti_spam_config: [:active, :max_messages, :time_window, :block_duration] },
      { sender_config: [:send_agent_name] }]
   end

@@ -13,7 +13,7 @@ RSpec.describe Cosmos::Documents::ResponseBuilderJob, type: :job do
 
   before do
     allow(Cosmos::Llm::FaqGeneratorService).to receive(:new)
-      .with(document.content)
+      .with(document.content, document.account.locale_english_name)
       .and_return(faq_generator)
     allow(faq_generator).to receive(:generate).and_return(faqs)
   end

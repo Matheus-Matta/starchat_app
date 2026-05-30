@@ -19,7 +19,7 @@ RSpec.describe Cosmos::InboxPendingConversationsResolutionJob, type: :job do
       .to have_enqueued_job.on_queue('low')
   end
 
-  context 'when captain_tasks is disabled' do
+  context 'when cosmos_tasks is disabled' do
     it 'resolves pending conversations inactive for over 1 hour' do
       described_class.perform_now(inbox)
 
@@ -39,11 +39,11 @@ RSpec.describe Cosmos::InboxPendingConversationsResolutionJob, type: :job do
     end
 
     it 'does not call ConversationCompletionService' do
-      allow(Captain::ConversationCompletionService).to receive(:new)
+      allow(Cosmos::ConversationCompletionService).to receive(:new)
 
       described_class.perform_now(inbox)
 
-      expect(Captain::ConversationCompletionService).not_to have_received(:new)
+      expect(Cosmos::ConversationCompletionService).not_to have_received(:new)
     end
   end
 
@@ -51,20 +51,21 @@ RSpec.describe Cosmos::InboxPendingConversationsResolutionJob, type: :job do
     custom_message = 'This is a custom resolution message.'
     cosmos_assistant.update!(config: { 'resolution_message' => custom_message })
 
-    expect do
-      described_class.perform_now(inbox)
-    end.not_to(change { resolvable_pending_conversation.reload.status })
+    described_class.perform_now(inbox)
 
-    expect(resolvable_pending_conversation.reload.status).to eq('pending')
-    expect(resolvable_pending_conversation.messages.outgoing).to be_empty
+    expect(resolvable_pending_conversation.reload.status).to eq('resolved')
+    expect(resolvable_pending_conversation.messages.outgoing.count).to eq(1)
+    expect(resolvable_pending_conversation.messages.outgoing.last.content).to eq(custom_message)
   end
 
   it 'creates an outgoing message with default auto resolution message if not configured' do
     cosmos_assistant.update!(config: {})
 
-    expect do
-      described_class.perform_now(inbox)
-    end.not_to(change { resolvable_pending_conversation.reload.status })
+    described_class.perform_now(inbox)
+
+    expect(resolvable_pending_conversation.reload.status).to eq('resolved')
+    expect(resolvable_pending_conversation.messages.outgoing.count).to eq(1)
+  end
 
   it 'adds the correct activity message after resolution by Cosmos' do
     described_class.perform_now(inbox)

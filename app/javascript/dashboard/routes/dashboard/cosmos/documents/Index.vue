@@ -104,12 +104,12 @@ const buildSelectedCountLabel = computed(() => {
   const count = documents.value?.length || 0;
   const isAllSelected = bulkSelectedIds.value.size === count && count > 0;
   return isAllSelected
-    ? t('CAPTAIN.DOCUMENTS.UNSELECT_ALL', { count })
-    : t('CAPTAIN.DOCUMENTS.SELECT_ALL', { count });
+    ? t('COSMOS.DOCUMENTS.UNSELECT_ALL', { count })
+    : t('COSMOS.DOCUMENTS.SELECT_ALL', { count });
 });
 
 const selectedCountLabel = computed(() => {
-  return t('CAPTAIN.DOCUMENTS.SELECTED', {
+  return t('COSMOS.DOCUMENTS.SELECTED', {
     count: bulkSelectedIds.value.size,
   });
 });
@@ -179,7 +179,7 @@ onMounted(() => {
           :all-items="documents"
           :select-all-label="buildSelectedCountLabel"
           :selected-count-label="selectedCountLabel"
-          :delete-label="$t('CAPTAIN.DOCUMENTS.BULK_DELETE_BUTTON')"
+          :delete-label="$t('COSMOS.DOCUMENTS.BULK_DELETE_BUTTON')"
           class="w-fit"
           :class="{ 'mb-2': bulkSelectedIds.size > 0 }"
           @bulk-delete="bulkDeleteDialog.dialogRef.open()"

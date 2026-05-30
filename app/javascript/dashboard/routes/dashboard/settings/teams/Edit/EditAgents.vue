@@ -1,6 +1,5 @@
 <script>
 import { mapGetters } from 'vuex';
-import router from '../../../../index';
 import { useAlert } from 'dashboard/composables';
 import { useVuelidate } from '@vuelidate/core';
 
@@ -85,7 +84,7 @@ export default {
           teamId,
           agentsList: selectedAgents,
         });
-        router.replace({
+        this.$router.replace({
           name: 'settings_teams_edit_finish',
           params: {
             page: 'edit',

@@ -69,7 +69,8 @@ describe('#ContactsAPI', () => {
     it('#search', () => {
       contactAPI.search('leads', 1, 'date', 'customer-support');
       expect(axiosMock.get).toHaveBeenCalledWith(
-        '/api/v1/contacts/search?include_contact_inboxes=true&page=1&sort=date&q=leads&labels[]=customer-support'
+        '/api/v1/contacts/search?include_contact_inboxes=true&page=1&sort=date&q=leads&labels[]=customer-support',
+        { signal: undefined }
       );
     });
 

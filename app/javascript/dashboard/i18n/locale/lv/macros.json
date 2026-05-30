@@ -25,13 +25,14 @@
       }
     },
     "LIST": {
+      "404": "Nav atrasts neviens makro",
       "TABLE_HEADER": {
         "NAME": "Nosaukums",
         "CREATED BY": "Izveidoja",
         "LAST_UPDATED_BY": "Pēdējo reizi atjaunināja",
-        "VISIBILITY": "Redzamība"
-      },
-      "404": "Nav atrasts neviens makro"
+        "VISIBILITY": "Redzamība",
+        "ACTIONS": "Darbības"
+      }
     },
     "DELETE": {
       "TOOLTIP": "Dzēst makro",
@@ -62,7 +63,9 @@
         "LABEL": "Makro Redzamība",
         "GLOBAL": {
           "LABEL": "Publisks",
-          "DESCRIPTION": "Šis makro ir publiski pieejams visiem šī konta aģentiem."
+          "DESCRIPTION": "Šis makro ir publiski pieejams visiem šī konta aģentiem.",
+          "CREATE_DISABLED_DESCRIPTION": "Only administrators can create public macros.",
+          "EDIT_DISABLED_DESCRIPTION": "Only administrators can edit public macros."
         },
         "PERSONAL": {
           "LABEL": "Privāts",
@@ -98,7 +101,8 @@
       "SEND_MESSAGE": "Nosūtīt Ziņojumu",
       "CHANGE_PRIORITY": "Mainīt prioritāti",
       "ADD_PRIVATE_NOTE": "Pievienot Privātu Piezīmi",
-      "SEND_WEBHOOK_EVENT": "Nosūtīt Webhook Notikumu"
+      "SEND_WEBHOOK_EVENT": "Nosūtīt Webhook Notikumu",
+      "REMOVE_ASSIGNED_AGENT": "Remove Assigned Agent"
     },
     "PRIORITY_TYPES": {
       "NONE": "Nav",
@@ -106,6 +110,12 @@
       "MEDIUM": "Vidēja",
       "HIGH": "Augsta",
       "URGENT": "Steidzama"
+    },
+    "COUNT": "{n} macro | {n} macros",
+    "SEARCH_PLACEHOLDER": "Search macros...",
+    "NO_RESULTS": "No macros found matching your search",
+    "VIEW": {
+      "TOOLTIP": "View macro"
     }
   }
 }

@@ -110,6 +110,14 @@
         "SUBMIT_BUTTON": "받은 메시지함 만들기",
         "API": {
           "ERROR_MESSAGE": "We were not able to create a website channel, please try again"
+        },
+        "CHANNEL_WEBHOOK_SECRET": {
+          "LABEL": "Webhook Secret",
+          "COPY": "시크릿을 클립보드에 복사",
+          "COPY_SUCCESS": "시크릿이 클립보드에 복사되었습니다",
+          "TOGGLE": "시크릿 표시 전환",
+          "RESET_SUCCESS": "Webhook secret regenerated successfully",
+          "RESET_ERROR": "Unable to regenerate webhook secret. Please try again"
         }
       },
       "TWILIO": {
@@ -291,7 +299,13 @@
           "INVALID_BUSINESS_DATA": "Invalid business data received from Facebook. Please try again.",
           "SIGNUP_ERROR": "Signup error occurred",
           "AUTH_NOT_COMPLETED": "Authentication not completed. Please restart the process.",
-          "SUCCESS_FALLBACK": "WhatsApp Business Account has been successfully configured"
+          "SUCCESS_FALLBACK": "WhatsApp Business Account has been successfully configured",
+          "LEARN_MORE": {
+            "TEXT": "통합 가입, 요금 및 제한 사항에 대해 자세히 알아보려면 {link}을 방문하십시오.",
+            "LINK_TEXT": "이 링크"
+          },
+          "MANUAL_FALLBACK": "번호가 이미 WhatsApp Business Platform (API)에 연결되어 있거나, 자체 번호를 온보딩하는 기술 공급자인 경우 {link}을 사용하십시오",
+          "MANUAL_LINK_TEXT": "수동 설정 플로우"
         },
         "API": {
           "ERROR_MESSAGE": "We were not able to save the WhatsApp channel"
@@ -373,7 +387,11 @@
         "API": {
           "ERROR_MESSAGE": "이메일 채널을 저장할 수 없습니다."
         },
-        "FINISH_MESSAGE": "당신의 이메일 주소로 이메일 전달을 시작하십시오."
+        "FINISH_MESSAGE": "당신의 이메일 주소로 이메일 전달을 시작하십시오.",
+        "FINISH_MESSAGE_NO_FORWARDING": "이메일 받은 메시지함이 성공적으로 생성되었습니다! 이메일을 보내고 받으려면 SMTP 및 IMAP 자격 증명을 구성해야 합니다. 이 설정이 없으면 이메일이 처리되지 않습니다.",
+        "FORWARDING_ADDRESS_LABEL": "이 주소로 이메일 전달:",
+        "CONFIGURE_SMTP_IMAP_LINK": "여기를 클릭하세요",
+        "CONFIGURE_SMTP_IMAP_TEXT": " IMAP 및 SMTP 설정을 구성하십시오"
       },
       "LINE_CHANNEL": {
         "TITLE": "LINE Channel",
@@ -462,6 +480,10 @@
           "VOICE": {
             "TITLE": "Voice",
             "DESCRIPTION": "Integrate with Twilio Voice"
+          },
+          "TIKTOK": {
+            "TITLE": "TikTok",
+            "DESCRIPTION": "TikTok 계정 연결"
           }
         }
       },
@@ -496,6 +518,13 @@
         "SIGN_IN": "Sign in with Google",
         "EMAIL_PLACEHOLDER": "Enter email address",
         "ERROR_MESSAGE": "There was an error connecting to Google, please try again"
+      },
+      "TIKTOK": {
+        "CONTINUE_WITH_TIKTOK": "TikTok으로 계속하기",
+        "CONNECT_YOUR_TIKTOK_PROFILE": "TikTok 프로필 연결",
+        "HELP": "TikTok 프로필을 채널로 추가하려면 'TikTok으로 계속하기'를 클릭하여 TikTok 프로필을 인증해야 합니다.",
+        "ERROR_MESSAGE": "TikTok에 연결하는 동안 오류가 발생했습니다. 다시 시도하십시오.",
+        "ERROR_AUTH": "TikTok에 연결하는 동안 오류가 발생했습니다. 다시 시도하십시오."
       }
     },
     "DETAILS": {
@@ -567,7 +596,9 @@
       },
       "LOCK_TO_SINGLE_CONVERSATION": {
         "ENABLED": "사용함",
-        "DISABLED": "사용 안 함"
+        "DISABLED": "사용 안 함",
+        "ENABLED_DESCRIPTION": "연락처가 다시 메시지를 보내면 이전 대화가 다시 열립니다.",
+        "DISABLED_DESCRIPTION": "이전 대화가 해결된 후에는 매번 새 대화가 생성됩니다."
       },
       "ENABLE_HMAC": {
         "LABEL": "Enable"
@@ -599,7 +630,9 @@
       "BUSINESS_HOURS": "영업시간",
       "WIDGET_BUILDER": "Widget Builder",
       "BOT_CONFIGURATION": "Bot Configuration",
-      "CSAT": "CSAT"
+      "CSAT": "CSAT",
+      "ACCOUNT_HEALTH": "계정 상태",
+      "VOICE": "음성"
     },
     "SETTINGS": "설정",
     "FEATURES": {
@@ -652,14 +685,49 @@
       "WHATSAPP_TEMPLATES_SYNC_SUBHEADER": "Manually sync message templates from WhatsApp to update your available templates.",
       "WHATSAPP_TEMPLATES_SYNC_BUTTON": "Sync Templates",
       "WHATSAPP_TEMPLATES_SYNC_SUCCESS": "Templates sync initiated successfully. It may take a couple of minutes to update.",
-      "UPDATE_PRE_CHAT_FORM_SETTINGS": "Update Pre Chat Form Settings"
+      "UPDATE_PRE_CHAT_FORM_SETTINGS": "Update Pre Chat Form Settings",
+      "ALLOWED_DOMAINS": {
+        "TITLE": "허용된 도메인",
+        "DESCRIPTION": "Restrict which websites can embed your chat widget. For security, only add domains you own and trust. Add one or more domains separated by commas. Leave blank to allow all domains (not recommended for production).",
+        "PLACEHOLDER": "example.com, www.example.com, app.example.com"
+      },
+      "ALLOW_MOBILE_WEBVIEW": {
+        "LABEL": "Enable widget in mobile apps",
+        "SUBTITLE": "Check this if you embed the widget in iOS or Android apps. Mobile apps don't send domain information, so they would be blocked by domain restrictions unless this is enabled."
+      },
+      "IDENTITY_VALIDATION": {
+        "TITLE": "Identity Validation",
+        "DESCRIPTION": "Verify user authenticity by generating secure tokens. This prevents unauthorized users from impersonating others in your chat.",
+        "SECRET_KEY": "비밀 키",
+        "VIEW_DOCS": "View documentation",
+        "REQUIRE_LABEL": "Require identity validation for all conversations",
+        "REQUIRE_DESCRIPTION": "When enabled, users must provide a valid identity token to start conversations. Requests without valid tokens will be rejected."
+      },
+      "ENABLE_CONTINUITY_VIA_EMAIL_DISABLED_TEXT": "This feature is available on a paid plan. Upgrade to enable conversation continuity via email.",
+      "FORWARD_EMAIL_NOT_CONFIGURED": "이 설치에서 받은 메시지함으로의 이메일 전달이 현재 비활성화되어 있습니다. 이 기능을 사용하려면 관리자가 활성화해야 합니다. 관리자에게 문의하십시오.",
+      "WHATSAPP_EMBEDDED_SIGNUP_TITLE": "WhatsApp 임베디드 가입",
+      "WHATSAPP_EMBEDDED_SIGNUP_SUBHEADER": "이 받은 메시지함은 WhatsApp 임베디드 가입을 통해 연결되었습니다.",
+      "WHATSAPP_EMBEDDED_SIGNUP_DESCRIPTION": "이 받은 메시지함을 다시 구성하여 WhatsApp Business 설정을 업데이트할 수 있습니다.",
+      "WHATSAPP_RECONFIGURE_BUTTON": "다시 구성",
+      "WHATSAPP_CONNECT_TITLE": "WhatsApp Business에 연결",
+      "WHATSAPP_CONNECT_SUBHEADER": "더 쉬운 관리를 위해 WhatsApp 임베디드 가입으로 업그레이드하십시오.",
+      "WHATSAPP_CONNECT_DESCRIPTION": "향상된 기능과 더 쉬운 관리를 위해 이 받은 메시지함을 WhatsApp Business에 연결하십시오.",
+      "WHATSAPP_CONNECT_BUTTON": "연결",
+      "WHATSAPP_CONNECT_SUCCESS": "WhatsApp Business에 성공적으로 연결되었습니다!",
+      "WHATSAPP_CONNECT_ERROR": "WhatsApp Business에 연결하지 못했습니다. 다시 시도하십시오.",
+      "WHATSAPP_RECONFIGURE_SUCCESS": "WhatsApp Business가 성공적으로 다시 구성되었습니다!",
+      "WHATSAPP_RECONFIGURE_ERROR": "WhatsApp Business를 다시 구성하지 못했습니다. 다시 시도하십시오.",
+      "WHATSAPP_APP_ID_MISSING": "WhatsApp 앱 ID가 구성되지 않았습니다. 관리자에게 문의하십시오.",
+      "WHATSAPP_CONFIG_ID_MISSING": "WhatsApp 구성 ID가 구성되지 않았습니다. 관리자에게 문의하십시오.",
+      "WHATSAPP_LOGIN_CANCELLED": "WhatsApp 로그인이 취소되었습니다. 다시 시도하십시오."
     },
     "HELP_CENTER": {
       "LABEL": "Help Center",
       "PLACEHOLDER": "Select Help Center",
       "SELECT_PLACEHOLDER": "Select Help Center",
       "REMOVE": "Remove Help Center",
-      "SUB_TEXT": "Attach a Help Center with the inbox"
+      "SUB_TEXT": "Attach a Help Center with the inbox",
+      "NONE": "없음"
     },
     "AUTO_ASSIGNMENT": {
       "MAX_ASSIGNMENT_LIMIT": "Auto assignment limit",
@@ -722,7 +790,51 @@
       "API": {
         "SUCCESS_MESSAGE": "CSAT settings updated successfully",
         "ERROR_MESSAGE": "We couldn't update CSAT settings. Please try again later."
-      }
+      },
+      "BUTTON_TEXT": {
+        "LABEL": "버튼 텍스트",
+        "PLACEHOLDER": "평가해 주십시오"
+      },
+      "LANGUAGE": {
+        "LABEL": "언어",
+        "PLACEHOLDER": "템플릿 언어 선택"
+      },
+      "MESSAGE_PREVIEW": {
+        "LABEL": "메시지 미리보기",
+        "TOOLTIP": "WhatsApp 플랫폼에서 렌더링될 때 약간 다를 수 있습니다."
+      },
+      "TEMPLATE_STATUS": {
+        "APPROVED": "WhatsApp에서 승인됨",
+        "PENDING": "WhatsApp 승인 대기 중",
+        "REJECTED": "Meta에서 템플릿을 거부했습니다",
+        "DEFAULT": "WhatsApp 승인이 필요합니다",
+        "NOT_FOUND": "Meta 플랫폼에 해당 템플릿이 존재하지 않습니다."
+      },
+      "TEMPLATE_CREATION": {
+        "SUCCESS_MESSAGE": "WhatsApp 템플릿이 성공적으로 생성되어 승인을 위해 전송되었습니다.",
+        "ERROR_MESSAGE": "WhatsApp 템플릿을 생성하지 못했습니다."
+      },
+      "TEMPLATE_UPDATE_DIALOG": {
+        "TITLE": "설문 세부 정보 편집",
+        "DESCRIPTION": "이전 템플릿을 삭제하고 WhatsApp 승인을 위해 다시 전송될 새 템플릿을 만듭니다.",
+        "CONFIRM": "새 템플릿 만들기",
+        "CANCEL": "돌아가기"
+      },
+      "UTILITY_ANALYZER": {
+        "ACTION": "유틸리티 적합성 확인",
+        "HELPER_NOTE": "제출 전에 이 메시지를 확인하여 유틸리티 적합성을 높이십시오. 시스템은 보고용 버튼이 포함된 전용 CSAT 템플릿을 만들고 Utility로 제출하지만, Meta는 내용에 따라 이를 Marketing으로 다시 분류할 수 있습니다.",
+        "RESULT_LABEL": "Meta category prediction",
+        "GUIDANCE_NOTE": "이는 가이드용 점검이며 Meta 승인을 보장하지 않습니다.",
+        "SUGGESTION_LABEL": "추천 유틸리티 안전 문구",
+        "APPLY": "이 문구 사용",
+        "ERROR_MESSAGE": "메시지를 분석할 수 없습니다. 다시 시도하십시오.",
+        "CLASSIFICATION": {
+          "LIKELY_UTILITY": "유틸리티일 가능성 높음",
+          "LIKELY_MARKETING": "마케팅일 가능성 높음",
+          "UNCLEAR": "추가 확인 필요"
+        }
+      },
+      "WHATSAPP_NOTE": "참고: 템플릿을 생성하여 WhatsApp 승인을 위해 전송합니다. 승인된 후 설문 규칙에 따라 대화당 한 번만 설문조사가 전송됩니다."
     },
     "BUSINESS_HOURS": {
       "TITLE": "영업시간 설정",
@@ -738,7 +850,9 @@
         "UNAVAILABLE": "영업 종료",
         "HOURS": "시간",
         "VALIDATION_ERROR": "영업시작 시간은 영업종료 시간보다 빨라야 합니다.",
-        "CHOOSE": "선택"
+        "CHOOSE": "선택",
+        "DAY": "요일",
+        "AVAILABILITY": "운영 시간"
       },
       "ALL_DAY": "All-Day"
     },
@@ -769,7 +883,8 @@
         "LABEL": "비밀번호",
         "PLACE_HOLDER": "비밀번호"
       },
-      "ENABLE_SSL": "Enable SSL"
+      "ENABLE_SSL": "Enable SSL",
+      "AUTH_MECHANISM": "인증"
     },
     "MICROSOFT": {
       "TITLE": "Microsoft",
@@ -868,7 +983,8 @@
         "WIDGET_BUBBLE_TYPE": {
           "STANDARD": "Standard",
           "EXPANDED_BUBBLE": "Expanded Bubble"
-        }
+        },
+        "WIDGET_BUBBLE": "버블"
       },
       "WIDGET_SCREEN": {
         "DEFAULT": "Default",
@@ -920,7 +1036,136 @@
       "LINE": "Line",
       "API": "API 채널",
       "INSTAGRAM": "Instagram",
-      "VOICE": "Voice"
+      "VOICE": "Voice",
+      "TIKTOK": "TikTok"
+    },
+    "COUNT": "{n}개의 받은 메시지함 | {n}개의 받은 메시지함",
+    "SEARCH_PLACEHOLDER": "받은 메시지함 검색...",
+    "NO_RESULTS": "검색과 일치하는 받은 메시지함이 없습니다",
+    "WHATSAPP_REGISTRATION_INCOMPLETE": "WhatsApp Business 등록이 완료되지 않았습니다. 다시 연결하기 전에 Meta Business Manager에서 표시 이름 상태를 확인하십시오.",
+    "COMPLETE_REGISTRATION": "등록 완료",
+    "VOICE_CONFIGURATION": {
+      "ENABLE_VOICE": {
+        "LABEL": "Enable Voice Calling",
+        "DESCRIPTION": "Enable voice calling on this inbox. Agents will be able to make and receive phone calls."
+      },
+      "CREDENTIALS": {
+        "DESCRIPTION": "Voice calling requires Twilio API Key credentials. These are used to generate tokens for agent voice connections."
+      }
+    },
+    "CHANNEL_PREFERENCES": "채널 환경설정",
+    "WIDGET_FEATURES": "위젯 기능",
+    "ACCOUNT_HEALTH": {
+      "TITLE": "WhatsApp 계정 관리",
+      "DESCRIPTION": "WhatsApp 계정 상태, 메시지 제한 및 품질을 검토하십시오. 필요한 경우 설정을 업데이트하거나 문제를 해결하십시오.",
+      "GO_TO_SETTINGS": "Meta Business Manager로 이동",
+      "NO_DATA": "상태 데이터를 사용할 수 없습니다",
+      "FIELDS": {
+        "DISPLAY_PHONE_NUMBER": {
+          "LABEL": "표시 전화 번호",
+          "TOOLTIP": "고객에게 표시되는 전화 번호"
+        },
+        "VERIFIED_NAME": {
+          "LABEL": "비즈니스 이름",
+          "TOOLTIP": "WhatsApp에서 인증된 비즈니스 이름"
+        },
+        "DISPLAY_NAME_STATUS": {
+          "LABEL": "표시 이름 상태",
+          "TOOLTIP": "비즈니스 이름 인증 상태"
+        },
+        "QUALITY_RATING": {
+          "LABEL": "품질 등급",
+          "TOOLTIP": "계정의 WhatsApp 품질 등급"
+        },
+        "MESSAGING_LIMIT_TIER": {
+          "LABEL": "메시지 제한 등급",
+          "TOOLTIP": "계정의 일일 메시지 제한"
+        },
+        "ACCOUNT_MODE": {
+          "LABEL": "계정 모드",
+          "TOOLTIP": "WhatsApp 계정의 현재 운영 모드"
+        }
+      },
+      "VALUES": {
+        "TIERS": {
+          "TIER_250": "24시간당 고객 250명",
+          "TIER_1000": "24시간당 고객 1,000명",
+          "TIER_1K": "24시간당 고객 1,000명",
+          "TIER_10K": "24시간당 고객 10,000명",
+          "TIER_100K": "24시간당 고객 100,000명",
+          "TIER_UNLIMITED": "24시간당 무제한 고객",
+          "UNKNOWN": "등급을 사용할 수 없습니다"
+        },
+        "STATUSES": {
+          "APPROVED": "승인됨",
+          "PENDING_REVIEW": "검토 대기 중",
+          "AVAILABLE_WITHOUT_REVIEW": "검토 없이 사용 가능",
+          "REJECTED": "거부됨",
+          "DECLINED": "거절됨",
+          "NON_EXISTS": "존재하지 않음"
+        },
+        "MODES": {
+          "SANDBOX": "샌드박스",
+          "LIVE": "라이브"
+        }
+      },
+      "WEBHOOK": {
+        "TITLE": "웹훅 구성",
+        "DESCRIPTION": "고객 메시지를 수신하려면 WhatsApp Business 계정에 웹훅 URL이 필요합니다",
+        "ACTION_REQUIRED": "웹훅이 구성되지 않았습니다",
+        "REGISTER_BUTTON": "웹훅 등록",
+        "REGISTER_SUCCESS": "웹훅이 성공적으로 등록되었습니다",
+        "REGISTER_ERROR": "웹훅 등록에 실패했습니다. 다시 시도하십시오.",
+        "CONFIGURED_SUCCESS": "웹훅이 성공적으로 구성되었습니다",
+        "URL_MISMATCH": "웹훅 URL이 일치하지 않습니다"
+      }
+    },
+    "ASSIGNMENT": {
+      "TITLE": "대화 할당",
+      "DESCRIPTION": "할당 정책에 따라 수신 대화를 사용 가능한 에이전트에게 자동으로 할당합니다.",
+      "ENABLE_AUTO_ASSIGNMENT": "자동 대화 할당 사용",
+      "DEFAULT_RULES_TITLE": "기본 할당 규칙",
+      "DEFAULT_RULES_DESCRIPTION": "모든 대화에 기본 할당 동작을 사용합니다.",
+      "DEFAULT_RULE_1": "가장 먼저 생성된 대화 우선",
+      "DEFAULT_RULE_2": "라운드 로빈 배분",
+      "CUSTOMIZE_WITH_POLICY": "할당 정책으로 사용자 정의",
+      "USING_POLICY": "이 받은 메시지함에 사용자 정의 할당 정책을 사용 중",
+      "CUSTOMIZE_POLICY": "할당 정책으로 사용자 정의",
+      "DELETE_POLICY": "정책 삭제",
+      "POLICY_LABEL": "할당 정책",
+      "ASSIGNMENT_ORDER_LABEL": "할당 순서",
+      "ASSIGNMENT_METHOD_LABEL": "할당 방법",
+      "POLICY_STATUS": {
+        "ACTIVE": "활성",
+        "INACTIVE": "비활성"
+      },
+      "PRIORITY": {
+        "EARLIEST_CREATED": "가장 먼저 생성됨",
+        "LONGEST_WAITING": "가장 오래 대기 중"
+      },
+      "METHOD": {
+        "ROUND_ROBIN": "라운드 로빈",
+        "BALANCED": "균형 할당"
+      },
+      "UPGRADE_PROMPT": "사용자 정의 할당 정책은 Business 플랜에서 사용할 수 있습니다.",
+      "UPGRADE_TO_BUSINESS": "Business로 업그레이드",
+      "DEFAULT_POLICY_LINKED": "기본 정책이 연결됨",
+      "DEFAULT_POLICY_DESCRIPTION": "이 받은 메시지함에서 대화가 에이전트에게 할당되는 방식을 사용자 정의하려면 사용자 정의 할당 정책을 연결하십시오.",
+      "LINK_EXISTING_POLICY": "기존 정책 연결",
+      "CREATE_NEW_POLICY": "새 정책 만들기",
+      "NO_POLICIES": "할당 정책을 찾을 수 없습니다.",
+      "VIEW_ALL_POLICIES": "모든 정책 보기",
+      "CURRENT_BEHAVIOR": "현재 기본 할당 동작을 사용 중:",
+      "LINK_SUCCESS": "할당 정책이 성공적으로 연결되었습니다.",
+      "LINK_ERROR": "할당 정책을 연결하지 못했습니다."
+    },
+    "ASSIGNMENT_POLICY": {
+      "DELETE_CONFIRM_TITLE": "할당 정책을 삭제하시겠습니까?",
+      "DELETE_CONFIRM_MESSAGE": "이 받은 메시지함에서 이 할당 정책을 제거하시겠습니까? 받은 메시지함은 기본 할당 규칙으로 돌아갑니다.",
+      "CANCEL": "취소",
+      "CONFIRM_DELETE": "삭제",
+      "DELETE_SUCCESS": "할당 정책이 성공적으로 제거되었습니다.",
+      "DELETE_ERROR": "할당 정책을 제거하지 못했습니다."
     }
   }
 }

@@ -699,9 +699,9 @@ hy:
     copilot_message_required: Message is required
     copilot_error: 'Please connect an assistant to this inbox to use Copilot'
     copilot_limit: 'You are out of Copilot credits. You can buy more credits from the billing section.'
-    upgrade: 'Տեղափոխեք ձեր փաթեթը՝ առավելացնելու Captain AI գործառույթը'
-    disabled: 'Captain AI-ն անջատված է այս հաշվի համար։'
-    api_key_missing: 'Captain AI API բանալին կարգավորված չէ։'
+    upgrade: 'Տեղափոխեք ձեր փաթեթը՝ առավելացնելու Cosmos AI գործառույթը'
+    disabled: 'Cosmos AI-ն անջատված է այս հաշվի համար։'
+    api_key_missing: 'Cosmos AI API բանալին կարգավորված չէ։'
     copilot:
       using_tool: 'Օգտագործվում է %{function_name} գործիքը'
       completed_tool_call: 'Ավարտեց %{function_name} գործիքի կանչը'

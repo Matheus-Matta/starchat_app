@@ -55,7 +55,10 @@
       "LAST_3_MONTHS": "Last 3 months",
       "LAST_6_MONTHS": "Last 6 months",
       "LAST_YEAR": "Last year",
-      "CUSTOM_DATE_RANGE": "Custom date range"
+      "CUSTOM_DATE_RANGE": "Custom date range",
+      "LAST_14_DAYS": "கடந்த 14 நாட்கள்",
+      "THIS_MONTH": "This month",
+      "LAST_MONTH": "Last month"
     },
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "Apply",
@@ -121,7 +124,8 @@
     "PAGINATION": {
       "RESULTS": "Showing {start} to {end} of {total} results",
       "PER_PAGE_TEMPLATE": "{size} / page"
-    }
+    },
+    "DOWNLOAD_CONVERSATION_REPORTS": "Download conversation reports"
   },
   "AGENT_REPORTS": {
     "HEADER": "Agents Overview",
@@ -189,6 +193,11 @@
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "Apply",
       "PLACEHOLDER": "Select date range"
+    },
+    "FILTERS": {
+      "INPUT_PLACEHOLDER": {
+        "AGENTS": "Search agents"
+      }
     }
   },
   "LABEL_REPORTS": {
@@ -257,6 +266,11 @@
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "Apply",
       "PLACEHOLDER": "Select date range"
+    },
+    "FILTERS": {
+      "INPUT_PLACEHOLDER": {
+        "LABELS": "Search labels"
+      }
     }
   },
   "INBOX_REPORTS": {
@@ -325,6 +339,13 @@
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "Apply",
       "PLACEHOLDER": "Select date range"
+    },
+    "ALL_INBOXES": "All Inboxes",
+    "SEARCH_INBOX": "Search Inbox",
+    "FILTERS": {
+      "INPUT_PLACEHOLDER": {
+        "INBOXES": "Search inboxes"
+      }
     }
   },
   "TEAM_REPORTS": {
@@ -393,6 +414,14 @@
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "Apply",
       "PLACEHOLDER": "Select date range"
+    },
+    "FILTERS": {
+      "ADD_FILTER": "Add filter",
+      "CLEAR_ALL": "Clear all",
+      "NO_FILTER": "No filters available",
+      "INPUT_PLACEHOLDER": {
+        "TEAMS": "Search teams"
+      }
     }
   },
   "CSAT_REPORTS": {
@@ -402,7 +431,26 @@
     "DOWNLOAD_FAILED": "Failed to download CSAT Reports",
     "FILTERS": {
       "AGENTS": {
-        "PLACEHOLDER": "Choose Agents"
+        "PLACEHOLDER": "Choose Agents",
+        "LABEL": "ஏஜென்ட்"
+      },
+      "ADD_FILTER": "Add filter",
+      "CLEAR_ALL": "Clear all",
+      "NO_FILTER": "No filters available",
+      "INPUT_PLACEHOLDER": {
+        "AGENTS": "Search agents",
+        "INBOXES": "Search inboxes",
+        "TEAMS": "Search teams",
+        "RATINGS": "Search ratings"
+      },
+      "INBOXES": {
+        "LABEL": "Inbox"
+      },
+      "TEAMS": {
+        "LABEL": "Team"
+      },
+      "RATINGS": {
+        "LABEL": "Rating"
       }
     },
     "TABLE": {
@@ -410,8 +458,13 @@
         "CONTACT_NAME": "Contact",
         "AGENT_NAME": "Assigned agent",
         "RATING": "Rating",
-        "FEEDBACK_TEXT": "Feedback comment"
-      }
+        "FEEDBACK_TEXT": "Feedback comment",
+        "CONVERSATION": "Conversation",
+        "CUSTOMER": "Customer",
+        "RESPONSE": "Response",
+        "HANDLED_BY": "Handled by"
+      },
+      "UNKNOWN_CUSTOMER": "Unknown customer"
     },
     "METRIC": {
       "TOTAL_RESPONSES": {
@@ -425,6 +478,28 @@
       "RESPONSE_RATE": {
         "LABEL": "Response rate",
         "TOOLTIP": "Total number of responses / Total number of CSAT survey messages sent * 100"
+      },
+      "RATING_DISTRIBUTION": "Rating distribution"
+    },
+    "NO_RECORDS_DESCRIPTION": "CSAT survey responses will appear here once customers start providing feedback.",
+    "NO_AGENT": "No assigned agent",
+    "NO_FEEDBACK": "No feedback provided",
+    "REVIEW_NOTES": {
+      "TITLE": "Review notes",
+      "PLACEHOLDER": "Add review notes about this rating...",
+      "SAVE": "Save",
+      "CANCEL": "ரத்துசெய்",
+      "SAVING": "Saving...",
+      "SAVED": "Notes saved successfully",
+      "SAVE_ERROR": "Failed to save notes",
+      "UPDATED_BY": "Updated by {name} {time}",
+      "UPDATED_BY_LABEL": "Updated by",
+      "PAYWALL": {
+        "TITLE": "Upgrade to add review notes",
+        "AVAILABLE_ON": "The review notes feature is only available in the Business and Enterprise plans.",
+        "UPGRADE_PROMPT": "Add internal context to every CSAT response with review notes. Capture what really happened, spot patterns faster, and make better decisions from your feedback.",
+        "UPGRADE_NOW": "Upgrade now",
+        "CANCEL_ANYTIME": "You can change or cancel your plan anytime"
       }
     }
   },
@@ -495,6 +570,13 @@
       "ONLINE": "Online",
       "BUSY": "Busy",
       "OFFLINE": "Offline"
+    },
+    "RESOLUTION_HEATMAP": {
+      "HEADER": "Resolutions",
+      "NO_CONVERSATIONS": "No conversations",
+      "CONVERSATION": "{count} conversation",
+      "CONVERSATIONS": "{count} conversations",
+      "DOWNLOAD_REPORT": "Download report"
     }
   },
   "DAYS_OF_WEEK": {

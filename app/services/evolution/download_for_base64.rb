@@ -15,7 +15,11 @@ module Evolution::DownloadForBase64
       str = data
     end
 
-    binary = Base64.strict_decode64(str)
+    binary = begin
+               Base64.urlsafe_decode64(str)
+             rescue ArgumentError
+               Base64.decode64(str)
+             end
 
     io = StringIO.new(binary)
 

@@ -13,7 +13,8 @@
       "TABLE_HEADER": {
         "NAME": "Nama",
         "DESCRIPTION": "Deskripsi",
-        "COLOR": "Warna"
+        "COLOR": "Warna",
+        "ACTION": "Aksi"
       }
     },
     "FORM": {
@@ -80,6 +81,9 @@
         "YES": "Ya, Hapus ",
         "NO": "Tidak, Simpan "
       }
-    }
+    },
+    "COUNT": "{n} label | {n} labels",
+    "SEARCH_PLACEHOLDER": "Cari label...",
+    "NO_RESULTS": "No labels found matching your search"
   }
 }

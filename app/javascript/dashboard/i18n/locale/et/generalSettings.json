@@ -150,8 +150,8 @@
       "EMPTY_MESSAGE": "You have no unread notifications"
     },
     "LIST": {
-      "LOADING_MESSAGE": "Loading notifications...",
       "404": "No Notifications",
+      "LOADING_MESSAGE": "Loading notifications...",
       "TABLE_HEADER": [
         "Name",
         "Phone Number",

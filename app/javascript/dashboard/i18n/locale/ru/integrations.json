@@ -13,7 +13,8 @@
         "CANCEL": "Отменить",
         "SUBMIT": "Connect Store"
       },
-      "ERROR": "There was an error connecting to Shopify. Please try again or contact support if the issue persists."
+      "ERROR": "There was an error connecting to Shopify. Please try again or contact support if the issue persists.",
+      "HEADER": "Shopify"
     },
     "HEADER": "Интеграции",
     "DESCRIPTION": "Chatwoot интегрируется с несколькими инструментами и сервисами, чтобы повысить эффективность вашей команды. Изучите список ниже, чтобы настроить ваши любимые приложения.",
@@ -52,7 +53,11 @@
           "ERROR": "Пожалуйста, введите правильный URL"
         },
         "EDIT_SUBMIT": "Обновить webhook",
-        "ADD_SUBMIT": "Создать вебхук"
+        "ADD_SUBMIT": "Создать вебхук",
+        "NAME": {
+          "LABEL": "Webhook Name",
+          "PLACEHOLDER": "Enter the name of the webhook"
+        }
       },
       "TITLE": "Вебхук",
       "CONFIGURE": "Настроить",
@@ -97,7 +102,18 @@
           "YES": "Да, удалить ",
           "NO": "Нет, не удалять"
         }
-      }
+      },
+      "SECRET": {
+        "LABEL": "Secret",
+        "COPY": "Copy secret to clipboard",
+        "COPY_SUCCESS": "Secret copied to clipboard",
+        "TOGGLE": "Toggle secret visibility",
+        "CREATED_DESC": "Your webhook has been created. Use the secret below to verify webhook signatures. Please copy it now — you can also find it later in the webhook edit form.",
+        "DONE": "Done"
+      },
+      "COUNT": "{n} webhook | {n} webhooks",
+      "SEARCH_PLACEHOLDER": "Search webhooks...",
+      "NO_RESULTS": "No webhooks found matching your search"
     },
     "SLACK": {
       "DELETE": "Удалить",
@@ -120,7 +136,8 @@
       },
       "UPDATE_ERROR": "Произошла ошибка при обновлении интеграции, пожалуйста, попробуйте еще раз",
       "UPDATE_SUCCESS": "Канал успешно подключен",
-      "FAILED_TO_FETCH_CHANNELS": "Произошла ошибка при получении каналов из Slack, попробуйте еще раз"
+      "FAILED_TO_FETCH_CHANNELS": "Произошла ошибка при получении каналов из Slack, попробуйте еще раз",
+      "HEADER": "Slack"
     },
     "DYTE": {
       "CLICK_HERE_TO_JOIN": "Нажмите, чтобы присоединиться",
@@ -141,7 +158,11 @@
         "EXPAND": "Развернуть",
         "MAKE_FRIENDLY": "Изменить тон сообщения на дружеский",
         "MAKE_FORMAL": "Использовать официальный тон",
-        "SIMPLIFY": "Упростить"
+        "SIMPLIFY": "Упростить",
+        "CONFIDENT": "Use confident tone",
+        "PROFESSIONAL": "Use professional tone",
+        "CASUAL": "Use casual tone",
+        "STRAIGHTFORWARD": "Use straightforward tone"
       },
       "ASSISTANCE_MODAL": {
         "DRAFT_TITLE": "Содержание черновика",
@@ -180,7 +201,25 @@
         "GENERATING": "Создание...",
         "CANCEL": "Отменить"
       },
-      "GENERATE_ERROR": "При сохранении настроек произошла ошибка, пожалуйста, попробуйте еще раз"
+      "GENERATE_ERROR": "При сохранении настроек произошла ошибка, пожалуйста, попробуйте еще раз",
+      "REPLY_OPTIONS": {
+        "IMPROVE_REPLY": "Improve reply",
+        "IMPROVE_REPLY_SELECTION": "Improve the selection",
+        "CHANGE_TONE": {
+          "TITLE": "Change tone",
+          "OPTIONS": {
+            "PROFESSIONAL": "Профессиональный",
+            "CASUAL": "Casual",
+            "STRAIGHTFORWARD": "Straightforward",
+            "CONFIDENT": "Confident",
+            "FRIENDLY": "Дружелюбный"
+          }
+        },
+        "GRAMMAR": "Fix grammar & spelling",
+        "SUGGESTION": "Suggest a reply",
+        "SUMMARIZE": "Summarize the conversation",
+        "ASK_COPILOT": "Ask Copilot"
+      }
     },
     "DELETE": {
       "BUTTON_TEXT": "Удалить",
@@ -202,7 +241,8 @@
         "LOADING": "Загрузка приложений...",
         "TABLE_HEADER": {
           "NAME": "Имя",
-          "ENDPOINT": "Endpoint"
+          "ENDPOINT": "Endpoint",
+          "ACTIONS": "Действия"
         },
         "EDIT_TOOLTIP": "Редактировать приложение",
         "DELETE_TOOLTIP": "Удалить приложение"
@@ -236,7 +276,10 @@
         "MESSAGE": "Вы уверены, что хотите удалить приложение - {appName}?",
         "API_SUCCESS": "Приложение успешно удалено",
         "API_ERROR": "Не удалось удалить приложение. Повторите попытку позже"
-      }
+      },
+      "COUNT": "{n} dashboard app | {n} dashboard apps",
+      "SEARCH_PLACEHOLDER": "Search dashboard apps...",
+      "NO_RESULTS": "No dashboard apps found matching your search"
     },
     "LINEAR": {
       "ADD_OR_LINK_BUTTON": "Создать/Связать Задачу",
@@ -330,7 +373,8 @@
         "AGENT_DESCRIPTION": "Linear workspace is not connected. Request your administrator to connect a workspace to use this integration.",
         "DESCRIPTION": "Linear workspace is not connected. Click the button below to connect your workspace to use this integration.",
         "BUTTON_TEXT": "Connect Linear workspace"
-      }
+      },
+      "HEADER": "Linear"
     },
     "NOTION": {
       "DELETE": {
@@ -338,7 +382,16 @@
         "MESSAGE": "Deleting this integration will remove access to your Notion workspace and stop all related functionality.",
         "CONFIRM": "Да, удалить",
         "CANCEL": "Отменить"
-      }
+      },
+      "HEADER": "Notion"
+    },
+    "SEARCH_PLACEHOLDER": "Search integrations...",
+    "NO_RESULTS": "No integrations found matching your search",
+    "CAPTAIN": {
+      "DISABLED": "Капитан не включен на вашем аккаунте.",
+      "CLICK_HERE_TO_CONFIGURE": "Нажмите здесь, чтобы настроить",
+      "LOADING_CONSOLE": "Загрузка консоли Капитана...",
+      "FAILED_TO_LOAD_CONSOLE": "Не удалось загрузить консоль Капитана. Пожалуйста, обновите страницу и повторите попытку."
     }
   },
   "COSMOS": {
@@ -395,7 +448,7 @@
       "UPGRADE_NOW": "Обновить сейчас",
       "CANCEL_ANYTIME": "Вы можете изменить или отменить ваш тарифный план в любое время"
     },
-    "ENTERPRISE_PAYWALL": {
+    "STARCHAT_PAYWALL": {
       "UPGRADE_PROMPT": "Обновите тарифный план, чтобы получить доступ к нашим ассистентам, cosmos и другим функциям.",
       "ASK_ADMIN": "Пожалуйста, обратитесь к вашему администратору для обновления."
     },
@@ -762,6 +815,718 @@
         "FEATURE_SPOTLIGHT": {
           "TITLE": "Cosmos FAQ",
           "NOTE": "Cosmos FAQs detects common customer questions—whether missing from your knowledge base or frequently asked—and generates relevant FAQs to improve support. You can review each suggestion and decide whether to approve or reject it."
+        }
+      }
+    },
+    "INBOXES": {
+      "HEADER": "Подключённые источники входящих",
+      "ADD_NEW": "Подключить новый источник входящих",
+      "OPTIONS": {
+        "DISCONNECT": "Отключиться"
+      },
+      "DELETE": {
+        "TITLE": "Вы уверены, что хотите отключить этот источник входящих?",
+        "DESCRIPTION": "",
+        "CONFIRM": "Да, удалить",
+        "SUCCESS_MESSAGE": "Источник входящих успешно отключён.",
+        "ERROR_MESSAGE": "Произошла ошибка при отключении источника входящих, пожалуйста, попробуйте ещё раз."
+      },
+      "FORM_DESCRIPTION": "Выберите источник входящих для подключения к ассистенту.",
+      "CREATE": {
+        "TITLE": "Подключить источник входящих",
+        "SUCCESS_MESSAGE": "Источник входящих успешно подключён.",
+        "ERROR_MESSAGE": "Произошла ошибка при подключении источника входящих. Пожалуйста, попробуйте ещё раз."
+      },
+      "FORM": {
+        "INBOX": {
+          "LABEL": "Электронная почта",
+          "PLACEHOLDER": "Выберите источник входящих для развертывания ассистента.",
+          "ERROR": "Необходимо выбрать источник входящих."
+        }
+      },
+      "EMPTY_STATE": {
+        "TITLE": "Нет подключённых источников входящих",
+        "SUBTITLE": "Подключение источника входящих позволяет ассистенту обрабатывать первые вопросы ваших клиентов до их передачи вам."
+      }
+    }
+  },
+  "CAPTAIN": {
+    "NAME": "Капитан",
+    "HEADER_KNOW_MORE": "Узнать больше",
+    "ASSISTANT_SWITCHER": {
+      "ASSISTANTS": "Ассистенты",
+      "SWITCH_ASSISTANT": "Переключиться между помощниками",
+      "NEW_ASSISTANT": "Создать помощника",
+      "EMPTY_LIST": "Список помощников пуст, пожалуйста, создайте помощника, чтобы начать работу"
+    },
+    "COPILOT": {
+      "TITLE": "Copilot",
+      "TRY_THESE_PROMPTS": "Попробуйте эти запросы",
+      "PANEL_TITLE": "Начать работу с Copilot",
+      "KICK_OFF_MESSAGE": "Хотите узнать суть или проверить прошлые диалоги или написать лучший ответ? Copilot здесь, чтобы ускорить работу.",
+      "SEND_MESSAGE": "Отправить сообщение...",
+      "EMPTY_MESSAGE": "Произошла ошибка при генерации ответа. Пожалуйста, попробуйте еще раз.",
+      "LOADER": "Капитан думает",
+      "YOU": "Вы",
+      "USE": "Использовать это",
+      "RESET": "Сброс",
+      "SHOW_STEPS": "Показать шаги",
+      "SELECT_ASSISTANT": "Выбрать ассистента",
+      "PROMPTS": {
+        "SUMMARIZE": {
+          "LABEL": "Подвести итог этого диалога",
+          "CONTENT": "Кратко изложить основные моменты, обсуждавшиеся между клиентом и агентом поддержки, включая пожелания клиента, вопросы и решения или ответы, предоставляемые агентом поддержки"
+        },
+        "SUGGEST": {
+          "LABEL": "Предложить ответ",
+          "CONTENT": "Анализируйте запрос клиента и составляйте ответ, который эффективно учитывает его проблемы или вопросы. Убедитесь, что ответ является четким, кратким и содержит полезную информацию."
+        },
+        "RATE": {
+          "LABEL": "Оцените этот диалог",
+          "CONTENT": "Оцените разговор, чтобы узнать, насколько он соответствует потребностям клиента. Поделитесь оценкой из 5 на основе тона, ясности и эффективности."
+        },
+        "HIGH_PRIORITY": {
+          "LABEL": "Диалоги с высоким приоритетом",
+          "CONTENT": "Дайте мне суть всех высокоприоритетных открытых разговоров, включая идентификатор разговора, имя клиента (если есть), содержимое последнего сообщения и назначенный агент. Если нужно, группа по статусу."
+        },
+        "LIST_CONTACTS": {
+          "LABEL": "Список контактов",
+          "CONTENT": "Покажите мне список 10 топ контактов. Включая имя, email или номер телефона (если доступно), последний просмотренный время, тэги (если есть)."
+        }
+      }
+    },
+    "PLAYGROUND": {
+      "USER": "Вы",
+      "ASSISTANT": "Ассистент",
+      "MESSAGE_PLACEHOLDER": "Введите сообщение...",
+      "HEADER": "Площадка",
+      "DESCRIPTION": "Используйте эту площадку, чтобы отправлять сообщения своему ассистенту и проверять правильность ответа, быстро и в том тоне, который вы ожидали.",
+      "CREDIT_NOTE": "Отправленные здесь сообщения будут учитываться в кредитах Captain."
+    },
+    "PAYWALL": {
+      "TITLE": "Обновите тарифный план, чтобы использовать Captain AI",
+      "AVAILABLE_ON": "Капитан недоступен на бесплатном тарифном плане.",
+      "UPGRADE_PROMPT": "Обновите тарифный план, чтобы получить доступ к нашим ассистентам, copilot и другим функциям.",
+      "UPGRADE_NOW": "Обновить сейчас",
+      "CANCEL_ANYTIME": "Вы можете изменить или отменить ваш тарифный план в любое время"
+    },
+    "ENTERPRISE_PAYWALL": {
+      "AVAILABLE_ON": "Captain AI доступен только в тарифных планах Enterprise.",
+      "UPGRADE_PROMPT": "Обновите тарифный план, чтобы получить доступ к нашим ассистентам, copilot и другим функциям.",
+      "ASK_ADMIN": "Пожалуйста, обратитесь к вашему администратору для обновления."
+    },
+    "BANNER": {
+      "RESPONSES": "Вы использовали более 80% лимита ответов. Чтобы продолжить использование Captain AI, пожалуйста, обновите тариф.",
+      "DOCUMENTS": "Достигнут лимит документов. Обновите тарифный план, чтобы продолжить использование Captain AI."
+    },
+    "FORM": {
+      "CANCEL": "Отменить",
+      "CREATE": "Создать",
+      "EDIT": "Обновить"
+    },
+    "ASSISTANTS": {
+      "HEADER": "Ассистенты",
+      "NO_ASSISTANTS_AVAILABLE": "У вас нет ни одного доступного помощника.",
+      "ADD_NEW": "Создать нового ассистента",
+      "DELETE": {
+        "TITLE": "Вы уверены, что хотите удалить ассистента?",
+        "DESCRIPTION": "Это действие необратимо. Удаление этого ассистента удалит его из всех подключенных источников и навсегда удалит все сгенерированные знания.",
+        "CONFIRM": "Да, удалить",
+        "SUCCESS_MESSAGE": "Ассистент успешно удален",
+        "ERROR_MESSAGE": "При удалении ассистента произошла ошибка. Пожалуйста, попробуйте еще раз."
+      },
+      "FORM_DESCRIPTION": "Заполните приведенные ниже сведения, чтобы назвать своего ассистента, описать его цель и указать поддерживаемый продукт.",
+      "CREATE": {
+        "TITLE": "Создать ассистента",
+        "SUCCESS_MESSAGE": "Ассистент успешно создан",
+        "ERROR_MESSAGE": "При создании ассистента произошла ошибка, пожалуйста, попробуйте еще раз."
+      },
+      "FORM": {
+        "UPDATE": "Обновить",
+        "SECTIONS": {
+          "BASIC_INFO": "Основная информация",
+          "SYSTEM_MESSAGES": "Системные сообщения",
+          "INSTRUCTIONS": "Инструкции",
+          "FEATURES": "Возможности",
+          "TOOLS": "Инструменты "
+        },
+        "NAME": {
+          "LABEL": "Имя",
+          "PLACEHOLDER": "Введите имя помощника",
+          "ERROR": "Имя обязательно"
+        },
+        "TEMPERATURE": {
+          "LABEL": "Температура ответа",
+          "DESCRIPTION": "Настройте творческие или ограничительные реакции помощника. Меньшие ценности дают более сфокусированные и детерминированные отклики, а более высокие ценности позволяют более творчески и разнообразно вырабатывать результаты."
+        },
+        "DESCRIPTION": {
+          "LABEL": "Описание",
+          "PLACEHOLDER": "Введите описание помощника",
+          "ERROR": "Описание обязательно"
+        },
+        "PRODUCT_NAME": {
+          "LABEL": "Название продукта",
+          "PLACEHOLDER": "Введите название продукта",
+          "ERROR": "Требуется название продукта"
+        },
+        "WELCOME_MESSAGE": {
+          "LABEL": "Приветственное сообщение",
+          "PLACEHOLDER": "Введите приветственное сообщение"
+        },
+        "HANDOFF_MESSAGE": {
+          "LABEL": "Сообщение о передачи",
+          "PLACEHOLDER": "Введите сообщение о передачи"
+        },
+        "RESOLUTION_MESSAGE": {
+          "LABEL": "Сообщение разрешения",
+          "PLACEHOLDER": "Введите сообщение разрешения"
+        },
+        "INSTRUCTIONS": {
+          "LABEL": "Инструкции",
+          "PLACEHOLDER": "Введите инструкции для помощника"
+        },
+        "FEATURES": {
+          "TITLE": "Возможности",
+          "ALLOW_CONVERSATION_FAQS": "Создать FAQ из решённых диалогов",
+          "ALLOW_MEMORIES": "Сохраняйте ключевые детали в виде воспоминаний о взаимодействии с клиентами.",
+          "ALLOW_CITATIONS": "Включить цитаты источника в ответы",
+          "ALLOW_CONTACT_ATTRIBUTES": "Allow access to contact information"
+        }
+      },
+      "EDIT": {
+        "TITLE": "Обновить ассистента",
+        "SUCCESS_MESSAGE": "Ассистент успешно обновлен",
+        "ERROR_MESSAGE": "При обновлении ассистента произошла ошибка, пожалуйста, попробуйте еще раз.",
+        "NOT_FOUND": "Не удалось найти помощника. Пожалуйста, попробуйте еще раз."
+      },
+      "SETTINGS": {
+        "HEADER": "Настройки",
+        "BASIC_SETTINGS": {
+          "TITLE": "Основные настройки",
+          "DESCRIPTION": "Настройте то, что говорит ассистент, завершая диалог или передавая человеку."
+        },
+        "SYSTEM_SETTINGS": {
+          "TITLE": "Системные настройки",
+          "DESCRIPTION": "Настройте то, что говорит ассистент, завершая диалог или передавая человеку."
+        },
+        "CONTROL_ITEMS": {
+          "TITLE": "Веселые вещи",
+          "DESCRIPTION": "Добавить больше контроля к ассистенту. (немного визуально, как история : Query guardrail → Сценарии → Выход) пользователь Nudges на самом деле их использует.",
+          "OPTIONS": {
+            "GUARDRAILS": {
+              "TITLE": "Ограждения",
+              "DESCRIPTION": "Сохраняет вещи в нужном контексте — только те вопросы, которые вы хотите, чтобы ваш ассистент отвечал, ничего запрещённого или не по теме."
+            },
+            "RESPONSE_GUIDELINES": {
+              "TITLE": "Рекомендации по ответу",
+              "DESCRIPTION": "Вайб и структура ответов помощника – ясные и дружелюбные? Коротко и непросто? Детально и формально?"
+            }
+          }
+        },
+        "DELETE": {
+          "TITLE": "Удалить ассистента",
+          "DESCRIPTION": "Это действие необратимо. Удаление этого ассистента удалит его из всех подключенных источников и навсегда удалит все сгенерированные знания.",
+          "BUTTON_TEXT": "Удалить {assistantName}"
+        }
+      },
+      "OPTIONS": {
+        "EDIT_ASSISTANT": "Редактировать ассистента",
+        "DELETE_ASSISTANT": "Удалить ассистента",
+        "VIEW_CONNECTED_INBOXES": "Просмотр подключенных источников"
+      },
+      "EMPTY_STATE": {
+        "TITLE": "Нет доступных ассистентов",
+        "SUBTITLE": "Создайте ассистента, чтобы дать быстрые и точные ответы пользователям. Он может учиться на ваших статьях из центра поддержки и прошлых диалогах.",
+        "FEATURE_SPOTLIGHT": {
+          "TITLE": "Captain Assistant",
+          "NOTE": "Captain Assistant engages directly with customers, learns from your help docs and past conversations, and delivers instant, accurate responses. It handles the initial queries, providing quick resolutions before  transferring to an agent when needed."
+        }
+      },
+      "GUARDRAILS": {
+        "TITLE": "Ограждения",
+        "DESCRIPTION": "Сохраняет вещи в нужном контексте — только те вопросы, которые вы хотите, чтобы ваш ассистент отвечал, ничего запрещённого или не по теме.",
+        "BULK_ACTION": {
+          "SELECTED": "{count} элемент выбран | {count} элементов выбрано",
+          "SELECT_ALL": "Выбрать все ({count})",
+          "UNSELECT_ALL": "Сбросить все ({count})",
+          "BULK_DELETE_BUTTON": "Удалить"
+        },
+        "ADD": {
+          "SUGGESTED": {
+            "TITLE": "Примеры ограждений",
+            "ADD": "Добавить все",
+            "ADD_SINGLE": "Добавить это",
+            "SAVE": "Добавить и сохранить (↵)",
+            "PLACEHOLDER": "Введите другое ограждение..."
+          },
+          "NEW": {
+            "TITLE": "Добавить гарант",
+            "CREATE": "Создать",
+            "CANCEL": "Отменить",
+            "PLACEHOLDER": "Введите другое ограждение...",
+            "TEST_ALL": "Проверить все"
+          }
+        },
+        "LIST": {
+          "SEARCH_PLACEHOLDER": "Поиск..."
+        },
+        "EMPTY_MESSAGE": "Ограждений не найдено. Создайте или добавьте примеры, чтобы начать.",
+        "SEARCH_EMPTY_MESSAGE": "Не найдено ограждений для этого поиска.",
+        "API": {
+          "ADD": {
+            "SUCCESS": "Ограждение успешно добавлен",
+            "ERROR": "Произошла ошибка при добавлении ограждения, пожалуйста, попробуйте еще раз."
+          },
+          "UPDATE": {
+            "SUCCESS": "Ограждение успешно обновлено",
+            "ERROR": "Произошла ошибка при обновлении ограждения, попробуйте еще раз."
+          },
+          "DELETE": {
+            "SUCCESS": "Ограждение успешно удалено",
+            "ERROR": "Произошла ошибка при удалении ограждения, пожалуйста, попробуйте еще раз."
+          }
+        }
+      },
+      "RESPONSE_GUIDELINES": {
+        "TITLE": "Руководство по ограждению",
+        "DESCRIPTION": "Вайб и структура ответов помощника – ясные и дружелюбные? Коротко и непросто? Детально и формально?",
+        "BULK_ACTION": {
+          "SELECTED": "{count} элемент выбран | {count} элементов выбрано",
+          "SELECT_ALL": "Выбрать все ({count})",
+          "UNSELECT_ALL": "Сбросить все ({count})",
+          "BULK_DELETE_BUTTON": "Удалить"
+        },
+        "ADD": {
+          "SUGGESTED": {
+            "TITLE": "Пример рекомендации по ответам",
+            "ADD": "Добавить все",
+            "ADD_SINGLE": "Добавить это",
+            "SAVE": "Добавить и сохранить (↵)",
+            "PLACEHOLDER": "Введите рекомендации по ответам..."
+          },
+          "NEW": {
+            "TITLE": "Добавить руководство по ответу",
+            "CREATE": "Создать",
+            "CANCEL": "Отменить",
+            "PLACEHOLDER": "Введите рекомендации по ответам...",
+            "TEST_ALL": "Проверить все"
+          }
+        },
+        "LIST": {
+          "SEARCH_PLACEHOLDER": "Поиск..."
+        },
+        "EMPTY_MESSAGE": "Руководство по ответу не найдено. Создайте или добавьте примеры, чтобы начать.",
+        "SEARCH_EMPTY_MESSAGE": "По данному поиску не найдено ни одного руководства.",
+        "API": {
+          "ADD": {
+            "SUCCESS": "Руководство по ответу успешно добавлено",
+            "ERROR": "Произошла ошибка при добавлении правил ответа, пожалуйста, попробуйте еще раз."
+          },
+          "UPDATE": {
+            "SUCCESS": "Руководства по ответу успешно обновлены",
+            "ERROR": "Произошла ошибка при обновлении руководства для ответа, пожалуйста, попробуйте еще раз."
+          },
+          "DELETE": {
+            "SUCCESS": "Руководства для ответа успешно удалены",
+            "ERROR": "Произошла ошибка при удалении руководства для ответа, пожалуйста, попробуйте еще раз."
+          }
+        }
+      },
+      "SCENARIOS": {
+        "TITLE": "Сценарии",
+        "DESCRIPTION": "Дайте своему ассистенту определенный контекст, например «что делать, когда пользователь застрял» или «как действовать во время запроса на возмещение».",
+        "BULK_ACTION": {
+          "SELECTED": "{count} элемент выбран | {count} элементов выбрано",
+          "SELECT_ALL": "Выбрать все ({count})",
+          "UNSELECT_ALL": "Сбросить все ({count})",
+          "BULK_DELETE_BUTTON": "Удалить"
+        },
+        "ADD": {
+          "SUGGESTED": {
+            "TITLE": "Примеры сценариев",
+            "ADD": "Добавить все",
+            "ADD_SINGLE": "Добавить это",
+            "TOOLS_USED": "Используемые инструменты:"
+          },
+          "NEW": {
+            "CREATE": "Добавить сценарий",
+            "TITLE": "Создать сценарий",
+            "FORM": {
+              "TITLE": {
+                "LABEL": "Название",
+                "PLACEHOLDER": "Введите название сценария",
+                "ERROR": "Название сценария обязательно"
+              },
+              "DESCRIPTION": {
+                "LABEL": "Описание",
+                "PLACEHOLDER": "Опишите как и где будет использоваться этот сценарий",
+                "ERROR": "Описание сценария обязательно"
+              },
+              "INSTRUCTION": {
+                "LABEL": "Как обрабатывать",
+                "PLACEHOLDER": "Опишите, как и где будет обрабатываться этот сценарий",
+                "ERROR": "Содержимое сценария обязательно"
+              },
+              "CREATE": "Создать",
+              "CANCEL": "Отменить"
+            }
+          }
+        },
+        "UPDATE": {
+          "CANCEL": "Отменить",
+          "UPDATE": "Обновить изменения"
+        },
+        "LIST": {
+          "SEARCH_PLACEHOLDER": "Поиск..."
+        },
+        "EMPTY_MESSAGE": "Сценарии не найдены. Создайте или добавьте примеры для начала.",
+        "SEARCH_EMPTY_MESSAGE": "Не найдено сценариев для этого поиска.",
+        "API": {
+          "ADD": {
+            "SUCCESS": "Сценарии успешно добавлены",
+            "ERROR": "Произошла ошибка при добавлении сценариев, пожалуйста, попробуйте еще раз."
+          },
+          "UPDATE": {
+            "SUCCESS": "Сценарий успешно обновлены",
+            "ERROR": "Произошла ошибка при обновлении сценария, пожалуйста, попробуйте еще раз."
+          },
+          "DELETE": {
+            "SUCCESS": "Сценарий успешно удалены",
+            "ERROR": "При удалении сценария произошла ошибка. Пожалуйста, попробуйте еще раз."
+          }
+        }
+      }
+    },
+    "DOCUMENTS": {
+      "HEADER": "Документы",
+      "ADD_NEW": "Создать новый документ",
+      "SELECTED": "Выбрано {count}",
+      "SELECT_ALL": "Выбрать все ({count})",
+      "UNSELECT_ALL": "Сбросить все ({count})",
+      "BULK_DELETE_BUTTON": "Удалить",
+      "BULK_SYNC_BUTTON": "Обновить",
+      "BULK_DELETE": {
+        "TITLE": "Delete documents?",
+        "DESCRIPTION": "Are you sure you want to delete the selected documents? This action cannot be undone.",
+        "CONFIRM": "Да, удалить всё",
+        "SUCCESS_MESSAGE": "Documents deleted successfully",
+        "ERROR_MESSAGE": "There was an error deleting the documents, please try again."
+      },
+      "BULK_SYNC": {
+        "SUCCESS_MESSAGE_ONE": "Refresh queued for 1 document",
+        "SUCCESS_MESSAGE": "Refresh queued for {count} documents",
+        "ZERO_MESSAGE": "No documents marked for refresh.",
+        "ERROR_MESSAGE": "There was an error queuing the refresh, please try again."
+      },
+      "SYNC": {
+        "QUEUED_MESSAGE": "Refresh queued. We'll update the document shortly.",
+        "ERROR_MESSAGE": "Could not queue refresh, please try again."
+      },
+      "FILTERS": {
+        "SOURCE": {
+          "ALL": "All sources",
+          "WEB": "Web pages",
+          "PDF": "PDFs"
+        },
+        "STATUS": {
+          "ANY": "Any status",
+          "UPDATED": "Updated",
+          "NEEDS_UPDATE": "Needs update",
+          "UPDATING": "Updating",
+          "FAILED": "Не удалось"
+        },
+        "SORT": {
+          "RECENTLY_UPDATED": "Recently updated",
+          "RECENTLY_CREATED": "Recently created"
+        },
+        "SEARCH_PLACEHOLDER": "Поиск..."
+      },
+      "SYNC_STATUS": {
+        "SYNCED": "last updated {time}",
+        "SYNCING": "обновление...",
+        "STALE_SYNC": "update stalled",
+        "FAILED": "Failed to sync",
+        "NEVER_SYNCED": "not updated yet"
+      },
+      "SYNC_ERRORS": {
+        "NOT_FOUND": "Страница не найдена",
+        "ACCESS_DENIED": "Access denied",
+        "TIMEOUT": "Page took too long to respond",
+        "CONTENT_EMPTY": "Page returned empty content",
+        "FETCH_FAILED": "Could not fetch page",
+        "SYNC_ERROR": "Unexpected error",
+        "DEFAULT": "Sync error"
+      },
+      "RELATED_RESPONSES": {
+        "TITLE": "Связанные FAQ",
+        "DESCRIPTION": "Эти FAQ генерируются напрямую из документа."
+      },
+      "FORM_DESCRIPTION": "Введите URL документа, чтобы добавить его в качестве источника знаний и выберите ассистента, с которым он свяжется.",
+      "CREATE": {
+        "TITLE": "Добавить документ",
+        "SUCCESS_MESSAGE": "Документ успешно создан",
+        "ERROR_MESSAGE": "Произошла ошибка при создании документа, пожалуйста, попробуйте еще раз."
+      },
+      "FORM": {
+        "TYPE": {
+          "LABEL": "Тип документа",
+          "URL": "URL",
+          "PDF": "PDF файл"
+        },
+        "URL": {
+          "LABEL": "URL",
+          "PLACEHOLDER": "Введите URL документа",
+          "ERROR": "Пожалуйста, укажите корректный URL для документа"
+        },
+        "PDF_FILE": {
+          "LABEL": "PDF файл",
+          "CHOOSE_FILE": "Выберите PDF файл",
+          "ERROR": "Пожалуйста, выберите PDF файл",
+          "HELP_TEXT": "Максимальный размер файла: 10MB",
+          "INVALID_TYPE": "Пожалуйста, выберите корректный файл PDF",
+          "TOO_LARGE": "Размер файла превышает 10MB"
+        },
+        "NAME": {
+          "LABEL": "Название документа (необязательно)",
+          "PLACEHOLDER": "Введите название документа"
+        }
+      },
+      "DELETE": {
+        "TITLE": "Вы уверены, что хотите удалить этот документ?",
+        "DESCRIPTION": "Это действие необратимо. Удаление этого документа навсегда удалит все сгенерированные знания.",
+        "CONFIRM": "Да, удалить",
+        "SUCCESS_MESSAGE": "Документ успешно удалён",
+        "ERROR_MESSAGE": "При удалении документа произошла ошибка, пожалуйста, попробуйте еще раз."
+      },
+      "OPTIONS": {
+        "VIEW_RELATED_RESPONSES": "Просмотр связанных ответов",
+        "SYNC_NOW": "Refresh now",
+        "RETRY_SYNC": "Retry refresh",
+        "DELETE_DOCUMENT": "Удалить документ"
+      },
+      "EMPTY_STATE": {
+        "TITLE": "Нет доступных документов",
+        "SUBTITLE": "Документы используются Вашим ассистентом для создания FAQ. Вы можете импортировать документы для предоставления контекста для Вашего ассистента.",
+        "FILTERED_TITLE": "No matching documents",
+        "FILTERED_SUBTITLE": "Try changing the source, status, or search term.",
+        "FEATURE_SPOTLIGHT": {
+          "TITLE": "Captain Document",
+          "NOTE": "A document in Captain serves as a knowledge resource for the assistant. By connecting your help center or guides, Captain can analyze the content and provide accurate responses for customer inquiries."
+        }
+      }
+    },
+    "CUSTOM_TOOLS": {
+      "HEADER": "Инструменты",
+      "ADD_NEW": "Создать новый инструмент",
+      "SOFT_LIMIT_WARNING": "Having more than 10 tools may reduce the assistant's reliability in selecting the right tool. Consider removing unused tools for better results.",
+      "EMPTY_STATE": {
+        "TITLE": "Нет доступных пользовательских инструментов",
+        "SUBTITLE": "Создавайте пользовательские инструменты, чтобы подключить ассистента к внешним API и сервисам, позволяя получать данные и выполнять действия от вашего имени.",
+        "FEATURE_SPOTLIGHT": {
+          "TITLE": "Пользовательские инструменты",
+          "NOTE": "Пользовательские инструменты позволяют ассистенту взаимодействовать с внешними API и сервисами. Создавайте инструменты для получения данных, выполнения действий или интеграции с существующими системами для расширения возможностей вашего помощника."
+        }
+      },
+      "FORM_DESCRIPTION": "Настройте пользовательский инструмент для соединения с внешними API",
+      "OPTIONS": {
+        "EDIT_TOOL": "Редактировать инструмент",
+        "DELETE_TOOL": "Удалить инструмент"
+      },
+      "CREATE": {
+        "TITLE": "Создать пользовательский инструмент",
+        "SUCCESS_MESSAGE": "Пользовательский инструмент успешно создан",
+        "ERROR_MESSAGE": "Не удалось создать пользовательский инструмент"
+      },
+      "EDIT": {
+        "TITLE": "Редактировать пользовательский инструмент",
+        "SUCCESS_MESSAGE": "Пользовательский инструмент успешно обновлен",
+        "ERROR_MESSAGE": "Не удалось обновить пользовательский инструмент"
+      },
+      "DELETE": {
+        "TITLE": "Удаление пользовательского инструмента",
+        "DESCRIPTION": "Вы уверены, что хотите удалить этот пользовательский инструмент? Это действие нельзя отменить.",
+        "CONFIRM": "Да, удалить",
+        "SUCCESS_MESSAGE": "Пользовательский инструмент успешно удален",
+        "ERROR_MESSAGE": "Не удалось удалить пользовательский инструмент"
+      },
+      "PAYWALL": {
+        "TITLE": "Upgrade to use tools with Captain",
+        "AVAILABLE_ON": "Captain Tools are only available in Business and Enterprise plans. Please upgrade to Business plan to use the feature.",
+        "UPGRADE_PROMPT": "",
+        "UPGRADE_NOW": "Открыть платеж",
+        "CANCEL_ANYTIME": ""
+      },
+      "ENTERPRISE_PAYWALL": {
+        "AVAILABLE_ON": "Captain Tools are only available in the paid plans.",
+        "UPGRADE_PROMPT": "Please upgrade to a paid plan to use this feature.",
+        "ASK_ADMIN": "Пожалуйста, обратитесь к вашему администратору для обновления."
+      },
+      "TEST": {
+        "BUTTON": "Test connection",
+        "SUCCESS": "Endpoint returned HTTP {status}",
+        "ERROR": "Connection failed",
+        "DISABLED_HINT": "Testing is only available for endpoints without templates or request bodies."
+      },
+      "FORM": {
+        "TITLE": {
+          "LABEL": "Название инструмента",
+          "PLACEHOLDER": "Поиск заказа",
+          "ERROR": "Название инструмента обязательно",
+          "MAX_LENGTH_ERROR": "Tool name must be {max} characters or fewer"
+        },
+        "DESCRIPTION": {
+          "LABEL": "Описание",
+          "PLACEHOLDER": "Поиск деталей заказа по ID"
+        },
+        "HTTP_METHOD": {
+          "LABEL": "Метод"
+        },
+        "ENDPOINT_URL": {
+          "LABEL": "Endpoint URL",
+          "PLACEHOLDER": "https://api.example.com/orders/{'{{'} order_id {'}}'}",
+          "ERROR": "Требуется корректный URL"
+        },
+        "AUTH_TYPE": {
+          "LABEL": "Тип аутентификации"
+        },
+        "AUTH_TYPES": {
+          "NONE": "Ничего",
+          "BEARER": "Bearer Token",
+          "BASIC": "Basic Auth",
+          "API_KEY": "Ключ API"
+        },
+        "AUTH_CONFIG": {
+          "BEARER_TOKEN": "Bearer Token",
+          "BEARER_TOKEN_PLACEHOLDER": "Введите ваш bearer token",
+          "USERNAME": "Имя пользователя",
+          "USERNAME_PLACEHOLDER": "Введите имя пользователя",
+          "PASSWORD": "Пароль",
+          "PASSWORD_PLACEHOLDER": "Введите пароль",
+          "API_KEY": "Имя заголовка",
+          "API_KEY_PLACEHOLDER": "X-API-Key",
+          "API_VALUE": "Значение заголовка",
+          "API_VALUE_PLACEHOLDER": "Введите значения API key"
+        },
+        "PARAMETERS": {
+          "LABEL": "Параметры",
+          "HELP_TEXT": "Определите параметры, которые будут извлечены из запросов пользователей"
+        },
+        "ADD_PARAMETER": "Добавить параметр",
+        "PARAM_NAME": {
+          "PLACEHOLDER": "Имя параметра (например, order_id)"
+        },
+        "PARAM_TYPE": {
+          "PLACEHOLDER": "Тип"
+        },
+        "PARAM_TYPES": {
+          "STRING": "Строка",
+          "NUMBER": "Число",
+          "BOOLEAN": "Boolean",
+          "ARRAY": "Массив",
+          "OBJECT": "Объект"
+        },
+        "PARAM_DESCRIPTION": {
+          "PLACEHOLDER": "Описание параметра"
+        },
+        "PARAM_REQUIRED": {
+          "LABEL": "Обязательно"
+        },
+        "REQUEST_TEMPLATE": {
+          "LABEL": "Шаблон тела запроса (необязательно)",
+          "PLACEHOLDER": "{'{'}\n  \"order_id\": \"{'{{'} order_id {'}}'}\"\n{'}'}"
+        },
+        "RESPONSE_TEMPLATE": {
+          "LABEL": "Шаблон ответа (необязательно)",
+          "PLACEHOLDER": "Заказ {'{{'} order_id {'}}'} status: {'{{'} status {'}}'}"
+        },
+        "ERRORS": {
+          "PARAM_NAME_REQUIRED": "Имя параметра обязательно"
+        }
+      }
+    },
+    "RESPONSES": {
+      "HEADER": "FAQ",
+      "PENDING_FAQS": "Pending FAQs",
+      "ADD_NEW": "Создать новый FAQ",
+      "DOCUMENTABLE": {
+        "CONVERSATION": "Диалог #{id}"
+      },
+      "SELECTED": "Выбрано {count}",
+      "SELECT_ALL": "Выбрать все ({count})",
+      "UNSELECT_ALL": "Сбросить все ({count})",
+      "SEARCH_PLACEHOLDER": "Поиск по FAQ...",
+      "BULK_APPROVE_BUTTON": "Одобрить",
+      "BULK_DELETE_BUTTON": "Удалить",
+      "BULK_APPROVE": {
+        "SUCCESS_MESSAGE": "FAQ успешно одобрены",
+        "ERROR_MESSAGE": "Произошла ошибка при одобрении FAQ, пожалуйста, попробуйте ещё раз."
+      },
+      "BULK_DELETE": {
+        "TITLE": "Удалить FAQ?",
+        "DESCRIPTION": "Вы уверены, что хотите удалить выбранные FAQ? Это действие невозможно отменить.",
+        "CONFIRM": "Да, удалить всё",
+        "SUCCESS_MESSAGE": "FAQ успешно удалены",
+        "ERROR_MESSAGE": "Произошла ошибка при удалении FAQ, пожалуйста, попробуйте ещё раз."
+      },
+      "DELETE": {
+        "TITLE": "Вы действительно хотите удалить FAQ?",
+        "DESCRIPTION": "",
+        "CONFIRM": "Да, удалить",
+        "SUCCESS_MESSAGE": "FAQ успешно удален",
+        "ERROR_MESSAGE": "Произошла ошибка при удалении FAQ, попробуйте еще раз."
+      },
+      "FILTER": {
+        "ASSISTANT": "Ассистент: {selected}",
+        "STATUS": "Статус: {selected}",
+        "ALL_ASSISTANTS": "Все"
+      },
+      "STATUS": {
+        "TITLE": "Статус",
+        "PENDING": "В ожидании",
+        "APPROVED": "Одобрено",
+        "ALL": "Все"
+      },
+      "PENDING_BANNER": {
+        "TITLE": "Captain has found some FAQs your customers were looking for.",
+        "ACTION": "Click here to review"
+      },
+      "FORM_DESCRIPTION": "Добавьте вопрос и соответствующий ему ответ в базу знаний и выберите ассистента, с которым он должен связаться.",
+      "CREATE": {
+        "TITLE": "Добавить FAQ",
+        "SUCCESS_MESSAGE": "Ответ успешно добавлен.",
+        "ERROR_MESSAGE": "При добавлении ответа произошла ошибка. Пожалуйста, попробуйте еще раз."
+      },
+      "FORM": {
+        "QUESTION": {
+          "LABEL": "Вопрос",
+          "PLACEHOLDER": "Введите вопрос",
+          "ERROR": "Пожалуйста, введите корректный вопрос."
+        },
+        "ANSWER": {
+          "LABEL": "Ответ",
+          "PLACEHOLDER": "Введите ответ",
+          "ERROR": "Пожалуйста, введите корректный ответ."
+        }
+      },
+      "EDIT": {
+        "TITLE": "Обновить FAQ",
+        "SUCCESS_MESSAGE": "FAQ успешно обновлён",
+        "ERROR_MESSAGE": "Произошла ошибка при обновлении FAQ, пожалуйста, попробуйте ещё раз",
+        "APPROVE_SUCCESS_MESSAGE": "FAQ был отмечен как одобренный"
+      },
+      "OPTIONS": {
+        "APPROVE": "Одобрить",
+        "EDIT_RESPONSE": "Редактировать",
+        "DELETE_RESPONSE": "Удалить"
+      },
+      "EMPTY_STATE": {
+        "TITLE": "FAQ не найдены",
+        "NO_PENDING_TITLE": "There are no more pending FAQs to review",
+        "SUBTITLE": "FAQ помогают вашему ассистенту быстро и точно отвечать на вопросы клиентов. Их можно генерировать автоматически из вашего контента или добавлять вручную.",
+        "CLEAR_SEARCH": "Clear active filters",
+        "FEATURE_SPOTLIGHT": {
+          "TITLE": "Captain FAQ",
+          "NOTE": "Captain FAQs detects common customer questions—whether missing from your knowledge base or frequently asked—and generates relevant FAQs to improve support. You can review each suggestion and decide whether to approve or reject it."
         }
       }
     },

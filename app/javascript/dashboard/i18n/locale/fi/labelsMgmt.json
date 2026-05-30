@@ -13,7 +13,8 @@
       "TABLE_HEADER": {
         "NAME": "Nimi",
         "DESCRIPTION": "Kuvaus",
-        "COLOR": "Väri"
+        "COLOR": "Väri",
+        "ACTION": "Toiminnot"
       }
     },
     "FORM": {
@@ -80,6 +81,9 @@
         "YES": "Kyllä, poista ",
         "NO": "Ei, säilytä "
       }
-    }
+    },
+    "COUNT": "{n} label | {n} labels",
+    "SEARCH_PLACEHOLDER": "Search labels...",
+    "NO_RESULTS": "No labels found matching your search"
   }
 }

@@ -239,9 +239,11 @@ class Message < ApplicationRecord
       {
         story_id: story_info['id'],
         story_sender: inbox.channel.instagram_id,
-        story_url: story_info['url']
+        story_url: story_info['url'],
+        image_type: 'ig_story_reply'
       }
     )
+    attachments.new(account_id: account_id, file_type: :ig_story, external_url: story_info['url']) if story_info['url'].present?
     save!
   end
 
@@ -349,11 +351,12 @@ class Message < ApplicationRecord
         REPLY_CREATED, Time.zone.now, waiting_since: conversation.waiting_since, message: self
       )
       conversation.update(waiting_since: nil)
-      return
-    end
+    elsif bot_response?
+      return if preserve_waiting_since
+      return if sender_type == 'Cosmos::Assistant'
 
-    # Bot responses also clear waiting_since (simpler than checking on next customer message)
-    conversation.update(waiting_since: nil) if bot_response? && !preserve_waiting_since
+      conversation.update(waiting_since: nil)
+    end
   end
 
   def set_waiting_since_on_incoming_message
@@ -419,14 +422,14 @@ class Message < ApplicationRecord
   end
 
   def mark_pending_conversation_as_open_for_human_response
-    return unless cosmos_pending_conversation??
+    return unless cosmos_pending_conversation?
     return unless human_response?
     return if private?
 
     conversation.open!
   end
 
-  def cosmos_pending_conversation??
+  def cosmos_pending_conversation?
     false
   end
 

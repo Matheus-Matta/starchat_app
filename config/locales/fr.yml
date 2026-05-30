@@ -699,9 +699,9 @@ fr:
     copilot_message_required: Le message est obligatoire
     copilot_error: 'Please connect an assistant to this inbox to use Copilot'
     copilot_limit: 'You are out of Copilot credits. You can buy more credits from the billing section.'
-    upgrade: 'Passez à la version supérieure pour activer Captain AI'
-    disabled: 'Captain AI est désactivé pour ce compte.'
-    api_key_missing: 'La clé API de Captain AI n’est pas configurée.'
+    upgrade: 'Passez à la version supérieure pour activer Cosmos AI'
+    disabled: 'Cosmos AI est désactivé pour ce compte.'
+    api_key_missing: 'La clé API de Cosmos AI n’est pas configurée.'
     copilot:
       using_tool: 'Utilisation de l’outil %{function_name}'
       completed_tool_call: 'Appel d’outil %{function_name} terminé'

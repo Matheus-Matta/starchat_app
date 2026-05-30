@@ -59,6 +59,8 @@ RSpec.describe Evolution::MediaAttach do
       end
 
       it 'loga que está processando via URL' do
+        message # force lazy let to create account/inbox/conversation/message before logger expectation
+        allow(Rails.logger).to receive(:info)
         expect(Rails.logger).to receive(:info).with(/Processing via URL \(\.enc\)/)
 
         test_class.attach_from_payload!(message, payload)
@@ -92,6 +94,8 @@ RSpec.describe Evolution::MediaAttach do
       end
 
       it 'loga que está fazendo fallback para base64' do
+        message # force lazy let to create account/inbox/conversation/message before logger expectation
+        allow(Rails.logger).to receive(:info)
         expect(Rails.logger).to receive(:info).with(/Fallback to Base64 processing/)
 
         test_class.attach_from_payload!(message, payload)
@@ -152,8 +156,9 @@ RSpec.describe Evolution::MediaAttach do
 
       it 'pula URL e tenta base64 se disponível' do
         expect(test_class).not_to receive(:download_for_whatsapp_enc)
+        allow(test_class).to receive(:try_simple_download).and_return(false)
 
-        # Como não tem base64, deve retornar false
+        # Como não tem base64 e download simples retorna false, deve retornar false
         result = test_class.attach_from_payload!(message, payload)
         expect(result).to be false
       end

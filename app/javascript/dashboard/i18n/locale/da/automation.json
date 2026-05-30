@@ -40,13 +40,14 @@
       }
     },
     "LIST": {
+      "404": "Ingen automatiseringsregler fundet",
       "TABLE_HEADER": {
         "NAME": "Navn",
         "DESCRIPTION": "Beskrivelse",
         "ACTIVE": "Aktiv",
-        "CREATED_ON": "Oprettet den"
-      },
-      "404": "Ingen automatiseringsregler fundet"
+        "CREATED_ON": "Oprettet den",
+        "ACTIONS": "Handlinger"
+      }
     },
     "DELETE": {
       "TITLE": "Slet Automatiseringsregel",
@@ -131,7 +132,8 @@
       "CONVERSATION_CREATED": "Samtale Oprettet",
       "CONVERSATION_UPDATED": "Samtale Opdateret",
       "MESSAGE_CREATED": "Message Created",
-      "CONVERSATION_OPENED": "Conversation Opened"
+      "CONVERSATION_OPENED": "Conversation Opened",
+      "CONVERSATION_RESOLVED": "Conversation Resolved"
     },
     "ACTIONS": {
       "ASSIGN_AGENT": "Assign to Agent",
@@ -149,7 +151,10 @@
       "ADD_PRIVATE_NOTE": "Add a Private Note",
       "CHANGE_PRIORITY": "Change Priority",
       "ADD_SLA": "Add SLA",
-      "OPEN_CONVERSATION": "Åbn samtale"
+      "OPEN_CONVERSATION": "Åbn samtale",
+      "REMOVE_ASSIGNED_AGENT": "Remove Assigned Agent",
+      "REMOVE_ASSIGNED_TEAM": "Remove Assigned Team",
+      "PENDING_CONVERSATION": "Mark conversation as pending"
     },
     "MESSAGE_TYPES": {
       "INCOMING": "Incoming Message",
@@ -176,7 +181,14 @@
       "REFERER_LINK": "Referrer Link",
       "ASSIGNEE_NAME": "Assignee",
       "TEAM_NAME": "Team",
-      "PRIORITY": "Priority"
-    }
+      "PRIORITY": "Priority",
+      "PRIVATE_NOTE": "Privat Note",
+      "COMPANY_NAME": "Virksomhed",
+      "LABELS": "Etiketter"
+    },
+    "COUNT": "{n} automation | {n} automations",
+    "SEARCH_PLACEHOLDER": "Search automation rules...",
+    "NO_RESULTS": "No automation rules found matching your search",
+    "LAST_RESPONDING_AGENT": "Last Responding Agent"
   }
 }

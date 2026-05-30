@@ -12,6 +12,7 @@ module Starchat::Account::ConversationsResolutionSchedulerJob
       inbox = cosmos_inbox.inbox
 
       next if inbox.email?
+      next if inbox.account.cosmos_auto_resolve_disabled?
 
       Cosmos::InboxPendingConversationsResolutionJob.perform_later(
         inbox

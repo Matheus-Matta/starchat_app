@@ -110,6 +110,14 @@
         "SUBMIT_BUTTON": "Create inbox",
         "API": {
           "ERROR_MESSAGE": "We were not able to create a website channel, please try again"
+        },
+        "CHANNEL_WEBHOOK_SECRET": {
+          "LABEL": "Webhook Secret",
+          "COPY": "Copy secret to clipboard",
+          "COPY_SUCCESS": "Secret copied to clipboard",
+          "TOGGLE": "Toggle secret visibility",
+          "RESET_SUCCESS": "Webhook secret regenerated successfully",
+          "RESET_ERROR": "Unable to regenerate webhook secret. Please try again"
         }
       },
       "TWILIO": {
@@ -291,7 +299,13 @@
           "INVALID_BUSINESS_DATA": "Invalid business data received from Facebook. Please try again.",
           "SIGNUP_ERROR": "Signup error occurred",
           "AUTH_NOT_COMPLETED": "Authentication not completed. Please restart the process.",
-          "SUCCESS_FALLBACK": "WhatsApp Business Account has been successfully configured"
+          "SUCCESS_FALLBACK": "WhatsApp Business Account has been successfully configured",
+          "LEARN_MORE": {
+            "TEXT": "İnteqrasiya olunmuş qeydiyyat, qiymətlər və məhdudiyyətlər haqqında daha çox məlumat almaq üçün {link} ünvanına daxil olun.",
+            "LINK_TEXT": "bu link"
+          },
+          "MANUAL_FALLBACK": "Əgər nömrəniz artıq WhatsApp Business Platformasına (API) qoşulubsa və ya texnoloji təminatçı olaraq öz nömrənizi əlavə edirsinizsə, zəhmət olmasa {link} prosesindən istifadə edin",
+          "MANUAL_LINK_TEXT": "əl ilə qurma prosesi"
         },
         "API": {
           "ERROR_MESSAGE": "We were not able to save the WhatsApp channel"
@@ -373,7 +387,11 @@
         "API": {
           "ERROR_MESSAGE": "We were not able to save the email channel"
         },
-        "FINISH_MESSAGE": "Start forwarding your emails to the following email address."
+        "FINISH_MESSAGE": "Start forwarding your emails to the following email address.",
+        "FINISH_MESSAGE_NO_FORWARDING": "E-poçt qutunuz uğurla yaradıldı! E-poçt göndərmək və qəbul etmək üçün SMTP və IMAP məlumatlarını qurmalısınız. Bu parametrlər olmadan heç bir e-poçt işlənməyəcək.",
+        "FORWARDING_ADDRESS_LABEL": "E-poçtları bu ünvana yönləndirin:",
+        "CONFIGURE_SMTP_IMAP_LINK": "Buraya klikləyin",
+        "CONFIGURE_SMTP_IMAP_TEXT": " IMAP və SMTP parametrlərini qurmaq üçün"
       },
       "LINE_CHANNEL": {
         "TITLE": "LINE Channel",
@@ -462,6 +480,10 @@
           "VOICE": {
             "TITLE": "Voice",
             "DESCRIPTION": "Integrate with Twilio Voice"
+          },
+          "TIKTOK": {
+            "TITLE": "TikTok",
+            "DESCRIPTION": "TikTok hesabınızı qoşun"
           }
         }
       },
@@ -496,6 +518,13 @@
         "SIGN_IN": "Sign in with Google",
         "EMAIL_PLACEHOLDER": "Enter email address",
         "ERROR_MESSAGE": "There was an error connecting to Google, please try again"
+      },
+      "TIKTOK": {
+        "CONTINUE_WITH_TIKTOK": "TikTok ilə davam et",
+        "CONNECT_YOUR_TIKTOK_PROFILE": "TikTok profilinizi qoşun",
+        "HELP": "TikTok profilinizi kanal kimi əlavə etmək üçün 'TikTok ilə davam et' düyməsini klikləyərək profilinizi təsdiqləməlisiniz ",
+        "ERROR_MESSAGE": "TikTok-a qoşularkən xəta baş verdi, zəhmət olmasa yenidən cəhd edin",
+        "ERROR_AUTH": "TikTok-a qoşularkən xəta baş verdi, zəhmət olmasa yenidən cəhd edin"
       }
     },
     "DETAILS": {
@@ -567,7 +596,9 @@
       },
       "LOCK_TO_SINGLE_CONVERSATION": {
         "ENABLED": "Enabled",
-        "DISABLED": "Disabled"
+        "DISABLED": "Disabled",
+        "ENABLED_DESCRIPTION": "Əlaqə yenidən mesaj göndərdikdə əvvəlki söhbət yenidən açılacaq.",
+        "DISABLED_DESCRIPTION": "Əvvəlki söhbət həll edildikdən sonra hər dəfə yeni söhbət yaradılacaq."
       },
       "ENABLE_HMAC": {
         "LABEL": "Enable"
@@ -599,7 +630,9 @@
       "BUSINESS_HOURS": "Business Hours",
       "WIDGET_BUILDER": "Widget Builder",
       "BOT_CONFIGURATION": "Bot Configuration",
-      "CSAT": "CSAT"
+      "CSAT": "CSAT",
+      "ACCOUNT_HEALTH": "Hesabın sağlamlığı",
+      "VOICE": "Səs"
     },
     "SETTINGS": "Settings",
     "FEATURES": {
@@ -652,14 +685,49 @@
       "WHATSAPP_TEMPLATES_SYNC_SUBHEADER": "Manually sync message templates from WhatsApp to update your available templates.",
       "WHATSAPP_TEMPLATES_SYNC_BUTTON": "Sync Templates",
       "WHATSAPP_TEMPLATES_SYNC_SUCCESS": "Templates sync initiated successfully. It may take a couple of minutes to update.",
-      "UPDATE_PRE_CHAT_FORM_SETTINGS": "Update Pre Chat Form Settings"
+      "UPDATE_PRE_CHAT_FORM_SETTINGS": "Update Pre Chat Form Settings",
+      "ALLOWED_DOMAINS": {
+        "TITLE": "İcazə verilən domenlər",
+        "DESCRIPTION": "Restrict which websites can embed your chat widget. For security, only add domains you own and trust. Add one or more domains separated by commas. Leave blank to allow all domains (not recommended for production).",
+        "PLACEHOLDER": "example.com, www.example.com, app.example.com"
+      },
+      "ALLOW_MOBILE_WEBVIEW": {
+        "LABEL": "Enable widget in mobile apps",
+        "SUBTITLE": "Check this if you embed the widget in iOS or Android apps. Mobile apps don't send domain information, so they would be blocked by domain restrictions unless this is enabled."
+      },
+      "IDENTITY_VALIDATION": {
+        "TITLE": "Identity Validation",
+        "DESCRIPTION": "Verify user authenticity by generating secure tokens. This prevents unauthorized users from impersonating others in your chat.",
+        "SECRET_KEY": "Gizli Açar",
+        "VIEW_DOCS": "View documentation",
+        "REQUIRE_LABEL": "Require identity validation for all conversations",
+        "REQUIRE_DESCRIPTION": "When enabled, users must provide a valid identity token to start conversations. Requests without valid tokens will be rejected."
+      },
+      "ENABLE_CONTINUITY_VIA_EMAIL_DISABLED_TEXT": "This feature is available on a paid plan. Upgrade to enable conversation continuity via email.",
+      "FORWARD_EMAIL_NOT_CONFIGURED": "Bu quraşdırmada e-poçtların qutunuza yönləndirilməsi hazırda deaktivdir. Bu funksiyanı istifadə etmək üçün administratorunuz tərəfindən aktivləşdirilməlidir. Davam etmək üçün onlarla əlaqə saxlayın.",
+      "WHATSAPP_EMBEDDED_SIGNUP_TITLE": "WhatsApp Daxili Qeydiyyatı",
+      "WHATSAPP_EMBEDDED_SIGNUP_SUBHEADER": "Bu poçt qutusu WhatsApp daxili qeydiyyatı vasitəsilə qoşulub.",
+      "WHATSAPP_EMBEDDED_SIGNUP_DESCRIPTION": "WhatsApp Biznes parametrlərinizi yeniləmək üçün bu poçt qutusunu yenidən konfiqurasiya edə bilərsiniz.",
+      "WHATSAPP_RECONFIGURE_BUTTON": "Yenidən konfiqurasiya et",
+      "WHATSAPP_CONNECT_TITLE": "WhatsApp Biznesə qoşulun",
+      "WHATSAPP_CONNECT_SUBHEADER": "Asan idarəetmə üçün WhatsApp daxili qeydiyyatına yüksəldin.",
+      "WHATSAPP_CONNECT_DESCRIPTION": "Bu poçt qutusunu inkişaf etmiş xüsusiyyətlər və asan idarəetmə üçün WhatsApp Biznesə qoşun.",
+      "WHATSAPP_CONNECT_BUTTON": "Qoşul",
+      "WHATSAPP_CONNECT_SUCCESS": "WhatsApp Biznesə uğurla qoşuldu!",
+      "WHATSAPP_CONNECT_ERROR": "WhatsApp Biznesə qoşulmaq mümkün olmadı. Zəhmət olmasa yenidən cəhd edin.",
+      "WHATSAPP_RECONFIGURE_SUCCESS": "WhatsApp Biznes uğurla yenidən konfiqurasiya edildi!",
+      "WHATSAPP_RECONFIGURE_ERROR": "WhatsApp Biznesi yenidən konfiqurasiya etmək mümkün olmadı. Zəhmət olmasa yenidən cəhd edin.",
+      "WHATSAPP_APP_ID_MISSING": "WhatsApp Tətbiq ID-si konfiqurasiya edilməyib. Zəhmət olmasa administratorunuzla əlaqə saxlayın.",
+      "WHATSAPP_CONFIG_ID_MISSING": "WhatsApp Konfiqurasiya ID-si konfiqurasiya edilməyib. Zəhmət olmasa administratorunuzla əlaqə saxlayın.",
+      "WHATSAPP_LOGIN_CANCELLED": "WhatsApp giriş ləğv edildi. Zəhmət olmasa yenidən cəhd edin."
     },
     "HELP_CENTER": {
       "LABEL": "Help Center",
       "PLACEHOLDER": "Select Help Center",
       "SELECT_PLACEHOLDER": "Select Help Center",
       "REMOVE": "Remove Help Center",
-      "SUB_TEXT": "Attach a Help Center with the inbox"
+      "SUB_TEXT": "Attach a Help Center with the inbox",
+      "NONE": "Heç biri"
     },
     "AUTO_ASSIGNMENT": {
       "MAX_ASSIGNMENT_LIMIT": "Auto assignment limit",
@@ -722,7 +790,51 @@
       "API": {
         "SUCCESS_MESSAGE": "CSAT settings updated successfully",
         "ERROR_MESSAGE": "We couldn't update CSAT settings. Please try again later."
-      }
+      },
+      "BUTTON_TEXT": {
+        "LABEL": "Düymə mətni",
+        "PLACEHOLDER": "Zəhmət olmasa bizi qiymətləndirin"
+      },
+      "LANGUAGE": {
+        "LABEL": "Dil",
+        "PLACEHOLDER": "Şablon dilini seçin"
+      },
+      "MESSAGE_PREVIEW": {
+        "LABEL": "Mesaj önizləməsi",
+        "TOOLTIP": "Bu, WhatsApp platformasında göstərildikdə bir az fərqli ola bilər."
+      },
+      "TEMPLATE_STATUS": {
+        "APPROVED": "WhatsApp tərəfindən təsdiqlənib",
+        "PENDING": "WhatsApp təsdiqi gözlənilir",
+        "REJECTED": "Meta şablonu rədd etdi",
+        "DEFAULT": "WhatsApp təsdiqi tələb olunur",
+        "NOT_FOUND": "Şablon Meta platformasında mövcud deyil."
+      },
+      "TEMPLATE_CREATION": {
+        "SUCCESS_MESSAGE": "WhatsApp şablonu uğurla yaradıldı və təsdiq üçün göndərildi",
+        "ERROR_MESSAGE": "WhatsApp şablonu yaratmaq alınmadı"
+      },
+      "TEMPLATE_UPDATE_DIALOG": {
+        "TITLE": "Sorğu məlumatlarını redaktə et",
+        "DESCRIPTION": "Əvvəlki şablon silinəcək və yenisi yaradılaraq WhatsApp təsdiqi üçün yenidən göndəriləcək",
+        "CONFIRM": "Yeni şablon yarat",
+        "CANCEL": "Geri qayıt"
+      },
+      "UTILITY_ANALYZER": {
+        "ACTION": "Uyğunluğu yoxla",
+        "HELPER_NOTE": "Göndərməzdən əvvəl bu mesajı yoxlayın ki, uyğunluq yaxşılaşsın. Sistem hesabatlarda reytinq və rəy toplamaq üçün xüsusi CSAT şablonu yaradır və onu uyğunluq kimi təqdim edir; Meta məzmun əsasında hələ də Marketinq kimi təsnif edə bilər.",
+        "RESULT_LABEL": "Meta kateqoriya proqnozu",
+        "GUIDANCE_NOTE": "Bu, Meta təsdiqinin zəmanəti deyil, göstəriş yoxlamasıdır.",
+        "SUGGESTION_LABEL": "Tövsiyə olunan uyğunluq təhlükəsiz yenidən yazma",
+        "APPLY": "Bu yenidən yazmanı istifadə et",
+        "ERROR_MESSAGE": "Mesajı təhlil etmək alınmadı. Zəhmət olmasa yenidən cəhd edin.",
+        "CLASSIFICATION": {
+          "LIKELY_UTILITY": "Ehtimal olunan uyğunluq",
+          "LIKELY_MARKETING": "Ehtimal olunan Marketinq",
+          "UNCLEAR": "Aydınlaşdırma tələb olunur"
+        }
+      },
+      "WHATSAPP_NOTE": "Qeyd: Saxladıqda sistem WhatsApp-da xüsusi CSAT şablonu yaradır (reytinq və rəy toplamaq üçün istifadə olunur) və onu təsdiq üçün uyğunluq kimi təqdim edir. Meta məzmun əsasında hələ də Marketinq kimi təsnif edə bilər. Təsdiqdən sonra sorğular yalnız hər söhbət üçün bir dəfə göndərilir."
     },
     "BUSINESS_HOURS": {
       "TITLE": "Set your availability",
@@ -738,7 +850,9 @@
         "UNAVAILABLE": "Unavailable",
         "HOURS": "hours",
         "VALIDATION_ERROR": "Starting time should be before closing time.",
-        "CHOOSE": "Choose"
+        "CHOOSE": "Choose",
+        "DAY": "Gün",
+        "AVAILABILITY": "Mövcudluq"
       },
       "ALL_DAY": "All-Day"
     },
@@ -769,7 +883,8 @@
         "LABEL": "Password",
         "PLACE_HOLDER": "Password"
       },
-      "ENABLE_SSL": "Enable SSL"
+      "ENABLE_SSL": "Enable SSL",
+      "AUTH_MECHANISM": "Avtorizasiya"
     },
     "MICROSOFT": {
       "TITLE": "Microsoft",
@@ -868,7 +983,8 @@
         "WIDGET_BUBBLE_TYPE": {
           "STANDARD": "Standard",
           "EXPANDED_BUBBLE": "Expanded Bubble"
-        }
+        },
+        "WIDGET_BUBBLE": "Baloncuk"
       },
       "WIDGET_SCREEN": {
         "DEFAULT": "Default",
@@ -920,7 +1036,136 @@
       "LINE": "Line",
       "API": "API Channel",
       "INSTAGRAM": "Instagram",
-      "VOICE": "Voice"
+      "VOICE": "Voice",
+      "TIKTOK": "TikTok"
+    },
+    "COUNT": "{n} inbox | {n} inboxlar",
+    "SEARCH_PLACEHOLDER": "Inboxlarda axtarış...",
+    "NO_RESULTS": "Axtarışınıza uyğun inbox tapılmadı",
+    "WHATSAPP_REGISTRATION_INCOMPLETE": "Sizin WhatsApp Business qeydiyyatınız tamamlanmayıb. Yenidən qoşulmazdan əvvəl Meta Business Manager-də göstərilən ad statusunuzu yoxlayın.",
+    "COMPLETE_REGISTRATION": "Qeydiyyatı tamamla",
+    "VOICE_CONFIGURATION": {
+      "ENABLE_VOICE": {
+        "LABEL": "Enable Voice Calling",
+        "DESCRIPTION": "Enable voice calling on this inbox. Agents will be able to make and receive phone calls."
+      },
+      "CREDENTIALS": {
+        "DESCRIPTION": "Voice calling requires Twilio API Key credentials. These are used to generate tokens for agent voice connections."
+      }
+    },
+    "CHANNEL_PREFERENCES": "Kanal üstünlükləri",
+    "WIDGET_FEATURES": "Widget xüsusiyyətləri",
+    "ACCOUNT_HEALTH": {
+      "TITLE": "WhatsApp hesabınızı idarə edin",
+      "DESCRIPTION": "WhatsApp hesabınızın vəziyyətini, mesajlaşma limitlərini və keyfiyyətini yoxlayın. Lazım gələrsə, parametrləri yeniləyin və ya problemləri həll edin",
+      "GO_TO_SETTINGS": "Meta Business Manager-ə keçin",
+      "NO_DATA": "Sağlamlıq məlumatları mövcud deyil",
+      "FIELDS": {
+        "DISPLAY_PHONE_NUMBER": {
+          "LABEL": "Göstərilən telefon nömrəsi",
+          "TOOLTIP": "Müştərilərə göstərilən telefon nömrəsi"
+        },
+        "VERIFIED_NAME": {
+          "LABEL": "Biznes adı",
+          "TOOLTIP": "WhatsApp tərəfindən təsdiqlənmiş biznes adı"
+        },
+        "DISPLAY_NAME_STATUS": {
+          "LABEL": "Göstərilən adın statusu",
+          "TOOLTIP": "Biznes adınızın təsdiq statusu"
+        },
+        "QUALITY_RATING": {
+          "LABEL": "Keyfiyyət reytinqi",
+          "TOOLTIP": "Hesabınız üçün WhatsApp keyfiyyət reytinqi"
+        },
+        "MESSAGING_LIMIT_TIER": {
+          "LABEL": "Mesajlaşma limiti səviyyəsi",
+          "TOOLTIP": "Hesabınız üçün gündəlik mesaj limiti"
+        },
+        "ACCOUNT_MODE": {
+          "LABEL": "Hesab rejimi",
+          "TOOLTIP": "WhatsApp hesabınızın cari işləmə rejimi"
+        }
+      },
+      "VALUES": {
+        "TIERS": {
+          "TIER_250": "250 müştəri 24 saat ərzində",
+          "TIER_1000": "1K müştəri 24 saat ərzində",
+          "TIER_1K": "1K müştəri 24 saat ərzində",
+          "TIER_10K": "10K müştəri 24 saat ərzində",
+          "TIER_100K": "100K müştəri 24 saat ərzində",
+          "TIER_UNLIMITED": "Limitsiz müştəri 24 saat ərzində",
+          "UNKNOWN": "Reytinq mövcud deyil"
+        },
+        "STATUSES": {
+          "APPROVED": "Təsdiqlənib",
+          "PENDING_REVIEW": "Yoxlama gözlənilir",
+          "AVAILABLE_WITHOUT_REVIEW": "Yoxlama olmadan mövcuddur",
+          "REJECTED": "Rədd edilib",
+          "DECLINED": "İmtina edilib",
+          "NON_EXISTS": "Mövcud deyil"
+        },
+        "MODES": {
+          "SANDBOX": "Sandbox",
+          "LIVE": "Canlı"
+        }
+      },
+      "WEBHOOK": {
+        "TITLE": "Webhook Konfiqurasiyası",
+        "DESCRIPTION": "Müştərilərdən mesaj almaq üçün WhatsApp Business Hesabınızda webhook URL tələb olunur",
+        "ACTION_REQUIRED": "Webhook qurulmayıb",
+        "REGISTER_BUTTON": "Webhook-u qeydiyyatdan keçirin",
+        "REGISTER_SUCCESS": "Webhook uğurla qeydiyyatdan keçdi",
+        "REGISTER_ERROR": "Webhook qeydiyyatı alınmadı. Zəhmət olmasa yenidən cəhd edin.",
+        "CONFIGURED_SUCCESS": "Webhook uğurla quruldu",
+        "URL_MISMATCH": "Webhook URL uyğun gəlmir"
+      }
+    },
+    "ASSIGNMENT": {
+      "TITLE": "Söhbət təyinatı",
+      "DESCRIPTION": "Gələn söhbətləri təyin etmə siyasətlərinə əsasən mövcud agentlərə avtomatik təyin edin",
+      "ENABLE_AUTO_ASSIGNMENT": "Avtomatik söhbət təyinatını aktiv et",
+      "DEFAULT_RULES_TITLE": "Əsas təyinat qaydaları",
+      "DEFAULT_RULES_DESCRIPTION": "Bütün söhbətlər üçün əsas təyinat davranışından istifadə olunur",
+      "DEFAULT_RULE_1": "Ən erkən yaradılan söhbətlər əvvəl",
+      "DEFAULT_RULE_2": "Dairəvi paylama",
+      "CUSTOMIZE_WITH_POLICY": "Təyinat siyasəti ilə fərdiləşdirin",
+      "USING_POLICY": "Bu qutu üçün fərdi təyinat siyasətindən istifadə olunur",
+      "CUSTOMIZE_POLICY": "Təyinat siyasəti ilə fərdiləşdirin",
+      "DELETE_POLICY": "Siyasəti silin",
+      "POLICY_LABEL": "Təyinat siyasəti",
+      "ASSIGNMENT_ORDER_LABEL": "Təyinat sırası",
+      "ASSIGNMENT_METHOD_LABEL": "Təyinat üsulu",
+      "POLICY_STATUS": {
+        "ACTIVE": "Aktiv",
+        "INACTIVE": "Passiv"
+      },
+      "PRIORITY": {
+        "EARLIEST_CREATED": "Ən erkən yaradılan",
+        "LONGEST_WAITING": "Ən uzun müddət gözləyən"
+      },
+      "METHOD": {
+        "ROUND_ROBIN": "Növbə ilə",
+        "BALANCED": "Tarazlı təyinat"
+      },
+      "UPGRADE_PROMPT": "Fərdi təyinat siyasətləri Biznes planında mövcuddur",
+      "UPGRADE_TO_BUSINESS": "Biznes planına yüksəlt",
+      "DEFAULT_POLICY_LINKED": "Əsas siyasət qoşulub",
+      "DEFAULT_POLICY_DESCRIPTION": "Bu inboxdakı söhbətlərin agentlərə necə təyin olunacağını fərdiləşdirmək üçün fərdi təyinat siyasətini qoşun.",
+      "LINK_EXISTING_POLICY": "Mövcud siyasəti qoşun",
+      "CREATE_NEW_POLICY": "Yeni siyasət yaradın",
+      "NO_POLICIES": "Təyinat siyasəti tapılmadı",
+      "VIEW_ALL_POLICIES": "Bütün siyasətləri göstər",
+      "CURRENT_BEHAVIOR": "Hazırda əsas təyinat davranışı istifadə olunur:",
+      "LINK_SUCCESS": "Təyinat siyasəti uğurla qoşuldu",
+      "LINK_ERROR": "Təyinat siyasətini qoşmaq alınmadı"
+    },
+    "ASSIGNMENT_POLICY": {
+      "DELETE_CONFIRM_TITLE": "Təyinat siyasətini silmək istəyirsiniz?",
+      "DELETE_CONFIRM_MESSAGE": "Bu təyinat siyasətini bu inboxdan silmək istədiyinizə əminsiniz? Inbox əsas təyinat qaydalarına qayıdacaq.",
+      "CANCEL": "Ləğv et",
+      "CONFIRM_DELETE": "Silin",
+      "DELETE_SUCCESS": "Təyinat siyasəti uğurla silindi",
+      "DELETE_ERROR": "Təyinat siyasətini silmək alınmadı"
     }
   }
 }

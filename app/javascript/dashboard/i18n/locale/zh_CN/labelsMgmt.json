@@ -13,7 +13,8 @@
       "TABLE_HEADER": {
         "NAME": "名称",
         "DESCRIPTION": "描述信息",
-        "COLOR": "颜色"
+        "COLOR": "颜色",
+        "ACTION": "操作"
       }
     },
     "FORM": {
@@ -80,6 +81,9 @@
         "YES": "是，删除",
         "NO": "不，保留"
       }
-    }
+    },
+    "COUNT": "{n} label | {n} labels",
+    "SEARCH_PLACEHOLDER": "搜索标签...",
+    "NO_RESULTS": "No labels found matching your search"
   }
 }

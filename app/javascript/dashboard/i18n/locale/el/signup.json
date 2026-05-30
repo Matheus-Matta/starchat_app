@@ -27,7 +27,12 @@
       "LABEL": "Κωδικός",
       "PLACEHOLDER": "Κωδικός",
       "ERROR": "Ο κωδικός είναι πολύ σύντομος",
-      "IS_INVALID_PASSWORD": "Ο κωδικός πρόσβασης πρέπει να περιέχει τουλάχιστον 1 κεφαλαίο γράμμα, 1 πεζό γράμμα, 1 αριθμό και 1 ειδικό χαρακτήρα"
+      "IS_INVALID_PASSWORD": "Ο κωδικός πρόσβασης πρέπει να περιέχει τουλάχιστον 1 κεφαλαίο γράμμα, 1 πεζό γράμμα, 1 αριθμό και 1 ειδικό χαρακτήρα",
+      "REQUIREMENTS_LENGTH": "At least 6 characters long",
+      "REQUIREMENTS_UPPERCASE": "At least one uppercase letter",
+      "REQUIREMENTS_LOWERCASE": "At least one lowercase letter",
+      "REQUIREMENTS_NUMBER": "At least one number",
+      "REQUIREMENTS_SPECIAL": "At least one special character"
     },
     "CONFIRM_PASSWORD": {
       "LABEL": "Επιβεβαίωση κωδικού",
@@ -39,6 +44,14 @@
       "ERROR_MESSAGE": "Αδυναμία σύνδεσης με τον Woot Server, Παρακαλώ προσπαθήστε αργότερα"
     },
     "SUBMIT": "Create account",
-    "HAVE_AN_ACCOUNT": "Έχετε ήδη ένα λογαριασμό?"
+    "HAVE_AN_ACCOUNT": "Έχετε ήδη ένα λογαριασμό?",
+    "GET_STARTED": "Get started with Chatwoot",
+    "VERIFY_EMAIL": {
+      "TITLE": "Check your inbox",
+      "DESCRIPTION": "We sent a verification link to {email}. Click the link to verify your email and get started.",
+      "RESEND": "Resend verification email",
+      "RESEND_SUCCESS": "Verification email sent. Please check your inbox.",
+      "RESEND_ERROR": "Could not send verification email. Please try again."
+    }
   }
 }

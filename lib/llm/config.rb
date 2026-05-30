@@ -41,11 +41,11 @@ module Llm::Config
     end
 
     def system_api_key
-      InstallationConfig.find_by(name: 'CAPTAIN_OPEN_AI_API_KEY')&.value
+      InstallationConfig.find_by(name: 'COSMOS_OPEN_AI_API_KEY')&.value
     end
 
     def openai_endpoint
-      InstallationConfig.find_by(name: 'CAPTAIN_OPEN_AI_ENDPOINT')&.value
+      InstallationConfig.find_by(name: 'COSMOS_OPEN_AI_ENDPOINT')&.value
     end
   end
 end

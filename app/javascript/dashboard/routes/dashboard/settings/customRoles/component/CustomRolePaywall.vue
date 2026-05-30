@@ -51,7 +51,7 @@ const isSuperAdmin = computed(() => {
   return currentUser.value.type === 'SuperAdmin';
 });
 const i18nKey = computed(() =>
-  isOnChatwootCloud.value ? 'PAYWALL' : 'ENTERPRISE_PAYWALL'
+  isOnChatwootCloud.value ? 'PAYWALL' : 'STARCHAT_PAYWALL'
 );
 
 const goToBillingSettings = () => {

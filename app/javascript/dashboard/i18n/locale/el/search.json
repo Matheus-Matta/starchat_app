@@ -27,6 +27,42 @@
     "WROTE": "wrote:",
     "FROM": "από",
     "EMAIL": "email",
-    "EMAIL_SUBJECT": "θέμα"
+    "EMAIL_SUBJECT": "θέμα",
+    "RECENT_SEARCHES": "Recent searches",
+    "CLEAR_ALL": "Clear all",
+    "MOST_RECENT": "Most recent",
+    "READ_LESS": "Read less",
+    "PRIVATE": "Private note",
+    "TRANSCRIPT": "Transcript",
+    "CREATED_AT": "created {time}",
+    "UPDATED_AT": "updated {time}",
+    "SORT_BY": {
+      "RELEVANCE": "Relevance"
+    },
+    "DATE_RANGE": {
+      "LAST_7_DAYS": "Τελευταίες 7 ημέρες",
+      "LAST_30_DAYS": "Τελευταίες 30 ημέρες",
+      "LAST_60_DAYS": "Τελευταίες 60 ημέρες",
+      "LAST_90_DAYS": "Τελευταίες 90 ημέρες",
+      "CUSTOM_RANGE": "Custom range:",
+      "CREATED_BETWEEN": "Created between",
+      "AND": "και",
+      "APPLY": "Εφαρμογή",
+      "BEFORE_DATE": "Before {date}",
+      "AFTER_DATE": "After {date}",
+      "TIME_RANGE": "Filter by time",
+      "CLEAR_FILTER": "Clear filter"
+    },
+    "FILTERS": {
+      "FILTER_MESSAGE": "Filter messages by:",
+      "FROM": "Αποστολέας",
+      "IN": "Εισερχόμενα",
+      "AGENTS": "Πράκτορες",
+      "CONTACTS": "Επαφές",
+      "INBOXES": "Κιβώτια Εισερχομένων",
+      "NO_AGENTS": "Δεν βρέθηκαν Πράκτορες",
+      "NO_CONTACTS": "Start by searching to see results",
+      "NO_INBOXES": "No inboxes found"
+    }
   }
 }

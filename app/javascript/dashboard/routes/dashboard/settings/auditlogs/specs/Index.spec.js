@@ -79,7 +79,17 @@ function mountIndex(records = []) {
   useStore.mockReturnValue(store);
   useStoreGetters.mockReturnValue(getters);
 
-  return shallowMount(Index);
+  return shallowMount(Index, {
+    global: {
+      stubs: {
+        SettingsLayout: {
+          template: '<section><slot name="header" /></section>',
+        },
+        BaseSettingsHeader: true,
+        PaginationFooter: true,
+      },
+    },
+  });
 }
 
 // ===========================================================================
@@ -223,7 +233,17 @@ describe('AuditLog Index.vue', () => {
       useStore.mockReturnValue(store);
       useStoreGetters.mockReturnValue(getters);
 
-      const wrapper = shallowMount(Index);
+      const wrapper = shallowMount(Index, {
+        global: {
+          stubs: {
+            SettingsLayout: {
+              template: '<section><slot name="header" /></section>',
+            },
+            BaseSettingsHeader: true,
+            PaginationFooter: true,
+          },
+        },
+      });
       expect(wrapper.find('table').exists()).toBe(false);
       // Enquanto carregando, a mensagem 404 não deve aparecer
       // (v-else-if="!validRecords.length" só avalia quando fetchingList=false)
@@ -246,7 +266,17 @@ describe('AuditLog Index.vue', () => {
       useStore.mockReturnValue(store);
       useStoreGetters.mockReturnValue(getters);
 
-      shallowMount(Index);
+      shallowMount(Index, {
+        global: {
+          stubs: {
+            SettingsLayout: {
+              template: '<section><slot name="header" /></section>',
+            },
+            BaseSettingsHeader: true,
+            PaginationFooter: true,
+          },
+        },
+      });
 
       expect(store.dispatch).toHaveBeenCalledWith('agents/get');
       expect(store.dispatch).toHaveBeenCalledWith('auditlogs/fetch', { page: 1 });

@@ -27,6 +27,42 @@
     "WROTE": "wrote:",
     "FROM": "จาก",
     "EMAIL": "อีเมล์",
-    "EMAIL_SUBJECT": "หัวเรื่อง"
+    "EMAIL_SUBJECT": "หัวเรื่อง",
+    "RECENT_SEARCHES": "Recent searches",
+    "CLEAR_ALL": "Clear all",
+    "MOST_RECENT": "Most recent",
+    "READ_LESS": "Read less",
+    "PRIVATE": "Private note",
+    "TRANSCRIPT": "Transcript",
+    "CREATED_AT": "created {time}",
+    "UPDATED_AT": "updated {time}",
+    "SORT_BY": {
+      "RELEVANCE": "Relevance"
+    },
+    "DATE_RANGE": {
+      "LAST_7_DAYS": "7 วันที่ผ่านมา",
+      "LAST_30_DAYS": "30 วันที่ผ่านมา",
+      "LAST_60_DAYS": "60 วันที่ผ่านมา",
+      "LAST_90_DAYS": "90 วันที่ผ่านมา",
+      "CUSTOM_RANGE": "Custom range:",
+      "CREATED_BETWEEN": "Created between",
+      "AND": "and",
+      "APPLY": "ใช้งาน",
+      "BEFORE_DATE": "Before {date}",
+      "AFTER_DATE": "After {date}",
+      "TIME_RANGE": "Filter by time",
+      "CLEAR_FILTER": "Clear filter"
+    },
+    "FILTERS": {
+      "FILTER_MESSAGE": "Filter messages by:",
+      "FROM": "ผู้ส่ง",
+      "IN": "กล่องข้อความ",
+      "AGENTS": "พนักงาน",
+      "CONTACTS": "ผู้ติดต่อ",
+      "INBOXES": "กล่องข้อความ",
+      "NO_AGENTS": "ไม่พบพนักงาน",
+      "NO_CONTACTS": "Start by searching to see results",
+      "NO_INBOXES": "No inboxes found"
+    }
   }
 }

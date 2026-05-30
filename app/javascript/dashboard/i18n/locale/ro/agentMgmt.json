@@ -119,6 +119,9 @@
           "INPUT": "Căutare agenți"
         }
       }
-    }
+    },
+    "COUNT": "{n} agent | {n} agents",
+    "SEARCH_PLACEHOLDER": "Agenți de căutare...",
+    "NO_RESULTS": "No agents found matching your search"
   }
 }

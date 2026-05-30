@@ -9,7 +9,6 @@ describe('useConfig', () => {
       vapidPublicKey: 'vapid-key',
       enabledLanguages: ['en', 'fr'],
       isEnterprise: 'true',
-      enterprisePlanName: 'enterprise',
     };
   });
 
@@ -24,7 +23,6 @@ describe('useConfig', () => {
     expect(config.vapidPublicKey).toBe('vapid-key');
     expect(config.enabledLanguages).toEqual(['en', 'fr']);
     expect(config.isEnterprise).toBe(true);
-    expect(config.enterprisePlanName).toBe('enterprise');
   });
 
   it('handles missing configuration values', () => {
@@ -35,7 +33,6 @@ describe('useConfig', () => {
     expect(config.vapidPublicKey).toBeUndefined();
     expect(config.enabledLanguages).toBeUndefined();
     expect(config.isEnterprise).toBe(false);
-    expect(config.enterprisePlanName).toBeUndefined();
   });
 
   it('handles undefined window.chatwootConfig', () => {
@@ -46,6 +43,5 @@ describe('useConfig', () => {
     expect(config.vapidPublicKey).toBeUndefined();
     expect(config.enabledLanguages).toBeUndefined();
     expect(config.isEnterprise).toBe(false);
-    expect(config.enterprisePlanName).toBeUndefined();
   });
 });

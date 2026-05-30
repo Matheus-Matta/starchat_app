@@ -40,7 +40,7 @@ class Seeders::Reports::ReportDataSeeder
   END_DATE = Time.current
 
   def initialize(account:)
-    raise 'Account Seeding is not allowed.' unless ENV.fetch('ENABLE_ACCOUNT_SEEDING', !Rails.env.production?)
+    raise 'Account Seeding is not allowed.' unless account_seeding_allowed?
 
     @account = account
     @teams = []
@@ -68,6 +68,12 @@ class Seeders::Reports::ReportDataSeeder
   end
 
   private
+
+  def account_seeding_allowed?
+    return false if Rails.env.production?
+
+    ActiveModel::Type::Boolean.new.cast(ENV.fetch('ENABLE_ACCOUNT_SEEDING', true))
+  end
 
   def clear_existing_data
     puts "Clearing existing data for account: #{@account.id}"

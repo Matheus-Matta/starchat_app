@@ -407,7 +407,8 @@
       "ACTIVE_FILTERS": {
         "MORE_FILTERS": "+ {count} টি আরও ফিল্টার",
         "CLEAR_FILTERS": "ফিল্টারগুলি মুছে ফেলুন"
-      }
+      },
+      "COMPANY": "কোম্পানি"
     },
     "CARD": {
       "OF": "এর",

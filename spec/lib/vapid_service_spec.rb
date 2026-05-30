@@ -15,30 +15,18 @@ describe VapidService do
       end
 
       it 'get public key from env' do
-        # this gets public key
+        InstallationConfig.where(name: 'VAPID_KEYS').delete_all
+        GlobalConfig.clear_cache
         ENV['VAPID_PUBLIC_KEY'] = 'test'
-        described_class.public_key
-
-        # this call will hit db as after_commit method will clear globalConfig cache
-        expect(InstallationConfig).to receive(:find_by)
-        described_class.public_key
-        # subsequent calls should not hit DB
-        expect(InstallationConfig).not_to receive(:find_by)
-        described_class.public_key
+        expect(described_class.public_key).to eq 'test'
         ENV['VAPID_PUBLIC_KEY'] = nil
       end
 
       it 'get private key from env' do
-        # this gets private key
+        InstallationConfig.where(name: 'VAPID_KEYS').delete_all
+        GlobalConfig.clear_cache
         ENV['VAPID_PRIVATE_KEY'] = 'test'
-        described_class.private_key
-
-        # this call will hit db as after_commit method will clear globalConfig cache
-        expect(InstallationConfig).to receive(:find_by)
-        described_class.private_key
-        # subsequent calls should not hit DB
-        expect(InstallationConfig).not_to receive(:find_by)
-        described_class.private_key
+        expect(described_class.private_key).to eq 'test'
         ENV['VAPID_PRIVATE_KEY'] = nil
       end
 

@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Cosmos::Documents::CrawlJob, type: :job do
   let(:document) { create(:cosmos_document, external_link: 'https://example.com/page') }
   let(:assistant_id) { document.assistant_id }
-  let(:webhook_url) { Rails.application.routes.url_helpers.enterprise_webhooks_firecrawl_url }
+  let(:webhook_url) { Rails.application.routes.url_helpers.starchat_webhooks_firecrawl_url }
 
   describe '#perform' do
     context 'when COSMOS_FIRECRAWL_API_KEY is configured' do

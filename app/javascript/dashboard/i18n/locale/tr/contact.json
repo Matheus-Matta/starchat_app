@@ -55,7 +55,10 @@
     "CALL_UNDER_DEVELOPMENT": "Calling is under development",
     "VOICE_INBOX_PICKER": {
       "TITLE": "Choose a voice inbox"
-    }
+    },
+    "CALL_INITIATED": "Calling the contact…",
+    "CALL_FAILED": "Unable to start the call. Please try again.",
+    "CLICK_TO_EDIT": "Click to edit"
   },
   "EDIT_CONTACT": {
     "BUTTON_LABEL": "Kişiyi Düzenle",
@@ -405,7 +408,8 @@
       "ACTIVE_FILTERS": {
         "MORE_FILTERS": "+ {count} more filters",
         "CLEAR_FILTERS": "Filtreleri Temizle"
-      }
+      },
+      "COMPANY": "Şirket"
     },
     "CARD": {
       "OF": "of",
@@ -461,6 +465,12 @@
           },
           "TWITTER": {
             "PLACEHOLDER": "Add Twitter"
+          },
+          "TELEGRAM": {
+            "PLACEHOLDER": "Telegram Ekle"
+          },
+          "TIKTOK": {
+            "PLACEHOLDER": "TikTok Ekle"
           }
         }
       },
@@ -557,7 +567,9 @@
         "EXPAND": "Genişlet",
         "COLLAPSE": "Daralt",
         "NO_NOTES": "Not yok, kişi detayları sayfasından not ekleyebilirsiniz.",
-        "EMPTY_STATE": "There are no notes associated to this contact. You can add a note by typing in the box above."
+        "EMPTY_STATE": "There are no notes associated to this contact. You can add a note by typing in the box above.",
+        "ADD_NOTE": "Kişi notu ekle",
+        "CONVERSATION_EMPTY_STATE": "Henüz not yok. Not eklemek için Not ekle düğmesini kullanın."
       }
     },
     "EMPTY_STATE": {
@@ -567,7 +579,8 @@
       "SEARCH_EMPTY_STATE_TITLE": "Aramanızla eşleşen kişi bulunamadı 🔍",
       "LIST_EMPTY_STATE_TITLE": "No contacts available in this view 📋",
       "ACTIVE_EMPTY_STATE_TITLE": "Şu anda aktif kişi yok 🌙"
-    }
+    },
+    "LOAD_MORE": "Load more"
   },
   "COMPOSE_NEW_CONVERSATION": {
     "CONTACT_SEARCH": {
@@ -623,6 +636,27 @@
           "SEND_MESSAGE": "Mesajı Gönder"
         }
       }
+    }
+  },
+  "CONTACTS_BULK_ACTIONS": {
+    "ASSIGN_LABELS": "Assign Labels",
+    "ASSIGN_LABELS_SUCCESS": "Etiketler başarıyla atandı.",
+    "ASSIGN_LABELS_FAILED": "Failed to assign labels",
+    "DESCRIPTION": "Select the labels you want to add to the selected contacts.",
+    "NO_LABELS_FOUND": "No labels available yet.",
+    "SELECTED_COUNT": "{count} selected",
+    "CLEAR_SELECTION": "Seçimi temizle",
+    "SELECT_ALL": "Tümünü seç ({count})",
+    "DELETE_CONTACTS": "Sil",
+    "DELETE_SUCCESS": "Kişiler başarıyla silindi.",
+    "DELETE_FAILED": "Kişiler silinemedi.",
+    "DELETE_DIALOG": {
+      "TITLE": "Seçilen kişileri sil",
+      "SINGULAR_TITLE": "Seçilen kişiyi sil",
+      "DESCRIPTION": "Bu işlem, seçilen {count} kişileri kalıcı olarak silecektir. Bu eylem geri alınamaz.",
+      "SINGULAR_DESCRIPTION": "Bu işlem, seçilen kişiyi kalıcı olarak silecektir. Bu eylem geri alınamaz.",
+      "CONFIRM_MULTIPLE": "Kişileri sil",
+      "CONFIRM_SINGLE": "Kişiyi Sil"
     }
   }
 }

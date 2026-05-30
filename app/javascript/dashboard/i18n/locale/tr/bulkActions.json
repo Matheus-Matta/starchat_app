@@ -35,7 +35,18 @@
       "NO_TEAMS_AVAILABLE": "Bu hesaba henüz eklenmiş takımlar yok.",
       "ASSIGN_SELECTED_TEAMS": "Seçili takımları atama",
       "ASSIGN_SUCCESFUL": "Teams assigned successfully.",
-      "ASSIGN_FAILED": "Takımlar atanırken bir hata oluştu. Lütfen tekrar deneyin."
+      "ASSIGN_FAILED": "Takımlar atanırken bir hata oluştu. Lütfen tekrar deneyin.",
+      "ASSIGN_TEAM_CONFIRMATION_LABEL": "Are you sure you want to assign {n} conversation to {teamName}? | Are you sure you want to assign {n} conversations to {teamName}?",
+      "UNASSIGN_TEAM_CONFIRMATION_LABEL": "Are you sure you want to unassign {n} conversation? | Are you sure you want to unassign {n} conversations?"
+    },
+    "NONE": "Hiç",
+    "CLEAR_SELECTION": "Clear",
+    "ASSIGN_AGENT_CONFIRMATION_LABEL": "Are you sure you want to assign {n} conversation to {agentName}? | Are you sure you want to assign {n} conversations to {agentName}?",
+    "UNASSIGN_AGENT_CONFIRMATION_LABEL": "Are you sure you want to unassign {n} conversation? | Are you sure you want to unassign {n} conversations?",
+    "CANCEL": "İptal Et",
+    "RESOLVE": {
+      "ALL_MISSING_ATTRIBUTES": "Cannot resolve conversations due to missing required attributes",
+      "PARTIAL_SUCCESS": "Some conversations need required attributes before resolving and were skipped"
     }
   }
 }

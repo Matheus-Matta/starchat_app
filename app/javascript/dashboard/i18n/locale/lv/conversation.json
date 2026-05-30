@@ -1,8 +1,8 @@
 {
   "CONVERSATION": {
+    "404": "Atvainojiet, mēs nevaram atrast sarunu. Lūdzu mēģiniet vēlreiz",
     "SELECT_A_CONVERSATION": "Lūdzu, izvēlieties sarunu kreisajā rūtī",
     "CSAT_REPLY_MESSAGE": "Lūdzu, novērtējiet sarunu",
-    "404": "Atvainojiet, mēs nevaram atrast sarunu. Lūdzu mēģiniet vēlreiz",
     "SWITCH_VIEW_LAYOUT": "Pārslēgt izkārtojumu",
     "DASHBOARD_APP_TAB_MESSAGES": "Ziņojumi",
     "UNVERIFIED_SESSION": "Šā lietotāja identitāte nav pārbaudīta",
@@ -69,7 +69,8 @@
     "REPLY_MESSAGE_NOT_FOUND": "Ziņa nav pieejama",
     "CARD": {
       "SHOW_LABELS": "Rādīt etiķetes",
-      "HIDE_LABELS": "Slēpt etiķetes"
+      "HIDE_LABELS": "Slēpt etiķetes",
+      "LABELS_COUNT": "{count} labels"
     },
     "VOICE_CALL": {
       "INCOMING_CALL": "Incoming call",
@@ -80,7 +81,9 @@
       "CALL_ENDED": "Call ended",
       "NOT_ANSWERED_YET": "Not answered yet",
       "THEY_ANSWERED": "They answered",
-      "YOU_ANSWERED": "You answered"
+      "YOU_ANSWERED": "You answered",
+      "AGENT_ANSWERED": "{agentName} answered",
+      "JOIN_CALL": "Join call"
     },
     "HEADER": {
       "RESOLVE_ACTION": "Atrisināt",
@@ -100,7 +103,8 @@
         "RT": "RT {status}",
         "MISSED": "nokavēti",
         "DUE": "jābeidz"
-      }
+      },
+      "COPY_ID_SUCCESS": "Conversation ID copied to clipboard"
     },
     "RESOLVE_DROPDOWN": {
       "MARK_PENDING": "Atzīmēt kā neapstiprinātu",
@@ -172,8 +176,15 @@
         "TEAM_ASSIGNMENT": {
           "SUCCESFUL": "Sarunai ar id {conversationId} tika piešķirta komanda \"{team}\"",
           "FAILED": "Nevarēja piešķirt komandu. Lūdzu, mēģiniet vēlreiz."
+        },
+        "LABEL_REMOVAL": {
+          "SUCCESFUL": "Removed label #{labelName} from conversation id {conversationId}",
+          "FAILED": "Couldn't remove label. Please try again."
         }
-      }
+      },
+      "OPEN_IN_NEW_TAB": "Open in new tab",
+      "COPY_LINK": "Copy conversation link",
+      "COPY_LINK_SUCCESS": "Conversation link copied to clipboard"
     },
     "FOOTER": {
       "MESSAGE_SIGN_TOOLTIP": "Ziņojuma paraksts",
@@ -183,7 +194,11 @@
       "PRIVATE_MSG_INPUT": "Shift + Enter, lai pārietu uz jaunu rindu. Ziņojums būs redzams tikai Aģentiem",
       "MESSAGE_SIGNATURE_NOT_CONFIGURED": "Ziņojuma paraksts nav nokonfigurēts. Lūdzu, nokonfigurējiet to profila iestatījumos.",
       "CLICK_HERE": "Noklikšķiniet šeit, lai atjauninātu",
-      "WHATSAPP_TEMPLATES": "WhatsApp Veidnes"
+      "WHATSAPP_TEMPLATES": "WhatsApp Veidnes",
+      "MESSAGING_RESTRICTED": "You cannot reply to this conversation",
+      "MESSAGING_RESTRICTED_WHATSAPP": "You can only reply using a template message due to 24-hour message window restriction",
+      "MESSAGING_RESTRICTED_API": "You can only reply using a template message due to message window restriction",
+      "COPILOT_MSG_INPUT": "Dodiet copilota papildu ierosinājumus vai uzdodiet jebko citu... Nospiediet Enter, lai nosūtītu turpinājumu"
     },
     "REPLYBOX": {
       "REPLY": "Atbildēt",
@@ -224,6 +239,14 @@
           "YES": "Nosūtīt",
           "CANCEL": "Atcelt"
         }
+      },
+      "COPILOT_THINKING": "Copilot domā",
+      "QUOTED_REPLY": {
+        "ENABLE_TOOLTIP": "Include quoted email thread",
+        "DISABLE_TOOLTIP": "Don't include quoted email thread",
+        "REMOVE_PREVIEW": "Remove quoted email thread",
+        "COLLAPSE": "Collapse preview",
+        "EXPAND": "Expand preview"
       }
     },
     "VISIBLE_TO_AGENTS": "Privāta Piezīme: Redzama tikai Jums un Jūsu komandai",
@@ -265,6 +288,21 @@
     "SIDEBAR": {
       "CONTACT": "Kontaktpersona",
       "COPILOT": "Kopilots"
+    },
+    "48_HOURS_WINDOW": "48 stundu ziņojuma loga ierobežojums",
+    "UNSUPPORTED_MESSAGE_TIKTOK": "This message is unsupported. You can view this message on the TikTok app.",
+    "FILE_TYPE_NOT_SUPPORTED": "This {fileName} file type is not supported in this conversation",
+    "NATIVE_APP": "Native app",
+    "NATIVE_APP_ADVISORY": "This message was sent from the native app. Reply from Chatwoot to maintain the message window.",
+    "VOICE_WIDGET": {
+      "INCOMING_CALL": "Incoming call",
+      "OUTGOING_CALL": "Outgoing call",
+      "CALL_IN_PROGRESS": "Call in progress",
+      "NOT_ANSWERED_YET": "Not answered yet",
+      "HANDLED_IN_ANOTHER_TAB": "Being handled in another tab",
+      "REJECT_CALL": "Reject",
+      "JOIN_CALL": "Join call",
+      "END_CALL": "End call"
     }
   },
   "EMAIL_TRANSCRIPT": {
@@ -282,7 +320,8 @@
         "PLACEHOLDER": "Ievadiet e-pasta adresi",
         "ERROR": "Lūdzu ievadiet derīgu e-pasta adresi"
       }
-    }
+    },
+    "SEND_EMAIL_PAYMENT_REQUIRED": "Email transcript is not available on your current plan. Please upgrade to use this feature."
   },
   "ONBOARDING": {
     "TITLE": "Sveicināti 👋, Laipni lūdzam {installationName}!",
@@ -329,7 +368,8 @@
       "PREVIOUS_CONVERSATION": "Iepriekšējās Sarunas",
       "MACROS": "Macros",
       "LINEAR_ISSUES": "Linked Linear Issues",
-      "SHOPIFY_ORDERS": "Shopify Orders"
+      "SHOPIFY_ORDERS": "Shopify Orders",
+      "SHARED_FILES": "Attachments"
     },
     "SHOPIFY": {
       "ORDER_ID": "Order #{id}",
@@ -349,6 +389,17 @@
         "PARTIALLY_FULFILLED": "Partially Fulfilled",
         "UNFULFILLED": "Unfulfilled"
       }
+    },
+    "SHARED_FILES": {
+      "EMPTY": "No attachments yet",
+      "DOWNLOAD": "Download file",
+      "DOWNLOAD_ERROR": "Could not download the file. Please try again.",
+      "MEDIA_HEADING": "Media",
+      "FILES_HEADING": "Files",
+      "VIEW_ALL": "Apskatīt visu",
+      "SHOW_LESS": "Show less",
+      "MORE_COUNT": "+{count}",
+      "UNTITLED_FILE": "Untitled file"
     }
   },
   "CONVERSATION_CUSTOM_ATTRIBUTES": {

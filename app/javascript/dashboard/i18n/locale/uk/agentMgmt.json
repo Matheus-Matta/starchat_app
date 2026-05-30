@@ -119,6 +119,9 @@
           "INPUT": "Пошук агентів"
         }
       }
-    }
+    },
+    "COUNT": "{n} agent | {n} agents",
+    "SEARCH_PLACEHOLDER": "Пошук агентів...",
+    "NO_RESULTS": "No agents found matching your search"
   }
 }

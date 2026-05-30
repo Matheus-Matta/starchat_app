@@ -25,11 +25,14 @@ module Starchat::Conversations::PermissionFilterService
     elsif permissions.include?('conversation_unassigned_manage')
       filter_unassigned_and_mine
     elsif permissions.include?('conversation_participating_manage')
-      participating = conversations.joins(:conversation_participants)
-                                   .where(conversation_participants: { user_id: user.id })
-                                   .where(conversations: { account_id: account.id })
-      assigned = conversations.where(assignee_id: user.id)
-      participating.or(assigned).distinct
+      # Use subquery-based OR to avoid INNER JOIN from participating side
+      # excluding assigned-only conversations that have no participants.
+      participating_ids = conversations.joins(:conversation_participants)
+                                       .where(conversation_participants: { user_id: user.id })
+                                       .where(conversations: { account_id: account.id })
+                                       .select(:id)
+      assigned_ids = conversations.where(assignee_id: user.id).select(:id)
+      conversations.where(id: participating_ids).or(conversations.where(id: assigned_ids))
     elsif permissions.include?('conversation_participating_view')
       conversations.joins(:conversation_participants)
                    .where(conversation_participants: { user_id: user.id })

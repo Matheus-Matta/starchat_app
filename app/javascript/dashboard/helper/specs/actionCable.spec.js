@@ -1,7 +1,10 @@
 import { describe, it, beforeEach, expect, vi } from 'vitest';
 import ActionCableConnector from '../actionCable';
 
-const mockEmitterEmit = vi.fn();
+// Use hoisted mocks to avoid temporal dead zone with vi.mock factory hoisting
+const { mockEmitterEmit } = vi.hoisted(() => ({
+  mockEmitterEmit: vi.fn(),
+}));
 
 vi.mock('shared/helpers/mitt', () => ({
   emitter: {
@@ -13,6 +16,12 @@ vi.mock('dashboard/composables/useImpersonation', () => ({
   useImpersonation: () => ({
     isImpersonating: { value: false },
   }),
+}));
+
+vi.mock('../AudioAlerts/DashboardAudioNotificationHelper', () => ({
+  default: {
+    onNewMessage: vi.fn(),
+  },
 }));
 
 global.chatwootConfig = {

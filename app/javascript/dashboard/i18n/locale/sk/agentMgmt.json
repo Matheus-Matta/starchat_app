@@ -119,6 +119,9 @@
           "INPUT": "Search for agents"
         }
       }
-    }
+    },
+    "COUNT": "{n} agent | {n} agents",
+    "SEARCH_PLACEHOLDER": "Hľadať agentov...",
+    "NO_RESULTS": "No agents found matching your search"
   }
 }

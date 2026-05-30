@@ -72,6 +72,9 @@
         "YES": "Yes, delete ",
         "NO": "No, keep "
       }
-    }
+    },
+    "COUNT": "{n} 個預設回覆 | {n} 個預設回覆",
+    "SEARCH_PLACEHOLDER": "搜尋預設回覆...",
+    "NO_RESULTS": "找不到符合搜尋條件的預設回覆"
   }
 }

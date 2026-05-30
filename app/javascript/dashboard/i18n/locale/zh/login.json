@@ -3,7 +3,8 @@
     "TITLE": "登录到Chatwoot",
     "EMAIL": {
       "LABEL": "Email",
-      "PLACEHOLDER": "电子邮址 例如：somone{'@'}example.com"
+      "PLACEHOLDER": "电子邮址 例如：somone{'@'}example.com",
+      "ERROR": "请输入一个有效的电子邮件"
     },
     "PASSWORD": {
       "LABEL": "密码",
@@ -30,6 +31,11 @@
       "API": {
         "ERROR_MESSAGE": "SSO authentication failed. Please check your credentials and try again."
       }
+    },
+    "OAUTH": {
+      "GOOGLE_LOGIN": "使用Google登录",
+      "BUSINESS_ACCOUNTS_ONLY": "请使用您的公司电子邮件地址登录",
+      "NO_ACCOUNT_FOUND": "我们找不到您的电子邮件地址的帐户。"
     }
   }
 }

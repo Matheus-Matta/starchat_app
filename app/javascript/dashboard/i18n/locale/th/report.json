@@ -55,7 +55,10 @@
       "LAST_3_MONTHS": "3 เดือนที่ผ่านมา",
       "LAST_6_MONTHS": "6 เดือนที่ผ่านมา",
       "LAST_YEAR": "ปีที่ผ่านมา",
-      "CUSTOM_DATE_RANGE": "กำหนดช่วงระยะเวลา"
+      "CUSTOM_DATE_RANGE": "กำหนดช่วงระยะเวลา",
+      "LAST_14_DAYS": "14 วันที่ผ่านมา",
+      "THIS_MONTH": "This month",
+      "LAST_MONTH": "Last month"
     },
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "ใช้งาน",
@@ -121,7 +124,8 @@
     "PAGINATION": {
       "RESULTS": "Showing {start} to {end} of {total} results",
       "PER_PAGE_TEMPLATE": "{size} / page"
-    }
+    },
+    "DOWNLOAD_CONVERSATION_REPORTS": "Download conversation reports"
   },
   "AGENT_REPORTS": {
     "HEADER": "ภาพรวมพนักงาน",
@@ -189,6 +193,11 @@
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "ใช้งาน",
       "PLACEHOLDER": "เลือกช่วงเวลา"
+    },
+    "FILTERS": {
+      "INPUT_PLACEHOLDER": {
+        "AGENTS": "ค้นหาพนักงาน"
+      }
     }
   },
   "LABEL_REPORTS": {
@@ -257,6 +266,11 @@
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "ใช้งาน",
       "PLACEHOLDER": "เลือกช่วงเวลา"
+    },
+    "FILTERS": {
+      "INPUT_PLACEHOLDER": {
+        "LABELS": "ค้นหาหัวข้อ"
+      }
     }
   },
   "INBOX_REPORTS": {
@@ -325,6 +339,13 @@
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "ใช้งาน",
       "PLACEHOLDER": "เลือกช่วงเวลา"
+    },
+    "ALL_INBOXES": "All Inboxes",
+    "SEARCH_INBOX": "Search Inbox",
+    "FILTERS": {
+      "INPUT_PLACEHOLDER": {
+        "INBOXES": "Search inboxes"
+      }
     }
   },
   "TEAM_REPORTS": {
@@ -393,6 +414,14 @@
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "ใช้งาน",
       "PLACEHOLDER": "เลือกช่วงเวลา"
+    },
+    "FILTERS": {
+      "ADD_FILTER": "Add filter",
+      "CLEAR_ALL": "Clear all",
+      "NO_FILTER": "No filters available",
+      "INPUT_PLACEHOLDER": {
+        "TEAMS": "ค้นหาทีม"
+      }
     }
   },
   "CSAT_REPORTS": {
@@ -402,7 +431,26 @@
     "DOWNLOAD_FAILED": "Failed to download CSAT Reports",
     "FILTERS": {
       "AGENTS": {
-        "PLACEHOLDER": "เลือกพนักงาน"
+        "PLACEHOLDER": "เลือกพนักงาน",
+        "LABEL": "พนักงาน"
+      },
+      "ADD_FILTER": "Add filter",
+      "CLEAR_ALL": "Clear all",
+      "NO_FILTER": "No filters available",
+      "INPUT_PLACEHOLDER": {
+        "AGENTS": "ค้นหาพนักงาน",
+        "INBOXES": "Search inboxes",
+        "TEAMS": "ค้นหาทีม",
+        "RATINGS": "Search ratings"
+      },
+      "INBOXES": {
+        "LABEL": "กล่องข้อความ"
+      },
+      "TEAMS": {
+        "LABEL": "ทีม"
+      },
+      "RATINGS": {
+        "LABEL": "การประเมิน"
       }
     },
     "TABLE": {
@@ -410,8 +458,13 @@
         "CONTACT_NAME": "ผู้ติดต่อ",
         "AGENT_NAME": "พนักงานที่ได้รับมอบหมาย",
         "RATING": "การประเมิน",
-        "FEEDBACK_TEXT": "คำติชม"
-      }
+        "FEEDBACK_TEXT": "คำติชม",
+        "CONVERSATION": "การสนทนา",
+        "CUSTOMER": "Customer",
+        "RESPONSE": "Response",
+        "HANDLED_BY": "Handled by"
+      },
+      "UNKNOWN_CUSTOMER": "Unknown customer"
     },
     "METRIC": {
       "TOTAL_RESPONSES": {
@@ -425,6 +478,28 @@
       "RESPONSE_RATE": {
         "LABEL": "อัตราการตอบกลับ",
         "TOOLTIP": "จำนวนการตอบกลับทั้งหมด / จำนวนข้อความทั้งหมดที่แบบสอบถาม CSAT ส่ง * 100"
+      },
+      "RATING_DISTRIBUTION": "Rating distribution"
+    },
+    "NO_RECORDS_DESCRIPTION": "CSAT survey responses will appear here once customers start providing feedback.",
+    "NO_AGENT": "No assigned agent",
+    "NO_FEEDBACK": "No feedback provided",
+    "REVIEW_NOTES": {
+      "TITLE": "Review notes",
+      "PLACEHOLDER": "Add review notes about this rating...",
+      "SAVE": "Save",
+      "CANCEL": "ยกเลิก",
+      "SAVING": "กำลังบันทึก...",
+      "SAVED": "Notes saved successfully",
+      "SAVE_ERROR": "Failed to save notes",
+      "UPDATED_BY": "Updated by {name} {time}",
+      "UPDATED_BY_LABEL": "Updated by",
+      "PAYWALL": {
+        "TITLE": "Upgrade to add review notes",
+        "AVAILABLE_ON": "The review notes feature is only available in the Business and Enterprise plans.",
+        "UPGRADE_PROMPT": "Add internal context to every CSAT response with review notes. Capture what really happened, spot patterns faster, and make better decisions from your feedback.",
+        "UPGRADE_NOW": "Upgrade now",
+        "CANCEL_ANYTIME": "You can change or cancel your plan anytime"
       }
     }
   },
@@ -495,6 +570,13 @@
       "ONLINE": "ออนไลน์",
       "BUSY": "ไม่ว่าง",
       "OFFLINE": "ออฟไลน์"
+    },
+    "RESOLUTION_HEATMAP": {
+      "HEADER": "Resolutions",
+      "NO_CONVERSATIONS": "No conversations",
+      "CONVERSATION": "{count} conversation",
+      "CONVERSATIONS": "{count} conversations",
+      "DOWNLOAD_REPORT": "Download report"
     }
   },
   "DAYS_OF_WEEK": {

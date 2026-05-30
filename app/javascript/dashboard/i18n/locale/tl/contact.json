@@ -55,7 +55,10 @@
     "CALL_UNDER_DEVELOPMENT": "Calling is under development",
     "VOICE_INBOX_PICKER": {
       "TITLE": "Choose a voice inbox"
-    }
+    },
+    "CALL_INITIATED": "Tinutawagan ang kontak…",
+    "CALL_FAILED": "Hindi masimulan ang tawag. Pakisubukang muli.",
+    "CLICK_TO_EDIT": "Click to edit"
   },
   "EDIT_CONTACT": {
     "BUTTON_LABEL": "Edit Contact",
@@ -405,7 +408,8 @@
       "ACTIVE_FILTERS": {
         "MORE_FILTERS": "+ {count} more filters",
         "CLEAR_FILTERS": "Clear filters"
-      }
+      },
+      "COMPANY": "Kumpanya"
     },
     "CARD": {
       "OF": "of",
@@ -461,6 +465,12 @@
           },
           "TWITTER": {
             "PLACEHOLDER": "Add Twitter"
+          },
+          "TELEGRAM": {
+            "PLACEHOLDER": "Magdagdag ng Telegram"
+          },
+          "TIKTOK": {
+            "PLACEHOLDER": "Magdagdag ng TikTok"
           }
         }
       },
@@ -557,7 +567,9 @@
         "EXPAND": "Expand",
         "COLLAPSE": "Collapse",
         "NO_NOTES": "No notes, you can add notes from the contact details page.",
-        "EMPTY_STATE": "There are no notes associated to this contact. You can add a note by typing in the box above."
+        "EMPTY_STATE": "There are no notes associated to this contact. You can add a note by typing in the box above.",
+        "ADD_NOTE": "Magdagdag ng tala sa kontak",
+        "CONVERSATION_EMPTY_STATE": "Wala pang mga tala. Gamitin ang pindutan na Magdagdag ng tala upang gumawa ng isa."
       }
     },
     "EMPTY_STATE": {
@@ -567,7 +579,8 @@
       "SEARCH_EMPTY_STATE_TITLE": "No contacts matches your search 🔍",
       "LIST_EMPTY_STATE_TITLE": "No contacts available in this view 📋",
       "ACTIVE_EMPTY_STATE_TITLE": "No contacts are active at the moment 🌙"
-    }
+    },
+    "LOAD_MORE": "Mag-load pa"
   },
   "COMPOSE_NEW_CONVERSATION": {
     "CONTACT_SEARCH": {
@@ -623,6 +636,27 @@
           "SEND_MESSAGE": "Send message"
         }
       }
+    }
+  },
+  "CONTACTS_BULK_ACTIONS": {
+    "ASSIGN_LABELS": "Magtalaga ng mga label",
+    "ASSIGN_LABELS_SUCCESS": "Matagumpay na naitalaga ang mga label.",
+    "ASSIGN_LABELS_FAILED": "Nabigong italaga ang mga label",
+    "DESCRIPTION": "Piliin ang mga label na nais mong idagdag sa mga napiling contact.",
+    "NO_LABELS_FOUND": "Walang magagamit na mga label pa.",
+    "SELECTED_COUNT": "{count} napili",
+    "CLEAR_SELECTION": "Tanggalin ang pagpili",
+    "SELECT_ALL": "Piliin lahat ({count})",
+    "DELETE_CONTACTS": "Tanggalin",
+    "DELETE_SUCCESS": "Matagumpay na natanggal ang mga kontak.",
+    "DELETE_FAILED": "Nabigong tanggalin ang mga contact.",
+    "DELETE_DIALOG": {
+      "TITLE": "Tanggalin ang mga napiling kontak",
+      "SINGULAR_TITLE": "Tanggalin ang napiling kontak",
+      "DESCRIPTION": "Permanente nitong buburahin ang {count} napiling mga kontak. Hindi na ito maaaring bawiin.",
+      "SINGULAR_DESCRIPTION": "Permanente nitong buburahin ang napiling kontak. Hindi na ito maaaring bawiin.",
+      "CONFIRM_MULTIPLE": "Tanggalin ang mga kontak",
+      "CONFIRM_SINGLE": "Tanggalin ang kontak"
     }
   }
 }

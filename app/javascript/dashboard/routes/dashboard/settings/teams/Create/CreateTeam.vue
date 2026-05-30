@@ -1,7 +1,6 @@
 <script>
 import { useAlert } from 'dashboard/composables';
 import TeamForm from '../TeamForm.vue';
-import router from '../../../../index';
 import PageHeader from '../../SettingsSubPageHeader.vue';
 
 export default {
@@ -21,7 +20,7 @@ export default {
           ...data,
         });
 
-        router.replace({
+        this.$router.replace({
           name: 'settings_teams_add_agents',
           params: {
             page: 'new',

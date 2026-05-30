@@ -55,7 +55,10 @@
       "LAST_3_MONTHS": "三個月內",
       "LAST_6_MONTHS": "六個月內",
       "LAST_YEAR": "去年",
-      "CUSTOM_DATE_RANGE": "自定日期範圍"
+      "CUSTOM_DATE_RANGE": "自定日期範圍",
+      "LAST_14_DAYS": "最近 14 天",
+      "THIS_MONTH": "本月",
+      "LAST_MONTH": "上個月"
     },
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "套用",
@@ -121,7 +124,8 @@
     "PAGINATION": {
       "RESULTS": "Showing {start} to {end} of {total} results",
       "PER_PAGE_TEMPLATE": "{size} / page"
-    }
+    },
+    "DOWNLOAD_CONVERSATION_REPORTS": "下載對話報表"
   },
   "AGENT_REPORTS": {
     "HEADER": "客服總覽",
@@ -189,6 +193,11 @@
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "套用",
       "PLACEHOLDER": "選擇日期範圍"
+    },
+    "FILTERS": {
+      "INPUT_PLACEHOLDER": {
+        "AGENTS": "搜尋客服"
+      }
     }
   },
   "LABEL_REPORTS": {
@@ -257,6 +266,11 @@
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "套用",
       "PLACEHOLDER": "選擇日期範圍"
+    },
+    "FILTERS": {
+      "INPUT_PLACEHOLDER": {
+        "LABELS": "搜尋標籤"
+      }
     }
   },
   "INBOX_REPORTS": {
@@ -325,6 +339,13 @@
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "套用",
       "PLACEHOLDER": "選擇日期範圍"
+    },
+    "ALL_INBOXES": "所有收件匣",
+    "SEARCH_INBOX": "搜尋收件匣",
+    "FILTERS": {
+      "INPUT_PLACEHOLDER": {
+        "INBOXES": "搜尋收件匣"
+      }
     }
   },
   "TEAM_REPORTS": {
@@ -393,6 +414,14 @@
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "套用",
       "PLACEHOLDER": "選擇日期範圍"
+    },
+    "FILTERS": {
+      "ADD_FILTER": "新增篩選條件",
+      "CLEAR_ALL": "全部清除",
+      "NO_FILTER": "沒有可用的篩選條件",
+      "INPUT_PLACEHOLDER": {
+        "TEAMS": "搜尋團隊"
+      }
     }
   },
   "CSAT_REPORTS": {
@@ -402,7 +431,26 @@
     "DOWNLOAD_FAILED": "Failed to download CSAT Reports",
     "FILTERS": {
       "AGENTS": {
-        "PLACEHOLDER": "Choose Agents"
+        "PLACEHOLDER": "Choose Agents",
+        "LABEL": "客服"
+      },
+      "ADD_FILTER": "新增篩選條件",
+      "CLEAR_ALL": "全部清除",
+      "NO_FILTER": "沒有可用的篩選條件",
+      "INPUT_PLACEHOLDER": {
+        "AGENTS": "搜尋客服",
+        "INBOXES": "搜尋收件匣",
+        "TEAMS": "搜尋團隊",
+        "RATINGS": "搜尋評分"
+      },
+      "INBOXES": {
+        "LABEL": "收件匣"
+      },
+      "TEAMS": {
+        "LABEL": "團隊"
+      },
+      "RATINGS": {
+        "LABEL": "評分"
       }
     },
     "TABLE": {
@@ -410,8 +458,13 @@
         "CONTACT_NAME": "聯絡人",
         "AGENT_NAME": "Assigned agent",
         "RATING": "Rating",
-        "FEEDBACK_TEXT": "Feedback comment"
-      }
+        "FEEDBACK_TEXT": "Feedback comment",
+        "CONVERSATION": "對話",
+        "CUSTOMER": "客戶",
+        "RESPONSE": "回覆",
+        "HANDLED_BY": "處理人員"
+      },
+      "UNKNOWN_CUSTOMER": "未知客戶"
     },
     "METRIC": {
       "TOTAL_RESPONSES": {
@@ -425,6 +478,28 @@
       "RESPONSE_RATE": {
         "LABEL": "Response rate",
         "TOOLTIP": "Total number of responses / Total number of CSAT survey messages sent * 100"
+      },
+      "RATING_DISTRIBUTION": "評分分布"
+    },
+    "NO_RECORDS_DESCRIPTION": "當客戶開始提供回饋後，CSAT 問卷回覆將顯示於此。",
+    "NO_AGENT": "未指派客服",
+    "NO_FEEDBACK": "未提供回饋",
+    "REVIEW_NOTES": {
+      "TITLE": "審閱備註",
+      "PLACEHOLDER": "為此評分新增審閱備註...",
+      "SAVE": "儲存",
+      "CANCEL": "取消",
+      "SAVING": "儲存中...",
+      "SAVED": "備註已成功儲存",
+      "SAVE_ERROR": "無法儲存備註",
+      "UPDATED_BY": "由 {name} 於 {time} 更新",
+      "UPDATED_BY_LABEL": "更新者",
+      "PAYWALL": {
+        "TITLE": "升級以新增審閱備註",
+        "AVAILABLE_ON": "審閱備註功能僅適用於 Business 和 Enterprise 方案。",
+        "UPGRADE_PROMPT": "透過審閱備註為每則 CSAT 回覆新增內部備註。記錄實際情況、更快發現問題模式，並從回饋中做出更好的決策。",
+        "UPGRADE_NOW": "立即升級",
+        "CANCEL_ANYTIME": "您可以隨時變更或取消方案"
       }
     }
   },
@@ -495,6 +570,13 @@
       "ONLINE": "上線",
       "BUSY": "忙碌中",
       "OFFLINE": "離線"
+    },
+    "RESOLUTION_HEATMAP": {
+      "HEADER": "已解決案件",
+      "NO_CONVERSATIONS": "沒有對話",
+      "CONVERSATION": "{count} 則對話",
+      "CONVERSATIONS": "{count} 則對話",
+      "DOWNLOAD_REPORT": "下載報表"
     }
   },
   "DAYS_OF_WEEK": {

@@ -4,13 +4,28 @@ RSpec.describe Cosmos::Onboarding::WebsiteAnalyzerService do
   let(:website_url) { 'https://example.com' }
   let(:service) { described_class.new(website_url) }
   let(:mock_crawler) { instance_double(Cosmos::Tools::SimplePageCrawlService) }
-  let(:mock_client) { instance_double(OpenAI::Client) }
+
+  let(:mock_chat) { instance_double(RubyLLM::Chat) }
+
+  let(:success_response) do
+    instance_double(RubyLLM::Message, content: {
+      business_name: 'Example Corp',
+      suggested_assistant_name: 'Alex from Example Corp',
+      description: 'You specialize in helping customers with business solutions and support'
+    }.to_json)
+  end
 
   before do
     create(:installation_config, name: 'COSMOS_OPEN_AI_API_KEY', value: 'test-key')
     allow(Cosmos::Tools::SimplePageCrawlService).to receive(:new).and_return(mock_crawler)
-    allow(service).to receive(:client).and_return(mock_client)
-    allow(service).to receive(:model).and_return('gpt-3.5-turbo')
+
+    allow(RubyLLM).to receive(:chat).and_return(mock_chat)
+    allow(mock_chat).to receive(:with_params).and_return(mock_chat)
+    allow(mock_chat).to receive(:with_temperature).and_return(mock_chat)
+    allow(mock_chat).to receive(:with_instructions).and_return(mock_chat)
+    allow(mock_chat).to receive(:ask).and_return(success_response)
+
+    allow(Llm::Config).to receive(:initialize!)
   end
 
   describe '#analyze' do

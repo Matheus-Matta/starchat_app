@@ -54,7 +54,7 @@ class Cosmos::Documents::CrawlJob < ApplicationJob
   end
 
   def firecrawl_webhook_url(document)
-    webhook_url = Rails.application.routes.url_helpers.enterprise_webhooks_firecrawl_url
+    webhook_url = Rails.application.routes.url_helpers.starchat_webhooks_firecrawl_url
 
     "#{webhook_url}?assistant_id=#{document.assistant_id}&token=#{generate_firecrawl_token(document.assistant_id, document.account_id)}"
   end

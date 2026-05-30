@@ -1,5 +1,5 @@
 {
-"WHATSAPP_TEMPLATES": {
+  "WHATSAPP_TEMPLATES": {
     "MODAL": {
       "TITLE": "Whatsapp Templates",
       "SUBTITLE": "Select the whatsapp template you want to send",
@@ -43,5 +43,5 @@
       "DOCUMENT_NAME_PLACEHOLDER": "Enter document filename (e.g., Invoice_2025.pdf)",
       "BUTTON_PARAMETER": "Enter button parameter"
     }
-}
+  }
 }

@@ -10,6 +10,7 @@ RSpec.describe Conversation, type: :model do
     let!(:sla_policy) { create(:sla_policy, account: conversation.account) }
 
     it 'generates an activity message when the SLA policy is updated' do
+      stub_request(:get, /google\.com\/s2\/favicons/).to_return(status: 200, body: '')
       conversation.update!(sla_policy_id: sla_policy.id)
 
       perform_enqueued_jobs

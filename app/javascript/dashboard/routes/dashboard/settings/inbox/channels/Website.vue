@@ -1,7 +1,6 @@
 <script>
 import { mapGetters } from 'vuex';
 import { useAlert } from 'dashboard/composables';
-import router from '../../../../index';
 import NextButton from 'dashboard/components-next/button/Button.vue';
 import PageHeader from '../../SettingsSubPageHeader.vue';
 import GreetingsEditor from 'shared/components/GreetingsEditor.vue';
@@ -57,7 +56,7 @@ export default {
             },
           }
         );
-        router.replace({
+        this.$router.replace({
           name: 'settings_inboxes_add_agents',
           params: {
             page: 'new',

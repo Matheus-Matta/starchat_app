@@ -1,10 +1,10 @@
 {
   "INBOX": {
     "LIST": {
+      "404": "There are no active notifications in this group.",
       "TITLE": "My Inbox",
       "DISPLAY_DROPDOWN": "Display",
       "LOADING": "Fetching notifications",
-      "404": "There are no active notifications in this group.",
       "NO_NOTIFICATIONS": "No notifications",
       "NOTE": "Notifications from all subscribed inboxes",
       "NO_MESSAGES_AVAILABLE": "Oops! Not able to fetch messages",
@@ -72,6 +72,24 @@
       "MARK_ALL_READ": "All notifications marked as read",
       "DELETE_ALL": "All notifications deleted",
       "DELETE_ALL_READ": "All read notifications deleted"
+    },
+    "REAUTHORIZE": {
+      "TITLE": "נדרש אישור מחדש",
+      "DESCRIPTION": "חיבור ה-WhatsApp שלך פג. אנא התחבר מחדש כדי להמשיך לקבל ולשלוח הודעות.",
+      "BUTTON_TEXT": "התחבר מחדש ל-WhatsApp",
+      "LOADING_FACEBOOK": "טוען SDK של Facebook...",
+      "SUCCESS": "WhatsApp חובר מחדש בהצלחה",
+      "ERROR": "ההתחברות מחדש ל-WhatsApp נכשלה. אנא נסה שוב.",
+      "WHATSAPP_APP_ID_MISSING": "מזהה האפליקציה של WhatsApp אינו מוגדר. אנא פנה למנהל המערכת שלך.",
+      "WHATSAPP_CONFIG_ID_MISSING": "מזהה תצורת WhatsApp אינו מוגדר. אנא פנה למנהל המערכת שלך.",
+      "CONFIGURATION_ERROR": "אירעה שגיאת תצורה במהלך האישור מחדש.",
+      "FACEBOOK_LOAD_ERROR": "טעינת ה-SDK של Facebook נכשלה. אנא נסה שוב.",
+      "TROUBLESHOOTING": {
+        "TITLE": "פתרון בעיות",
+        "POPUP_BLOCKED": "Ensure pop-ups are allowed for this site",
+        "COOKIES": "Third-party cookies must be enabled",
+        "ADMIN_ACCESS": "אתה צריך גישת מנהל לחשבון העסקי של WhatsApp"
+      }
     }
   }
 }

@@ -25,7 +25,7 @@ const meta = {
 
 const metaCustomTools = {
   permissions: ['administrator', 'agent'],
-  featureFlag: FEATURE_FLAGS.CAPTAIN_CUSTOM_TOOLS,
+  featureFlag: FEATURE_FLAGS.COSMOS_CUSTOM_TOOLS,
   installationTypes: [INSTALLATION_TYPES.CLOUD, INSTALLATION_TYPES.ENTERPRISE],
 };
 

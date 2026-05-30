@@ -13,7 +13,7 @@
       "UPGRADE_NOW": "Actualitza ara",
       "CANCEL_ANYTIME": "Pots canviar o cancel·lar el teu pla en qualsevol moment"
     },
-    "ENTERPRISE_PAYWALL": {
+    "STARCHAT_PAYWALL": {
       "AVAILABLE_ON": "La funció SLA només està disponible als plans de pagament.",
       "UPGRADE_PROMPT": "Actualitza a un pla de pagament per accedir a funcions avançades com els registres d'auditoria, la capacitat de l'agent i molt més.",
       "ASK_ADMIN": "Posa't en contacte amb el vostre administrador per obtenir l'actualització."
@@ -37,6 +37,10 @@
           "NRT": "NRT",
           "RT": "RT"
         }
+      },
+      "TABLE_HEADER": {
+        "SLA": "SLA",
+        "BUSINESS_HOURS": "Business hours"
       }
     },
     "FORM": {
@@ -103,6 +107,16 @@
       "RT": "Temps de resolució",
       "SHOW_MORE": "{count} més",
       "HIDE": "Amaga {count} files"
+    },
+    "COUNT": "{n} SLA | {n} SLAs",
+    "SEARCH_PLACEHOLDER": "Search SLA...",
+    "SEARCH": {
+      "NO_RESULTS": "No SLA found matching your search"
+    },
+    "ENTERPRISE_PAYWALL": {
+      "AVAILABLE_ON": "La funció SLA només està disponible als plans de pagament.",
+      "UPGRADE_PROMPT": "Actualitza a un pla de pagament per accedir a funcions avançades com els registres d'auditoria, la capacitat de l'agent i molt més.",
+      "ASK_ADMIN": "Posa't en contacte amb el vostre administrador per obtenir l'actualització."
     }
   }
 }

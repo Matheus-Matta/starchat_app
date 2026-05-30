@@ -32,31 +32,36 @@ module Evolution
       media_key = normalize_media_key(media['mediaKey'])
 
       mimetype = media['mimetype'].to_s
-      filename = suggested_filename_from_type_and_mime(type, mimetype)
+      filename = suggested_filename_from_payload_like_wa(type, mimetype)
 
-      # 1) Preferência: base64 (no payload OU dentro de media)
+      # 1) Priority: URL + mediaKey (.enc download)
+      if url.present? && media_key.present?
+        Rails.logger.info '[MediaAttach] Processing via URL (.enc)'
+        begin
+          blob = download_for_whatsapp_enc(
+            url: url,
+            media_key: media_key,
+            media_type: type,
+            filename: filename,
+            content_type: mimetype,
+            headers: {},
+            identify: false
+          )
+          return attach_blob!(message, blob)
+        rescue StandardError => e
+          Rails.logger.warn "[MediaAttach] .enc download erro: #{e.class} #{e.message}"
+          return false
+        end
+      end
+
+      # 2) Fallback: base64 (in payload or inside media)
       if (b64 = extract_b64(payload, media)).present?
-        Rails.logger.info '[MediaAttach] Found Base64. Processing...'
+        Rails.logger.info '[MediaAttach] Fallback to Base64 processing'
         blob = download_for_base64(b64, filename: filename, content_type: mimetype.presence, identify: false)
         return attach_blob!(message, blob)
       end
 
-      # 2) Fallback: fluxo .enc (url + media_key)
-      if url.present? && media_key.present?
-        Rails.logger.info "[MediaAttach] Trying .enc download from #{url}..."
-        blob = download_for_whatsapp_enc(
-          url: url,
-          media_key: media_key,
-          media_type: type,
-          filename: filename,
-          content_type: mimetype,
-          headers: {},
-          identify: false
-        )
-        return attach_blob!(message, blob)
-      end
-
-      # 3) Fallback: URL simples
+      # 3) Fallback: simple URL download (URL without mediaKey)
       try_simple_download(message, url, filename, mimetype)
     end
 
@@ -103,15 +108,22 @@ module Evolution
         p.dig('message', 'imageMessage', 'file'),
         p.dig('message', 'videoMessage', 'file'),
         p.dig('message', 'audioMessage', 'file'),
-        p.dig('message', 'documentMessage', 'file')
+        p.dig('message', 'documentMessage', 'file'),
+        p.dig('message', 'imageMessage', 'jpegThumbnail'),
+        p.dig('message', 'videoMessage', 'jpegThumbnail'),
+        p.dig('message', 'audioMessage', 'jpegThumbnail'),
+        p.dig('message', 'documentMessage', 'jpegThumbnail')
       ]
       candidates.find { |c| c.is_a?(String) && c.present? }
     end
 
-    def suggested_filename_from_type_and_mime(_type, mimetype)
+    def suggested_filename_from_payload_like_wa(type, mimetype)
       ext = MIME_TYPE_EXTENSIONS.find { |k, _v| mimetype.start_with?(k) }&.last || ''
       "file-#{SecureRandom.hex(4)}#{ext}"
     end
+
+    # Alias for backward compatibility
+    alias suggested_filename_from_type_and_mime suggested_filename_from_payload_like_wa
 
     def try_simple_download(message, url, filename, mimetype)
       return false if url.blank?
@@ -128,8 +140,9 @@ module Evolution
 
     def attach_blob!(message, blob)
       att = message.attachments.build(account_id: message.account_id)
-      att.file.attach(blob)
       att.file_type = safe_file_type_for(blob.content_type)
+      att.save!
+      att.file.attach(blob)
 
       begin
         if (url = presigned_url_for(blob))

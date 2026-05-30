@@ -10,24 +10,9 @@ class Api::V1::Accounts::Cosmos::AssistantResponsesController < Api::V1::Account
   RESULTS_PER_PAGE = 25
 
   def index
-    base_query = @responses
-    base_query = base_query.where(assistant_id: permitted_params[:assistant_id]) if permitted_params[:assistant_id].present?
-
-    if permitted_params[:document_id].present?
-      base_query = base_query.where(
-        documentable_id: permitted_params[:document_id],
-        documentable_type: 'Cosmos::Document'
-      )
-    end
-
-    base_query = base_query.where(status: permitted_params[:status]) if permitted_params[:status].present?
-
+    base_query = apply_filters(@responses)
     @responses_count = base_query.count
-
     @responses = base_query.page(@current_page).per(RESULTS_PER_PAGE)
-    filtered_query = apply_filters(@responses)
-    @responses_count = filtered_query.count
-    @responses = filtered_query.page(@current_page).per(RESULTS_PER_PAGE)
   end
 
   def show; end

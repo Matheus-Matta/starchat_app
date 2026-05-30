@@ -6,6 +6,7 @@ RSpec.describe Crm::Leadsquared::SetupService do
   let(:service) { described_class.new(hook) }
   let(:base_client) { instance_double(Crm::Leadsquared::Api::BaseClient) }
   let(:activity_client) { instance_double(Crm::Leadsquared::Api::ActivityClient) }
+  let(:brand_name) { ::GlobalConfig.get('BRAND_NAME')['BRAND_NAME'].presence || 'Chatwoot' }
   let(:endpoint_response) do
     {
       'TimeZone' => 'Asia/Kolkata',
@@ -26,11 +27,11 @@ RSpec.describe Crm::Leadsquared::SetupService do
   describe '#setup' do
     context 'when fetching activity types succeeds' do
       let(:started_type) do
-        { 'ActivityEventName' => 'Chatwoot Conversation Started', 'ActivityEvent' => 1001 }
+        { 'ActivityEventName' => "#{brand_name} Conversation Started", 'ActivityEvent' => 1001 }
       end
 
       let(:transcript_type) do
-        { 'ActivityEventName' => 'Chatwoot Conversation Transcript', 'ActivityEvent' => 1002 }
+        { 'ActivityEventName' => "#{brand_name} Conversation Transcript", 'ActivityEvent' => 1002 }
       end
 
       context 'when all required types exist' do
@@ -59,7 +60,7 @@ RSpec.describe Crm::Leadsquared::SetupService do
 
           allow(activity_client).to receive(:create_activity_type)
             .with(
-              name: 'Chatwoot Conversation Transcript',
+              name: "#{brand_name} Conversation Transcript",
               score: 0,
               direction: 0
             )
@@ -104,7 +105,7 @@ RSpec.describe Crm::Leadsquared::SetupService do
       required_types = service.send(:activity_types)
       conversation_type = required_types.find { |t| t[:setting_key] == 'conversation_activity_code' }
       expect(conversation_type).to include(
-        name: 'Chatwoot Conversation Started',
+        name: "#{brand_name} Conversation Started",
         score: 0,
         direction: 0,
         setting_key: 'conversation_activity_code'
@@ -115,7 +116,7 @@ RSpec.describe Crm::Leadsquared::SetupService do
       required_types = service.send(:activity_types)
       transcript_type = required_types.find { |t| t[:setting_key] == 'transcript_activity_code' }
       expect(transcript_type).to include(
-        name: 'Chatwoot Conversation Transcript',
+        name: "#{brand_name} Conversation Transcript",
         score: 0,
         direction: 0,
         setting_key: 'transcript_activity_code'

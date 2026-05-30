@@ -58,7 +58,11 @@
       "CONFIRM": "停用 2FA",
       "CANCEL": "取消",
       "SUCCESS": "雙重驗證已停用",
-      "ERROR": "停用 MFA 失敗，請確認您的帳號憑證。"
+      "ERROR": "停用 MFA 失敗，請確認您的帳號憑證。",
+      "BACKUP_CODE": "備用碼",
+      "BACKUP_CODE_PLACEHOLDER": "請輸入您的其中一組備用碼",
+      "USE_BACKUP_CODE": "Lost access to your authenticator? Use a backup code instead",
+      "USE_OTP_CODE": "Use a verification code from your authenticator app"
     },
     "REGENERATE": {
       "TITLE": "重新產生備用碼",

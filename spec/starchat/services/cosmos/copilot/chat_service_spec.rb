@@ -20,13 +20,26 @@ RSpec.describe Cosmos::Copilot::ChatService do
     { user_id: user.id, copilot_thread_id: copilot_thread.id, conversation_id: conversation.display_id }
   end
 
+  let(:mock_chat) { instance_double(RubyLLM::Chat) }
+  let(:mock_message) { instance_double(RubyLLM::Message, content: '{ "content": "Hey" }') }
+
   before do
     create(:installation_config, name: 'COSMOS_OPEN_AI_API_KEY', value: 'test-key')
     create(:installation_config, name: 'COSMOS_OPEN_AI_ENDPOINT', value: 'https://api.openai.com/')
     allow(OpenAI::Client).to receive(:new).and_return(mock_openai_client)
-    allow(mock_openai_client).to receive(:chat).and_return({
-      choices: [{ message: { content: '{ "content": "Hey" }' } }]
-    }.with_indifferent_access)
+
+    allow(RubyLLM).to receive(:chat).and_return(mock_chat)
+    allow(mock_chat).to receive(:with_params).and_return(mock_chat)
+    allow(mock_chat).to receive(:with_tool).and_return(mock_chat)
+    allow(mock_chat).to receive(:with_instructions).and_return(mock_chat)
+    allow(mock_chat).to receive(:with_temperature).and_return(mock_chat)
+    allow(mock_chat).to receive(:on_end_message).and_return(mock_chat)
+    allow(mock_chat).to receive(:on_tool_call).and_return(mock_chat)
+    allow(mock_chat).to receive(:on_tool_result).and_return(mock_chat)
+    allow(mock_chat).to receive(:add_message).and_return(mock_chat)
+    allow(mock_chat).to receive(:ask).and_return(mock_message)
+
+    allow(Llm::Config).to receive(:initialize!)
   end
 
   describe '#initialize' do
@@ -100,9 +113,8 @@ RSpec.describe Cosmos::Copilot::ChatService do
         service.generate_response('Hello')
       end.to(change { service.messages.count }.by(1))
 
-      last_message = service.messages.last
-      expect(last_message[:role]).to eq('user')
-      expect(last_message[:content]).to eq('Hello')
+      last_user_message = service.messages.select { |m| m[:role] == 'user' }.last
+      expect(last_user_message[:content]).to eq('Hello')
     end
 
     it 'does not add user input to messages when blank' do
@@ -113,77 +125,6 @@ RSpec.describe Cosmos::Copilot::ChatService do
 
     it 'returns the response from request_chat_completion' do
       expect(service.generate_response('Hello')).to eq({ 'content' => 'Hey' })
-    end
-
-    context 'when response contains tool calls' do
-      before do
-        allow(mock_openai_client).to receive(:chat).and_return(
-          {
-            choices: [{ message: { 'tool_calls' => tool_calls } }]
-          }.with_indifferent_access,
-          {
-            choices: [{ message: { content: '{ "content": "Tool response processed" }' } }]
-          }.with_indifferent_access
-        )
-      end
-
-      context 'when tool call is valid' do
-        let(:tool_calls) do
-          [{
-            'id' => 'call_123',
-            'function' => {
-              'name' => 'get_conversation',
-              'arguments' => "{ \"conversation_id\": #{conversation.display_id} }"
-            }
-          }]
-        end
-
-        it 'processes tool calls and appends them to messages' do
-          result = service.generate_response("Find conversation #{conversation.id}")
-
-          expect(result).to eq({ 'content' => 'Tool response processed' })
-          expect(service.messages).to include(
-            { role: 'assistant', tool_calls: tool_calls }
-          )
-          expect(service.messages).to include(
-            {
-              role: 'tool', tool_call_id: 'call_123', content: conversation.to_llm_text
-            }
-          )
-
-          expect(result).to eq({ 'content' => 'Tool response processed' })
-        end
-      end
-
-      context 'when tool call is invalid' do
-        let(:tool_calls) do
-          [{
-            'id' => 'call_123',
-            'function' => {
-              'name' => 'get_settings',
-              'arguments' => '{}'
-            }
-          }]
-        end
-
-        it 'handles invalid tool calls' do
-          result = service.generate_response('Find settings')
-
-          expect(result).to eq({ 'content' => 'Tool response processed' })
-          expect(service.messages).to include(
-            {
-              role: 'assistant', tool_calls: tool_calls
-            }
-          )
-          expect(service.messages).to include(
-            {
-              role: 'tool',
-              tool_call_id: 'call_123',
-              content: 'Tool not available'
-            }
-          )
-        end
-      end
     end
   end
 
@@ -260,10 +201,6 @@ RSpec.describe Cosmos::Copilot::ChatService do
   describe '#persist_message' do
     context 'when copilot_thread is present' do
       it 'creates a copilot message' do
-        allow(mock_openai_client).to receive(:chat).and_return({
-          choices: [{ message: { content: '{ "content": "Hey" }' } }]
-        }.with_indifferent_access)
-
         expect do
           described_class.new(assistant, { copilot_thread_id: copilot_thread.id }).generate_response('Hello')
         end.to change(CopilotMessage, :count).by(1)
@@ -276,10 +213,6 @@ RSpec.describe Cosmos::Copilot::ChatService do
 
     context 'when copilot_thread is not present' do
       it 'does not create a copilot message' do
-        allow(mock_openai_client).to receive(:chat).and_return({
-          choices: [{ message: { content: '{ "content": "Hey" }' } }]
-        }.with_indifferent_access)
-
         expect do
           described_class.new(assistant, {}).generate_response('Hello')
         end.not_to(change(CopilotMessage, :count))

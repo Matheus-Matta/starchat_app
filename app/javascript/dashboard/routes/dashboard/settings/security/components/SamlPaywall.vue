@@ -15,7 +15,7 @@ const isSuperAdmin = computed(() => {
 const { accountId, isOnChatwootCloud } = useAccount();
 
 const i18nKey = computed(() =>
-  isOnChatwootCloud.value ? 'PAYWALL' : 'ENTERPRISE_PAYWALL'
+  isOnChatwootCloud.value ? 'PAYWALL' : 'STARCHAT_PAYWALL'
 );
 const openBilling = () => {
   router.push({

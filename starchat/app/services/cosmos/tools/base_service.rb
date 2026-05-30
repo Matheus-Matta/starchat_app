@@ -22,6 +22,14 @@ class Cosmos::Tools::BaseService
     raise NotImplementedError, "#{self.class} must implement execute"
   end
 
+  def params_schema
+    RubyLLM::Utils.deep_stringify_keys(parameters)
+  end
+
+  def provider_params
+    {}
+  end
+
   def to_registry_format
     {
       type: 'function',

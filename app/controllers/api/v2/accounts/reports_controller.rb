@@ -57,6 +57,68 @@ class Api::V2::Accounts::ReportsController < Api::V1::Accounts::BaseController
     render json: bot_metrics
   end
 
+  def first_response_time_distribution
+    since_time = Time.zone.at(params[:since].to_i)
+    until_time = Time.zone.at(params[:until].to_i)
+
+    events = ReportingEvent
+             .where(account: Current.account, name: 'first_response')
+             .where(created_at: since_time..until_time)
+             .joins('JOIN inboxes ON inboxes.id = reporting_events.inbox_id')
+             .select('reporting_events.value, inboxes.channel_type')
+
+    buckets = { '0-1h' => 0..3600, '1-4h' => 3601..14_400, '4-8h' => 14_401..28_800,
+                '8-24h' => 28_801..86_400, '24h+' => 86_401..Float::INFINITY }
+
+    result = events.each_with_object({}) do |event, hash|
+      channel = event.channel_type
+      hash[channel] ||= buckets.keys.index_with(0)
+      bucket = buckets.find { |_k, range| range.cover?(event.value) }&.first
+      hash[channel][bucket] += 1 if bucket
+    end
+
+    render json: result
+  end
+
+  def outgoing_messages_count
+    valid_groups = %w[agent team inbox label]
+    group_by = params[:group_by]
+    return head :unprocessable_entity unless valid_groups.include?(group_by)
+
+    since_time = Time.zone.at(params[:since].to_i)
+    until_time = Time.zone.at(params[:until].to_i)
+
+    render json: outgoing_messages_for(group_by, since_time, until_time)
+  end
+
+  def inbox_label_matrix
+    since_time = params[:since].present? ? Time.zone.at(params[:since].to_i) : 1.month.ago
+    until_time = params[:until].present? ? Time.zone.at(params[:until].to_i) : Time.current
+
+    inboxes = Current.account.inboxes
+    inboxes = inboxes.where(id: params[:inbox_ids]) if params[:inbox_ids].present?
+
+    labels = Current.account.labels
+    labels = labels.where(id: params[:label_ids]) if params[:label_ids].present?
+
+    conversations = Current.account.conversations.where(inbox_id: inboxes.select(:id), created_at: since_time..until_time)
+
+    matrix = conversations.joins(:taggings)
+                          .joins("JOIN tags ON tags.id = taggings.tag_id AND taggings.context = 'labels'")
+                          .where(tags: { name: labels.select(:title) })
+                          .group(:inbox_id, 'tags.id')
+                          .count
+                          .map do |(inbox_id, label_id), count|
+                            { inbox_id: inbox_id, label_id: label_id, count: count }
+                          end
+
+    render json: {
+      inboxes: inboxes.as_json(only: [:id, :name]),
+      labels: labels.as_json(only: [:id, :title]),
+      matrix: matrix
+    }
+  end
+
   private
 
   def generate_csv(filename, template)
@@ -133,5 +195,55 @@ class Api::V2::Accounts::ReportsController < Api::V1::Accounts::BaseController
 
   def conversation_metrics
     V2::ReportBuilder.new(Current.account, conversation_params).conversation_metrics
+  end
+
+  def outgoing_messages_for(group_by, since_time, until_time)
+    base = Current.account.messages
+                  .reorder(nil)
+                  .where(message_type: :outgoing, created_at: since_time..until_time)
+
+    case group_by
+    when 'agent'
+      base.where(sender_type: 'User')
+          .group(:sender_id)
+          .count
+          .map do |user_id, count|
+            user = User.find_by(id: user_id)
+            next unless user
+
+            { id: user_id, name: user.name, outgoing_messages_count: count }
+          end.compact
+    when 'team'
+      base.joins(:conversation)
+          .where.not(conversations: { team_id: nil })
+          .group('conversations.team_id')
+          .count
+          .map do |team_id, count|
+            team = Current.account.teams.find_by(id: team_id)
+            next unless team
+
+            { id: team_id, name: team.name, outgoing_messages_count: count }
+          end.compact
+    when 'inbox'
+      base.group(:inbox_id)
+          .count
+          .map do |inbox_id, count|
+            inbox = Current.account.inboxes.find_by(id: inbox_id)
+            next unless inbox
+
+            { id: inbox_id, name: inbox.name, outgoing_messages_count: count }
+          end.compact
+    when 'label'
+      base.joins(conversation: :taggings)
+          .joins("JOIN tags ON tags.id = taggings.tag_id AND taggings.context = 'labels'")
+          .group('tags.id', 'tags.name')
+          .count
+          .map do |(tag_id, tag_name), count|
+            label = Current.account.labels.find_by(title: tag_name)
+            next unless label
+
+            { id: label.id, name: tag_name, outgoing_messages_count: count }
+          end.compact
+    end
   end
 end

@@ -46,8 +46,8 @@ class Integrations::Openai::ProcessorService < Integrations::OpenaiBaseService
 
   private
 
-  def prompt_from_file(file_name, enterprise: false)
-    path = enterprise ? 'starchat/lib/starchat/integrations/openai_prompts' : 'lib/integrations/openai/openai_prompts'
+  def prompt_from_file(file_name, starchat: false)
+    path = starchat ? 'starchat/lib/starchat/integrations/openai_prompts' : 'lib/integrations/openai/openai_prompts'
     Rails.root.join(path, "#{file_name}.txt").read
   end
 
@@ -117,7 +117,7 @@ class Integrations::Openai::ProcessorService < Integrations::OpenaiBaseService
       model: GPT_MODEL,
       messages: [
         { role: 'system',
-          content: prompt_from_file('summary', enterprise: false) },
+          content: prompt_from_file('summary', starchat: false) },
         { role: 'user', content: conversation_messages }
       ]
     }.to_json
@@ -128,7 +128,7 @@ class Integrations::Openai::ProcessorService < Integrations::OpenaiBaseService
       model: GPT_MODEL,
       messages: [
         { role: 'system',
-          content: prompt_from_file('reply', enterprise: false) }
+          content: prompt_from_file('reply', starchat: false) }
       ].concat(conversation_messages(in_array_format: true))
     }.to_json
   end

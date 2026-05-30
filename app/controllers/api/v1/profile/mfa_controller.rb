@@ -26,7 +26,7 @@ class Api::V1::Profile::MfaController < Api::BaseController
   private
 
   def mfa_service
-    @mfa_service ||= Mfa::ManagementService.new(user: current_user)
+    @mfa_service ||= MFA::ManagementService.new(user: current_user)
   end
 
   def check_mfa_enabled
@@ -46,7 +46,7 @@ class Api::V1::Profile::MfaController < Api::BaseController
   end
 
   def validate_otp
-    authenticated = Mfa::AuthenticationService.new(
+    authenticated = MFA::AuthenticationService.new(
       user: current_user,
       otp_code: mfa_params[:otp_code]
     ).authenticate

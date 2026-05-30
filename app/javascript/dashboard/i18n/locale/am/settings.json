@@ -68,7 +68,8 @@
         "API_SUCCESS": "Signature saved successfully",
         "IMAGE_UPLOAD_ERROR": "Couldn't upload image! Try again",
         "IMAGE_UPLOAD_SUCCESS": "Image added successfully. Please click on save to save the signature",
-        "IMAGE_UPLOAD_SIZE_ERROR": "Image size should be less than {size}MB"
+        "IMAGE_UPLOAD_SIZE_ERROR": "Image size should be less than {size}MB",
+        "INLINE_IMAGE_WARNING": "Pasted inline images were removed. Please use the image upload button to add images to your signature."
       },
       "MESSAGE_SIGNATURE": {
         "LABEL": "Message Signature",
@@ -219,6 +220,11 @@
         "LABEL": "Confirm new password",
         "ERROR": "Confirm password should match the password",
         "PLACEHOLDER": "Please re-enter your new password"
+      },
+      "SECURITY_SECTION": {
+        "TITLE": "ደህንነት",
+        "NOTE": "ለመለያዎ ተጨማሪ የደህንነት ባለስልጣናት ያስተዳድሩ።.",
+        "MFA_BUTTON": "ሁለት-አምስት ማረጋገጫ ያስተካክሉ"
       }
     }
   },
@@ -234,7 +240,8 @@
     "SUPER_ADMIN_CONSOLE": "SuperAdmin console",
     "DOCS": "Read documentation",
     "LOGOUT": "Log out",
-    "CHANGELOG": "Changelog"
+    "CHANGELOG": "Changelog",
+    "YEAR_IN_REVIEW": "ዓመት በእይታ"
   },
   "APP_GLOBAL": {
     "TRIAL_MESSAGE": "days trial remaining.",
@@ -246,6 +253,12 @@
     "ACCOUNT_SUSPENDED": {
       "TITLE": "Account Suspended",
       "MESSAGE": "Your account is suspended. Please reach out to the support team for more information."
+    },
+    "NO_ACCOUNTS": {
+      "TITLE": "መለያ አልተገኘም",
+      "MESSAGE_CLOUD": "አሁን በማንኛውም መለያ አካል አይደሉም። ይህ ስህተት እንደሆነ አስባለዎት እባክዎ ወደ ድጋፍ ቡድናችን ይደውሉ።.",
+      "MESSAGE_SELF_HOSTED": "አሁን በማንኛውም መለያ አካል አይደሉም። እባክዎ ወደ አስተዳደር ተገናኝ።.",
+      "LOGOUT": "ውጣ"
     }
   },
   "COMPONENTS": {
@@ -261,7 +274,8 @@
     "FILE_BUBBLE": {
       "DOWNLOAD": "Download",
       "UPLOADING": "Uploading...",
-      "INSTAGRAM_STORY_UNAVAILABLE": "This story is no longer available."
+      "INSTAGRAM_STORY_UNAVAILABLE": "This story is no longer available.",
+      "INSTAGRAM_STORY_REPLY": "ለታሪክዎ መልሰዋል፡:"
     },
     "LOCATION_BUBBLE": {
       "SEE_ON_MAP": "See on map"
@@ -358,11 +372,21 @@
       "INFO_SHORT": "Automatically mark offline when you aren't using the app."
     },
     "DOCS": "Read docs",
-    "COSMOS": "Cosmos",
-    "COSMOS_ASSISTANTS": "Assistants",
-    "COSMOS_DOCUMENTS": "Documents",
-    "COSMOS_RESPONSES": "FAQs",
-    "AGENT_ASSIGNMENT": "Agent Assignment"
+    "AGENT_ASSIGNMENT": "Agent Assignment",
+    "COMPANIES": "ኩባንያዎች",
+    "ALL_COMPANIES": "ሁሉም ኩባንያዎች",
+    "CAPTAIN": "ካፕቴን",
+    "CAPTAIN_ASSISTANTS": "እርዳታ አገልጋዮች",
+    "CAPTAIN_DOCUMENTS": "ሰነዶች",
+    "CAPTAIN_RESPONSES": "ተደጋጋሚ ጥያቄዎች",
+    "CAPTAIN_TOOLS": "መሣሪያዎች",
+    "CAPTAIN_SCENARIOS": "ሁኔታዎች",
+    "CAPTAIN_PLAYGROUND": "መጫወቻ ቦታ",
+    "CAPTAIN_INBOXES": "ኢንቦክሶች",
+    "CAPTAIN_SETTINGS": "ቅንብሮች",
+    "SECURITY": "ደህንነት",
+    "CAPTAIN_AI": "ካፕቴን",
+    "CONVERSATION_WORKFLOW": "የውይይት ስርዓት"
   },
   "BILLING_SETTINGS": {
     "TITLE": "Billing",
@@ -385,7 +409,7 @@
       "BUTTON_TXT": "Buy more credits",
       "DOCUMENTS": "Documents",
       "RESPONSES": "Responses",
-      "UPGRADE": "Cosmos is not available on the free plan, upgrade now to get access to assistants, Cosmos and more."
+      "UPGRADE": "Cosmos is not available on the free plan, upgrade now to get access to assistants, copilot and more."
     },
     "CHAT_WITH_US": {
       "TITLE": "Need help?",
@@ -393,13 +417,37 @@
       "BUTTON_TXT": "Chat with us"
     },
     "NO_BILLING_USER": "Your billing account is being configured. Please refresh the page and try again.",
-    "COSMOS": {
-      "TITLE": "Cosmos",
-      "DESCRIPTION": "Manage usage and credits for Cosmos AI.",
-      "BUTTON_TXT": "Buy more credits",
-      "DOCUMENTS": "Documents",
+    "CAPTAIN": {
+      "TITLE": "ካፕቴን",
+      "DESCRIPTION": "ለCaptain AI አጠቃቀምና ክሬዲቶችን ያስተዳድሩ።.",
+      "BUTTON_TXT": "ተጨማሪ ክሬዲቶች ግዙ",
+      "DOCUMENTS": "ሰነዶች",
       "RESPONSES": "Responses",
-      "UPGRADE": "Cosmos is not available on the free plan, upgrade now to get access to assistants, copilot and more."
+      "UPGRADE": "Captain በነፃ እቅድ ላይ አይገኝም፣ አሁን ያሻሽሉ እና ለአስስታንት፣ ኮፓይሎት እና ሌሎች ያግኙ።.",
+      "REFRESH_CREDITS": "አዘምን"
+    },
+    "TOPUP": {
+      "BUY_CREDITS": "ተጨማሪ ክሬዲቶች ግዛ",
+      "MODAL_TITLE": "AI ክሬዲቶች ግዛ",
+      "MODAL_DESCRIPTION": "Captain AI ለተጨማሪ ክሬዲቶች ግዛ.",
+      "CREDITS": "ክሬዲቶች",
+      "ONE_TIME": "አንድ ጊዜ",
+      "POPULAR": "በጣም ተወዳጅ",
+      "NOTE_TITLE": "ማስታወሻ:",
+      "NOTE_DESCRIPTION": "ክሬዲቶች በአንድ ጊዜ ይጨምራሉ እና በ<b>6</b> ወራት ውስጥ ይሟሉ። ክሬዲቶችን ለመጠቀም ንብረት ያለው ስብስብ አለበት። የተገዙ ክሬዲቶች ከወርሃዊ እቅድዎ ክሬዲቶች በኋላ ይበዛሉ።",
+      "CANCEL": "ሰርዝ",
+      "PURCHASE": "ክሬዲቶችን ግዛ",
+      "LOADING": "አማራጮች እየጫኑ ነው...",
+      "FETCH_ERROR": "የክሬዲት አማራጮችን ማስገባት አልተሳካም። እባክዎ እንደገና ይሞክሩ።.",
+      "PURCHASE_ERROR": "ግዢውን ማካሄድ አልተሳካም። እባክዎ እንደገና ይሞክሩ።.",
+      "PURCHASE_SUCCESS": "በተሳካ ሁኔታ {credits} ክሬዲቶች ወደ አካውንትዎ ተጨምሯል",
+      "CONFIRM": {
+        "TITLE": "ግዢውን አረጋግጥ",
+        "DESCRIPTION": "ለ{amount} {credits} ክሬዲቶች ማግዘት እየተዘጋጀ ነዎት።.",
+        "INSTANT_DEDUCTION_NOTE": "የተቀመጠው ካርድዎ በማረጋገጫ ጊዜ በአስቸኳይ ይከፈላል።.",
+        "GO_BACK": "ተመለስ",
+        "CONFIRM_PURCHASE": "ግዢውን አረጋግጥ"
+      }
     }
   },
   "CREATE_ACCOUNT": {
@@ -487,7 +535,8 @@
         "CREATE_BUTTON": "Create policy",
         "API": {
           "SUCCESS_MESSAGE": "Assignment policy created successfully",
-          "ERROR_MESSAGE": "Failed to create assignment policy"
+          "ERROR_MESSAGE": "Failed to create assignment policy",
+          "INBOX_LINKED": "ኢንቦክሱ ወደ ፖሊሲው ተጣራ"
         }
       },
       "EDIT": {
@@ -514,6 +563,12 @@
             "SUCCESS_MESSAGE": "Inbox removed from policy successfully",
             "ERROR_MESSAGE": "Failed to remove inbox from policy"
           }
+        },
+        "INBOX_LINK_PROMPT": {
+          "TITLE": "ኢንቦክሱን ወደ ፖሊሲ ያጣሩ",
+          "DESCRIPTION": "ይህን ኢንቦክስ ወደ የሥራ መደብ ፖሊሲ ማጣራት ይፈልጋሉ?",
+          "LINK_BUTTON": "ኢንቦክሱን ያጣሩ",
+          "CANCEL_BUTTON": "ይዝጉ"
         }
       },
       "FORM": {
@@ -539,7 +594,9 @@
           },
           "BALANCED": {
             "LABEL": "Balanced",
-            "DESCRIPTION": "Assign conversations based on available capacity."
+            "DESCRIPTION": "Assign conversations based on available capacity.",
+            "PREMIUM_MESSAGE": "ለተመካከለ ምድብ እና የወኪል ክምችት አስተዳደር ለማግኘት ያሻሽሉ።.",
+            "PREMIUM_BADGE": "ፕሪሚየም"
           }
         },
         "ASSIGNMENT_PRIORITY": {
@@ -625,6 +682,20 @@
             "SUCCESS_MESSAGE": "Agent removed from policy successfully",
             "ERROR_MESSAGE": "Failed to remove agent from policy"
           }
+        },
+        "INBOX_LIMIT_API": {
+          "ADD": {
+            "SUCCESS_MESSAGE": "የኢንቦክስ ገደብ በተሳካ ሁኔታ ታክሏል",
+            "ERROR_MESSAGE": "የኢንቦክስ ገደብ ማክሰኞ አልተሳካም"
+          },
+          "UPDATE": {
+            "SUCCESS_MESSAGE": "የኢንቦክስ ገደብ በተሳካ ሁኔታ ተሻሽሏል",
+            "ERROR_MESSAGE": "የኢንቦክስ ገደብ ማሻሻያ አልተሳካም"
+          },
+          "DELETE": {
+            "SUCCESS_MESSAGE": "የኢንቦክስ ገደብ በተሳካ ሁኔታ ተሰርዟል",
+            "ERROR_MESSAGE": "የኢንቦክስ ገደብ ማስወገድ አልተሳካም"
+          }
         }
       },
       "FORM": {
@@ -687,6 +758,178 @@
       "DESCRIPTION": "Are you sure you want to delete this policy? This action cannot be undone.",
       "CONFIRM_BUTTON_LABEL": "Delete",
       "CANCEL_BUTTON_LABEL": "Cancel"
+    }
+  },
+  "CAPTAIN_SETTINGS": {
+    "TITLE": "የCaptain ቅንብሮች",
+    "DESCRIPTION": "ለCaptain የAI ሞዴሎችና ባለስልጣናት ያስተካክሉ። Captain በክሬዲት መሠረት ክፍያ ያደርጋል፣ ለእያንዳንዱ እርምጃ በሞዴሉ መሠረት ክሬዲቶች ይከፈላሉ።.",
+    "LOADING": "የCaptain ቅንብር እየጫነ ነው...",
+    "LINK_TEXT": "ስለ Captain ክሬዲቶች ተጨማሪ ያውቁ",
+    "NOT_ENABLED": "Captain ለመለያዎ አልተነሳሳም። ለCaptain ባለስልጣናት ባለስልጣናት እቅድዎን ያሻሽሉ።.",
+    "MODEL_CONFIG": {
+      "TITLE": "የሞዴል ቅንብር",
+      "DESCRIPTION": "ለተለያዩ ባለስልጣናት AI ሞዴሎችን ይምረጡ።.",
+      "SELECT_MODEL": "ሞዴል ይምረጡ",
+      "CREDITS_PER_MESSAGE": "{credits} ክሬዲት/መልእክት",
+      "COMING_SOON": "በቅርብ ይመጣል",
+      "EDITOR": {
+        "TITLE": "የአርታዕት ባህሪያት",
+        "DESCRIPTION": "በመልእክት አርታዕትዎ ውስጥ ብልህ አዘጋጅ፣ የሰውነት ስህተት ማስተካከያዎች፣ የድምፅ ማስተካከያዎችና የይዘት ማሻሻያ ያቀርባል።."
+      },
+      "ASSISTANT": {
+        "TITLE": "አገልጋይ",
+        "DESCRIPTION": "ለደንበኞች ግንኙነቶች ራስ-ሰር መልሶች፣ የውይይት ማጠቃለያዎችና ብልህ የመልስ ምክሮችን ያቀርባል።."
+      },
+      "COPILOT": {
+        "TITLE": "ኮ-ፓይሎት",
+        "DESCRIPTION": "በውይይቶች ወቅት በሕይወት የሚከናወኑ የሁኔታ ምክሮች፣ የእውቀት ቤት ምክሮችና ቀድሞ የተሰጡ እይታዎችን ያቀርባል።."
+      }
+    },
+    "FEATURES": {
+      "TITLE": "ባህሪያት",
+      "DESCRIPTION": "የAI ኃይል ያላቸውን ባለስልጣናት አብራሪዎችን አንቀሳቅሱ ወይም ዝጋ።.",
+      "AUDIO_TRANSCRIPTION": {
+        "TITLE": "የድምጽ ትርጉም",
+        "DESCRIPTION": "የድምፅ መልእክቶችና የጥሪ መዝገቦችን በራስሰር ወደ ሊቀ መለኪያ ጽሑፍ ይቀይሩ።."
+      },
+      "HELP_CENTER_SEARCH": {
+        "TITLE": "የእርዳታ ማዕከል ፍለጋ መደበኛ እና መረጃ ማውጫ",
+        "DESCRIPTION": "በእርዳታ ማዕከል ጽሑፍ ውስጥ ለማስፈለጊያ ፍለጋ ለማድረግ AI ይጠቀሙ።."
+      },
+      "LABEL_SUGGESTION": {
+        "TITLE": "የመለያ ምክር",
+        "DESCRIPTION": "በውይይት ውስጥ በይዘት ትንተናና በሁኔታ በመሠረት ተዛማጅ ሌብሎችና መለያዎችን በራስሰር ይጠቅሙ።.",
+        "MODEL_TITLE": "የመለያ ምክር ሞዴል",
+        "MODEL_DESCRIPTION": "ለውይይቶች ትንተናና ለተስማሚ መለያዎች ለማቅረብ የሚጠቀሙትን AI ሞዴል ይምረጡ"
+      }
+    },
+    "API": {
+      "SUCCESS": "የCaptain ቅንብሮች በተሳካ ሁኔታ ተሻሽለዋል።.",
+      "ERROR": "የCaptain ቅንብሮችን ማሻሻያ አልተሳካም። እባክዎ እንደገና ይሞክሩ።."
+    }
+  },
+  "SECURITY_SETTINGS": {
+    "TITLE": "ደህንነት",
+    "DESCRIPTION": "የመለያዎን ደህንነት ቅንብሮች ያስተዳድሩ።.",
+    "LINK_TEXT": "ስለ SAML SSO ተጨማሪ ያውቁ",
+    "SAML_DISABLED_MESSAGE": "SAML SSO አሁን ተሰናክሏል። እባክዎ ይህን ባለስልጣንዎን ለማንቀሳቀስ ያነጋግሩ።.",
+    "SAML": {
+      "TITLE": "SAML SSO",
+      "NOTE": "ለመለያዎ SAML አንድ ምስል መግቢያ ያስተካክሉ። ተጠቃሚዎች በኢሜይል/የይለፍ ቃል መጠቀም በመክለት በመለያ አቅራቢዎ ይማረካሉ።.",
+      "ACS_URL": {
+        "LABEL": "ACS URL",
+        "TOOLTIP": "Assertion Consumer Service URL - ይህን አድራሻ በIdP ውስጥ እንደ SAML መልሶች መድረሻ ያስተካክሉ"
+      },
+      "SSO_URL": {
+        "LABEL": "SSO URL",
+        "HELP": "የSAML ማረጋገጫ ጥያቶች ይላካሉበት አድራሻ",
+        "PLACEHOLDER": "https://your-idp.com/saml/sso"
+      },
+      "CERTIFICATE": {
+        "LABEL": "በPEM ቅርጸ ተከታታይ የሚፈረስ ፊርማ ሰነድ",
+        "HELP": "ከመለያ አቅራቢዎ የሚሰጥ ህዝብ ፊርማ ሰነድ ለSAML መልሶች ማረጋገጥ ይጠቅማል",
+        "PLACEHOLDER": "-----BEGIN CERTIFICATE-----\nMIIC..."
+      },
+      "FINGERPRINT": {
+        "LABEL": "እጅ ማስረጃ",
+        "TOOLTIP": "የማረጋገጫ ማስታወቂያ - በIdP ቅንብርዎ ውስጥ ማረጋገጫውን ለማረጋገጥ ይጠቀሙበት"
+      },
+      "COPY_SUCCESS": "ወደ ክሊፕቦርድ ተቀይሯል",
+      "SP_ENTITY_ID": {
+        "LABEL": "SP አካል መለያ",
+        "HELP": "ለዚህ መተግበሪያ እንደ አገልግሎት አቅራቢ የተለየ መለያ (ራስሰር የተፈጠረ) ነው።.",
+        "TOOLTIP": "እንደ Service Provider ለChatwoot የተለየ መለያ - በIdP ቅንብርዎ ውስጥ ይህን ያስተካክሉ"
+      },
+      "IDP_ENTITY_ID": {
+        "LABEL": "የመለያ አቅራቢ አካል መለያ",
+        "HELP": "ለመለያ አቅራቢዎ የተለየ መለያ (ብዙውን ጊዜ በIdP ቅንብር ውስጥ ይገኛል)",
+        "PLACEHOLDER": "https://your-idp.com/saml"
+      },
+      "UPDATE_BUTTON": "የSAML ቅንብሮችን ያዘምኑ",
+      "API": {
+        "SUCCESS": "የSAML ቅንብሮች በተሳካ ሁኔታ ተዘምኗል",
+        "ERROR": "የSAML ቅንብሮችን ማዘመን አልተሳካም",
+        "ERROR_LOADING": "የSAML ቅንብሮችን ማስገባት አልተሳካም",
+        "DISABLED": "የSAML ቅንብሮች በተሳካ ሁኔታ ተሰናክሏል"
+      },
+      "VALIDATION": {
+        "REQUIRED_FIELDS": "SSO URL, የመለያ አቅራቢ አካል መለያ, እና ፊርማ አስፈላጊ መስኮች ናቸው",
+        "SSO_URL_ERROR": "እባክዎ ትክክለኛ የSSO URL ያስገቡ",
+        "CERTIFICATE_ERROR": "ፊርማ አስፈላጊ ነው",
+        "IDP_ENTITY_ID_ERROR": "የመለያ አቅራቢ አካል መለያ አስፈላጊ ነው"
+      },
+      "ENTERPRISE_PAYWALL": {
+        "AVAILABLE_ON": "የSAML SSO ባለስልጣን ባለስልጣናት እቅዶች ውስጥ ብቻ ይገኛል።.",
+        "UPGRADE_PROMPT": "ለSAML አንድ ምስል መግቢያና ሌሎች የደህንነት ባለስልጣናት ባለስልጣናት ባለስልጣን እቅድ ያሻሽሉ።.",
+        "ASK_ADMIN": "እባክዎ ለማሻሻያ ወደ አስተዳደር ተገናኝ።."
+      },
+      "PAYWALL": {
+        "TITLE": "SAML SSO ለማንቀሳቀስ ይሻሉ",
+        "AVAILABLE_ON": "የSAML SSO ባለስልጣን ባለስልጣናት እቅዶች ውስጥ ብቻ ይገኛል።.",
+        "UPGRADE_PROMPT": "ለSAML አንድ ምስል መግቢያና ሌሎች የተሻለ ባለስልጣናት ባለስልጣናት እቅድ ያሻሽሉ።.",
+        "UPGRADE_NOW": "አሁን ይሻሉ",
+        "CANCEL_ANYTIME": "እቅድዎን በማንኛውም ጊዜ መቀየር ወይም መሰረዝ ይችላሉ"
+      },
+      "ATTRIBUTE_MAPPING": {
+        "TITLE": "የSAML አባላት ማቀናበሪያ",
+        "DESCRIPTION": "የሚከተሉት የአባላት ማቀናበሪያዎች በመለያ አቅራቢዎ ውስጥ መቅነት አለበት"
+      },
+      "INFO_SECTION": {
+        "TITLE": "የአገልግሎት አቅራቢ መረጃ",
+        "TOOLTIP": "እነዚህን እሴቶች ቅድሚያ በመለያ አቅራቢዎ ውስጥ ለSAML ግንኙነት ያስተካክሉ"
+      }
+    }
+  },
+  "CONVERSATION_WORKFLOW": {
+    "INDEX": {
+      "HEADER": {
+        "TITLE": "የውይይት ስርዓቶች",
+        "DESCRIPTION": "ለውይይት መፍትሄ ህጎችና የሚያስፈልጉ መስኮች ያስተካክሉ።."
+      }
+    },
+    "REQUIRED_ATTRIBUTES": {
+      "TITLE": "በመፍትሄ ላይ የሚያስፈልጉ መለኪያዎች",
+      "DESCRIPTION": "ሲያስተካክሉ ወኪሎች እነዚህን ባህሪያት ካላሉ እንዲሙሉ ይጠይቃሉ።.",
+      "NO_ATTRIBUTES": "እስካሁን መለኪያዎች አልተጨመሩም",
+      "ADD": {
+        "TITLE": "መለኪያዎችን አክል",
+        "SEARCH_PLACEHOLDER": "መለኪያዎችን ፈልግ"
+      },
+      "SAVE": {
+        "SUCCESS": "የሚያስፈልጉ መለኪያዎች ተሻሽለዋል",
+        "ERROR": "የሚያስፈልጉ መለኪያዎችን ማሻሻያ አልተሳካም፣ እባክህ እንደገና ይሞክሩ"
+      },
+      "MODAL": {
+        "TITLE": "ውይይት አስተካክል",
+        "DESCRIPTION": "እባክህ ይህን ውይይት ከማስተካከል በፊት የተለያዩ ባለሙያ መለኪያዎችን ይሙሉ",
+        "ACTIONS": {
+          "RESOLVE": "ውይይት አስተካክል",
+          "CANCEL": "ሰርዝ"
+        },
+        "PLACEHOLDERS": {
+          "TEXT": "ማስታወሻ ጻፍ...",
+          "NUMBER": "ቁጥር አስገባ",
+          "LINK": "አገናኝ አክል",
+          "DATE": "ቀን ምረጥ",
+          "LIST": "አማራጭ ይምረጡ"
+        },
+        "CHECKBOX": {
+          "YES": "አዎ",
+          "NO": "አይ"
+        }
+      },
+      "PAYWALL": {
+        "TITLE": "ለሚያስፈልጉ መለኪያዎች እቅድዎን ከፍ አድርጉ",
+        "AVAILABLE_ON": "የሚያስፈልጉ የውይይት ባህሪያት ባለስልጣንና ኢንተርፕራይዝ እቅዶች ላይ ይገኛል።.",
+        "UPGRADE_PROMPT": "ወደ እቅድዎ ያሻሽሉ እና ከውይይት መፍትሄ በፊት ወኪሎች የሚያስፈልጉትን ባህሪያት እንዲሙሉ ያደርጉ።.",
+        "UPGRADE_NOW": "አሁን ያሻሽሉ",
+        "CANCEL_ANYTIME": "እቅድዎን በማንኛውም ጊዜ ማሻሻል ወይም ማሰረዝ ይችላሉ"
+      },
+      "ENTERPRISE_PAYWALL": {
+        "AVAILABLE_ON": "የሚያስፈልጉ የውይይት ባህሪያት በክፍያ እቅዶች ላይ ይገኛል።.",
+        "UPGRADE_PROMPT": "ወደ ክፍያ እቅድ ያሻሽሉ እና ከውይይት መፍትሄ በፊት የሚያስፈልጉትን ባህሪያት እንዲጠብቁ ያደርጉ።.",
+        "ASK_ADMIN": "እባክዎ ለማሻሻያ ወደ አስተዳደር ተገናኝ።."
+      }
     }
   }
 }

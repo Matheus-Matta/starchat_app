@@ -13,7 +13,7 @@
       "UPGRADE_NOW": "Atualizar agora",
       "CANCEL_ANYTIME": "Você pode alterar ou cancelar seu plano a qualquer momento"
     },
-    "ENTERPRISE_PAYWALL": {
+    "STARCHAT_PAYWALL": {
       "AVAILABLE_ON": "O recurso SLA está disponível apenas nos planos pagos.",
       "UPGRADE_PROMPT": "Atualize para um plano pago para acessar recursos avançados como logs de auditoria, capacidade do agente e muito mais.",
       "ASK_ADMIN": "Entre em contato com seu administrador para fazer a atualização."
@@ -37,6 +37,10 @@
           "NRT": "NRT",
           "RT": "RT"
         }
+      },
+      "TABLE_HEADER": {
+        "SLA": "SLA",
+        "BUSINESS_HOURS": "Horário comercial"
       }
     },
     "FORM": {
@@ -103,6 +107,16 @@
       "RT": "Tempo de resolução",
       "SHOW_MORE": "{count} mais",
       "HIDE": "Ocultar {count} linhas"
+    },
+    "COUNT": "{n} SLA | {n} SLAs",
+    "SEARCH_PLACEHOLDER": "Pesquisar SLA...",
+    "SEARCH": {
+      "NO_RESULTS": "Nenhuma SLA encontrada correspondente à sua busca"
+    },
+    "ENTERPRISE_PAYWALL": {
+      "AVAILABLE_ON": "O recurso SLA está disponível apenas nos planos pagos.",
+      "UPGRADE_PROMPT": "Atualize para um plano pago para acessar recursos avançados como logs de auditoria, capacidade do agente e muito mais.",
+      "ASK_ADMIN": "Entre em contato com seu administrador para fazer a atualização."
     }
   }
 }

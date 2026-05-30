@@ -28,7 +28,8 @@
       "TYPES": {
         "MEDIA": "Media",
         "QUICK_REPLY": "Quick Reply",
-        "TEXT": "Texto"
+        "TEXT": "Texto",
+        "CALL_TO_ACTION": "Call to Action"
       }
     },
     "PARSER": {

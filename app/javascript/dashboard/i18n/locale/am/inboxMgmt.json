@@ -110,6 +110,14 @@
         "SUBMIT_BUTTON": "Create inbox",
         "API": {
           "ERROR_MESSAGE": "We were not able to create a website channel, please try again"
+        },
+        "CHANNEL_WEBHOOK_SECRET": {
+          "LABEL": "Webhook Secret",
+          "COPY": "ምስጢሩን ወደ ክሊፕቦርድ ቅዳ",
+          "COPY_SUCCESS": "ምስጢሩ ወደ ክሊፕቦርድ ተቀድሷል",
+          "TOGGLE": "የምስጢሩን ማየት አሳይ/ደብቅ",
+          "RESET_SUCCESS": "Webhook secret regenerated successfully",
+          "RESET_ERROR": "Unable to regenerate webhook secret. Please try again"
         }
       },
       "TWILIO": {
@@ -291,7 +299,13 @@
           "INVALID_BUSINESS_DATA": "Invalid business data received from Facebook. Please try again.",
           "SIGNUP_ERROR": "Signup error occurred",
           "AUTH_NOT_COMPLETED": "Authentication not completed. Please restart the process.",
-          "SUCCESS_FALLBACK": "WhatsApp Business Account has been successfully configured"
+          "SUCCESS_FALLBACK": "WhatsApp Business Account has been successfully configured",
+          "LEARN_MORE": {
+            "TEXT": "ለተዋሰነ መመዝገቢያ፣ ዋጋ እና ገደቦች ተጨማሪ ለማወቅ {link} ይጎብኙ።.",
+            "LINK_TEXT": "ይህ አገናኝ"
+          },
+          "MANUAL_FALLBACK": "ቁጥርዎ ከWhatsApp Business Platform (API) ጋር ከተገናኘ እና ወይም እርስዎ የቴክኖሎጂ አቅራቢ ከሆኑ እና የእርስዎን ቁጥር በራስዎ ሲያስገቡ፣ እባክዎ የ{link} ሂደትን ይጠቀሙ",
+          "MANUAL_LINK_TEXT": "የእጅ ማቀናበሪያ ሂደት"
         },
         "API": {
           "ERROR_MESSAGE": "We were not able to save the WhatsApp channel"
@@ -373,7 +387,11 @@
         "API": {
           "ERROR_MESSAGE": "We were not able to save the email channel"
         },
-        "FINISH_MESSAGE": "Start forwarding your emails to the following email address."
+        "FINISH_MESSAGE": "Start forwarding your emails to the following email address.",
+        "FINISH_MESSAGE_NO_FORWARDING": "የኢሜይል ኢንቦክስዎ በተሳካ ሁኔታ ተፈጥሯል! ኢሜይሎችን ለማስተላለፍና ለመቀበል SMTP እና IMAP መለያዎችን መቅነት አለቦት። እነዚህ ቅንብሮች ካልተደረጉ ኢሜይሎች አይሰሩም።.",
+        "FORWARDING_ADDRESS_LABEL": "ኢሜይሎችን ወደዚህ አድራሻ ይቀላቀሉ፡:",
+        "CONFIGURE_SMTP_IMAP_LINK": "እዚህ ጠቅ ያድርጉ",
+        "CONFIGURE_SMTP_IMAP_TEXT": " እንዲሁም IMAP እና SMTP ቅንብሮችን ለመቅከም"
       },
       "LINE_CHANNEL": {
         "TITLE": "LINE Channel",
@@ -462,6 +480,10 @@
           "VOICE": {
             "TITLE": "Voice",
             "DESCRIPTION": "Integrate with Twilio Voice"
+          },
+          "TIKTOK": {
+            "TITLE": "TikTok",
+            "DESCRIPTION": "TikTok አካውንትዎን ያገናኙ"
           }
         }
       },
@@ -496,6 +518,13 @@
         "SIGN_IN": "Sign in with Google",
         "EMAIL_PLACEHOLDER": "Enter email address",
         "ERROR_MESSAGE": "There was an error connecting to Google, please try again"
+      },
+      "TIKTOK": {
+        "CONTINUE_WITH_TIKTOK": "ከTikTok ጋር ቀጥሉ",
+        "CONNECT_YOUR_TIKTOK_PROFILE": "TikTok መገለጫዎን ያገናኙ",
+        "HELP": "TikTok መገለጫዎን እንደ ቻናል ለመጨመር፣ “Continue with TikTok” በመጫን መለያዎን መረጋገጥ አለብዎት ",
+        "ERROR_MESSAGE": "TikTok ለመገናኘት ስህተት አጋጥሟል፣ እባክዎ እንደገና ይሞክሩ",
+        "ERROR_AUTH": "TikTok ለመገናኘት ስህተት አጋጥሟል፣ እባክዎ እንደገና ይሞክሩ"
       }
     },
     "DETAILS": {
@@ -567,7 +596,9 @@
       },
       "LOCK_TO_SINGLE_CONVERSATION": {
         "ENABLED": "Enabled",
-        "DISABLED": "Disabled"
+        "DISABLED": "Disabled",
+        "ENABLED_DESCRIPTION": "ሲነጋገር እንደገና ከሚያስተላለፍ ጋር ያለው የቀደም ውይይት ይከፈታል።.",
+        "DISABLED_DESCRIPTION": "ከቀደም ያለው ውይይት ከተፈታ በኋላ አዲስ ውይይት ይፈጠራል።."
       },
       "ENABLE_HMAC": {
         "LABEL": "Enable"
@@ -599,7 +630,9 @@
       "BUSINESS_HOURS": "Business Hours",
       "WIDGET_BUILDER": "Widget Builder",
       "BOT_CONFIGURATION": "Bot Configuration",
-      "CSAT": "CSAT"
+      "CSAT": "CSAT",
+      "ACCOUNT_HEALTH": "የመለያ ጤና",
+      "VOICE": "ድምጽ"
     },
     "SETTINGS": "Settings",
     "FEATURES": {
@@ -652,14 +685,49 @@
       "WHATSAPP_TEMPLATES_SYNC_SUBHEADER": "Manually sync message templates from WhatsApp to update your available templates.",
       "WHATSAPP_TEMPLATES_SYNC_BUTTON": "Sync Templates",
       "WHATSAPP_TEMPLATES_SYNC_SUCCESS": "Templates sync initiated successfully. It may take a couple of minutes to update.",
-      "UPDATE_PRE_CHAT_FORM_SETTINGS": "Update Pre Chat Form Settings"
+      "UPDATE_PRE_CHAT_FORM_SETTINGS": "Update Pre Chat Form Settings",
+      "ALLOWED_DOMAINS": {
+        "TITLE": "የተፈቀዱ ድር ስፍራዎች",
+        "DESCRIPTION": "የቻት ዊጅትዎን ማን እንደሚጨምር ድር ጣቢያዎችን ያገዙ። ለደህንነት፣ ብቻ የእርስዎን እና የሚታመኑትን ድር ጣቢያዎች ያክሉ። አንድ ወይም ከዚያ በላይ ድር ጣቢያዎችን በኮማ በመለያየት ያክሉ። ሁሉንም ድር ጣቢያዎች ለመፍቀድ ቦታውን ባዶ ተው (ለምርት አይመከርም)።.",
+        "PLACEHOLDER": "example.com, www.example.com, app.example.com"
+      },
+      "ALLOW_MOBILE_WEBVIEW": {
+        "LABEL": "Enable widget in mobile apps",
+        "SUBTITLE": "Check this if you embed the widget in iOS or Android apps. Mobile apps don't send domain information, so they would be blocked by domain restrictions unless this is enabled."
+      },
+      "IDENTITY_VALIDATION": {
+        "TITLE": "Identity Validation",
+        "DESCRIPTION": "Verify user authenticity by generating secure tokens. This prevents unauthorized users from impersonating others in your chat.",
+        "SECRET_KEY": "የሚሰወር ቁልፍ",
+        "VIEW_DOCS": "View documentation",
+        "REQUIRE_LABEL": "Require identity validation for all conversations",
+        "REQUIRE_DESCRIPTION": "When enabled, users must provide a valid identity token to start conversations. Requests without valid tokens will be rejected."
+      },
+      "ENABLE_CONTINUITY_VIA_EMAIL_DISABLED_TEXT": "This feature is available on a paid plan. Upgrade to enable conversation continuity via email.",
+      "FORWARD_EMAIL_NOT_CONFIGURED": "ኢሜይሎችን ወደ ኢንቦክስዎ መቀላቀል በዚህ መገናኛ አሁን አልተፈቀደም። ይህን ባህሪ ለመጠቀም ከአስተዳደሩ መፍቀድ አለቦት። እባክዎ ለመቀጠል ከእነርሱ ጋር ያገናኙ።.",
+      "WHATSAPP_EMBEDDED_SIGNUP_TITLE": "የWhatsApp ውስጥ ያለ ምዝገባ",
+      "WHATSAPP_EMBEDDED_SIGNUP_SUBHEADER": "ይህ ኢንቦክስ በWhatsApp ተዋሰነ መመዝገቢያ ተገናኝቷል።.",
+      "WHATSAPP_EMBEDDED_SIGNUP_DESCRIPTION": "ይህን ኢንቦክስ ለWhatsApp ንግድ ቅንብሮች ለማዘመን መቀየር ይችላሉ።.",
+      "WHATSAPP_RECONFIGURE_BUTTON": "እንደገና ያቀናብሩ",
+      "WHATSAPP_CONNECT_TITLE": "ወደ WhatsApp ቢዝነስ ይገናኙ",
+      "WHATSAPP_CONNECT_SUBHEADER": "ለቀላል አስተዳደር ወደ WhatsApp ተዋሰነ መመዝገቢያ ይዘምኑ።.",
+      "WHATSAPP_CONNECT_DESCRIPTION": "ይህን ኢንቦክስ ወደ WhatsApp ንግድ ያገናኙ ለተጨማሪ ባህሪያትና ቀላል አስተዳደር።.",
+      "WHATSAPP_CONNECT_BUTTON": "አገናኝ",
+      "WHATSAPP_CONNECT_SUCCESS": "ወደ WhatsApp Business በተሳካ ሁኔታ ተገናኝቷል!",
+      "WHATSAPP_CONNECT_ERROR": "ወደ WhatsApp ንግድ መገናኘት አልተሳካም። እባክዎ ደግመው ይሞክሩ።.",
+      "WHATSAPP_RECONFIGURE_SUCCESS": "WhatsApp Business በተሳካ ሁኔታ ተቀይሯል!",
+      "WHATSAPP_RECONFIGURE_ERROR": "WhatsApp ንግድ መቀየር አልተሳካም። እባክዎ ደግመው ይሞክሩ።.",
+      "WHATSAPP_APP_ID_MISSING": "WhatsApp መተግበሪያ መለያ አልተቀመጠም። እባክዎ ከአስተዳደሩ ጋር ያገናኙ።.",
+      "WHATSAPP_CONFIG_ID_MISSING": "WhatsApp የቅንብር መለያ አልተቀመጠም። እባክዎ ከአስተዳደሩ ጋር ያገናኙ።.",
+      "WHATSAPP_LOGIN_CANCELLED": "WhatsApp ግባ ተሰርዟል። እባክዎ ደግመው ይሞክሩ።."
     },
     "HELP_CENTER": {
       "LABEL": "Help Center",
       "PLACEHOLDER": "Select Help Center",
       "SELECT_PLACEHOLDER": "Select Help Center",
       "REMOVE": "Remove Help Center",
-      "SUB_TEXT": "Attach a Help Center with the inbox"
+      "SUB_TEXT": "Attach a Help Center with the inbox",
+      "NONE": "የለም"
     },
     "AUTO_ASSIGNMENT": {
       "MAX_ASSIGNMENT_LIMIT": "Auto assignment limit",
@@ -722,7 +790,51 @@
       "API": {
         "SUCCESS_MESSAGE": "CSAT settings updated successfully",
         "ERROR_MESSAGE": "We couldn't update CSAT settings. Please try again later."
-      }
+      },
+      "BUTTON_TEXT": {
+        "LABEL": "የአዝራር ጽሑፍ",
+        "PLACEHOLDER": "እባክዎን ደረጃ ያስገቡ"
+      },
+      "LANGUAGE": {
+        "LABEL": "ቋንቋ",
+        "PLACEHOLDER": "የአብነት ቋንቋ ይምረጡ"
+      },
+      "MESSAGE_PREVIEW": {
+        "LABEL": "የመልእክት አሳይ",
+        "TOOLTIP": "በWhatsApp መድረክ ላይ ሲታይ ትንሽ ልዩነት ሊኖረው ይችላል።."
+      },
+      "TEMPLATE_STATUS": {
+        "APPROVED": "በWhatsApp ተፈቅዷል",
+        "PENDING": "የWhatsApp ፈቃድ በመጠበቅ ላይ ነው",
+        "REJECTED": "Meta አቅራቢውን አልተቀበለም",
+        "DEFAULT": "WhatsApp ማረጋገጫ ይፈልጋል",
+        "NOT_FOUND": "አብነቱ በMeta መድረክ ውስጥ አልተገኘም።."
+      },
+      "TEMPLATE_CREATION": {
+        "SUCCESS_MESSAGE": "WhatsApp አቅራቢ በተሳካ ሁኔታ ተፈጥሯል እና ለማረጋገጫ ተልኳል",
+        "ERROR_MESSAGE": "WhatsApp አቅራቢ ለመፍጠር አልተሳካም"
+      },
+      "TEMPLATE_UPDATE_DIALOG": {
+        "TITLE": "የምርመራ ዝርዝሮችን አርትዕ",
+        "DESCRIPTION": "ያለፈውን አብነት እናጥፋለን እና እንደገና ለWhatsApp ማረጋገጫ የሚላክ አዲስ አብነት እንፈጥራለን",
+        "CONFIRM": "አዲስ አብነት ፍጠር",
+        "CANCEL": "ተመለስ"
+      },
+      "UTILITY_ANALYZER": {
+        "ACTION": "የተጠቃሚነት ማስፈሪያ ይፈትሹ",
+        "HELPER_NOTE": "ለማሻሻል የUtility ተስማሚነት ከፈለጉ ከማስገባት በፊት ይህን መልእክት ይፈትሹ። ስርዓቱ ለሪፖርት ለማስገባት በተለየ የCSAT አብነት ከተለያዩ አዝራሮች ጋር ይፈጥራል። እንኳን በይዘት መሠረት Meta እንደ ማርኬቲንግ ሊያደርግ ይችላል።.",
+        "RESULT_LABEL": "የሜታ ምድብ ትንበያ",
+        "GUIDANCE_NOTE": "ይህ መምሪያ ምርመራ ነው፣ የMeta ፈቃድ አላማ አይደለም።.",
+        "SUGGESTION_LABEL": "የተጠቃሚ ደህንነት የተመነጨ እንደገና ጻፍ",
+        "APPLY": "ይህን እንደገና ጻፍ",
+        "ERROR_MESSAGE": "መልእክቱን ማስተካከል አልተቻለም። እባክዎ ደግመው ይሞክሩ።.",
+        "CLASSIFICATION": {
+          "LIKELY_UTILITY": "ምናልባት አጠቃላይ ነገር",
+          "LIKELY_MARKETING": "ምናልባት ገበያ ነገር",
+          "UNCLEAR": "አስተላለፊ ያስፈልጋል"
+        }
+      },
+      "WHATSAPP_NOTE": "ማስታወሻ፡ ሲቀርብ ሲሆን ስርዓቱ በWhatsApp ውስጥ ለCSAT የተለየ አብነት ይፈጥራል (በሪፖርቶች ውስጥ ደረጃና አስተያየት ለማሰብ የሚጠቀም) እና እንደ Utility ለማረጋገጥ ይላካል። Meta እንኳን በይዘት መሠረት እንደ Marketing ሊያወቅ ይችላል። ከማረጋገጥ በኋላ ምርመራዎች በምርመራ ህግ መሠረት በንግግር አንድ ጊዜ ብቻ ይላካሉ።."
     },
     "BUSINESS_HOURS": {
       "TITLE": "Set your availability",
@@ -738,7 +850,9 @@
         "UNAVAILABLE": "Unavailable",
         "HOURS": "hours",
         "VALIDATION_ERROR": "Starting time should be before closing time.",
-        "CHOOSE": "Choose"
+        "CHOOSE": "Choose",
+        "DAY": "ቀን",
+        "AVAILABILITY": "አሰልጣኝነት"
       },
       "ALL_DAY": "All-Day"
     },
@@ -769,7 +883,8 @@
         "LABEL": "Password",
         "PLACE_HOLDER": "Password"
       },
-      "ENABLE_SSL": "Enable SSL"
+      "ENABLE_SSL": "Enable SSL",
+      "AUTH_MECHANISM": "ማረጋገጫ"
     },
     "MICROSOFT": {
       "TITLE": "Microsoft",
@@ -868,7 +983,8 @@
         "WIDGET_BUBBLE_TYPE": {
           "STANDARD": "Standard",
           "EXPANDED_BUBBLE": "Expanded Bubble"
-        }
+        },
+        "WIDGET_BUBBLE": "በለላ"
       },
       "WIDGET_SCREEN": {
         "DEFAULT": "Default",
@@ -920,7 +1036,136 @@
       "LINE": "Line",
       "API": "API Channel",
       "INSTAGRAM": "Instagram",
-      "VOICE": "Voice"
+      "VOICE": "Voice",
+      "TIKTOK": "TikTok"
+    },
+    "COUNT": "{n} የግብይት ሳጥን | {n} የግብይት ሳጥኖች",
+    "SEARCH_PLACEHOLDER": "የግብይት ሳጥኖችን ፈልግ...",
+    "NO_RESULTS": "በፍለጋዎ የሚስማሙ የግብይት ሳጥኖች አልተገኙም",
+    "WHATSAPP_REGISTRATION_INCOMPLETE": "የWhatsApp ንግድ ምዝገባዎ አልተጠናቀቀም። እባክዎ ከመገናኛ ባለሥልጣን ጋር በMeta Business Manager ውስጥ የሚታይ ስም ሁኔታዎን ያረጋግጡ።.",
+    "COMPLETE_REGISTRATION": "ምዝገባ አሟልት",
+    "VOICE_CONFIGURATION": {
+      "ENABLE_VOICE": {
+        "LABEL": "Enable Voice Calling",
+        "DESCRIPTION": "Enable voice calling on this inbox. Agents will be able to make and receive phone calls."
+      },
+      "CREDENTIALS": {
+        "DESCRIPTION": "Voice calling requires Twilio API Key credentials. These are used to generate tokens for agent voice connections."
+      }
+    },
+    "CHANNEL_PREFERENCES": "የቻናል ቅድሚያዎች",
+    "WIDGET_FEATURES": "የዊጅት ባህሪያት",
+    "ACCOUNT_HEALTH": {
+      "TITLE": "የ WhatsApp መለያዎን ያስተዳድሩ",
+      "DESCRIPTION": "የ WhatsApp መለያዎን ሁኔታ፣ የመልእክት ገደቦችን እና ጥራት ይገምግሙ። ቅንብሮችን ያዘምኑ ወይም ችግሮችን ካሉ ያስተካክሉ።",
+      "GO_TO_SETTINGS": "ወደ Meta Business Manager ይሂዱ",
+      "NO_DATA": "የጤና ውሂብ አይገኝም",
+      "FIELDS": {
+        "DISPLAY_PHONE_NUMBER": {
+          "LABEL": "የስልክ ቁጥር አሳይ",
+          "TOOLTIP": "ለደንበኞች የታየ የስልክ ቁጥር"
+        },
+        "VERIFIED_NAME": {
+          "LABEL": "የንግድ ስም",
+          "TOOLTIP": "የንግድ ስም በWhatsApp ተረጋግጧል"
+        },
+        "DISPLAY_NAME_STATUS": {
+          "LABEL": "የማሳያ ስም ሁኔታ",
+          "TOOLTIP": "የንግድ ስምዎ ማረጋገጫ ሁኔታ"
+        },
+        "QUALITY_RATING": {
+          "LABEL": "የጥራት እሴት",
+          "TOOLTIP": "ለመለያዎ የWhatsApp የጥራት እሴት"
+        },
+        "MESSAGING_LIMIT_TIER": {
+          "LABEL": "የመልእክት ገደብ ደረጃ",
+          "TOOLTIP": "ለአካውንትዎ የዕለት መልእክት ገደብ"
+        },
+        "ACCOUNT_MODE": {
+          "LABEL": "የአካውንት ሁኔታ",
+          "TOOLTIP": "የWhatsApp አካውንትዎ የአሁኑ እንቅስቃሴ ሁኔታ"
+        }
+      },
+      "VALUES": {
+        "TIERS": {
+          "TIER_250": "በ24 ሰዓት ውስጥ 250 ደንበኞች",
+          "TIER_1000": "በ24 ሰዓታት ውስጥ 1K ደንበኞች",
+          "TIER_1K": "በ24 ሰዓታት ውስጥ 1K ደንበኞች",
+          "TIER_10K": "በ24 ሰዓታት ውስጥ 10K ደንበኞች",
+          "TIER_100K": "በ24 ሰዓታት ውስጥ 100K ደንበኞች",
+          "TIER_UNLIMITED": "በ24 ሰዓታት ውስጥ ያልተገደበ ደንበኞች",
+          "UNKNOWN": "እውነተኛ አሰናዳድ አይገኝም"
+        },
+        "STATUSES": {
+          "APPROVED": "ተፈቅዷል",
+          "PENDING_REVIEW": "በጥናት ላይ ነው",
+          "AVAILABLE_WITHOUT_REVIEW": "እንደ ጥናት አልተደረገም ነጻ ነው",
+          "REJECTED": "ተቀባይነት አልተሰጠም",
+          "DECLINED": "ተከለከለ",
+          "NON_EXISTS": "አልነበረም"
+        },
+        "MODES": {
+          "SANDBOX": "ሳንድቦክስ",
+          "LIVE": "ቀጥታ"
+        }
+      },
+      "WEBHOOK": {
+        "TITLE": "የWebhook ቅንብር",
+        "DESCRIPTION": "ከደንበኞች መልእክቶች ለመቀበል ለWhatsApp Business መለያዎ የWebhook URL አስፈላጊ ነው",
+        "ACTION_REQUIRED": "Webhook አልተቀየረም",
+        "REGISTER_BUTTON": "Webhook ይመዝግቡ",
+        "REGISTER_SUCCESS": "Webhook በተሳካ ሁኔታ ተመዝግቧል",
+        "REGISTER_ERROR": "የwebhook ምዝገባ አልተሳካም። እባክዎ ደግመው ይሞክሩ።.",
+        "CONFIGURED_SUCCESS": "Webhook በተሳካ ሁኔታ ተቀይሯል",
+        "URL_MISMATCH": "Webhook URL አልተስማማም"
+      }
+    },
+    "ASSIGNMENT": {
+      "TITLE": "የንግግር መለያየት",
+      "DESCRIPTION": "በተመደበ የማድረግ ፖሊሲዎች መሠረት የሚገኙ ወኪሎች ወደ ውስጥ የሚገቡ ውይይቶች በራስሰር ይመደባሉ",
+      "ENABLE_AUTO_ASSIGNMENT": "የእንግዳ ውይይት ማስመዝገቢያ አባልነት አስችል",
+      "DEFAULT_RULES_TITLE": "የነባሪ የማስመዝገቢያ ህጎች",
+      "DEFAULT_RULES_DESCRIPTION": "ለሁሉም ውይይቶች የነባሪ የማስመዝገቢያ ባህሪ መጠቀም",
+      "DEFAULT_RULE_1": "በጥንቃቄ የተፈጠሩ ውይይቶች በመጀመሪያ",
+      "DEFAULT_RULE_2": "ዙር ሮቢን ስርጭት",
+      "CUSTOMIZE_WITH_POLICY": "በመለያየት ፖሊሲ ያስተካክሉ",
+      "USING_POLICY": "ለዚህ ኢንቦክስ በተለየ መለያየት ፖሊሲ ተጠቃሚ ነው",
+      "CUSTOMIZE_POLICY": "በመለያየት ፖሊሲ ያስተካክሉ",
+      "DELETE_POLICY": "ፖሊሲ አስወግድ",
+      "POLICY_LABEL": "የመስጠት ፖሊሲ",
+      "ASSIGNMENT_ORDER_LABEL": "የመስጠት ቅደም ተከተል",
+      "ASSIGNMENT_METHOD_LABEL": "የመስጠት ዘዴ",
+      "POLICY_STATUS": {
+        "ACTIVE": "ንቁ",
+        "INACTIVE": "ያልተነሳ"
+      },
+      "PRIORITY": {
+        "EARLIEST_CREATED": "በጣም ቀድሞ የተፈጠረ",
+        "LONGEST_WAITING": "በጣም ረጅም የቆየ"
+      },
+      "METHOD": {
+        "ROUND_ROBIN": "ሩንድ ሮቢን",
+        "BALANCED": "ተመጣጣኝ ስራ መሰጠት"
+      },
+      "UPGRADE_PROMPT": "በቢዝነስ እቅድ ላይ የተለየ የስራ መሰጠት ፖሊሲዎች አሉ",
+      "UPGRADE_TO_BUSINESS": "ወደ ቢዝነስ ይዘው ይሻሽሉ",
+      "DEFAULT_POLICY_LINKED": "ነባሪ ፖሊሲ ተገናኝቷል",
+      "DEFAULT_POLICY_DESCRIPTION": "ለዚህ ኢንቦክስ ውይይቶች እንዴት እንደሚሰጡ ለማስተካከል በተለየ የማዋል ፖሊሲ ያገናኙ።.",
+      "LINK_EXISTING_POLICY": "ያለውን ፖሊሲ ይገናኙ",
+      "CREATE_NEW_POLICY": "አዲስ ፖሊሲ ይፍጠሩ",
+      "NO_POLICIES": "የማያገኙ የስራ መደበኛ ፖሊሲዎች የሉም",
+      "VIEW_ALL_POLICIES": "ሁሉንም ፖሊሲዎች እይ",
+      "CURRENT_BEHAVIOR": "አሁን የሚጠቀሙት የነባሪ የማዋል ባህሪ ነው፡:",
+      "LINK_SUCCESS": "የስራ መደበኛ ፖሊሲ በተሳካ ሁኔታ ተገናኝቷል",
+      "LINK_ERROR": "የስራ መደበኛ ፖሊሲ ለመገናኘት አልተሳካም"
+    },
+    "ASSIGNMENT_POLICY": {
+      "DELETE_CONFIRM_TITLE": "የስራ መደበኛ ፖሊሲ ማጥፋት ይፈልጋሉ?",
+      "DELETE_CONFIRM_MESSAGE": "ከዚህ የማዋል ፖሊሲ ከኢንቦክስ ማስወገድ እርግጠኛ ነዎት? ኢንቦክስ ወደ ነባሪ የማዋል ህጎች ይመለሳል።.",
+      "CANCEL": "ሰርዝ",
+      "CONFIRM_DELETE": "ሰርዝ",
+      "DELETE_SUCCESS": "የስራ መደበኛ ፖሊሲ በተሳካ ሁኔታ ተሰርዟል",
+      "DELETE_ERROR": "የስራ መደበኛ ፖሊሲ ማስወገድ አልተሳካም"
     }
   }
 }

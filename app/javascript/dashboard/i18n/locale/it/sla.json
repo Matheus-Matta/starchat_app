@@ -13,7 +13,7 @@
       "UPGRADE_NOW": "Upgrade now",
       "CANCEL_ANYTIME": "You can change or cancel your plan anytime"
     },
-    "ENTERPRISE_PAYWALL": {
+    "STARCHAT_PAYWALL": {
       "AVAILABLE_ON": "The SLA feature is only available in the paid plans.",
       "UPGRADE_PROMPT": "Upgrade to a paid plan to access advanced features like audit logs, agent capacity, and more.",
       "ASK_ADMIN": "Please reach out to your administrator for the upgrade."
@@ -37,6 +37,10 @@
           "NRT": "NRT",
           "RT": "RT"
         }
+      },
+      "TABLE_HEADER": {
+        "SLA": "SLA",
+        "BUSINESS_HOURS": "Orario di lavoro"
       }
     },
     "FORM": {
@@ -103,6 +107,16 @@
       "RT": "Resolution time",
       "SHOW_MORE": "{count} more",
       "HIDE": "Hide {count} rows"
+    },
+    "COUNT": "{n} SLA | {n} SLA",
+    "SEARCH_PLACEHOLDER": "Cerca SLA...",
+    "SEARCH": {
+      "NO_RESULTS": "Nessun SLA trovato corrispondente alla tua ricerca"
+    },
+    "ENTERPRISE_PAYWALL": {
+      "AVAILABLE_ON": "La funzionalità SLA è disponibile solo nei piani a pagamento.",
+      "UPGRADE_PROMPT": "Passa a un piano a pagamento per accedere a funzionalità avanzate come audit logs, capacità degli operatori e altro ancora.",
+      "ASK_ADMIN": "Contatta il tuo amministratore per l'aggiornamento."
     }
   }
 }

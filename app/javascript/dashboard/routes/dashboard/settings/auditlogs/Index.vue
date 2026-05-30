@@ -101,12 +101,12 @@ const tableHeaders = computed(() => {
         feature-name="audit_logs"
       />
       <p
-        v-else-if="!validRecords.length"
+        v-if="!uiFlags.fetchingList && !validRecords.length"
         class="flex flex-col items-center justify-center h-full text-base p-8"
       >
         {{ $t('AUDIT_LOGS.LIST.404') }}
       </p>
-      <div v-else class="min-w-full overflow-x-auto">
+      <div v-else-if="!uiFlags.fetchingList" class="min-w-full overflow-x-auto">
         <table class="divide-y divide-n-weak">
           <thead>
             <th
@@ -136,7 +136,7 @@ const tableHeaders = computed(() => {
             </tr>
           </tbody>
         </table>
-        <TableFooter
+        <PaginationFooter
           :current-page="Number(meta.currentPage)"
           :total-items="meta.totalEntries"
           :items-per-page="meta.perPage"

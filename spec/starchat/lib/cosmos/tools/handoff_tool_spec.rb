@@ -64,7 +64,7 @@ RSpec.describe Cosmos::Tools::HandoffTool, type: :model do
         end
 
         it 'creates a conversation_bot_handoff reporting event' do
-          create(:captain_inbox, captain_assistant: assistant, inbox: inbox)
+          create(:cosmos_inbox, cosmos_assistant: assistant, inbox: inbox)
           Current.executed_by = assistant
 
           perform_enqueued_jobs do

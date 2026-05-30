@@ -43,13 +43,13 @@
       }
     },
     "LIST": {
+      "404": "No automation rules found",
       "TABLE_HEADER": {
         "NAME": "Name",
         "ACTIVE": "Active",
         "CREATED_ON": "Created on",
         "ACTIONS": "Actions"
-      },
-      "404": "No automation rules found"
+      }
     },
     "DELETE": {
       "TITLE": "Delete Automation Rule",
@@ -185,7 +185,9 @@
       "ASSIGNEE_NAME": "Assignee",
       "TEAM_NAME": "Team",
       "PRIORITY": "Priority",
-      "LABELS": "Labels"
-    }
+      "LABELS": "Labels",
+      "COMPANY_NAME": "ኩባንያ"
+    },
+    "LAST_RESPONDING_AGENT": "Last Responding Agent"
   }
 }

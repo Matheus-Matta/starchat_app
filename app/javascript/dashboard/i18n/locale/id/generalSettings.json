@@ -150,8 +150,8 @@
       "EMPTY_MESSAGE": "Anda tidak memiliki notifikasi belum dibaca"
     },
     "LIST": {
-      "LOADING_MESSAGE": "Memuat notifikasi...",
       "404": "Tidak Ada Notifikasi",
+      "LOADING_MESSAGE": "Memuat notifikasi...",
       "TABLE_HEADER": [
         "Nama",
         "Nomor Telepon",
@@ -239,7 +239,8 @@
       "DARK_MODE": "Dark",
       "SYSTEM_MODE": "Sistem",
       "SNOOZE_NOTIFICATION": "Snooze Notification"
-    }
+    },
+    "SNOOZE_PLACEHOLDER": "Type a time e.g. tomorrow, 2 hours, next friday, jan 15..."
   },
   "DASHBOARD_APPS": {
     "LOADING_MESSAGE": "Memuat Aplikasi Dasbor..."

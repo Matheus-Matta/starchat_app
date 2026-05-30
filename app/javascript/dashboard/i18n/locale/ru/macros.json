@@ -25,13 +25,14 @@
       }
     },
     "LIST": {
+      "404": "Макросы не найдены",
       "TABLE_HEADER": {
         "NAME": "Имя",
         "CREATED BY": "Создан",
         "LAST_UPDATED_BY": "Обновлено",
-        "VISIBILITY": "Видимость"
-      },
-      "404": "Макросы не найдены"
+        "VISIBILITY": "Видимость",
+        "ACTIONS": "Действия"
+      }
     },
     "DELETE": {
       "TOOLTIP": "Удалить макрос",
@@ -62,7 +63,9 @@
         "LABEL": "Видимость макроса",
         "GLOBAL": {
           "LABEL": "Публичный",
-          "DESCRIPTION": "Этот макрос доступен всем агентам на этом аккаунте."
+          "DESCRIPTION": "Этот макрос доступен всем агентам на этом аккаунте.",
+          "CREATE_DISABLED_DESCRIPTION": "Only administrators can create public macros.",
+          "EDIT_DISABLED_DESCRIPTION": "Only administrators can edit public macros."
         },
         "PERSONAL": {
           "LABEL": "Приватный",
@@ -98,7 +101,8 @@
       "SEND_MESSAGE": "Отправить сообщение",
       "CHANGE_PRIORITY": "Изменить приоритет",
       "ADD_PRIVATE_NOTE": "Add a Private Note",
-      "SEND_WEBHOOK_EVENT": "Отправить событие Webhook"
+      "SEND_WEBHOOK_EVENT": "Отправить событие Webhook",
+      "REMOVE_ASSIGNED_AGENT": "Remove Assigned Agent"
     },
     "PRIORITY_TYPES": {
       "NONE": "Ничего",
@@ -106,6 +110,12 @@
       "MEDIUM": "Средняя",
       "HIGH": "Высокая",
       "URGENT": "Срочность"
+    },
+    "COUNT": "{n} macro | {n} macros",
+    "SEARCH_PLACEHOLDER": "Search macros...",
+    "NO_RESULTS": "No macros found matching your search",
+    "VIEW": {
+      "TOOLTIP": "View macro"
     }
   }
 }

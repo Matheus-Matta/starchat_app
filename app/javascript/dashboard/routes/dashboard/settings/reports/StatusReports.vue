@@ -1,5 +1,4 @@
 <script>
-import V4Button from 'dashboard/components-next/button/Button.vue';
 import { useAlert, useTrack } from 'dashboard/composables';
 import ReportFilterSelector from './components/FilterSelector.vue';
 import { GROUP_BY_FILTER } from './constants';
@@ -20,7 +19,6 @@ export default {
     ReportHeader,
     ReportFilterSelector,
     ReportContainer,
-    V4Button,
   },
   data() {
     return {
@@ -33,7 +31,7 @@ export default {
   computed: {
     reportKeys() {
       return STATUS_REPORTS_KEYS;
-    }
+    },
   },
   methods: {
     fetchAllData() {
@@ -86,15 +84,13 @@ export default {
 </script>
 
 <template>
-  <div class="status-reports-container">
+  <div class="flex flex-col gap-4 pb-6">
     <ReportHeader :header-title="$t('REPORT.STATUS_REPORTS_HEADER')" />
-    <div class="flex flex-col gap-3">
-      <ReportFilterSelector
-        :show-agents-filter="false"
-        show-group-by-filter
-        @filter-change="onFilterChange"
-      />
-      <ReportContainer :group-by="groupBy" :report-keys="reportKeys" />
-    </div>
+    <ReportFilterSelector
+      :show-agents-filter="false"
+      show-group-by-filter
+      @filter-change="onFilterChange"
+    />
+    <ReportContainer :group-by="groupBy" :report-keys="reportKeys" />
   </div>
 </template>

@@ -143,7 +143,7 @@ watch(
         </label>
         <label class="flex items-center gap-2">
           <input v-model="state.features.contactAttributes" type="checkbox" />
-          {{ t('CAPTAIN.ASSISTANTS.FORM.FEATURES.ALLOW_CONTACT_ATTRIBUTES') }}
+          {{ t('COSMOS.ASSISTANTS.FORM.FEATURES.ALLOW_CONTACT_ATTRIBUTES') }}
         </label>
       </div>
     </div>

@@ -55,7 +55,10 @@
       "LAST_3_MONTHS": "۳ ماه گذشته",
       "LAST_6_MONTHS": "۶ ماه گذشته",
       "LAST_YEAR": "پارسال",
-      "CUSTOM_DATE_RANGE": "محدوده تاریخ سفارشی"
+      "CUSTOM_DATE_RANGE": "محدوده تاریخ سفارشی",
+      "LAST_14_DAYS": "Last 14 days",
+      "THIS_MONTH": "This month",
+      "LAST_MONTH": "Last month"
     },
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "درخواست دادن",
@@ -121,7 +124,8 @@
     "PAGINATION": {
       "RESULTS": "Showing {start} to {end} of {total} results",
       "PER_PAGE_TEMPLATE": "{size} / page"
-    }
+    },
+    "DOWNLOAD_CONVERSATION_REPORTS": "Download conversation reports"
   },
   "AGENT_REPORTS": {
     "HEADER": "نمای کلی اپراتور ها",
@@ -189,6 +193,11 @@
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "درخواست دادن",
       "PLACEHOLDER": "محدوده تاریخ را انتخاب کنید"
+    },
+    "FILTERS": {
+      "INPUT_PLACEHOLDER": {
+        "AGENTS": "جستجوی اپراتور"
+      }
     }
   },
   "LABEL_REPORTS": {
@@ -257,6 +266,11 @@
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "درخواست دادن",
       "PLACEHOLDER": "محدوده تاریخ را انتخاب کنید"
+    },
+    "FILTERS": {
+      "INPUT_PLACEHOLDER": {
+        "LABELS": "جستجو برچسب‌ها"
+      }
     }
   },
   "INBOX_REPORTS": {
@@ -325,6 +339,13 @@
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "درخواست دادن",
       "PLACEHOLDER": "محدوده تاریخ را انتخاب کنید"
+    },
+    "ALL_INBOXES": "All Inboxes",
+    "SEARCH_INBOX": "Search Inbox",
+    "FILTERS": {
+      "INPUT_PLACEHOLDER": {
+        "INBOXES": "Search inboxes"
+      }
     }
   },
   "TEAM_REPORTS": {
@@ -393,6 +414,14 @@
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "درخواست دادن",
       "PLACEHOLDER": "محدوده تاریخ را انتخاب کنید"
+    },
+    "FILTERS": {
+      "ADD_FILTER": "افزودن فیلتر",
+      "CLEAR_ALL": "حذف همه",
+      "NO_FILTER": "هیچ فیلتری موجود نیست",
+      "INPUT_PLACEHOLDER": {
+        "TEAMS": "جستجوی تیم"
+      }
     }
   },
   "CSAT_REPORTS": {
@@ -402,7 +431,26 @@
     "DOWNLOAD_FAILED": "خطا در دانلود گزارش های CSAT",
     "FILTERS": {
       "AGENTS": {
-        "PLACEHOLDER": "اپراتور را انتخاب کنید"
+        "PLACEHOLDER": "اپراتور را انتخاب کنید",
+        "LABEL": "ایجنت"
+      },
+      "ADD_FILTER": "افزودن فیلتر",
+      "CLEAR_ALL": "حذف همه",
+      "NO_FILTER": "هیچ فیلتری موجود نیست",
+      "INPUT_PLACEHOLDER": {
+        "AGENTS": "جستجوی اپراتور",
+        "INBOXES": "Search inboxes",
+        "TEAMS": "جستجوی تیم",
+        "RATINGS": "Search ratings"
+      },
+      "INBOXES": {
+        "LABEL": "صندوق ورودی"
+      },
+      "TEAMS": {
+        "LABEL": "تیم‌"
+      },
+      "RATINGS": {
+        "LABEL": "رتبه"
       }
     },
     "TABLE": {
@@ -410,8 +458,13 @@
         "CONTACT_NAME": "مخاطب",
         "AGENT_NAME": "ایجنت تعیین شده",
         "RATING": "رتبه",
-        "FEEDBACK_TEXT": "نظر ثبت شده"
-      }
+        "FEEDBACK_TEXT": "نظر ثبت شده",
+        "CONVERSATION": "گفتگو",
+        "CUSTOMER": "Customer",
+        "RESPONSE": "Response",
+        "HANDLED_BY": "Handled by"
+      },
+      "UNKNOWN_CUSTOMER": "Unknown customer"
     },
     "METRIC": {
       "TOTAL_RESPONSES": {
@@ -425,6 +478,28 @@
       "RESPONSE_RATE": {
         "LABEL": "نرخ پاسخ",
         "TOOLTIP": "تعداد کل پاسخ ها / تعداد کل پیام های نظرسنجی رضایت مشتری ارسال شده از 100"
+      },
+      "RATING_DISTRIBUTION": "Rating distribution"
+    },
+    "NO_RECORDS_DESCRIPTION": "CSAT survey responses will appear here once customers start providing feedback.",
+    "NO_AGENT": "No assigned agent",
+    "NO_FEEDBACK": "No feedback provided",
+    "REVIEW_NOTES": {
+      "TITLE": "Review notes",
+      "PLACEHOLDER": "Add review notes about this rating...",
+      "SAVE": "ذخیره",
+      "CANCEL": "انصراف",
+      "SAVING": "در حال ذخیره...",
+      "SAVED": "Notes saved successfully",
+      "SAVE_ERROR": "Failed to save notes",
+      "UPDATED_BY": "Updated by {name} {time}",
+      "UPDATED_BY_LABEL": "Updated by",
+      "PAYWALL": {
+        "TITLE": "Upgrade to add review notes",
+        "AVAILABLE_ON": "The review notes feature is only available in the Business and Enterprise plans.",
+        "UPGRADE_PROMPT": "Add internal context to every CSAT response with review notes. Capture what really happened, spot patterns faster, and make better decisions from your feedback.",
+        "UPGRADE_NOW": "حالا ارتقا دهید",
+        "CANCEL_ANYTIME": "You can change or cancel your plan anytime"
       }
     }
   },
@@ -495,6 +570,13 @@
       "ONLINE": "آنلاین",
       "BUSY": "مشغول",
       "OFFLINE": "آفلاین"
+    },
+    "RESOLUTION_HEATMAP": {
+      "HEADER": "Resolutions",
+      "NO_CONVERSATIONS": "بدون هیچ گفتگویی",
+      "CONVERSATION": "{count} گفتگو",
+      "CONVERSATIONS": "{count} گفتگو",
+      "DOWNLOAD_REPORT": "Download report"
     }
   },
   "DAYS_OF_WEEK": {

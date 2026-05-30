@@ -13,7 +13,8 @@
       "TABLE_HEADER": {
         "NAME": "Nome",
         "DESCRIPTION": "Descrizione",
-        "COLOR": "Colore"
+        "COLOR": "Colore",
+        "ACTION": "Azioni"
       }
     },
     "FORM": {
@@ -80,6 +81,9 @@
         "YES": "Sì, elimina ",
         "NO": "No, conserva "
       }
-    }
+    },
+    "COUNT": "{n} etichetta | {n} etichette",
+    "SEARCH_PLACEHOLDER": "Cerca etichette...",
+    "NO_RESULTS": "Nessuna etichetta trovata corrispondente alla tua ricerca"
   }
 }

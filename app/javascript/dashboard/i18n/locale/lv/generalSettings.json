@@ -150,8 +150,8 @@
       "EMPTY_MESSAGE": "Jums nav nelasītu paziņojumu"
     },
     "LIST": {
-      "LOADING_MESSAGE": "Notiek paziņojumu ielāde...",
       "404": "Nav paziņojumu",
+      "LOADING_MESSAGE": "Notiek paziņojumu ielāde...",
       "TABLE_HEADER": [
         "Nosaukums",
         "Telefona numurs",
@@ -239,7 +239,8 @@
       "DARK_MODE": "Tumšs",
       "SYSTEM_MODE": "Sistēma",
       "SNOOZE_NOTIFICATION": "Atlikt Paziņojumu"
-    }
+    },
+    "SNOOZE_PLACEHOLDER": "Type a time e.g. tomorrow, 2 hours, next friday, jan 15..."
   },
   "DASHBOARD_APPS": {
     "LOADING_MESSAGE": "Notiek informācijas paneļa lietotnes ielāde..."

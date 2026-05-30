@@ -1,10 +1,10 @@
 {
   "INBOX": {
     "LIST": {
+      "404": "There are no active notifications in this group.",
       "TITLE": "My Inbox",
       "DISPLAY_DROPDOWN": "Display",
       "LOADING": "Fetching notifications",
-      "404": "There are no active notifications in this group.",
       "NO_NOTIFICATIONS": "No notifications",
       "NOTE": "Notifications from all subscribed inboxes",
       "NO_MESSAGES_AVAILABLE": "Oops! Not able to fetch messages",
@@ -72,6 +72,24 @@
       "MARK_ALL_READ": "All notifications marked as read",
       "DELETE_ALL": "All notifications deleted",
       "DELETE_ALL_READ": "All read notifications deleted"
+    },
+    "REAUTHORIZE": {
+      "TITLE": "재인증 필요",
+      "DESCRIPTION": "WhatsApp 연결이 만료되었습니다. 메시지를 계속 수신하고 전송하려면 다시 연결하십시오.",
+      "BUTTON_TEXT": "WhatsApp 다시 연결",
+      "LOADING_FACEBOOK": "Facebook SDK를 불러오는 중...",
+      "SUCCESS": "WhatsApp이 성공적으로 다시 연결되었습니다",
+      "ERROR": "WhatsApp 다시 연결에 실패했습니다. 다시 시도하십시오.",
+      "WHATSAPP_APP_ID_MISSING": "WhatsApp 앱 ID가 설정되지 않았습니다. 관리자에게 문의하십시오.",
+      "WHATSAPP_CONFIG_ID_MISSING": "WhatsApp 설정 ID가 구성되지 않았습니다. 관리자에게 문의하십시오.",
+      "CONFIGURATION_ERROR": "재인증 중 설정 오류가 발생했습니다.",
+      "FACEBOOK_LOAD_ERROR": "Facebook SDK를 불러오지 못했습니다. 다시 시도하십시오.",
+      "TROUBLESHOOTING": {
+        "TITLE": "문제 해결",
+        "POPUP_BLOCKED": "이 사이트에 대해 팝업이 허용되어 있는지 확인하십시오",
+        "COOKIES": "서드파티 쿠키가 활성화되어 있어야 합니다",
+        "ADMIN_ACCESS": "WhatsApp Business 계정에 대한 관리자 액세스 권한이 필요합니다"
+      }
     }
   }
 }

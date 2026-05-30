@@ -1,6 +1,8 @@
 <script>
 import { useVuelidate } from '@vuelidate/core';
 import { useAccount } from 'dashboard/composables/useAccount';
+import { useI18n } from 'vue-i18n';
+import { ref, onMounted } from 'vue';
 import globalConfigMixin from 'shared/mixins/globalConfigMixin';
 import instagramClient from 'dashboard/api/channel/instagramClient';
 import Button from 'dashboard/components-next/button/Button.vue';
@@ -9,56 +11,58 @@ export default {
   mixins: [globalConfigMixin],
   setup() {
     const { accountId } = useAccount();
+    const v$ = useVuelidate();
+    const { t } = useI18n();
+
+    const isCreating = ref(false);
+    const hasError = ref(false);
+    const errorStateMessage = ref('');
+    const errorStateDescription = ref('');
+    const isRequestingAuthorization = ref(false);
+
+    onMounted(() => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const errorCode = urlParams.get('code');
+      const errorMessage = urlParams.get('error_message');
+
+      if (errorMessage) {
+        hasError.value = true;
+        if (errorCode === '400') {
+          errorStateMessage.value = errorMessage;
+          errorStateDescription.value = t('INBOX_MGMT.ADD.INSTAGRAM.ERROR_AUTH');
+        } else {
+          errorStateMessage.value = t('INBOX_MGMT.ADD.INSTAGRAM.ERROR_MESSAGE');
+          errorStateDescription.value = errorMessage;
+        }
+      }
+
+      const cleanURL = window.location.pathname;
+      window.history.replaceState({}, document.title, cleanURL);
+    });
+
+    const requestAuthorization = async () => {
+      isRequestingAuthorization.value = true;
+      const response = await instagramClient.generateAuthorization();
+      const {
+        data: { url },
+      } = response;
+
+      window.location.href = url;
+    };
+
+    // expose as $t to keep template usage consistent
     return {
       accountId,
-      v$: useVuelidate(),
+      v$,
+      $t: t,
+      isCreating,
+      hasError,
+      errorStateMessage,
+      errorStateDescription,
+      isRequestingAuthorization,
+      requestAuthorization,
     };
-  },
-  data() {
-    return {
-      isCreating: false,
-      hasError: false,
-      errorStateMessage: '',
-      errorStateDescription: '',
-      isRequestingAuthorization: false,
-    };
-  },
-
-const hasError = ref(false);
-const errorStateMessage = ref('');
-const errorStateDescription = ref('');
-const isRequestingAuthorization = ref(false);
-
-onMounted(() => {
-  const urlParams = new URLSearchParams(window.location.search);
-  //  TODO: Handle error type
-  // const errorType = urlParams.get('error_type');
-  const errorCode = urlParams.get('code');
-  const errorMessage = urlParams.get('error_message');
-
-  if (errorMessage) {
-    hasError.value = true;
-    if (errorCode === '400') {
-      errorStateMessage.value = errorMessage;
-      errorStateDescription.value = t('INBOX_MGMT.ADD.INSTAGRAM.ERROR_AUTH');
-    } else {
-      errorStateMessage.value = t('INBOX_MGMT.ADD.INSTAGRAM.ERROR_MESSAGE');
-      errorStateDescription.value = errorMessage;
-    }
   }
-  // User need to remove the error params from the url to avoid the error to be shown again after page reload, so that user can try again
-  const cleanURL = window.location.pathname;
-  window.history.replaceState({}, document.title, cleanURL);
-});
-
-const requestAuthorization = async () => {
-  isRequestingAuthorization.value = true;
-  const response = await instagramClient.generateAuthorization();
-  const {
-    data: { url },
-  } = response;
-
-  window.location.href = url;
 };
 </script>
 
@@ -70,7 +74,7 @@ const requestAuthorization = async () => {
         <p
           v-if="errorStateDescription"
           v-dompurify-html="errorStateDescription"
-        />
+        ></p>
       </div>
       <div
         v-else

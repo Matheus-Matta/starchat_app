@@ -13,7 +13,8 @@
       "TABLE_HEADER": {
         "NAME": "Име",
         "DESCRIPTION": "Описание",
-        "COLOR": "Color"
+        "COLOR": "Color",
+        "ACTION": "Действия"
       }
     },
     "FORM": {
@@ -80,6 +81,9 @@
         "YES": "Да, изтрий ",
         "NO": "Не, запази "
       }
-    }
+    },
+    "COUNT": "{n} label | {n} labels",
+    "SEARCH_PLACEHOLDER": "Търсене на етикети...",
+    "NO_RESULTS": "No labels found matching your search"
   }
 }

@@ -34,7 +34,7 @@ const currentUser = useMapGetter('getCurrentUser');
 const isSuperAdmin = computed(() => currentUser.value.type === 'SuperAdmin');
 const showPaywall = computed(() => !props.isEnabled && isOnChatwootCloud.value);
 const i18nKey = computed(() =>
-  isOnChatwootCloud.value ? 'PAYWALL' : 'ENTERPRISE_PAYWALL'
+  isOnChatwootCloud.value ? 'PAYWALL' : 'STARCHAT_PAYWALL'
 );
 
 const goToBillingSettings = () => {

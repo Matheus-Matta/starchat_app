@@ -58,7 +58,11 @@
       "CONFIRM": "Отключить 2FA",
       "CANCEL": "Отменить",
       "SUCCESS": "Двухфакторная аутентификация была отключена",
-      "ERROR": "Не удалось отключить MFA. Проверьте ваши учетные данные."
+      "ERROR": "Не удалось отключить MFA. Проверьте ваши учетные данные.",
+      "BACKUP_CODE": "Резервные код",
+      "BACKUP_CODE_PLACEHOLDER": "Введите один из ваших резервных кодов",
+      "USE_BACKUP_CODE": "Lost access to your authenticator? Use a backup code instead",
+      "USE_OTP_CODE": "Use a verification code from your authenticator app"
     },
     "REGENERATE": {
       "TITLE": "Пересоздать резервные коды",

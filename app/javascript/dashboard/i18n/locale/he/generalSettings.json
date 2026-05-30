@@ -150,8 +150,8 @@
       "EMPTY_MESSAGE": "אין לך התראות שלא נקראו"
     },
     "LIST": {
-      "LOADING_MESSAGE": "טוען הודעות...",
       "404": "אין התראות",
+      "LOADING_MESSAGE": "טוען הודעות...",
       "TABLE_HEADER": [
         "שם",
         "מספר טלפון",
@@ -239,7 +239,8 @@
       "DARK_MODE": "Dark",
       "SYSTEM_MODE": "System",
       "SNOOZE_NOTIFICATION": "השבת התראה זמנית"
-    }
+    },
+    "SNOOZE_PLACEHOLDER": "Type a time e.g. tomorrow, 2 hours, next friday, jan 15..."
   },
   "DASHBOARD_APPS": {
     "LOADING_MESSAGE": "טוען אפליקציית Dashboard..."

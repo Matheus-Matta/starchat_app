@@ -227,6 +227,10 @@ describe ActionCableListener do
   end
 
   describe 'End-to-End Simulation: Conversation Created + First Message' do
+    before do
+      allow(ActionCableBroadcastJob).to receive(:perform_later)
+    end
+
     # Helper para validar broadcast para lista de tokens
     def expect_broadcast(tokens, event_type)
       expect(ActionCableBroadcastJob).to receive(:perform_later).with(

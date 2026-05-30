@@ -55,7 +55,10 @@
       "LAST_3_MONTHS": "Paskutinius 3 mėnesius",
       "LAST_6_MONTHS": "Paskutinius 6 mėnesius",
       "LAST_YEAR": "Paskutinius metus",
-      "CUSTOM_DATE_RANGE": "Pritaikytas datos intervalas"
+      "CUSTOM_DATE_RANGE": "Pritaikytas datos intervalas",
+      "LAST_14_DAYS": "Paskutines 14 dienų",
+      "THIS_MONTH": "This month",
+      "LAST_MONTH": "Last month"
     },
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "Taikyti",
@@ -121,7 +124,8 @@
     "PAGINATION": {
       "RESULTS": "Showing {start} to {end} of {total} results",
       "PER_PAGE_TEMPLATE": "{size} / page"
-    }
+    },
+    "DOWNLOAD_CONVERSATION_REPORTS": "Download conversation reports"
   },
   "AGENT_REPORTS": {
     "HEADER": "Agentų apžvalga",
@@ -189,6 +193,11 @@
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "Taikyti",
       "PLACEHOLDER": "Pasirinkti datos intervalą"
+    },
+    "FILTERS": {
+      "INPUT_PLACEHOLDER": {
+        "AGENTS": "Ieškoti agentų"
+      }
     }
   },
   "LABEL_REPORTS": {
@@ -257,6 +266,11 @@
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "Taikyti",
       "PLACEHOLDER": "Pasirinkti datos intervalą"
+    },
+    "FILTERS": {
+      "INPUT_PLACEHOLDER": {
+        "LABELS": "Ieškoti etikečių"
+      }
     }
   },
   "INBOX_REPORTS": {
@@ -325,6 +339,13 @@
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "Taikyti",
       "PLACEHOLDER": "Pasirinkti datos intervalą"
+    },
+    "ALL_INBOXES": "All Inboxes",
+    "SEARCH_INBOX": "Search Inbox",
+    "FILTERS": {
+      "INPUT_PLACEHOLDER": {
+        "INBOXES": "Search inboxes"
+      }
     }
   },
   "TEAM_REPORTS": {
@@ -393,6 +414,14 @@
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "Taikyti",
       "PLACEHOLDER": "Pasirinkti datos intervalą"
+    },
+    "FILTERS": {
+      "ADD_FILTER": "Pridėti Filtrą",
+      "CLEAR_ALL": "Clear all",
+      "NO_FILTER": "No filters available",
+      "INPUT_PLACEHOLDER": {
+        "TEAMS": "Ieškoti komandų"
+      }
     }
   },
   "CSAT_REPORTS": {
@@ -402,7 +431,26 @@
     "DOWNLOAD_FAILED": "Nepavyko parsisiųsti CSAT ataskaitų",
     "FILTERS": {
       "AGENTS": {
-        "PLACEHOLDER": "Pasirinkti Agentus"
+        "PLACEHOLDER": "Pasirinkti Agentus",
+        "LABEL": "Agentas"
+      },
+      "ADD_FILTER": "Pridėti Filtrą",
+      "CLEAR_ALL": "Clear all",
+      "NO_FILTER": "No filters available",
+      "INPUT_PLACEHOLDER": {
+        "AGENTS": "Ieškoti agentų",
+        "INBOXES": "Search inboxes",
+        "TEAMS": "Ieškoti komandų",
+        "RATINGS": "Search ratings"
+      },
+      "INBOXES": {
+        "LABEL": "Gautų laiškų aplankas"
+      },
+      "TEAMS": {
+        "LABEL": "Komanda"
+      },
+      "RATINGS": {
+        "LABEL": "Reitingas"
       }
     },
     "TABLE": {
@@ -410,8 +458,13 @@
         "CONTACT_NAME": "Kontaktas",
         "AGENT_NAME": "Priskirtas agentas",
         "RATING": "Reitingas",
-        "FEEDBACK_TEXT": "Facebook komentaras"
-      }
+        "FEEDBACK_TEXT": "Facebook komentaras",
+        "CONVERSATION": "Pokalbis",
+        "CUSTOMER": "Customer",
+        "RESPONSE": "Response",
+        "HANDLED_BY": "Handled by"
+      },
+      "UNKNOWN_CUSTOMER": "Unknown customer"
     },
     "METRIC": {
       "TOTAL_RESPONSES": {
@@ -425,6 +478,28 @@
       "RESPONSE_RATE": {
         "LABEL": "Atsakymo įvertinimas",
         "TOOLTIP": "Bendras atsakymų skaičius / Bendras skaičius išsiųstų CSAT apklausų pranešimų * 100"
+      },
+      "RATING_DISTRIBUTION": "Rating distribution"
+    },
+    "NO_RECORDS_DESCRIPTION": "CSAT survey responses will appear here once customers start providing feedback.",
+    "NO_AGENT": "No assigned agent",
+    "NO_FEEDBACK": "No feedback provided",
+    "REVIEW_NOTES": {
+      "TITLE": "Review notes",
+      "PLACEHOLDER": "Add review notes about this rating...",
+      "SAVE": "Išsaugoti",
+      "CANCEL": "Atšaukti",
+      "SAVING": "Išsaugoma...",
+      "SAVED": "Notes saved successfully",
+      "SAVE_ERROR": "Failed to save notes",
+      "UPDATED_BY": "Updated by {name} {time}",
+      "UPDATED_BY_LABEL": "Updated by",
+      "PAYWALL": {
+        "TITLE": "Upgrade to add review notes",
+        "AVAILABLE_ON": "The review notes feature is only available in the Business and Enterprise plans.",
+        "UPGRADE_PROMPT": "Add internal context to every CSAT response with review notes. Capture what really happened, spot patterns faster, and make better decisions from your feedback.",
+        "UPGRADE_NOW": "Upgrade now",
+        "CANCEL_ANYTIME": "You can change or cancel your plan anytime"
       }
     }
   },
@@ -495,6 +570,13 @@
       "ONLINE": "Prisijungęs",
       "BUSY": "Užimta",
       "OFFLINE": "Atsijungęs"
+    },
+    "RESOLUTION_HEATMAP": {
+      "HEADER": "Resolutions",
+      "NO_CONVERSATIONS": "Pokalbių nėra",
+      "CONVERSATION": "{count} pokalbis",
+      "CONVERSATIONS": "{count} pokalbiai",
+      "DOWNLOAD_REPORT": "Download report"
     }
   },
   "DAYS_OF_WEEK": {

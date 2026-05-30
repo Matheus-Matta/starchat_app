@@ -13,7 +13,8 @@
       "TABLE_HEADER": {
         "NAME": "Nama",
         "DESCRIPTION": "Description",
-        "COLOR": "Color"
+        "COLOR": "Color",
+        "ACTION": "Tindakan-tindakan"
       }
     },
     "FORM": {
@@ -80,6 +81,9 @@
         "YES": "Ya, Padamkan ",
         "NO": "Tidak, simpankan "
       }
-    }
+    },
+    "COUNT": "{n} label | {n} labels",
+    "SEARCH_PLACEHOLDER": "Cari label...",
+    "NO_RESULTS": "Tiada label ditemui yang sepadan dengan carian anda"
   }
 }

@@ -12,6 +12,7 @@ import companies from './companies.json';
 import components from './components.json';
 import contact from './contact.json';
 import contactFilters from './contactFilters.json';
+import contentTemplates from './contentTemplates.json';
 import conversation from './conversation.json';
 import csatMgmt from './csatMgmt.json';
 import customRole from './customRole.json';
@@ -27,6 +28,8 @@ import integrations from './integrations.json';
 import labelsMgmt from './labelsMgmt.json';
 import login from './login.json';
 import macros from './macros.json';
+import mfa from './mfa.json';
+import onboarding from './onboarding.json';
 import report from './report.json';
 import resetPassword from './resetPassword.json';
 import search from './search.json';
@@ -36,7 +39,9 @@ import signup from './signup.json';
 import sla from './sla.json';
 import snooze from './snooze.json';
 import teamsSettings from './teamsSettings.json';
+import webhooks from './webhooks.json';
 import whatsappTemplates from './whatsappTemplates.json';
+import yearInReview from './yearInReview.json';
 
 export default {
   ...advancedFilters,
@@ -53,6 +58,7 @@ export default {
   ...components,
   ...contact,
   ...contactFilters,
+  ...contentTemplates,
   ...conversation,
   ...csatMgmt,
   ...customRole,
@@ -68,6 +74,8 @@ export default {
   ...labelsMgmt,
   ...login,
   ...macros,
+  ...mfa,
+  ...onboarding,
   ...report,
   ...resetPassword,
   ...search,
@@ -77,5 +85,7 @@ export default {
   ...sla,
   ...snooze,
   ...teamsSettings,
+  ...webhooks,
   ...whatsappTemplates,
+  ...yearInReview,
 };

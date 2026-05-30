@@ -72,6 +72,9 @@
         "YES": "Taip, Trinti ",
         "NO": "Ne, Išsaugoti "
       }
-    }
+    },
+    "COUNT": "{n} canned response | {n} canned responses",
+    "SEARCH_PLACEHOLDER": "Search canned responses...",
+    "NO_RESULTS": "No canned responses found matching your search"
   }
 }

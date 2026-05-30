@@ -150,8 +150,8 @@
       "EMPTY_MESSAGE": "У вас немає непрочитаних сповіщень"
     },
     "LIST": {
-      "LOADING_MESSAGE": "Завантаження сповіщень...",
       "404": "Немає сповіщень",
+      "LOADING_MESSAGE": "Завантаження сповіщень...",
       "TABLE_HEADER": [
         "Ім'я",
         "Номер телефону",
@@ -239,7 +239,8 @@
       "DARK_MODE": "Темна",
       "SYSTEM_MODE": "Система",
       "SNOOZE_NOTIFICATION": "Відключити сповіщення"
-    }
+    },
+    "SNOOZE_PLACEHOLDER": "Type a time e.g. tomorrow, 2 hours, next friday, jan 15..."
   },
   "DASHBOARD_APPS": {
     "LOADING_MESSAGE": "Завантаження дашборду..."

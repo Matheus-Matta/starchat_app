@@ -150,8 +150,8 @@
       "EMPTY_MESSAGE": "ليس لديك إشعارات غير مقروءة"
     },
     "LIST": {
-      "LOADING_MESSAGE": "جاري جلب الإشعارات...",
       "404": "لا يوجد إشعارات",
+      "LOADING_MESSAGE": "جاري جلب الإشعارات...",
       "TABLE_HEADER": [
         "الاسم",
         "رقم الهاتف",
@@ -239,7 +239,8 @@
       "DARK_MODE": "مظلم",
       "SYSTEM_MODE": "النظام",
       "SNOOZE_NOTIFICATION": "تأجيل الإشعارات"
-    }
+    },
+    "SNOOZE_PLACEHOLDER": "Type a time e.g. tomorrow, 2 hours, next friday, jan 15..."
   },
   "DASHBOARD_APPS": {
     "LOADING_MESSAGE": "جاري جلب تطبيق لوحة التحكم..."

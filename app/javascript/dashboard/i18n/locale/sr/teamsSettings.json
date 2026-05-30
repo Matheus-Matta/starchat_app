@@ -116,6 +116,9 @@
         "LABEL": "Dozvoli automatsku dodelu ovom timu."
       },
       "SUBMIT_CREATE": "Napravi tim"
-    }
+    },
+    "COUNT": "{n} team | {n} teams",
+    "SEARCH_PLACEHOLDER": "Traži tim...",
+    "NO_RESULTS": "No teams found matching your search"
   }
 }

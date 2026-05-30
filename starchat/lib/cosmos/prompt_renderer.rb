@@ -20,7 +20,7 @@ class Cosmos::PromptRenderer
 
     def snippet_file_system
       @snippet_file_system ||= Liquid::LocalFileSystem.new(
-        Rails.root.join('enterprise/lib/captain/prompts/snippets'),
+        Rails.root.join('starchat/lib/cosmos/prompts/snippets'),
         '%s.liquid'
       )
     end

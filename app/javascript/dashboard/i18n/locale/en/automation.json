@@ -1,184 +1,185 @@
 {
   "AUTOMATION": {
-    "HEADER": "Automation",
+    "EDIT": {
+      "TITLE": "Edit Automation Rule",
+      "API": {
+        "ERROR_MESSAGE": "Could not update automation rule, Please try again later",
+        "SUCCESS_MESSAGE": "Automation rule updated successfully"
+      },
+      "SUBMIT": "Update",
+      "CANCEL_BUTTON_TEXT": "Cancel"
+    },
+    "FORM": {
+      "RESET_MESSAGE": "Changing event type will reset the conditions and events you have added below",
+      "EDIT": "Edit",
+      "CANCEL": "Cancel",
+      "CREATE": "Create",
+      "DELETE": "Delete"
+    },
     "DESCRIPTION": "Automation can replace and streamline existing processes that require manual effort, such as adding labels and assigning conversations to the most suitable agent. This allows the team to focus on their strengths while reducing time spent on routine tasks.",
-    "LEARN_MORE": "Learn more about automation",
+    "MESSAGE_TYPES": {
+      "INCOMING": "Incoming Message",
+      "OUTGOING": "Outgoing Message"
+    },
+    "NONE_OPTION": "None",
+    "PRIORITY_TYPES": {
+      "URGENT": "Urgent",
+      "LOW": "Low",
+      "HIGH": "High",
+      "NONE": "None",
+      "MEDIUM": "Medium"
+    },
     "HEADER_BTN_TXT": "Add Automation Rule",
-    "LOADING": "Fetching automation rules",
+    "ATTACHMENT": {
+      "LABEL_UPLOAD_FAILED": "Upload Failed",
+      "LABEL_UPLOADING": "Uploading...",
+      "UPLOAD_ERROR": "Could not upload attachment, Please try again",
+      "LABEL_IDLE": "Upload Attachment",
+      "LABEL_UPLOADED": "Successfully Uploaded"
+    },
+    "HEADER": "Automation",
+    "TOGGLE": {
+      "DEACTIVATION_TITLE": "Deactivate Automation Rule",
+      "DEACTIVATION_DESCRIPTION": "This action will deactivate the automation rule '{automationName}'. Are you sure you want to proceed?",
+      "CANCEL_LABEL": "No",
+      "ACTIVATION_DESCRIPTION": "This action will activate the automation rule '{automationName}'. Are you sure you want to proceed?",
+      "ACTIVATION_TITLE": "Activate Automation Rule",
+      "ACTIVATION_SUCCESFUL": "Automation Rule Activated Successfully",
+      "CONFIRMATION_LABEL": "Yes",
+      "ACTIVATION_ERROR": "Could not Activate Automation, Please try again later",
+      "DEACTIVATION_ERROR": "Could not Deactivate Automation, Please try again later",
+      "DEACTIVATION_SUCCESFUL": "Automation Rule Deactivated Successfully"
+    },
+    "CLONE": {
+      "API": {
+        "ERROR_MESSAGE": "Could not clone automation rule, Please try again later",
+        "SUCCESS_MESSAGE": "Automation cloned successfully"
+      },
+      "TOOLTIP": "Clone"
+    },
     "ADD": {
       "TITLE": "Add Automation Rule",
-      "SUBMIT": "Create",
-      "CANCEL_BUTTON_TEXT": "Cancel",
+      "API": {
+        "ERROR_MESSAGE": "Could not able to create a automation rule, Please try again later",
+        "SUCCESS_MESSAGE": "Automation rule added successfully"
+      },
       "FORM": {
-        "NAME": {
-          "LABEL": "Rule Name",
-          "PLACEHOLDER": "Enter rule name",
-          "ERROR": "Name is required"
-        },
-        "DESC": {
-          "LABEL": "Description",
-          "PLACEHOLDER": "Enter rule description",
-          "ERROR": "Description is required"
-        },
-        "EVENT": {
-          "LABEL": "Event",
-          "PLACEHOLDER": "Please select one",
-          "ERROR": "Event is required"
-        },
         "CONDITIONS": {
           "LABEL": "Conditions"
         },
+        "DESC": {
+          "PLACEHOLDER": "Enter rule description",
+          "LABEL": "Description",
+          "ERROR": "Description is required"
+        },
         "ACTIONS": {
           "LABEL": "Actions"
+        },
+        "EVENT": {
+          "PLACEHOLDER": "Please select one",
+          "LABEL": "Event",
+          "ERROR": "Event is required"
+        },
+        "NAME": {
+          "PLACEHOLDER": "Enter rule name",
+          "LABEL": "Rule Name",
+          "ERROR": "Name is required"
         }
       },
+      "SUBMIT": "Create",
       "CONDITION_BUTTON_LABEL": "Add Condition",
-      "ACTION_BUTTON_LABEL": "Add Action",
-      "API": {
-        "SUCCESS_MESSAGE": "Automation rule added successfully",
-        "ERROR_MESSAGE": "Could not able to create a automation rule, Please try again later"
-      }
+      "CANCEL_BUTTON_TEXT": "Cancel",
+      "ACTION_BUTTON_LABEL": "Add Action"
     },
     "LIST": {
       "TABLE_HEADER": {
-        "NAME": "Name",
         "DESCRIPTION": "Description",
+        "CREATED_ON": "Created on",
         "ACTIVE": "Active",
-        "CREATED_ON": "Created on"
+        "NAME": "Name"
       },
       "404": "No automation rules found"
     },
-    "DELETE": {
-      "TITLE": "Delete Automation Rule",
-      "SUBMIT": "Delete",
-      "CANCEL_BUTTON_TEXT": "Cancel",
-      "CONFIRM": {
-        "TITLE": "Confirm Deletion",
-        "MESSAGE": "Are you sure to delete ",
-        "YES": "Yes, Delete ",
-        "NO": "No, Keep "
-      },
-      "API": {
-        "SUCCESS_MESSAGE": "Automation rule deleted successfully",
-        "ERROR_MESSAGE": "Could not able to delete a automation rule, Please try again later"
-      }
+    "EVENTS": {
+      "CONVERSATION_RESOLVED": "Conversation Resolved",
+      "MESSAGE_CREATED": "Message Created",
+      "CONVERSATION_UPDATED": "Conversation Updated",
+      "CONVERSATION_CREATED": "Conversation Created",
+      "CONVERSATION_OPENED": "Conversation Opened"
     },
-    "EDIT": {
-      "TITLE": "Edit Automation Rule",
-      "SUBMIT": "Update",
-      "CANCEL_BUTTON_TEXT": "Cancel",
-      "API": {
-        "SUCCESS_MESSAGE": "Automation rule updated successfully",
-        "ERROR_MESSAGE": "Could not update automation rule, Please try again later"
-      }
-    },
-    "CLONE": {
-      "TOOLTIP": "Clone",
-      "API": {
-        "SUCCESS_MESSAGE": "Automation cloned successfully",
-        "ERROR_MESSAGE": "Could not clone automation rule, Please try again later"
-      }
-    },
-    "FORM": {
-      "EDIT": "Edit",
-      "CREATE": "Create",
-      "DELETE": "Delete",
-      "CANCEL": "Cancel",
-      "RESET_MESSAGE": "Changing event type will reset the conditions and events you have added below"
+    "LOADING": "Fetching automation rules",
+    "ACTIONS": {
+      "SEND_MESSAGE": "Send a Message",
+      "ADD_SLA": "Add SLA",
+      "OPEN_CONVERSATION": "Open conversation",
+      "ADD_LABEL": "Add a Label",
+      "MUTE_CONVERSATION": "Mute Conversation",
+      "SEND_EMAIL_TRANSCRIPT": "Send an Email Transcript",
+      "CHANGE_PRIORITY": "Change Priority",
+      "ASSIGN_AGENT": "Assign to Agent",
+      "ADD_PRIVATE_NOTE": "Add a Private Note",
+      "REMOVE_LABEL": "Remove a Label",
+      "SEND_WEBHOOK_EVENT": "Send Webhook Event",
+      "SEND_EMAIL_TO_TEAM": "Send an Email to Team",
+      "SEND_ATTACHMENT": "Send Attachment",
+      "ASSIGN_TEAM": "Assign a Team",
+      "SNOOZE_CONVERSATION": "Snooze Conversation",
+      "RESOLVE_CONVERSATION": "Resolve Conversation"
     },
     "CONDITION": {
       "DELETE_MESSAGE": "You need to have atleast one condition to save",
       "CONTACT_CUSTOM_ATTR_LABEL": "Contact Custom Attributes",
       "CONVERSATION_CUSTOM_ATTR_LABEL": "Conversation Custom Attributes"
     },
-    "ACTION": {
-      "DELETE_MESSAGE": "You need to have atleast one action to save",
-      "TEAM_MESSAGE_INPUT_PLACEHOLDER": "Enter your message here",
-      "TEAM_DROPDOWN_PLACEHOLDER": "Select teams",
-      "EMAIL_INPUT_PLACEHOLDER": "Enter email",
-      "URL_INPUT_PLACEHOLDER": "Enter URL"
-    },
-    "TOGGLE": {
-      "ACTIVATION_TITLE": "Activate Automation Rule",
-      "DEACTIVATION_TITLE": "Deactivate Automation Rule",
-      "ACTIVATION_DESCRIPTION": "This action will activate the automation rule '{automationName}'. Are you sure you want to proceed?",
-      "DEACTIVATION_DESCRIPTION": "This action will deactivate the automation rule '{automationName}'. Are you sure you want to proceed?",
-      "ACTIVATION_SUCCESFUL": "Automation Rule Activated Successfully",
-      "DEACTIVATION_SUCCESFUL": "Automation Rule Deactivated Successfully",
-      "ACTIVATION_ERROR": "Could not Activate Automation, Please try again later",
-      "DEACTIVATION_ERROR": "Could not Deactivate Automation, Please try again later",
-      "CONFIRMATION_LABEL": "Yes",
-      "CANCEL_LABEL": "No"
-    },
-    "ATTACHMENT": {
-      "UPLOAD_ERROR": "Could not upload attachment, Please try again",
-      "LABEL_IDLE": "Upload Attachment",
-      "LABEL_UPLOADING": "Uploading...",
-      "LABEL_UPLOADED": "Successfully Uploaded",
-      "LABEL_UPLOAD_FAILED": "Upload Failed"
-    },
-    "ERRORS": {
-      "ATTRIBUTE_KEY_REQUIRED": "Attribute key is required",
-      "FILTER_OPERATOR_REQUIRED": "Filter operator is required",
-      "VALUE_REQUIRED": "Value is required",
-      "VALUE_MUST_BE_BETWEEN_1_AND_998": "Value must be between 1 and 998",
-      "ACTION_PARAMETERS_REQUIRED": "Action parameters are required",
-      "ATLEAST_ONE_CONDITION_REQUIRED": "At least one condition is required",
-      "ATLEAST_ONE_ACTION_REQUIRED": "At least one action is required"
-    },
-    "NONE_OPTION": "None",
-    "EVENTS": {
-      "CONVERSATION_CREATED": "Conversation Created",
-      "CONVERSATION_UPDATED": "Conversation Updated",
-      "MESSAGE_CREATED": "Message Created",
-      "CONVERSATION_OPENED": "Conversation Opened",
-      "CONVERSATION_RESOLVED": "Conversation Resolved"
-    },
-    "ACTIONS": {
-      "ASSIGN_AGENT": "Assign to Agent",
-      "ASSIGN_TEAM": "Assign a Team",
-      "ADD_LABEL": "Add a Label",
-      "REMOVE_LABEL": "Remove a Label",
-      "SEND_EMAIL_TO_TEAM": "Send an Email to Team",
-      "SEND_EMAIL_TRANSCRIPT": "Send an Email Transcript",
-      "MUTE_CONVERSATION": "Mute Conversation",
-      "SNOOZE_CONVERSATION": "Snooze Conversation",
-      "RESOLVE_CONVERSATION": "Resolve Conversation",
-      "SEND_WEBHOOK_EVENT": "Send Webhook Event",
-      "SEND_ATTACHMENT": "Send Attachment",
-      "SEND_MESSAGE": "Send a Message",
-      "ADD_PRIVATE_NOTE": "Add a Private Note",
-      "CHANGE_PRIORITY": "Change Priority",
-      "ADD_SLA": "Add SLA",
-      "OPEN_CONVERSATION": "Open conversation"
-    },
-    "MESSAGE_TYPES": {
-      "INCOMING": "Incoming Message",
-      "OUTGOING": "Outgoing Message"
-    },
-    "PRIORITY_TYPES": {
-      "NONE": "None",
-      "LOW": "Low",
-      "MEDIUM": "Medium",
-      "HIGH": "High",
-      "URGENT": "Urgent"
-    },
+    "LEARN_MORE": "Learn more about automation",
     "ATTRIBUTES": {
-      "MESSAGE_TYPE": "Message Type",
+      "ASSIGNEE_NAME": "Assignee",
+      "PRIORITY": "Priority",
       "MESSAGE_CONTAINS": "Message Contains",
-      "EMAIL": "Email",
+      "MESSAGE_TYPE": "Message Type",
+      "BROWSER_LANGUAGE": "Browser Language",
+      "LABELS": "Labels",
       "INBOX": "Inbox",
+      "STATUS": "Status",
+      "TEAM_NAME": "Team",
+      "COMPANY_NAME": "Company",
+      "MAIL_SUBJECT": "Email Subject",
+      "EMAIL": "Email",
+      "REFERER_LINK": "Referrer Link",
       "CONVERSATION_LANGUAGE": "Conversation Language",
       "PHONE_NUMBER": "Phone Number",
-      "STATUS": "Status",
-      "BROWSER_LANGUAGE": "Browser Language",
-      "MAIL_SUBJECT": "Email Subject",
-      "COUNTRY_NAME": "Country",
-      "REFERER_LINK": "Referrer Link",
-      "ASSIGNEE_NAME": "Assignee",
-      "TEAM_NAME": "Team",
-      "PRIORITY": "Priority",
-      "LABELS": "Labels"
+      "COUNTRY_NAME": "Country"
+    },
+    "ERRORS": {
+      "VALUE_MUST_BE_BETWEEN_1_AND_998": "Value must be between 1 and 998",
+      "FILTER_OPERATOR_REQUIRED": "Filter operator is required",
+      "ATLEAST_ONE_CONDITION_REQUIRED": "At least one condition is required",
+      "ATLEAST_ONE_ACTION_REQUIRED": "At least one action is required",
+      "VALUE_REQUIRED": "Value is required",
+      "ACTION_PARAMETERS_REQUIRED": "Action parameters are required",
+      "ATTRIBUTE_KEY_REQUIRED": "Attribute key is required"
+    },
+    "ACTION": {
+      "EMAIL_INPUT_PLACEHOLDER": "Enter email",
+      "URL_INPUT_PLACEHOLDER": "Enter URL",
+      "DELETE_MESSAGE": "You need to have atleast one action to save",
+      "TEAM_DROPDOWN_PLACEHOLDER": "Select teams",
+      "TEAM_MESSAGE_INPUT_PLACEHOLDER": "Enter your message here"
+    },
+    "DELETE": {
+      "TITLE": "Delete Automation Rule",
+      "CONFIRM": {
+        "TITLE": "Confirm Deletion",
+        "MESSAGE": "Are you sure to delete ",
+        "NO": "No, Keep ",
+        "YES": "Yes, Delete "
+      },
+      "API": {
+        "ERROR_MESSAGE": "Could not able to delete a automation rule, Please try again later",
+        "SUCCESS_MESSAGE": "Automation rule deleted successfully"
+      },
+      "SUBMIT": "Delete",
+      "CANCEL_BUTTON_TEXT": "Cancel"
     }
   }
 }

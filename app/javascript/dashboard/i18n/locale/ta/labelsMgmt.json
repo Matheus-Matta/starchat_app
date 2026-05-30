@@ -13,7 +13,8 @@
       "TABLE_HEADER": {
         "NAME": "பெயர்",
         "DESCRIPTION": "Description",
-        "COLOR": "Color"
+        "COLOR": "Color",
+        "ACTION": "செயல்கள்"
       }
     },
     "FORM": {
@@ -80,6 +81,9 @@
         "YES": "ஆம், நீக்கு ",
         "NO": "இல்லை, வைத்திரு "
       }
-    }
+    },
+    "COUNT": "{n} label | {n} labels",
+    "SEARCH_PLACEHOLDER": "Search labels...",
+    "NO_RESULTS": "No labels found matching your search"
   }
 }

@@ -10,7 +10,7 @@
 
 class Seeders::InboxSeeder
   def initialize(account:, company_data:)
-    raise 'Inbox Seeding is not allowed in production.' unless ENV.fetch('ENABLE_ACCOUNT_SEEDING', !Rails.env.production?)
+    raise 'Inbox Seeding is not allowed in production.' unless inbox_seeding_allowed?
 
     @account = account
     @company_data = company_data
@@ -31,6 +31,14 @@ class Seeders::InboxSeeder
   def seed_website_inbox
     channel = Channel::WebWidget.create!(account: @account, website_url: "https://#{@company_data['domain']}")
     Inbox.create!(channel: channel, account: @account, name: "#{@company_data['name']} Website")
+  end
+
+  private
+
+  def inbox_seeding_allowed?
+    return false if Rails.env.production?
+
+    ActiveModel::Type::Boolean.new.cast(ENV.fetch('ENABLE_ACCOUNT_SEEDING', true))
   end
 
   def seed_facebook_inbox

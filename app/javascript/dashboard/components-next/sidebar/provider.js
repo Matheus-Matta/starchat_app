@@ -180,6 +180,7 @@ export function useSidebarContext() {
     resolvePath,
     resolvePermissions,
     resolveFeatureFlag,
+    resolveInstallationType,
     isAllowed,
   };
 }

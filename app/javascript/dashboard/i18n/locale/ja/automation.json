@@ -40,13 +40,14 @@
       }
     },
     "LIST": {
+      "404": "自動化ルールが見つかりません",
       "TABLE_HEADER": {
         "NAME": "名前",
         "DESCRIPTION": "説明",
         "ACTIVE": "有効",
-        "CREATED_ON": "作成日"
-      },
-      "404": "自動化ルールが見つかりません"
+        "CREATED_ON": "作成日",
+        "ACTIONS": "操作"
+      }
     },
     "DELETE": {
       "TITLE": "自動化ルールを削除",
@@ -131,7 +132,8 @@
       "CONVERSATION_CREATED": "会話が作成されました",
       "CONVERSATION_UPDATED": "会話が更新されました",
       "MESSAGE_CREATED": "Message Created",
-      "CONVERSATION_OPENED": "Conversation Opened"
+      "CONVERSATION_OPENED": "Conversation Opened",
+      "CONVERSATION_RESOLVED": "Conversation Resolved"
     },
     "ACTIONS": {
       "ASSIGN_AGENT": "Assign to Agent",
@@ -149,7 +151,10 @@
       "ADD_PRIVATE_NOTE": "Add a Private Note",
       "CHANGE_PRIORITY": "優先度を変更",
       "ADD_SLA": "SLAを追加",
-      "OPEN_CONVERSATION": "会話を開く"
+      "OPEN_CONVERSATION": "会話を開く",
+      "REMOVE_ASSIGNED_AGENT": "Remove Assigned Agent",
+      "REMOVE_ASSIGNED_TEAM": "Remove Assigned Team",
+      "PENDING_CONVERSATION": "Mark conversation as pending"
     },
     "MESSAGE_TYPES": {
       "INCOMING": "Incoming Message",
@@ -176,7 +181,14 @@
       "REFERER_LINK": "Referrer Link",
       "ASSIGNEE_NAME": "担当者",
       "TEAM_NAME": "チーム",
-      "PRIORITY": "優先度"
-    }
+      "PRIORITY": "優先度",
+      "PRIVATE_NOTE": "非公開メモ",
+      "COMPANY_NAME": "企業名",
+      "LABELS": "ラベル"
+    },
+    "COUNT": "{n} automation | {n} automations",
+    "SEARCH_PLACEHOLDER": "Search automation rules...",
+    "NO_RESULTS": "No automation rules found matching your search",
+    "LAST_RESPONDING_AGENT": "Last Responding Agent"
   }
 }

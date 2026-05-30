@@ -119,6 +119,9 @@
           "INPUT": "Ieškoti agentų"
         }
       }
-    }
+    },
+    "COUNT": "{n} agent | {n} agents",
+    "SEARCH_PLACEHOLDER": "Ieškoti agentų...",
+    "NO_RESULTS": "No agents found matching your search"
   }
 }

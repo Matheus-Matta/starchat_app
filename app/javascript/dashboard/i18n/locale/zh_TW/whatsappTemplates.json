@@ -1,29 +1,47 @@
 {
-    "WHATSAPP_TEMPLATES": {
-        "MODAL": {
-            "TITLE": "Whatsapp Templates",
-            "SUBTITLE": "Select the whatsapp template you want to send",
-            "TEMPLATE_SELECTED_SUBTITLE": "Process {templateName}"
-        },
-        "PICKER": {
-            "SEARCH_PLACEHOLDER": "Search Templates",
-            "NO_TEMPLATES_FOUND": "No templates found for",
-            "NO_TEMPLATES_AVAILABLE": "No WhatsApp templates available. Click refresh to sync templates from WhatsApp.",
-            "REFRESH_BUTTON": "Refresh templates",
-            "REFRESH_SUCCESS": "Templates refresh initiated. It may take a couple of minutes to update.",
-            "REFRESH_ERROR": "Failed to refresh templates. Please try again.",
-            "LABELS": {
-                "LANGUAGE": "Language",
-                "TEMPLATE_BODY": "Template Body",
-                "CATEGORY": "Category"
-            }
-        },
-        "PARSER": {
-            "VARIABLES_LABEL": "Variables",
-            "VARIABLE_PLACEHOLDER": "Enter {variable} value",
-            "GO_BACK_LABEL": "Go Back",
-            "SEND_MESSAGE_LABEL": "Send Message",
-            "FORM_ERROR_MESSAGE": "Please fill all variables before sending"
-        }
+  "WHATSAPP_TEMPLATES": {
+    "MODAL": {
+      "TITLE": "Whatsapp Templates",
+      "SUBTITLE": "Select the whatsapp template you want to send",
+      "TEMPLATE_SELECTED_SUBTITLE": "Process {templateName}"
+    },
+    "PICKER": {
+      "SEARCH_PLACEHOLDER": "Search Templates",
+      "NO_TEMPLATES_FOUND": "No templates found for",
+      "NO_TEMPLATES_AVAILABLE": "No WhatsApp templates available. Click refresh to sync templates from WhatsApp.",
+      "REFRESH_BUTTON": "Refresh templates",
+      "REFRESH_SUCCESS": "Templates refresh initiated. It may take a couple of minutes to update.",
+      "REFRESH_ERROR": "Failed to refresh templates. Please try again.",
+      "LABELS": {
+        "LANGUAGE": "Language",
+        "TEMPLATE_BODY": "Template Body",
+        "CATEGORY": "Category"
+      },
+      "HEADER": "標題",
+      "BODY": "內文",
+      "FOOTER": "頁尾",
+      "BUTTONS": "按鈕",
+      "CATEGORY": "類別",
+      "MEDIA_CONTENT": "媒體內容",
+      "MEDIA_CONTENT_FALLBACK": "媒體內容"
+    },
+    "PARSER": {
+      "VARIABLES_LABEL": "Variables",
+      "VARIABLE_PLACEHOLDER": "Enter {variable} value",
+      "GO_BACK_LABEL": "Go Back",
+      "SEND_MESSAGE_LABEL": "Send Message",
+      "FORM_ERROR_MESSAGE": "Please fill all variables before sending",
+      "LANGUAGE": "語言",
+      "CATEGORY": "類別",
+      "MEDIA_HEADER_LABEL": "{type} 標題",
+      "OTP_CODE": "輸入 4 至 8 位數的一次性密碼",
+      "EXPIRY_MINUTES": "輸入到期分鐘數",
+      "BUTTON_PARAMETERS": "按鈕參數",
+      "BUTTON_LABEL": "按鈕 {index}",
+      "COUPON_CODE": "輸入優惠碼（最多 15 個字元）",
+      "MEDIA_URL_LABEL": "輸入 {type} URL",
+      "DOCUMENT_NAME_PLACEHOLDER": "輸入文件檔名（例如 Invoice_2025.pdf）",
+      "BUTTON_PARAMETER": "輸入按鈕參數"
     }
+  }
 }

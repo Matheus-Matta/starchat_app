@@ -57,7 +57,7 @@ const { isAdmin } = useAdmin();
         {{ $t('GENERAL_SETTINGS.LIMIT_MESSAGES.NON_ADMIN') }}
       </span>
       <span v-else-if="!isOnChatwootCloud && !isSuperAdmin">
-        {{ $t(`${featurePrefix}.ENTERPRISE_PAYWALL.ASK_ADMIN`) }}
+        {{ $t(`${featurePrefix}.STARCHAT_PAYWALL.ASK_ADMIN`) }}
       </span>
     </p>
     <template v-if="isOnChatwootCloud && isAdmin">

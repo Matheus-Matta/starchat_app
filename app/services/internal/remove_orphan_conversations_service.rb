@@ -5,6 +5,8 @@ class Internal::RemoveOrphanConversationsService
   end
 
   def perform
+    return 0 if production_cleanup_disabled?
+
     orphan_conversations = build_orphan_conversations_query
     total_deleted = 0
 
@@ -22,6 +24,14 @@ class Internal::RemoveOrphanConversationsService
   end
 
   private
+
+  def production_cleanup_disabled?
+    return false unless Rails.env.production?
+    return false if ActiveModel::Type::Boolean.new.cast(ENV.fetch('ENABLE_ORPHAN_CONVERSATION_CLEANUP', false))
+
+    Rails.logger.warn '[RemoveOrphanConversationsService] Skipping orphan conversation cleanup in production.'
+    true
+  end
 
   def build_orphan_conversations_query
     base = @account ? @account.conversations : Conversation.all

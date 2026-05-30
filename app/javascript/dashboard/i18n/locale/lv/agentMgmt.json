@@ -119,6 +119,9 @@
           "INPUT": "Meklēt aģentus"
         }
       }
-    }
+    },
+    "COUNT": "{n} agent | {n} agents",
+    "SEARCH_PLACEHOLDER": "Meklēt aģentus...",
+    "NO_RESULTS": "No agents found matching your search"
   }
 }

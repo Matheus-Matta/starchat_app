@@ -91,6 +91,10 @@ class Cosmos::Document < ApplicationRecord
     metadata['openai_file_id']
   end
 
+  def last_sync_error_code
+    metadata['last_sync_error_code']
+  end
+
   private
 
   def normalize_external_link
@@ -156,9 +160,7 @@ class Cosmos::Document < ApplicationRecord
   def set_external_link_for_file
     return unless pdf_file.attached? && external_link.blank?
 
-    # Set a unique external_link for files
-    # Format: FILE: filename_timestamp (without extension)
     timestamp = Time.current.strftime('%Y%m%d%H%M%S')
-    self.external_link = "FILE: #{pdf_file.filename.base}_#{timestamp}"
+    self.external_link = "PDF: #{pdf_file.filename.base}_#{timestamp}"
   end
 end

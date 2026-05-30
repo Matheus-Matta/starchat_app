@@ -9,7 +9,6 @@ import {
   isOnParticipatingView,
   isOnUnattendedView,
   isOnFoldersView,
-  isOnParticipatingView,
 } from './helpers/actionHelpers';
 import messageReadActions from './actions/messageReadActions';
 import messageTranslateActions from './actions/messageTranslateActions';

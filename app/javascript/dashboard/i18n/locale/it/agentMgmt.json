@@ -119,6 +119,9 @@
           "INPUT": "Search for agents"
         }
       }
-    }
+    },
+    "COUNT": "{n} operatore | {n} operatori",
+    "SEARCH_PLACEHOLDER": "Cerca operatori...",
+    "NO_RESULTS": "Nessun operatore trovato corrispondente alla tua ricerca"
   }
 }

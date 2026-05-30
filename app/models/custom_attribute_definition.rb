@@ -33,6 +33,7 @@ class CustomAttributeDefinition < ApplicationRecord
 
   validates :attribute_key,
             presence: true,
+            format: { with: /\A[\p{L}\d_.\-]+\z/, allow_blank: true },
             uniqueness: { scope: [:account_id, :attribute_model] }
 
   validates :attribute_display_type, presence: true
@@ -43,10 +44,16 @@ class CustomAttributeDefinition < ApplicationRecord
   enum attribute_display_type: { text: 0, number: 1, currency: 2, percent: 3, link: 4, date: 5, list: 6, checkbox: 7 }
 
   belongs_to :account
+  before_validation :strip_keys
   after_update :update_widget_pre_chat_custom_fields
   after_destroy :sync_widget_pre_chat_custom_fields
 
   private
+
+  def strip_keys
+    self.attribute_key = attribute_key.strip if attribute_key.present?
+    self.attribute_display_name = attribute_display_name.strip if attribute_display_name.present?
+  end
 
   def sync_widget_pre_chat_custom_fields
     ::Inboxes::SyncWidgetPreChatCustomFieldsJob.perform_later(account, attribute_key)

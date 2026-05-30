@@ -47,6 +47,7 @@ class Conversations::FilterService < FilterService
   end
 
   def conversations
-    @conversations.sort_on_last_activity_at.page(current_page)
+    # Wrap the filtered result in a subquery via ID to avoid DISTINCT + ORDER BY conflicts with PostgreSQL
+    Conversation.where(id: @conversations).sort_on_last_activity_at.page(current_page)
   end
 end

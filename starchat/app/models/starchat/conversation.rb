@@ -3,16 +3,16 @@ module Starchat::Conversation
     super + %w[sla_policy_id]
   end
 
-  def with_captain_activity_context(reason:, reason_type:)
-    previous_reason = captain_activity_reason
-    previous_reason_type = captain_activity_reason_type
+  def with_cosmos_activity_context(reason:, reason_type:)
+    previous_reason = cosmos_activity_reason
+    previous_reason_type = cosmos_activity_reason_type
 
-    self.captain_activity_reason = reason
-    self.captain_activity_reason_type = reason_type
+    self.cosmos_activity_reason = reason
+    self.cosmos_activity_reason_type = reason_type
     yield
   ensure
-    self.captain_activity_reason = previous_reason
-    self.captain_activity_reason_type = previous_reason_type
+    self.cosmos_activity_reason = previous_reason
+    self.cosmos_activity_reason_type = previous_reason_type
   end
 
   # Include select additional_attributes keys (call related) for update events
@@ -28,7 +28,7 @@ module Starchat::Conversation
 
   private
 
-  def dispatch_captain_inference_event(event_name)
+  def dispatch_cosmos_inference_event(event_name)
     dispatcher_dispatch(event_name)
   end
 end

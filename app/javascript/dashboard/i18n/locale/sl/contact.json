@@ -55,7 +55,10 @@
     "CALL_UNDER_DEVELOPMENT": "Calling is under development",
     "VOICE_INBOX_PICKER": {
       "TITLE": "Choose a voice inbox"
-    }
+    },
+    "CALL_INITIATED": "Calling the contact…",
+    "CALL_FAILED": "Klica ni bilo mogoče začeti. Poskusite znova.",
+    "CLICK_TO_EDIT": "Click to edit"
   },
   "EDIT_CONTACT": {
     "BUTTON_LABEL": "Edit Contact",
@@ -405,7 +408,8 @@
       "ACTIVE_FILTERS": {
         "MORE_FILTERS": "+ {count} more filters",
         "CLEAR_FILTERS": "Odstrani filtre"
-      }
+      },
+      "COMPANY": "Podjetje"
     },
     "CARD": {
       "OF": "of",
@@ -461,6 +465,12 @@
           },
           "TWITTER": {
             "PLACEHOLDER": "Add Twitter"
+          },
+          "TELEGRAM": {
+            "PLACEHOLDER": "Dodaj Telegram"
+          },
+          "TIKTOK": {
+            "PLACEHOLDER": "Dodaj TikTok"
           }
         }
       },
@@ -557,7 +567,9 @@
         "EXPAND": "Expand",
         "COLLAPSE": "Collapse",
         "NO_NOTES": "No notes, you can add notes from the contact details page.",
-        "EMPTY_STATE": "There are no notes associated to this contact. You can add a note by typing in the box above."
+        "EMPTY_STATE": "There are no notes associated to this contact. You can add a note by typing in the box above.",
+        "ADD_NOTE": "Dodaj opombo za stik",
+        "CONVERSATION_EMPTY_STATE": "Opomb še ni. Uporabite gumb Dodaj opombo za ustvarjanje."
       }
     },
     "EMPTY_STATE": {
@@ -567,7 +579,8 @@
       "SEARCH_EMPTY_STATE_TITLE": "No contacts matches your search 🔍",
       "LIST_EMPTY_STATE_TITLE": "No contacts available in this view 📋",
       "ACTIVE_EMPTY_STATE_TITLE": "No contacts are active at the moment 🌙"
-    }
+    },
+    "LOAD_MORE": "Naloži več"
   },
   "COMPOSE_NEW_CONVERSATION": {
     "CONTACT_SEARCH": {
@@ -623,6 +636,27 @@
           "SEND_MESSAGE": "Send message"
         }
       }
+    }
+  },
+  "CONTACTS_BULK_ACTIONS": {
+    "ASSIGN_LABELS": "Dodeli oznake",
+    "ASSIGN_LABELS_SUCCESS": "Oznake so bile uspešno dodeljene.",
+    "ASSIGN_LABELS_FAILED": "Dodeljevanje oznak ni uspelo",
+    "DESCRIPTION": "Izberite oznake, ki jih želite dodati izbranim stikom.",
+    "NO_LABELS_FOUND": "Še ni na voljo nobenih oznak.",
+    "SELECTED_COUNT": "{count} izbranih",
+    "CLEAR_SELECTION": "Počisti izbiro",
+    "SELECT_ALL": "Izberi vse ({count})",
+    "DELETE_CONTACTS": "Izbriši",
+    "DELETE_SUCCESS": "Stiki so bili uspešno izbrisani.",
+    "DELETE_FAILED": "Brisanje stikov ni uspelo.",
+    "DELETE_DIALOG": {
+      "TITLE": "Izbriši izbrane stike",
+      "SINGULAR_TITLE": "Izbriši izbran stik",
+      "DESCRIPTION": "To bo trajno izbrisalo {count} izbranih stikov. Tega dejanja ni mogoče razveljaviti.",
+      "SINGULAR_DESCRIPTION": "To bo trajno izbrisalo izbran stik. Tega dejanja ni mogoče razveljaviti.",
+      "CONFIRM_MULTIPLE": "Izbriši stike",
+      "CONFIRM_SINGLE": "Izbriši stik"
     }
   }
 }

@@ -55,7 +55,10 @@
       "LAST_3_MONTHS": "Last 3 months",
       "LAST_6_MONTHS": "Last 6 months",
       "LAST_YEAR": "Last year",
-      "CUSTOM_DATE_RANGE": "Custom date range"
+      "CUSTOM_DATE_RANGE": "Custom date range",
+      "LAST_14_DAYS": "Վերջին 14 օրերը",
+      "THIS_MONTH": "Այս ամիս",
+      "LAST_MONTH": "Նախորդ ամիս"
     },
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "Apply",
@@ -121,7 +124,8 @@
     "PAGINATION": {
       "RESULTS": "Showing {start} to {end} of {total} results",
       "PER_PAGE_TEMPLATE": "{size} / page"
-    }
+    },
+    "DOWNLOAD_CONVERSATION_REPORTS": "Ներբեռնել զրույցների հաշվետվությունները"
   },
   "AGENT_REPORTS": {
     "HEADER": "Agents Overview",
@@ -189,6 +193,11 @@
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "Apply",
       "PLACEHOLDER": "Select date range"
+    },
+    "FILTERS": {
+      "INPUT_PLACEHOLDER": {
+        "AGENTS": "Որոնել գործակալների մեջ"
+      }
     }
   },
   "LABEL_REPORTS": {
@@ -257,6 +266,11 @@
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "Apply",
       "PLACEHOLDER": "Select date range"
+    },
+    "FILTERS": {
+      "INPUT_PLACEHOLDER": {
+        "LABELS": "Որոնել պիտակները"
+      }
     }
   },
   "INBOX_REPORTS": {
@@ -325,6 +339,13 @@
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "Apply",
       "PLACEHOLDER": "Select date range"
+    },
+    "ALL_INBOXES": "Բոլոր մուտքերը",
+    "SEARCH_INBOX": "Որոնել Նամակների Պատյանում",
+    "FILTERS": {
+      "INPUT_PLACEHOLDER": {
+        "INBOXES": "Որոնել մուտքային տուփերը"
+      }
     }
   },
   "TEAM_REPORTS": {
@@ -393,6 +414,14 @@
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "Apply",
       "PLACEHOLDER": "Select date range"
+    },
+    "FILTERS": {
+      "ADD_FILTER": "Ավելացնել ֆիլտր",
+      "CLEAR_ALL": "Մաքրել բոլորը",
+      "NO_FILTER": "Ֆիլտրեր չկան",
+      "INPUT_PLACEHOLDER": {
+        "TEAMS": "Որոնել թիմերը"
+      }
     }
   },
   "CSAT_REPORTS": {
@@ -402,7 +431,26 @@
     "DOWNLOAD_FAILED": "Failed to download CSAT Reports",
     "FILTERS": {
       "AGENTS": {
-        "PLACEHOLDER": "Choose Agents"
+        "PLACEHOLDER": "Choose Agents",
+        "LABEL": "Գործակալ"
+      },
+      "ADD_FILTER": "Ավելացնել ֆիլտր",
+      "CLEAR_ALL": "Մաքրել բոլորը",
+      "NO_FILTER": "Ֆիլտրեր չկան",
+      "INPUT_PLACEHOLDER": {
+        "AGENTS": "Փնտրել գործակալներ",
+        "INBOXES": "Որոնել մուտքային արկղերը",
+        "TEAMS": "Որոնել թիմերը",
+        "RATINGS": "Որոնել գնահատականները"
+      },
+      "INBOXES": {
+        "LABEL": "Մուտքային արկղ"
+      },
+      "TEAMS": {
+        "LABEL": "Թիմ"
+      },
+      "RATINGS": {
+        "LABEL": "Գնահատական"
       }
     },
     "TABLE": {
@@ -410,8 +458,13 @@
         "CONTACT_NAME": "Contact",
         "AGENT_NAME": "Assigned agent",
         "RATING": "Rating",
-        "FEEDBACK_TEXT": "Feedback comment"
-      }
+        "FEEDBACK_TEXT": "Feedback comment",
+        "CONVERSATION": "Հաղորդակցություն",
+        "CUSTOMER": "Հաճախորդ",
+        "RESPONSE": "Պատասխան",
+        "HANDLED_BY": "Կատարել է"
+      },
+      "UNKNOWN_CUSTOMER": "Անհայտ հաճախորդ"
     },
     "METRIC": {
       "TOTAL_RESPONSES": {
@@ -425,6 +478,28 @@
       "RESPONSE_RATE": {
         "LABEL": "Response rate",
         "TOOLTIP": "Total number of responses / Total number of CSAT survey messages sent * 100"
+      },
+      "RATING_DISTRIBUTION": "Գնահատման բաշխում"
+    },
+    "NO_RECORDS_DESCRIPTION": "CSAT հարցման պատասխանները կհայտնվեն այստեղ, երբ հաճախորդները սկսեն տրամադրել կարծիք։",
+    "NO_AGENT": "Չկա նշանակված գործակալ",
+    "NO_FEEDBACK": "Հետադարձ կապ չի տրամադրվել",
+    "REVIEW_NOTES": {
+      "TITLE": "Վերանայման նշումներ",
+      "PLACEHOLDER": "Ավելացնել վերանայման նշումներ այս գնահատման մասին...",
+      "SAVE": "Պահպանել",
+      "CANCEL": "Չեղարկել",
+      "SAVING": "Պահպանում...",
+      "SAVED": "Նշումները հաջողությամբ պահպանվեցին",
+      "SAVE_ERROR": "Չհաջողվեց պահպանել նշումները",
+      "UPDATED_BY": "Թարմացվել է {name} կողմից {time}",
+      "UPDATED_BY_LABEL": "Թարմացվել է",
+      "PAYWALL": {
+        "TITLE": "Թարմացրեք՝ ավելացնելու համար վերանայման նշումներ",
+        "AVAILABLE_ON": "Վերանայման նշումների ֆունկցիան հասանելի է միայն Բիզնես և Էնթերպրայզ պլաններում։",
+        "UPGRADE_PROMPT": "Ավելացրեք ներքին կոնտեքստ յուրաքանչյուր CSAT պատասխանին վերանայման նշումների միջոցով։ Պահեք, թե ինչ է իրականում տեղի ունեցել, ավելի արագ հայտնաբերեք նմուշները և ավելի լավ որոշումներ կայացրեք ձեր հետադարձ կապից։",
+        "UPGRADE_NOW": "Թարմացրեք հիմա",
+        "CANCEL_ANYTIME": "Դուք կարող եք ցանկացած պահի փոխել կամ չեղարկել ձեր պլանը"
       }
     }
   },
@@ -495,6 +570,13 @@
       "ONLINE": "Online",
       "BUSY": "Busy",
       "OFFLINE": "Offline"
+    },
+    "RESOLUTION_HEATMAP": {
+      "HEADER": "Լուծումներ",
+      "NO_CONVERSATIONS": "Չկան զրույցներ",
+      "CONVERSATION": "{count} զրույց",
+      "CONVERSATIONS": "{count} զրույցներ",
+      "DOWNLOAD_REPORT": "Ներբեռնել հաշվետվությունը"
     }
   },
   "DAYS_OF_WEEK": {

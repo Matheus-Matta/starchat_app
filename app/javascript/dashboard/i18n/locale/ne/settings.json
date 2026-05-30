@@ -68,7 +68,8 @@
         "API_SUCCESS": "Signature saved successfully",
         "IMAGE_UPLOAD_ERROR": "Couldn't upload image! Try again",
         "IMAGE_UPLOAD_SUCCESS": "Image added successfully. Please click on save to save the signature",
-        "IMAGE_UPLOAD_SIZE_ERROR": "Image size should be less than {size}MB"
+        "IMAGE_UPLOAD_SIZE_ERROR": "Image size should be less than {size}MB",
+        "INLINE_IMAGE_WARNING": "Pasted inline images were removed. Please use the image upload button to add images to your signature."
       },
       "MESSAGE_SIGNATURE": {
         "LABEL": "Message Signature",
@@ -219,6 +220,11 @@
         "LABEL": "Confirm new password",
         "ERROR": "Confirm password should match the password",
         "PLACEHOLDER": "Please re-enter your new password"
+      },
+      "SECURITY_SECTION": {
+        "TITLE": "सुरक्षा",
+        "NOTE": "आफ्नो खाताका लागि थप सुरक्षा सुविधाहरू व्यवस्थापन गर्नुहोस्।",
+        "MFA_BUTTON": "दुई-चरण प्रमाणीकरण व्यवस्थापन गर्नुहोस्"
       }
     }
   },
@@ -234,7 +240,8 @@
     "SUPER_ADMIN_CONSOLE": "SuperAdmin console",
     "DOCS": "Read documentation",
     "LOGOUT": "Log out",
-    "CHANGELOG": "Changelog"
+    "CHANGELOG": "Changelog",
+    "YEAR_IN_REVIEW": "वर्षको समीक्षा"
   },
   "APP_GLOBAL": {
     "TRIAL_MESSAGE": "days trial remaining.",
@@ -246,6 +253,12 @@
     "ACCOUNT_SUSPENDED": {
       "TITLE": "Account Suspended",
       "MESSAGE": "Your account is suspended. Please reach out to the support team for more information."
+    },
+    "NO_ACCOUNTS": {
+      "TITLE": "खाता फेला परेन",
+      "MESSAGE_CLOUD": "तपाईं अहिले कुनै खातामा सहभागी हुनुहुन्न। यदि यो गल्ती हो जस्तो लाग्छ भने, कृपया हाम्रो समर्थन टोलीलाई सम्पर्क गर्नुहोस्।",
+      "MESSAGE_SELF_HOSTED": "तपाईं अहिले कुनै खातामा सहभागी हुनुहुन्न। कृपया आफ्नो प्रशासकलाई सम्पर्क गर्नुहोस्।",
+      "LOGOUT": "लगआउट"
     }
   },
   "COMPONENTS": {
@@ -261,7 +274,8 @@
     "FILE_BUBBLE": {
       "DOWNLOAD": "डाउनलोड",
       "UPLOADING": "अपलोड गर्दै...",
-      "INSTAGRAM_STORY_UNAVAILABLE": "This story is no longer available."
+      "INSTAGRAM_STORY_UNAVAILABLE": "This story is no longer available.",
+      "INSTAGRAM_STORY_REPLY": "तपाईंको स्टोरीमा जवाफ दिइयो:"
     },
     "LOCATION_BUBBLE": {
       "SEE_ON_MAP": "See on map"
@@ -358,11 +372,21 @@
       "INFO_SHORT": "Automatically mark offline when you aren't using the app."
     },
     "DOCS": "Read docs",
-    "COSMOS": "Cosmos",
-    "COSMOS_ASSISTANTS": "Assistants",
-    "COSMOS_DOCUMENTS": "Documents",
-    "COSMOS_RESPONSES": "FAQs",
-    "AGENT_ASSIGNMENT": "Agent Assignment"
+    "AGENT_ASSIGNMENT": "Agent Assignment",
+    "COMPANIES": "कम्पनीहरू",
+    "ALL_COMPANIES": "सबै कम्पनीहरू",
+    "CAPTAIN": "क्याप्टेन",
+    "CAPTAIN_ASSISTANTS": "सहायकहरू",
+    "CAPTAIN_DOCUMENTS": "कागजातहरू",
+    "CAPTAIN_RESPONSES": "सोधिने प्रश्नहरू",
+    "CAPTAIN_TOOLS": "उपकरणहरू",
+    "CAPTAIN_SCENARIOS": "परिदृश्यहरू",
+    "CAPTAIN_PLAYGROUND": "प्लेग्राउन्ड",
+    "CAPTAIN_INBOXES": "इनबक्सहरू",
+    "CAPTAIN_SETTINGS": "सेटिङहरू",
+    "SECURITY": "सुरक्षा",
+    "CAPTAIN_AI": "Captain",
+    "CONVERSATION_WORKFLOW": "वार्ता कार्यप्रवाह"
   },
   "BILLING_SETTINGS": {
     "TITLE": "Billing",
@@ -385,7 +409,7 @@
       "BUTTON_TXT": "Buy more credits",
       "DOCUMENTS": "Documents",
       "RESPONSES": "Responses",
-      "UPGRADE": "Cosmos is not available on the free plan, upgrade now to get access to assistants, cosmos and more."
+      "UPGRADE": "Cosmos is not available on the free plan, upgrade now to get access to assistants, copilot and more."
     },
     "CHAT_WITH_US": {
       "TITLE": "Need help?",
@@ -393,13 +417,37 @@
       "BUTTON_TXT": "हामीसँग कुराकानी गर्नुहोस्"
     },
     "NO_BILLING_USER": "Your billing account is being configured. Please refresh the page and try again.",
-    "COSMOS": {
-      "TITLE": "Cosmos",
-      "DESCRIPTION": "Manage usage and credits for Cosmos AI.",
-      "BUTTON_TXT": "Buy more credits",
-      "DOCUMENTS": "Documents",
+    "CAPTAIN": {
+      "TITLE": "क्याप्टेन",
+      "DESCRIPTION": "क्याप्टेन AI को प्रयोग र क्रेडिटहरू व्यवस्थापन गर्नुहोस्।",
+      "BUTTON_TXT": "थप क्रेडिटहरू किन्नुहोस्",
+      "DOCUMENTS": "कागजातहरू",
       "RESPONSES": "Responses",
-      "UPGRADE": "Cosmos is not available on the free plan, upgrade now to get access to assistants, copilot and more."
+      "UPGRADE": "क्याप्टेन निःशुल्क योजनामा उपलब्ध छैन। सहायकहरू, कोपाइलट र थप पहुँचका लागि अहिले नै अपग्रेड गर्नुहोस्।",
+      "REFRESH_CREDITS": "रिफ्रेश"
+    },
+    "TOPUP": {
+      "BUY_CREDITS": "थप क्रेडिट किन्नुहोस्",
+      "MODAL_TITLE": "AI क्रेडिट किन्नुहोस्",
+      "MODAL_DESCRIPTION": "Captain AI का लागि थप क्रेडिट किन्नुहोस्।",
+      "CREDITS": "CREDITS",
+      "ONE_TIME": "एक पटकको",
+      "POPULAR": "सबैभन्दा लोकप्रिय",
+      "NOTE_TITLE": "नोट:",
+      "NOTE_DESCRIPTION": "क्रेडिटहरू तुरुन्तै थपिन्छन् र ६ महिनामा सकिन्छन्। क्रेडिट प्रयोग गर्न सक्रिय सदस्यता आवश्यक छ। किनेका क्रेडिटहरू तपाईंको मासिक योजनाका क्रेडिट सकिएपछि मात्र प्रयोग हुन्छन्।",
+      "CANCEL": "रद्द गर्नुहोस्",
+      "PURCHASE": "क्रेडिट किन्नुहोस्",
+      "LOADING": "विकल्पहरू लोड हुँदैछन्...",
+      "FETCH_ERROR": "क्रेडिट विकल्पहरू लोड गर्न असफल भयो। कृपया फेरि प्रयास गर्नुहोस्।",
+      "PURCHASE_ERROR": "किनमेल प्रक्रिया असफल भयो। कृपया फेरि प्रयास गर्नुहोस्।",
+      "PURCHASE_SUCCESS": "Successfully added {credits} credits to your account",
+      "CONFIRM": {
+        "TITLE": "किनमेल पुष्टि गर्नुहोस्",
+        "DESCRIPTION": "You are about to purchase {credits} credits for {amount}.",
+        "INSTANT_DEDUCTION_NOTE": "पुष्टि गरेपछि तपाईंको सुरक्षित कार्डबाट तुरुन्तै रकम काटिनेछ।",
+        "GO_BACK": "फिर्ता जानुहोस्",
+        "CONFIRM_PURCHASE": "किनमेल पुष्टि गर्नुहोस्"
+      }
     }
   },
   "CREATE_ACCOUNT": {
@@ -487,7 +535,8 @@
         "CREATE_BUTTON": "Create policy",
         "API": {
           "SUCCESS_MESSAGE": "Assignment policy created successfully",
-          "ERROR_MESSAGE": "Failed to create assignment policy"
+          "ERROR_MESSAGE": "Failed to create assignment policy",
+          "INBOX_LINKED": "इनबक्स नीति सँग जडान गरिएको छ"
         }
       },
       "EDIT": {
@@ -514,6 +563,12 @@
             "SUCCESS_MESSAGE": "Inbox removed from policy successfully",
             "ERROR_MESSAGE": "Failed to remove inbox from policy"
           }
+        },
+        "INBOX_LINK_PROMPT": {
+          "TITLE": "इनबक्सलाई नीतिसँग जडान गर्नुहोस्",
+          "DESCRIPTION": "के तपाईं यो इनबक्सलाई असाइनमेन्ट नीतिसँग जडान गर्न चाहनुहुन्छ?",
+          "LINK_BUTTON": "इनबक्स जडान गर्नुहोस्",
+          "CANCEL_BUTTON": "छोड्नुहोस्"
         }
       },
       "FORM": {
@@ -539,7 +594,9 @@
           },
           "BALANCED": {
             "LABEL": "Balanced",
-            "DESCRIPTION": "Assign conversations based on available capacity."
+            "DESCRIPTION": "Assign conversations based on available capacity.",
+            "PREMIUM_MESSAGE": "सन्तुलित असाइनमेन्ट र एजेन्ट क्षमता व्यवस्थापन पहुँच गर्न अपग्रेड गर्नुहोस्।",
+            "PREMIUM_BADGE": "प्रिमियम"
           }
         },
         "ASSIGNMENT_PRIORITY": {
@@ -625,6 +682,20 @@
             "SUCCESS_MESSAGE": "Agent removed from policy successfully",
             "ERROR_MESSAGE": "Failed to remove agent from policy"
           }
+        },
+        "INBOX_LIMIT_API": {
+          "ADD": {
+            "SUCCESS_MESSAGE": "इनबक्स सीमा सफलतापूर्वक थपियो",
+            "ERROR_MESSAGE": "इनबक्स सीमा थप्न असफल भयो"
+          },
+          "UPDATE": {
+            "SUCCESS_MESSAGE": "इनबक्स सीमा सफलतापूर्वक अद्यावधिक गरियो",
+            "ERROR_MESSAGE": "इनबक्स सीमा अद्यावधिक गर्न असफल भयो"
+          },
+          "DELETE": {
+            "SUCCESS_MESSAGE": "इनबक्स सीमा सफलतापूर्वक हटाइयो",
+            "ERROR_MESSAGE": "इनबक्स सीमा हटाउन असफल भयो"
+          }
         }
       },
       "FORM": {
@@ -687,6 +758,178 @@
       "DESCRIPTION": "Are you sure you want to delete this policy? This action cannot be undone.",
       "CONFIRM_BUTTON_LABEL": "Delete",
       "CANCEL_BUTTON_LABEL": "Cancel"
+    }
+  },
+  "CAPTAIN_SETTINGS": {
+    "TITLE": "Captain सेटिङहरू",
+    "DESCRIPTION": "Captain का लागि तपाईंका AI मोडेल र सुविधाहरू कन्फिगर गर्नुहोस्। Captain क्रेडिटमा आधारित बिलिङमा चल्छ, चयन गरिएको मोडेलअनुसार Captain ले प्रत्येक कार्य गर्दा तपाईंको क्रेडिट कटौती हुनेछ।",
+    "LOADING": "Captain कन्फिगरेसन लोड हुँदैछ...",
+    "LINK_TEXT": "Captain क्रेडिटबारे थप जान्नुहोस्",
+    "NOT_ENABLED": "तपाईंको खातामा Captain सक्षम गरिएको छैन। Captain सुविधाहरू प्रयोग गर्न योजना स्तरोन्नति गर्नुहोस्।",
+    "MODEL_CONFIG": {
+      "TITLE": "मोडेल कन्फिगरेसन",
+      "DESCRIPTION": "विभिन्न सुविधाहरूका लागि AI मोडेलहरू छान्नुहोस्।",
+      "SELECT_MODEL": "मोडेल छान्नुहोस्",
+      "CREDITS_PER_MESSAGE": "{credits} credit/message",
+      "COMING_SOON": "छिट्टै आउँदैछ",
+      "EDITOR": {
+        "TITLE": "सम्पादक सुविधाहरू",
+        "DESCRIPTION": "तपाईंको सन्देश सम्पादकमा स्मार्ट कम्पोज, व्याकरण सुधार, टोन मिलाउने र सामग्री सुधारको लागि प्रयोग हुन्छ।"
+      },
+      "ASSISTANT": {
+        "TITLE": "सहायक",
+        "DESCRIPTION": "ग्राहक संवादका लागि स्वचालित जवाफ, संवाद सारांश, र बुद्धिमान सुझावहरू व्यवस्थापन गर्छ।"
+      },
+      "COPILOT": {
+        "TITLE": "को-पाइलट",
+        "DESCRIPTION": "संवादको क्रममा वास्तविक समय सन्दर्भ सुझाव, ज्ञान आधार सिफारिस, र सक्रिय जानकारी प्रदान गर्छ।"
+      }
+    },
+    "FEATURES": {
+      "TITLE": "फिचरहरू",
+      "DESCRIPTION": "एआई-सञ्चालित फिचरहरू सक्षम वा अक्षम गर्नुहोस्।",
+      "AUDIO_TRANSCRIPTION": {
+        "TITLE": "अडियो ट्रान्सक्रिप्सन",
+        "DESCRIPTION": "आवाज सन्देश र कल रेकर्डिङलाई स्वचालित रूपमा खोज्न मिल्ने पाठमा रूपान्तरण गर्नुहोस्।"
+      },
+      "HELP_CENTER_SEARCH": {
+        "TITLE": "हेल्प सेन्टर खोज अनुक्रमणिका",
+        "DESCRIPTION": "तपाईंका हेल्प सेन्टर लेखहरूमा सन्दर्भअनुसार खोजका लागि एआई प्रयोग गर्नुहोस्।"
+      },
+      "LABEL_SUGGESTION": {
+        "TITLE": "लेबल सुझाव",
+        "DESCRIPTION": "सामग्री विश्लेषण र सन्दर्भका आधारमा संवादका लागि उपयुक्त लेबल र ट्यागहरू स्वचालित रूपमा सुझाव दिनुहोस्।",
+        "MODEL_TITLE": "लेबल सुझाव मोडेल",
+        "MODEL_DESCRIPTION": "संवाद विश्लेषण र उपयुक्त लेबल सुझावका लागि प्रयोग हुने एआई मोडेल चयन गर्नुहोस्"
+      }
+    },
+    "API": {
+      "SUCCESS": "Captain सेटिङहरू सफलतापूर्वक अद्यावधिक गरियो।",
+      "ERROR": "Captain सेटिङहरू अद्यावधिक गर्न असफल। कृपया फेरि प्रयास गर्नुहोस्।"
+    }
+  },
+  "SECURITY_SETTINGS": {
+    "TITLE": "सुरक्षा",
+    "DESCRIPTION": "आफ्नो खाताको सुरक्षा सेटिङहरू व्यवस्थापन गर्नुहोस्।",
+    "LINK_TEXT": "SAML SSO को बारेमा थप जान्नुहोस्",
+    "SAML_DISABLED_MESSAGE": "SAML SSO हाल असक्षम छ। कृपया यो सुविधा सक्षम गर्न आफ्नो प्रशासकलाई सम्पर्क गर्नुहोस्।",
+    "SAML": {
+      "TITLE": "SAML SSO",
+      "NOTE": "आफ्नो खाताका लागि SAML सिंगल साइन-इन कन्फिगर गर्नुहोस्। प्रयोगकर्ताहरूले इमेल/पासवर्डको सट्टा तपाईंको आइडेन्टिटी प्रोभाइडरमार्फत प्रमाणिकरण गर्नेछन्।",
+      "ACS_URL": {
+        "LABEL": "ACS URL",
+        "TOOLTIP": "Assertion Consumer Service URL - SAML प्रतिक्रिया प्राप्त गर्नका लागि यो URL तपाईंको IdP मा गन्तव्यको रूपमा कन्फिगर गर्नुहोस्"
+      },
+      "SSO_URL": {
+        "LABEL": "SSO URL",
+        "HELP": "SAML प्रमाणीकरण अनुरोधहरू पठाइने URL",
+        "PLACEHOLDER": "https://your-idp.com/saml/sso"
+      },
+      "CERTIFICATE": {
+        "LABEL": "PEM ढाँचामा हस्ताक्षर प्रमाणपत्र",
+        "HELP": "SAML प्रतिक्रिया प्रमाणित गर्न तपाईंको आइडेन्टिटी प्रोभाइडरबाट प्राप्त सार्वजनिक प्रमाणपत्र",
+        "PLACEHOLDER": "-----BEGIN CERTIFICATE-----\nMIIC..."
+      },
+      "FINGERPRINT": {
+        "LABEL": "फिङ्गरप्रिन्ट",
+        "TOOLTIP": "प्रमाणपत्रको SHA-1 फिङ्गरप्रिन्ट - IdP कन्फिगरेसनमा प्रमाणपत्र प्रमाणित गर्न प्रयोग गर्नुहोस्"
+      },
+      "COPY_SUCCESS": "Code copied to clipboard successfully",
+      "SP_ENTITY_ID": {
+        "LABEL": "SP Entity ID",
+        "HELP": "यो एप्लिकेसनको सेवा प्रदायकको रूपमा अद्वितीय परिचायक (स्वतः-उत्पन्न)।",
+        "TOOLTIP": "Chatwoot लाई सेवा प्रदायकको रूपमा अद्वितीय परिचायक - IdP सेटिङमा यो कन्फिगर गर्नुहोस्"
+      },
+      "IDP_ENTITY_ID": {
+        "LABEL": "आइडेन्टिटी प्रोभाइडर Entity ID",
+        "HELP": "तपाईंको आइडेन्टिटी प्रोभाइडरको अद्वितीय परिचायक (सामान्यतया IdP कन्फिगरेसनमा पाइन्छ)",
+        "PLACEHOLDER": "https://your-idp.com/saml"
+      },
+      "UPDATE_BUTTON": "SAML सेटिङहरू अद्यावधिक गर्नुहोस्",
+      "API": {
+        "SUCCESS": "SAML सेटिङहरू सफलतापूर्वक अद्यावधिक गरियो",
+        "ERROR": "SAML सेटिङहरू अद्यावधिक गर्न असफल भयो",
+        "ERROR_LOADING": "SAML सेटिङहरू लोड गर्न असफल भयो",
+        "DISABLED": "SAML सेटिङहरू सफलतापूर्वक निष्क्रिय गरियो"
+      },
+      "VALIDATION": {
+        "REQUIRED_FIELDS": "SSO URL, Identity Provider Entity ID, र Certificate अनिवार्य फिल्डहरू हुन्",
+        "SSO_URL_ERROR": "कृपया मान्य SSO URL प्रविष्ट गर्नुहोस्",
+        "CERTIFICATE_ERROR": "Certificate आवश्यक छ",
+        "IDP_ENTITY_ID_ERROR": "Identity Provider Entity ID आवश्यक छ"
+      },
+      "ENTERPRISE_PAYWALL": {
+        "AVAILABLE_ON": "SAML SSO सुविधा Enterprise योजनाहरूमा मात्र उपलब्ध छ।",
+        "UPGRADE_PROMPT": "SAML सिंगल साइन-इन र अन्य उन्नत सुरक्षा सुविधाहरू प्रयोग गर्न Enterprise योजना अपग्रेड गर्नुहोस्।",
+        "ASK_ADMIN": "अपग्रेडका लागि कृपया आफ्नो प्रशासकलाई सम्पर्क गर्नुहोस्।"
+      },
+      "PAYWALL": {
+        "TITLE": "SAML SSO सक्षम गर्न अपग्रेड गर्नुहोस्",
+        "AVAILABLE_ON": "SAML SSO सुविधा केवल Enterprise योजनामा उपलब्ध छ।",
+        "UPGRADE_PROMPT": "SAML सिंगल साइन-इन र अन्य उन्नत सुविधाहरूको पहुँचका लागि आफ्नो योजना अपग्रेड गर्नुहोस्।",
+        "UPGRADE_NOW": "अहिले नै अपग्रेड गर्नुहोस्",
+        "CANCEL_ANYTIME": "तपाईंले आफ्नो योजना जुनसुकै बेला परिवर्तन वा रद्द गर्न सक्नुहुन्छ"
+      },
+      "ATTRIBUTE_MAPPING": {
+        "TITLE": "SAML एट्रिब्युट सेटअप",
+        "DESCRIPTION": "तपाईंको आइडेन्टिटी प्रोभाइडरमा निम्न एट्रिब्युट म्यापिङहरू कन्फिगर गर्नुपर्छ"
+      },
+      "INFO_SECTION": {
+        "TITLE": "Service Provider Information",
+        "TOOLTIP": "यी मानहरू प्रतिलिपि गरी आफ्नो Identity Provider मा कन्फिगर गर्नुहोस् SAML जडानका लागि"
+      }
+    }
+  },
+  "CONVERSATION_WORKFLOW": {
+    "INDEX": {
+      "HEADER": {
+        "TITLE": "वार्ता कार्यप्रवाहहरू",
+        "DESCRIPTION": "वार्ता समाधानका लागि नियम र आवश्यक फिल्डहरू सेट गर्नुहोस्।"
+      }
+    },
+    "REQUIRED_ATTRIBUTES": {
+      "TITLE": "समाधानमा आवश्यक विशेषताहरू",
+      "DESCRIPTION": "वार्ता समाधान गर्दा, यी विशेषताहरू नभरिएको भए एजेन्टलाई भर्न अनुरोध गरिनेछ।",
+      "NO_ATTRIBUTES": "अहिलेसम्म कुनै विशेषता थपिएको छैन",
+      "ADD": {
+        "TITLE": "विशेषता थप्नुहोस्",
+        "SEARCH_PLACEHOLDER": "विशेषता खोज्नुहोस्"
+      },
+      "SAVE": {
+        "SUCCESS": "आवश्यक विवरणहरू अपडेट गरियो",
+        "ERROR": "आवश्यक विवरणहरू अपडेट गर्न सकिएन, कृपया फेरि प्रयास गर्नुहोस्"
+      },
+      "MODAL": {
+        "TITLE": "संवाद समाधान गर्नुहोस्",
+        "DESCRIPTION": "यो संवाद समाधान गर्नु अघि तलका अनुकूल विवरणहरू भर्नुहोस्",
+        "ACTIONS": {
+          "RESOLVE": "संवाद समाधान गर्नुहोस्",
+          "CANCEL": "रद्द गर्नुहोस्"
+        },
+        "PLACEHOLDERS": {
+          "TEXT": "नोट लेख्नुहोस्...",
+          "NUMBER": "संख्या लेख्नुहोस्",
+          "LINK": "लिङ्क थप्नुहोस्",
+          "DATE": "मिति छान्नुहोस्",
+          "LIST": "विकल्प छान्नुहोस्"
+        },
+        "CHECKBOX": {
+          "YES": "हो",
+          "NO": "होइन"
+        }
+      },
+      "PAYWALL": {
+        "TITLE": "आवश्यक विशेषता प्रयोग गर्न योजना स्तरोन्नति गर्नुहोस्",
+        "AVAILABLE_ON": "आवश्यक संवाद विशेषता सुविधा Business र Enterprise योजनामा उपलब्ध छ।",
+        "UPGRADE_PROMPT": "संवाद टुंग्याउनु अघि एजेन्टलाई आवश्यक विशेषता भर्न अनुरोध गर्न योजना स्तरोन्नति गर्नुहोस्।",
+        "UPGRADE_NOW": "अहिले स्तरोन्नति गर्नुहोस्",
+        "CANCEL_ANYTIME": "तपाईंले आफ्नो योजना जुनसुकै बेला परिवर्तन वा रद्द गर्न सक्नुहुन्छ"
+      },
+      "ENTERPRISE_PAYWALL": {
+        "AVAILABLE_ON": "आवश्यक संवाद विशेषता सुविधा भुक्तानी योजना मा उपलब्ध छ।",
+        "UPGRADE_PROMPT": "संवाद टुंग्याउनु अघि आवश्यक विशेषता लागू गर्न भुक्तानी योजना मा स्तरोन्नति गर्नुहोस्।",
+        "ASK_ADMIN": "अपग्रेडका लागि कृपया आफ्नो प्रशासकलाई सम्पर्क गर्नुहोस्।"
+      }
     }
   }
 }

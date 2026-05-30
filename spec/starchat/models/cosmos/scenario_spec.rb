@@ -44,10 +44,10 @@ RSpec.describe Cosmos::Scenario, type: :model do
 
   describe '#handoff_key' do
     let(:account) { create(:account) }
-    let(:assistant) { create(:captain_assistant, account: account) }
+    let(:assistant) { create(:cosmos_assistant, account: account) }
 
     it 'uses id plus readable slug for persisted scenarios' do
-      scenario = create(:captain_scenario, assistant: assistant, account: account,
+      scenario = create(:cosmos_scenario, assistant: assistant, account: account,
                                            title: 'Handle complex refund requests requiring manager approval steps')
 
       expect(scenario.handoff_key).to start_with("scenario_#{scenario.id}_")
@@ -56,7 +56,7 @@ RSpec.describe Cosmos::Scenario, type: :model do
     end
 
     it 'uses a truncated slug key for unsaved scenarios' do
-      scenario = build(:captain_scenario, assistant: assistant, account: account,
+      scenario = build(:cosmos_scenario, assistant: assistant, account: account,
                                           title: 'Troubleshoot payment gateway errors for recurring subscription charges')
 
       expect(scenario.handoff_key).to match(/\Ascenario_draft_[a-z0-9_]+_agent\z/)
@@ -64,7 +64,7 @@ RSpec.describe Cosmos::Scenario, type: :model do
     end
 
     it 'stays within length budget even for large ids' do
-      scenario = build(:captain_scenario, assistant: assistant, account: account,
+      scenario = build(:cosmos_scenario, assistant: assistant, account: account,
                                           title: 'A very long scenario title used only for budget verification')
       allow(scenario).to receive(:id).and_return(1_234_567_890_123_456_789)
 
@@ -72,7 +72,7 @@ RSpec.describe Cosmos::Scenario, type: :model do
     end
 
     it 'exposes handoff keys in assistant prompt context' do
-      scenario = create(:captain_scenario, assistant: assistant, account: account)
+      scenario = create(:cosmos_scenario, assistant: assistant, account: account)
 
       prompt_context = assistant.send(:prompt_context)
       scenario_config = prompt_context[:scenarios].find { |entry| entry[:title] == scenario.title }

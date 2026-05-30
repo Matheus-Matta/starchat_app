@@ -1,4 +1,6 @@
 class Api::V1::Accounts::Conversations::AssignmentsController < Api::V1::Accounts::Conversations::BaseController
+  before_action :ensure_agent_bot_can_access_conversation
+
   # assigns agent/team to a conversation
   def create
     if params.key?(:assignee_id) || agent_bot_assignment?
@@ -11,6 +13,15 @@ class Api::V1::Accounts::Conversations::AssignmentsController < Api::V1::Account
   end
 
   private
+
+  def ensure_agent_bot_can_access_conversation
+    return unless Current.user.is_a?(AgentBot)
+    return if Current.user.system_bot?
+    return if Current.user.account_id == Current.account&.id
+    return if Current.user.inboxes.exists?(id: @conversation.inbox_id)
+
+    render_unauthorized('Bot is not authorized to access this conversation')
+  end
 
   def set_agent
     resource = Conversations::AssignmentService.new(

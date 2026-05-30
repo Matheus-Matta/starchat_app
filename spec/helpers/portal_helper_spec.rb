@@ -265,8 +265,8 @@ describe PortalHelper do
 
     context 'when CDN URL is present' do
       before do
-        InstallationConfig.create!(name: 'OG_IMAGE_CDN_URL', value: 'https://cdn.example.com')
-        InstallationConfig.create!(name: 'OG_IMAGE_CLIENT_REF', value: 'client-123')
+        create(:installation_config, name: 'OG_IMAGE_CDN_URL', value: 'https://cdn.example.com')
+        create(:installation_config, name: 'OG_IMAGE_CLIENT_REF', value: 'client-123')
       end
 
       it 'returns the composed OG image URL with correct params' do
@@ -282,8 +282,8 @@ describe PortalHelper do
 
     context 'when CDN URL is blank' do
       before do
-        InstallationConfig.create!(name: 'OG_IMAGE_CDN_URL', value: '')
-        InstallationConfig.create!(name: 'OG_IMAGE_CLIENT_REF', value: 'client-123')
+        create(:installation_config, name: 'OG_IMAGE_CDN_URL', value: '')
+        create(:installation_config, name: 'OG_IMAGE_CLIENT_REF', value: 'client-123')
       end
 
       it 'returns nil' do

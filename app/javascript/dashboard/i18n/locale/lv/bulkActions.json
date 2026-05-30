@@ -35,7 +35,18 @@
       "NO_TEAMS_AVAILABLE": "Šim kontam vēl nav pievienota neviena komanda.",
       "ASSIGN_SELECTED_TEAMS": "Piešķirt izvēlēto komandu.",
       "ASSIGN_SUCCESFUL": "Komandas ir veiksmīgi piešķirtas.",
-      "ASSIGN_FAILED": "Neizdevās piešķirt komandu. Lūdzu mēģiniet vēlreiz."
+      "ASSIGN_FAILED": "Neizdevās piešķirt komandu. Lūdzu mēģiniet vēlreiz.",
+      "ASSIGN_TEAM_CONFIRMATION_LABEL": "Are you sure you want to assign {n} conversation to {teamName}? | Are you sure you want to assign {n} conversations to {teamName}?",
+      "UNASSIGN_TEAM_CONFIRMATION_LABEL": "Are you sure you want to unassign {n} conversation? | Are you sure you want to unassign {n} conversations?"
+    },
+    "NONE": "Nav",
+    "CLEAR_SELECTION": "Notīrīt",
+    "ASSIGN_AGENT_CONFIRMATION_LABEL": "Are you sure you want to assign {n} conversation to {agentName}? | Are you sure you want to assign {n} conversations to {agentName}?",
+    "UNASSIGN_AGENT_CONFIRMATION_LABEL": "Are you sure you want to unassign {n} conversation? | Are you sure you want to unassign {n} conversations?",
+    "CANCEL": "Atcelt",
+    "RESOLVE": {
+      "ALL_MISSING_ATTRIBUTES": "Cannot resolve conversations due to missing required attributes",
+      "PARTIAL_SUCCESS": "Some conversations need required attributes before resolving and were skipped"
     }
   }
 }

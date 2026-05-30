@@ -68,7 +68,8 @@
         "API_SUCCESS": "Signature saved successfully",
         "IMAGE_UPLOAD_ERROR": "Couldn't upload image! Try again",
         "IMAGE_UPLOAD_SUCCESS": "Image added successfully. Please click on save to save the signature",
-        "IMAGE_UPLOAD_SIZE_ERROR": "Image size should be less than {size}MB"
+        "IMAGE_UPLOAD_SIZE_ERROR": "Image size should be less than {size}MB",
+        "INLINE_IMAGE_WARNING": "Pasted inline images were removed. Please use the image upload button to add images to your signature."
       },
       "MESSAGE_SIGNATURE": {
         "LABEL": "Message Signature",
@@ -219,6 +220,11 @@
         "LABEL": "Confirm new password",
         "ERROR": "Confirm password should match the password",
         "PLACEHOLDER": "Please re-enter your new password"
+      },
+      "SECURITY_SECTION": {
+        "TITLE": "Siguria",
+        "NOTE": "Menaxhoni veçori shtesë të sigurisë për llogarinë tuaj.",
+        "MFA_BUTTON": "Menaxho Autentikimin me Dy Faktorë"
       }
     }
   },
@@ -234,7 +240,8 @@
     "SUPER_ADMIN_CONSOLE": "SuperAdmin console",
     "DOCS": "Read documentation",
     "LOGOUT": "Log out",
-    "CHANGELOG": "Lista e ndryshimeve"
+    "CHANGELOG": "Lista e ndryshimeve",
+    "YEAR_IN_REVIEW": "Viti në Rishikim"
   },
   "APP_GLOBAL": {
     "TRIAL_MESSAGE": "days trial remaining.",
@@ -246,6 +253,12 @@
     "ACCOUNT_SUSPENDED": {
       "TITLE": "Account Suspended",
       "MESSAGE": "Your account is suspended. Please reach out to the support team for more information."
+    },
+    "NO_ACCOUNTS": {
+      "TITLE": "Nuk u gjet asnjë llogari",
+      "MESSAGE_CLOUD": "Nuk jeni pjesë e asnjë llogarie tani. Nëse mendoni se kjo është një gabim, ju lutemi kontaktoni ekipin tonë të mbështetjes.",
+      "MESSAGE_SELF_HOSTED": "Nuk jeni pjesë e asnjë llogarie tani. Ju lutemi kontaktoni administratorin tuaj.",
+      "LOGOUT": "Dil"
     }
   },
   "COMPONENTS": {
@@ -261,7 +274,8 @@
     "FILE_BUBBLE": {
       "DOWNLOAD": "Download",
       "UPLOADING": "Po ngarkohet...",
-      "INSTAGRAM_STORY_UNAVAILABLE": "This story is no longer available."
+      "INSTAGRAM_STORY_UNAVAILABLE": "This story is no longer available.",
+      "INSTAGRAM_STORY_REPLY": "U përgjigj historisë suaj në Instagram:"
     },
     "LOCATION_BUBBLE": {
       "SEE_ON_MAP": "See on map"
@@ -358,11 +372,21 @@
       "INFO_SHORT": "Automatically mark offline when you aren't using the app."
     },
     "DOCS": "Read docs",
-    "COSMOS": "Cosmos",
-    "COSMOS_ASSISTANTS": "Assistants",
-    "COSMOS_DOCUMENTS": "Documents",
-    "COSMOS_RESPONSES": "FAQs",
-    "AGENT_ASSIGNMENT": "Agent Assignment"
+    "AGENT_ASSIGNMENT": "Agent Assignment",
+    "COMPANIES": "Kompani",
+    "ALL_COMPANIES": "Të gjitha kompanitë",
+    "CAPTAIN": "Kapiten",
+    "CAPTAIN_ASSISTANTS": "Asistentët",
+    "CAPTAIN_DOCUMENTS": "Dokumentet",
+    "CAPTAIN_RESPONSES": "Pyetjet e Shpeshta",
+    "CAPTAIN_TOOLS": "Mjetet",
+    "CAPTAIN_SCENARIOS": "Skenarë",
+    "CAPTAIN_PLAYGROUND": "Fusha e lojës",
+    "CAPTAIN_INBOXES": "Kutia postare",
+    "CAPTAIN_SETTINGS": "Cilësimet",
+    "SECURITY": "Siguria",
+    "CAPTAIN_AI": "Captain",
+    "CONVERSATION_WORKFLOW": "Procesi i Bisedës"
   },
   "BILLING_SETTINGS": {
     "TITLE": "Billing",
@@ -385,7 +409,7 @@
       "BUTTON_TXT": "Buy more credits",
       "DOCUMENTS": "Documents",
       "RESPONSES": "Responses",
-      "UPGRADE": "Cosmos is not available on the free plan, upgrade now to get access to assistants, cosmos and more."
+      "UPGRADE": "Cosmos is not available on the free plan, upgrade now to get access to assistants, copilot and more."
     },
     "CHAT_WITH_US": {
       "TITLE": "Need help?",
@@ -393,13 +417,37 @@
       "BUTTON_TXT": "Chat with us"
     },
     "NO_BILLING_USER": "Your billing account is being configured. Please refresh the page and try again.",
-    "COSMOS": {
-      "TITLE": "Cosmos",
-      "DESCRIPTION": "Manage usage and credits for Cosmos AI.",
-      "BUTTON_TXT": "Buy more credits",
-      "DOCUMENTS": "Documents",
+    "CAPTAIN": {
+      "TITLE": "Captain",
+      "DESCRIPTION": "Menaxhoni përdorimin dhe kreditë për Captain AI.",
+      "BUTTON_TXT": "Bleni më shumë kredi",
+      "DOCUMENTS": "Dokumentet",
       "RESPONSES": "Responses",
-      "UPGRADE": "Cosmos is not available on the free plan, upgrade now to get access to assistants, copilot and more."
+      "UPGRADE": "Captain nuk është i disponueshëm në planin falas, përmirësoni tani për të pasur akses në asistentë, copilot dhe më shumë.",
+      "REFRESH_CREDITS": "Rifresko"
+    },
+    "TOPUP": {
+      "BUY_CREDITS": "Bleni më shumë kredite",
+      "MODAL_TITLE": "Bleni Kredite AI",
+      "MODAL_DESCRIPTION": "Bleni kredi shtesë për Captain AI.",
+      "CREDITS": "KREDITE",
+      "ONE_TIME": "një herë",
+      "POPULAR": "Më e Popullarizuar",
+      "NOTE_TITLE": "Shënim:",
+      "NOTE_DESCRIPTION": "Kreditë shtohen menjëherë dhe skadojnë pas 6 muajsh. Një abonim aktiv kërkohet për të përdorur kreditë. Kreditë e blera konsumohen pasi të përdoren kreditë e planit mujor.",
+      "CANCEL": "Anulo",
+      "PURCHASE": "Bleni Kredite",
+      "LOADING": "Duke ngarkuar opsionet...",
+      "FETCH_ERROR": "Dështoi ngarkimi i opsioneve të kredive. Ju lutemi provoni përsëri.",
+      "PURCHASE_ERROR": "Dështoi përpunimi i blerjes. Ju lutemi provoni përsëri.",
+      "PURCHASE_SUCCESS": "U shtuan me sukses {credits} kredi në llogarinë tuaj",
+      "CONFIRM": {
+        "TITLE": "Konfirmo Blerjen",
+        "DESCRIPTION": "Jeni duke blerë {credits} kredi për {amount}.",
+        "INSTANT_DEDUCTION_NOTE": "Karta juaj e ruajtur do të ngarkohet menjëherë pas konfirmimit.",
+        "GO_BACK": "Kthehu Mbrapa",
+        "CONFIRM_PURCHASE": "Konfirmo Blerjen"
+      }
     }
   },
   "CREATE_ACCOUNT": {
@@ -487,7 +535,8 @@
         "CREATE_BUTTON": "Create policy",
         "API": {
           "SUCCESS_MESSAGE": "Assignment policy created successfully",
-          "ERROR_MESSAGE": "Failed to create assignment policy"
+          "ERROR_MESSAGE": "Failed to create assignment policy",
+          "INBOX_LINKED": "Kutia e postës është lidhur me politikën"
         }
       },
       "EDIT": {
@@ -514,6 +563,12 @@
             "SUCCESS_MESSAGE": "Inbox removed from policy successfully",
             "ERROR_MESSAGE": "Failed to remove inbox from policy"
           }
+        },
+        "INBOX_LINK_PROMPT": {
+          "TITLE": "Lidhu kutia e postës me politikën",
+          "DESCRIPTION": "Dëshironi të lidhni këtë inbox me politikën e caktimit?",
+          "LINK_BUTTON": "Lidh inboxin",
+          "CANCEL_BUTTON": "Anulo"
         }
       },
       "FORM": {
@@ -539,7 +594,9 @@
           },
           "BALANCED": {
             "LABEL": "Balanced",
-            "DESCRIPTION": "Assign conversations based on available capacity."
+            "DESCRIPTION": "Assign conversations based on available capacity.",
+            "PREMIUM_MESSAGE": "Përmirëso për të pasur qasje në caktimin e balancuar dhe menaxhimin e kapacitetit të agjentit.",
+            "PREMIUM_BADGE": "Premium"
           }
         },
         "ASSIGNMENT_PRIORITY": {
@@ -625,6 +682,20 @@
             "SUCCESS_MESSAGE": "Agent removed from policy successfully",
             "ERROR_MESSAGE": "Failed to remove agent from policy"
           }
+        },
+        "INBOX_LIMIT_API": {
+          "ADD": {
+            "SUCCESS_MESSAGE": "Kufiri i inboxit u shtua me sukses",
+            "ERROR_MESSAGE": "Dështoi shtimi i kufirit të inboxit"
+          },
+          "UPDATE": {
+            "SUCCESS_MESSAGE": "Kufiri i inboxit u përditësua me sukses",
+            "ERROR_MESSAGE": "Dështoi përditësimi i kufirit të inboxit"
+          },
+          "DELETE": {
+            "SUCCESS_MESSAGE": "Kufiri i inboxit u fshi me sukses",
+            "ERROR_MESSAGE": "Dështoi fshirja e kufirit të inboxit"
+          }
         }
       },
       "FORM": {
@@ -687,6 +758,178 @@
       "DESCRIPTION": "Are you sure you want to delete this policy? This action cannot be undone.",
       "CONFIRM_BUTTON_LABEL": "Delete",
       "CANCEL_BUTTON_LABEL": "Cancel"
+    }
+  },
+  "CAPTAIN_SETTINGS": {
+    "TITLE": "Cilësimet e Captain",
+    "DESCRIPTION": "Konfiguroni modelet dhe veçoritë AI për Captain. Captain përdor faturim bazuar në kredi, do të ngarkoheni me kredi për çdo veprim që Captain kryen bazuar në modelin e zgjedhur.",
+    "LOADING": "Duke ngarkuar konfigurimin e Captain...",
+    "LINK_TEXT": "Mësoni më shumë rreth Kredive të Captain",
+    "NOT_ENABLED": "Captain nuk është aktivizuar për llogarinë tuaj. Ju lutemi përmirësoni planin tuaj për të pasur akses në veçoritë e Captain.",
+    "MODEL_CONFIG": {
+      "TITLE": "Konfigurimi i Modelit",
+      "DESCRIPTION": "Zgjidhni modelet AI për veçori të ndryshme.",
+      "SELECT_MODEL": "Zgjidh modelin",
+      "CREDITS_PER_MESSAGE": "{credits} kredi/mesazh",
+      "COMING_SOON": "Së shpejti",
+      "EDITOR": {
+        "TITLE": "Veçoritë e Redaktorit",
+        "DESCRIPTION": "Fuqizon shkrimin inteligjent, korrigjimet gramatikore, rregullimet e tonit dhe përmirësimin e përmbajtjes në redaktorin tuaj të mesazheve."
+      },
+      "ASSISTANT": {
+        "TITLE": "Asistenti",
+        "DESCRIPTION": "Menaxhon përgjigjet automatike, përmbledhjet e bisedave dhe sugjerimet inteligjente të përgjigjeve për ndërveprimet me klientët."
+      },
+      "COPILOT": {
+        "TITLE": "Bashkëpilot",
+        "DESCRIPTION": "Ofron sugjerime kontekstuale në kohë reale, rekomandime nga baza e njohurive dhe njohuri proaktive gjatë bisedave."
+      }
+    },
+    "FEATURES": {
+      "TITLE": "Veçoritë",
+      "DESCRIPTION": "Aktivizo ose çaktivizo veçoritë me fuqi AI.",
+      "AUDIO_TRANSCRIPTION": {
+        "TITLE": "Transkriptimi i Audios",
+        "DESCRIPTION": "Konverton automatikisht mesazhet zanore dhe regjistrimet e thirrjeve në transkripte tekstuale të kërkueshme."
+      },
+      "HELP_CENTER_SEARCH": {
+        "TITLE": "Indeksimi i Kërkimit në Qendrën e Ndihmës",
+        "DESCRIPTION": "Përdorni AI për kërkim të ndërgjegjshëm për kontekst brenda artikujve të qendrës suaj të ndihmës."
+      },
+      "LABEL_SUGGESTION": {
+        "TITLE": "Sugjerimi i Etiketave",
+        "DESCRIPTION": "Sugjeron automatikisht etiketa dhe shenja relevante për biseda bazuar në analizën e përmbajtjes dhe kontekstin.",
+        "MODEL_TITLE": "Modeli i Sugjerimit të Etiketave",
+        "MODEL_DESCRIPTION": "Zgjidh modelin AI për të analizuar bisedat dhe për të sugjeruar etiketat e përshtatshme"
+      }
+    },
+    "API": {
+      "SUCCESS": "Cilësimet e Captain u përditësuan me sukses.",
+      "ERROR": "Dështoi përditësimi i cilësimeve të Captain. Ju lutemi provoni përsëri."
+    }
+  },
+  "SECURITY_SETTINGS": {
+    "TITLE": "Siguria",
+    "DESCRIPTION": "Menaxho cilësimet e sigurisë së llogarisë tënde.",
+    "LINK_TEXT": "Mëso më shumë rreth SAML SSO",
+    "SAML_DISABLED_MESSAGE": "SAML SSO është aktualisht i çaktivizuar. Ju lutemi kontaktoni administratorin tuaj për ta aktivizuar këtë veçori.",
+    "SAML": {
+      "TITLE": "SAML SSO",
+      "NOTE": "Konfiguro hyrjen e vetme SAML për llogarinë tënde. Përdoruesit do të autentifikohen përmes ofruesit tënd të identitetit në vend të përdorimit të email/kalimfjalë.",
+      "ACS_URL": {
+        "LABEL": "URL ACS",
+        "TOOLTIP": "URL e Shërbimit Konsumues të Deklaratave - Konfiguro këtë URL në IdP tënd si destinacion për përgjigjet SAML"
+      },
+      "SSO_URL": {
+        "LABEL": "URL SSO",
+        "HELP": "URL ku do të dërgohen kërkesat e autentifikimit SAML",
+        "PLACEHOLDER": "https://your-idp.com/saml/sso"
+      },
+      "CERTIFICATE": {
+        "LABEL": "Certifikata e nënshkrimit në format PEM",
+        "HELP": "Certifikata publike nga ofruesi yt i identitetit që përdoret për të verifikuar përgjigjet SAML",
+        "PLACEHOLDER": "-----BEGIN CERTIFICATE-----\nMIIC..."
+      },
+      "FINGERPRINT": {
+        "LABEL": "Gishtprinti",
+        "TOOLTIP": "Gishtprinti SHA-1 i certifikatës - Përdore këtë për të verifikuar certifikatën në konfigurimin e IdP-së tënde"
+      },
+      "COPY_SUCCESS": "Kopjuar në kujtesën e përkohshme",
+      "SP_ENTITY_ID": {
+        "LABEL": "ID e Entitetit SP",
+        "HELP": "Identifikues unik për këtë aplikacion si ofrues shërbimi (gjeneruar automatikisht).",
+        "TOOLTIP": "Identifikues unik për Chatwoot si Ofrues Shërbimi - Konfiguro këtë në cilësimet e IdP-së tënde"
+      },
+      "IDP_ENTITY_ID": {
+        "LABEL": "ID e Entitetit të Ofruesit të Identitetit",
+        "HELP": "Identifikues unik për ofruesin tënd të identitetit (zakonisht gjendet në konfigurimin e IdP-së)",
+        "PLACEHOLDER": "https://your-idp.com/saml"
+      },
+      "UPDATE_BUTTON": "Përditëso Cilësimet SAML",
+      "API": {
+        "SUCCESS": "Cilësimet SAML u përditësuan me sukses",
+        "ERROR": "Dështoi përditësimi i cilësimeve SAML",
+        "ERROR_LOADING": "Dështoi ngarkimi i cilësimeve SAML",
+        "DISABLED": "Cilësimet SAML u çaktivizuan me sukses"
+      },
+      "VALIDATION": {
+        "REQUIRED_FIELDS": "URL SSO, ID e Entitetit të Ofruesit të Identitetit dhe Certifikata janë fusha të detyrueshme",
+        "SSO_URL_ERROR": "Ju lutemi shkruani një URL SSO të vlefshme",
+        "CERTIFICATE_ERROR": "Certifikata është e detyrueshme",
+        "IDP_ENTITY_ID_ERROR": "ID e Entitetit të Ofruesit të Identitetit është e detyrueshme"
+      },
+      "ENTERPRISE_PAYWALL": {
+        "AVAILABLE_ON": "Karakteristika SAML SSO është në dispozicion vetëm në planet Enterprise.",
+        "UPGRADE_PROMPT": "Përmirëso në një plan Enterprise për të pasur akses në hyrjen e vetme SAML dhe veçori të tjera të avancuara të sigurisë.",
+        "ASK_ADMIN": "Ju lutemi kontaktoni administratorin tuaj për përmirësimin."
+      },
+      "PAYWALL": {
+        "TITLE": "Përmirëso për të aktivizuar SAML SSO",
+        "AVAILABLE_ON": "Karakteristika SAML SSO është në dispozicion vetëm në planet Enterprise.",
+        "UPGRADE_PROMPT": "Përmirëso planin tënd për të pasur akses në hyrjen e vetme SAML dhe veçori të tjera të avancuara.",
+        "UPGRADE_NOW": "Përmirëso tani",
+        "CANCEL_ANYTIME": "Mund të ndryshoni ose anuloni planin tuaj në çdo kohë"
+      },
+      "ATTRIBUTE_MAPPING": {
+        "TITLE": "Konfigurimi i Atributeve SAML",
+        "DESCRIPTION": "Harta e mëposhtme e atributeve duhet të konfigurohet në ofruesin tuaj të identitetit"
+      },
+      "INFO_SECTION": {
+        "TITLE": "Informacioni i Ofruesit të Shërbimit",
+        "TOOLTIP": "Kopjoni këto vlera dhe konfiguroni ato në Ofruesin tuaj të Identitetit për të krijuar lidhjen SAML"
+      }
+    }
+  },
+  "CONVERSATION_WORKFLOW": {
+    "INDEX": {
+      "HEADER": {
+        "TITLE": "Proceset e Bisedave",
+        "DESCRIPTION": "Konfiguroni rregullat dhe fushat e kërkuara për zgjidhjen e bisedave."
+      }
+    },
+    "REQUIRED_ATTRIBUTES": {
+      "TITLE": "Atributet e kërkuara në zgjidhje",
+      "DESCRIPTION": "Kur zgjidhet një bisedë, agjentët do të kërkohen të plotësojnë këto atribute nëse nuk e kanë bërë ende.",
+      "NO_ATTRIBUTES": "Nuk janë shtuar ende atribute",
+      "ADD": {
+        "TITLE": "Shto Atribute",
+        "SEARCH_PLACEHOLDER": "Kërko atribute"
+      },
+      "SAVE": {
+        "SUCCESS": "Atributet e kërkuara u përditësuan",
+        "ERROR": "Nuk mund të përditësoheshin atributet e kërkuara, ju lutemi provoni përsëri"
+      },
+      "MODAL": {
+        "TITLE": "Zgjidh bisedën",
+        "DESCRIPTION": "Ju lutemi plotësoni atributet e mëposhtme të personalizuara para se të zgjidhni këtë bisedë",
+        "ACTIONS": {
+          "RESOLVE": "Zgjidh bisedën",
+          "CANCEL": "Anulo"
+        },
+        "PLACEHOLDERS": {
+          "TEXT": "Shkruani një shënim...",
+          "NUMBER": "Futni një numër",
+          "LINK": "Shto një lidhje",
+          "DATE": "Zgjidh një datë",
+          "LIST": "Zgjidh një opsion"
+        },
+        "CHECKBOX": {
+          "YES": "Po",
+          "NO": "Jo"
+        }
+      },
+      "PAYWALL": {
+        "TITLE": "Përmirëso për të përdorur atributet e kërkuara",
+        "AVAILABLE_ON": "Veçoria e atributeve të kërkuara të bisedave është në dispozicion në planet Business dhe Enterprise.",
+        "UPGRADE_PROMPT": "Përmirësoni planin tuaj për të kërkuar nga agjentët të plotësojnë atributet e kërkuara para zgjidhjes së bisedës.",
+        "UPGRADE_NOW": "Përmirëso tani",
+        "CANCEL_ANYTIME": "Mund të ndryshoni ose anuloni planin tuaj në çdo kohë"
+      },
+      "ENTERPRISE_PAYWALL": {
+        "AVAILABLE_ON": "Veçoria e atributeve të kërkuara të bisedave është në dispozicion në planet me pagesë.",
+        "UPGRADE_PROMPT": "Përmirësoni në një plan me pagesë për të zbatuar atributet e kërkuara para zgjidhjes së bisedës.",
+        "ASK_ADMIN": "Ju lutemi kontaktoni administratorin tuaj për përmirësimin."
+      }
     }
   }
 }

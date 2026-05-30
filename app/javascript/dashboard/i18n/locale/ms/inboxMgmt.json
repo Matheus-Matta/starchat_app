@@ -110,6 +110,14 @@
         "SUBMIT_BUTTON": "Create inbox",
         "API": {
           "ERROR_MESSAGE": "We were not able to create a website channel, please try again"
+        },
+        "CHANNEL_WEBHOOK_SECRET": {
+          "LABEL": "Webhook Secret",
+          "COPY": "Salin rahsia ke papan klip",
+          "COPY_SUCCESS": "Rahsia disalin ke papan klip",
+          "TOGGLE": "Togol keterlihatan rahsia",
+          "RESET_SUCCESS": "Webhook secret regenerated successfully",
+          "RESET_ERROR": "Unable to regenerate webhook secret. Please try again"
         }
       },
       "TWILIO": {
@@ -291,7 +299,13 @@
           "INVALID_BUSINESS_DATA": "Invalid business data received from Facebook. Please try again.",
           "SIGNUP_ERROR": "Signup error occurred",
           "AUTH_NOT_COMPLETED": "Authentication not completed. Please restart the process.",
-          "SUCCESS_FALLBACK": "WhatsApp Business Account has been successfully configured"
+          "SUCCESS_FALLBACK": "WhatsApp Business Account has been successfully configured",
+          "LEARN_MORE": {
+            "TEXT": "Untuk mengetahui lebih lanjut mengenai pendaftaran bersepadu, harga, dan had, lawati {link}.",
+            "LINK_TEXT": "pautan ini"
+          },
+          "MANUAL_FALLBACK": "If your number is already connected to the WhatsApp Business Platform (API), or if you’re a tech provider onboarding your own number, please use the {link} flow",
+          "MANUAL_LINK_TEXT": "aliran tetapan manual"
         },
         "API": {
           "ERROR_MESSAGE": "We were not able to save the WhatsApp channel"
@@ -373,7 +387,11 @@
         "API": {
           "ERROR_MESSAGE": "We were not able to save the email channel"
         },
-        "FINISH_MESSAGE": "Start forwarding your emails to the following email address."
+        "FINISH_MESSAGE": "Start forwarding your emails to the following email address.",
+        "FINISH_MESSAGE_NO_FORWARDING": "Your email inbox has been created successfully! You need to configure SMTP and IMAP credentials to send and receive emails. Without these settings, no emails will be processed.",
+        "FORWARDING_ADDRESS_LABEL": "Teruskan emel ke alamat ini:",
+        "CONFIGURE_SMTP_IMAP_LINK": "Klik di sini",
+        "CONFIGURE_SMTP_IMAP_TEXT": " to configure IMAP and SMTP settings"
       },
       "LINE_CHANNEL": {
         "TITLE": "LINE Channel",
@@ -462,6 +480,10 @@
           "VOICE": {
             "TITLE": "Voice",
             "DESCRIPTION": "Integrate with Twilio Voice"
+          },
+          "TIKTOK": {
+            "TITLE": "TikTok",
+            "DESCRIPTION": "Connect your TikTok account"
           }
         }
       },
@@ -496,6 +518,13 @@
         "SIGN_IN": "Sign in with Google",
         "EMAIL_PLACEHOLDER": "Enter email address",
         "ERROR_MESSAGE": "There was an error connecting to Google, please try again"
+      },
+      "TIKTOK": {
+        "CONTINUE_WITH_TIKTOK": "Continue with TikTok",
+        "CONNECT_YOUR_TIKTOK_PROFILE": "Connect your TikTok Profile",
+        "HELP": "To add your TikTok profile as a channel, you need to authenticate your TikTok Profile by clicking on 'Continue with TikTok' ",
+        "ERROR_MESSAGE": "There was an error connecting to TikTok, please try again",
+        "ERROR_AUTH": "There was an error connecting to TikTok, please try again"
       }
     },
     "DETAILS": {
@@ -567,7 +596,9 @@
       },
       "LOCK_TO_SINGLE_CONVERSATION": {
         "ENABLED": "Enabled",
-        "DISABLED": "Disabled"
+        "DISABLED": "Disabled",
+        "ENABLED_DESCRIPTION": "Apabila seseorang kenalan menghantar mesej lagi, perbualan sebelumnya akan dibuka semula.",
+        "DISABLED_DESCRIPTION": "Perbualan baru akan diwujudkan setiap kali selepas perbualan sebelumnya diselesaikan."
       },
       "ENABLE_HMAC": {
         "LABEL": "Enable"
@@ -599,7 +630,9 @@
       "BUSINESS_HOURS": "Business Hours",
       "WIDGET_BUILDER": "Widget Builder",
       "BOT_CONFIGURATION": "Bot Configuration",
-      "CSAT": "CSAT"
+      "CSAT": "CSAT",
+      "ACCOUNT_HEALTH": "Kesihatan Akaun",
+      "VOICE": "Suara"
     },
     "SETTINGS": "Settings",
     "FEATURES": {
@@ -652,14 +685,49 @@
       "WHATSAPP_TEMPLATES_SYNC_SUBHEADER": "Manually sync message templates from WhatsApp to update your available templates.",
       "WHATSAPP_TEMPLATES_SYNC_BUTTON": "Sync Templates",
       "WHATSAPP_TEMPLATES_SYNC_SUCCESS": "Templates sync initiated successfully. It may take a couple of minutes to update.",
-      "UPDATE_PRE_CHAT_FORM_SETTINGS": "Update Pre Chat Form Settings"
+      "UPDATE_PRE_CHAT_FORM_SETTINGS": "Update Pre Chat Form Settings",
+      "ALLOWED_DOMAINS": {
+        "TITLE": "Allowed Domains",
+        "DESCRIPTION": "Restrict which websites can embed your chat widget. For security, only add domains you own and trust. Add one or more domains separated by commas. Leave blank to allow all domains (not recommended for production).",
+        "PLACEHOLDER": "example.com, www.example.com, app.example.com"
+      },
+      "ALLOW_MOBILE_WEBVIEW": {
+        "LABEL": "Enable widget in mobile apps",
+        "SUBTITLE": "Check this if you embed the widget in iOS or Android apps. Mobile apps don't send domain information, so they would be blocked by domain restrictions unless this is enabled."
+      },
+      "IDENTITY_VALIDATION": {
+        "TITLE": "Identity Validation",
+        "DESCRIPTION": "Verify user authenticity by generating secure tokens. This prevents unauthorized users from impersonating others in your chat.",
+        "SECRET_KEY": "Kunci Rahsia",
+        "VIEW_DOCS": "View documentation",
+        "REQUIRE_LABEL": "Require identity validation for all conversations",
+        "REQUIRE_DESCRIPTION": "When enabled, users must provide a valid identity token to start conversations. Requests without valid tokens will be rejected."
+      },
+      "ENABLE_CONTINUITY_VIA_EMAIL_DISABLED_TEXT": "This feature is available on a paid plan. Upgrade to enable conversation continuity via email.",
+      "FORWARD_EMAIL_NOT_CONFIGURED": "Forwarding emails to your inbox is currently disabled on this installation. To use this feature, it must be enabled by your administrator. Please get in touch with them to proceed.",
+      "WHATSAPP_EMBEDDED_SIGNUP_TITLE": "WhatsApp Embedded Signup",
+      "WHATSAPP_EMBEDDED_SIGNUP_SUBHEADER": "This inbox is connected through WhatsApp embedded signup.",
+      "WHATSAPP_EMBEDDED_SIGNUP_DESCRIPTION": "You can reconfigure this inbox to update your WhatsApp Business settings.",
+      "WHATSAPP_RECONFIGURE_BUTTON": "Konfigurasi Semula",
+      "WHATSAPP_CONNECT_TITLE": "Connect to WhatsApp Business",
+      "WHATSAPP_CONNECT_SUBHEADER": "Upgrade to WhatsApp embedded signup for easier management.",
+      "WHATSAPP_CONNECT_DESCRIPTION": "Connect this inbox to WhatsApp Business for enhanced features and easier management.",
+      "WHATSAPP_CONNECT_BUTTON": "Sambung",
+      "WHATSAPP_CONNECT_SUCCESS": "Successfully connected to WhatsApp Business!",
+      "WHATSAPP_CONNECT_ERROR": "Failed to connect to WhatsApp Business. Please try again.",
+      "WHATSAPP_RECONFIGURE_SUCCESS": "Successfully reconfigured WhatsApp Business!",
+      "WHATSAPP_RECONFIGURE_ERROR": "Failed to reconfigure WhatsApp Business. Please try again.",
+      "WHATSAPP_APP_ID_MISSING": "ID aplikasi WhatsApp belum dikonfigurasi. Sila hubungi pentadbir anda.",
+      "WHATSAPP_CONFIG_ID_MISSING": "ID konfigurasi WhatsApp belum dikonfigurasi. Sila hubungi pentadbir anda.",
+      "WHATSAPP_LOGIN_CANCELLED": "WhatsApp login was cancelled. Please try again."
     },
     "HELP_CENTER": {
       "LABEL": "Help Center",
       "PLACEHOLDER": "Select Help Center",
       "SELECT_PLACEHOLDER": "Select Help Center",
       "REMOVE": "Remove Help Center",
-      "SUB_TEXT": "Attach a Help Center with the inbox"
+      "SUB_TEXT": "Attach a Help Center with the inbox",
+      "NONE": "Tiada"
     },
     "AUTO_ASSIGNMENT": {
       "MAX_ASSIGNMENT_LIMIT": "Auto assignment limit",
@@ -722,7 +790,51 @@
       "API": {
         "SUCCESS_MESSAGE": "CSAT settings updated successfully",
         "ERROR_MESSAGE": "We couldn't update CSAT settings. Please try again later."
-      }
+      },
+      "BUTTON_TEXT": {
+        "LABEL": "Teks butang",
+        "PLACEHOLDER": "Sila beri penilaian kepada kami"
+      },
+      "LANGUAGE": {
+        "LABEL": "Bahasa",
+        "PLACEHOLDER": "Select template language"
+      },
+      "MESSAGE_PREVIEW": {
+        "LABEL": "Message preview",
+        "TOOLTIP": "This may vary slightly when rendered on WhatsApp's platform."
+      },
+      "TEMPLATE_STATUS": {
+        "APPROVED": "Approved by WhatsApp",
+        "PENDING": "Pending WhatsApp approval",
+        "REJECTED": "Meta rejected the template",
+        "DEFAULT": "Needs WhatsApp approval",
+        "NOT_FOUND": "The template does not exist in the Meta platform."
+      },
+      "TEMPLATE_CREATION": {
+        "SUCCESS_MESSAGE": "WhatsApp template created successfully and sent for approval",
+        "ERROR_MESSAGE": "Failed to create WhatsApp template"
+      },
+      "TEMPLATE_UPDATE_DIALOG": {
+        "TITLE": "Sunting butiran tinjauan",
+        "DESCRIPTION": "We will delete the previous template and make a new one which will be sent again for WhatsApp approval",
+        "CONFIRM": "Create new template",
+        "CANCEL": "Kembali"
+      },
+      "UTILITY_ANALYZER": {
+        "ACTION": "Semak kesesuaian utiliti",
+        "HELPER_NOTE": "Semak mesej ini sebelum penghantaran untuk meningkatkan kesesuaian Utility. Sistem mencipta templat CSAT khusus dengan butang untuk melaporkan dan menghantarnya sebagai Utility; Meta mungkin masih mengklasifikasikannya semula sebagai Pemasaran berdasarkan kandungan.",
+        "RESULT_LABEL": "Meta category prediction",
+        "GUIDANCE_NOTE": "This is a guidance check, not a guarantee of Meta approval.",
+        "SUGGESTION_LABEL": "Penulisan semula yang dicadangkan selamat untuk utiliti",
+        "APPLY": "Gunakan penulisan semula ini",
+        "ERROR_MESSAGE": "Tidak dapat menganalisis mesej. Sila cuba lagi.",
+        "CLASSIFICATION": {
+          "LIKELY_UTILITY": "Kemungkinan Utiliti",
+          "LIKELY_MARKETING": "Kemungkinan Pemasaran",
+          "UNCLEAR": "Perlu penjelasan"
+        }
+      },
+      "WHATSAPP_NOTE": "Note: When you save, the system creates a dedicated CSAT template in WhatsApp (used to capture rating and feedback in reports) and submits it as Utility for approval. Meta may still classify it as Marketing based on content. After approval, surveys are sent only once per conversation as per the survey rule."
     },
     "BUSINESS_HOURS": {
       "TITLE": "Set your availability",
@@ -738,7 +850,9 @@
         "UNAVAILABLE": "Unavailable",
         "HOURS": "hours",
         "VALIDATION_ERROR": "Starting time should be before closing time.",
-        "CHOOSE": "Choose"
+        "CHOOSE": "Choose",
+        "DAY": "Hari",
+        "AVAILABILITY": "Ketersediaan"
       },
       "ALL_DAY": "All-Day"
     },
@@ -769,7 +883,8 @@
         "LABEL": "Password",
         "PLACE_HOLDER": "Password"
       },
-      "ENABLE_SSL": "Enable SSL"
+      "ENABLE_SSL": "Enable SSL",
+      "AUTH_MECHANISM": "Pengesahan"
     },
     "MICROSOFT": {
       "TITLE": "Microsoft",
@@ -868,7 +983,8 @@
         "WIDGET_BUBBLE_TYPE": {
           "STANDARD": "Standard",
           "EXPANDED_BUBBLE": "Expanded Bubble"
-        }
+        },
+        "WIDGET_BUBBLE": "Buah Gelembung"
       },
       "WIDGET_SCREEN": {
         "DEFAULT": "Default",
@@ -920,7 +1036,136 @@
       "LINE": "Line",
       "API": "API Channel",
       "INSTAGRAM": "Instagram",
-      "VOICE": "Voice"
+      "VOICE": "Voice",
+      "TIKTOK": "TikTok"
+    },
+    "COUNT": "{n} peti masuk | {n} peti masuk",
+    "SEARCH_PLACEHOLDER": "Cari peti masuk...",
+    "NO_RESULTS": "Tiada peti masuk ditemui yang sepadan dengan carian anda",
+    "WHATSAPP_REGISTRATION_INCOMPLETE": "Your WhatsApp Business registration isn’t complete. Please check your display name status in Meta Business Manager before reconnecting.",
+    "COMPLETE_REGISTRATION": "Selesaikan Pendaftaran",
+    "VOICE_CONFIGURATION": {
+      "ENABLE_VOICE": {
+        "LABEL": "Enable Voice Calling",
+        "DESCRIPTION": "Enable voice calling on this inbox. Agents will be able to make and receive phone calls."
+      },
+      "CREDENTIALS": {
+        "DESCRIPTION": "Voice calling requires Twilio API Key credentials. These are used to generate tokens for agent voice connections."
+      }
+    },
+    "CHANNEL_PREFERENCES": "Keutamaan Saluran",
+    "WIDGET_FEATURES": "Widget features",
+    "ACCOUNT_HEALTH": {
+      "TITLE": "Manage your WhatsApp account",
+      "DESCRIPTION": "Review your WhatsApp account status, messaging limits, and quality. Update settings or resolve issues if needed",
+      "GO_TO_SETTINGS": "Go to Meta Business Manager",
+      "NO_DATA": "Data kesihatan tidak tersedia",
+      "FIELDS": {
+        "DISPLAY_PHONE_NUMBER": {
+          "LABEL": "Paparkan nombor telefon",
+          "TOOLTIP": "Nombor telefon yang dipaparkan kepada pelanggan"
+        },
+        "VERIFIED_NAME": {
+          "LABEL": "Nama perniagaan",
+          "TOOLTIP": "Business name verified by WhatsApp"
+        },
+        "DISPLAY_NAME_STATUS": {
+          "LABEL": "Status nama paparan",
+          "TOOLTIP": "Status pengesahan nama perniagaan anda"
+        },
+        "QUALITY_RATING": {
+          "LABEL": "Penilaian kualiti",
+          "TOOLTIP": "WhatsApp quality rating for your account"
+        },
+        "MESSAGING_LIMIT_TIER": {
+          "LABEL": "Tahap had penghantaran mesej",
+          "TOOLTIP": "Had penghantaran mesej harian untuk akaun anda"
+        },
+        "ACCOUNT_MODE": {
+          "LABEL": "Mod akaun",
+          "TOOLTIP": "Current operating mode of your WhatsApp account"
+        }
+      },
+      "VALUES": {
+        "TIERS": {
+          "TIER_250": "250 customers per 24h",
+          "TIER_1000": "1K customers per 24h",
+          "TIER_1K": "1K customers per 24h",
+          "TIER_10K": "10K customers per 24h",
+          "TIER_100K": "100K customers per 24h",
+          "TIER_UNLIMITED": "Unlimited customers per 24h",
+          "UNKNOWN": "Penilaian tidak tersedia"
+        },
+        "STATUSES": {
+          "APPROVED": "Diluluskan",
+          "PENDING_REVIEW": "Sedang Disemak",
+          "AVAILABLE_WITHOUT_REVIEW": "Tersedia Tanpa Semakan",
+          "REJECTED": "Ditolak",
+          "DECLINED": "Ditolak",
+          "NON_EXISTS": "Tidak wujud"
+        },
+        "MODES": {
+          "SANDBOX": "Sandbox",
+          "LIVE": "Langsung"
+        }
+      },
+      "WEBHOOK": {
+        "TITLE": "Webhook Configuration",
+        "DESCRIPTION": "Webhook URL is required for your WhatsApp Business Account to receive messages from customers",
+        "ACTION_REQUIRED": "Webhook not configured",
+        "REGISTER_BUTTON": "Register Webhook",
+        "REGISTER_SUCCESS": "Webhook registered successfully",
+        "REGISTER_ERROR": "Failed to register webhook. Please try again.",
+        "CONFIGURED_SUCCESS": "Webhook configured successfully",
+        "URL_MISMATCH": "Webhook URL mismatch"
+      }
+    },
+    "ASSIGNMENT": {
+      "TITLE": "Penugasan Perbualan",
+      "DESCRIPTION": "Secara automatik menetapkan perbualan masuk kepada ejen yang tersedia berdasarkan polisi penugasan",
+      "ENABLE_AUTO_ASSIGNMENT": "Enable automatic conversation assignment",
+      "DEFAULT_RULES_TITLE": "Peraturan tugasan lalai",
+      "DEFAULT_RULES_DESCRIPTION": "Menggunakan tingkah laku tugasan lalai untuk semua perbualan",
+      "DEFAULT_RULE_1": "Perbualan yang dibuat paling awal dahulu",
+      "DEFAULT_RULE_2": "Pengagihan secara pusingan",
+      "CUSTOMIZE_WITH_POLICY": "Sesuaikan dengan polisi penugasan",
+      "USING_POLICY": "Menggunakan polisi penugasan khusus untuk peti masuk ini",
+      "CUSTOMIZE_POLICY": "Sesuaikan dengan polisi tugasan",
+      "DELETE_POLICY": "Padam polisi",
+      "POLICY_LABEL": "Polisi penugasan",
+      "ASSIGNMENT_ORDER_LABEL": "Susunan Penugasan",
+      "ASSIGNMENT_METHOD_LABEL": "Kaedah Penugasan",
+      "POLICY_STATUS": {
+        "ACTIVE": "Aktif",
+        "INACTIVE": "Tidak aktif"
+      },
+      "PRIORITY": {
+        "EARLIEST_CREATED": "Dicipta paling awal",
+        "LONGEST_WAITING": "Menunggu paling lama"
+      },
+      "METHOD": {
+        "ROUND_ROBIN": "Giliran bulat",
+        "BALANCED": "Penugasan seimbang"
+      },
+      "UPGRADE_PROMPT": "Custom assignment policies are available on the Business plan",
+      "UPGRADE_TO_BUSINESS": "Tingkatkan ke Perniagaan",
+      "DEFAULT_POLICY_LINKED": "Default policy linked",
+      "DEFAULT_POLICY_DESCRIPTION": "Link a custom assignment policy to customize how conversations are assigned to agents in this inbox.",
+      "LINK_EXISTING_POLICY": "Link existing policy",
+      "CREATE_NEW_POLICY": "Buat polisi baru",
+      "NO_POLICIES": "Tiada polisi penugasan ditemui",
+      "VIEW_ALL_POLICIES": "Lihat semua polisi",
+      "CURRENT_BEHAVIOR": "Sedang menggunakan tingkah laku tugasan lalai:",
+      "LINK_SUCCESS": "Assignment policy linked successfully",
+      "LINK_ERROR": "Gagal memautkan dasar tugasan"
+    },
+    "ASSIGNMENT_POLICY": {
+      "DELETE_CONFIRM_TITLE": "Padam polisi tugasan?",
+      "DELETE_CONFIRM_MESSAGE": "Adakah anda pasti mahu mengeluarkan polisi tugasan ini dari peti masuk ini? Peti masuk akan kembali kepada peraturan tugasan lalai.",
+      "CANCEL": "Batalkan",
+      "CONFIRM_DELETE": "Padamkan",
+      "DELETE_SUCCESS": "Dasar tugasan berjaya dipadam",
+      "DELETE_ERROR": "Gagal memadam dasar tugasan"
     }
   }
 }

@@ -150,8 +150,8 @@
       "EMPTY_MESSAGE": "Bạn không có thông báo tin chưa đọc"
     },
     "LIST": {
-      "LOADING_MESSAGE": "Đang tải thông báo...",
       "404": "Không có thông báo",
+      "LOADING_MESSAGE": "Đang tải thông báo...",
       "TABLE_HEADER": [
         "Tên",
         "Số điện thoại",
@@ -239,7 +239,8 @@
       "DARK_MODE": "Dark",
       "SYSTEM_MODE": "System",
       "SNOOZE_NOTIFICATION": "Snooze Notification"
-    }
+    },
+    "SNOOZE_PLACEHOLDER": "Type a time e.g. tomorrow, 2 hours, next friday, jan 15..."
   },
   "DASHBOARD_APPS": {
     "LOADING_MESSAGE": "Đang tải dữ liệu..."

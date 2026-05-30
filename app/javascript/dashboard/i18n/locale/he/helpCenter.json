@@ -157,6 +157,12 @@
             "DELETE_SUCCESS": "הפורטל נמחק בהצלחה",
             "DELETE_ERROR": "שגיאה בעת מחיקת הפורטל"
           }
+        },
+        "SEND_CNAME_INSTRUCTIONS": {
+          "API": {
+            "SUCCESS_MESSAGE": "הוראות CNAME נשלחו בהצלחה",
+            "ERROR_MESSAGE": "שגיאה בשליחת הוראות CNAME"
+          }
         }
       },
       "EDIT": {
@@ -310,11 +316,23 @@
           "SUCCESS_MESSAGE": "המקום הוסר מהפורטל בהצלחה",
           "ERROR_MESSAGE": "לא ניתן להסיר את המקום מהפורטל. נסה שוב."
         }
+      },
+      "DRAFT_LOCALE": {
+        "API": {
+          "SUCCESS_MESSAGE": "Locale moved to draft successfully",
+          "ERROR_MESSAGE": "Unable to move locale to draft. Try again."
+        }
+      },
+      "PUBLISH_LOCALE": {
+        "API": {
+          "SUCCESS_MESSAGE": "Locale published successfully",
+          "ERROR_MESSAGE": "Unable to publish locale. Try again."
+        }
       }
     },
     "TABLE": {
-      "LOADING_MESSAGE": "טוען מאמרים...",
       "404": "אין מאמרים שתואמים לחיפוש שלך 🔍",
+      "LOADING_MESSAGE": "טוען מאמרים...",
       "NO_ARTICLES": "אין מאמרים זמינים",
       "HEADERS": {
         "TITLE": "כותרת",
@@ -497,7 +515,8 @@
             "PUBLISH": "פרסם",
             "DRAFT": "טיוטה",
             "ARCHIVE": "Archive",
-            "DELETE": "מחק"
+            "DELETE": "מחק",
+            "TRANSLATE": "תרגום"
           },
           "STATUS": {
             "DRAFT": "טיוטה",
@@ -551,6 +570,41 @@
           "TITLE": "There are no articles in this category",
           "SUBTITLE": "Articles in this category will appear here"
         }
+      },
+      "BULK_TRANSLATE": {
+        "TITLE": "Translate article | Translate {count} articles",
+        "DESCRIPTION": "Translate the selected article to another language. | Translate the selected articles to another language.",
+        "LOCALE_LABEL": "Target language",
+        "LOCALE_PLACEHOLDER": "Select a language",
+        "CATEGORY_LABEL": "Target category",
+        "CATEGORY_PLACEHOLDER": "Select a category",
+        "OPTIONAL": "(optional)",
+        "CONFIRM": "תרגום",
+        "SELECT_ALL": "בחר הכל ({count})",
+        "SELECTED_COUNT": "{count} נבחרו",
+        "CLEAR_SELECTION": "נקה בחירה",
+        "TRANSLATE_BUTTON": "תרגום",
+        "CONFIRM_OVERWRITE": "Overwrite and translate",
+        "DUPLICATE_WARNING": "A translation already exists for this article in the selected language. | Translations already exist for {count} articles in the selected language.",
+        "DUPLICATE_CONFIRM_HINT": "Click translate again to overwrite the existing translation.",
+        "API": {
+          "SUCCESS_MESSAGE": "Translation in progress. The article will appear as a draft once ready.",
+          "ERROR_MESSAGE": "Failed to start translation. Please try again."
+        }
+      },
+      "BULK_ACTIONS": {
+        "PUBLISH": "פרסם",
+        "DRAFT": "טיוטה",
+        "ARCHIVE": "ארכיון",
+        "TRANSLATE": "תרגום",
+        "DELETE": "מחק",
+        "STATUS_SUCCESS": "Articles updated successfully",
+        "STATUS_ERROR": "Failed to update articles",
+        "DELETE_CONFIRM_TITLE": "Delete article | Delete {count} articles",
+        "DELETE_CONFIRM_DESCRIPTION": "This will permanently delete the selected article. This action cannot be undone. | This will permanently delete {count} selected articles. This action cannot be undone.",
+        "DELETE_CONFIRM": "מחק",
+        "DELETE_SUCCESS": "Articles deleted successfully",
+        "DELETE_ERROR": "Failed to delete articles"
       }
     },
     "CATEGORY_PAGE": {
@@ -630,8 +684,11 @@
         "DEFAULT": "ברירת מחדל",
         "DROPDOWN_MENU": {
           "MAKE_DEFAULT": "Make default",
-          "DELETE": "מחק"
-        }
+          "DELETE": "מחק",
+          "MOVE_TO_DRAFT": "Move to draft",
+          "PUBLISH_LOCALE": "Publish locale"
+        },
+        "DRAFT": "טיוטה"
       },
       "ADD_LOCALE_DIALOG": {
         "TITLE": "הוסף מקום חדש",
@@ -642,6 +699,13 @@
         "API": {
           "SUCCESS_MESSAGE": "האזור נוסף בהצלחה",
           "ERROR_MESSAGE": "לא ניתן להוסיף אזור. נסה שוב."
+        },
+        "STATUS": {
+          "LABEL": "מצב",
+          "OPTIONS": {
+            "LIVE": "יצא לאור",
+            "DRAFT": "טיוטה"
+          }
         }
       }
     },
@@ -735,7 +799,8 @@
         "LIVE_CHAT_WIDGET": {
           "LABEL": "Live chat widget",
           "PLACEHOLDER": "Select live chat widget",
-          "HELP_TEXT": "Select a live chat widget that will appear on your help center"
+          "HELP_TEXT": "Select a live chat widget that will appear on your help center",
+          "NONE_OPTION": "אין ווידג'ט"
         },
         "BRAND_COLOR": {
           "LABEL": "Brand color"
@@ -757,13 +822,28 @@
             "EDIT_CONFIRM_BUTTON_LABEL": "Update domain",
             "LABEL": "תחום מותאם אישית",
             "PLACEHOLDER": "דומיין מותאם אישית של פורטל",
-            "ERROR": "Custom domain is required"
+            "ERROR": "Custom domain is required",
+            "FORMAT_ERROR": "אנא הזן כתובת URL חוקית של דומיין, לדוגמה docs.yourdomain.com"
           },
           "DNS_CONFIGURATION_DIALOG": {
             "HEADER": "DNS configuration",
             "DESCRIPTION": "Log in to the account you have with your DNS provider, and add a CNAME record for subdomain pointing to chatwoot.help",
             "HELP_TEXT": "Once this is done, you can reach out to our support to request for the auto-generated SSL certificate.",
-            "CONFIRM_BUTTON_LABEL": "Got it!"
+            "CONFIRM_BUTTON_LABEL": "Got it!",
+            "COPY": "CNAME הועתק בהצלחה",
+            "SEND_INSTRUCTIONS": {
+              "HEADER": "שלח הוראות",
+              "DESCRIPTION": "אם אתה מעדיף שמישהו מצוות הפיתוח שלך יטפל בשלב זה, תוכל להזין כתובת דוא\"ל למטה, ואנו נשלח להם את ההוראות הנדרשות.",
+              "PLACEHOLDER": "הזן את הדוא\"ל שלהם",
+              "ERROR": "הזן כתובת דוא\"ל חוקית",
+              "SEND_BUTTON": "שלח"
+            }
+          },
+          "STATUS_DESCRIPTION": "הפורטל המותאם אישית שלך יתחיל לעבוד ברגע שהוא יאומת.",
+          "STATUS": {
+            "LIVE": "לחיות",
+            "PENDING": "ממתין לאימות",
+            "ERROR": "האימות נכשל"
           }
         },
         "DELETE_PORTAL": {
@@ -840,6 +920,16 @@
       "FROM_DOCUMENT": "From document",
       "NO_CONTENT": "No generated content available. Upload a PDF document to get started.",
       "LOADING": "Loading generated content..."
+    },
+    "REORDER_ARTICLE": {
+      "API": {
+        "ERROR_MESSAGE": "Unable to reorder articles. Please try again."
+      }
+    },
+    "REORDER_CATEGORY": {
+      "API": {
+        "ERROR_MESSAGE": "Unable to reorder categories. Please try again."
+      }
     }
   }
 }

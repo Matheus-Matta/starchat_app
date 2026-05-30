@@ -116,6 +116,9 @@
         "LABEL": "Izinkan penugasan otomatis untuk tim ini."
       },
       "SUBMIT_CREATE": "Buat tim"
-    }
+    },
+    "COUNT": "{n} team | {n} teams",
+    "SEARCH_PLACEHOLDER": "Mencari tim...",
+    "NO_RESULTS": "No teams found matching your search"
   }
 }

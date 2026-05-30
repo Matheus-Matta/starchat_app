@@ -1,10 +1,10 @@
 {
   "INBOX": {
     "LIST": {
+      "404": "There are no active notifications in this group.",
       "TITLE": "My Inbox",
       "DISPLAY_DROPDOWN": "Display",
       "LOADING": "Fetching notifications",
-      "404": "There are no active notifications in this group.",
       "NO_NOTIFICATIONS": "No notifications",
       "NOTE": "Notifications from all subscribed inboxes",
       "NO_MESSAGES_AVAILABLE": "Oops! Not able to fetch messages",
@@ -72,6 +72,24 @@
       "MARK_ALL_READ": "All notifications marked as read",
       "DELETE_ALL": "All notifications deleted",
       "DELETE_ALL_READ": "All read notifications deleted"
+    },
+    "REAUTHORIZE": {
+      "TITLE": "需要重新授權",
+      "DESCRIPTION": "您的 WhatsApp 連線已過期。請重新連線以繼續接收和發送訊息。",
+      "BUTTON_TEXT": "重新連線 WhatsApp",
+      "LOADING_FACEBOOK": "正在載入 Facebook SDK...",
+      "SUCCESS": "WhatsApp 重新連線成功",
+      "ERROR": "無法重新連線 WhatsApp，請再試一次。",
+      "WHATSAPP_APP_ID_MISSING": "WhatsApp App ID 尚未設定。請聯絡您的管理員。",
+      "WHATSAPP_CONFIG_ID_MISSING": "WhatsApp 設定 ID 尚未設定。請聯絡您的管理員。",
+      "CONFIGURATION_ERROR": "重新授權時發生設定錯誤。",
+      "FACEBOOK_LOAD_ERROR": "無法載入 Facebook SDK，請重試。",
+      "TROUBLESHOOTING": {
+        "TITLE": "疑難排解",
+        "POPUP_BLOCKED": "請確認此網站允許彈出式視窗",
+        "COOKIES": "必須啟用第三方 Cookie",
+        "ADMIN_ACCESS": "您需要 WhatsApp Business 帳戶的管理員權限"
+      }
     }
   }
 }

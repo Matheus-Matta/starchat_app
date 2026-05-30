@@ -58,7 +58,11 @@
       "CONFIRM": "Disattiva 2FA",
       "CANCEL": "Annulla",
       "SUCCESS": "L'autenticazione a due fattori è stata disattivata",
-      "ERROR": "Impossibile disattivare MFA. Verifica le tue credenziali."
+      "ERROR": "Impossibile disattivare MFA. Verifica le tue credenziali.",
+      "BACKUP_CODE": "Codice di Backup",
+      "BACKUP_CODE_PLACEHOLDER": "Inserisci uno dei tuoi codici di backup",
+      "USE_BACKUP_CODE": "Hai perso l'accesso al tuo sistema di autenticazione? Usa un codice di backup",
+      "USE_OTP_CODE": "Usa un codice di verifica dalla tua app di autenticazione"
     },
     "REGENERATE": {
       "TITLE": "Rigenera Codici di Backup",

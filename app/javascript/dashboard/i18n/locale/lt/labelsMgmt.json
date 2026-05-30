@@ -13,7 +13,8 @@
       "TABLE_HEADER": {
         "NAME": "Vardas",
         "DESCRIPTION": "Aprašymas",
-        "COLOR": "Spalva"
+        "COLOR": "Spalva",
+        "ACTION": "Veiksmai"
       }
     },
     "FORM": {
@@ -80,6 +81,9 @@
         "YES": "Taip, Trinti ",
         "NO": "Ne, Išsaugoti "
       }
-    }
+    },
+    "COUNT": "{n} label | {n} labels",
+    "SEARCH_PLACEHOLDER": "Ieškoti etikečių...",
+    "NO_RESULTS": "No labels found matching your search"
   }
 }

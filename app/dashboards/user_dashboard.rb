@@ -28,6 +28,7 @@ class UserDashboard < Administrate::BaseDashboard
     confirmed_at: ConfirmedAtField,
     confirmation_sent_at: Field::DateTime,
     unconfirmed_email: Field::String,
+    mfa: Field::String,
     name: Field::String.with_options(searchable: true),
     display_name: Field::String,
     email: Field::String.with_options(searchable: true),
@@ -67,6 +68,7 @@ class UserDashboard < Administrate::BaseDashboard
     created_at
     updated_at
     confirmed_at
+    mfa
     account_users
     access_token
   ].freeze

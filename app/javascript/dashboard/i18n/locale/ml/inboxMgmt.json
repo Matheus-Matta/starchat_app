@@ -110,6 +110,14 @@
         "SUBMIT_BUTTON": "ഇൻ‌ബോക്സ് സൃഷ്ടിക്കുക",
         "API": {
           "ERROR_MESSAGE": "We were not able to create a website channel, please try again"
+        },
+        "CHANNEL_WEBHOOK_SECRET": {
+          "LABEL": "Webhook Secret",
+          "COPY": "രഹസ്യം ക്ലിപ്പ്ബോർഡിലേക്ക് പകർത്തുക",
+          "COPY_SUCCESS": "രഹസ്യം ക്ലിപ്പ്ബോർഡിലേക്ക് പകർത്തി",
+          "TOGGLE": "രഹസ്യ ദൃശ്യത ടോഗിൾ ചെയ്യുക",
+          "RESET_SUCCESS": "Webhook secret regenerated successfully",
+          "RESET_ERROR": "Unable to regenerate webhook secret. Please try again"
         }
       },
       "TWILIO": {
@@ -291,7 +299,13 @@
           "INVALID_BUSINESS_DATA": "Invalid business data received from Facebook. Please try again.",
           "SIGNUP_ERROR": "Signup error occurred",
           "AUTH_NOT_COMPLETED": "Authentication not completed. Please restart the process.",
-          "SUCCESS_FALLBACK": "WhatsApp Business Account has been successfully configured"
+          "SUCCESS_FALLBACK": "WhatsApp Business Account has been successfully configured",
+          "LEARN_MORE": {
+            "TEXT": "ഇന്റഗ്രേറ്റഡ് സൈൻഅപ്പ്, വിലനിർണ്ണയം, പരിമിതികൾ എന്നിവയെക്കുറിച്ച് കൂടുതൽ അറിയാൻ {link} സന്ദർശിക്കുക.",
+            "LINK_TEXT": "ഈ ലിങ്ക്"
+          },
+          "MANUAL_FALLBACK": "നിങ്ങളുടെ നമ്പർ ഇതിനകം WhatsApp ബിസിനസ് പ്ലാറ്റ്ഫോം (API) യുമായി ബന്ധിപ്പിച്ചിട്ടുണ്ടെങ്കിൽ, അല്ലെങ്കിൽ നിങ്ങൾ ഒരു ടെക് പ്രൊവൈഡറായി നിങ്ങളുടെ സ്വന്തം നമ്പർ ഓൺബോർഡ് ചെയ്യുകയാണെങ്കിൽ, ദയവായി {link} ഫ്ലോ ഉപയോഗിക്കുക",
+          "MANUAL_LINK_TEXT": "മാനുവൽ സെറ്റപ്പ് ഫ്ലോ"
         },
         "API": {
           "ERROR_MESSAGE": "We were not able to save the WhatsApp channel"
@@ -373,7 +387,11 @@
         "API": {
           "ERROR_MESSAGE": "We were not able to save the email channel"
         },
-        "FINISH_MESSAGE": "Start forwarding your emails to the following email address."
+        "FINISH_MESSAGE": "Start forwarding your emails to the following email address.",
+        "FINISH_MESSAGE_NO_FORWARDING": "നിങ്ങളുടെ ഇമെയിൽ ഇൻബോക്സ് വിജയകരമായി സൃഷ്ടിച്ചു! ഇമെയിലുകൾ അയയ്ക്കാനും സ്വീകരിക്കാനും SMTP, IMAP ക്രെഡൻഷ്യലുകൾ ക്രമീകരിക്കേണ്ടതാണ്. ഈ ക്രമീകരണങ്ങൾ ഇല്ലാതെ, ഇമെയിലുകൾ പ്രോസസ്സ് ചെയ്യപ്പെടുകയില്ല.",
+        "FORWARDING_ADDRESS_LABEL": "ഇമെയിലുകൾ ഈ വിലാസത്തിലേക്ക് ഫോർവേഡ് ചെയ്യുക:",
+        "CONFIGURE_SMTP_IMAP_LINK": "ഇവിടെ ക്ലിക്കു ചെയ്യുക",
+        "CONFIGURE_SMTP_IMAP_TEXT": " to configure IMAP and SMTP settings"
       },
       "LINE_CHANNEL": {
         "TITLE": "LINE Channel",
@@ -462,6 +480,10 @@
           "VOICE": {
             "TITLE": "Voice",
             "DESCRIPTION": "Integrate with Twilio Voice"
+          },
+          "TIKTOK": {
+            "TITLE": "TikTok",
+            "DESCRIPTION": "നിങ്ങളുടെ TikTok അക്കൗണ്ട് കണക്ട് ചെയ്യുക"
           }
         }
       },
@@ -496,6 +518,13 @@
         "SIGN_IN": "Sign in with Google",
         "EMAIL_PLACEHOLDER": "Enter email address",
         "ERROR_MESSAGE": "There was an error connecting to Google, please try again"
+      },
+      "TIKTOK": {
+        "CONTINUE_WITH_TIKTOK": "TikTok ഉപയോഗിച്ച് തുടരുക",
+        "CONNECT_YOUR_TIKTOK_PROFILE": "നിങ്ങളുടെ TikTok പ്രൊഫൈൽ ബന്ധിപ്പിക്കുക",
+        "HELP": "'TikTok ഉപയോഗിച്ച് തുടരുക' ക്ലിക്കുചെയ്ത് നിങ്ങളുടെ TikTok പ്രൊഫൈൽ പ്രാമാണീകരിച്ച് നിങ്ങളുടെ TikTok പ്രൊഫൈൽ ഒരു ചാനലായി ചേർക്കണം ",
+        "ERROR_MESSAGE": "TikTok-ലേക്ക് കണക്ട് ചെയ്യുമ്പോൾ പിശക് സംഭവിച്ചു, ദയവായി വീണ്ടും ശ്രമിക്കുക",
+        "ERROR_AUTH": "TikTok-ലേക്ക് കണക്ട് ചെയ്യുമ്പോൾ പിശക് സംഭവിച്ചു, ദയവായി വീണ്ടും ശ്രമിക്കുക"
       }
     },
     "DETAILS": {
@@ -567,7 +596,9 @@
       },
       "LOCK_TO_SINGLE_CONVERSATION": {
         "ENABLED": "പ്രവർത്തനക്ഷമമാക്കി",
-        "DISABLED": "പ്രവർത്തനരഹിതമാക്കി"
+        "DISABLED": "പ്രവർത്തനരഹിതമാക്കി",
+        "ENABLED_DESCRIPTION": "ഒരു കോൺടാക്ട് വീണ്ടും സന്ദേശം അയച്ചാൽ, മുൻപ് ഉണ്ടായിരുന്ന സംഭാഷണം വീണ്ടും തുറക്കും.",
+        "DISABLED_DESCRIPTION": "മുൻപ് പരിഹരിച്ച ശേഷം ഓരോ തവണയും പുതിയൊരു സംഭാഷണം സൃഷ്ടിക്കും."
       },
       "ENABLE_HMAC": {
         "LABEL": "Enable"
@@ -599,7 +630,9 @@
       "BUSINESS_HOURS": "Business Hours",
       "WIDGET_BUILDER": "Widget Builder",
       "BOT_CONFIGURATION": "Bot Configuration",
-      "CSAT": "CSAT"
+      "CSAT": "CSAT",
+      "ACCOUNT_HEALTH": "അക്കൗണ്ട് ആരോഗ്യ നില",
+      "VOICE": "വോയ്സ്"
     },
     "SETTINGS": "ക്രമീകരണങ്ങൾ",
     "FEATURES": {
@@ -652,14 +685,49 @@
       "WHATSAPP_TEMPLATES_SYNC_SUBHEADER": "Manually sync message templates from WhatsApp to update your available templates.",
       "WHATSAPP_TEMPLATES_SYNC_BUTTON": "Sync Templates",
       "WHATSAPP_TEMPLATES_SYNC_SUCCESS": "Templates sync initiated successfully. It may take a couple of minutes to update.",
-      "UPDATE_PRE_CHAT_FORM_SETTINGS": "Update Pre Chat Form Settings"
+      "UPDATE_PRE_CHAT_FORM_SETTINGS": "Update Pre Chat Form Settings",
+      "ALLOWED_DOMAINS": {
+        "TITLE": "അനുമതിയുള്ള ഡൊമെയ്‌നുകൾ",
+        "DESCRIPTION": "Restrict which websites can embed your chat widget. For security, only add domains you own and trust. Add one or more domains separated by commas. Leave blank to allow all domains (not recommended for production).",
+        "PLACEHOLDER": "example.com, www.example.com, app.example.com"
+      },
+      "ALLOW_MOBILE_WEBVIEW": {
+        "LABEL": "Enable widget in mobile apps",
+        "SUBTITLE": "Check this if you embed the widget in iOS or Android apps. Mobile apps don't send domain information, so they would be blocked by domain restrictions unless this is enabled."
+      },
+      "IDENTITY_VALIDATION": {
+        "TITLE": "Identity Validation",
+        "DESCRIPTION": "Verify user authenticity by generating secure tokens. This prevents unauthorized users from impersonating others in your chat.",
+        "SECRET_KEY": "രഹസ്യ കീ",
+        "VIEW_DOCS": "View documentation",
+        "REQUIRE_LABEL": "Require identity validation for all conversations",
+        "REQUIRE_DESCRIPTION": "When enabled, users must provide a valid identity token to start conversations. Requests without valid tokens will be rejected."
+      },
+      "ENABLE_CONTINUITY_VIA_EMAIL_DISABLED_TEXT": "This feature is available on a paid plan. Upgrade to enable conversation continuity via email.",
+      "FORWARD_EMAIL_NOT_CONFIGURED": "ഈ ഇൻസ്റ്റാളേഷനിൽ നിങ്ങളുടെ ഇൻബോക്സിലേക്ക് ഇമെയിൽ ഫോർവേഡിംഗ് നിലവിൽ അപ്രാപ്തമാണ്. ഈ സവിശേഷത ഉപയോഗിക്കാൻ, നിങ്ങളുടെ അഡ്മിനിസ്ട്രേറ്റർ ഇത് സജീവമാക്കണം. തുടരാൻ അവരുമായി ബന്ധപ്പെടുക.",
+      "WHATSAPP_EMBEDDED_SIGNUP_TITLE": "WhatsApp എംബെഡഡ് സൈൻഅപ്പ്",
+      "WHATSAPP_EMBEDDED_SIGNUP_SUBHEADER": "ഈ ഇൻബോക്സ് WhatsApp എംബെഡഡ് സൈൻഅപ്പ് വഴി ബന്ധിപ്പിച്ചിരിക്കുന്നു.",
+      "WHATSAPP_EMBEDDED_SIGNUP_DESCRIPTION": "നിങ്ങളുടെ WhatsApp ബിസിനസ് ക്രമീകരണങ്ങൾ അപ്ഡേറ്റ് ചെയ്യാൻ ഈ ഇൻബോക്സ് പുനഃക്രമീകരിക്കാം.",
+      "WHATSAPP_RECONFIGURE_BUTTON": "പുനഃക്രമീകരിക്കുക",
+      "WHATSAPP_CONNECT_TITLE": "WhatsApp ബിസിനസുമായി ബന്ധിപ്പിക്കുക",
+      "WHATSAPP_CONNECT_SUBHEADER": "സൗകര്യപ്രദമായ മാനേജ്മെന്റിനായി WhatsApp എംബെഡഡ് സൈൻഅപ്പിലേക്ക് അപ്ഗ്രേഡ് ചെയ്യുക.",
+      "WHATSAPP_CONNECT_DESCRIPTION": "ഈ ഇൻബോക്സ് WhatsApp ബിസിനസുമായി ബന്ധിപ്പിച്ച് മെച്ചപ്പെട്ട ഫീച്ചറുകളും എളുപ്പമുള്ള മാനേജ്മെന്റും നേടുക.",
+      "WHATSAPP_CONNECT_BUTTON": "ബന്ധിപ്പിക്കുക",
+      "WHATSAPP_CONNECT_SUCCESS": "WhatsApp ബിസിനസുമായി വിജയകരമായി ബന്ധിപ്പിച്ചു!",
+      "WHATSAPP_CONNECT_ERROR": "WhatsApp ബിസിനസുമായി ബന്ധിപ്പിക്കാൻ പരാജയപ്പെട്ടു. ദയവായി വീണ്ടും ശ്രമിക്കുക.",
+      "WHATSAPP_RECONFIGURE_SUCCESS": "WhatsApp ബിസിനസ് വിജയകരമായി പുനഃക്രമീകരിച്ചു!",
+      "WHATSAPP_RECONFIGURE_ERROR": "WhatsApp ബിസിനസ് പുനഃക്രമീകരിക്കാൻ പരാജയപ്പെട്ടു. ദയവായി വീണ്ടും ശ്രമിക്കുക.",
+      "WHATSAPP_APP_ID_MISSING": "WhatsApp ആപ്പ് ഐഡി ക്രമീകരിച്ചിട്ടില്ല. ദയവായി നിങ്ങളുടെ അഡ്മിനിസ്ട്രേറ്ററെ ബന്ധപ്പെടുക.",
+      "WHATSAPP_CONFIG_ID_MISSING": "WhatsApp കോൺഫിഗറേഷൻ ഐഡി ക്രമീകരിച്ചിട്ടില്ല. ദയവായി നിങ്ങളുടെ അഡ്മിനിസ്ട്രേറ്ററെ ബന്ധപ്പെടുക.",
+      "WHATSAPP_LOGIN_CANCELLED": "WhatsApp ലോഗിൻ റദ്ദാക്കി. ദയവായി വീണ്ടും ശ്രമിക്കുക."
     },
     "HELP_CENTER": {
       "LABEL": "Help Center",
       "PLACEHOLDER": "Select Help Center",
       "SELECT_PLACEHOLDER": "Select Help Center",
       "REMOVE": "Remove Help Center",
-      "SUB_TEXT": "Attach a Help Center with the inbox"
+      "SUB_TEXT": "Attach a Help Center with the inbox",
+      "NONE": "ഒന്നുമില്ല"
     },
     "AUTO_ASSIGNMENT": {
       "MAX_ASSIGNMENT_LIMIT": "Auto assignment limit",
@@ -722,7 +790,51 @@
       "API": {
         "SUCCESS_MESSAGE": "CSAT settings updated successfully",
         "ERROR_MESSAGE": "We couldn't update CSAT settings. Please try again later."
-      }
+      },
+      "BUTTON_TEXT": {
+        "LABEL": "ബട്ടൺ ടെക്സ്റ്റ്",
+        "PLACEHOLDER": "ദയവായി ഞങ്ങളെ റേറ്റ് ചെയ്യുക"
+      },
+      "LANGUAGE": {
+        "LABEL": "ഭാഷ",
+        "PLACEHOLDER": "ടെംപ്ലേറ്റ് ഭാഷ തിരഞ്ഞെടുക്കുക"
+      },
+      "MESSAGE_PREVIEW": {
+        "LABEL": "സന്ദേശം മുൻകാഴ്ച",
+        "TOOLTIP": "WhatsApp പ്ലാറ്റ്ഫോമിൽ പ്രദർശിപ്പിക്കുമ്പോൾ ഇത് ചെറിയ വ്യത്യാസം ഉണ്ടാകാം."
+      },
+      "TEMPLATE_STATUS": {
+        "APPROVED": "WhatsApp അംഗീകൃതം",
+        "PENDING": "WhatsApp അംഗീകാരം കാത്തിരിക്കുന്നു",
+        "REJECTED": "ടെംപ്ലേറ്റ് Meta നിരസിച്ചു",
+        "DEFAULT": "WhatsApp അംഗീകാരം ആവശ്യമാണ്",
+        "NOT_FOUND": "ടെംപ്ലേറ്റ് മെറ്റാ പ്ലാറ്റ്ഫോമിൽ നിലവിലില്ല."
+      },
+      "TEMPLATE_CREATION": {
+        "SUCCESS_MESSAGE": "WhatsApp ടെംപ്ലേറ്റ് വിജയകരമായി സൃഷ്ടിക്കുകയും അംഗീകാരത്തിനായി അയയ്ക്കുകയും ചെയ്തു",
+        "ERROR_MESSAGE": "WhatsApp ടെംപ്ലേറ്റ് സൃഷ്ടിക്കാൻ പരാജയപ്പെട്ടു"
+      },
+      "TEMPLATE_UPDATE_DIALOG": {
+        "TITLE": "സർവേ വിശദാംശങ്ങൾ തിരുത്തുക",
+        "DESCRIPTION": "മുൻ ടെംപ്ലേറ്റ് നീക്കം ചെയ്ത് പുതിയത് സൃഷ്ടിക്കും, അത് വീണ്ടും WhatsApp അംഗീകാരത്തിനായി അയയ്ക്കും",
+        "CONFIRM": "പുതിയ ടെംപ്ലേറ്റ് സൃഷ്ടിക്കുക",
+        "CANCEL": "വീണ്ടും മടങ്ങുക"
+      },
+      "UTILITY_ANALYZER": {
+        "ACTION": "ഉപയോഗയോഗ്യത പരിശോധിക്കുക",
+        "HELPER_NOTE": "സബ്മിഷൻ ചെയ്യുന്നതിന് മുമ്പ് ഈ സന്ദേശം പരിശോധിച്ച് Utility യുടെ അനുയോജ്യത മെച്ചപ്പെടുത്തുക. സിസ്റ്റം റിപ്പോർട്ടിംഗിനുള്ള ബട്ടണുകളോടുകൂടിയ ഒരു പ്രത്യേക CSAT ടെംപ്ലേറ്റ് സൃഷ്ടിച്ച് അത് Utility ആയി സമർപ്പിക്കും; ഉള്ളടക്കത്തിന്റെ അടിസ്ഥാനത്തിൽ Meta അത് Marketing ആയി പുന: വർഗ്ഗീകരിക്കാം.",
+        "RESULT_LABEL": "മെറ്റാ വിഭാഗ പ്രവചനം",
+        "GUIDANCE_NOTE": "ഇത് ഒരു മാർഗ്ഗനിർദ്ദേശ പരിശോധനയാണ്, മെറ്റാ അംഗീകാരം ഉറപ്പാക്കുന്നില്ല.",
+        "SUGGESTION_LABEL": "സൂചിപ്പിച്ച ഉപയോഗയോഗ്യ സുരക്ഷിത പുനഃരചനം",
+        "APPLY": "ഈ പുനഃരചനം ഉപയോഗിക്കുക",
+        "ERROR_MESSAGE": "സന്ദേശം വിശകലനം ചെയ്യാൻ കഴിഞ്ഞില്ല. ദയവായി വീണ്ടും ശ്രമിക്കുക.",
+        "CLASSIFICATION": {
+          "LIKELY_UTILITY": "സാധ്യതയുള്ള ഉപകാരപ്രദം",
+          "LIKELY_MARKETING": "സാധ്യതയുള്ള മാർക്കറ്റിംഗ്",
+          "UNCLEAR": "വിവരണം ആവശ്യമാണ്"
+        }
+      },
+      "WHATSAPP_NOTE": "കുറിപ്പ്: നിങ്ങൾ സംരക്ഷിക്കുമ്പോൾ, സിസ്റ്റം WhatsApp-ൽ ഒരു സമർപ്പിത CSAT ടെംപ്ലേറ്റ് സൃഷ്ടിക്കുന്നു (റിപ്പോർട്ടുകളിൽ റേറ്റിംഗ്, ഫീഡ്ബാക്ക് പിടിക്കാൻ ഉപയോഗിക്കുന്നു) Utility ആയി അംഗീകാരത്തിന് സമർപ്പിക്കുന്നു. ഉള്ളടക്കത്തിന്റെ അടിസ്ഥാനത്തിൽ Meta ഇതിനെ Marketing ആയി വർഗ്ഗീകരിക്കാം. അംഗീകാരം കഴിഞ്ഞാൽ, സർവേ നിയമപ്രകാരം ഓരോ സംഭാഷണത്തിനും ഒരിക്കൽ മാത്രം സർവേകൾ അയയ്ക്കപ്പെടും."
     },
     "BUSINESS_HOURS": {
       "TITLE": "Set your availability",
@@ -738,7 +850,9 @@
         "UNAVAILABLE": "Unavailable",
         "HOURS": "hours",
         "VALIDATION_ERROR": "Starting time should be before closing time.",
-        "CHOOSE": "Choose"
+        "CHOOSE": "Choose",
+        "DAY": "ദിവസം",
+        "AVAILABILITY": "ലഭ്യത"
       },
       "ALL_DAY": "All-Day"
     },
@@ -769,7 +883,8 @@
         "LABEL": "പാസ്‌വേഡ്",
         "PLACE_HOLDER": "പാസ്‌വേഡ്"
       },
-      "ENABLE_SSL": "Enable SSL"
+      "ENABLE_SSL": "Enable SSL",
+      "AUTH_MECHANISM": "പ്രാമാണീകരണം"
     },
     "MICROSOFT": {
       "TITLE": "Microsoft",
@@ -868,7 +983,8 @@
         "WIDGET_BUBBLE_TYPE": {
           "STANDARD": "Standard",
           "EXPANDED_BUBBLE": "Expanded Bubble"
-        }
+        },
+        "WIDGET_BUBBLE": "ബബിൾ"
       },
       "WIDGET_SCREEN": {
         "DEFAULT": "Default",
@@ -920,7 +1036,136 @@
       "LINE": "Line",
       "API": "API Channel",
       "INSTAGRAM": "Instagram",
-      "VOICE": "Voice"
+      "VOICE": "Voice",
+      "TIKTOK": "TikTok"
+    },
+    "COUNT": "{n} ഇൻബോക്സ് | {n} ഇൻബോക്സുകൾ",
+    "SEARCH_PLACEHOLDER": "ഇൻബോക്സുകൾ തിരയുക...",
+    "NO_RESULTS": "നിങ്ങളുടെ തിരച്ചിലുമായി പൊരുത്തപ്പെടുന്ന ഇൻബോക്സുകൾ കണ്ടെത്തിയില്ല",
+    "WHATSAPP_REGISTRATION_INCOMPLETE": "നിങ്ങളുടെ WhatsApp ബിസിനസ് രജിസ്ട്രേഷൻ പൂർത്തിയാകാത്തതാണ്. വീണ്ടും ബന്ധിപ്പിക്കുന്നതിന് മുമ്പ് Meta Business Manager-ൽ നിങ്ങളുടെ പ്രദർശന നാമത്തിന്റെ നില പരിശോധിക്കുക.",
+    "COMPLETE_REGISTRATION": "രജിസ്ട്രേഷൻ പൂർത്തിയാക്കുക",
+    "VOICE_CONFIGURATION": {
+      "ENABLE_VOICE": {
+        "LABEL": "Enable Voice Calling",
+        "DESCRIPTION": "Enable voice calling on this inbox. Agents will be able to make and receive phone calls."
+      },
+      "CREDENTIALS": {
+        "DESCRIPTION": "Voice calling requires Twilio API Key credentials. These are used to generate tokens for agent voice connections."
+      }
+    },
+    "CHANNEL_PREFERENCES": "ചാനൽ മുൻഗണനകൾ",
+    "WIDGET_FEATURES": "വിഡ്ജറ്റ് സവിശേഷതകൾ",
+    "ACCOUNT_HEALTH": {
+      "TITLE": "നിങ്ങളുടെ WhatsApp അക്കൗണ്ട് നിയന്ത്രിക്കുക",
+      "DESCRIPTION": "നിങ്ങളുടെ WhatsApp അക്കൗണ്ട് നില, സന്ദേശ പരിധികൾ, ഗുണനിലവാരം പരിശോധിക്കുക. ആവശ്യമായെങ്കിൽ ക്രമീകരണങ്ങൾ പുതുക്കുക അല്ലെങ്കിൽ പ്രശ്നങ്ങൾ പരിഹരിക്കുക",
+      "GO_TO_SETTINGS": "Meta Business Manager-ലേക്ക് പോകുക",
+      "NO_DATA": "ആരോഗ്യ ഡാറ്റ ലഭ്യമല്ല",
+      "FIELDS": {
+        "DISPLAY_PHONE_NUMBER": {
+          "LABEL": "ഫോൺ നമ്പർ പ്രദർശിപ്പിക്കുക",
+          "TOOLTIP": "ഉപഭോക്താക്കൾക്ക് കാണിക്കുന്ന ഫോൺ നമ്പർ"
+        },
+        "VERIFIED_NAME": {
+          "LABEL": "ബിസിനസ് പേര്",
+          "TOOLTIP": "WhatsApp വഴി സ്ഥിരീകരിച്ച ബിസിനസ് പേര്"
+        },
+        "DISPLAY_NAME_STATUS": {
+          "LABEL": "പ്രദർശന നാമത്തിന്റെ നില",
+          "TOOLTIP": "നിങ്ങളുടെ ബിസിനസ് നാമം സ്ഥിരീകരണത്തിന്റെ നില"
+        },
+        "QUALITY_RATING": {
+          "LABEL": "ഗുണമേന്മാ റേറ്റിംഗ്",
+          "TOOLTIP": "നിങ്ങളുടെ അക്കൗണ്ടിന്റെ WhatsApp ഗുണമേന്മാ റേറ്റിംഗ്"
+        },
+        "MESSAGING_LIMIT_TIER": {
+          "LABEL": "സന്ദേശം പരിധി നില",
+          "TOOLTIP": "നിങ്ങളുടെ അക്കൗണ്ടിനുള്ള പ്രതിദിന സന്ദേശ പരിധി"
+        },
+        "ACCOUNT_MODE": {
+          "LABEL": "അക്കൗണ്ട് മോഡ്",
+          "TOOLTIP": "നിങ്ങളുടെ WhatsApp അക്കൗണ്ടിന്റെ നിലവിലെ പ്രവർത്തന മോഡ്"
+        }
+      },
+      "VALUES": {
+        "TIERS": {
+          "TIER_250": "250 customers per 24h",
+          "TIER_1000": "1K customers per 24h",
+          "TIER_1K": "1K customers per 24h",
+          "TIER_10K": "10K customers per 24h",
+          "TIER_100K": "100K customers per 24h",
+          "TIER_UNLIMITED": "Unlimited customers per 24h",
+          "UNKNOWN": "റേറ്റിംഗ് ലഭ്യമല്ല"
+        },
+        "STATUSES": {
+          "APPROVED": "അംഗീകൃതം",
+          "PENDING_REVIEW": "പരിശോധനയ്ക്ക് കാത്തിരിക്കുന്നു",
+          "AVAILABLE_WITHOUT_REVIEW": "പരിശോധന കൂടാതെ ലഭ്യമാണ്",
+          "REJECTED": "നിഷേധിച്ചു",
+          "DECLINED": "തള്ളിവെച്ചു",
+          "NON_EXISTS": "അസ്തിത്വമില്ല"
+        },
+        "MODES": {
+          "SANDBOX": "സാൻഡ്‌ബോക്സ്",
+          "LIVE": "ലൈവ്"
+        }
+      },
+      "WEBHOOK": {
+        "TITLE": "Webhook ക്രമീകരണം",
+        "DESCRIPTION": "ഉപഭോക്താക്കളിൽ നിന്ന് സന്ദേശങ്ങൾ സ്വീകരിക്കാൻ നിങ്ങളുടെ WhatsApp ബിസിനസ് അക്കൗണ്ടിന് Webhook URL ആവശ്യമാണ്",
+        "ACTION_REQUIRED": "Webhook ക്രമീകരിച്ചിട്ടില്ല",
+        "REGISTER_BUTTON": "Webhook രജിസ്റ്റർ ചെയ്യുക",
+        "REGISTER_SUCCESS": "Webhook വിജയകരമായി രജിസ്റ്റർ ചെയ്തു",
+        "REGISTER_ERROR": "Webhook രജിസ്റ്റർ ചെയ്യാൻ പരാജയപ്പെട്ടു. ദയവായി വീണ്ടും ശ്രമിക്കുക.",
+        "CONFIGURED_SUCCESS": "Webhook വിജയകരമായി ക്രമീകരിച്ചു",
+        "URL_MISMATCH": "Webhook URL പൊരുത്തക്കേട്"
+      }
+    },
+    "ASSIGNMENT": {
+      "TITLE": "സംവാദ നിയോഗം",
+      "DESCRIPTION": "നിയോഗ നയങ്ങളുടെ അടിസ്ഥാനത്തിൽ ലഭ്യമായ ഏജന്റുകൾക്ക് സ്വയം വരവു വരുന്ന സംവാദങ്ങൾ നിയോഗിക്കുക",
+      "ENABLE_AUTO_ASSIGNMENT": "സ്വയംസംവാദ നിയോഗം സജീവമാക്കുക",
+      "DEFAULT_RULES_TITLE": "ഡിഫോൾട്ട് അസൈൻമെന്റ് നിയമങ്ങൾ",
+      "DEFAULT_RULES_DESCRIPTION": "എല്ലാ സംഭാഷണങ്ങൾക്കും ഡിഫോൾട്ട് അസൈൻമെന്റ് പെരുമാറ്റം ഉപയോഗിക്കുന്നു",
+      "DEFAULT_RULE_1": "ആദ്യമേ സൃഷ്ടിച്ച സംഭാഷണങ്ങൾ ആദ്യം",
+      "DEFAULT_RULE_2": "റൗണ്ട് റോബിൻ വിതരണം",
+      "CUSTOMIZE_WITH_POLICY": "അസൈൻമെന്റ് നയം ഉപയോഗിച്ച് ഇഷ്ടാനുസൃതമാക്കുക",
+      "USING_POLICY": "ഈ ഇൻബോക്സിനായി ഇഷ്ടാനുസൃത നിയോഗ നയം ഉപയോഗിക്കുന്നു",
+      "CUSTOMIZE_POLICY": "നിയോഗ നയത്തോടെ ഇഷ്ടാനുസൃതമാക്കുക",
+      "DELETE_POLICY": "നയം ഇല്ലാതാക്കുക",
+      "POLICY_LABEL": "നിയോഗ നയം",
+      "ASSIGNMENT_ORDER_LABEL": "നിയോഗ ക്രമം",
+      "ASSIGNMENT_METHOD_LABEL": "നിയുക്തി രീതി",
+      "POLICY_STATUS": {
+        "ACTIVE": "സജീവമാണ്",
+        "INACTIVE": "സജീവമല്ല"
+      },
+      "PRIORITY": {
+        "EARLIEST_CREATED": "ഏറ്റവും പഴക്കം ചെന്നത്",
+        "LONGEST_WAITING": "ഏറ്റവും കൂടുതൽ കാത്തിരിപ്പ്"
+      },
+      "METHOD": {
+        "ROUND_ROBIN": "റൗണ്ട് റോബിൻ",
+        "BALANCED": "സമതുലിതമായ നിയോഗം"
+      },
+      "UPGRADE_PROMPT": "കസ്റ്റം നിയോഗ നയങ്ങൾ ബിസിനസ് പ്ലാനിൽ ലഭ്യമാണ്",
+      "UPGRADE_TO_BUSINESS": "ബിസിനസിലേക്ക് അപ്ഗ്രേഡ് ചെയ്യുക",
+      "DEFAULT_POLICY_LINKED": "ഡിഫോൾട്ട് നയം ബന്ധിപ്പിച്ചു",
+      "DEFAULT_POLICY_DESCRIPTION": "ഈ ഇൻബോക്സിലെ ഏജന്റുകൾക്ക് സംഭാഷണങ്ങൾ എങ്ങനെ നിയോഗിക്കപ്പെടുമെന്ന് ഇഷ്ടാനുസൃതമാക്കാൻ ഒരു കസ്റ്റം നിയോഗ നയം ബന്ധിപ്പിക്കുക.",
+      "LINK_EXISTING_POLICY": "ഇതുവരെ ഉള്ള നയം ബന്ധിപ്പിക്കുക",
+      "CREATE_NEW_POLICY": "പുതിയ നയം സൃഷ്ടിക്കുക",
+      "NO_POLICIES": "നിർദ്ദേശ നയങ്ങൾ കണ്ടെത്തിയില്ല",
+      "VIEW_ALL_POLICIES": "എല്ലാ നയങ്ങളും കാണുക",
+      "CURRENT_BEHAVIOR": "ഇപ്പോൾ ഡിഫോൾട്ട് നിർദ്ദേശ പെരുമാറ്റം ഉപയോഗിക്കുന്നു:",
+      "LINK_SUCCESS": "അസൈൻമെന്റ് നയം വിജയകരമായി ബന്ധിപ്പിച്ചു",
+      "LINK_ERROR": "അസൈൻമെന്റ് നയം ബന്ധിപ്പിക്കാൻ പരാജയപ്പെട്ടു"
+    },
+    "ASSIGNMENT_POLICY": {
+      "DELETE_CONFIRM_TITLE": "അസൈൻമെന്റ് നയം ഇല്ലാതാക്കണോ?",
+      "DELETE_CONFIRM_MESSAGE": "ഈ ഇൻബോക്സിൽ നിന്നുള്ള അസൈൻമെന്റ് നയം നീക്കംചെയ്യാൻ നിങ്ങൾക്ക് ഉറപ്പുണ്ടോ? ഇൻബോക്സ് ഡിഫോൾട്ട് അസൈൻമെന്റ് നിയമങ്ങളിലേക്ക് മടങ്ങും.",
+      "CANCEL": "റദ്ദാക്കുക",
+      "CONFIRM_DELETE": "ഇല്ലാതാക്കുക",
+      "DELETE_SUCCESS": "അസൈൻമെന്റ് നയം വിജയകരമായി നീക്കംചെയ്തു",
+      "DELETE_ERROR": "അസൈൻമെന്റ് നയം നീക്കം ചെയ്യാൻ പരാജയപ്പെട്ടു"
     }
   }
 }

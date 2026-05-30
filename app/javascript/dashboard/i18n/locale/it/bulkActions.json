@@ -35,7 +35,18 @@
       "NO_TEAMS_AVAILABLE": "There are no teams added to this account yet.",
       "ASSIGN_SELECTED_TEAMS": "Assign selected team.",
       "ASSIGN_SUCCESFUL": "Teams assigned successfully.",
-      "ASSIGN_FAILED": "Failed to assign team. Please try again."
+      "ASSIGN_FAILED": "Failed to assign team. Please try again.",
+      "ASSIGN_TEAM_CONFIRMATION_LABEL": "Sei sicuro di voler assegnare {n} conversazione a {teamName}? | Sei sicuro di voler assegnare {n} conversazioni a {teamName}?",
+      "UNASSIGN_TEAM_CONFIRMATION_LABEL": "Sei sicuro di voler disassegnare {n} conversazione? | Sei sicuro di voler disassegnare {n} conversazioni?"
+    },
+    "NONE": "Nessuno",
+    "CLEAR_SELECTION": "Rimuovi",
+    "ASSIGN_AGENT_CONFIRMATION_LABEL": "Sei sicuro di voler assegnare {n} conversazione a {agentName}? | Sei sicuro di voler assegnare {n} conversazioni a {agentName}?",
+    "UNASSIGN_AGENT_CONFIRMATION_LABEL": "Sei sicuro di voler disassegnare {n} conversazione? | Sei sicuro di voler disassegnare {n} conversazioni?",
+    "CANCEL": "Annulla",
+    "RESOLVE": {
+      "ALL_MISSING_ATTRIBUTES": "Impossibile risolvere le conversazioni a causa di attributi richiesti mancanti",
+      "PARTIAL_SUCCESS": "Alcune conversazioni necessitano di attributi richiesti per essere risolte, perciò sono state saltate"
     }
   }
 }

@@ -41,19 +41,11 @@ export const FEATURE_FLAGS = {
   QUOTED_EMAIL_REPLY: 'quoted_email_reply',
   WHATSAPP_EMBEDDED_SIGNUP: 'whatsapp_embedded_signup',
   COSMOS_V2: 'cosmos_integration_v2',
+  COSMOS_CUSTOM_TOOLS: 'cosmos_custom_tools',
   COMPANIES: 'companies',
   ADVANCED_SEARCH: 'advanced_search',
   CONVERSATION_REQUIRED_ATTRIBUTES: 'conversation_required_attributes',
 };
 
-export const PREMIUM_FEATURES = [
-  FEATURE_FLAGS.SLA,
-  FEATURE_FLAGS.COSMOS,
-  FEATURE_FLAGS.CUSTOM_ROLES,
-  FEATURE_FLAGS.AUDIT_LOGS,
-  FEATURE_FLAGS.HELP_CENTER,
-  FEATURE_FLAGS.COSMOS_V2,
-  FEATURE_FLAGS.SAML,
-  FEATURE_FLAGS.CONVERSATION_REQUIRED_ATTRIBUTES,
-  FEATURE_FLAGS.ADVANCED_ASSIGNMENT,
-];
+// All features are unlocked in Starchat — no paywall enforced.
+export const PREMIUM_FEATURES = [];

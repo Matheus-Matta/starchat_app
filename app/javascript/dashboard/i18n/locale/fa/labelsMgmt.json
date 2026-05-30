@@ -13,7 +13,8 @@
       "TABLE_HEADER": {
         "NAME": "نام",
         "DESCRIPTION": "توضیحات",
-        "COLOR": "رنگ"
+        "COLOR": "رنگ",
+        "ACTION": "عملیات"
       }
     },
     "FORM": {
@@ -80,6 +81,9 @@
         "YES": "بله، حذف شود ",
         "NO": "نه، بماند "
       }
-    }
+    },
+    "COUNT": "{n} label | {n} labels",
+    "SEARCH_PLACEHOLDER": "جستجو برچسب‌ها...",
+    "NO_RESULTS": "No labels found matching your search"
   }
 }

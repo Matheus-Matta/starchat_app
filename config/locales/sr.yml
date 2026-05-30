@@ -703,9 +703,9 @@ sr-Latn:
     copilot_message_required: Poruka je obavezna
     copilot_error: 'Please connect an assistant to this inbox to use Copilot'
     copilot_limit: 'You are out of Copilot credits. You can buy more credits from the billing section.'
-    upgrade: 'Nadogradite svoj plan da biste omogućili Captain AI'
-    disabled: 'Captain AI je onemogućen za ovaj nalog.'
-    api_key_missing: 'API ključ za Captain AI nije konfigurisan.'
+    upgrade: 'Nadogradite svoj plan da biste omogućili Cosmos AI'
+    disabled: 'Cosmos AI je onemogućen za ovaj nalog.'
+    api_key_missing: 'API ključ za Cosmos AI nije konfigurisan.'
     copilot:
       using_tool: 'Koristi alat %{function_name}'
       completed_tool_call: 'Završeno pozivanje alata %{function_name}'

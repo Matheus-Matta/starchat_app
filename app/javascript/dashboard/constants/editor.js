@@ -168,6 +168,29 @@ export const FORMATTING = {
   },
 };
 
+// Editor menu options for Widget Builder Editor
+export const WIDGET_BUILDER_EDITOR_MENU_OPTIONS = [
+  'strong',
+  'em',
+  'strike',
+  'link',
+  'bulletList',
+  'orderedList',
+];
+
+// Editor menu options for Message Editor
+export const MESSAGE_EDITOR_MENU_OPTIONS = [
+  'strong',
+  'em',
+  'strike',
+  'link',
+  'undo',
+  'redo',
+  'bulletList',
+  'orderedList',
+  'code',
+];
+
 // Editor menu options for Full Editor
 export const ARTICLE_EDITOR_MENU_OPTIONS = [
   'strong',

@@ -15,7 +15,7 @@ const store = useStore();
 const { isFeatureFlagEnabled, shouldShowPaywall } = usePolicy();
 
 const SOFT_LIMIT = 10;
-const isV2 = computed(() => isFeatureFlagEnabled(FEATURE_FLAGS.CAPTAIN_V2));
+const isV2 = computed(() => isFeatureFlagEnabled(FEATURE_FLAGS.COSMOS_V2));
 
 const uiFlags = useMapGetter('cosmosCustomTools/getUIFlags');
 const customTools = useMapGetter('cosmosCustomTools/getRecords');
@@ -81,7 +81,7 @@ const onDeleteSuccess = () => {
 };
 
 onMounted(() => {
-  if (!shouldShowPaywall(FEATURE_FLAGS.CAPTAIN_CUSTOM_TOOLS)) {
+  if (!shouldShowPaywall(FEATURE_FLAGS.COSMOS_CUSTOM_TOOLS)) {
     fetchCustomTools();
   }
 });
@@ -92,13 +92,12 @@ onMounted(() => {
     :header-title="$t('Cosmos.CUSTOM_TOOLS.HEADER')"
     :button-label="$t('Cosmos.CUSTOM_TOOLS.ADD_NEW')"
     :button-policy="['administrator']"
-    :feature-flag="FEATURE_FLAGS.CAPTAIN_CUSTOM_TOOLS"
+    :feature-flag="FEATURE_FLAGS.COSMOS_CUSTOM_TOOLS"
     :total-count="customToolsMeta.totalCount"
     :current-page="customToolsMeta.page"
     :show-pagination-footer="!isFetching && !!customTools.length"
     :is-fetching="isFetching"
     :is-empty="!customTools.length"
-    :feature-flag="FEATURE_FLAGS.COSMOS_V2"
     :show-know-more="false"
     @update:current-page="onPageChange"
     @click="openCreateDialog"
@@ -118,7 +117,7 @@ onMounted(() => {
           class="flex items-center gap-2 px-4 py-3 text-sm rounded-lg bg-n-amber-2 text-n-amber-11"
         >
           <span class="i-lucide-triangle-alert size-4 shrink-0" />
-          {{ $t('CAPTAIN.CUSTOM_TOOLS.SOFT_LIMIT_WARNING') }}
+          {{ $t('COSMOS.CUSTOM_TOOLS.SOFT_LIMIT_WARNING') }}
         </div>
         <CustomToolCard
           v-for="tool in customTools"

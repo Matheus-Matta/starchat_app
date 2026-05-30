@@ -13,7 +13,8 @@
       "TABLE_HEADER": {
         "NAME": "Nafn",
         "DESCRIPTION": "Description",
-        "COLOR": "Color"
+        "COLOR": "Color",
+        "ACTION": "Aðgerðir"
       }
     },
     "FORM": {
@@ -80,6 +81,9 @@
         "YES": "Já, eyða",
         "NO": "Nei, hætta við eyðingu"
       }
-    }
+    },
+    "COUNT": "{n} label | {n} labels",
+    "SEARCH_PLACEHOLDER": "Leita að merkingum...",
+    "NO_RESULTS": "No labels found matching your search"
   }
 }

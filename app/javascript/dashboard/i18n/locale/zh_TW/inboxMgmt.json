@@ -110,6 +110,14 @@
         "SUBMIT_BUTTON": "建立收件匣",
         "API": {
           "ERROR_MESSAGE": "We were not able to create a website channel, please try again"
+        },
+        "CHANNEL_WEBHOOK_SECRET": {
+          "LABEL": "Webhook 密鑰",
+          "COPY": "複製密鑰至剪貼簿",
+          "COPY_SUCCESS": "密鑰已複製至剪貼簿",
+          "TOGGLE": "切換密鑰顯示",
+          "RESET_SUCCESS": "Webhook 密鑰已成功重新產生",
+          "RESET_ERROR": "無法重新產生 Webhook 密鑰，請再試一次"
         }
       },
       "TWILIO": {
@@ -291,7 +299,13 @@
           "INVALID_BUSINESS_DATA": "Invalid business data received from Facebook. Please try again.",
           "SIGNUP_ERROR": "Signup error occurred",
           "AUTH_NOT_COMPLETED": "Authentication not completed. Please restart the process.",
-          "SUCCESS_FALLBACK": "WhatsApp Business Account has been successfully configured"
+          "SUCCESS_FALLBACK": "WhatsApp Business Account has been successfully configured",
+          "LEARN_MORE": {
+            "TEXT": "如需了解更多關於整合註冊、定價和限制的資訊，請造訪 {link}。",
+            "LINK_TEXT": "此連結"
+          },
+          "MANUAL_FALLBACK": "如果您的號碼已連接到 WhatsApp Business Platform（API），或者您是正在接入自己號碼的技術供應商，請使用 {link}",
+          "MANUAL_LINK_TEXT": "手動設定流程"
         },
         "API": {
           "ERROR_MESSAGE": "We were not able to save the WhatsApp channel"
@@ -373,7 +387,11 @@
         "API": {
           "ERROR_MESSAGE": "我們無法儲存電子信箱頻道"
         },
-        "FINISH_MESSAGE": "開始將您的電子信箱轉發到以下電子信箱地址。"
+        "FINISH_MESSAGE": "開始將您的電子信箱轉發到以下電子信箱地址。",
+        "FINISH_MESSAGE_NO_FORWARDING": "您的電子郵件收件匣已成功建立！您需要設定 SMTP 和 IMAP 憑證才能收發郵件。若未設定，將不會處理任何郵件。",
+        "FORWARDING_ADDRESS_LABEL": "將郵件轉寄至此地址：",
+        "CONFIGURE_SMTP_IMAP_LINK": "點擊這裡",
+        "CONFIGURE_SMTP_IMAP_TEXT": "設定 IMAP 和 SMTP"
       },
       "LINE_CHANNEL": {
         "TITLE": "LINE Channel",
@@ -462,6 +480,10 @@
           "VOICE": {
             "TITLE": "Voice",
             "DESCRIPTION": "Integrate with Twilio Voice"
+          },
+          "TIKTOK": {
+            "TITLE": "TikTok",
+            "DESCRIPTION": "連結您的 TikTok 帳號"
           }
         }
       },
@@ -496,6 +518,13 @@
         "SIGN_IN": "Sign in with Google",
         "EMAIL_PLACEHOLDER": "輸入電子信箱",
         "ERROR_MESSAGE": "There was an error connecting to Google, please try again"
+      },
+      "TIKTOK": {
+        "CONTINUE_WITH_TIKTOK": "繼續使用 TikTok",
+        "CONNECT_YOUR_TIKTOK_PROFILE": "連結您的 TikTok 個人檔案",
+        "HELP": "若要將您的 TikTok 個人檔案新增為頻道，請點擊「繼續使用 TikTok」來驗證您的 TikTok 個人檔案。",
+        "ERROR_MESSAGE": "連結 TikTok 時發生錯誤，請重試",
+        "ERROR_AUTH": "連結 TikTok 時發生錯誤，請重試"
       }
     },
     "DETAILS": {
@@ -567,7 +596,9 @@
       },
       "LOCK_TO_SINGLE_CONVERSATION": {
         "ENABLED": "已啟用",
-        "DISABLED": "已停用"
+        "DISABLED": "已停用",
+        "ENABLED_DESCRIPTION": "當聯絡人再次傳送訊息時，將重新開啟先前的對話。",
+        "DISABLED_DESCRIPTION": "前一次對話解決後，每次都會建立新的對話。"
       },
       "ENABLE_HMAC": {
         "LABEL": "啟用"
@@ -599,7 +630,9 @@
       "BUSINESS_HOURS": "服務時間",
       "WIDGET_BUILDER": "Widget Builder",
       "BOT_CONFIGURATION": "增機器人設定",
-      "CSAT": "顧客滿意度得分(CSAT)"
+      "CSAT": "顧客滿意度得分(CSAT)",
+      "ACCOUNT_HEALTH": "帳號健康狀態",
+      "VOICE": "語音"
     },
     "SETTINGS": "設定",
     "FEATURES": {
@@ -652,14 +685,49 @@
       "WHATSAPP_TEMPLATES_SYNC_SUBHEADER": "Manually sync message templates from WhatsApp to update your available templates.",
       "WHATSAPP_TEMPLATES_SYNC_BUTTON": "Sync Templates",
       "WHATSAPP_TEMPLATES_SYNC_SUCCESS": "Templates sync initiated successfully. It may take a couple of minutes to update.",
-      "UPDATE_PRE_CHAT_FORM_SETTINGS": "Update Pre Chat Form Settings"
+      "UPDATE_PRE_CHAT_FORM_SETTINGS": "Update Pre Chat Form Settings",
+      "ALLOWED_DOMAINS": {
+        "TITLE": "允許的網域",
+        "DESCRIPTION": "限制哪些網站可以嵌入您的聊天小工具。為了安全起見，請僅新增您擁有且信任的網域。輸入一個或多個網域，以逗號分隔。留空則允許所有網域（不建議在正式環境中使用）。",
+        "PLACEHOLDER": "example.com, www.example.com, app.example.com"
+      },
+      "ALLOW_MOBILE_WEBVIEW": {
+        "LABEL": "在行動應用程式中啟用小工具",
+        "SUBTITLE": "如果您將小工具嵌入 iOS 或 Android 應用程式，請勾選此項。行動應用程式不會發送網域資訊，因此除非啟用此選項，否則會被網域限制封鎖。"
+      },
+      "IDENTITY_VALIDATION": {
+        "TITLE": "身份驗證",
+        "DESCRIPTION": "透過產生安全 Token 來驗證使用者身份。這可以防止未授權使用者在您的聊天中冒充他人。",
+        "SECRET_KEY": "密鑰",
+        "VIEW_DOCS": "查看文件",
+        "REQUIRE_LABEL": "要求所有對話進行身份驗證",
+        "REQUIRE_DESCRIPTION": "啟用後，使用者必須提供有效的身份 Token 才能開始對話。未提供有效 Token 的請求將被拒絕。"
+      },
+      "ENABLE_CONTINUITY_VIA_EMAIL_DISABLED_TEXT": "This feature is available on a paid plan. Upgrade to enable conversation continuity via email.",
+      "FORWARD_EMAIL_NOT_CONFIGURED": "此安裝環境目前未啟用郵件轉寄功能。若需使用此功能，請聯絡您的管理員啟用。",
+      "WHATSAPP_EMBEDDED_SIGNUP_TITLE": "WhatsApp Embedded Signup",
+      "WHATSAPP_EMBEDDED_SIGNUP_SUBHEADER": "此收件匣透過 WhatsApp Embedded Signup 連接。",
+      "WHATSAPP_EMBEDDED_SIGNUP_DESCRIPTION": "您可以重新設定此收件匣以更新 WhatsApp Business 設定。",
+      "WHATSAPP_RECONFIGURE_BUTTON": "重新設定",
+      "WHATSAPP_CONNECT_TITLE": "連接到 WhatsApp Business",
+      "WHATSAPP_CONNECT_SUBHEADER": "升級至 WhatsApp Embedded Signup 以便於管理。",
+      "WHATSAPP_CONNECT_DESCRIPTION": "將此收件匣連接到 WhatsApp Business，以獲得進階功能和更便捷的管理。",
+      "WHATSAPP_CONNECT_BUTTON": "連接",
+      "WHATSAPP_CONNECT_SUCCESS": "已成功連接到 WhatsApp Business！",
+      "WHATSAPP_CONNECT_ERROR": "連接 WhatsApp Business 失敗，請重試。",
+      "WHATSAPP_RECONFIGURE_SUCCESS": "已成功重新設定 WhatsApp Business！",
+      "WHATSAPP_RECONFIGURE_ERROR": "重新設定 WhatsApp Business 失敗，請重試。",
+      "WHATSAPP_APP_ID_MISSING": "WhatsApp App ID 尚未設定，請聯絡您的管理員。",
+      "WHATSAPP_CONFIG_ID_MISSING": "WhatsApp Configuration ID 尚未設定，請聯絡您的管理員。",
+      "WHATSAPP_LOGIN_CANCELLED": "WhatsApp 登入已取消，請重試。"
     },
     "HELP_CENTER": {
       "LABEL": "Help Center",
       "PLACEHOLDER": "Select Help Center",
       "SELECT_PLACEHOLDER": "Select Help Center",
       "REMOVE": "Remove Help Center",
-      "SUB_TEXT": "Attach a Help Center with the inbox"
+      "SUB_TEXT": "Attach a Help Center with the inbox",
+      "NONE": "無"
     },
     "AUTO_ASSIGNMENT": {
       "MAX_ASSIGNMENT_LIMIT": "Auto assignment limit",
@@ -722,7 +790,51 @@
       "API": {
         "SUCCESS_MESSAGE": "CSAT settings updated successfully",
         "ERROR_MESSAGE": "We couldn't update CSAT settings. Please try again later."
-      }
+      },
+      "BUTTON_TEXT": {
+        "LABEL": "按鈕文字",
+        "PLACEHOLDER": "請為我們評分"
+      },
+      "LANGUAGE": {
+        "LABEL": "語言",
+        "PLACEHOLDER": "選擇範本語言"
+      },
+      "MESSAGE_PREVIEW": {
+        "LABEL": "訊息預覽",
+        "TOOLTIP": "在 WhatsApp 平台上呈現時可能會略有不同。"
+      },
+      "TEMPLATE_STATUS": {
+        "APPROVED": "已獲 WhatsApp 核准",
+        "PENDING": "待 WhatsApp 審核中",
+        "REJECTED": "Meta 已拒絕此範本",
+        "DEFAULT": "需要 WhatsApp 審核",
+        "NOT_FOUND": "此範本在 Meta 平台上不存在。"
+      },
+      "TEMPLATE_CREATION": {
+        "SUCCESS_MESSAGE": "WhatsApp 範本已成功建立並送出審核",
+        "ERROR_MESSAGE": "建立 WhatsApp 範本失敗"
+      },
+      "TEMPLATE_UPDATE_DIALOG": {
+        "TITLE": "編輯問卷調查詳情",
+        "DESCRIPTION": "我們將刪除先前的範本並建立新範本，新範本將再次送交 WhatsApp 審核",
+        "CONFIRM": "建立新範本",
+        "CANCEL": "返回"
+      },
+      "UTILITY_ANALYZER": {
+        "ACTION": "檢查 Utility 適配性",
+        "HELPER_NOTE": "在送出前檢查此訊息以改善 Utility 適配性。系統會建立包含報告按鈕的專用 CSAT 範本，並以 Utility 類型送出；Meta 仍可能根據內容將其重新分類為 Marketing。",
+        "RESULT_LABEL": "Meta 分類預測",
+        "GUIDANCE_NOTE": "這是指引性檢查，不保證 Meta 一定會核准。",
+        "SUGGESTION_LABEL": "建議的 Utility 安全改寫",
+        "APPLY": "使用此改寫",
+        "ERROR_MESSAGE": "無法分析訊息，請重試。",
+        "CLASSIFICATION": {
+          "LIKELY_UTILITY": "可能為 Utility",
+          "LIKELY_MARKETING": "可能為 Marketing",
+          "UNCLEAR": "需要進一步釐清"
+        }
+      },
+      "WHATSAPP_NOTE": "注意：儲存後，系統會在 WhatsApp 中建立專用的 CSAT 範本（用於在報告中收集評分和回饋），並以 Utility 類型送出審核。Meta 仍可能根據內容將其分類為 Marketing。核准後，問卷將依據問卷規則，每次對話僅發送一次。"
     },
     "BUSINESS_HOURS": {
       "TITLE": "設定你的服務時間",
@@ -738,7 +850,9 @@
         "UNAVAILABLE": "無法使用",
         "HOURS": "小時",
         "VALIDATION_ERROR": "開始時間必須在關閉時間之前",
-        "CHOOSE": "選擇"
+        "CHOOSE": "選擇",
+        "DAY": "日",
+        "AVAILABILITY": "服務狀態"
       },
       "ALL_DAY": "All-Day"
     },
@@ -769,7 +883,8 @@
         "LABEL": "密碼",
         "PLACE_HOLDER": "密碼"
       },
-      "ENABLE_SSL": "啟用 SSL"
+      "ENABLE_SSL": "啟用 SSL",
+      "AUTH_MECHANISM": "驗證機制"
     },
     "MICROSOFT": {
       "TITLE": "Microsoft",
@@ -868,7 +983,8 @@
         "WIDGET_BUBBLE_TYPE": {
           "STANDARD": "Standard",
           "EXPANDED_BUBBLE": "Expanded Bubble"
-        }
+        },
+        "WIDGET_BUBBLE": "氣泡"
       },
       "WIDGET_SCREEN": {
         "DEFAULT": "Default",
@@ -920,7 +1036,136 @@
       "LINE": "Line",
       "API": "API 頻道",
       "INSTAGRAM": "Instagram",
-      "VOICE": "Voice"
+      "VOICE": "Voice",
+      "TIKTOK": "TikTok"
+    },
+    "COUNT": "{n} 個收件匣",
+    "SEARCH_PLACEHOLDER": "搜尋收件匣...",
+    "NO_RESULTS": "找不到符合搜尋條件的收件匣",
+    "WHATSAPP_REGISTRATION_INCOMPLETE": "您的 WhatsApp Business 註冊尚未完成。請在重新連線前至 Meta Business Manager 確認您的顯示名稱狀態。",
+    "COMPLETE_REGISTRATION": "完成註冊",
+    "VOICE_CONFIGURATION": {
+      "ENABLE_VOICE": {
+        "LABEL": "Enable Voice Calling",
+        "DESCRIPTION": "Enable voice calling on this inbox. Agents will be able to make and receive phone calls."
+      },
+      "CREDENTIALS": {
+        "DESCRIPTION": "Voice calling requires Twilio API Key credentials. These are used to generate tokens for agent voice connections."
+      }
+    },
+    "CHANNEL_PREFERENCES": "頻道偏好設定",
+    "WIDGET_FEATURES": "小工具功能",
+    "ACCOUNT_HEALTH": {
+      "TITLE": "管理您的 WhatsApp 帳號",
+      "DESCRIPTION": "檢視您的 WhatsApp 帳號狀態、訊息限制和品質。如有需要，更新設定或解決問題。",
+      "GO_TO_SETTINGS": "前往 Meta Business Manager",
+      "NO_DATA": "無法取得健康狀態資料",
+      "FIELDS": {
+        "DISPLAY_PHONE_NUMBER": {
+          "LABEL": "顯示電話號碼",
+          "TOOLTIP": "顯示給客戶的電話號碼"
+        },
+        "VERIFIED_NAME": {
+          "LABEL": "企業名稱",
+          "TOOLTIP": "經 WhatsApp 驗證的企業名稱"
+        },
+        "DISPLAY_NAME_STATUS": {
+          "LABEL": "顯示名稱狀態",
+          "TOOLTIP": "您的企業名稱驗證狀態"
+        },
+        "QUALITY_RATING": {
+          "LABEL": "品質評分",
+          "TOOLTIP": "您帳號的 WhatsApp 品質評分"
+        },
+        "MESSAGING_LIMIT_TIER": {
+          "LABEL": "訊息限制等級",
+          "TOOLTIP": "您帳號的每日訊息限制"
+        },
+        "ACCOUNT_MODE": {
+          "LABEL": "帳號模式",
+          "TOOLTIP": "您的 WhatsApp 帳號目前的運作模式"
+        }
+      },
+      "VALUES": {
+        "TIERS": {
+          "TIER_250": "每 24 小時 250 位客戶",
+          "TIER_1000": "每 24 小時 1K 位客戶",
+          "TIER_1K": "每 24 小時 1K 位客戶",
+          "TIER_10K": "每 24 小時 10K 位客戶",
+          "TIER_100K": "每 24 小時 100K 位客戶",
+          "TIER_UNLIMITED": "每 24 小時不限客戶數",
+          "UNKNOWN": "評分不可用"
+        },
+        "STATUSES": {
+          "APPROVED": "已核准",
+          "PENDING_REVIEW": "審核中",
+          "AVAILABLE_WITHOUT_REVIEW": "無需審核即可使用",
+          "REJECTED": "已拒絕",
+          "DECLINED": "已駁回",
+          "NON_EXISTS": "不存在"
+        },
+        "MODES": {
+          "SANDBOX": "沙箱模式",
+          "LIVE": "正式環境"
+        }
+      },
+      "WEBHOOK": {
+        "TITLE": "Webhook 設定",
+        "DESCRIPTION": "您的 WhatsApp Business 帳號需要設定 Webhook URL，才能接收客戶訊息",
+        "ACTION_REQUIRED": "Webhook 尚未設定",
+        "REGISTER_BUTTON": "註冊 Webhook",
+        "REGISTER_SUCCESS": "Webhook 註冊成功",
+        "REGISTER_ERROR": "Webhook 註冊失敗，請再試一次。",
+        "CONFIGURED_SUCCESS": "Webhook 設定成功",
+        "URL_MISMATCH": "Webhook URL 不符"
+      }
+    },
+    "ASSIGNMENT": {
+      "TITLE": "對話分配",
+      "DESCRIPTION": "根據分配策略，自動將新對話分配給可用的客服人員",
+      "ENABLE_AUTO_ASSIGNMENT": "啟用自動對話分配",
+      "DEFAULT_RULES_TITLE": "預設分配規則",
+      "DEFAULT_RULES_DESCRIPTION": "對所有對話使用預設分配行為",
+      "DEFAULT_RULE_1": "優先處理最早建立的對話",
+      "DEFAULT_RULE_2": "輪流分配",
+      "CUSTOMIZE_WITH_POLICY": "使用分配策略自訂",
+      "USING_POLICY": "此收件匣使用自訂分配策略",
+      "CUSTOMIZE_POLICY": "使用分配策略自訂",
+      "DELETE_POLICY": "刪除策略",
+      "POLICY_LABEL": "分配策略",
+      "ASSIGNMENT_ORDER_LABEL": "分配順序",
+      "ASSIGNMENT_METHOD_LABEL": "分配方式",
+      "POLICY_STATUS": {
+        "ACTIVE": "啟用中",
+        "INACTIVE": "已停用"
+      },
+      "PRIORITY": {
+        "EARLIEST_CREATED": "最早建立",
+        "LONGEST_WAITING": "等待最久"
+      },
+      "METHOD": {
+        "ROUND_ROBIN": "輪流分配",
+        "BALANCED": "均衡分配"
+      },
+      "UPGRADE_PROMPT": "自訂分配策略適用於 Business 方案",
+      "UPGRADE_TO_BUSINESS": "升級至 Business",
+      "DEFAULT_POLICY_LINKED": "已連結預設策略",
+      "DEFAULT_POLICY_DESCRIPTION": "連結自訂分配策略，以自訂此收件匣中對話分配給客服人員的方式。",
+      "LINK_EXISTING_POLICY": "連結現有策略",
+      "CREATE_NEW_POLICY": "建立新策略",
+      "NO_POLICIES": "找不到分配策略",
+      "VIEW_ALL_POLICIES": "查看所有策略",
+      "CURRENT_BEHAVIOR": "目前使用預設分配行為：",
+      "LINK_SUCCESS": "已成功連結分配策略",
+      "LINK_ERROR": "連結分配策略失敗"
+    },
+    "ASSIGNMENT_POLICY": {
+      "DELETE_CONFIRM_TITLE": "要刪除分配策略嗎？",
+      "DELETE_CONFIRM_MESSAGE": "您確定要從此收件匣移除此分配策略嗎？收件匣將恢復為預設分配規則。",
+      "CANCEL": "取消",
+      "CONFIRM_DELETE": "刪除",
+      "DELETE_SUCCESS": "已成功移除分配策略",
+      "DELETE_ERROR": "移除分配策略失敗"
     }
   }
 }

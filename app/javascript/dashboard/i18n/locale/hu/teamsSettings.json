@@ -116,6 +116,9 @@
         "LABEL": "Automatikus hozzárendelés ehhez a csapathoz."
       },
       "SUBMIT_CREATE": "Új csapat létrehozása"
-    }
+    },
+    "COUNT": "{n} team | {n} teams",
+    "SEARCH_PLACEHOLDER": "Csapatok keresése...",
+    "NO_RESULTS": "No teams found matching your search"
   }
 }

@@ -27,7 +27,12 @@
       "LABEL": "סיסמה",
       "PLACEHOLDER": "סיסמה",
       "ERROR": "הסיסמה קצרה מדי",
-      "IS_INVALID_PASSWORD": "הסיסמה צריכה להכיל לפחות אות אחת גדולה, אות קטנה אחת, מספר אחד ותו מיוחד אחד"
+      "IS_INVALID_PASSWORD": "הסיסמה צריכה להכיל לפחות אות אחת גדולה, אות קטנה אחת, מספר אחד ותו מיוחד אחד",
+      "REQUIREMENTS_LENGTH": "לפחות 6 תווים",
+      "REQUIREMENTS_UPPERCASE": "לפחות אות אחת גדולה",
+      "REQUIREMENTS_LOWERCASE": "לפחות אות אחת קטנה",
+      "REQUIREMENTS_NUMBER": "לפחות מספר אחד",
+      "REQUIREMENTS_SPECIAL": "לפחות תו מיוחד אחד"
     },
     "CONFIRM_PASSWORD": {
       "LABEL": "אמת סיסמה",
@@ -39,6 +44,14 @@
       "ERROR_MESSAGE": "לא ניתן להתחבר לשרת Woot, נסה שוב מאוחר יותר"
     },
     "SUBMIT": "צור חשבון",
-    "HAVE_AN_ACCOUNT": "כבר יש לך חשבון?"
+    "HAVE_AN_ACCOUNT": "כבר יש לך חשבון?",
+    "GET_STARTED": "Get started with Chatwoot",
+    "VERIFY_EMAIL": {
+      "TITLE": "Check your inbox",
+      "DESCRIPTION": "We sent a verification link to {email}. Click the link to verify your email and get started.",
+      "RESEND": "שלח מחדש דוא\"ל אימות",
+      "RESEND_SUCCESS": "Verification email sent. Please check your inbox.",
+      "RESEND_ERROR": "Could not send verification email. Please try again."
+    }
   }
 }

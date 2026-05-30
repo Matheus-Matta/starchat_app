@@ -13,7 +13,8 @@
       "TABLE_HEADER": {
         "NAME": "Ime",
         "DESCRIPTION": "Description",
-        "COLOR": "Color"
+        "COLOR": "Color",
+        "ACTION": "Radnje"
       }
     },
     "FORM": {
@@ -80,6 +81,9 @@
         "YES": "Da, izbriši",
         "NO": "Ne, zadrži"
       }
-    }
+    },
+    "COUNT": "{n} label | {n} labels",
+    "SEARCH_PLACEHOLDER": "Search labels...",
+    "NO_RESULTS": "No labels found matching your search"
   }
 }

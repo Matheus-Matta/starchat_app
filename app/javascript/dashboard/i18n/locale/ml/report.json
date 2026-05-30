@@ -55,7 +55,10 @@
       "LAST_3_MONTHS": "കഴിഞ്ഞ 3 മാസം",
       "LAST_6_MONTHS": "കഴിഞ്ഞ 6 മാസം",
       "LAST_YEAR": "കഴിഞ്ഞ വർഷം",
-      "CUSTOM_DATE_RANGE": "ഇഷ്‌ടാനുസൃത തീയതി ശ്രേണി"
+      "CUSTOM_DATE_RANGE": "ഇഷ്‌ടാനുസൃത തീയതി ശ്രേണി",
+      "LAST_14_DAYS": "കഴിഞ്ഞ 14 ദിവസം",
+      "THIS_MONTH": "This month",
+      "LAST_MONTH": "Last month"
     },
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "അപേക്ഷിക്കുക",
@@ -121,7 +124,8 @@
     "PAGINATION": {
       "RESULTS": "Showing {start} to {end} of {total} results",
       "PER_PAGE_TEMPLATE": "{size} / page"
-    }
+    },
+    "DOWNLOAD_CONVERSATION_REPORTS": "Download conversation reports"
   },
   "AGENT_REPORTS": {
     "HEADER": "ഏജന്റുമാരുടെ അവലോകനം",
@@ -189,6 +193,11 @@
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "അപേക്ഷിക്കുക",
       "PLACEHOLDER": "തീയതി ശ്രേണി തിരഞ്ഞെടുക്കുക"
+    },
+    "FILTERS": {
+      "INPUT_PLACEHOLDER": {
+        "AGENTS": "ഏജന്റുകളെ തിരയുക"
+      }
     }
   },
   "LABEL_REPORTS": {
@@ -257,6 +266,11 @@
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "അപേക്ഷിക്കുക",
       "PLACEHOLDER": "തീയതി ശ്രേണി തിരഞ്ഞെടുക്കുക"
+    },
+    "FILTERS": {
+      "INPUT_PLACEHOLDER": {
+        "LABELS": "ലേബലുകൾ തിരയുക"
+      }
     }
   },
   "INBOX_REPORTS": {
@@ -325,6 +339,13 @@
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "അപേക്ഷിക്കുക",
       "PLACEHOLDER": "തീയതി ശ്രേണി തിരഞ്ഞെടുക്കുക"
+    },
+    "ALL_INBOXES": "All Inboxes",
+    "SEARCH_INBOX": "Search Inbox",
+    "FILTERS": {
+      "INPUT_PLACEHOLDER": {
+        "INBOXES": "Search inboxes"
+      }
     }
   },
   "TEAM_REPORTS": {
@@ -393,6 +414,14 @@
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "അപേക്ഷിക്കുക",
       "PLACEHOLDER": "തീയതി ശ്രേണി തിരഞ്ഞെടുക്കുക"
+    },
+    "FILTERS": {
+      "ADD_FILTER": "ഫിൽട്ടർ ചേർക്കുക",
+      "CLEAR_ALL": "Clear all",
+      "NO_FILTER": "No filters available",
+      "INPUT_PLACEHOLDER": {
+        "TEAMS": "ടീമുകളെ തിരയുക"
+      }
     }
   },
   "CSAT_REPORTS": {
@@ -402,7 +431,26 @@
     "DOWNLOAD_FAILED": "Failed to download CSAT Reports",
     "FILTERS": {
       "AGENTS": {
-        "PLACEHOLDER": "Choose Agents"
+        "PLACEHOLDER": "Choose Agents",
+        "LABEL": "ഏജന്റ്"
+      },
+      "ADD_FILTER": "ഫിൽട്ടർ ചേർക്കുക",
+      "CLEAR_ALL": "Clear all",
+      "NO_FILTER": "No filters available",
+      "INPUT_PLACEHOLDER": {
+        "AGENTS": "ഏജന്റുകളെ തിരയുക",
+        "INBOXES": "Search inboxes",
+        "TEAMS": "ടീമുകളെ തിരയുക",
+        "RATINGS": "Search ratings"
+      },
+      "INBOXES": {
+        "LABEL": "ഇൻബോക്സ്"
+      },
+      "TEAMS": {
+        "LABEL": "Team"
+      },
+      "RATINGS": {
+        "LABEL": "Rating"
       }
     },
     "TABLE": {
@@ -410,8 +458,13 @@
         "CONTACT_NAME": "ബന്ധപ്പെടുക",
         "AGENT_NAME": "നിയോഗിച്ച ഏജന്റ്",
         "RATING": "റേറ്റിംഗ്",
-        "FEEDBACK_TEXT": "ഫീഡ്ബാക്ക് അഭിപ്രായം"
-      }
+        "FEEDBACK_TEXT": "ഫീഡ്ബാക്ക് അഭിപ്രായം",
+        "CONVERSATION": "സംഭാഷണം",
+        "CUSTOMER": "Customer",
+        "RESPONSE": "Response",
+        "HANDLED_BY": "Handled by"
+      },
+      "UNKNOWN_CUSTOMER": "Unknown customer"
     },
     "METRIC": {
       "TOTAL_RESPONSES": {
@@ -425,6 +478,28 @@
       "RESPONSE_RATE": {
         "LABEL": "പ്രതികരണ നിരക്ക്",
         "TOOLTIP": "മൊത്തം പ്രതികരണങ്ങളുടെ എണ്ണം / അയച്ച CSAT സർവേ സന്ദേശങ്ങളുടെ ആകെ എണ്ണം * 100"
+      },
+      "RATING_DISTRIBUTION": "Rating distribution"
+    },
+    "NO_RECORDS_DESCRIPTION": "CSAT survey responses will appear here once customers start providing feedback.",
+    "NO_AGENT": "No assigned agent",
+    "NO_FEEDBACK": "No feedback provided",
+    "REVIEW_NOTES": {
+      "TITLE": "Review notes",
+      "PLACEHOLDER": "Add review notes about this rating...",
+      "SAVE": "Save",
+      "CANCEL": "റദ്ദാക്കുക",
+      "SAVING": "Saving...",
+      "SAVED": "Notes saved successfully",
+      "SAVE_ERROR": "Failed to save notes",
+      "UPDATED_BY": "Updated by {name} {time}",
+      "UPDATED_BY_LABEL": "Updated by",
+      "PAYWALL": {
+        "TITLE": "Upgrade to add review notes",
+        "AVAILABLE_ON": "The review notes feature is only available in the Business and Enterprise plans.",
+        "UPGRADE_PROMPT": "Add internal context to every CSAT response with review notes. Capture what really happened, spot patterns faster, and make better decisions from your feedback.",
+        "UPGRADE_NOW": "Upgrade now",
+        "CANCEL_ANYTIME": "You can change or cancel your plan anytime"
       }
     }
   },
@@ -495,6 +570,13 @@
       "ONLINE": "ഓൺ‌ലൈൻ",
       "BUSY": "തിരക്ക്",
       "OFFLINE": "ഓഫ്‌ലൈൻ"
+    },
+    "RESOLUTION_HEATMAP": {
+      "HEADER": "Resolutions",
+      "NO_CONVERSATIONS": "No conversations",
+      "CONVERSATION": "{count} conversation",
+      "CONVERSATIONS": "{count} conversations",
+      "DOWNLOAD_REPORT": "Download report"
     }
   },
   "DAYS_OF_WEEK": {

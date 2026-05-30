@@ -1,8 +1,8 @@
 {
   "CONVERSATION": {
+    "404": "Sorry, we cannot find the conversation. Please try again",
     "SELECT_A_CONVERSATION": "Please select a conversation from left pane",
     "CSAT_REPLY_MESSAGE": "Please rate the conversation",
-    "404": "Sorry, we cannot find the conversation. Please try again",
     "SWITCH_VIEW_LAYOUT": "Switch the layout",
     "DASHBOARD_APP_TAB_MESSAGES": "Messages",
     "UNVERIFIED_SESSION": "The identity of this user is not verified",
@@ -69,7 +69,8 @@
     "REPLY_MESSAGE_NOT_FOUND": "Message not available",
     "CARD": {
       "SHOW_LABELS": "Show labels",
-      "HIDE_LABELS": "Hide labels"
+      "HIDE_LABELS": "Hide labels",
+      "LABELS_COUNT": "{count} labels"
     },
     "VOICE_CALL": {
       "INCOMING_CALL": "Incoming call",
@@ -80,7 +81,9 @@
       "CALL_ENDED": "Call ended",
       "NOT_ANSWERED_YET": "Not answered yet",
       "THEY_ANSWERED": "They answered",
-      "YOU_ANSWERED": "You answered"
+      "YOU_ANSWERED": "You answered",
+      "AGENT_ANSWERED": "{agentName} answered",
+      "JOIN_CALL": "कलमा सामेल हुनुहोस्"
     },
     "HEADER": {
       "RESOLVE_ACTION": "Resolve",
@@ -100,7 +103,8 @@
         "RT": "RT {status}",
         "MISSED": "missed",
         "DUE": "due"
-      }
+      },
+      "COPY_ID_SUCCESS": "Conversation ID copied to clipboard"
     },
     "RESOLVE_DROPDOWN": {
       "MARK_PENDING": "Mark as pending",
@@ -172,8 +176,15 @@
         "TEAM_ASSIGNMENT": {
           "SUCCESFUL": "Assigned team \"{team}\" to conversation id {conversationId}",
           "FAILED": "Couldn't assign team. Please try again."
+        },
+        "LABEL_REMOVAL": {
+          "SUCCESFUL": "Removed label #{labelName} from conversation id {conversationId}",
+          "FAILED": "लेबल हटाउन सकेन। कृपया फेरि प्रयास गर्नुहोस्।"
         }
-      }
+      },
+      "OPEN_IN_NEW_TAB": "नयाँ ट्याबमा खोल्नुहोस्",
+      "COPY_LINK": "वार्ताको लिङ्क प्रतिलिपि गर्नुहोस्",
+      "COPY_LINK_SUCCESS": "वार्ताको लिङ्क क्लिपबोर्डमा प्रतिलिपि गरियो"
     },
     "FOOTER": {
       "MESSAGE_SIGN_TOOLTIP": "Message signature",
@@ -183,7 +194,11 @@
       "PRIVATE_MSG_INPUT": "Shift + enter for new line. This will be visible only to Agents",
       "MESSAGE_SIGNATURE_NOT_CONFIGURED": "Message signature is not configured, please configure it in profile settings.",
       "CLICK_HERE": "Click here to update",
-      "WHATSAPP_TEMPLATES": "Whatsapp Templates"
+      "WHATSAPP_TEMPLATES": "Whatsapp Templates",
+      "MESSAGING_RESTRICTED": "तपाईं यस कुराकानीमा जवाफ दिन सक्नुहुन्न",
+      "MESSAGING_RESTRICTED_WHATSAPP": "२४ घण्टाको सन्देश सीमाका कारण तपाईंले टेम्प्लेट सन्देश मात्र पठाउन सक्नुहुन्छ",
+      "MESSAGING_RESTRICTED_API": "सन्देश सीमाका कारण तपाईंले टेम्प्लेट सन्देश मात्र पठाउन सक्नुहुन्छ",
+      "COPILOT_MSG_INPUT": "Copilot लाई थप निर्देशन दिनुहोस् वा अरू केही सोध्नुहोस्... पछ्याउने सन्देश पठाउन Enter थिच्नुहोस्"
     },
     "REPLYBOX": {
       "REPLY": "Reply",
@@ -224,6 +239,14 @@
           "YES": "Send",
           "CANCEL": "Cancel"
         }
+      },
+      "COPILOT_THINKING": "Copilot सोच्दैछ",
+      "QUOTED_REPLY": {
+        "ENABLE_TOOLTIP": "उद्धृत इमेल थ्रेड समावेश गर्नुहोस्",
+        "DISABLE_TOOLTIP": "उद्धृत इमेल थ्रेड समावेश नगर्नुहोस्",
+        "REMOVE_PREVIEW": "उद्धृत इमेल थ्रेड हटाउनुहोस्",
+        "COLLAPSE": "पूर्वावलोकन संक्षिप्त गर्नुहोस्",
+        "EXPAND": "पूर्वावलोकन विस्तार गर्नुहोस्"
       }
     },
     "VISIBLE_TO_AGENTS": "Private Note: Only visible to you and your team",
@@ -265,6 +288,21 @@
     "SIDEBAR": {
       "CONTACT": "Contact",
       "COPILOT": "Cosmos"
+    },
+    "48_HOURS_WINDOW": "48 घण्टे सन्देश विन्डो प्रतिबन्ध",
+    "UNSUPPORTED_MESSAGE_TIKTOK": "यो सन्देश समर्थन गरिएको छैन। तपाईंले यो सन्देश TikTok एपमा हेर्न सक्नुहुन्छ।",
+    "FILE_TYPE_NOT_SUPPORTED": "यो {fileName} फाइल प्रकार यस कुराकानीमा समर्थित छैन",
+    "NATIVE_APP": "नेभेटिभ एप",
+    "NATIVE_APP_ADVISORY": "यो सन्देश नेटिभ एपबाट पठाइएको हो। सन्देश विन्डो कायम राख्न Chatwoot बाट जवाफ दिनुहोस्।",
+    "VOICE_WIDGET": {
+      "INCOMING_CALL": "आउँदै गरेको कल",
+      "OUTGOING_CALL": "जाने कल",
+      "CALL_IN_PROGRESS": "कल प्रगतिको अवस्थामा छ",
+      "NOT_ANSWERED_YET": "अझै जवाफ दिइएको छैन",
+      "HANDLED_IN_ANOTHER_TAB": "अर्को ट्याबमा ह्यान्डल भइरहेको छ",
+      "REJECT_CALL": "अस्वीकार गर्नुहोस्",
+      "JOIN_CALL": "कलमा सामेल हुनुहोस्",
+      "END_CALL": "कल समाप्त गर्नुहोस्"
     }
   },
   "EMAIL_TRANSCRIPT": {
@@ -282,7 +320,8 @@
         "PLACEHOLDER": "Enter an email address",
         "ERROR": "Please enter a valid email address"
       }
-    }
+    },
+    "SEND_EMAIL_PAYMENT_REQUIRED": "तपाईंको वर्तमान योजनामा इमेल ट्रान्सक्रिप्ट उपलब्ध छैन। कृपया यो सुविधा प्रयोग गर्न योजना अपग्रेड गर्नुहोस्।"
   },
   "ONBOARDING": {
     "TITLE": "Hey 👋, Welcome to {installationName}!",
@@ -329,7 +368,8 @@
       "PREVIOUS_CONVERSATION": "Previous Conversations",
       "MACROS": "Macros",
       "LINEAR_ISSUES": "Linked Linear Issues",
-      "SHOPIFY_ORDERS": "Shopify Orders"
+      "SHOPIFY_ORDERS": "Shopify Orders",
+      "SHARED_FILES": "Attachments"
     },
     "SHOPIFY": {
       "ORDER_ID": "Order #{id}",
@@ -349,6 +389,17 @@
         "PARTIALLY_FULFILLED": "Partially Fulfilled",
         "UNFULFILLED": "Unfulfilled"
       }
+    },
+    "SHARED_FILES": {
+      "EMPTY": "No attachments yet",
+      "DOWNLOAD": "Download file",
+      "DOWNLOAD_ERROR": "Could not download the file. Please try again.",
+      "MEDIA_HEADING": "Media",
+      "FILES_HEADING": "Files",
+      "VIEW_ALL": "View all",
+      "SHOW_LESS": "Show less",
+      "MORE_COUNT": "+{count}",
+      "UNTITLED_FILE": "Untitled file"
     }
   },
   "CONVERSATION_CUSTOM_ATTRIBUTES": {

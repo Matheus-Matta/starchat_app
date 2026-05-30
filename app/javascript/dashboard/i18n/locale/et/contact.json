@@ -407,7 +407,8 @@
       "ACTIVE_FILTERS": {
         "MORE_FILTERS": "+ {count} rohkem filtreid",
         "CLEAR_FILTERS": "Tühjenda filtrid"
-      }
+      },
+      "COMPANY": "Ettevõte"
     },
     "CARD": {
       "OF": "st",

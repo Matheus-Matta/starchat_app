@@ -699,9 +699,9 @@ hi:
     copilot_message_required: Message is required
     copilot_error: 'Please connect an assistant to this inbox to use Copilot'
     copilot_limit: 'You are out of Copilot credits. You can buy more credits from the billing section.'
-    upgrade: 'Captain AI सक्षम करने के लिए अपनी योजना को अपग्रेड करें'
-    disabled: 'इस खाते के लिए Captain AI अक्षम है।'
-    api_key_missing: 'Captain AI API कुंजी कॉन्फ़िगर नहीं है।'
+    upgrade: 'Cosmos AI सक्षम करने के लिए अपनी योजना को अपग्रेड करें'
+    disabled: 'इस खाते के लिए Cosmos AI अक्षम है।'
+    api_key_missing: 'Cosmos AI API कुंजी कॉन्फ़िगर नहीं है।'
     copilot:
       using_tool: 'टूल %{function_name} का उपयोग कर रहा है'
       completed_tool_call: '%{function_name} टूल कॉल पूरा हुआ'

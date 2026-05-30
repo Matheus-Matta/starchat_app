@@ -18,10 +18,13 @@ json.ui_settings resource.ui_settings
 json.uid resource.uid
 json.type resource.type
 json.accounts do
-  json.array! resource.account_users do |account_user|
+  valid_account_users = resource.account_users.includes(:account).select(&:account)
+  json.array! valid_account_users do |account_user|
+    account = account_user.account
+
     json.id account_user.account_id
-    json.name account_user.account.name
-    json.status account_user.account.status
+    json.name account.name
+    json.status account.status
     json.active_at account_user.active_at
     json.role account_user.role
     json.permissions account_user.permissions

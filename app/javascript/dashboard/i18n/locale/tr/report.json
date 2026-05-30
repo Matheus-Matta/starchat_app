@@ -55,7 +55,10 @@
       "LAST_3_MONTHS": "Son 3 ay",
       "LAST_6_MONTHS": "Son 6 ay",
       "LAST_YEAR": "Geçen yıl",
-      "CUSTOM_DATE_RANGE": "Özel tarih aralığı"
+      "CUSTOM_DATE_RANGE": "Özel tarih aralığı",
+      "LAST_14_DAYS": "Son 14 gün",
+      "THIS_MONTH": "This month",
+      "LAST_MONTH": "Last month"
     },
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "Uygula",
@@ -121,7 +124,8 @@
     "PAGINATION": {
       "RESULTS": "Showing {start} to {end} of {total} results",
       "PER_PAGE_TEMPLATE": "{size} / page"
-    }
+    },
+    "DOWNLOAD_CONVERSATION_REPORTS": "Download conversation reports"
   },
   "AGENT_REPORTS": {
     "HEADER": "Temsilci Genel Bakış",
@@ -189,6 +193,11 @@
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "Uygula",
       "PLACEHOLDER": "Tarih aralığı seç"
+    },
+    "FILTERS": {
+      "INPUT_PLACEHOLDER": {
+        "AGENTS": "Temsilci ara"
+      }
     }
   },
   "LABEL_REPORTS": {
@@ -257,6 +266,11 @@
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "Uygula",
       "PLACEHOLDER": "Tarih aralığı seç"
+    },
+    "FILTERS": {
+      "INPUT_PLACEHOLDER": {
+        "LABELS": "Etiketleri ara"
+      }
     }
   },
   "INBOX_REPORTS": {
@@ -325,6 +339,13 @@
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "Uygula",
       "PLACEHOLDER": "Tarih aralığını seçin"
+    },
+    "ALL_INBOXES": "Tüm Gelen Kutuları",
+    "SEARCH_INBOX": "Search Inbox",
+    "FILTERS": {
+      "INPUT_PLACEHOLDER": {
+        "INBOXES": "Gelen kutularını ara"
+      }
     }
   },
   "TEAM_REPORTS": {
@@ -393,6 +414,14 @@
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "Uygula",
       "PLACEHOLDER": "Tarih aralığını seçin"
+    },
+    "FILTERS": {
+      "ADD_FILTER": "Filtre Ekle",
+      "CLEAR_ALL": "Clear all",
+      "NO_FILTER": "No filters available",
+      "INPUT_PLACEHOLDER": {
+        "TEAMS": "Takım ara"
+      }
     }
   },
   "CSAT_REPORTS": {
@@ -402,7 +431,26 @@
     "DOWNLOAD_FAILED": "CSAT Raporlarını İndirme Başarısız Oldu",
     "FILTERS": {
       "AGENTS": {
-        "PLACEHOLDER": "Temsilcileri Seç"
+        "PLACEHOLDER": "Temsilcileri Seç",
+        "LABEL": "Kullanıcı"
+      },
+      "ADD_FILTER": "Filtre Ekle",
+      "CLEAR_ALL": "Clear all",
+      "NO_FILTER": "No filters available",
+      "INPUT_PLACEHOLDER": {
+        "AGENTS": "Temsilci ara",
+        "INBOXES": "Gelen kutularını ara",
+        "TEAMS": "Takım ara",
+        "RATINGS": "Değerlendirmelerde ara"
+      },
+      "INBOXES": {
+        "LABEL": "Gelen Kutusu"
+      },
+      "TEAMS": {
+        "LABEL": "Ekip"
+      },
+      "RATINGS": {
+        "LABEL": "Değerlendirme"
       }
     },
     "TABLE": {
@@ -410,8 +458,13 @@
         "CONTACT_NAME": "İletişim",
         "AGENT_NAME": "Atanan temsilci",
         "RATING": "Değerlendirme",
-        "FEEDBACK_TEXT": "Geri bildirim yorumu"
-      }
+        "FEEDBACK_TEXT": "Geri bildirim yorumu",
+        "CONVERSATION": "Sohbet",
+        "CUSTOMER": "Müşteri",
+        "RESPONSE": "Response",
+        "HANDLED_BY": "İlgilenen"
+      },
+      "UNKNOWN_CUSTOMER": "Bilinmeyen müşteri"
     },
     "METRIC": {
       "TOTAL_RESPONSES": {
@@ -425,6 +478,28 @@
       "RESPONSE_RATE": {
         "LABEL": "Yanıt oranı",
         "TOOLTIP": "Toplam yanıtların toplamı / Gönderilen CSAT anketi mesajlarının toplamı * 100"
+      },
+      "RATING_DISTRIBUTION": "Derecelendirme dağılımı"
+    },
+    "NO_RECORDS_DESCRIPTION": "Müşteriler geri bildirim vermeye başladığında CSAT anket yanıtları burada görünecektir.",
+    "NO_AGENT": "Atanmış temsilci yok",
+    "NO_FEEDBACK": "Geri bildirim sağlanmadı",
+    "REVIEW_NOTES": {
+      "TITLE": "İnceleme notları",
+      "PLACEHOLDER": "Bu derecelendirmeyle ilgili yorum notları ekleyin...",
+      "SAVE": "Kaydet",
+      "CANCEL": "İptal Et",
+      "SAVING": "Kaydediliyor...",
+      "SAVED": "Notlar başarıyla kaydedildi",
+      "SAVE_ERROR": "Notlar kaydedilemedi",
+      "UPDATED_BY": "{name} tarafından {time} tarihinde güncellendi",
+      "UPDATED_BY_LABEL": "Güncelleyen",
+      "PAYWALL": {
+        "TITLE": "İnceleme notları eklemek için yükseltin",
+        "AVAILABLE_ON": "İnceleme notları özelliği yalnızca Business ve Enterprise planlarında mevcuttur.",
+        "UPGRADE_PROMPT": "İnceleme notları ile her CSAT yanıtına dahili bağlam ekleyin. Gerçekte ne yaşandığını kayıt altına alın, kalıpları daha hızlı tespit edin ve geri bildirimlerinizden yola çıkarak daha iyi kararlar alın.",
+        "UPGRADE_NOW": "Şimdi yükselt",
+        "CANCEL_ANYTIME": "You can change or cancel your plan anytime"
       }
     }
   },
@@ -495,6 +570,13 @@
       "ONLINE": "Çevrimiçi",
       "BUSY": "Meşgul",
       "OFFLINE": "Çevrimdışı"
+    },
+    "RESOLUTION_HEATMAP": {
+      "HEADER": "Çözümler",
+      "NO_CONVERSATIONS": "Hiç konuşma yok",
+      "CONVERSATION": "{count} konuşma",
+      "CONVERSATIONS": "{count} konuşmalar",
+      "DOWNLOAD_REPORT": "Download report"
     }
   },
   "DAYS_OF_WEEK": {

@@ -27,6 +27,42 @@
     "WROTE": "wrote:",
     "FROM": "from",
     "EMAIL": "இமெயில்",
-    "EMAIL_SUBJECT": "subject"
+    "EMAIL_SUBJECT": "subject",
+    "RECENT_SEARCHES": "Recent searches",
+    "CLEAR_ALL": "Clear all",
+    "MOST_RECENT": "Most recent",
+    "READ_LESS": "Read less",
+    "PRIVATE": "Private note",
+    "TRANSCRIPT": "Transcript",
+    "CREATED_AT": "created {time}",
+    "UPDATED_AT": "updated {time}",
+    "SORT_BY": {
+      "RELEVANCE": "Relevance"
+    },
+    "DATE_RANGE": {
+      "LAST_7_DAYS": "கடந்த 7 நாட்கள்",
+      "LAST_30_DAYS": "கடந்த 30 நாட்கள்",
+      "LAST_60_DAYS": "கடந்த 60 நாட்கள்",
+      "LAST_90_DAYS": "கடந்த 90 நாட்கள்",
+      "CUSTOM_RANGE": "Custom range:",
+      "CREATED_BETWEEN": "Created between",
+      "AND": "மற்றும்",
+      "APPLY": "Apply",
+      "BEFORE_DATE": "Before {date}",
+      "AFTER_DATE": "After {date}",
+      "TIME_RANGE": "Filter by time",
+      "CLEAR_FILTER": "Clear filter"
+    },
+    "FILTERS": {
+      "FILTER_MESSAGE": "Filter messages by:",
+      "FROM": "Sender",
+      "IN": "Inbox",
+      "AGENTS": "ஏஜென்ட்கள்",
+      "CONTACTS": "Contacts",
+      "INBOXES": "இன்பாக்ஸ்கள்",
+      "NO_AGENTS": "No agents found",
+      "NO_CONTACTS": "Start by searching to see results",
+      "NO_INBOXES": "No inboxes found"
+    }
   }
 }

@@ -157,6 +157,12 @@
             "DELETE_SUCCESS": "Portal deleted successfully",
             "DELETE_ERROR": "Error while deleting portal"
           }
+        },
+        "SEND_CNAME_INSTRUCTIONS": {
+          "API": {
+            "SUCCESS_MESSAGE": "Arahan CNAME berjaya dihantar",
+            "ERROR_MESSAGE": "Ralat semasa menghantar arahan CNAME"
+          }
         }
       },
       "EDIT": {
@@ -310,11 +316,23 @@
           "SUCCESS_MESSAGE": "Locale removed from portal successfully",
           "ERROR_MESSAGE": "Unable to remove locale from portal. Try again."
         }
+      },
+      "DRAFT_LOCALE": {
+        "API": {
+          "SUCCESS_MESSAGE": "Locale moved to draft successfully",
+          "ERROR_MESSAGE": "Unable to move locale to draft. Try again."
+        }
+      },
+      "PUBLISH_LOCALE": {
+        "API": {
+          "SUCCESS_MESSAGE": "Locale published successfully",
+          "ERROR_MESSAGE": "Unable to publish locale. Try again."
+        }
       }
     },
     "TABLE": {
-      "LOADING_MESSAGE": "Loading articles...",
       "404": "No articles matches your search 🔍",
+      "LOADING_MESSAGE": "Loading articles...",
       "NO_ARTICLES": "There are no available articles",
       "HEADERS": {
         "TITLE": "Title",
@@ -497,7 +515,8 @@
             "PUBLISH": "Publish",
             "DRAFT": "Draft",
             "ARCHIVE": "Archive",
-            "DELETE": "Padamkan"
+            "DELETE": "Padamkan",
+            "TRANSLATE": "Terjemah"
           },
           "STATUS": {
             "DRAFT": "Draft",
@@ -551,6 +570,41 @@
           "TITLE": "There are no articles in this category",
           "SUBTITLE": "Articles in this category will appear here"
         }
+      },
+      "BULK_TRANSLATE": {
+        "TITLE": "Translate article | Translate {count} articles",
+        "DESCRIPTION": "Translate the selected article to another language. | Translate the selected articles to another language.",
+        "LOCALE_LABEL": "Target language",
+        "LOCALE_PLACEHOLDER": "Select a language",
+        "CATEGORY_LABEL": "Target category",
+        "CATEGORY_PLACEHOLDER": "Select a category",
+        "OPTIONAL": "(optional)",
+        "CONFIRM": "Terjemah",
+        "SELECT_ALL": "Pilih semua ({count})",
+        "SELECTED_COUNT": "{count} dipilih",
+        "CLEAR_SELECTION": "Clear selection",
+        "TRANSLATE_BUTTON": "Terjemah",
+        "CONFIRM_OVERWRITE": "Overwrite and translate",
+        "DUPLICATE_WARNING": "A translation already exists for this article in the selected language. | Translations already exist for {count} articles in the selected language.",
+        "DUPLICATE_CONFIRM_HINT": "Click translate again to overwrite the existing translation.",
+        "API": {
+          "SUCCESS_MESSAGE": "Translation in progress. The article will appear as a draft once ready.",
+          "ERROR_MESSAGE": "Failed to start translation. Please try again."
+        }
+      },
+      "BULK_ACTIONS": {
+        "PUBLISH": "Terbitkan",
+        "DRAFT": "Draf",
+        "ARCHIVE": "Arkib",
+        "TRANSLATE": "Terjemah",
+        "DELETE": "Padamkan",
+        "STATUS_SUCCESS": "Articles updated successfully",
+        "STATUS_ERROR": "Failed to update articles",
+        "DELETE_CONFIRM_TITLE": "Delete article | Delete {count} articles",
+        "DELETE_CONFIRM_DESCRIPTION": "This will permanently delete the selected article. This action cannot be undone. | This will permanently delete {count} selected articles. This action cannot be undone.",
+        "DELETE_CONFIRM": "Padamkan",
+        "DELETE_SUCCESS": "Articles deleted successfully",
+        "DELETE_ERROR": "Failed to delete articles"
       }
     },
     "CATEGORY_PAGE": {
@@ -630,8 +684,11 @@
         "DEFAULT": "Default",
         "DROPDOWN_MENU": {
           "MAKE_DEFAULT": "Make default",
-          "DELETE": "Padamkan"
-        }
+          "DELETE": "Padamkan",
+          "MOVE_TO_DRAFT": "Move to draft",
+          "PUBLISH_LOCALE": "Publish locale"
+        },
+        "DRAFT": "Draf"
       },
       "ADD_LOCALE_DIALOG": {
         "TITLE": "Add a new locale",
@@ -642,6 +699,13 @@
         "API": {
           "SUCCESS_MESSAGE": "Locale added successfully",
           "ERROR_MESSAGE": "Unable to add locale. Try again."
+        },
+        "STATUS": {
+          "LABEL": "Status",
+          "OPTIONS": {
+            "LIVE": "Diterbitkan",
+            "DRAFT": "Draf"
+          }
         }
       }
     },
@@ -735,7 +799,8 @@
         "LIVE_CHAT_WIDGET": {
           "LABEL": "Live chat widget",
           "PLACEHOLDER": "Select live chat widget",
-          "HELP_TEXT": "Select a live chat widget that will appear on your help center"
+          "HELP_TEXT": "Select a live chat widget that will appear on your help center",
+          "NONE_OPTION": "Tiada widget"
         },
         "BRAND_COLOR": {
           "LABEL": "Brand color"
@@ -757,13 +822,28 @@
             "EDIT_CONFIRM_BUTTON_LABEL": "Update domain",
             "LABEL": "Custom domain",
             "PLACEHOLDER": "Portal custom domain",
-            "ERROR": "Custom domain is required"
+            "ERROR": "Custom domain is required",
+            "FORMAT_ERROR": "Sila masukkan URL domain yang sah contohnya docs.yourdomain.com"
           },
           "DNS_CONFIGURATION_DIALOG": {
             "HEADER": "DNS configuration",
             "DESCRIPTION": "Log in to the account you have with your DNS provider, and add a CNAME record for subdomain pointing to chatwoot.help",
             "HELP_TEXT": "Once this is done, you can reach out to our support to request for the auto-generated SSL certificate.",
-            "CONFIRM_BUTTON_LABEL": "Got it!"
+            "CONFIRM_BUTTON_LABEL": "Got it!",
+            "COPY": "Berjaya menyalin CNAME",
+            "SEND_INSTRUCTIONS": {
+              "HEADER": "Hantar arahan",
+              "DESCRIPTION": "Jika anda lebih suka seseorang dari pasukan pembangunan anda mengendalikan langkah ini, anda boleh masukkan alamat emel di bawah, dan kami akan menghantar arahan yang diperlukan kepada mereka.",
+              "PLACEHOLDER": "Masukkan emel mereka",
+              "ERROR": "Masukkan alamat emel yang sah",
+              "SEND_BUTTON": "Hantar"
+            }
+          },
+          "STATUS_DESCRIPTION": "Portal khusus anda akan mula berfungsi sebaik sahaja ia disahkan.",
+          "STATUS": {
+            "LIVE": "Aktif",
+            "PENDING": "Menunggu pengesahan",
+            "ERROR": "Pengesahan gagal"
           }
         },
         "DELETE_PORTAL": {
@@ -840,6 +920,16 @@
       "FROM_DOCUMENT": "From document",
       "NO_CONTENT": "No generated content available. Upload a PDF document to get started.",
       "LOADING": "Loading generated content..."
+    },
+    "REORDER_ARTICLE": {
+      "API": {
+        "ERROR_MESSAGE": "Tidak dapat menyusun semula artikel. Sila cuba lagi."
+      }
+    },
+    "REORDER_CATEGORY": {
+      "API": {
+        "ERROR_MESSAGE": "Tidak dapat menyusun semula kategori. Sila cuba lagi."
+      }
     }
   }
 }

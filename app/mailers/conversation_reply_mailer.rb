@@ -5,6 +5,7 @@ class ConversationReplyMailer < ApplicationMailer
 
   include ConversationReplyMailerHelper
   include ReferencesHeaderBuilder
+  include EmailAddressParseable
   default from: ENV.fetch('MAILER_SENDER_EMAIL', 'Chatwoot <accounts@starchats.com.br>')
   layout :choose_layout
 

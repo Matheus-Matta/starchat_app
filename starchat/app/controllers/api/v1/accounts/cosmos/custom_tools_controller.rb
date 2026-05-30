@@ -11,7 +11,7 @@ class Api::V1::Accounts::Cosmos::CustomToolsController < Api::V1::Accounts::Base
 
   def create
     @custom_tool = account_custom_tools.create!(custom_tool_params)
-  rescue Captain::CustomTool::LimitExceededError => e
+  rescue Cosmos::CustomTool::LimitExceededError => e
     render_could_not_create_error(e.message)
   end
 
@@ -35,7 +35,7 @@ class Api::V1::Accounts::Cosmos::CustomToolsController < Api::V1::Accounts::Base
   private
 
   def ensure_custom_tools_enabled
-    return if Current.account.feature_enabled?('custom_tools') || Current.account.feature_enabled?('captain_integration_v2')
+    return if Current.account.feature_enabled?('custom_tools') || Current.account.feature_enabled?('cosmos_integration_v2')
 
     render json: { error: 'Custom tools are not enabled for this account' }, status: :forbidden
   end
@@ -49,7 +49,7 @@ class Api::V1::Accounts::Cosmos::CustomToolsController < Api::V1::Accounts::Base
   end
 
   def execute_test_request(tool)
-    http_tool = Captain::Tools::HttpTool.new(nil, tool)
+    http_tool = Cosmos::Tools::HttpTool.new(nil, tool)
     http_tool.send(:execute_http_request, tool.endpoint_url, nil, nil)
   end
 

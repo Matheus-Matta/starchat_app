@@ -116,6 +116,9 @@
         "LABEL": "Permet l'assignació automàtica d'aquest equip."
       },
       "SUBMIT_CREATE": "Crea l'equip"
-    }
+    },
+    "COUNT": "{n} team | {n} teams",
+    "SEARCH_PLACEHOLDER": "Cerca equips...",
+    "NO_RESULTS": "No teams found matching your search"
   }
 }

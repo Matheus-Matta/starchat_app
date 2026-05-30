@@ -7,7 +7,8 @@
     "LEARN_MORE": "Learn more about custom attributes",
     "ATTRIBUTE_MODELS": {
       "CONVERSATION": "Conversation",
-      "CONTACT": "Contact"
+      "CONTACT": "Contact",
+      "COMPANY": "회사"
     },
     "ATTRIBUTE_TYPES": {
       "TEXT": "텍스트",
@@ -63,6 +64,10 @@
         },
         "ENABLE_REGEX": {
           "LABEL": "Enable regex validation"
+        },
+        "BADGES": {
+          "PRE_CHAT": "사전 채팅",
+          "RESOLUTION": "해결"
         }
       },
       "API": {
@@ -101,7 +106,8 @@
     "TABS": {
       "HEADER": "사용자 지정 특성",
       "CONVERSATION": "Conversation",
-      "CONTACT": "Contact"
+      "CONTACT": "Contact",
+      "COMPANY": "회사"
     },
     "LIST": {
       "TABLE_HEADER": {
@@ -129,6 +135,13 @@
       "ENABLE_REGEX": {
         "LABEL": "Enable regex validation"
       }
+    },
+    "COUNT": "{n}개의 사용자 지정 속성 | {n}개의 사용자 지정 속성",
+    "SEARCH_PLACEHOLDER": "사용자 지정 속성 검색...",
+    "NO_RESULTS": "검색과 일치하는 사용자 지정 속성이 없습니다",
+    "BADGES": {
+      "PRE_CHAT": "사전 채팅",
+      "RESOLUTION": "해결"
     }
   }
 }

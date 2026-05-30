@@ -76,6 +76,9 @@
       },
       "waiting_since_desc": {
         "TEXT": "Pending Response: Shortest first"
+      },
+      "priority_desc_created_at_asc": {
+        "TEXT": "우선순위: 높은 순, 생성일: 오래된 순"
       }
     },
     "ATTACHMENTS": {
@@ -102,6 +105,9 @@
       },
       "contact": {
         "CONTENT": "Shared contact"
+      },
+      "embed": {
+        "CONTENT": "임베디드 콘텐츠"
       }
     },
     "CHAT_SORT_BY_FILTER": {
@@ -134,6 +140,7 @@
     "HIDE_QUOTED_TEXT": "인용문 가리기",
     "SHOW_QUOTED_TEXT": "인용문 보이기",
     "MESSAGE_READ": "읽기",
-    "SENDING": "Sending"
+    "SENDING": "Sending",
+    "UNREAD_COUNT_OVERFLOW": "9+"
   }
 }

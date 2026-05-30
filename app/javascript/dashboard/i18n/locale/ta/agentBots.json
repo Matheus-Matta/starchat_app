@@ -34,7 +34,8 @@
       "LOADING": "Fetching bots...",
       "TABLE_HEADER": {
         "DETAILS": "Bot Details",
-        "URL": "வெப்ஹூக் URL"
+        "URL": "வெப்ஹூக் URL",
+        "ACTIONS": "செயல்கள்"
       }
     },
     "DELETE": {
@@ -98,6 +99,19 @@
     },
     "TYPES": {
       "WEBHOOK": "Webhook bot"
+    },
+    "COUNT": "{n} bot | {n} bots",
+    "SEARCH_PLACEHOLDER": "Search bots...",
+    "NO_RESULTS": "No bots found matching your search",
+    "SECRET": {
+      "LABEL": "Webhook Secret",
+      "COPY": "Copy secret to clipboard",
+      "COPY_SUCCESS": "ரகசியம் கிளிப்போர்டுக்கு நகலெடுக்கப்பட்டது",
+      "TOGGLE": "ரகசியத்தை காண்பிக்க/மறைக்கவும்",
+      "CREATED_DESC": "Use the secret below to verify webhook signatures. Please copy it now, you can also find it later in the bot settings.",
+      "DONE": "முடிந்தது",
+      "RESET_SUCCESS": "Webhook secret regenerated successfully",
+      "RESET_ERROR": "Unable to regenerate webhook secret. Please try again"
     }
   }
 }

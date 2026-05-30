@@ -150,8 +150,8 @@
       "EMPTY_MESSAGE": "Okunmamış bildiriminiz yok"
     },
     "LIST": {
-      "LOADING_MESSAGE": "Bildirimler yükleniyor...",
       "404": "Bildirim yok",
+      "LOADING_MESSAGE": "Bildirimler yükleniyor...",
       "TABLE_HEADER": [
         "İsim",
         "Telefon Numarası",
@@ -239,7 +239,8 @@
       "DARK_MODE": "Koyu Mod",
       "SYSTEM_MODE": "Sistem Modu",
       "SNOOZE_NOTIFICATION": "Sessiz bildirim"
-    }
+    },
+    "SNOOZE_PLACEHOLDER": "Type a time e.g. tomorrow, 2 hours, next friday, jan 15..."
   },
   "DASHBOARD_APPS": {
     "LOADING_MESSAGE": "Panel Uygulaması Yükleniyor..."

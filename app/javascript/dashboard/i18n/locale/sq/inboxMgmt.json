@@ -110,6 +110,14 @@
         "SUBMIT_BUTTON": "Create inbox",
         "API": {
           "ERROR_MESSAGE": "We were not able to create a website channel, please try again"
+        },
+        "CHANNEL_WEBHOOK_SECRET": {
+          "LABEL": "Webhook Secret",
+          "COPY": "Kopjo sekretin në kujtesën e përkohshme",
+          "COPY_SUCCESS": "Sekreti u kopjua në kujtesën e përkohshme",
+          "TOGGLE": "Ndrysho dukshmërinë e sekretit",
+          "RESET_SUCCESS": "Webhook secret regenerated successfully",
+          "RESET_ERROR": "Unable to regenerate webhook secret. Please try again"
         }
       },
       "TWILIO": {
@@ -291,7 +299,13 @@
           "INVALID_BUSINESS_DATA": "Invalid business data received from Facebook. Please try again.",
           "SIGNUP_ERROR": "Signup error occurred",
           "AUTH_NOT_COMPLETED": "Authentication not completed. Please restart the process.",
-          "SUCCESS_FALLBACK": "WhatsApp Business Account has been successfully configured"
+          "SUCCESS_FALLBACK": "WhatsApp Business Account has been successfully configured",
+          "LEARN_MORE": {
+            "TEXT": "Për të mësuar më shumë rreth regjistrimit të integruar, çmimeve dhe kufizimeve, vizitoni {link}.",
+            "LINK_TEXT": "këtë lidhje"
+          },
+          "MANUAL_FALLBACK": "If your number is already connected to the WhatsApp Business Platform (API), or if you’re a tech provider onboarding your own number, please use the {link} flow",
+          "MANUAL_LINK_TEXT": "procesi i konfigurimit manual"
         },
         "API": {
           "ERROR_MESSAGE": "We were not able to save the WhatsApp channel"
@@ -373,7 +387,11 @@
         "API": {
           "ERROR_MESSAGE": "We were not able to save the email channel"
         },
-        "FINISH_MESSAGE": "Start forwarding your emails to the following email address."
+        "FINISH_MESSAGE": "Start forwarding your emails to the following email address.",
+        "FINISH_MESSAGE_NO_FORWARDING": "Your email inbox has been created successfully! You need to configure SMTP and IMAP credentials to send and receive emails. Without these settings, no emails will be processed.",
+        "FORWARDING_ADDRESS_LABEL": "Forward emails to this address:",
+        "CONFIGURE_SMTP_IMAP_LINK": "Kliko këtu",
+        "CONFIGURE_SMTP_IMAP_TEXT": " për të konfiguruar cilësimet IMAP dhe SMTP"
       },
       "LINE_CHANNEL": {
         "TITLE": "LINE Channel",
@@ -462,6 +480,10 @@
           "VOICE": {
             "TITLE": "Voice",
             "DESCRIPTION": "Integrate with Twilio Voice"
+          },
+          "TIKTOK": {
+            "TITLE": "TikTok",
+            "DESCRIPTION": "Lidheni llogarinë tuaj në TikTok"
           }
         }
       },
@@ -496,6 +518,13 @@
         "SIGN_IN": "Sign in with Google",
         "EMAIL_PLACEHOLDER": "Enter email address",
         "ERROR_MESSAGE": "There was an error connecting to Google, please try again"
+      },
+      "TIKTOK": {
+        "CONTINUE_WITH_TIKTOK": "Continue with TikTok",
+        "CONNECT_YOUR_TIKTOK_PROFILE": "Connect your TikTok Profile",
+        "HELP": "To add your TikTok profile as a channel, you need to authenticate your TikTok Profile by clicking on 'Continue with TikTok' ",
+        "ERROR_MESSAGE": "There was an error connecting to TikTok, please try again",
+        "ERROR_AUTH": "There was an error connecting to TikTok, please try again"
       }
     },
     "DETAILS": {
@@ -567,7 +596,9 @@
       },
       "LOCK_TO_SINGLE_CONVERSATION": {
         "ENABLED": "Enabled",
-        "DISABLED": "Disabled"
+        "DISABLED": "Disabled",
+        "ENABLED_DESCRIPTION": "Kur një kontakt dërgon mesazh përsëri, biseda e mëparshme do të rihapet.",
+        "DISABLED_DESCRIPTION": "Do të krijohet një bisedë e re çdo herë pasi të jetë zgjidhur ajo e mëparshmja."
       },
       "ENABLE_HMAC": {
         "LABEL": "Enable"
@@ -599,7 +630,9 @@
       "BUSINESS_HOURS": "Business Hours",
       "WIDGET_BUILDER": "Widget Builder",
       "BOT_CONFIGURATION": "Bot Configuration",
-      "CSAT": "CSAT"
+      "CSAT": "CSAT",
+      "ACCOUNT_HEALTH": "Shëndeti i Llogarisë",
+      "VOICE": "Zë"
     },
     "SETTINGS": "Settings",
     "FEATURES": {
@@ -667,14 +700,34 @@
       "WHATSAPP_TEMPLATES_SYNC_SUBHEADER": "Manually sync message templates from WhatsApp to update your available templates.",
       "WHATSAPP_TEMPLATES_SYNC_BUTTON": "Sinkronizo shabllonet",
       "WHATSAPP_TEMPLATES_SYNC_SUCCESS": "Templates sync initiated successfully. It may take a couple of minutes to update.",
-      "UPDATE_PRE_CHAT_FORM_SETTINGS": "Update Pre Chat Form Settings"
+      "UPDATE_PRE_CHAT_FORM_SETTINGS": "Update Pre Chat Form Settings",
+      "ALLOWED_DOMAINS": {
+        "TITLE": "Domenet e Lejuara",
+        "DESCRIPTION": "Restrict which websites can embed your chat widget. For security, only add domains you own and trust. Add one or more domains separated by commas. Leave blank to allow all domains (not recommended for production).",
+        "PLACEHOLDER": "example.com, www.example.com, app.example.com"
+      },
+      "ALLOW_MOBILE_WEBVIEW": {
+        "LABEL": "Enable widget in mobile apps",
+        "SUBTITLE": "Check this if you embed the widget in iOS or Android apps. Mobile apps don't send domain information, so they would be blocked by domain restrictions unless this is enabled."
+      },
+      "IDENTITY_VALIDATION": {
+        "TITLE": "Identity Validation",
+        "DESCRIPTION": "Verify user authenticity by generating secure tokens. This prevents unauthorized users from impersonating others in your chat.",
+        "SECRET_KEY": "Çelësi Sekret",
+        "VIEW_DOCS": "View documentation",
+        "REQUIRE_LABEL": "Require identity validation for all conversations",
+        "REQUIRE_DESCRIPTION": "When enabled, users must provide a valid identity token to start conversations. Requests without valid tokens will be rejected."
+      },
+      "ENABLE_CONTINUITY_VIA_EMAIL_DISABLED_TEXT": "This feature is available on a paid plan. Upgrade to enable conversation continuity via email.",
+      "FORWARD_EMAIL_NOT_CONFIGURED": "Përparësimi i email-eve në inbox-in tuaj aktualisht është çaktivizuar në këtë instalim. Për të përdorur këtë funksion, duhet të aktivizohet nga administratori juaj. Ju lutemi kontaktoni ata për të vazhduar."
     },
     "HELP_CENTER": {
       "LABEL": "Help Center",
       "PLACEHOLDER": "Select Help Center",
       "SELECT_PLACEHOLDER": "Select Help Center",
       "REMOVE": "Remove Help Center",
-      "SUB_TEXT": "Attach a Help Center with the inbox"
+      "SUB_TEXT": "Attach a Help Center with the inbox",
+      "NONE": "Asnjë"
     },
     "AUTO_ASSIGNMENT": {
       "MAX_ASSIGNMENT_LIMIT": "Auto assignment limit",
@@ -737,7 +790,51 @@
       "API": {
         "SUCCESS_MESSAGE": "CSAT settings updated successfully",
         "ERROR_MESSAGE": "We couldn't update CSAT settings. Please try again later."
-      }
+      },
+      "BUTTON_TEXT": {
+        "LABEL": "Teksti i butonit",
+        "PLACEHOLDER": "Ju lutem na vlerësoni"
+      },
+      "LANGUAGE": {
+        "LABEL": "Gjuha",
+        "PLACEHOLDER": "Zgjidh gjuhën e modelit"
+      },
+      "MESSAGE_PREVIEW": {
+        "LABEL": "Message preview",
+        "TOOLTIP": "Kjo mund të ndryshojë pak kur shfaqet në platformën e WhatsApp."
+      },
+      "TEMPLATE_STATUS": {
+        "APPROVED": "Approved by WhatsApp",
+        "PENDING": "Në pritje të miratimit nga WhatsApp",
+        "REJECTED": "Meta refuzoi modelin",
+        "DEFAULT": "Needs WhatsApp approval",
+        "NOT_FOUND": "Shablloni nuk ekziston në platformën Meta."
+      },
+      "TEMPLATE_CREATION": {
+        "SUCCESS_MESSAGE": "WhatsApp template created successfully and sent for approval",
+        "ERROR_MESSAGE": "Failed to create WhatsApp template"
+      },
+      "TEMPLATE_UPDATE_DIALOG": {
+        "TITLE": "Ndrysho detajet e sondazhit",
+        "DESCRIPTION": "We will delete the previous template and make a new one which will be sent again for WhatsApp approval",
+        "CONFIRM": "Krijo model të ri",
+        "CANCEL": "Kthehu mbrapsht"
+      },
+      "UTILITY_ANALYZER": {
+        "ACTION": "Kontrollo përshtatshmërinë e dobisë",
+        "HELPER_NOTE": "Check this message before submission to improve Utility fit. The system creates a dedicated CSAT template with buttons for reporting and submits it as Utility; Meta may still reclassify it as Marketing based on content.",
+        "RESULT_LABEL": "Parashikimi i kategorisë Meta",
+        "GUIDANCE_NOTE": "Kjo është një kontroll udhëzues, jo një garanci për miratimin nga Meta.",
+        "SUGGESTION_LABEL": "Riformulim i sugjeruar i sigurt për përdorim",
+        "APPLY": "Përdor këtë riformulim",
+        "ERROR_MESSAGE": "Nuk mund të analizohej mesazhi. Ju lutemi provoni përsëri.",
+        "CLASSIFICATION": {
+          "LIKELY_UTILITY": "Përdorim i mundshëm",
+          "LIKELY_MARKETING": "Marketing i mundshëm",
+          "UNCLEAR": "Kërkon sqarim"
+        }
+      },
+      "WHATSAPP_NOTE": "Shënim: Kur ruani, sistemi krijon një model të dedikuar CSAT në WhatsApp (përdoret për të kapur vlerësimin dhe reagimet në raportime) dhe e dorëzon për miratim si Utility. Meta mund ta klasifikojë përsëri si Marketing bazuar në përmbajtje. Pas miratimit, sondazhet dërgohen vetëm një herë për bisedë sipas rregullës së sondazhit."
     },
     "BUSINESS_HOURS": {
       "TITLE": "Set your availability",
@@ -753,7 +850,9 @@
         "UNAVAILABLE": "Unavailable",
         "HOURS": "hours",
         "VALIDATION_ERROR": "Starting time should be before closing time.",
-        "CHOOSE": "Choose"
+        "CHOOSE": "Choose",
+        "DAY": "Ditë",
+        "AVAILABILITY": "Availability"
       },
       "ALL_DAY": "All-Day"
     },
@@ -784,7 +883,8 @@
         "LABEL": "Password",
         "PLACE_HOLDER": "Password"
       },
-      "ENABLE_SSL": "Enable SSL"
+      "ENABLE_SSL": "Enable SSL",
+      "AUTH_MECHANISM": "Authentication"
     },
     "MICROSOFT": {
       "TITLE": "Microsoft",
@@ -883,7 +983,8 @@
         "WIDGET_BUBBLE_TYPE": {
           "STANDARD": "Standard",
           "EXPANDED_BUBBLE": "Expanded Bubble"
-        }
+        },
+        "WIDGET_BUBBLE": "Flluskë"
       },
       "WIDGET_SCREEN": {
         "DEFAULT": "Default",
@@ -935,7 +1036,136 @@
       "LINE": "Line",
       "API": "API Channel",
       "INSTAGRAM": "Instagram",
-      "VOICE": "Voice"
+      "VOICE": "Voice",
+      "TIKTOK": "TikTok"
+    },
+    "COUNT": "{n} kutia postare | {n} kuti postare",
+    "SEARCH_PLACEHOLDER": "Kërko kutitë postare...",
+    "NO_RESULTS": "Nuk u gjetën kuti postare që përputhen me kërkimin tuaj",
+    "WHATSAPP_REGISTRATION_INCOMPLETE": "Your WhatsApp Business registration isn’t complete. Please check your display name status in Meta Business Manager before reconnecting.",
+    "COMPLETE_REGISTRATION": "Përfundo Regjistrimin",
+    "VOICE_CONFIGURATION": {
+      "ENABLE_VOICE": {
+        "LABEL": "Enable Voice Calling",
+        "DESCRIPTION": "Enable voice calling on this inbox. Agents will be able to make and receive phone calls."
+      },
+      "CREDENTIALS": {
+        "DESCRIPTION": "Voice calling requires Twilio API Key credentials. These are used to generate tokens for agent voice connections."
+      }
+    },
+    "CHANNEL_PREFERENCES": "Preferencat e kanalit",
+    "WIDGET_FEATURES": "Widget features",
+    "ACCOUNT_HEALTH": {
+      "TITLE": "Manage your WhatsApp account",
+      "DESCRIPTION": "Review your WhatsApp account status, messaging limits, and quality. Update settings or resolve issues if needed",
+      "GO_TO_SETTINGS": "Go to Meta Business Manager",
+      "NO_DATA": "Të dhënat e shëndetit nuk janë në dispozicion",
+      "FIELDS": {
+        "DISPLAY_PHONE_NUMBER": {
+          "LABEL": "Trego numrin e telefonit",
+          "TOOLTIP": "Numri i telefonit i shfaqur për klientët"
+        },
+        "VERIFIED_NAME": {
+          "LABEL": "Emri i biznesit",
+          "TOOLTIP": "Business name verified by WhatsApp"
+        },
+        "DISPLAY_NAME_STATUS": {
+          "LABEL": "Statusi i emrit të shfaqur",
+          "TOOLTIP": "Statusi i verifikimit të emrit të biznesit tuaj"
+        },
+        "QUALITY_RATING": {
+          "LABEL": "Vlerësimi i cilësisë",
+          "TOOLTIP": "WhatsApp quality rating for your account"
+        },
+        "MESSAGING_LIMIT_TIER": {
+          "LABEL": "Niveli i kufirit të mesazheve",
+          "TOOLTIP": "Kufiri ditor i mesazheve për llogarinë tuaj"
+        },
+        "ACCOUNT_MODE": {
+          "LABEL": "Mënyra e llogarisë",
+          "TOOLTIP": "Current operating mode of your WhatsApp account"
+        }
+      },
+      "VALUES": {
+        "TIERS": {
+          "TIER_250": "250 customers per 24h",
+          "TIER_1000": "1K customers per 24h",
+          "TIER_1K": "1K customers per 24h",
+          "TIER_10K": "10K customers per 24h",
+          "TIER_100K": "100K customers per 24h",
+          "TIER_UNLIMITED": "Unlimited customers per 24h",
+          "UNKNOWN": "Vlerësimi nuk është në dispozicion"
+        },
+        "STATUSES": {
+          "APPROVED": "Miratuar",
+          "PENDING_REVIEW": "Në pritje të rishikimit",
+          "AVAILABLE_WITHOUT_REVIEW": "Në dispozicion pa rishikim",
+          "REJECTED": "Refuzuar",
+          "DECLINED": "Hedhur poshtë",
+          "NON_EXISTS": "Nuk ekziston"
+        },
+        "MODES": {
+          "SANDBOX": "Sandbox",
+          "LIVE": "Live"
+        }
+      },
+      "WEBHOOK": {
+        "TITLE": "Webhook Configuration",
+        "DESCRIPTION": "Webhook URL është i nevojshëm për Llogarinë tuaj të Biznesit në WhatsApp që të marrë mesazhe nga klientët",
+        "ACTION_REQUIRED": "Webhook not configured",
+        "REGISTER_BUTTON": "Register Webhook",
+        "REGISTER_SUCCESS": "Webhook registered successfully",
+        "REGISTER_ERROR": "Failed to register webhook. Please try again.",
+        "CONFIGURED_SUCCESS": "Webhook configured successfully",
+        "URL_MISMATCH": "Webhook URL mismatch"
+      }
+    },
+    "ASSIGNMENT": {
+      "TITLE": "Caktimi i Bisedave",
+      "DESCRIPTION": "Caktoni automatikisht bisedat hyrëse agjentëve në dispozicion bazuar në politikat e caktimit",
+      "ENABLE_AUTO_ASSIGNMENT": "Aktivizo caktimin automatik të bisedave",
+      "DEFAULT_RULES_TITLE": "Rregullat e paracaktuara të caktimit",
+      "DEFAULT_RULES_DESCRIPTION": "Duke përdorur sjelljen e paracaktuar të caktimit për të gjitha bisedat",
+      "DEFAULT_RULE_1": "Së pari bisedat më të hershme të krijuara",
+      "DEFAULT_RULE_2": "Shpërndarje rrethore",
+      "CUSTOMIZE_WITH_POLICY": "Përshtat me politikën e caktimit",
+      "USING_POLICY": "Using custom assignment policy for this inbox",
+      "CUSTOMIZE_POLICY": "Përshtat me politikën e caktimit",
+      "DELETE_POLICY": "Fshi politikën",
+      "POLICY_LABEL": "Politika e caktimit",
+      "ASSIGNMENT_ORDER_LABEL": "Renditja e Detyrës",
+      "ASSIGNMENT_METHOD_LABEL": "Metoda e Detyrimit",
+      "POLICY_STATUS": {
+        "ACTIVE": "Aktiv",
+        "INACTIVE": "Joaktiv"
+      },
+      "PRIORITY": {
+        "EARLIEST_CREATED": "Krijuar më herët",
+        "LONGEST_WAITING": "Duke pritur më gjatë"
+      },
+      "METHOD": {
+        "ROUND_ROBIN": "Rrotullim i barabartë",
+        "BALANCED": "Caktim i balancuar"
+      },
+      "UPGRADE_PROMPT": "Politikat e personalizuara të caktimit janë të disponueshme në planin Business",
+      "UPGRADE_TO_BUSINESS": "Upgrade to Business",
+      "DEFAULT_POLICY_LINKED": "Politika e paracaktuar e lidhur",
+      "DEFAULT_POLICY_DESCRIPTION": "Lidheni një politikë të personalizuar caktimi për të përshtatur mënyrën se si bisedat caktohen agjentëve në këtë inbox.",
+      "LINK_EXISTING_POLICY": "Lidh politikën ekzistuese",
+      "CREATE_NEW_POLICY": "Krijo politikë të re",
+      "NO_POLICIES": "Nuk u gjetën politika caktimi",
+      "VIEW_ALL_POLICIES": "Shiko të gjitha politikat",
+      "CURRENT_BEHAVIOR": "Aktualisht përdoret sjellja e paracaktuar e caktimit:",
+      "LINK_SUCCESS": "Politika e caktimit u lidh me sukses",
+      "LINK_ERROR": "Dështoi lidhja e politikës së caktimit"
+    },
+    "ASSIGNMENT_POLICY": {
+      "DELETE_CONFIRM_TITLE": "Fshini politikën e caktimit?",
+      "DELETE_CONFIRM_MESSAGE": "Jeni i sigurt që dëshironi të hiqni këtë politikë caktimi nga kjo kuti postare? Kuti postare do të kthehet te rregullat e paracaktuara të caktimit.",
+      "CANCEL": "Anulo",
+      "CONFIRM_DELETE": "Fshi",
+      "DELETE_SUCCESS": "Politika e caktimit u hoq me sukses",
+      "DELETE_ERROR": "Dështoi heqja e politikës së caktimit"
     }
   }
 }

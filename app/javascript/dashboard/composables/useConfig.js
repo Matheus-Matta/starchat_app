@@ -29,18 +29,10 @@ export function useConfig() {
    */
   const isEnterprise = config.isEnterprise === 'true';
 
-  /**
-   * The name of the enterprise plan, if applicable.
-   * Returns "community" or "enterprise"
-   * @type {string|undefined}
-   */
-  const enterprisePlanName = config.enterprisePlanName;
-
   return {
     hostURL,
     vapidPublicKey,
     enabledLanguages,
     isEnterprise,
-    enterprisePlanName,
   };
 }

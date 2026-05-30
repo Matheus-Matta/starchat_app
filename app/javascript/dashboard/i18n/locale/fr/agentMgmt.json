@@ -119,6 +119,9 @@
           "INPUT": "Chercher des agents"
         }
       }
-    }
+    },
+    "COUNT": "{n} agent | {n} agents",
+    "SEARCH_PLACEHOLDER": "Chercher des agents...",
+    "NO_RESULTS": "No agents found matching your search"
   }
 }

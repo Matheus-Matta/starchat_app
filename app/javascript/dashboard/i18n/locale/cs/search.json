@@ -27,6 +27,42 @@
     "WROTE": "wrote:",
     "FROM": "od",
     "EMAIL": "e-mailová adresa",
-    "EMAIL_SUBJECT": "předmět"
+    "EMAIL_SUBJECT": "předmět",
+    "RECENT_SEARCHES": "Recent searches",
+    "CLEAR_ALL": "Clear all",
+    "MOST_RECENT": "Most recent",
+    "READ_LESS": "Read less",
+    "PRIVATE": "Private note",
+    "TRANSCRIPT": "Transcript",
+    "CREATED_AT": "created {time}",
+    "UPDATED_AT": "updated {time}",
+    "SORT_BY": {
+      "RELEVANCE": "Relevance"
+    },
+    "DATE_RANGE": {
+      "LAST_7_DAYS": "Posledních 7 dní",
+      "LAST_30_DAYS": "Posledních 30 dní",
+      "LAST_60_DAYS": "Posledních 60 dní",
+      "LAST_90_DAYS": "Posledních 90 dní",
+      "CUSTOM_RANGE": "Custom range:",
+      "CREATED_BETWEEN": "Created between",
+      "AND": "and",
+      "APPLY": "Použít",
+      "BEFORE_DATE": "Before {date}",
+      "AFTER_DATE": "After {date}",
+      "TIME_RANGE": "Filter by time",
+      "CLEAR_FILTER": "Clear filter"
+    },
+    "FILTERS": {
+      "FILTER_MESSAGE": "Filter messages by:",
+      "FROM": "Sender",
+      "IN": "Inbox",
+      "AGENTS": "Agenti",
+      "CONTACTS": "Kontakty",
+      "INBOXES": "Schránky",
+      "NO_AGENTS": "Nenalezeni žádní agenti",
+      "NO_CONTACTS": "Start by searching to see results",
+      "NO_INBOXES": "No inboxes found"
+    }
   }
 }

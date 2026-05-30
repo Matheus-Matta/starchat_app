@@ -13,7 +13,8 @@
       "TABLE_HEADER": {
         "NAME": "名前",
         "DESCRIPTION": "説明",
-        "COLOR": "色"
+        "COLOR": "色",
+        "ACTION": "操作"
       }
     },
     "FORM": {
@@ -80,6 +81,9 @@
         "YES": "削除する ",
         "NO": "いいえ "
       }
-    }
+    },
+    "COUNT": "{n} label | {n} labels",
+    "SEARCH_PLACEHOLDER": "ラベルを検索...",
+    "NO_RESULTS": "No labels found matching your search"
   }
 }

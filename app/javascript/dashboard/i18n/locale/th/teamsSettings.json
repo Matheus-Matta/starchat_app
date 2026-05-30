@@ -116,6 +116,9 @@
         "LABEL": "เปิดใช้การมอบหมายงานอัตโนมัติสำหรับทีมนี้"
       },
       "SUBMIT_CREATE": "สร้างทีม"
-    }
+    },
+    "COUNT": "{n} team | {n} teams",
+    "SEARCH_PLACEHOLDER": "ค้นหาทีม...",
+    "NO_RESULTS": "No teams found matching your search"
   }
 }

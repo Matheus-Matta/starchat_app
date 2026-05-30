@@ -143,7 +143,7 @@ const saveSettings = async () => {
 </script>
 
 <template>
-  <div class="mx-8">
+  <div class="mx-8 mt-2">
     <SectionLayout
       :title="$t('INBOX_MGMT.CSAT.TITLE')"
       :description="$t('INBOX_MGMT.CSAT.SUBTITLE')"

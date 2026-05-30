@@ -1,11 +1,16 @@
 <script>
 import AddSLA from './AddSLA.vue';
 import SettingsLayout from '../SettingsLayout.vue';
-import SLAEmptyState from './components/SLAEmptyState.vue';
-import SLAHeader from './components/SLAHeader.vue';
-import SLAListItem from './components/SLAListItem.vue';
-import SLAListItemLoading from './components/SLAListItemLoading.vue';
-import SLAPaywallEnterprise from './components/SLAPaywallStarchat.vue';
+import BaseSettingsHeader from 'dashboard/routes/dashboard/settings/components/BaseSettingsHeader.vue';
+import SLAPaywallEnterprise from './SLAPaywallStarchat.vue';
+import {
+  BaseTable,
+  BaseTableRow,
+  BaseTableCell,
+} from 'dashboard/components-next/table';
+import WootLabel from 'dashboard/components-next/label/Label.vue';
+import Icon from 'dashboard/components-next/icon/Icon.vue';
+import NextButton from 'dashboard/components-next/button/Button.vue';
 
 import { mapGetters } from 'vuex';
 import { convertSecondsToTimeUnit } from '@chatwoot/utils';

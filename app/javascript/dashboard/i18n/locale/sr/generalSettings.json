@@ -150,8 +150,8 @@
       "EMPTY_MESSAGE": "Nemate nepročitanih obaveštenja"
     },
     "LIST": {
-      "LOADING_MESSAGE": "Učitavanje obaveštenja...",
       "404": "Nema obaveštenja",
+      "LOADING_MESSAGE": "Učitavanje obaveštenja...",
       "TABLE_HEADER": [
         "Ime",
         "Broj telefona",
@@ -239,7 +239,8 @@
       "DARK_MODE": "Dark",
       "SYSTEM_MODE": "System",
       "SNOOZE_NOTIFICATION": "Snooze Notification"
-    }
+    },
+    "SNOOZE_PLACEHOLDER": "Type a time e.g. tomorrow, 2 hours, next friday, jan 15..."
   },
   "DASHBOARD_APPS": {
     "LOADING_MESSAGE": "Loading Dashboard App..."

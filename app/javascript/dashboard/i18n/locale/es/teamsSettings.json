@@ -116,6 +116,9 @@
         "LABEL": "Permitir auto asignar para este equipo."
       },
       "SUBMIT_CREATE": "Crear equipo"
-    }
+    },
+    "COUNT": "{n} team | {n} teams",
+    "SEARCH_PLACEHOLDER": "Buscar equipos...",
+    "NO_RESULTS": "No teams found matching your search"
   }
 }

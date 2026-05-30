@@ -357,7 +357,7 @@ end
 RSpec.describe 'Equal Distribution — Integração com AssignmentService', type: :service do
   let(:account) { create(:account) }
   let(:inbox) { create(:inbox, account: account, enable_auto_assignment: true) }
-  let(:assignment_policy) { create(:assignment_policy, account: account, enabled: true) }
+  let(:assignment_policy) { create(:assignment_policy, account: account, enabled: true, fair_distribution_limit: 100_000) }
   let(:service) { AutoAssignment::AssignmentService.new(inbox: inbox) }
 
   # 5 agentes simulando um time real de atendimento
@@ -376,8 +376,16 @@ RSpec.describe 'Equal Distribution — Integração com AssignmentService', type
   let(:all_agents) { [agent1, agent2, agent3, agent4, agent5] }
 
   before do
-    allow(account).to receive(:feature_enabled?).and_return(false)
-    allow(account).to receive(:feature_enabled?).with('assignment_v2').and_return(true)
+    account.enable_features!('assignment_v2')
+    account.disable_features!('advanced_assignment')
+    reset_all_assignment_redis
+    reset_assignment_redis_for(inbox)
+    rate_limiter = instance_double(AutoAssignment::RateLimiter, within_limit?: true, track_assignment: nil)
+    allow(AutoAssignment::RateLimiter).to receive(:new).and_return(rate_limiter)
+
+    # Clear online status and presence for this account to prevent flakiness
+    Redis::Alfred.delete(OnlineStatusTracker.status_key(account.id))
+    Redis::Alfred.delete(OnlineStatusTracker.presence_key(account.id, 'User'))
 
     all_agents.each do |agent|
       OnlineStatusTracker.update_presence(account.id, 'User', agent.id)
@@ -397,6 +405,16 @@ RSpec.describe 'Equal Distribution — Integração com AssignmentService', type
            equal_distribution_enabled: enabled,
            equal_distribution_window_hours: window_hours,
            equal_distribution_balance_threshold: threshold)
+  end
+
+  def reset_assignment_redis_for(target_inbox)
+    Redis::Alfred.scan_each(match: "ASSIGNMENT::#{target_inbox.id}::*") { |key| Redis::Alfred.delete(key) }
+    Redis::Alfred.delete(format(Redis::Alfred::ROUND_ROBIN_AGENTS, inbox_id: target_inbox.id))
+  end
+
+  def reset_all_assignment_redis
+    Redis::Alfred.scan_each(match: 'ASSIGNMENT::*') { |key| Redis::Alfred.delete(key) }
+    Redis::Alfred.scan_each(match: 'ROUND_ROBIN_AGENTS:*') { |key| Redis::Alfred.delete(key) }
   end
 
   # Retorna { "Nome" => contagem_de_conversas_abertas } para os 5 agentes
@@ -626,7 +644,7 @@ RSpec.describe 'Equal Distribution — Integração com AssignmentService', type
   # ===========================================================================
   describe '2.5 Per-inbox: inbox A (equal ativo) e inbox B (desabilitado)' do
     let(:inbox_b)    { create(:inbox, account: account, enable_auto_assignment: true) }
-    let(:policy_b)   { create(:assignment_policy, account: account, enabled: true) }
+    let(:policy_b)   { create(:assignment_policy, account: account, enabled: true, fair_distribution_limit: 100_000) }
     let(:service_b)  { AutoAssignment::AssignmentService.new(inbox: inbox_b) }
 
     before do
@@ -657,6 +675,11 @@ RSpec.describe 'Equal Distribution — Integração com AssignmentService', type
       new_b = create_list(:conversation, 20, inbox: inbox_b, assignee: nil, status: 'open')
 
       service.perform_bulk_assignment(limit: 20)
+      reset_assignment_redis_for(inbox_b)
+      all_agents.each do |agent|
+        OnlineStatusTracker.update_presence(account.id, 'User', agent.id)
+        OnlineStatusTracker.set_status(account.id, agent.id, 'online')
+      end
       service_b.perform_bulk_assignment(limit: 20)
 
       # === inbox A: validar redistribuição ===

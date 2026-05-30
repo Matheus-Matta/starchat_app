@@ -28,7 +28,8 @@
       "TYPES": {
         "MEDIA": "Mídia",
         "QUICK_REPLY": "Resposta Rápida",
-        "TEXT": "Texto"
+        "TEXT": "Texto",
+        "CALL_TO_ACTION": "Chamada para Ação"
       }
     },
     "PARSER": {

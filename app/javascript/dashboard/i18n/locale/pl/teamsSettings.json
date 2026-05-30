@@ -116,6 +116,9 @@
         "LABEL": "Włącz automatyczne przypisywanie dla tego zespołu."
       },
       "SUBMIT_CREATE": "Utwórz zespół"
-    }
+    },
+    "COUNT": "{n} team | {n} teams",
+    "SEARCH_PLACEHOLDER": "Szukaj zespołów...",
+    "NO_RESULTS": "No teams found matching your search"
   }
 }

@@ -82,7 +82,8 @@
       "LAST_3_MONTHS": "Últimos 3 meses",
       "LAST_6_MONTHS": "Últimos 6 meses",
       "LAST_YEAR": "Ano passado",
-      "CUSTOM_DATE_RANGE": "Intervalo de datas personalizado"
+      "CUSTOM_DATE_RANGE": "Intervalo de datas personalizado",
+      "LAST_MONTH": "Último mês"
     },
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "Aplicar",
@@ -148,7 +149,8 @@
     "PAGINATION": {
       "RESULTS": "Exibindo {start} — {end} de {total} resultados",
       "PER_PAGE_TEMPLATE": "{size} / page"
-    }
+    },
+    "DOWNLOAD_CONVERSATION_REPORTS": "Baixar relatórios de conversas"
   },
   "AGENT_REPORTS": {
     "HEADER": "Visão Geral de Agentes",
@@ -216,6 +218,11 @@
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "Aplicar",
       "PLACEHOLDER": "Selecionar intervalo de datas"
+    },
+    "FILTERS": {
+      "INPUT_PLACEHOLDER": {
+        "AGENTS": "Pesquisar agentes"
+      }
     }
   },
   "LABEL_REPORTS": {
@@ -284,6 +291,11 @@
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "Aplicar",
       "PLACEHOLDER": "Selecionar intervalo de datas"
+    },
+    "FILTERS": {
+      "INPUT_PLACEHOLDER": {
+        "LABELS": "Pesquisar etiquetas"
+      }
     }
   },
   "INBOX_REPORTS": {
@@ -354,6 +366,11 @@
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "Aplicar",
       "PLACEHOLDER": "Selecionar intervalo de datas"
+    },
+    "FILTERS": {
+      "INPUT_PLACEHOLDER": {
+        "INBOXES": "Pesquisar caixas de entrada"
+      }
     }
   },
   "TEAM_REPORTS": {
@@ -422,6 +439,14 @@
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "Aplicar",
       "PLACEHOLDER": "Selecionar intervalo de datas"
+    },
+    "FILTERS": {
+      "ADD_FILTER": "Adicionar filtro",
+      "CLEAR_ALL": "Limpar tudo",
+      "NO_FILTER": "Não há filtros disponíveis",
+      "INPUT_PLACEHOLDER": {
+        "TEAMS": "Pesquisar times"
+      }
     }
   },
   "CSAT_REPORTS": {
@@ -431,7 +456,26 @@
     "DOWNLOAD_FAILED": "Falha ao baixar Relatórios CSAT",
     "FILTERS": {
       "AGENTS": {
-        "PLACEHOLDER": "Escolher agentes"
+        "PLACEHOLDER": "Escolher agentes",
+        "LABEL": "Agente"
+      },
+      "ADD_FILTER": "Adicionar filtro",
+      "CLEAR_ALL": "Limpar tudo",
+      "NO_FILTER": "Não há filtros disponíveis",
+      "INPUT_PLACEHOLDER": {
+        "AGENTS": "Pesquisar agentes",
+        "INBOXES": "Pesquisar caixas de entrada",
+        "TEAMS": "Pesquisar times",
+        "RATINGS": "Pesquisar avaliações"
+      },
+      "INBOXES": {
+        "LABEL": "Caixa de Entrada"
+      },
+      "TEAMS": {
+        "LABEL": "Time"
+      },
+      "RATINGS": {
+        "LABEL": "Classificação"
       }
     },
     "TABLE": {
@@ -439,8 +483,13 @@
         "CONTACT_NAME": "Contato",
         "AGENT_NAME": "Agente atribuído",
         "RATING": "Classificação",
-        "FEEDBACK_TEXT": "Comentário do feedback"
-      }
+        "FEEDBACK_TEXT": "Comentário do feedback",
+        "CONVERSATION": "Conversas",
+        "CUSTOMER": "Cliente",
+        "RESPONSE": "Resposta",
+        "HANDLED_BY": "Atendido por"
+      },
+      "UNKNOWN_CUSTOMER": "Cliente desconhecido"
     },
     "METRIC": {
       "TOTAL_RESPONSES": {
@@ -454,6 +503,28 @@
       "RESPONSE_RATE": {
         "LABEL": "Taxa de resposta",
         "TOOLTIP": "Número total de respostas / Número total de mensagens CSAT de pesquisa enviadas * 100"
+      },
+      "RATING_DISTRIBUTION": "Distribuição de avaliações"
+    },
+    "NO_RECORDS_DESCRIPTION": "As respostas da pesquisa de CSAT aparecerão aqui assim que os clientes começarem a fornecer comentários.",
+    "NO_AGENT": "Nenhum agente atribuído",
+    "NO_FEEDBACK": "Nenhum comentário fornecido",
+    "REVIEW_NOTES": {
+      "TITLE": "Notas da avaliação",
+      "PLACEHOLDER": "Adicione notas sobre esta avaliação...",
+      "SAVE": "Salvar",
+      "CANCEL": "Cancelar",
+      "SAVING": "Salvando...",
+      "SAVED": "Notas salvas com sucesso",
+      "SAVE_ERROR": "Falha ao salvar as notas",
+      "UPDATED_BY": "Atualizado por {name} {time}",
+      "UPDATED_BY_LABEL": "Atualizado por",
+      "PAYWALL": {
+        "TITLE": "Atualize para adicionar notas de avaliação",
+        "AVAILABLE_ON": "O recurso de notas de avaliação está disponível apenas nos planos Business e Enterprise.",
+        "UPGRADE_PROMPT": "Adicione contexto interno a cada resposta de CSAT com notas de avaliação. Registre o que realmente aconteceu, identifique padrões mais rapidamente e tome decisões melhores a partir do seu feedback.",
+        "UPGRADE_NOW": "Atualizar agora",
+        "CANCEL_ANYTIME": "Você pode alterar ou cancelar seu plano a qualquer momento"
       }
     }
   },
@@ -497,7 +568,11 @@
       "DOWNLOAD_REPORT": "Baixar relatório"
     },
     "RESOLUTION_HEATMAP": {
-      "HEADER": "Mapa de calor de resolução"
+      "HEADER": "Mapa de calor de resolução",
+      "NO_CONVERSATIONS": "Não há conversas",
+      "CONVERSATION": "{count} conversa",
+      "CONVERSATIONS": "{count} conversas",
+      "DOWNLOAD_REPORT": "Baixar relatório"
     },
     "AGENT_CONVERSATIONS": {
       "HEADER": "Conversas por agentes",

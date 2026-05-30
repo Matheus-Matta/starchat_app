@@ -5,7 +5,7 @@ class DeviseOverrides::SessionsController < DeviseTokenAuth::SessionsController
   before_action :process_sso_auth_token, only: [:create]
 
   def new
-    redirect_to login_page_url(error: 'access-denied')
+    redirect_to login_page_url(error: 'access-denied'), allow_other_host: true
   end
 
   def create
@@ -51,9 +51,13 @@ class DeviseOverrides::SessionsController < DeviseTokenAuth::SessionsController
   end
 
   def login_page_url(error: nil)
-    frontend_url = ENV.fetch('FRONTEND_URL', nil)
+    frontend_url = ENV['FRONTEND_URL']
+    path = '/app/login'
+    query = "?error=#{error}"
 
-    "#{frontend_url}/app/login?error=#{error}"
+    return "#{frontend_url}#{path}#{query}" if frontend_url.present?
+
+    "#{path}#{query}"
   end
 
   def authenticate_resource_with_sso_token
@@ -75,15 +79,15 @@ class DeviseOverrides::SessionsController < DeviseTokenAuth::SessionsController
   def handle_mfa_required(user)
     render json: {
       mfa_required: true,
-      mfa_token: Mfa::TokenService.new(user: user).generate_token
+      mfa_token: MFA::TokenService.new(user: user).generate_token
     }, status: :partial_content
   end
 
   def handle_mfa_verification
-    user = Mfa::TokenService.new(token: params[:mfa_token]).verify_token
+    user = MFA::TokenService.new(token: params[:mfa_token]).verify_token
     return render_mfa_error('errors.mfa.invalid_token', :unauthorized) unless user
 
-    authenticated = Mfa::AuthenticationService.new(
+    authenticated = MFA::AuthenticationService.new(
       user: user,
       otp_code: params[:otp_code],
       backup_code: params[:backup_code]

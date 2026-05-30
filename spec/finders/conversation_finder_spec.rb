@@ -220,13 +220,16 @@ describe ConversationFinder do
       let(:params) { { status: 'open', assignee_type: 'me', conversation_type: 'unattended' } }
 
       it 'returns unattended conversations' do
-        create(:conversation, account: account, first_reply_created_at: Time.now.utc, assignee: user_1) # attended_conversation
+        account.conversations.update_all(first_reply_created_at: Time.current, waiting_since: nil)
+
+        attended_conversation = create(:conversation, account: account, first_reply_created_at: Time.now.utc, assignee: user_1)
+        attended_conversation.update_columns(waiting_since: nil)
         create(:conversation, account: account, first_reply_created_at: nil, assignee: user_1) # unattended_conversation_no_first_reply
         create(:conversation, account: account, first_reply_created_at: Time.now.utc,
                               assignee: user_1, waiting_since: Time.now.utc) # unattended_conversation_waiting_since
 
         result = conversation_finder.perform
-        expect(result[:conversations].length).to be 2
+        expect(result[:conversations].length).to eq(2)
       end
     end
   end

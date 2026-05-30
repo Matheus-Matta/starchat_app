@@ -26,6 +26,7 @@ const {
   resolvePath,
   resolvePermissions,
   resolveFeatureFlag,
+  resolveInstallationType,
   isAllowed,
   isCollapsed,
   isResizing,
@@ -170,7 +171,11 @@ const hasActiveChild = computed(() => {
 });
 
 const toggleTrigger = async () => {
-  if (hasAccessibleChildren.value && !isExpanded.value && !hasActiveChild.value) {
+  if (
+    hasAccessibleChildren.value &&
+    !isExpanded.value &&
+    !hasActiveChild.value
+  ) {
     await router.push(accessibleItems.value[0].to);
   }
   setExpandedItem(props.name);
@@ -207,6 +212,7 @@ watch(
     v-if="!hasChildren || hasAccessibleChildren"
     :permissions="resolvePermissions(to)"
     :feature-flag="resolveFeatureFlag(to)"
+    :installation-types="resolveInstallationType(to)"
     as="li"
     class="grid gap-1 text-sm cursor-pointer select-none min-w-0"
   >
@@ -225,7 +231,7 @@ watch(
     <ul
       v-if="hasChildren"
       v-show="isExpanded || hasActiveChild"
-      class="grid m-0 list-none sidebar-group-children"
+      class="grid m-0 list-none sidebar-group-children min-w-0"
     >
       <template v-for="child in children" :key="child.name">
         <SidebarSubGroup
@@ -235,53 +241,18 @@ watch(
           :children="child.children"
           :is-expanded="isExpanded"
           :active-child="activeChild"
-          :trigger-rect="triggerRect"
-          @close="closePopover"
-          @mouseenter="handlePopoverMouseEnter"
-          @mouseleave="handlePopoverMouseLeave"
         />
-      </div>
-    </template>
-    <!-- Expanded State -->
-    <template v-else>
-      <SidebarGroupHeader
-        :icon
-        :name
-        :label
-        :to
-        :getter-keys="getterKeys"
-        :is-active="isActive"
-        :has-active-child="hasActiveChild"
-        :expandable="hasChildren"
-        :is-expanded="isExpanded"
-        @toggle="toggleTrigger"
-      />
-      <ul
-        v-if="hasChildren"
-        v-show="isExpanded || hasActiveChild"
-        class="grid m-0 list-none sidebar-group-children min-w-0"
-      >
-        <template v-for="child in children" :key="child.name">
-          <SidebarSubGroup
-            v-if="child.children"
-            :label="child.label"
-            :icon="child.icon"
-            :children="child.children"
-            :is-expanded="isExpanded"
-            :active-child="activeChild"
-          />
-          <SidebarGroupLeaf
-            v-else-if="isAllowed(child.to)"
-            v-show="isExpanded || activeChild?.name === child.name"
-            v-bind="child"
-            :active="activeChild?.name === child.name"
-          />
-        </template>
-      </ul>
-      <ul v-else-if="isExpandable && isExpanded">
-        <SidebarGroupEmptyLeaf />
-      </ul>
-    </template>
+        <SidebarGroupLeaf
+          v-else-if="isAllowed(child.to)"
+          v-show="isExpanded || activeChild?.name === child.name"
+          v-bind="child"
+          :active="activeChild?.name === child.name"
+        />
+      </template>
+    </ul>
+    <ul v-else-if="isExpandable && isExpanded">
+      <SidebarGroupEmptyLeaf />
+    </ul>
   </Policy>
 </template>
 

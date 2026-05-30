@@ -27,6 +27,42 @@
     "WROTE": "נכתב:",
     "FROM": "מ",
     "EMAIL": "אימייל",
-    "EMAIL_SUBJECT": "נושא"
+    "EMAIL_SUBJECT": "נושא",
+    "RECENT_SEARCHES": "Recent searches",
+    "CLEAR_ALL": "נקה הכל",
+    "MOST_RECENT": "Most recent",
+    "READ_LESS": "Read less",
+    "PRIVATE": "Private note",
+    "TRANSCRIPT": "Transcript",
+    "CREATED_AT": "נוצר ב-{time}",
+    "UPDATED_AT": "updated {time}",
+    "SORT_BY": {
+      "RELEVANCE": "Relevance"
+    },
+    "DATE_RANGE": {
+      "LAST_7_DAYS": "7 הימים האחרונים",
+      "LAST_30_DAYS": "30 הימים האחרונים",
+      "LAST_60_DAYS": "60 הימים האחרונים",
+      "LAST_90_DAYS": "90 הימים האחרונים",
+      "CUSTOM_RANGE": "Custom range:",
+      "CREATED_BETWEEN": "Created between",
+      "AND": "and",
+      "APPLY": "להגיש מועמדות",
+      "BEFORE_DATE": "Before {date}",
+      "AFTER_DATE": "After {date}",
+      "TIME_RANGE": "Filter by time",
+      "CLEAR_FILTER": "נקה מסנן"
+    },
+    "FILTERS": {
+      "FILTER_MESSAGE": "Filter messages by:",
+      "FROM": "שולח",
+      "IN": "תיבת הדואר הנכנס",
+      "AGENTS": "סוכנים",
+      "CONTACTS": "איש קשר",
+      "INBOXES": "תיבות דואר נכנס",
+      "NO_AGENTS": "לא נמצאו סוכנים",
+      "NO_CONTACTS": "Start by searching to see results",
+      "NO_INBOXES": "No inboxes found"
+    }
   }
 }

@@ -116,6 +116,9 @@
         "LABEL": "Allow auto assign for this team."
       },
       "SUBMIT_CREATE": "팀 생성"
-    }
+    },
+    "COUNT": "{n}개의 팀 | {n}개의 팀",
+    "SEARCH_PLACEHOLDER": "팀 검색...",
+    "NO_RESULTS": "검색과 일치하는 팀이 없습니다"
   }
 }

@@ -23,6 +23,12 @@ module Starchat::AutoAssignment::AssignmentService
     config.compact
   end
 
+  def perform_for_conversation(conversation)
+    return false if conversation_team_blocks_assignment?(conversation)
+
+    super
+  end
+
   # Extend agent finding to add capacity checks
   def find_available_agent
     agents = filter_agents_by_rate_limit(inbox.available_agents)
@@ -37,6 +43,13 @@ module Starchat::AutoAssignment::AssignmentService
     selected = selector.select_agent(agents)
     @last_queue_after = round_robin_selector.queue_snapshot(limit: QUEUE_LOG_LIMIT)
     selected
+  end
+
+  def conversation_team_blocks_assignment?(conversation)
+    return false if conversation.team_id.blank?
+
+    team = conversation.team
+    team.present? && team.allow_auto_assign == false
   end
 
   def filter_agents_by_capacity(agents)

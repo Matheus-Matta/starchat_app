@@ -353,9 +353,9 @@ ru:
     copilot_message_required: Необходимо ввести сообщение
     copilot_error: 'Пожалуйста, подключите ассистента к этому источнику входящих для использования Copilot'
     copilot_limit: 'У вас закончились кредиты для Copilot. Вы можете купить дополнительные кредиты в разделе биллинга.'
-    upgrade: 'Улучшите свой план, чтобы включить Captain AI'
-    disabled: 'Captain AI отключён для этого аккаунта.'
-    api_key_missing: 'API ключ Captain AI не настроен.'
+    upgrade: 'Улучшите свой план, чтобы включить Cosmos AI'
+    disabled: 'Cosmos AI отключён для этого аккаунта.'
+    api_key_missing: 'API ключ Cosmos AI не настроен.'
     copilot:
       using_tool: 'Использование инструмента %{function_name}'
       completed_tool_call: 'Вызов инструмента %{function_name}'

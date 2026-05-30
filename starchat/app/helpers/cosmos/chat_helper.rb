@@ -6,7 +6,7 @@ module Cosmos::ChatHelper
     add_messages_to_chat(chat)
     with_agent_session do
       last_content = conversation_messages.last[:content]
-      text, attachments = Captain::OpenAiMessageBuilderService.extract_text_and_attachments(last_content)
+      text, attachments = Cosmos::OpenAiMessageBuilderService.extract_text_and_attachments(last_content)
 
       response = attachments.any? ? chat.ask(text, with: attachments) : chat.ask(text)
       build_response(response)
@@ -64,7 +64,7 @@ module Cosmos::ChatHelper
 
   def add_messages_to_chat(chat)
     conversation_messages[0...-1].each do |msg|
-      text, attachments = Captain::OpenAiMessageBuilderService.extract_text_and_attachments(msg[:content])
+      text, attachments = Cosmos::OpenAiMessageBuilderService.extract_text_and_attachments(msg[:content])
       content = attachments.any? ? RubyLLM::Content.new(text, attachments) : text
       chat.add_message(role: msg[:role].to_sym, content: content)
     end
@@ -147,6 +147,10 @@ module Cosmos::ChatHelper
     instrument_agent_session(instrumentation_params, &)
   ensure
     @agent_session_active = false unless already_active
+  end
+
+  def conversation_messages
+    @messages
   end
 
   # Must be implemented by including class to identify the feature for instrumentation.

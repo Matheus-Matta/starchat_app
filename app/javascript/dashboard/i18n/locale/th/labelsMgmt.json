@@ -13,7 +13,8 @@
       "TABLE_HEADER": {
         "NAME": "ชื่อ",
         "DESCRIPTION": "คำอธิบาย",
-        "COLOR": "สี"
+        "COLOR": "สี",
+        "ACTION": "การกระทำ"
       }
     },
     "FORM": {
@@ -80,6 +81,9 @@
         "YES": "เอาเลย ",
         "NO": "ไม่อะเก็บไว้ "
       }
-    }
+    },
+    "COUNT": "{n} label | {n} labels",
+    "SEARCH_PLACEHOLDER": "ค้นหาหัวข้อ...",
+    "NO_RESULTS": "No labels found matching your search"
   }
 }

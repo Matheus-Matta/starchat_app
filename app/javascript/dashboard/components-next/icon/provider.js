@@ -14,6 +14,7 @@ export function useChannelIcon(inbox) {
     'Channel::Whatsapp': 'i-woot-whatsapp',
     'Channel::Instagram': 'i-woot-instagram',
     'Channel::Voice': 'i-ri-phone-fill',
+    'Channel::Tiktok': 'i-ri-tiktok-fill',
     'Channel::Evolution': 'i-ri-whatsapp-fill',
   };
 

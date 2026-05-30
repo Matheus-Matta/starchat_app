@@ -1,8 +1,12 @@
-# Enterprise Edition SAML SSO Provider
-# This initializer adds SAML authentication support for Enterprise customers
+# Starchat Edition SAML SSO Provider
+# This initializer adds SAML authentication support for Starchat customers
 
 # SAML setup proc for multi-tenant configuration
 SAML_SETUP_PROC = proc do |env|
+  strategy = env['omniauth.strategy']
+  # In OmniAuth test mode, strategy may be nil — skip configuration
+  next if strategy.nil?
+
   request = ActionDispatch::Request.new(env)
 
   # Extract account_id from various sources
@@ -23,25 +27,24 @@ SAML_SETUP_PROC = proc do |env|
     settings = AccountSamlSettings.find_by(account_id: account_id)
 
     if settings
-      # Configure the strategy options dynamically
-      env['omniauth.strategy'].options[:idp_sso_service_url_runtime_params] = { RelayState: :RelayState }
-      env['omniauth.strategy'].options[:assertion_consumer_service_url] = "#{ENV.fetch('FRONTEND_URL', 'http://localhost:3000')}/omniauth/saml/callback?account_id=#{account_id}"
-      env['omniauth.strategy'].options[:sp_entity_id] = settings.sp_entity_id
-      env['omniauth.strategy'].options[:idp_entity_id] = settings.idp_entity_id
-      env['omniauth.strategy'].options[:idp_sso_service_url] = settings.sso_url
-      env['omniauth.strategy'].options[:idp_cert] = settings.certificate
-      env['omniauth.strategy'].options[:name_identifier_format] = 'urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress'
+      strategy.options[:idp_sso_service_url_runtime_params] = { RelayState: :RelayState }
+      strategy.options[:assertion_consumer_service_url] = "#{ENV.fetch('FRONTEND_URL', 'http://localhost:3000')}/omniauth/saml/callback?account_id=#{account_id}"
+      strategy.options[:sp_entity_id] = settings.sp_entity_id
+      strategy.options[:idp_entity_id] = settings.idp_entity_id
+      strategy.options[:idp_sso_service_url] = settings.sso_url
+      strategy.options[:idp_cert] = settings.certificate
+      strategy.options[:name_identifier_format] = 'urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress'
     else
-      # Set a dummy certificate to avoid the error
-      env['omniauth.strategy'].options[:idp_cert] = 'DUMMY'
+      strategy.options[:idp_cert] = 'DUMMY'
     end
   else
-    # Set a dummy certificate to avoid the error
-    env['omniauth.strategy'].options[:idp_cert] = 'DUMMY'
+    strategy.options[:idp_cert] = 'DUMMY'
   end
 end
 
 Rails.application.config.middleware.use OmniAuth::Builder do
-  # SAML provider with setup phase for multi-tenant configuration
-  provider :saml, setup: SAML_SETUP_PROC
+  # path_prefix must match the DeviseTokenAuth omniauth prefix (/omniauth)
+  # so OmniAuth intercepts POST /omniauth/saml/callback (real SAML assertion)
+  # and in test mode GET /omniauth/saml/callback (mock)
+  provider :saml, path_prefix: '/omniauth', setup: SAML_SETUP_PROC
 end

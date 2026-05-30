@@ -76,7 +76,7 @@ const statusBreakdown = computed(() => {
 
 <template>
   <section
-    class="shadow outline-1 outline outline-n-container rounded-xl bg-n-solid-2 px-6 py-5"
+    class="shadow-sm outline-1 outline outline-n-container rounded-xl bg-n-solid-2 px-4 py-5 lg:px-5"
     data-testid="monitoring-inboxes"
   >
     <header class="flex flex-wrap items-start justify-between gap-3">
@@ -127,12 +127,12 @@ const statusBreakdown = computed(() => {
 
       <div
         v-if="isLoading"
-        class="mt-4 grid auto-rows-[18rem] gap-4 grid-cols-1 sm:grid-cols-[repeat(auto-fit,minmax(18rem,22rem))] sm:justify-start"
+        class="mt-4 grid auto-rows-[15rem] gap-3 grid-cols-1 sm:grid-cols-[repeat(auto-fit,minmax(17rem,21rem))] sm:justify-start"
       >
         <div
           v-for="index in 3"
           :key="`inbox-skeleton-${index}`"
-          class="min-h-[18rem] rounded-xl border border-dashed border-n-weak bg-n-alpha-3 animate-pulse"
+          class="min-h-[15rem] rounded-lg border border-dashed border-n-weak bg-n-alpha-3 animate-pulse"
         />
       </div>
 
@@ -150,13 +150,13 @@ const statusBreakdown = computed(() => {
 
       <div
         v-else
-        class="mt-4 grid auto-rows-[18rem] gap-4 grid-cols-1 sm:grid-cols-[repeat(auto-fit,minmax(18rem,22rem))] sm:justify-start"
+        class="mt-4 grid auto-rows-[15rem] gap-3 grid-cols-1 sm:grid-cols-[repeat(auto-fit,minmax(17rem,21rem))] sm:justify-start"
         data-testid="monitoring-inbox-card"
       >
         <article
           v-for="inbox in inboxes"
           :key="inbox.id"
-          class="flex h-full flex-col overflow-hidden rounded-xl border border-n-weak bg-n-solid-1 px-5 py-5"
+          class="flex h-full flex-col overflow-hidden rounded-lg border border-n-weak bg-n-solid-1 px-4 py-4"
           :class="[
             statusCardTone[inbox.status],
             {

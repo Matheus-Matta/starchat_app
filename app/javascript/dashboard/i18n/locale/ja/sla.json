@@ -13,7 +13,7 @@
       "UPGRADE_NOW": "今すぐアップグレード",
       "CANCEL_ANYTIME": "プランはいつでも変更またはキャンセルできます"
     },
-    "ENTERPRISE_PAYWALL": {
+    "STARCHAT_PAYWALL": {
       "AVAILABLE_ON": "SLA機能は有料プランのみで利用可能です。",
       "UPGRADE_PROMPT": "監査ログ、担当者の稼働状況などの高度な機能を利用するには有料プランにアップグレードしてください。",
       "ASK_ADMIN": "管理者にアップグレードを依頼してください。"
@@ -37,6 +37,10 @@
           "NRT": "次の応答",
           "RT": "解決"
         }
+      },
+      "TABLE_HEADER": {
+        "SLA": "SLA",
+        "BUSINESS_HOURS": "Business hours"
       }
     },
     "FORM": {
@@ -103,6 +107,16 @@
       "RT": "解決時間",
       "SHOW_MORE": "{count}件以上表示",
       "HIDE": "{count}行を非表示"
+    },
+    "COUNT": "{n} SLA | {n} SLAs",
+    "SEARCH_PLACEHOLDER": "Search SLA...",
+    "SEARCH": {
+      "NO_RESULTS": "No SLA found matching your search"
+    },
+    "ENTERPRISE_PAYWALL": {
+      "AVAILABLE_ON": "SLA機能は有料プランのみで利用可能です。",
+      "UPGRADE_PROMPT": "監査ログ、担当者の稼働状況などの高度な機能を利用するには有料プランにアップグレードしてください。",
+      "ASK_ADMIN": "管理者にアップグレードを依頼してください。"
     }
   }
 }

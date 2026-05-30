@@ -116,6 +116,9 @@
         "LABEL": "Bu ekip için otomatik atamayı etkinleştir."
       },
       "SUBMIT_CREATE": "Ekip oluştur"
-    }
+    },
+    "COUNT": "{n} team | {n} teams",
+    "SEARCH_PLACEHOLDER": "Takım ara...",
+    "NO_RESULTS": "No teams found matching your search"
   }
 }

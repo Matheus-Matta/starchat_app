@@ -150,8 +150,8 @@
       "EMPTY_MESSAGE": "У вас нет непрочитанных уведомлений"
     },
     "LIST": {
-      "LOADING_MESSAGE": "Загрузка уведомлений...",
       "404": "Уведомления отсутствуют",
+      "LOADING_MESSAGE": "Загрузка уведомлений...",
       "TABLE_HEADER": [
         "Имя",
         "Номер телефона",
@@ -239,7 +239,8 @@
       "DARK_MODE": "Тёмная",
       "SYSTEM_MODE": "Система",
       "SNOOZE_NOTIFICATION": "Отложить уведомление"
-    }
+    },
+    "SNOOZE_PLACEHOLDER": "Type a time e.g. tomorrow, 2 hours, next friday, jan 15..."
   },
   "DASHBOARD_APPS": {
     "LOADING_MESSAGE": "Загрузка приложения панели управления..."

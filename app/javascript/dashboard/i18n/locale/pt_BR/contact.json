@@ -56,7 +56,10 @@
     "CALL_UNDER_DEVELOPMENT": "Calling is under development",
     "VOICE_INBOX_PICKER": {
       "TITLE": "Choose a voice inbox"
-    }
+    },
+    "CALL_INITIATED": "Efetuando chamada…",
+    "CALL_FAILED": "Não foi possível iniciar a chamada. Tente novamente.",
+    "CLICK_TO_EDIT": "Click to edit"
   },
   "EDIT_CONTACT": {
     "BUTTON_LABEL": "Editar Contato",
@@ -407,7 +410,8 @@
       "ACTIVE_FILTERS": {
         "MORE_FILTERS": "+ {count} mais filtros",
         "CLEAR_FILTERS": "Limpar filtros"
-      }
+      },
+      "COMPANY": "Empresa"
     },
     "CARD": {
       "OF": "de",
@@ -470,6 +474,12 @@
           },
           "TWITTER": {
             "PLACEHOLDER": "Adicionar Twitter"
+          },
+          "TELEGRAM": {
+            "PLACEHOLDER": "Adicionar Telegram"
+          },
+          "TIKTOK": {
+            "PLACEHOLDER": "Adicionar TikTok"
           }
         }
       },
@@ -579,7 +589,8 @@
       "SEARCH_EMPTY_STATE_TITLE": "Nenhum contato corresponde à sua pesquisa 🔍",
       "LIST_EMPTY_STATE_TITLE": "Não há contatos disponíveis nesta visualização 📋",
       "ACTIVE_EMPTY_STATE_TITLE": "Nenhum contato está ativo no momento 🌙"
-    }
+    },
+    "LOAD_MORE": "Carregar mais"
   },
   "COMPOSE_NEW_CONVERSATION": {
     "CONTACT_SEARCH": {

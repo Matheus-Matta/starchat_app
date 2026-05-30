@@ -7,7 +7,8 @@
     "LEARN_MORE": "Learn more about custom attributes",
     "ATTRIBUTE_MODELS": {
       "CONVERSATION": "گفتگو",
-      "CONTACT": "مخاطب"
+      "CONTACT": "مخاطب",
+      "COMPANY": "شرکت"
     },
     "ATTRIBUTE_TYPES": {
       "TEXT": "متن",
@@ -63,6 +64,10 @@
         },
         "ENABLE_REGEX": {
           "LABEL": "فعال سازی بررسی رجکس"
+        },
+        "BADGES": {
+          "PRE_CHAT": "Pre-chat",
+          "RESOLUTION": "Resolution"
         }
       },
       "API": {
@@ -101,7 +106,8 @@
     "TABS": {
       "HEADER": "ویژگی‌های سفارشی",
       "CONVERSATION": "گفتگو",
-      "CONTACT": "مخاطب"
+      "CONTACT": "مخاطب",
+      "COMPANY": "شرکت"
     },
     "LIST": {
       "TABLE_HEADER": {
@@ -129,6 +135,13 @@
       "ENABLE_REGEX": {
         "LABEL": "فعال سازی بررسی رجکس"
       }
+    },
+    "COUNT": "{n} attribute | {n} attributes",
+    "SEARCH_PLACEHOLDER": "جستجو ویژگی ها...",
+    "NO_RESULTS": "No attributes found matching your search",
+    "BADGES": {
+      "PRE_CHAT": "Pre-chat",
+      "RESOLUTION": "Resolution"
     }
   }
 }

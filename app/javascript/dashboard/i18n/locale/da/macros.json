@@ -25,13 +25,14 @@
       }
     },
     "LIST": {
+      "404": "No macros found",
       "TABLE_HEADER": {
         "NAME": "Navn",
         "CREATED BY": "Oprettet af",
         "LAST_UPDATED_BY": "Last updated by",
-        "VISIBILITY": "Synlighed"
-      },
-      "404": "No macros found"
+        "VISIBILITY": "Synlighed",
+        "ACTIONS": "Handlinger"
+      }
     },
     "DELETE": {
       "TOOLTIP": "Delete macro",
@@ -62,7 +63,9 @@
         "LABEL": "Macro Visibility",
         "GLOBAL": {
           "LABEL": "Public",
-          "DESCRIPTION": "This macro is available publicly for all agents in this account."
+          "DESCRIPTION": "This macro is available publicly for all agents in this account.",
+          "CREATE_DISABLED_DESCRIPTION": "Only administrators can create public macros.",
+          "EDIT_DISABLED_DESCRIPTION": "Only administrators can edit public macros."
         },
         "PERSONAL": {
           "LABEL": "Privat",
@@ -98,7 +101,8 @@
       "SEND_MESSAGE": "Send a Message",
       "CHANGE_PRIORITY": "Change Priority",
       "ADD_PRIVATE_NOTE": "Add a Private Note",
-      "SEND_WEBHOOK_EVENT": "Send Webhook Event"
+      "SEND_WEBHOOK_EVENT": "Send Webhook Event",
+      "REMOVE_ASSIGNED_AGENT": "Remove Assigned Agent"
     },
     "PRIORITY_TYPES": {
       "NONE": "Ingen",
@@ -106,6 +110,12 @@
       "MEDIUM": "Medium",
       "HIGH": "High",
       "URGENT": "Urgent"
+    },
+    "COUNT": "{n} macro | {n} macros",
+    "SEARCH_PLACEHOLDER": "Search macros...",
+    "NO_RESULTS": "No macros found matching your search",
+    "VIEW": {
+      "TOOLTIP": "View macro"
     }
   }
 }

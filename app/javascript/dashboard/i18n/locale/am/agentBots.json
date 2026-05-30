@@ -34,7 +34,8 @@
       "LOADING": "Fetching bots...",
       "TABLE_HEADER": {
         "DETAILS": "Bot Details",
-        "URL": "Webhook URL"
+        "URL": "Webhook URL",
+        "ACTIONS": "Actions"
       }
     },
     "DELETE": {
@@ -98,6 +99,19 @@
     },
     "TYPES": {
       "WEBHOOK": "Webhook bot"
+    },
+    "COUNT": "{n} bot | {n} bots",
+    "SEARCH_PLACEHOLDER": "Search bots...",
+    "NO_RESULTS": "No bots found matching your search",
+    "SECRET": {
+      "LABEL": "Webhook Secret",
+      "COPY": "ምስጢሩን ወደ ክሊፕቦርድ ቅዳ",
+      "COPY_SUCCESS": "ምስጢሩ ወደ ክሊፕቦርድ ተቀድሷል",
+      "TOGGLE": "የምስጢሩን ማየት አሳይ/ደብቅ",
+      "CREATED_DESC": "Use the secret below to verify webhook signatures. Please copy it now, you can also find it later in the bot settings.",
+      "DONE": "ተጠናቀቀ",
+      "RESET_SUCCESS": "Webhook secret regenerated successfully",
+      "RESET_ERROR": "Unable to regenerate webhook secret. Please try again"
     }
   }
 }

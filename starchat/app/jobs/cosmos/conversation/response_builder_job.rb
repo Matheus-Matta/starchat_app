@@ -65,9 +65,14 @@ class Cosmos::Conversation::ResponseBuilderJob < ApplicationJob
       # rather than posting a stale handoff message on top of their reply.
       return unless conversation_pending?
 
-    create_messages
-    Rails.logger.info("[COSMOS][ResponseBuilderJob] Incrementing response usage for #{account.id}")
-    account.increment_response_usage
+      create_messages
+      Rails.logger.info("[COSMOS][ResponseBuilderJob] Incrementing response usage for #{account.id}")
+      account.increment_response_usage
+    else
+      create_messages
+      Rails.logger.info("[COSMOS][ResponseBuilderJob] Incrementing response usage for #{account.id}")
+      account.increment_response_usage
+    end
   end
 
   def collect_previous_messages

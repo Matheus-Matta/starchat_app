@@ -163,8 +163,8 @@
       "EMPTY_MESSAGE": "Você não tem notificações não lidas"
     },
     "LIST": {
-      "LOADING_MESSAGE": "Carregando notificações...",
       "404": "Sem Notificações",
+      "LOADING_MESSAGE": "Carregando notificações...",
       "TABLE_HEADER": [
         "Nome",
         "Número de Telefone",
@@ -252,7 +252,8 @@
       "DARK_MODE": "Escuro",
       "SYSTEM_MODE": "Sistema",
       "SNOOZE_NOTIFICATION": "Adiar Notificação"
-    }
+    },
+    "SNOOZE_PLACEHOLDER": "Digite um horário, por exemplo: amanhã, 2 horas, próxima sexta-feira, 15 de jan..."
   },
   "DASHBOARD_APPS": {
     "LOADING_MESSAGE": "Carregando Aplicativo..."

@@ -144,7 +144,11 @@ class Api::V1::Accounts::Channels::EvolutionChannelController < Api::V1::Account
       Rails.logger.warn("[Evolution] logout_instance ignored error: #{e.status} #{e.message}")
     rescue StandardError => e
       Rails.logger.error("[Evolution] logout_instance unexpected error: #{e.class} #{e.message}")
-      render_error(e) and return
+      begin
+        evo.delete_instance(@channel.instance_name)
+      rescue StandardError => delete_error
+        Rails.logger.warn("[Evolution] delete_instance after logout failure failed: #{delete_error.class} #{delete_error.message}")
+      end
     end
 
     inbox = inbox_for(@channel)

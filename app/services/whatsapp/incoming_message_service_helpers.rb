@@ -69,6 +69,11 @@ module Whatsapp::IncomingMessageServiceHelpers
     @message = Message.find_by(source_id: source_id)
   end
 
+  def lock_message_source_id!
+    source_id = messages_data.first[:id]
+    Whatsapp::MessageDedupLock.new(source_id).acquire!
+  end
+
   def message_under_process?
     key = format(Redis::RedisKeys::MESSAGE_SOURCE_KEY, id: @processed_params[:messages].first[:id])
     Redis::Alfred.get(key)

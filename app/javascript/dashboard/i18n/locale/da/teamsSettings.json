@@ -116,6 +116,9 @@
         "LABEL": "Tillad automatisk tildeling af dette team."
       },
       "SUBMIT_CREATE": "Opret team"
-    }
+    },
+    "COUNT": "{n} team | {n} teams",
+    "SEARCH_PLACEHOLDER": "Søg i teams...",
+    "NO_RESULTS": "No teams found matching your search"
   }
 }

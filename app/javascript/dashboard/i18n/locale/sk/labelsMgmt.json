@@ -13,7 +13,8 @@
       "TABLE_HEADER": {
         "NAME": "Meno",
         "DESCRIPTION": "Description",
-        "COLOR": "Color"
+        "COLOR": "Color",
+        "ACTION": "Akcie"
       }
     },
     "FORM": {
@@ -80,6 +81,9 @@
         "YES": "Áno, vymazať ",
         "NO": "Nie, ponechať "
       }
-    }
+    },
+    "COUNT": "{n} label | {n} labels",
+    "SEARCH_PLACEHOLDER": "Hľadaj označenia...",
+    "NO_RESULTS": "No labels found matching your search"
   }
 }

@@ -40,13 +40,14 @@
       }
     },
     "LIST": {
+      "404": "Не знайдено правил автоматизації",
       "TABLE_HEADER": {
         "NAME": "Ім'я",
         "DESCRIPTION": "Опис",
         "ACTIVE": "Активний",
-        "CREATED_ON": "Створено"
-      },
-      "404": "Не знайдено правил автоматизації"
+        "CREATED_ON": "Створено",
+        "ACTIONS": "Дії"
+      }
     },
     "DELETE": {
       "TITLE": "Видалити правило автоматизації",
@@ -131,7 +132,8 @@
       "CONVERSATION_CREATED": "Розмову створено",
       "CONVERSATION_UPDATED": "Розмову оновлено",
       "MESSAGE_CREATED": "Message Created",
-      "CONVERSATION_OPENED": "Conversation Opened"
+      "CONVERSATION_OPENED": "Conversation Opened",
+      "CONVERSATION_RESOLVED": "Conversation Resolved"
     },
     "ACTIONS": {
       "ASSIGN_AGENT": "Assign to Agent",
@@ -149,7 +151,10 @@
       "ADD_PRIVATE_NOTE": "Add a Private Note",
       "CHANGE_PRIORITY": "Змінити пріоритет",
       "ADD_SLA": "Додати SLA",
-      "OPEN_CONVERSATION": "Відкрити розмову"
+      "OPEN_CONVERSATION": "Відкрити розмову",
+      "REMOVE_ASSIGNED_AGENT": "Remove Assigned Agent",
+      "REMOVE_ASSIGNED_TEAM": "Remove Assigned Team",
+      "PENDING_CONVERSATION": "Mark conversation as pending"
     },
     "MESSAGE_TYPES": {
       "INCOMING": "Incoming Message",
@@ -176,7 +181,14 @@
       "REFERER_LINK": "Referrer Link",
       "ASSIGNEE_NAME": "Assignee",
       "TEAM_NAME": "Команда",
-      "PRIORITY": "Пріоритет"
-    }
+      "PRIORITY": "Пріоритет",
+      "PRIVATE_NOTE": "Особиста нотатка",
+      "COMPANY_NAME": "Організація",
+      "LABELS": "Мітки"
+    },
+    "COUNT": "{n} automation | {n} automations",
+    "SEARCH_PLACEHOLDER": "Search automation rules...",
+    "NO_RESULTS": "No automation rules found matching your search",
+    "LAST_RESPONDING_AGENT": "Last Responding Agent"
   }
 }

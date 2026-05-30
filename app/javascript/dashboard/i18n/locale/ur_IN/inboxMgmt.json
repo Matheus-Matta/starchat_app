@@ -110,6 +110,14 @@
         "SUBMIT_BUTTON": "Create inbox",
         "API": {
           "ERROR_MESSAGE": "We were not able to create a website channel, please try again"
+        },
+        "CHANNEL_WEBHOOK_SECRET": {
+          "LABEL": "Webhook Secret",
+          "COPY": "Copy secret to clipboard",
+          "COPY_SUCCESS": "Secret copied to clipboard",
+          "TOGGLE": "Toggle secret visibility",
+          "RESET_SUCCESS": "Webhook secret regenerated successfully",
+          "RESET_ERROR": "Unable to regenerate webhook secret. Please try again"
         }
       },
       "TWILIO": {
@@ -291,7 +299,13 @@
           "INVALID_BUSINESS_DATA": "Invalid business data received from Facebook. Please try again.",
           "SIGNUP_ERROR": "Signup error occurred",
           "AUTH_NOT_COMPLETED": "Authentication not completed. Please restart the process.",
-          "SUCCESS_FALLBACK": "WhatsApp Business Account has been successfully configured"
+          "SUCCESS_FALLBACK": "WhatsApp Business Account has been successfully configured",
+          "LEARN_MORE": {
+            "TEXT": "انٹیگریٹڈ سائن اپ، قیمتوں اور حدود کے بارے میں مزید جاننے کے لیے، {link} پر جائیں۔",
+            "LINK_TEXT": "یہ لنک"
+          },
+          "MANUAL_FALLBACK": "اگر آپ کا نمبر پہلے ہی واٹس ایپ بزنس پلیٹ فارم (API) سے منسلک ہے، یا اگر آپ ایک ٹیک فراہم کنندہ ہیں جو اپنا نمبر آن بورڈ کر رہے ہیں، تو براہ کرم {link} فلو استعمال کریں",
+          "MANUAL_LINK_TEXT": "دستی سیٹ اپ کا عمل"
         },
         "API": {
           "ERROR_MESSAGE": "We were not able to save the WhatsApp channel"
@@ -373,7 +387,11 @@
         "API": {
           "ERROR_MESSAGE": "We were not able to save the email channel"
         },
-        "FINISH_MESSAGE": "Start forwarding your emails to the following email address."
+        "FINISH_MESSAGE": "Start forwarding your emails to the following email address.",
+        "FINISH_MESSAGE_NO_FORWARDING": "آپ کا ای میل ان باکس کامیابی سے بنایا گیا ہے! ای میل بھیجنے اور وصول کرنے کے لیے آپ کو SMTP اور IMAP کی اسناد ترتیب دینی ہوں گی۔ ان سیٹنگز کے بغیر کوئی ای میل پروسیس نہیں ہوگی۔",
+        "FORWARDING_ADDRESS_LABEL": "ای میلز کو اس پتے پر فارورڈ کریں:",
+        "CONFIGURE_SMTP_IMAP_LINK": "یہاں کلک کریں",
+        "CONFIGURE_SMTP_IMAP_TEXT": " تاکہ IMAP اور SMTP سیٹنگز ترتیب دی جا سکیں"
       },
       "LINE_CHANNEL": {
         "TITLE": "LINE Channel",
@@ -462,6 +480,10 @@
           "VOICE": {
             "TITLE": "Voice",
             "DESCRIPTION": "Integrate with Twilio Voice"
+          },
+          "TIKTOK": {
+            "TITLE": "TikTok",
+            "DESCRIPTION": "اپنا TikTok اکاؤنٹ جوڑیں"
           }
         }
       },
@@ -496,6 +518,13 @@
         "SIGN_IN": "Sign in with Google",
         "EMAIL_PLACEHOLDER": "Enter email address",
         "ERROR_MESSAGE": "There was an error connecting to Google, please try again"
+      },
+      "TIKTOK": {
+        "CONTINUE_WITH_TIKTOK": "TikTok کے ساتھ جاری رکھیں",
+        "CONNECT_YOUR_TIKTOK_PROFILE": "اپنی TikTok پروفائل کو جوڑیں",
+        "HELP": "اپنی TikTok پروفائل کو چینل کے طور پر شامل کرنے کے لیے، آپ کو 'TikTok کے ساتھ جاری رکھیں' پر کلک کر کے اپنی TikTok پروفائل کی تصدیق کرنی ہوگی۔ ",
+        "ERROR_MESSAGE": "TikTok سے کنکشن میں خرابی ہوئی، براہ کرم دوبارہ کوشش کریں",
+        "ERROR_AUTH": "TikTok سے کنکشن میں خرابی ہوئی، براہ کرم دوبارہ کوشش کریں"
       }
     },
     "DETAILS": {
@@ -567,7 +596,9 @@
       },
       "LOCK_TO_SINGLE_CONVERSATION": {
         "ENABLED": "Enabled",
-        "DISABLED": "Disabled"
+        "DISABLED": "Disabled",
+        "ENABLED_DESCRIPTION": "When a contact messages again, the previous conversation will be reopened.",
+        "DISABLED_DESCRIPTION": "A new conversation will be created each time after the previous one is resolved."
       },
       "ENABLE_HMAC": {
         "LABEL": "Enable"
@@ -599,7 +630,9 @@
       "BUSINESS_HOURS": "Business Hours",
       "WIDGET_BUILDER": "Widget Builder",
       "BOT_CONFIGURATION": "Bot Configuration",
-      "CSAT": "CSAT"
+      "CSAT": "CSAT",
+      "ACCOUNT_HEALTH": "اکاؤنٹ کی صحت",
+      "VOICE": "وائس"
     },
     "SETTINGS": "Settings",
     "FEATURES": {
@@ -652,14 +685,49 @@
       "WHATSAPP_TEMPLATES_SYNC_SUBHEADER": "Manually sync message templates from WhatsApp to update your available templates.",
       "WHATSAPP_TEMPLATES_SYNC_BUTTON": "Sync Templates",
       "WHATSAPP_TEMPLATES_SYNC_SUCCESS": "Templates sync initiated successfully. It may take a couple of minutes to update.",
-      "UPDATE_PRE_CHAT_FORM_SETTINGS": "Update Pre Chat Form Settings"
+      "UPDATE_PRE_CHAT_FORM_SETTINGS": "Update Pre Chat Form Settings",
+      "ALLOWED_DOMAINS": {
+        "TITLE": "مجاز ڈومینز",
+        "DESCRIPTION": "Restrict which websites can embed your chat widget. For security, only add domains you own and trust. Add one or more domains separated by commas. Leave blank to allow all domains (not recommended for production).",
+        "PLACEHOLDER": "example.com, www.example.com, app.example.com"
+      },
+      "ALLOW_MOBILE_WEBVIEW": {
+        "LABEL": "Enable widget in mobile apps",
+        "SUBTITLE": "Check this if you embed the widget in iOS or Android apps. Mobile apps don't send domain information, so they would be blocked by domain restrictions unless this is enabled."
+      },
+      "IDENTITY_VALIDATION": {
+        "TITLE": "Identity Validation",
+        "DESCRIPTION": "Verify user authenticity by generating secure tokens. This prevents unauthorized users from impersonating others in your chat.",
+        "SECRET_KEY": "Secret Key",
+        "VIEW_DOCS": "View documentation",
+        "REQUIRE_LABEL": "Require identity validation for all conversations",
+        "REQUIRE_DESCRIPTION": "When enabled, users must provide a valid identity token to start conversations. Requests without valid tokens will be rejected."
+      },
+      "ENABLE_CONTINUITY_VIA_EMAIL_DISABLED_TEXT": "This feature is available on a paid plan. Upgrade to enable conversation continuity via email.",
+      "FORWARD_EMAIL_NOT_CONFIGURED": "اس تنصیب پر آپ کے ان باکس میں ای میل فارورڈنگ فی الحال غیر فعال ہے۔ اس فیچر کو استعمال کرنے کے لیے، اسے آپ کے ایڈمنسٹریٹر کو فعال کرنا ہوگا۔ براہ کرم آگے بڑھنے کے لیے ان سے رابطہ کریں۔",
+      "WHATSAPP_EMBEDDED_SIGNUP_TITLE": "واٹس ایپ Embedded Signup",
+      "WHATSAPP_EMBEDDED_SIGNUP_SUBHEADER": "یہ ان باکس واٹس ایپ Embedded Signup کے ذریعے منسلک ہے۔",
+      "WHATSAPP_EMBEDDED_SIGNUP_DESCRIPTION": "آپ اپنے واٹس ایپ بزنس کی ترتیبات کو اپ ڈیٹ کرنے کے لیے اس ان باکس کو دوبارہ ترتیب دے سکتے ہیں۔",
+      "WHATSAPP_RECONFIGURE_BUTTON": "دوبارہ ترتیب دیں",
+      "WHATSAPP_CONNECT_TITLE": "واٹس ایپ بزنس سے کنیکٹ کریں",
+      "WHATSAPP_CONNECT_SUBHEADER": "آسان انتظام کے لیے واٹس ایپ Embedded Signup میں اپ گریڈ کریں۔",
+      "WHATSAPP_CONNECT_DESCRIPTION": "بہتر خصوصیات اور آسان انتظام کے لیے اس ان باکس کو واٹس ایپ بزنس سے کنیکٹ کریں۔",
+      "WHATSAPP_CONNECT_BUTTON": "کنیکٹ کریں",
+      "WHATSAPP_CONNECT_SUCCESS": "واٹس ایپ بزنس سے کامیابی سے کنیکٹ ہو گیا!",
+      "WHATSAPP_CONNECT_ERROR": "واٹس ایپ بزنس سے کنیکٹ کرنے میں ناکامی۔ براہ کرم دوبارہ کوشش کریں۔",
+      "WHATSAPP_RECONFIGURE_SUCCESS": "واٹس ایپ بزنس کو کامیابی سے دوبارہ ترتیب دیا گیا!",
+      "WHATSAPP_RECONFIGURE_ERROR": "واٹس ایپ بزنس کو دوبارہ ترتیب دینے میں ناکامی۔ براہ کرم دوبارہ کوشش کریں۔",
+      "WHATSAPP_APP_ID_MISSING": "واٹس ایپ ایپ ID ترتیب نہیں دی گئی۔ براہ کرم اپنے منتظم سے رابطہ کریں۔",
+      "WHATSAPP_CONFIG_ID_MISSING": "واٹس ایپ کنفیگریشن ID ترتیب نہیں دی گئی۔ براہ کرم اپنے منتظم سے رابطہ کریں۔",
+      "WHATSAPP_LOGIN_CANCELLED": "واٹس ایپ لاگ ان منسوخ کر دیا گیا۔ براہ کرم دوبارہ کوشش کریں۔"
     },
     "HELP_CENTER": {
       "LABEL": "Help Center",
       "PLACEHOLDER": "Select Help Center",
       "SELECT_PLACEHOLDER": "Select Help Center",
       "REMOVE": "Remove Help Center",
-      "SUB_TEXT": "Attach a Help Center with the inbox"
+      "SUB_TEXT": "Attach a Help Center with the inbox",
+      "NONE": "None"
     },
     "AUTO_ASSIGNMENT": {
       "MAX_ASSIGNMENT_LIMIT": "Auto assignment limit",
@@ -722,7 +790,51 @@
       "API": {
         "SUCCESS_MESSAGE": "CSAT settings updated successfully",
         "ERROR_MESSAGE": "We couldn't update CSAT settings. Please try again later."
-      }
+      },
+      "BUTTON_TEXT": {
+        "LABEL": "بٹن کا متن",
+        "PLACEHOLDER": "براہ کرم ہمیں درجہ دیں"
+      },
+      "LANGUAGE": {
+        "LABEL": "زبان",
+        "PLACEHOLDER": "ٹیمپلیٹ کی زبان منتخب کریں"
+      },
+      "MESSAGE_PREVIEW": {
+        "LABEL": "پیغام کا پیش نظارہ",
+        "TOOLTIP": "یہ WhatsApp کے پلیٹ فارم پر دکھانے پر معمولی فرق ہو سکتا ہے۔"
+      },
+      "TEMPLATE_STATUS": {
+        "APPROVED": "WhatsApp کی طرف سے منظور شدہ",
+        "PENDING": "WhatsApp کی منظوری زیر التوا",
+        "REJECTED": "Meta نے ٹیمپلیٹ کو مسترد کر دیا",
+        "DEFAULT": "WhatsApp کی منظوری درکار ہے",
+        "NOT_FOUND": "ٹیمپلیٹ Meta پلیٹ فارم پر موجود نہیں ہے۔"
+      },
+      "TEMPLATE_CREATION": {
+        "SUCCESS_MESSAGE": "WhatsApp ٹیمپلیٹ کامیابی سے بنایا گیا اور منظوری کے لیے بھیجا گیا",
+        "ERROR_MESSAGE": "WhatsApp ٹیمپلیٹ بنانے میں ناکامی"
+      },
+      "TEMPLATE_UPDATE_DIALOG": {
+        "TITLE": "سروے کی تفصیلات میں ترمیم کریں",
+        "DESCRIPTION": "ہم پچھلا ٹیمپلیٹ حذف کریں گے اور نیا بنائیں گے جو دوبارہ WhatsApp کی منظوری کے لیے بھیجا جائے گا",
+        "CONFIRM": "نیا ٹیمپلیٹ بنائیں",
+        "CANCEL": "واپس جائیں"
+      },
+      "UTILITY_ANALYZER": {
+        "ACTION": "Check utility fit",
+        "HELPER_NOTE": "Check this message before submission to improve Utility fit. The system creates a dedicated CSAT template with buttons for reporting and submits it as Utility; Meta may still reclassify it as Marketing based on content.",
+        "RESULT_LABEL": "Meta category prediction",
+        "GUIDANCE_NOTE": "This is a guidance check, not a guarantee of Meta approval.",
+        "SUGGESTION_LABEL": "Suggested utility-safe rewrite",
+        "APPLY": "Use this rewrite",
+        "ERROR_MESSAGE": "Couldn't analyze the message. Please try again.",
+        "CLASSIFICATION": {
+          "LIKELY_UTILITY": "Likely Utility",
+          "LIKELY_MARKETING": "Likely Marketing",
+          "UNCLEAR": "Needs clarification"
+        }
+      },
+      "WHATSAPP_NOTE": "Note: When you save, the system creates a dedicated CSAT template in WhatsApp (used to capture rating and feedback in reports) and submits it as Utility for approval. Meta may still classify it as Marketing based on content. After approval, surveys are sent only once per conversation as per the survey rule."
     },
     "BUSINESS_HOURS": {
       "TITLE": "Set your availability",
@@ -738,7 +850,9 @@
         "UNAVAILABLE": "Unavailable",
         "HOURS": "hours",
         "VALIDATION_ERROR": "Starting time should be before closing time.",
-        "CHOOSE": "Choose"
+        "CHOOSE": "Choose",
+        "DAY": "Day",
+        "AVAILABILITY": "Availability"
       },
       "ALL_DAY": "All-Day"
     },
@@ -769,7 +883,8 @@
         "LABEL": "Password",
         "PLACE_HOLDER": "Password"
       },
-      "ENABLE_SSL": "Enable SSL"
+      "ENABLE_SSL": "Enable SSL",
+      "AUTH_MECHANISM": "تصدیق"
     },
     "MICROSOFT": {
       "TITLE": "Microsoft",
@@ -868,7 +983,8 @@
         "WIDGET_BUBBLE_TYPE": {
           "STANDARD": "Standard",
           "EXPANDED_BUBBLE": "Expanded Bubble"
-        }
+        },
+        "WIDGET_BUBBLE": "Bubble"
       },
       "WIDGET_SCREEN": {
         "DEFAULT": "Default",
@@ -920,7 +1036,136 @@
       "LINE": "Line",
       "API": "API Channel",
       "INSTAGRAM": "Instagram",
-      "VOICE": "Voice"
+      "VOICE": "Voice",
+      "TIKTOK": "TikTok"
+    },
+    "COUNT": "{n} inbox | {n} inboxes",
+    "SEARCH_PLACEHOLDER": "Search inboxes...",
+    "NO_RESULTS": "No inboxes found matching your search",
+    "WHATSAPP_REGISTRATION_INCOMPLETE": "آپ کی WhatsApp بزنس رجسٹریشن مکمل نہیں ہے۔ دوبارہ کنیکٹ کرنے سے پہلے براہ کرم Meta Business Manager میں اپنے ڈسپلے نام کی حیثیت چیک کریں۔",
+    "COMPLETE_REGISTRATION": "رجسٹریشن مکمل کریں",
+    "VOICE_CONFIGURATION": {
+      "ENABLE_VOICE": {
+        "LABEL": "Enable Voice Calling",
+        "DESCRIPTION": "Enable voice calling on this inbox. Agents will be able to make and receive phone calls."
+      },
+      "CREDENTIALS": {
+        "DESCRIPTION": "Voice calling requires Twilio API Key credentials. These are used to generate tokens for agent voice connections."
+      }
+    },
+    "CHANNEL_PREFERENCES": "Channel Preferences",
+    "WIDGET_FEATURES": "Widget features",
+    "ACCOUNT_HEALTH": {
+      "TITLE": "اپنے WhatsApp اکاؤنٹ کا انتظام کریں",
+      "DESCRIPTION": "اپنے WhatsApp اکاؤنٹ کی حیثیت، میسجنگ کی حدیں، اور معیار کا جائزہ لیں۔ ضرورت پڑنے پر سیٹنگز اپ ڈیٹ کریں یا مسائل حل کریں۔",
+      "GO_TO_SETTINGS": "Meta Business Manager پر جائیں",
+      "NO_DATA": "صحت کا ڈیٹا دستیاب نہیں ہے",
+      "FIELDS": {
+        "DISPLAY_PHONE_NUMBER": {
+          "LABEL": "فون نمبر دکھائیں",
+          "TOOLTIP": "گاہکوں کو دکھایا جانے والا فون نمبر"
+        },
+        "VERIFIED_NAME": {
+          "LABEL": "کاروباری نام",
+          "TOOLTIP": "WhatsApp کی طرف سے تصدیق شدہ کاروباری نام"
+        },
+        "DISPLAY_NAME_STATUS": {
+          "LABEL": "ڈسپلے نام کی حیثیت",
+          "TOOLTIP": "آپ کے کاروباری نام کی تصدیق کی حیثیت"
+        },
+        "QUALITY_RATING": {
+          "LABEL": "معیار کی درجہ بندی",
+          "TOOLTIP": "آپ کے اکاؤنٹ کے لیے WhatsApp کی معیار کی درجہ بندی"
+        },
+        "MESSAGING_LIMIT_TIER": {
+          "LABEL": "میسجنگ کی حد کی سطح",
+          "TOOLTIP": "آپ کے اکاؤنٹ کے لیے روزانہ میسج بھیجنے کی حد"
+        },
+        "ACCOUNT_MODE": {
+          "LABEL": "اکاؤنٹ کا موڈ",
+          "TOOLTIP": "آپ کے WhatsApp اکاؤنٹ کا موجودہ آپریٹنگ موڈ"
+        }
+      },
+      "VALUES": {
+        "TIERS": {
+          "TIER_250": "250 customers per 24h",
+          "TIER_1000": "1K customers per 24h",
+          "TIER_1K": "1K customers per 24h",
+          "TIER_10K": "10K customers per 24h",
+          "TIER_100K": "100K customers per 24h",
+          "TIER_UNLIMITED": "Unlimited customers per 24h",
+          "UNKNOWN": "درجہ بندی دستیاب نہیں"
+        },
+        "STATUSES": {
+          "APPROVED": "منظور شدہ",
+          "PENDING_REVIEW": "جائزہ زیر التوا",
+          "AVAILABLE_WITHOUT_REVIEW": "جائزہ کے بغیر دستیاب",
+          "REJECTED": "رد شدہ",
+          "DECLINED": "مسترد شدہ",
+          "NON_EXISTS": "موجود نہیں"
+        },
+        "MODES": {
+          "SANDBOX": "سینڈ باکس",
+          "LIVE": "لائیو"
+        }
+      },
+      "WEBHOOK": {
+        "TITLE": "Webhook Configuration",
+        "DESCRIPTION": "Webhook URL is required for your WhatsApp Business Account to receive messages from customers",
+        "ACTION_REQUIRED": "Webhook not configured",
+        "REGISTER_BUTTON": "Register Webhook",
+        "REGISTER_SUCCESS": "Webhook registered successfully",
+        "REGISTER_ERROR": "Failed to register webhook. Please try again.",
+        "CONFIGURED_SUCCESS": "Webhook configured successfully",
+        "URL_MISMATCH": "Webhook URL mismatch"
+      }
+    },
+    "ASSIGNMENT": {
+      "TITLE": "گفتگو کی تفویض",
+      "DESCRIPTION": "آمدہ گفتگو کو دستیاب ایجنٹس کو خودکار طریقے سے تفویض کریں تفویض کی پالیسیوں کی بنیاد پر",
+      "ENABLE_AUTO_ASSIGNMENT": "خودکار گفتگو کی تفویض کو فعال کریں",
+      "DEFAULT_RULES_TITLE": "ڈیفالٹ تفویض کے قواعد",
+      "DEFAULT_RULES_DESCRIPTION": "تمام گفتگو کے لیے ڈیفالٹ تفویض کا رویہ استعمال کرنا",
+      "DEFAULT_RULE_1": "سب سے پہلے بنائی گئی گفتگو پہلے",
+      "DEFAULT_RULE_2": "راؤنڈ رابن تقسیم",
+      "CUSTOMIZE_WITH_POLICY": "تفویض کی پالیسی کے ساتھ حسب ضرورت بنائیں",
+      "USING_POLICY": "اس ان باکس کے لیے حسب ضرورت تفویض کی پالیسی استعمال ہو رہی ہے",
+      "CUSTOMIZE_POLICY": "تفویض کی پالیسی کے ساتھ حسب ضرورت بنائیں",
+      "DELETE_POLICY": "پالیسی حذف کریں",
+      "POLICY_LABEL": "تفویض کی پالیسی",
+      "ASSIGNMENT_ORDER_LABEL": "تفویض کا ترتیب",
+      "ASSIGNMENT_METHOD_LABEL": "تفویض کا طریقہ",
+      "POLICY_STATUS": {
+        "ACTIVE": "Active",
+        "INACTIVE": "Inactive"
+      },
+      "PRIORITY": {
+        "EARLIEST_CREATED": "Earliest created",
+        "LONGEST_WAITING": "Longest waiting"
+      },
+      "METHOD": {
+        "ROUND_ROBIN": "Round robin",
+        "BALANCED": "Balanced assignment"
+      },
+      "UPGRADE_PROMPT": "Custom assignment policies are available on the Business plan",
+      "UPGRADE_TO_BUSINESS": "Upgrade to Business",
+      "DEFAULT_POLICY_LINKED": "Default policy linked",
+      "DEFAULT_POLICY_DESCRIPTION": "Link a custom assignment policy to customize how conversations are assigned to agents in this inbox.",
+      "LINK_EXISTING_POLICY": "Link existing policy",
+      "CREATE_NEW_POLICY": "Create new policy",
+      "NO_POLICIES": "No assignment policies found",
+      "VIEW_ALL_POLICIES": "View all policies",
+      "CURRENT_BEHAVIOR": "Currently using default assignment behavior:",
+      "LINK_SUCCESS": "Assignment policy linked successfully",
+      "LINK_ERROR": "Failed to link assignment policy"
+    },
+    "ASSIGNMENT_POLICY": {
+      "DELETE_CONFIRM_TITLE": "Delete assignment policy?",
+      "DELETE_CONFIRM_MESSAGE": "Are you sure you want to remove this assignment policy from this inbox? The inbox will revert to default assignment rules.",
+      "CANCEL": "Cancel",
+      "CONFIRM_DELETE": "Delete",
+      "DELETE_SUCCESS": "Assignment policy removed successfully",
+      "DELETE_ERROR": "Failed to remove assignment policy"
     }
   }
 }

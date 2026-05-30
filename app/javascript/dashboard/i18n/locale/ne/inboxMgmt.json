@@ -110,6 +110,14 @@
         "SUBMIT_BUTTON": "Create inbox",
         "API": {
           "ERROR_MESSAGE": "We were not able to create a website channel, please try again"
+        },
+        "CHANNEL_WEBHOOK_SECRET": {
+          "LABEL": "Webhook Secret",
+          "COPY": "Copy secret to clipboard",
+          "COPY_SUCCESS": "Secret copied to clipboard",
+          "TOGGLE": "Toggle secret visibility",
+          "RESET_SUCCESS": "Webhook secret regenerated successfully",
+          "RESET_ERROR": "Unable to regenerate webhook secret. Please try again"
         }
       },
       "TWILIO": {
@@ -291,7 +299,13 @@
           "INVALID_BUSINESS_DATA": "Invalid business data received from Facebook. Please try again.",
           "SIGNUP_ERROR": "Signup error occurred",
           "AUTH_NOT_COMPLETED": "Authentication not completed. Please restart the process.",
-          "SUCCESS_FALLBACK": "WhatsApp Business Account has been successfully configured"
+          "SUCCESS_FALLBACK": "WhatsApp Business Account has been successfully configured",
+          "LEARN_MORE": {
+            "TEXT": "एकीकृत साइनअप, मूल्य निर्धारण, र सीमाहरूको बारेमा थप जान्न {link} भ्रमण गर्नुहोस्।",
+            "LINK_TEXT": "यो लिंक"
+          },
+          "MANUAL_FALLBACK": "यदि तपाईंको नम्बर पहिले नै WhatsApp व्यवसाय प्लेटफर्म (API) सँग जडान गरिएको छ, वा तपाईं प्रविधि प्रदायक हुनुहुन्छ र आफ्नो नम्बर अनबोर्ड गर्दै हुनुहुन्छ भने, कृपया {link} प्रवाह प्रयोग गर्नुहोस्",
+          "MANUAL_LINK_TEXT": "म्यानुअल सेटअप प्रवाह"
         },
         "API": {
           "ERROR_MESSAGE": "We were not able to save the WhatsApp channel"
@@ -373,7 +387,11 @@
         "API": {
           "ERROR_MESSAGE": "We were not able to save the email channel"
         },
-        "FINISH_MESSAGE": "Start forwarding your emails to the following email address."
+        "FINISH_MESSAGE": "Start forwarding your emails to the following email address.",
+        "FINISH_MESSAGE_NO_FORWARDING": "तपाईंको इमेल इनबक्स सफलतापूर्वक सिर्जना गरिएको छ! SMTP र IMAP प्रमाणपत्रहरू कन्फिगर गर्न आवश्यक छ ताकि इमेलहरू पठाउन र प्राप्त गर्न सकियोस्। यी सेटिङहरू बिना कुनै इमेल प्रक्रिया गरिने छैन।",
+        "FORWARDING_ADDRESS_LABEL": "इमेलहरू यस ठेगानामा अग्रेषित गर्नुहोस्:",
+        "CONFIGURE_SMTP_IMAP_LINK": "यहाँ क्लिक गर्नुहोस्",
+        "CONFIGURE_SMTP_IMAP_TEXT": " IMAP र SMTP सेटिङहरू कन्फिगर गर्न"
       },
       "LINE_CHANNEL": {
         "TITLE": "LINE Channel",
@@ -462,6 +480,10 @@
           "VOICE": {
             "TITLE": "Voice",
             "DESCRIPTION": "Integrate with Twilio Voice"
+          },
+          "TIKTOK": {
+            "TITLE": "TikTok",
+            "DESCRIPTION": "तपाईंको TikTok खाता जडान गर्नुहोस्"
           }
         }
       },
@@ -496,6 +518,13 @@
         "SIGN_IN": "Sign in with Google",
         "EMAIL_PLACEHOLDER": "Enter email address",
         "ERROR_MESSAGE": "There was an error connecting to Google, please try again"
+      },
+      "TIKTOK": {
+        "CONTINUE_WITH_TIKTOK": "TikTok सँग जारी राख्नुहोस्",
+        "CONNECT_YOUR_TIKTOK_PROFILE": "तपाईंको TikTok प्रोफाइल जडान गर्नुहोस्",
+        "HELP": "तपाईंको TikTok प्रोफाइललाई च्यानलको रूपमा थप्न, 'TikTok सँग जारी राख्नुहोस्' मा क्लिक गरेर प्रमाणित गर्नु आवश्यक छ ",
+        "ERROR_MESSAGE": "TikTok सँग जडान गर्दा त्रुटि भयो, कृपया पुन: प्रयास गर्नुहोस्",
+        "ERROR_AUTH": "TikTok सँग जडान गर्दा त्रुटि भयो, कृपया पुन: प्रयास गर्नुहोस्"
       }
     },
     "DETAILS": {
@@ -567,7 +596,9 @@
       },
       "LOCK_TO_SINGLE_CONVERSATION": {
         "ENABLED": "Enabled",
-        "DISABLED": "Disabled"
+        "DISABLED": "Disabled",
+        "ENABLED_DESCRIPTION": "सम्पर्कले फेरि सन्देश पठाउँदा, अघिल्लो कुराकानी पुन: खोलिनेछ।",
+        "DISABLED_DESCRIPTION": "A new conversation will be created each time after the previous one is resolved."
       },
       "ENABLE_HMAC": {
         "LABEL": "Enable"
@@ -599,7 +630,9 @@
       "BUSINESS_HOURS": "Business Hours",
       "WIDGET_BUILDER": "Widget Builder",
       "BOT_CONFIGURATION": "Bot Configuration",
-      "CSAT": "CSAT"
+      "CSAT": "CSAT",
+      "ACCOUNT_HEALTH": "खाता स्वास्थ्य",
+      "VOICE": "भ्वाइस"
     },
     "SETTINGS": "Settings",
     "FEATURES": {
@@ -652,14 +685,49 @@
       "WHATSAPP_TEMPLATES_SYNC_SUBHEADER": "Manually sync message templates from WhatsApp to update your available templates.",
       "WHATSAPP_TEMPLATES_SYNC_BUTTON": "Sync Templates",
       "WHATSAPP_TEMPLATES_SYNC_SUCCESS": "Templates sync initiated successfully. It may take a couple of minutes to update.",
-      "UPDATE_PRE_CHAT_FORM_SETTINGS": "Update Pre Chat Form Settings"
+      "UPDATE_PRE_CHAT_FORM_SETTINGS": "Update Pre Chat Form Settings",
+      "ALLOWED_DOMAINS": {
+        "TITLE": "अनुमत डोमेनहरू",
+        "DESCRIPTION": "कुन वेबसाइटहरूले तपाईंको च्याट विजेट एम्बेड गर्न सक्छन् भन्ने सीमित गर्नुहोस्। सुरक्षाका लागि, केवल तपाईंले स्वामित्व लिएका र विश्वास गर्ने डोमेनहरू मात्र थप्नुहोस्। कमा छुट्याएर एक वा बढी डोमेनहरू थप्नुहोस्। सबै डोमेनहरूलाई अनुमति दिन खाली छोड्नुहोस् (उत्पादनका लागि सिफारिस गरिएको छैन)।",
+        "PLACEHOLDER": "example.com, www.example.com, app.example.com"
+      },
+      "ALLOW_MOBILE_WEBVIEW": {
+        "LABEL": "मोबाइल एपहरूमा विजेट सक्षम गर्नुहोस्",
+        "SUBTITLE": "यदि तपाईंले विजेटलाई iOS वा Android एपहरूमा राख्नुभएको छ भने यो जाँच गर्नुहोस्। मोबाइल एपहरूले डोमेन जानकारी पठाउँदैनन्, त्यसैले यो सक्षम नगरेसम्म डोमेन प्रतिबन्धले ब्लक गर्छ।"
+      },
+      "IDENTITY_VALIDATION": {
+        "TITLE": "पहिचान प्रमाणीकरण",
+        "DESCRIPTION": "सुरक्षित टोकनहरू सिर्जना गरेर प्रयोगकर्ताको वास्तविकता प्रमाणित गर्नुहोस्। यसले अनधिकृत प्रयोगकर्ताहरूलाई तपाईंको च्याटमा अरूको नक्कल गर्नबाट रोक्छ।",
+        "SECRET_KEY": "गोप्य कुञ्जी",
+        "VIEW_DOCS": "डोक्युमेन्टेसन हेर्नुहोस्",
+        "REQUIRE_LABEL": "सबै संवादका लागि पहिचान प्रमाणीकरण आवश्यक बनाउनुहोस्",
+        "REQUIRE_DESCRIPTION": "यो सक्षम गर्दा, प्रयोगकर्ताले संवाद सुरु गर्न मान्य पहिचान टोकन दिनुपर्छ। मान्य टोकन बिना अनुरोधहरू अस्वीकृत गरिनेछन्।"
+      },
+      "ENABLE_CONTINUITY_VIA_EMAIL_DISABLED_TEXT": "This feature is available on a paid plan. Upgrade to enable conversation continuity via email.",
+      "FORWARD_EMAIL_NOT_CONFIGURED": "तपाईंको इनबक्समा इमेल अग्रेषण हाल यस इन्स्टलेशनमा अक्षम गरिएको छ। यो सुविधा प्रयोग गर्न, तपाईंको प्रशासकले यसलाई सक्षम पार्नुपर्छ। कृपया उनीहरूलाई सम्पर्क गर्नुहोस्।",
+      "WHATSAPP_EMBEDDED_SIGNUP_TITLE": "WhatsApp एम्बेडेड साइनअप",
+      "WHATSAPP_EMBEDDED_SIGNUP_SUBHEADER": "यो इनबक्स WhatsApp एम्बेडेड साइनअप मार्फत जडान गरिएको छ।",
+      "WHATSAPP_EMBEDDED_SIGNUP_DESCRIPTION": "तपाईंले यो इनबक्स पुन: कन्फिगर गरेर तपाईंको WhatsApp व्यवसाय सेटिङहरू अपडेट गर्न सक्नुहुन्छ।",
+      "WHATSAPP_RECONFIGURE_BUTTON": "पुन: कन्फिगर गर्नुहोस्",
+      "WHATSAPP_CONNECT_TITLE": "WhatsApp व्यवसायसँग जडान गर्नुहोस्",
+      "WHATSAPP_CONNECT_SUBHEADER": "सरल व्यवस्थापनका लागि WhatsApp एम्बेडेड साइनअपमा अपग्रेड गर्नुहोस्।",
+      "WHATSAPP_CONNECT_DESCRIPTION": "यो इनबक्सलाई WhatsApp व्यवसायसँग जडान गर्नुहोस् र थप सुविधाहरू र सजिलो व्यवस्थापन पाउनुहोस्।",
+      "WHATSAPP_CONNECT_BUTTON": "जडान गर्नुहोस्",
+      "WHATSAPP_CONNECT_SUCCESS": "WhatsApp व्यवसायसँग सफलतापूर्वक जडान भयो!",
+      "WHATSAPP_CONNECT_ERROR": "WhatsApp व्यवसायसँग जडान गर्न असफल। कृपया फेरि प्रयास गर्नुहोस्।",
+      "WHATSAPP_RECONFIGURE_SUCCESS": "WhatsApp व्यवसाय सफलतापूर्वक पुन: कन्फिगर गरियो!",
+      "WHATSAPP_RECONFIGURE_ERROR": "WhatsApp व्यवसाय पुन: कन्फिगर गर्न असफल। कृपया फेरि प्रयास गर्नुहोस्।",
+      "WHATSAPP_APP_ID_MISSING": "WhatsApp एप ID कन्फिगर गरिएको छैन। कृपया तपाईंको प्रशासकलाई सम्पर्क गर्नुहोस्।",
+      "WHATSAPP_CONFIG_ID_MISSING": "WhatsApp कन्फिगरेसन ID कन्फिगर गरिएको छैन। कृपया तपाईंको प्रशासकलाई सम्पर्क गर्नुहोस्।",
+      "WHATSAPP_LOGIN_CANCELLED": "WhatsApp लगइन रद्द गरियो। कृपया फेरि प्रयास गर्नुहोस्।"
     },
     "HELP_CENTER": {
       "LABEL": "Help Center",
       "PLACEHOLDER": "Select Help Center",
       "SELECT_PLACEHOLDER": "Select Help Center",
       "REMOVE": "Remove Help Center",
-      "SUB_TEXT": "Attach a Help Center with the inbox"
+      "SUB_TEXT": "Attach a Help Center with the inbox",
+      "NONE": "कुनै छैन"
     },
     "AUTO_ASSIGNMENT": {
       "MAX_ASSIGNMENT_LIMIT": "Auto assignment limit",
@@ -722,7 +790,51 @@
       "API": {
         "SUCCESS_MESSAGE": "CSAT settings updated successfully",
         "ERROR_MESSAGE": "We couldn't update CSAT settings. Please try again later."
-      }
+      },
+      "BUTTON_TEXT": {
+        "LABEL": "बटन पाठ",
+        "PLACEHOLDER": "कृपया हामीलाई मूल्याङ्कन गर्नुहोस्"
+      },
+      "LANGUAGE": {
+        "LABEL": "भाषा",
+        "PLACEHOLDER": "ढाँचा भाषा चयन गर्नुहोस्"
+      },
+      "MESSAGE_PREVIEW": {
+        "LABEL": "सन्देश पूर्वावलोकन",
+        "TOOLTIP": "WhatsApp को प्लेटफर्ममा प्रस्तुत गर्दा यसमा थोरै भिन्नता हुन सक्छ।"
+      },
+      "TEMPLATE_STATUS": {
+        "APPROVED": "WhatsApp द्वारा स्वीकृत",
+        "PENDING": "WhatsApp स्वीकृतिको प्रतीक्षा",
+        "REJECTED": "Meta ले ढाँचालाई अस्वीकृत गर्यो",
+        "DEFAULT": "WhatsApp स्वीकृतिको आवश्यकता छ",
+        "NOT_FOUND": "ढाँचा Meta प्लेटफर्ममा अवस्थित छैन।"
+      },
+      "TEMPLATE_CREATION": {
+        "SUCCESS_MESSAGE": "WhatsApp ढाँचा सफलतापूर्वक सिर्जना गरियो र स्वीकृतिका लागि पठाइयो",
+        "ERROR_MESSAGE": "WhatsApp ढाँचा सिर्जना गर्न असफल"
+      },
+      "TEMPLATE_UPDATE_DIALOG": {
+        "TITLE": "सर्वेक्षण विवरण सम्पादन गर्नुहोस्",
+        "DESCRIPTION": "हामी पुरानो ढाँचा मेटाउनेछौं र नयाँ बनाउनेछौं जुन फेरि WhatsApp स्वीकृतिका लागि पठाइनेछ",
+        "CONFIRM": "नयाँ ढाँचा सिर्जना गर्नुहोस्",
+        "CANCEL": "फिर्ता जानुहोस्"
+      },
+      "UTILITY_ANALYZER": {
+        "ACTION": "युटिलिटी उपयुक्तता जाँच्नुहोस्",
+        "HELPER_NOTE": "युटिलिटी उपयुक्तता सुधार गर्न पठाउनु अघि यो सन्देश जाँच्नुहोस्। प्रणालीले रिपोर्टिङका लागि बटनसहित छुट्टै CSAT टेम्प्लेट बनाउँछ र यसलाई युटिलिटीको रूपमा पेश गर्छ; सामग्रीका आधारमा Meta ले यसलाई मार्केटिङको रूपमा पुनः वर्गीकरण गर्न सक्छ।",
+        "RESULT_LABEL": "Meta श्रेणी पूर्वानुमान",
+        "GUIDANCE_NOTE": "यो मार्गदर्शन जाँच मात्र हो, Meta को स्वीकृतिको ग्यारेन्टी होइन।",
+        "SUGGESTION_LABEL": "सुझाव गरिएको युटिलिटी-मैत्री पुनर्लेखन",
+        "APPLY": "Use this rewrite",
+        "ERROR_MESSAGE": "सन्देश विश्लेषण गर्न सकिएन। कृपया फेरि प्रयास गर्नुहोस्।",
+        "CLASSIFICATION": {
+          "LIKELY_UTILITY": "संभावित युटिलिटी",
+          "LIKELY_MARKETING": "Likely Marketing",
+          "UNCLEAR": "स्पष्टता आवश्यक छ"
+        }
+      },
+      "WHATSAPP_NOTE": "नोट: तपाईंले सुरक्षित गरेपछि, प्रणालीले WhatsApp मा CSAT टेम्प्लेट बनाउँछ (रिपोर्टमा रेटिङ र प्रतिक्रिया संकलन गर्न प्रयोग हुने) र स्वीकृतिका लागि Utility रूपमा पेश गर्छ। Meta ले सामग्रीका आधारमा यसलाई Marketing पनि वर्गीकृत गर्न सक्छ। स्वीकृति पछि, सर्वेक्षण नियम अनुसार प्रत्येक कुराकानीमा एकपटक मात्र सर्वेक्षण पठाइन्छ।"
     },
     "BUSINESS_HOURS": {
       "TITLE": "Set your availability",
@@ -738,7 +850,9 @@
         "UNAVAILABLE": "Unavailable",
         "HOURS": "hours",
         "VALIDATION_ERROR": "Starting time should be before closing time.",
-        "CHOOSE": "Choose"
+        "CHOOSE": "Choose",
+        "DAY": "Day",
+        "AVAILABILITY": "Availability"
       },
       "ALL_DAY": "All-Day"
     },
@@ -769,7 +883,8 @@
         "LABEL": "Password",
         "PLACE_HOLDER": "Password"
       },
-      "ENABLE_SSL": "Enable SSL"
+      "ENABLE_SSL": "Enable SSL",
+      "AUTH_MECHANISM": "प्रमाणीकरण"
     },
     "MICROSOFT": {
       "TITLE": "Microsoft",
@@ -868,7 +983,8 @@
         "WIDGET_BUBBLE_TYPE": {
           "STANDARD": "Standard",
           "EXPANDED_BUBBLE": "Expanded Bubble"
-        }
+        },
+        "WIDGET_BUBBLE": "Bubble"
       },
       "WIDGET_SCREEN": {
         "DEFAULT": "Default",
@@ -920,7 +1036,136 @@
       "LINE": "Line",
       "API": "API Channel",
       "INSTAGRAM": "Instagram",
-      "VOICE": "Voice"
+      "VOICE": "Voice",
+      "TIKTOK": "TikTok"
+    },
+    "COUNT": "{n} inbox | {n} inboxes",
+    "SEARCH_PLACEHOLDER": "इनबक्स खोज्नुहोस्...",
+    "NO_RESULTS": "तपाईंको खोजसँग मेल खाने इनबक्स फेला परेन",
+    "WHATSAPP_REGISTRATION_INCOMPLETE": "तपाईंको WhatsApp व्यवसाय दर्ता पूरा भएको छैन। पुन: जडान गर्नु अघि कृपया Meta Business Manager मा तपाईंको प्रदर्शन नाम स्थिति जाँच गर्नुहोस्।",
+    "COMPLETE_REGISTRATION": "दर्ता पूरा गर्नुहोस्",
+    "VOICE_CONFIGURATION": {
+      "ENABLE_VOICE": {
+        "LABEL": "Enable Voice Calling",
+        "DESCRIPTION": "Enable voice calling on this inbox. Agents will be able to make and receive phone calls."
+      },
+      "CREDENTIALS": {
+        "DESCRIPTION": "Voice calling requires Twilio API Key credentials. These are used to generate tokens for agent voice connections."
+      }
+    },
+    "CHANNEL_PREFERENCES": "च्यानल प्राथमिकता",
+    "WIDGET_FEATURES": "Widget features",
+    "ACCOUNT_HEALTH": {
+      "TITLE": "तपाईंको WhatsApp खाता व्यवस्थापन गर्नुहोस्",
+      "DESCRIPTION": "तपाईंको WhatsApp खाता स्थिति, सन्देश सीमा, र गुणस्तर समीक्षा गर्नुहोस्। आवश्यक परे सेटिङहरू अपडेट गर्नुहोस् वा समस्याहरू समाधान गर्नुहोस्",
+      "GO_TO_SETTINGS": "Meta Business Manager मा जानुहोस्",
+      "NO_DATA": "स्वास्थ्य डेटा उपलब्ध छैन",
+      "FIELDS": {
+        "DISPLAY_PHONE_NUMBER": {
+          "LABEL": "फोन नम्बर प्रदर्शन गर्नुहोस्",
+          "TOOLTIP": "ग्राहकहरूलाई देखाइने फोन नम्बर"
+        },
+        "VERIFIED_NAME": {
+          "LABEL": "व्यवसायको नाम",
+          "TOOLTIP": "WhatsApp द्वारा प्रमाणित व्यवसाय नाम"
+        },
+        "DISPLAY_NAME_STATUS": {
+          "LABEL": "प्रदर्शन नाम स्थिति",
+          "TOOLTIP": "तपाईंको व्यवसाय नाम प्रमाणनको स्थिति"
+        },
+        "QUALITY_RATING": {
+          "LABEL": "गुणस्तर मूल्याङ्कन",
+          "TOOLTIP": "तपाईंको खाताको लागि WhatsApp गुणस्तर रेटिङ"
+        },
+        "MESSAGING_LIMIT_TIER": {
+          "LABEL": "सन्देश सीमा स्तर",
+          "TOOLTIP": "तपाईंको खाताको दैनिक सन्देश सीमा"
+        },
+        "ACCOUNT_MODE": {
+          "LABEL": "खाता मोड",
+          "TOOLTIP": "तपाईंको WhatsApp खाताको वर्तमान सञ्चालन मोड"
+        }
+      },
+      "VALUES": {
+        "TIERS": {
+          "TIER_250": "२४ घण्टामा 250 ग्राहकहरू",
+          "TIER_1000": "२४ घण्टामा 1K ग्राहकहरू",
+          "TIER_1K": "२४ घण्टामा 1K ग्राहकहरू",
+          "TIER_10K": "२४ घण्टामा १० हजार ग्राहकहरू",
+          "TIER_100K": "२४ घण्टामा 100K ग्राहकहरू",
+          "TIER_UNLIMITED": "२४ घण्टामा असीमित ग्राहकहरू",
+          "UNKNOWN": "मूल्याङ्कन उपलब्ध छैन"
+        },
+        "STATUSES": {
+          "APPROVED": "स्वीकृत",
+          "PENDING_REVIEW": "समीक्षा प्रक्रियामा",
+          "AVAILABLE_WITHOUT_REVIEW": "समीक्षा बिना उपलब्ध",
+          "REJECTED": "अस्वीकृत",
+          "DECLINED": "अस्वीकार गरिएको",
+          "NON_EXISTS": "अस्तित्वमा छैन"
+        },
+        "MODES": {
+          "SANDBOX": "Sandbox",
+          "LIVE": "प्रत्यक्ष"
+        }
+      },
+      "WEBHOOK": {
+        "TITLE": "Webhook कन्फिगरेसन",
+        "DESCRIPTION": "ग्राहकबाट सन्देश प्राप्त गर्न तपाईंको WhatsApp Business Account मा Webhook URL आवश्यक छ",
+        "ACTION_REQUIRED": "Webhook कन्फिगर गरिएको छैन",
+        "REGISTER_BUTTON": "Webhook दर्ता गर्नुहोस्",
+        "REGISTER_SUCCESS": "Webhook सफलतापूर्वक दर्ता भयो",
+        "REGISTER_ERROR": "Webhook दर्ता गर्न असफल भयो। कृपया फेरि प्रयास गर्नुहोस्।",
+        "CONFIGURED_SUCCESS": "Webhook सफलतापूर्वक कन्फिगर गरियो",
+        "URL_MISMATCH": "Webhook URL मेल खाएन"
+      }
+    },
+    "ASSIGNMENT": {
+      "TITLE": "संवाद असाइनमेन्ट",
+      "DESCRIPTION": "आगामी संवादहरूलाई उपलब्ध एजेन्टहरूलाई असाइनमेन्ट नीतिहरूको आधारमा स्वचालित रूपमा असाइन गर्नुहोस्",
+      "ENABLE_AUTO_ASSIGNMENT": "स्वचालित संवाद असाइनमेन्ट सक्षम गर्नुहोस्",
+      "DEFAULT_RULES_TITLE": "पूर्वनिर्धारित असाइनमेन्ट नियमहरू",
+      "DEFAULT_RULES_DESCRIPTION": "सबै संवादहरूको लागि पूर्वनिर्धारित असाइनमेन्ट व्यवहार प्रयोग गर्दै",
+      "DEFAULT_RULE_1": "सबैभन्दा पहिले सिर्जना भएका संवादहरू",
+      "DEFAULT_RULE_2": "राउन्ड-रोबिन वितरण",
+      "CUSTOMIZE_WITH_POLICY": "असाइनमेन्ट नीति अनुसार अनुकूलन गर्नुहोस्",
+      "USING_POLICY": "यस इनबक्सका लागि अनुकूलित असाइनमेन्ट नीति प्रयोग गर्दै",
+      "CUSTOMIZE_POLICY": "असाइनमेन्ट नीति अनुसार अनुकूलन गर्नुहोस्",
+      "DELETE_POLICY": "नीति मेटाउनु",
+      "POLICY_LABEL": "असाइनमेन्ट नीति",
+      "ASSIGNMENT_ORDER_LABEL": "असाइनमेन्ट क्रम",
+      "ASSIGNMENT_METHOD_LABEL": "असाइनमेन्ट विधि",
+      "POLICY_STATUS": {
+        "ACTIVE": "सक्रिय",
+        "INACTIVE": "निष्क्रिय"
+      },
+      "PRIORITY": {
+        "EARLIEST_CREATED": "सबैभन्दा पहिले सिर्जना गरिएको",
+        "LONGEST_WAITING": "सबैभन्दा लामो समयदेखि प्रतीक्षा"
+      },
+      "METHOD": {
+        "ROUND_ROBIN": "राउन्ड-रोबिन",
+        "BALANCED": "सन्तुलित असाइनमेन्ट"
+      },
+      "UPGRADE_PROMPT": "अनुकूलित असाइनमेन्ट नीतिहरू व्यवसाय योजना मा उपलब्ध छन्",
+      "UPGRADE_TO_BUSINESS": "व्यवसाय योजना मा अपग्रेड गर्नुहोस्",
+      "DEFAULT_POLICY_LINKED": "पूर्वनिर्धारित नीति जडान गरिएको",
+      "DEFAULT_POLICY_DESCRIPTION": "यस इनबक्समा एजेन्टहरूलाई संवाद कसरी असाइन गर्ने अनुकूलन गर्न अनुकूलित असाइनमेन्ट नीति जडान गर्नुहोस्।",
+      "LINK_EXISTING_POLICY": "अस्तित्वमा रहेको नीति जडान गर्नुहोस्",
+      "CREATE_NEW_POLICY": "Create new policy",
+      "NO_POLICIES": "No assignment policies found",
+      "VIEW_ALL_POLICIES": "सबै नीति हेर्नुहोस्",
+      "CURRENT_BEHAVIOR": "हाल डिफल्ट असाइनमेन्ट व्यवहार प्रयोग भइरहेको छ:",
+      "LINK_SUCCESS": "असाइनमेन्ट नीति सफलतापूर्वक जडान भयो",
+      "LINK_ERROR": "असाइनमेन्ट नीति जडान गर्न असफल"
+    },
+    "ASSIGNMENT_POLICY": {
+      "DELETE_CONFIRM_TITLE": "असाइनमेन्ट नीति हटाउने हो?",
+      "DELETE_CONFIRM_MESSAGE": "के तपाईं यो इनबक्सबाट असाइनमेन्ट नीति हटाउन निश्चित हुनुहुन्छ? इनबक्स डिफल्ट असाइनमेन्ट नियममा फर्किनेछ।",
+      "CANCEL": "Cancel",
+      "CONFIRM_DELETE": "हटाउनुहोस्",
+      "DELETE_SUCCESS": "Assignment policy removed successfully",
+      "DELETE_ERROR": "Failed to remove assignment policy"
     }
   }
 }

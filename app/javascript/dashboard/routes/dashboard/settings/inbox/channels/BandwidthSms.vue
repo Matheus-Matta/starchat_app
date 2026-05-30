@@ -3,7 +3,6 @@ import { mapGetters } from 'vuex';
 import { useVuelidate } from '@vuelidate/core';
 import { useAlert } from 'dashboard/composables';
 import { required } from '@vuelidate/validators';
-import router from '../../../../index';
 
 import NextButton from 'dashboard/components-next/button/Button.vue';
 
@@ -61,7 +60,7 @@ export default {
           },
         });
 
-        router.replace({
+        this.$router.replace({
           name: 'settings_inboxes_add_agents',
           params: {
             page: 'new',

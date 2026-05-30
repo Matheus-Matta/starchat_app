@@ -13,7 +13,7 @@
       "UPGRADE_NOW": "Upgrade now",
       "CANCEL_ANYTIME": "You can change or cancel your plan anytime"
     },
-    "ENTERPRISE_PAYWALL": {
+    "STARCHAT_PAYWALL": {
       "AVAILABLE_ON": "The SLA feature is only available in the paid plans.",
       "UPGRADE_PROMPT": "Upgrade to a paid plan to access advanced features like audit logs, agent capacity, and more.",
       "ASK_ADMIN": "Please reach out to your administrator for the upgrade."
@@ -37,6 +37,10 @@
           "NRT": "NRT",
           "RT": "RT"
         }
+      },
+      "TABLE_HEADER": {
+        "SLA": "SLA",
+        "BUSINESS_HOURS": "Çalışma saatleri"
       }
     },
     "FORM": {
@@ -103,6 +107,16 @@
       "RT": "Resolution time",
       "SHOW_MORE": "{count} more",
       "HIDE": "Hide {count} rows"
+    },
+    "COUNT": "{n} SLA | {n} SLAs",
+    "SEARCH_PLACEHOLDER": "Search SLA...",
+    "SEARCH": {
+      "NO_RESULTS": "No SLA found matching your search"
+    },
+    "ENTERPRISE_PAYWALL": {
+      "AVAILABLE_ON": "SLA özelliği yalnızca ücretli planlarda mevcuttur.",
+      "UPGRADE_PROMPT": "Denetim kayıtları, temsilci kapasitesi ve daha fazlası gibi gelişmiş özelliklere erişmek için ücretli plana geçin.",
+      "ASK_ADMIN": "Please reach out to your administrator for the upgrade."
     }
   }
 }

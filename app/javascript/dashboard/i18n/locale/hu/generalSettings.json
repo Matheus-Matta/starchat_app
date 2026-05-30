@@ -150,8 +150,8 @@
       "EMPTY_MESSAGE": "Nincs olvasatlan értesítésed"
     },
     "LIST": {
-      "LOADING_MESSAGE": "Értesítések betöltése...",
       "404": "Nincs értesítés",
+      "LOADING_MESSAGE": "Értesítések betöltése...",
       "TABLE_HEADER": [
         "Név",
         "Telefonszám",
@@ -239,7 +239,8 @@
       "DARK_MODE": "Sötét mód",
       "SYSTEM_MODE": "Rendszer",
       "SNOOZE_NOTIFICATION": "Snooze Notification"
-    }
+    },
+    "SNOOZE_PLACEHOLDER": "Type a time e.g. tomorrow, 2 hours, next friday, jan 15..."
   },
   "DASHBOARD_APPS": {
     "LOADING_MESSAGE": "Kezelőoldal App betöltése..."

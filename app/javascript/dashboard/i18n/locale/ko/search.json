@@ -27,6 +27,42 @@
     "WROTE": "wrote:",
     "FROM": "에서",
     "EMAIL": "이메일",
-    "EMAIL_SUBJECT": "subject"
+    "EMAIL_SUBJECT": "subject",
+    "RECENT_SEARCHES": "최근 검색",
+    "CLEAR_ALL": "모두 지우기",
+    "MOST_RECENT": "최근",
+    "READ_LESS": "접기",
+    "PRIVATE": "비공개 메모",
+    "TRANSCRIPT": "대화 내용",
+    "CREATED_AT": "{time}에 생성됨",
+    "UPDATED_AT": "{time}에 업데이트됨",
+    "SORT_BY": {
+      "RELEVANCE": "관련도"
+    },
+    "DATE_RANGE": {
+      "LAST_7_DAYS": "지난 7일",
+      "LAST_30_DAYS": "지난 30일",
+      "LAST_60_DAYS": "지난 60일",
+      "LAST_90_DAYS": "지난 90일",
+      "CUSTOM_RANGE": "사용자 지정 범위:",
+      "CREATED_BETWEEN": "생성 기간",
+      "AND": "~",
+      "APPLY": "적용",
+      "BEFORE_DATE": "{date} 이전",
+      "AFTER_DATE": "{date} 이후",
+      "TIME_RANGE": "기간별 필터",
+      "CLEAR_FILTER": "필터 지우기"
+    },
+    "FILTERS": {
+      "FILTER_MESSAGE": "메시지 필터 기준:",
+      "FROM": "발신자",
+      "IN": "받은 메시지함",
+      "AGENTS": "에이전트",
+      "CONTACTS": "연락처",
+      "INBOXES": "받은 메시지함",
+      "NO_AGENTS": "에이전트를 찾을 수 없습니다",
+      "NO_CONTACTS": "검색을 시작하여 결과를 확인하십시오",
+      "NO_INBOXES": "받은 메시지함을 찾을 수 없습니다"
+    }
   }
 }

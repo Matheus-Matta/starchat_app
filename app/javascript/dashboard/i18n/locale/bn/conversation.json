@@ -1,8 +1,8 @@
 {
   "CONVERSATION": {
+    "404": "দুঃখিত, আমরা কনভার্সেশনটি খুঁজে পাচ্ছি না। আবার চেষ্টা করুন",
     "SELECT_A_CONVERSATION": "বাম পাশ থেকে একটি কনভার্সেশন নির্বাচন করুন",
     "CSAT_REPLY_MESSAGE": "অনুগ্রহ করে কথোপকথনের মূল্যায়ন করুন",
-    "404": "দুঃখিত, আমরা কনভার্সেশনটি খুঁজে পাচ্ছি না। আবার চেষ্টা করুন",
     "SWITCH_VIEW_LAYOUT": "লেআউট পরিবর্তন করুন",
     "DASHBOARD_APP_TAB_MESSAGES": "বার্তা",
     "UNVERIFIED_SESSION": "এই ব্যবহারকারীর পরিচয় যাচাই করা হয়নি",
@@ -71,7 +71,8 @@
     "REPLY_MESSAGE_NOT_FOUND": "বার্তাটি পাওয়া যায়নি",
     "CARD": {
       "SHOW_LABELS": "লেবেল দেখান",
-      "HIDE_LABELS": "লেবেল লুকান"
+      "HIDE_LABELS": "লেবেল লুকান",
+      "LABELS_COUNT": "{count} labels"
     },
     "VOICE_CALL": {
       "INCOMING_CALL": "ইনকামিং কল",
@@ -82,7 +83,9 @@
       "CALL_ENDED": "কল শেষ হয়েছে",
       "NOT_ANSWERED_YET": "এখনও উত্তর পাওয়া যায়নি",
       "THEY_ANSWERED": "তারা উত্তর দিয়েছে",
-      "YOU_ANSWERED": "আপনি উত্তর দিয়েছেন"
+      "YOU_ANSWERED": "আপনি উত্তর দিয়েছেন",
+      "AGENT_ANSWERED": "{agentName} answered",
+      "JOIN_CALL": "কলে যোগ দিন"
     },
     "HEADER": {
       "RESOLVE_ACTION": "সমাধান করুন",
@@ -102,7 +105,8 @@
         "RT": "RT {status}",
         "MISSED": "মিস হয়েছে",
         "DUE": "বাকি"
-      }
+      },
+      "COPY_ID_SUCCESS": "Conversation ID copied to clipboard"
     },
     "RESOLVE_DROPDOWN": {
       "MARK_PENDING": "পেন্ডিং হিসেবে চিহ্নিত করুন",
@@ -362,7 +366,8 @@
       "PREVIOUS_CONVERSATION": "পূর্বের আলোচনা",
       "MACROS": "ম্যাক্রো",
       "LINEAR_ISSUES": "সংযুক্ত Linear সমস্যা",
-      "SHOPIFY_ORDERS": "Shopify অর্ডার"
+      "SHOPIFY_ORDERS": "Shopify অর্ডার",
+      "SHARED_FILES": "Attachments"
     },
     "SHOPIFY": {
       "ORDER_ID": "Order #{id}",
@@ -382,6 +387,17 @@
         "PARTIALLY_FULFILLED": "আংশিক সম্পন্ন",
         "UNFULFILLED": "অসম্পন্ন"
       }
+    },
+    "SHARED_FILES": {
+      "EMPTY": "No attachments yet",
+      "DOWNLOAD": "Download file",
+      "DOWNLOAD_ERROR": "Could not download the file. Please try again.",
+      "MEDIA_HEADING": "Media",
+      "FILES_HEADING": "Files",
+      "VIEW_ALL": "সব দেখুন",
+      "SHOW_LESS": "Show less",
+      "MORE_COUNT": "+{count}",
+      "UNTITLED_FILE": "Untitled file"
     }
   },
   "CONVERSATION_CUSTOM_ATTRIBUTES": {

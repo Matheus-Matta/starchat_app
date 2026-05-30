@@ -157,6 +157,12 @@
             "DELETE_SUCCESS": "Portal deleted successfully",
             "DELETE_ERROR": "Error while deleting portal"
           }
+        },
+        "SEND_CNAME_INSTRUCTIONS": {
+          "API": {
+            "SUCCESS_MESSAGE": "CNAME 設定說明傳送成功",
+            "ERROR_MESSAGE": "傳送 CNAME 設定說明時發生錯誤"
+          }
         }
       },
       "EDIT": {
@@ -310,11 +316,23 @@
           "SUCCESS_MESSAGE": "Locale removed from portal successfully",
           "ERROR_MESSAGE": "Unable to remove locale from portal. Try again."
         }
+      },
+      "DRAFT_LOCALE": {
+        "API": {
+          "SUCCESS_MESSAGE": "語系已成功移至草稿",
+          "ERROR_MESSAGE": "無法將語系移至草稿，請再試一次。"
+        }
+      },
+      "PUBLISH_LOCALE": {
+        "API": {
+          "SUCCESS_MESSAGE": "語系發佈成功",
+          "ERROR_MESSAGE": "無法發佈語系，請再試一次。"
+        }
       }
     },
     "TABLE": {
-      "LOADING_MESSAGE": "Loading articles...",
       "404": "No articles matches your search 🔍",
+      "LOADING_MESSAGE": "Loading articles...",
       "NO_ARTICLES": "There are no available articles",
       "HEADERS": {
         "TITLE": "標題",
@@ -497,7 +515,8 @@
             "PUBLISH": "Publish",
             "DRAFT": "Draft",
             "ARCHIVE": "Archive",
-            "DELETE": "刪除"
+            "DELETE": "刪除",
+            "TRANSLATE": "翻譯"
           },
           "STATUS": {
             "DRAFT": "Draft",
@@ -551,6 +570,41 @@
           "TITLE": "There are no articles in this category",
           "SUBTITLE": "Articles in this category will appear here"
         }
+      },
+      "BULK_TRANSLATE": {
+        "TITLE": "Translate article | Translate {count} articles",
+        "DESCRIPTION": "Translate the selected article to another language. | Translate the selected articles to another language.",
+        "LOCALE_LABEL": "Target language",
+        "LOCALE_PLACEHOLDER": "Select a language",
+        "CATEGORY_LABEL": "Target category",
+        "CATEGORY_PLACEHOLDER": "Select a category",
+        "OPTIONAL": "(optional)",
+        "CONFIRM": "翻譯",
+        "SELECT_ALL": "全選（{count}）",
+        "SELECTED_COUNT": "已選擇 {count} 個",
+        "CLEAR_SELECTION": "清除選取",
+        "TRANSLATE_BUTTON": "翻譯",
+        "CONFIRM_OVERWRITE": "Overwrite and translate",
+        "DUPLICATE_WARNING": "A translation already exists for this article in the selected language. | Translations already exist for {count} articles in the selected language.",
+        "DUPLICATE_CONFIRM_HINT": "Click translate again to overwrite the existing translation.",
+        "API": {
+          "SUCCESS_MESSAGE": "Translation in progress. The article will appear as a draft once ready.",
+          "ERROR_MESSAGE": "Failed to start translation. Please try again."
+        }
+      },
+      "BULK_ACTIONS": {
+        "PUBLISH": "發佈",
+        "DRAFT": "草稿",
+        "ARCHIVE": "封存",
+        "TRANSLATE": "翻譯",
+        "DELETE": "刪除",
+        "STATUS_SUCCESS": "Articles updated successfully",
+        "STATUS_ERROR": "Failed to update articles",
+        "DELETE_CONFIRM_TITLE": "Delete article | Delete {count} articles",
+        "DELETE_CONFIRM_DESCRIPTION": "This will permanently delete the selected article. This action cannot be undone. | This will permanently delete {count} selected articles. This action cannot be undone.",
+        "DELETE_CONFIRM": "刪除",
+        "DELETE_SUCCESS": "Articles deleted successfully",
+        "DELETE_ERROR": "Failed to delete articles"
       }
     },
     "CATEGORY_PAGE": {
@@ -630,8 +684,11 @@
         "DEFAULT": "Default",
         "DROPDOWN_MENU": {
           "MAKE_DEFAULT": "Make default",
-          "DELETE": "刪除"
-        }
+          "DELETE": "刪除",
+          "MOVE_TO_DRAFT": "移至草稿",
+          "PUBLISH_LOCALE": "發佈語系"
+        },
+        "DRAFT": "草稿"
       },
       "ADD_LOCALE_DIALOG": {
         "TITLE": "Add a new locale",
@@ -642,6 +699,13 @@
         "API": {
           "SUCCESS_MESSAGE": "Locale added successfully",
           "ERROR_MESSAGE": "Unable to add locale. Try again."
+        },
+        "STATUS": {
+          "LABEL": "狀態",
+          "OPTIONS": {
+            "LIVE": "已發佈",
+            "DRAFT": "草稿"
+          }
         }
       }
     },
@@ -735,7 +799,8 @@
         "LIVE_CHAT_WIDGET": {
           "LABEL": "Live chat widget",
           "PLACEHOLDER": "Select live chat widget",
-          "HELP_TEXT": "Select a live chat widget that will appear on your help center"
+          "HELP_TEXT": "Select a live chat widget that will appear on your help center",
+          "NONE_OPTION": "不使用小工具"
         },
         "BRAND_COLOR": {
           "LABEL": "Brand color"
@@ -757,13 +822,28 @@
             "EDIT_CONFIRM_BUTTON_LABEL": "Update domain",
             "LABEL": "Custom domain",
             "PLACEHOLDER": "Portal custom domain",
-            "ERROR": "Custom domain is required"
+            "ERROR": "Custom domain is required",
+            "FORMAT_ERROR": "請輸入有效的網域 URL，例如 docs.yourdomain.com"
           },
           "DNS_CONFIGURATION_DIALOG": {
             "HEADER": "DNS configuration",
             "DESCRIPTION": "Log in to the account you have with your DNS provider, and add a CNAME record for subdomain pointing to chatwoot.help",
             "HELP_TEXT": "Once this is done, you can reach out to our support to request for the auto-generated SSL certificate.",
-            "CONFIRM_BUTTON_LABEL": "Got it!"
+            "CONFIRM_BUTTON_LABEL": "Got it!",
+            "COPY": "已成功複製 CNAME",
+            "SEND_INSTRUCTIONS": {
+              "HEADER": "傳送設定說明",
+              "DESCRIPTION": "如果您希望由開發團隊的成員來處理此步驟，可以在下方輸入電子郵件地址，我們將傳送所需的設定說明給他們。",
+              "PLACEHOLDER": "輸入電子郵件地址",
+              "ERROR": "請輸入有效的電子郵件地址",
+              "SEND_BUTTON": "傳送"
+            }
+          },
+          "STATUS_DESCRIPTION": "您的自訂入口將在驗證通過後立即開始運作。",
+          "STATUS": {
+            "LIVE": "已上線",
+            "PENDING": "等待驗證",
+            "ERROR": "驗證失敗"
           }
         },
         "DELETE_PORTAL": {
@@ -840,6 +920,16 @@
       "FROM_DOCUMENT": "From document",
       "NO_CONTENT": "No generated content available. Upload a PDF document to get started.",
       "LOADING": "Loading generated content..."
+    },
+    "REORDER_ARTICLE": {
+      "API": {
+        "ERROR_MESSAGE": "無法重新排序文章，請再試一次。"
+      }
+    },
+    "REORDER_CATEGORY": {
+      "API": {
+        "ERROR_MESSAGE": "無法重新排序分類，請再試一次。"
+      }
     }
   }
 }

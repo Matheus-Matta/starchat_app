@@ -40,13 +40,14 @@
       }
     },
     "LIST": {
+      "404": "Nenhuma regra de automação encontrada",
       "TABLE_HEADER": {
         "NAME": "Nome",
         "DESCRIPTION": "Descrição",
         "ACTIVE": "Ativo",
-        "CREATED_ON": "Criado em"
-      },
-      "404": "Nenhuma regra de automação encontrada"
+        "CREATED_ON": "Criado em",
+        "ACTIONS": "Ações"
+      }
     },
     "DELETE": {
       "TITLE": "Excluir regra de automação",
@@ -150,7 +151,10 @@
       "ADD_PRIVATE_NOTE": "Adicionar uma Nota Privada",
       "CHANGE_PRIORITY": "Alterar Prioridade",
       "ADD_SLA": "Adicionar SLA",
-      "OPEN_CONVERSATION": "Abrir conversa"
+      "OPEN_CONVERSATION": "Abrir conversa",
+      "REMOVE_ASSIGNED_AGENT": "Remove Assigned Agent",
+      "REMOVE_ASSIGNED_TEAM": "Remover Time Atribuído",
+      "PENDING_CONVERSATION": "Marcar conversa como pendente"
     },
     "MESSAGE_TYPES": {
       "INCOMING": "Mensagem Recebida",
@@ -178,7 +182,13 @@
       "ASSIGNEE_NAME": "Agente atribuído",
       "TEAM_NAME": "Time",
       "PRIORITY": "Prioridade",
-      "LABELS": "Etiquetas"
-    }
+      "LABELS": "Etiquetas",
+      "PRIVATE_NOTE": "Mensagem Privada",
+      "COMPANY_NAME": "Empresa"
+    },
+    "COUNT": "{n} automação | {n} automações",
+    "SEARCH_PLACEHOLDER": "Pesquisar regras de automação...",
+    "NO_RESULTS": "Nenhuma regra de automação encontrada correspondente à sua busca",
+    "LAST_RESPONDING_AGENT": "Último Agente que Respondeu"
   }
 }

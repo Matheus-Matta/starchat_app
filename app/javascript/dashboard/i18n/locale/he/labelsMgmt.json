@@ -13,7 +13,8 @@
       "TABLE_HEADER": {
         "NAME": "שם",
         "DESCRIPTION": "תיאור",
-        "COLOR": "צֶבַע"
+        "COLOR": "צֶבַע",
+        "ACTION": "פעולות"
       }
     },
     "FORM": {
@@ -80,6 +81,9 @@
         "YES": "כן, מחק ",
         "NO": "לא, השאר "
       }
-    }
+    },
+    "COUNT": "{n} label | {n} labels",
+    "SEARCH_PLACEHOLDER": "חפש תוויות...",
+    "NO_RESULTS": "No labels found matching your search"
   }
 }

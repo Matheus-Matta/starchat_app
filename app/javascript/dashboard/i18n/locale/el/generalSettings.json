@@ -150,8 +150,8 @@
       "EMPTY_MESSAGE": "Δεν έχετε μη αναγνωσμένες ειδοποιήσεις"
     },
     "LIST": {
-      "LOADING_MESSAGE": "Φόρτωση ειδοποιήσεων...",
       "404": "Καμία Ειδοποίηση",
+      "LOADING_MESSAGE": "Φόρτωση ειδοποιήσεων...",
       "TABLE_HEADER": [
         "Όνομα",
         "Αριθμός Τηλεφώνου",
@@ -239,7 +239,8 @@
       "DARK_MODE": "Dark",
       "SYSTEM_MODE": "System",
       "SNOOZE_NOTIFICATION": "Snooze Notification"
-    }
+    },
+    "SNOOZE_PLACEHOLDER": "Type a time e.g. tomorrow, 2 hours, next friday, jan 15..."
   },
   "DASHBOARD_APPS": {
     "LOADING_MESSAGE": "Φόρτωση Εφαρμογής Dashboard..."

@@ -29,7 +29,7 @@ const props = defineProps({
 
 const emit = defineEmits(['update']);
 
-const { t } = useI18n();
+const { t, te, locale } = useI18n();
 const store = useStore();
 const inboxes = useMapGetter('inboxes/getInboxes');
 const agents = useMapGetter('agents/getAgents');
@@ -159,7 +159,7 @@ const prepareStateBasedOnProps = () => {
       city,
       socialProfiles: {
         ...socialProfiles,
-        telegram: telegramUsername,
+        telegram: socialTelegramUserName,
       },
     },
   });
@@ -193,10 +193,17 @@ const editDetailsForm = computed(() =>
   }))
 );
 
+const socialPlaceholder = key => {
+  const translationKey = `CONTACTS_LAYOUT.CARD.SOCIAL_MEDIA.FORM.${key}.PLACEHOLDER`;
+  return te(translationKey, locale.value)
+    ? t(translationKey)
+    : t(translationKey, {}, { locale: 'en' });
+};
+
 const socialProfilesForm = computed(() =>
   Object.entries(SOCIAL_CONFIG).map(([key, icon]) => ({
     key,
-    placeholder: t(`CONTACTS_LAYOUT.CARD.SOCIAL_MEDIA.FORM.${key}.PLACEHOLDER`),
+    placeholder: socialPlaceholder(key),
     icon,
   }))
 );

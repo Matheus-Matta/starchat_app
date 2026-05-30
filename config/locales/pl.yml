@@ -707,9 +707,9 @@ pl:
     copilot_message_required: Wiadomość jest wymagana
     copilot_error: 'Please connect an assistant to this inbox to use Copilot'
     copilot_limit: 'You are out of Copilot credits. You can buy more credits from the billing section.'
-    upgrade: 'Zaktualizuj swój plan, aby włączyć Captain AI'
-    disabled: 'Captain AI jest wyłączony dla tego konta.'
-    api_key_missing: 'Klucz API Captain AI nie jest skonfigurowany.'
+    upgrade: 'Zaktualizuj swój plan, aby włączyć Cosmos AI'
+    disabled: 'Cosmos AI jest wyłączony dla tego konta.'
+    api_key_missing: 'Klucz API Cosmos AI nie jest skonfigurowany.'
     copilot:
       using_tool: 'Używanie narzędzia %{function_name}'
       completed_tool_call: 'Zakończono wywołanie narzędzia %{function_name}'

@@ -37,7 +37,7 @@ class Cosmos::Tools::HandoffTool < Cosmos::Tools::BasePublicTool
     # Trigger the bot handoff (sets status to open + dispatches events)
     conversation.bot_handoff!
 
-    # Send out of office message if applicable (since template messages were suppressed while Captain was handling)
+    # Send out of office message if applicable (since template messages were suppressed while Cosmos was handling)
     send_out_of_office_message_if_applicable(conversation)
   end
 

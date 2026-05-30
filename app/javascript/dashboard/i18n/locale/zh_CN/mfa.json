@@ -58,7 +58,11 @@
       "CONFIRM": "禁用两步验证",
       "CANCEL": "取消",
       "SUCCESS": "两步验证已禁用",
-      "ERROR": "禁用MFA失败。请检查您的凭据。"
+      "ERROR": "禁用MFA失败。请检查您的凭据。",
+      "BACKUP_CODE": "备份代码",
+      "BACKUP_CODE_PLACEHOLDER": "输入您的备份代码",
+      "USE_BACKUP_CODE": "Lost access to your authenticator? Use a backup code instead",
+      "USE_OTP_CODE": "Use a verification code from your authenticator app"
     },
     "REGENERATE": {
       "TITLE": "重新生成备份代码",

@@ -92,6 +92,7 @@ class Notification::PushNotificationService
     return unless can_send_browser_push?(subscription)
 
     WebPush.payload_send(**browser_push_payload(subscription))
+    Rails.logger.info("Browser push sent to #{user.email} with title #{push_message[:title]}")
   rescue StandardError => e
     handle_browser_push_error(e, subscription)
   end

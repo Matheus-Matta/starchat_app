@@ -110,6 +110,14 @@
         "SUBMIT_BUTTON": "Create inbox",
         "API": {
           "ERROR_MESSAGE": "We were not able to create a website channel, please try again"
+        },
+        "CHANNEL_WEBHOOK_SECRET": {
+          "LABEL": "Webhook Secret",
+          "COPY": "Kopiraj tajnu u međuspremnik",
+          "COPY_SUCCESS": "Tajna je kopirana u međuspremnik",
+          "TOGGLE": "Prebaci vidljivost tajne",
+          "RESET_SUCCESS": "Webhook secret regenerated successfully",
+          "RESET_ERROR": "Unable to regenerate webhook secret. Please try again"
         }
       },
       "TWILIO": {
@@ -291,7 +299,13 @@
           "INVALID_BUSINESS_DATA": "Invalid business data received from Facebook. Please try again.",
           "SIGNUP_ERROR": "Signup error occurred",
           "AUTH_NOT_COMPLETED": "Authentication not completed. Please restart the process.",
-          "SUCCESS_FALLBACK": "WhatsApp Business Account has been successfully configured"
+          "SUCCESS_FALLBACK": "WhatsApp Business Account has been successfully configured",
+          "LEARN_MORE": {
+            "TEXT": "Za više informacija o integriranoj prijavi, cijenama i ograničenjima, posjetite {link}.",
+            "LINK_TEXT": "ovu poveznicu"
+          },
+          "MANUAL_FALLBACK": "If your number is already connected to the WhatsApp Business Platform (API), or if you’re a tech provider onboarding your own number, please use the {link} flow",
+          "MANUAL_LINK_TEXT": "postupak ručne postavke"
         },
         "API": {
           "ERROR_MESSAGE": "We were not able to save the WhatsApp channel"
@@ -373,7 +387,11 @@
         "API": {
           "ERROR_MESSAGE": "We were not able to save the email channel"
         },
-        "FINISH_MESSAGE": "Start forwarding your emails to the following email address."
+        "FINISH_MESSAGE": "Start forwarding your emails to the following email address.",
+        "FINISH_MESSAGE_NO_FORWARDING": "Your email inbox has been created successfully! You need to configure SMTP and IMAP credentials to send and receive emails. Without these settings, no emails will be processed.",
+        "FORWARDING_ADDRESS_LABEL": "Proslijedi e-poštu na ovu adresu:",
+        "CONFIGURE_SMTP_IMAP_LINK": "Kliknite ovdje",
+        "CONFIGURE_SMTP_IMAP_TEXT": " za konfiguraciju IMAP i SMTP postavki"
       },
       "LINE_CHANNEL": {
         "TITLE": "LINE Channel",
@@ -462,6 +480,10 @@
           "VOICE": {
             "TITLE": "Voice",
             "DESCRIPTION": "Integrate with Twilio Voice"
+          },
+          "TIKTOK": {
+            "TITLE": "TikTok",
+            "DESCRIPTION": "Connect your TikTok account"
           }
         }
       },
@@ -496,6 +518,13 @@
         "SIGN_IN": "Sign in with Google",
         "EMAIL_PLACEHOLDER": "Enter email address",
         "ERROR_MESSAGE": "There was an error connecting to Google, please try again"
+      },
+      "TIKTOK": {
+        "CONTINUE_WITH_TIKTOK": "Continue with TikTok",
+        "CONNECT_YOUR_TIKTOK_PROFILE": "Connect your TikTok Profile",
+        "HELP": "Za dodavanje vašeg TikTok profila kao kanala, morate potvrditi svoj TikTok profil klikom na 'Nastavi s TikTokom' ",
+        "ERROR_MESSAGE": "There was an error connecting to TikTok, please try again",
+        "ERROR_AUTH": "There was an error connecting to TikTok, please try again"
       }
     },
     "DETAILS": {
@@ -567,7 +596,9 @@
       },
       "LOCK_TO_SINGLE_CONVERSATION": {
         "ENABLED": "Enabled",
-        "DISABLED": "Disabled"
+        "DISABLED": "Disabled",
+        "ENABLED_DESCRIPTION": "Kada kontakt ponovno pošalje poruku, prethodni razgovor će se ponovno otvoriti.",
+        "DISABLED_DESCRIPTION": "Novi razgovor će se kreirati svaki put nakon što je prethodni riješen."
       },
       "ENABLE_HMAC": {
         "LABEL": "Enable"
@@ -599,7 +630,9 @@
       "BUSINESS_HOURS": "Business Hours",
       "WIDGET_BUILDER": "Widget Builder",
       "BOT_CONFIGURATION": "Bot Configuration",
-      "CSAT": "CSAT"
+      "CSAT": "CSAT",
+      "ACCOUNT_HEALTH": "Zdravlje računa",
+      "VOICE": "Glas"
     },
     "SETTINGS": "Settings",
     "FEATURES": {
@@ -652,14 +685,49 @@
       "WHATSAPP_TEMPLATES_SYNC_SUBHEADER": "Manually sync message templates from WhatsApp to update your available templates.",
       "WHATSAPP_TEMPLATES_SYNC_BUTTON": "Sync Templates",
       "WHATSAPP_TEMPLATES_SYNC_SUCCESS": "Templates sync initiated successfully. It may take a couple of minutes to update.",
-      "UPDATE_PRE_CHAT_FORM_SETTINGS": "Update Pre Chat Form Settings"
+      "UPDATE_PRE_CHAT_FORM_SETTINGS": "Update Pre Chat Form Settings",
+      "ALLOWED_DOMAINS": {
+        "TITLE": "Dozvoljene domene",
+        "DESCRIPTION": "Restrict which websites can embed your chat widget. For security, only add domains you own and trust. Add one or more domains separated by commas. Leave blank to allow all domains (not recommended for production).",
+        "PLACEHOLDER": "example.com, www.example.com, app.example.com"
+      },
+      "ALLOW_MOBILE_WEBVIEW": {
+        "LABEL": "Enable widget in mobile apps",
+        "SUBTITLE": "Check this if you embed the widget in iOS or Android apps. Mobile apps don't send domain information, so they would be blocked by domain restrictions unless this is enabled."
+      },
+      "IDENTITY_VALIDATION": {
+        "TITLE": "Identity Validation",
+        "DESCRIPTION": "Verify user authenticity by generating secure tokens. This prevents unauthorized users from impersonating others in your chat.",
+        "SECRET_KEY": "Tajni ključ",
+        "VIEW_DOCS": "View documentation",
+        "REQUIRE_LABEL": "Require identity validation for all conversations",
+        "REQUIRE_DESCRIPTION": "When enabled, users must provide a valid identity token to start conversations. Requests without valid tokens will be rejected."
+      },
+      "ENABLE_CONTINUITY_VIA_EMAIL_DISABLED_TEXT": "This feature is available on a paid plan. Upgrade to enable conversation continuity via email.",
+      "FORWARD_EMAIL_NOT_CONFIGURED": "Prosljeđivanje e-pošte u vaš inbox trenutno je onemogućeno na ovoj instalaciji. Da biste koristili ovu značajku, mora je omogućiti vaš administrator. Molimo kontaktirajte ih za nastavak.",
+      "WHATSAPP_EMBEDDED_SIGNUP_TITLE": "WhatsApp Embedded Signup",
+      "WHATSAPP_EMBEDDED_SIGNUP_SUBHEADER": "This inbox is connected through WhatsApp embedded signup.",
+      "WHATSAPP_EMBEDDED_SIGNUP_DESCRIPTION": "Možete rekonfigurirati ovaj inbox za ažuriranje postavki WhatsApp Businessa.",
+      "WHATSAPP_RECONFIGURE_BUTTON": "Reconfigure",
+      "WHATSAPP_CONNECT_TITLE": "Connect to WhatsApp Business",
+      "WHATSAPP_CONNECT_SUBHEADER": "Upgrade to WhatsApp embedded signup for easier management.",
+      "WHATSAPP_CONNECT_DESCRIPTION": "Connect this inbox to WhatsApp Business for enhanced features and easier management.",
+      "WHATSAPP_CONNECT_BUTTON": "Poveži",
+      "WHATSAPP_CONNECT_SUCCESS": "Successfully connected to WhatsApp Business!",
+      "WHATSAPP_CONNECT_ERROR": "Failed to connect to WhatsApp Business. Please try again.",
+      "WHATSAPP_RECONFIGURE_SUCCESS": "Uspješno rekonfiguriran WhatsApp Business!",
+      "WHATSAPP_RECONFIGURE_ERROR": "Neuspjelo rekonfiguriranje WhatsApp Businessa. Molimo pokušajte ponovno.",
+      "WHATSAPP_APP_ID_MISSING": "WhatsApp App ID is not configured. Please contact your administrator.",
+      "WHATSAPP_CONFIG_ID_MISSING": "WhatsApp Configuration ID is not configured. Please contact your administrator.",
+      "WHATSAPP_LOGIN_CANCELLED": "WhatsApp login was cancelled. Please try again."
     },
     "HELP_CENTER": {
       "LABEL": "Help Center",
       "PLACEHOLDER": "Select Help Center",
       "SELECT_PLACEHOLDER": "Select Help Center",
       "REMOVE": "Remove Help Center",
-      "SUB_TEXT": "Attach a Help Center with the inbox"
+      "SUB_TEXT": "Attach a Help Center with the inbox",
+      "NONE": "Nijedan"
     },
     "AUTO_ASSIGNMENT": {
       "MAX_ASSIGNMENT_LIMIT": "Auto assignment limit",
@@ -722,7 +790,51 @@
       "API": {
         "SUCCESS_MESSAGE": "CSAT settings updated successfully",
         "ERROR_MESSAGE": "We couldn't update CSAT settings. Please try again later."
-      }
+      },
+      "BUTTON_TEXT": {
+        "LABEL": "Button text",
+        "PLACEHOLDER": "Molimo ocijenite nas"
+      },
+      "LANGUAGE": {
+        "LABEL": "Jezik",
+        "PLACEHOLDER": "Odaberite jezik predloška"
+      },
+      "MESSAGE_PREVIEW": {
+        "LABEL": "Pregled poruke",
+        "TOOLTIP": "This may vary slightly when rendered on WhatsApp's platform."
+      },
+      "TEMPLATE_STATUS": {
+        "APPROVED": "Approved by WhatsApp",
+        "PENDING": "Pending WhatsApp approval",
+        "REJECTED": "Meta je odbio predložak",
+        "DEFAULT": "Needs WhatsApp approval",
+        "NOT_FOUND": "Predložak ne postoji na Meta platformi."
+      },
+      "TEMPLATE_CREATION": {
+        "SUCCESS_MESSAGE": "WhatsApp template created successfully and sent for approval",
+        "ERROR_MESSAGE": "Failed to create WhatsApp template"
+      },
+      "TEMPLATE_UPDATE_DIALOG": {
+        "TITLE": "Uredi detalje ankete",
+        "DESCRIPTION": "Izbrisat ćemo prethodni predložak i napraviti novi koji će se ponovno poslati na odobrenje za WhatsApp",
+        "CONFIRM": "Napravite novi predložak",
+        "CANCEL": "Vrati se"
+      },
+      "UTILITY_ANALYZER": {
+        "ACTION": "Provjeri prikladnost korisnosti",
+        "HELPER_NOTE": "Provjerite ovu poruku prije slanja kako biste poboljšali prikladnost Utility. Sustav kreira namjenski CSAT predložak s tipkama za izvještavanje i šalje ga kao Utility; Meta ga može i dalje klasificirati kao Marketing na temelju sadržaja.",
+        "RESULT_LABEL": "Predviđanje Meta kategorije",
+        "GUIDANCE_NOTE": "Ovo je provjera smjernica, a ne jamstvo odobrenja od Meta-e.",
+        "SUGGESTION_LABEL": "Predložena sigurnija za upotrebu prepravka",
+        "APPLY": "Upotrijebi ovu prepravku",
+        "ERROR_MESSAGE": "Nije moguće analizirati poruku. Molimo pokušajte ponovno.",
+        "CLASSIFICATION": {
+          "LIKELY_UTILITY": "Vjerojatna korisnost",
+          "LIKELY_MARKETING": "Vjerojatni marketing",
+          "UNCLEAR": "Potrebno pojašnjenje"
+        }
+      },
+      "WHATSAPP_NOTE": "Napomena: Kada spremite, sustav kreira namjenski CSAT predložak u WhatsApp (koristi se za prikupljanje ocjena i povratnih informacija u izvještajima) i šalje ga na odobrenje kao Utility. Meta ga može i dalje klasificirati kao Marketing na temelju sadržaja. Nakon odobrenja, ankete se šalju samo jednom po razgovoru prema pravilu ankete."
     },
     "BUSINESS_HOURS": {
       "TITLE": "Set your availability",
@@ -738,7 +850,9 @@
         "UNAVAILABLE": "Unavailable",
         "HOURS": "hours",
         "VALIDATION_ERROR": "Starting time should be before closing time.",
-        "CHOOSE": "Choose"
+        "CHOOSE": "Choose",
+        "DAY": "Dan",
+        "AVAILABILITY": "Dostupnost"
       },
       "ALL_DAY": "All-Day"
     },
@@ -769,7 +883,8 @@
         "LABEL": "Password",
         "PLACE_HOLDER": "Password"
       },
-      "ENABLE_SSL": "Enable SSL"
+      "ENABLE_SSL": "Enable SSL",
+      "AUTH_MECHANISM": "Autentifikacija"
     },
     "MICROSOFT": {
       "TITLE": "Microsoft",
@@ -868,7 +983,8 @@
         "WIDGET_BUBBLE_TYPE": {
           "STANDARD": "Standard",
           "EXPANDED_BUBBLE": "Expanded Bubble"
-        }
+        },
+        "WIDGET_BUBBLE": "Balončić"
       },
       "WIDGET_SCREEN": {
         "DEFAULT": "Default",
@@ -920,7 +1036,136 @@
       "LINE": "Line",
       "API": "API Channel",
       "INSTAGRAM": "Instagram",
-      "VOICE": "Voice"
+      "VOICE": "Voice",
+      "TIKTOK": "TikTok"
+    },
+    "COUNT": "{n} ulazna pošta | {n} ulazne pošte",
+    "SEARCH_PLACEHOLDER": "Pretraži ulazne pošte...",
+    "NO_RESULTS": "Nema pristiglih pošta koje odgovaraju vašoj pretrazi",
+    "WHATSAPP_REGISTRATION_INCOMPLETE": "Your WhatsApp Business registration isn’t complete. Please check your display name status in Meta Business Manager before reconnecting.",
+    "COMPLETE_REGISTRATION": "Dovrši registraciju",
+    "VOICE_CONFIGURATION": {
+      "ENABLE_VOICE": {
+        "LABEL": "Enable Voice Calling",
+        "DESCRIPTION": "Enable voice calling on this inbox. Agents will be able to make and receive phone calls."
+      },
+      "CREDENTIALS": {
+        "DESCRIPTION": "Voice calling requires Twilio API Key credentials. These are used to generate tokens for agent voice connections."
+      }
+    },
+    "CHANNEL_PREFERENCES": "Postavke kanala",
+    "WIDGET_FEATURES": "Widget features",
+    "ACCOUNT_HEALTH": {
+      "TITLE": "Manage your WhatsApp account",
+      "DESCRIPTION": "Review your WhatsApp account status, messaging limits, and quality. Update settings or resolve issues if needed",
+      "GO_TO_SETTINGS": "Go to Meta Business Manager",
+      "NO_DATA": "Podaci o zdravlju nisu dostupni",
+      "FIELDS": {
+        "DISPLAY_PHONE_NUMBER": {
+          "LABEL": "Prikaži telefonski broj",
+          "TOOLTIP": "Telefonski broj prikazan kupcima"
+        },
+        "VERIFIED_NAME": {
+          "LABEL": "Naziv tvrtke",
+          "TOOLTIP": "Business name verified by WhatsApp"
+        },
+        "DISPLAY_NAME_STATUS": {
+          "LABEL": "Status prikazanog imena",
+          "TOOLTIP": "Status verifikacije imena vašeg poduzeća"
+        },
+        "QUALITY_RATING": {
+          "LABEL": "Ocjena kvalitete",
+          "TOOLTIP": "WhatsApp quality rating for your account"
+        },
+        "MESSAGING_LIMIT_TIER": {
+          "LABEL": "Razina ograničenja poruka",
+          "TOOLTIP": "Dnevno ograničenje poruka za vaš račun"
+        },
+        "ACCOUNT_MODE": {
+          "LABEL": "Način računa",
+          "TOOLTIP": "Current operating mode of your WhatsApp account"
+        }
+      },
+      "VALUES": {
+        "TIERS": {
+          "TIER_250": "250 korisnika na 24h",
+          "TIER_1000": "1K korisnika na 24h",
+          "TIER_1K": "1K korisnika u 24h",
+          "TIER_10K": "10K korisnika u 24h",
+          "TIER_100K": "100K korisnika u 24h",
+          "TIER_UNLIMITED": "Neograničeno korisnika u 24h",
+          "UNKNOWN": "Ocjena nije dostupna"
+        },
+        "STATUSES": {
+          "APPROVED": "Odobreno",
+          "PENDING_REVIEW": "Na čekanju za pregled",
+          "AVAILABLE_WITHOUT_REVIEW": "Dostupno bez pregleda",
+          "REJECTED": "Odbijeno",
+          "DECLINED": "Odbijeno",
+          "NON_EXISTS": "Ne postoji"
+        },
+        "MODES": {
+          "SANDBOX": "Sandbox",
+          "LIVE": "Uživo"
+        }
+      },
+      "WEBHOOK": {
+        "TITLE": "Webhook Configuration",
+        "DESCRIPTION": "Webhook URL is required for your WhatsApp Business Account to receive messages from customers",
+        "ACTION_REQUIRED": "Webhook not configured",
+        "REGISTER_BUTTON": "Register Webhook",
+        "REGISTER_SUCCESS": "Webhook registered successfully",
+        "REGISTER_ERROR": "Failed to register webhook. Please try again.",
+        "CONFIGURED_SUCCESS": "Webhook configured successfully",
+        "URL_MISMATCH": "Neusklađenost URL-a Webhooka"
+      }
+    },
+    "ASSIGNMENT": {
+      "TITLE": "Dodjela razgovora",
+      "DESCRIPTION": "Automatski dodijelite dolazne razgovore dostupnim agentima prema pravilima dodjele",
+      "ENABLE_AUTO_ASSIGNMENT": "Omogući automatsku dodjelu razgovora",
+      "DEFAULT_RULES_TITLE": "Zadane pravila dodjele",
+      "DEFAULT_RULES_DESCRIPTION": "Koristi zadano ponašanje dodjele za sve razgovore",
+      "DEFAULT_RULE_1": "Prvo najranije kreirani razgovori",
+      "DEFAULT_RULE_2": "Ravnomjerna raspodjela",
+      "CUSTOMIZE_WITH_POLICY": "Prilagodi s pravilnikom o dodjeli",
+      "USING_POLICY": "Using custom assignment policy for this inbox",
+      "CUSTOMIZE_POLICY": "Prilagodi s pravilom dodjele",
+      "DELETE_POLICY": "Izbriši pravilo",
+      "POLICY_LABEL": "Pravila dodjele",
+      "ASSIGNMENT_ORDER_LABEL": "Redoslijed dodjele",
+      "ASSIGNMENT_METHOD_LABEL": "Metoda dodjele",
+      "POLICY_STATUS": {
+        "ACTIVE": "Aktivno",
+        "INACTIVE": "Neaktivan"
+      },
+      "PRIORITY": {
+        "EARLIEST_CREATED": "Najranije kreirano",
+        "LONGEST_WAITING": "Najduže čekanje"
+      },
+      "METHOD": {
+        "ROUND_ROBIN": "Naizmjenično",
+        "BALANCED": "Uravnotežena dodjela"
+      },
+      "UPGRADE_PROMPT": "Custom assignment policies are available on the Business plan",
+      "UPGRADE_TO_BUSINESS": "Upgrade to Business",
+      "DEFAULT_POLICY_LINKED": "Zadana politika povezana",
+      "DEFAULT_POLICY_DESCRIPTION": "Povežite prilagođenu politiku dodjele za prilagodbu načina na koji se razgovori dodjeljuju agentima u ovom inboxu.",
+      "LINK_EXISTING_POLICY": "Poveži postojeću politiku",
+      "CREATE_NEW_POLICY": "Kreiraj novu politiku",
+      "NO_POLICIES": "Nema pronađenih politika dodjele",
+      "VIEW_ALL_POLICIES": "Pogledaj sve politike",
+      "CURRENT_BEHAVIOR": "Trenutno se koristi zadano ponašanje dodjele:",
+      "LINK_SUCCESS": "Pravila dodjele uspješno povezana",
+      "LINK_ERROR": "Povezivanje pravila dodjele nije uspjelo"
+    },
+    "ASSIGNMENT_POLICY": {
+      "DELETE_CONFIRM_TITLE": "Izbrisati pravilo dodjele?",
+      "DELETE_CONFIRM_MESSAGE": "Are you sure you want to remove this assignment policy from this inbox? The inbox will revert to default assignment rules.",
+      "CANCEL": "Otkaži",
+      "CONFIRM_DELETE": "Izbriši",
+      "DELETE_SUCCESS": "Pravila dodjele uspješno uklonjena",
+      "DELETE_ERROR": "Neuspjelo uklanjanje pravila dodjele"
     }
   }
 }

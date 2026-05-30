@@ -55,7 +55,10 @@
       "LAST_3_MONTHS": "Pēdējie 3 mēneši",
       "LAST_6_MONTHS": "Pēdējie 6 mēneši",
       "LAST_YEAR": "Pagājušais gads",
-      "CUSTOM_DATE_RANGE": "Pielāgots datumu diapazons"
+      "CUSTOM_DATE_RANGE": "Pielāgots datumu diapazons",
+      "LAST_14_DAYS": "Pēdējās 14 dienas",
+      "THIS_MONTH": "This month",
+      "LAST_MONTH": "Last month"
     },
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "Pielietot",
@@ -121,7 +124,8 @@
     "PAGINATION": {
       "RESULTS": "Rāda {start} līdz {end} no {total} rezultātiem",
       "PER_PAGE_TEMPLATE": "{size} / page"
-    }
+    },
+    "DOWNLOAD_CONVERSATION_REPORTS": "Download conversation reports"
   },
   "AGENT_REPORTS": {
     "HEADER": "Aģentu Pārskats",
@@ -189,6 +193,11 @@
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "Pielietot",
       "PLACEHOLDER": "Izvēlieties datumu diapazonu"
+    },
+    "FILTERS": {
+      "INPUT_PLACEHOLDER": {
+        "AGENTS": "Meklēt aģentus"
+      }
     }
   },
   "LABEL_REPORTS": {
@@ -257,6 +266,11 @@
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "Pielietot",
       "PLACEHOLDER": "Izvēlieties datumu diapazonu"
+    },
+    "FILTERS": {
+      "INPUT_PLACEHOLDER": {
+        "LABELS": "Meklēt etiķetes"
+      }
     }
   },
   "INBOX_REPORTS": {
@@ -325,6 +339,13 @@
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "Pielietot",
       "PLACEHOLDER": "Izvēlieties datumu diapazonu"
+    },
+    "ALL_INBOXES": "All Inboxes",
+    "SEARCH_INBOX": "Search Inbox",
+    "FILTERS": {
+      "INPUT_PLACEHOLDER": {
+        "INBOXES": "Search inboxes"
+      }
     }
   },
   "TEAM_REPORTS": {
@@ -393,6 +414,14 @@
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "Pielietot",
       "PLACEHOLDER": "Izvēlieties datumu diapazonu"
+    },
+    "FILTERS": {
+      "ADD_FILTER": "Pievienot filtru",
+      "CLEAR_ALL": "Notīrīt visu",
+      "NO_FILTER": "Nav pieejami filtri",
+      "INPUT_PLACEHOLDER": {
+        "TEAMS": "Meklēt komandas"
+      }
     }
   },
   "CSAT_REPORTS": {
@@ -402,7 +431,26 @@
     "DOWNLOAD_FAILED": "Neizdevās lejupielādēt CSAT Pārskatus",
     "FILTERS": {
       "AGENTS": {
-        "PLACEHOLDER": "Izvēlieties Aģentus"
+        "PLACEHOLDER": "Izvēlieties Aģentus",
+        "LABEL": "Aģents"
+      },
+      "ADD_FILTER": "Pievienot filtru",
+      "CLEAR_ALL": "Notīrīt visu",
+      "NO_FILTER": "Nav pieejami filtri",
+      "INPUT_PLACEHOLDER": {
+        "AGENTS": "Meklēt aģentus",
+        "INBOXES": "Search inboxes",
+        "TEAMS": "Meklēt komandas",
+        "RATINGS": "Search ratings"
+      },
+      "INBOXES": {
+        "LABEL": "Iesūtne"
+      },
+      "TEAMS": {
+        "LABEL": "Komanda"
+      },
+      "RATINGS": {
+        "LABEL": "Vērtējums"
       }
     },
     "TABLE": {
@@ -410,8 +458,13 @@
         "CONTACT_NAME": "Kontaktpersona",
         "AGENT_NAME": "Piešķirtais aģents",
         "RATING": "Vērtējums",
-        "FEEDBACK_TEXT": "Atsauksmes komentārs"
-      }
+        "FEEDBACK_TEXT": "Atsauksmes komentārs",
+        "CONVERSATION": "Saruna",
+        "CUSTOMER": "Customer",
+        "RESPONSE": "Atbilde",
+        "HANDLED_BY": "Handled by"
+      },
+      "UNKNOWN_CUSTOMER": "Unknown customer"
     },
     "METRIC": {
       "TOTAL_RESPONSES": {
@@ -425,6 +478,28 @@
       "RESPONSE_RATE": {
         "LABEL": "Atbildes ātrums",
         "TOOLTIP": "Kopējais atbilžu skaits / Kopējais nosūtīto CSAT aptaujas ziņojumu skaits * 100"
+      },
+      "RATING_DISTRIBUTION": "Rating distribution"
+    },
+    "NO_RECORDS_DESCRIPTION": "CSAT survey responses will appear here once customers start providing feedback.",
+    "NO_AGENT": "No assigned agent",
+    "NO_FEEDBACK": "No feedback provided",
+    "REVIEW_NOTES": {
+      "TITLE": "Review notes",
+      "PLACEHOLDER": "Add review notes about this rating...",
+      "SAVE": "Saglabāt",
+      "CANCEL": "Atcelt",
+      "SAVING": "Notiek saglabāšana...",
+      "SAVED": "Notes saved successfully",
+      "SAVE_ERROR": "Failed to save notes",
+      "UPDATED_BY": "Updated by {name} {time}",
+      "UPDATED_BY_LABEL": "Updated by",
+      "PAYWALL": {
+        "TITLE": "Upgrade to add review notes",
+        "AVAILABLE_ON": "The review notes feature is only available in the Business and Enterprise plans.",
+        "UPGRADE_PROMPT": "Add internal context to every CSAT response with review notes. Capture what really happened, spot patterns faster, and make better decisions from your feedback.",
+        "UPGRADE_NOW": "Pāriet uz maksas versiju tagad",
+        "CANCEL_ANYTIME": "Jūs varat jebkurā laikā mainīt vai atcelt savu versiju"
       }
     }
   },
@@ -495,6 +570,13 @@
       "ONLINE": "Tiešsaistē",
       "BUSY": "Aizņemts",
       "OFFLINE": "Bezsaistē"
+    },
+    "RESOLUTION_HEATMAP": {
+      "HEADER": "Resolutions",
+      "NO_CONVERSATIONS": "Nav sarunu",
+      "CONVERSATION": "{count} saruna",
+      "CONVERSATIONS": "{count} sarunas",
+      "DOWNLOAD_REPORT": "Lejupielādēt atskaiti"
     }
   },
   "DAYS_OF_WEEK": {

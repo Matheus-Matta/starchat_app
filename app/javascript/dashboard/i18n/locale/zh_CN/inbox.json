@@ -1,10 +1,10 @@
 {
   "INBOX": {
     "LIST": {
+      "404": "此组中没有活跃的通知。",
       "TITLE": "我的收件箱",
       "DISPLAY_DROPDOWN": "显示",
       "LOADING": "正在获取通知",
-      "404": "此组中没有活跃的通知。",
       "NO_NOTIFICATIONS": "没有通知",
       "NOTE": "来自所有订阅收件箱的通知",
       "NO_MESSAGES_AVAILABLE": "哎呀！无法获取消息",
@@ -72,6 +72,24 @@
       "MARK_ALL_READ": "所有通知标记为已读",
       "DELETE_ALL": "所有通知已删除",
       "DELETE_ALL_READ": "所有已读通知已删除"
+    },
+    "REAUTHORIZE": {
+      "TITLE": "Reauthorization Required",
+      "DESCRIPTION": "Your WhatsApp connection has expired. Please reconnect to continue receiving and sending messages.",
+      "BUTTON_TEXT": "重新连接 WhatsApp",
+      "LOADING_FACEBOOK": "加载 Facebook SDK...",
+      "SUCCESS": "WhatsApp 重新连接成功",
+      "ERROR": "无法重新连接 WhatsApp。请再试一次。",
+      "WHATSAPP_APP_ID_MISSING": "WhatsApp ID未配置。请联系您的管理员。",
+      "WHATSAPP_CONFIG_ID_MISSING": "WhatsApp Configuration ID is not configured. Please contact your administrator.",
+      "CONFIGURATION_ERROR": "重新授权时发生配置错误。",
+      "FACEBOOK_LOAD_ERROR": "无法加载 Facebook SDK。请重试。",
+      "TROUBLESHOOTING": {
+        "TITLE": "疑难解答",
+        "POPUP_BLOCKED": "确保此站点允许弹出窗口",
+        "COOKIES": "必须启用第三方cookie",
+        "ADMIN_ACCESS": "您需要管理员权限才能访问 WhatsApp Business 账户"
+      }
     }
   }
 }

@@ -1,8 +1,8 @@
 {
   "CONVERSATION": {
+    "404": "Sorry, we cannot find the conversation. Please try again",
     "SELECT_A_CONVERSATION": "請從左側窗格選擇一個對話",
     "CSAT_REPLY_MESSAGE": "Please rate the conversation",
-    "404": "Sorry, we cannot find the conversation. Please try again",
     "SWITCH_VIEW_LAYOUT": "Switch the layout",
     "DASHBOARD_APP_TAB_MESSAGES": "訊息",
     "UNVERIFIED_SESSION": "The identity of this user is not verified",
@@ -69,7 +69,8 @@
     "REPLY_MESSAGE_NOT_FOUND": "Message not available",
     "CARD": {
       "SHOW_LABELS": "Show labels",
-      "HIDE_LABELS": "Hide labels"
+      "HIDE_LABELS": "Hide labels",
+      "LABELS_COUNT": "{count} labels"
     },
     "VOICE_CALL": {
       "INCOMING_CALL": "Incoming call",
@@ -80,7 +81,9 @@
       "CALL_ENDED": "Call ended",
       "NOT_ANSWERED_YET": "Not answered yet",
       "THEY_ANSWERED": "They answered",
-      "YOU_ANSWERED": "You answered"
+      "YOU_ANSWERED": "You answered",
+      "AGENT_ANSWERED": "{agentName} answered",
+      "JOIN_CALL": "加入通話"
     },
     "HEADER": {
       "RESOLVE_ACTION": "已解決",
@@ -100,7 +103,8 @@
         "RT": "RT {status}",
         "MISSED": "missed",
         "DUE": "due"
-      }
+      },
+      "COPY_ID_SUCCESS": "Conversation ID copied to clipboard"
     },
     "RESOLVE_DROPDOWN": {
       "MARK_PENDING": "標記為待處理",
@@ -172,8 +176,15 @@
         "TEAM_ASSIGNMENT": {
           "SUCCESFUL": "Assigned team \"{team}\" to conversation id {conversationId}",
           "FAILED": "Couldn't assign team. Please try again."
+        },
+        "LABEL_REMOVAL": {
+          "SUCCESFUL": "已從對話 {conversationId} 移除標籤 #{labelName}",
+          "FAILED": "無法移除標籤。請再試一次。"
         }
-      }
+      },
+      "OPEN_IN_NEW_TAB": "在新分頁中開啟",
+      "COPY_LINK": "複製對話連結",
+      "COPY_LINK_SUCCESS": "對話連結已複製到剪貼簿"
     },
     "FOOTER": {
       "MESSAGE_SIGN_TOOLTIP": "Message signature",
@@ -183,7 +194,11 @@
       "PRIVATE_MSG_INPUT": "Shift + 輸入新行。這只對客服可以看見",
       "MESSAGE_SIGNATURE_NOT_CONFIGURED": "Message signature is not configured, please configure it in profile settings.",
       "CLICK_HERE": "Click here to update",
-      "WHATSAPP_TEMPLATES": "Whatsapp Templates"
+      "WHATSAPP_TEMPLATES": "Whatsapp Templates",
+      "MESSAGING_RESTRICTED": "您無法回覆此對話",
+      "MESSAGING_RESTRICTED_WHATSAPP": "由於 24 小時訊息視窗限制，您只能使用範本訊息回覆",
+      "MESSAGING_RESTRICTED_API": "由於訊息視窗限制，您只能使用範本訊息回覆",
+      "COPILOT_MSG_INPUT": "為 Copilot 提供額外提示，或詢問其他問題... 按 Enter 發送後續訊息"
     },
     "REPLYBOX": {
       "REPLY": "回覆",
@@ -224,6 +239,14 @@
           "YES": "發送",
           "CANCEL": "取消"
         }
+      },
+      "COPILOT_THINKING": "Copilot 正在思考",
+      "QUOTED_REPLY": {
+        "ENABLE_TOOLTIP": "包含引用的電子郵件串",
+        "DISABLE_TOOLTIP": "不包含引用的電子郵件串",
+        "REMOVE_PREVIEW": "移除引用的電子郵件串",
+        "COLLAPSE": "收合預覽",
+        "EXPAND": "展開預覽"
       }
     },
     "VISIBLE_TO_AGENTS": "私人筆記：僅對您和您的團隊可以看見",
@@ -265,6 +288,21 @@
     "SIDEBAR": {
       "CONTACT": "聯絡人",
       "COPILOT": "Cosmos"
+    },
+    "48_HOURS_WINDOW": "48 小時訊息視窗限制",
+    "UNSUPPORTED_MESSAGE_TIKTOK": "此訊息不受支援。您可以在 TikTok 應用程式中檢視此訊息。",
+    "FILE_TYPE_NOT_SUPPORTED": "此對話不支援 {fileName} 檔案類型",
+    "NATIVE_APP": "原生應用程式",
+    "NATIVE_APP_ADVISORY": "此訊息是從原生應用程式發送的。請從 Chatwoot 回覆以維持訊息視窗。",
+    "VOICE_WIDGET": {
+      "INCOMING_CALL": "來電",
+      "OUTGOING_CALL": "撥出電話",
+      "CALL_IN_PROGRESS": "通話中",
+      "NOT_ANSWERED_YET": "尚未接聽",
+      "HANDLED_IN_ANOTHER_TAB": "正在另一個分頁中處理",
+      "REJECT_CALL": "拒接",
+      "JOIN_CALL": "加入通話",
+      "END_CALL": "結束通話"
     }
   },
   "EMAIL_TRANSCRIPT": {
@@ -282,7 +320,8 @@
         "PLACEHOLDER": "請輸入電子信箱",
         "ERROR": "請輸入一個有效的電子信箱"
       }
-    }
+    },
+    "SEND_EMAIL_PAYMENT_REQUIRED": "您目前的方案不支援電子郵件對話記錄。請升級以使用此功能。"
   },
   "ONBOARDING": {
     "TITLE": "Hey 👋， 歡迎來到 {installationName}！",
@@ -329,7 +368,8 @@
       "PREVIOUS_CONVERSATION": "上一次對話",
       "MACROS": "Macros",
       "LINEAR_ISSUES": "Linked Linear Issues",
-      "SHOPIFY_ORDERS": "Shopify Orders"
+      "SHOPIFY_ORDERS": "Shopify Orders",
+      "SHARED_FILES": "Attachments"
     },
     "SHOPIFY": {
       "ORDER_ID": "Order #{id}",
@@ -349,6 +389,17 @@
         "PARTIALLY_FULFILLED": "Partially Fulfilled",
         "UNFULFILLED": "Unfulfilled"
       }
+    },
+    "SHARED_FILES": {
+      "EMPTY": "No attachments yet",
+      "DOWNLOAD": "Download file",
+      "DOWNLOAD_ERROR": "Could not download the file. Please try again.",
+      "MEDIA_HEADING": "媒體",
+      "FILES_HEADING": "Files",
+      "VIEW_ALL": "查看全部",
+      "SHOW_LESS": "Show less",
+      "MORE_COUNT": "+{count}",
+      "UNTITLED_FILE": "Untitled file"
     }
   },
   "CONVERSATION_CUSTOM_ATTRIBUTES": {

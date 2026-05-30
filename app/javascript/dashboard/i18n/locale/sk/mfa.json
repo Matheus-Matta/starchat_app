@@ -58,7 +58,11 @@
       "CONFIRM": "Disable 2FA",
       "CANCEL": "Zrušiť",
       "SUCCESS": "Two-factor authentication has been disabled",
-      "ERROR": "Failed to disable MFA. Please check your credentials."
+      "ERROR": "Failed to disable MFA. Please check your credentials.",
+      "BACKUP_CODE": "Backup Code",
+      "BACKUP_CODE_PLACEHOLDER": "Enter one of your backup codes",
+      "USE_BACKUP_CODE": "Lost access to your authenticator? Use a backup code instead",
+      "USE_OTP_CODE": "Use a verification code from your authenticator app"
     },
     "REGENERATE": {
       "TITLE": "Regenerate Backup Codes",

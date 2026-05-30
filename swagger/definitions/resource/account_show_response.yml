@@ -10,4 +10,4 @@ allOf:
         type: array
         items:
           type: string
-        description: List of subscribed enterprise features (if enterprise edition is enabled)
+        description: List of subscribed starchat features (if starchat edition is enabled)

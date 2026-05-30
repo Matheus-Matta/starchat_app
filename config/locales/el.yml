@@ -699,9 +699,9 @@ el:
     copilot_message_required: Το μήνυμα είναι απαραίτητο
     copilot_error: 'Please connect an assistant to this inbox to use Copilot'
     copilot_limit: 'You are out of Copilot credits. You can buy more credits from the billing section.'
-    upgrade: 'Αναβαθμίστε το πακέτο σας για να ενεργοποιήσετε το Captain AI'
-    disabled: 'Το Captain AI είναι απενεργοποιημένο για αυτόν τον λογαριασμό.'
-    api_key_missing: 'Το API key του Captain AI δεν έχει ρυθμιστεί.'
+    upgrade: 'Αναβαθμίστε το πακέτο σας για να ενεργοποιήσετε το Cosmos AI'
+    disabled: 'Το Cosmos AI είναι απενεργοποιημένο για αυτόν τον λογαριασμό.'
+    api_key_missing: 'Το API key του Cosmos AI δεν έχει ρυθμιστεί.'
     copilot:
       using_tool: 'Χρήση εργαλείου %{function_name}'
       completed_tool_call: 'Ολοκληρώθηκε κλήση εργαλείου %{function_name}'

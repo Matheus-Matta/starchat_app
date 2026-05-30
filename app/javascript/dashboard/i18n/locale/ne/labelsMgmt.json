@@ -13,7 +13,8 @@
       "TABLE_HEADER": {
         "NAME": "Name",
         "DESCRIPTION": "Description",
-        "COLOR": "Color"
+        "COLOR": "Color",
+        "ACTION": "Actions"
       }
     },
     "FORM": {
@@ -80,6 +81,9 @@
         "YES": "Yes, Delete ",
         "NO": "No, Keep "
       }
-    }
+    },
+    "COUNT": "{n} label | {n} labels",
+    "SEARCH_PLACEHOLDER": "Search labels...",
+    "NO_RESULTS": "No labels found matching your search"
   }
 }

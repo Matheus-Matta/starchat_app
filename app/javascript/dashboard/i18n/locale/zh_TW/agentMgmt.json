@@ -119,6 +119,9 @@
           "INPUT": "搜尋客服"
         }
       }
-    }
+    },
+    "COUNT": "{n} 位客服 | {n} 位客服",
+    "SEARCH_PLACEHOLDER": "搜尋客服...",
+    "NO_RESULTS": "找不到符合搜尋條件的客服"
   }
 }

@@ -150,8 +150,8 @@
       "EMPTY_MESSAGE": "You have no unread notifications"
     },
     "LIST": {
-      "LOADING_MESSAGE": "Loading notifications...",
       "404": "Geen meldingen",
+      "LOADING_MESSAGE": "Loading notifications...",
       "TABLE_HEADER": [
         "Naam",
         "Telefoonnummer",
@@ -239,7 +239,8 @@
       "DARK_MODE": "Dark",
       "SYSTEM_MODE": "Systeem",
       "SNOOZE_NOTIFICATION": "Snooze Notification"
-    }
+    },
+    "SNOOZE_PLACEHOLDER": "Type a time e.g. tomorrow, 2 hours, next friday, jan 15..."
   },
   "DASHBOARD_APPS": {
     "LOADING_MESSAGE": "Loading Dashboard App..."

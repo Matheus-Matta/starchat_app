@@ -68,7 +68,8 @@
         "API_SUCCESS": "Подпись успешно сохранена",
         "IMAGE_UPLOAD_ERROR": "Не удалось загрузить изображение! Попробуйте снова",
         "IMAGE_UPLOAD_SUCCESS": "Изображение успешно добавлено. Пожалуйста, нажмите сохранить, чтобы сохранить подпись",
-        "IMAGE_UPLOAD_SIZE_ERROR": "Размер изображения должен быть меньше {size}МБ"
+        "IMAGE_UPLOAD_SIZE_ERROR": "Размер изображения должен быть меньше {size}МБ",
+        "INLINE_IMAGE_WARNING": "Pasted inline images were removed. Please use the image upload button to add images to your signature."
       },
       "MESSAGE_SIGNATURE": {
         "LABEL": "Подпись сообщения",
@@ -219,6 +220,11 @@
         "LABEL": "Подтвердите новый пароль",
         "ERROR": "Подтверждение пароля должно соответствовать паролю",
         "PLACEHOLDER": "Пожалуйста, введите новый пароль еще раз"
+      },
+      "SECURITY_SECTION": {
+        "TITLE": "Безопасность",
+        "NOTE": "Управление дополнительными функциями безопасности для вашей учетной записи.",
+        "MFA_BUTTON": "Управление двухфакторной аутентификацией"
       }
     }
   },
@@ -234,7 +240,8 @@
     "SUPER_ADMIN_CONSOLE": "Консоль супер администратора",
     "DOCS": "Открыть документацию",
     "LOGOUT": "Выйти из системы",
-    "CHANGELOG": "Changelog"
+    "CHANGELOG": "Changelog",
+    "YEAR_IN_REVIEW": "Year in Review"
   },
   "APP_GLOBAL": {
     "TRIAL_MESSAGE": "дней до окончания бесплатного периода.",
@@ -246,6 +253,12 @@
     "ACCOUNT_SUSPENDED": {
       "TITLE": "Аккаунт заблокирован",
       "MESSAGE": "Ваша учетная запись приостановлена. Пожалуйста, обратитесь в службу поддержки для получения дополнительной информации."
+    },
+    "NO_ACCOUNTS": {
+      "TITLE": "No account found",
+      "MESSAGE_CLOUD": "You are not part of any accounts right now. If you think this is a mistake, please reach out to our support team.",
+      "MESSAGE_SELF_HOSTED": "You are not part of any accounts right now. Please reach out to your administrator.",
+      "LOGOUT": "Выйти из системы"
     }
   },
   "COMPONENTS": {
@@ -261,7 +274,8 @@
     "FILE_BUBBLE": {
       "DOWNLOAD": "Скачать",
       "UPLOADING": "Загружаем...",
-      "INSTAGRAM_STORY_UNAVAILABLE": "Эта история больше недоступна."
+      "INSTAGRAM_STORY_UNAVAILABLE": "Эта история больше недоступна.",
+      "INSTAGRAM_STORY_REPLY": "Ответил на вашу историю:"
     },
     "LOCATION_BUBBLE": {
       "SEE_ON_MAP": "Просмотреть на карте"
@@ -358,11 +372,21 @@
       "INFO_SHORT": "Автоматически отмечать оффлайн, когда вы не используете приложение."
     },
     "DOCS": "Открыть документацию",
-    "COSMOS": "Капитан",
-    "COSMOS_ASSISTANTS": "Ассистенты",
-    "COSMOS_DOCUMENTS": "Документы",
-    "COSMOS_RESPONSES": "FAQ",
-    "AGENT_ASSIGNMENT": "Agent Assignment"
+    "AGENT_ASSIGNMENT": "Agent Assignment",
+    "COMPANIES": "Компании",
+    "ALL_COMPANIES": "Все компании",
+    "CAPTAIN": "Капитан",
+    "CAPTAIN_ASSISTANTS": "Ассистенты",
+    "CAPTAIN_DOCUMENTS": "Документы",
+    "CAPTAIN_RESPONSES": "FAQ",
+    "CAPTAIN_TOOLS": "Инструменты",
+    "CAPTAIN_SCENARIOS": "Сценарии",
+    "CAPTAIN_PLAYGROUND": "Площадка",
+    "CAPTAIN_INBOXES": "Источники",
+    "CAPTAIN_SETTINGS": "Настройки",
+    "SECURITY": "Безопасность",
+    "CAPTAIN_AI": "Капитан",
+    "CONVERSATION_WORKFLOW": "Conversation Workflow"
   },
   "BILLING_SETTINGS": {
     "TITLE": "Платёж",
@@ -385,7 +409,7 @@
       "BUTTON_TXT": "Купить дополнительные кредиты",
       "DOCUMENTS": "Документы",
       "RESPONSES": "Ответы",
-      "UPGRADE": "Cosmos недоступен в бесплатном тарифном плане, обновите его, чтобы получить доступ к ассистентам, cosmos и другим функциям."
+      "UPGRADE": "Cosmos недоступен в бесплатном тарифном плане, обновите его, чтобы получить доступ к ассистентам, copilot и другим функциям."
     },
     "CHAT_WITH_US": {
       "TITLE": "Нужна помощь?",
@@ -393,13 +417,37 @@
       "BUTTON_TXT": "Пообщайтесь с нами"
     },
     "NO_BILLING_USER": "Ваш платёжный счёт настраивается. Пожалуйста, обновите страницу и повторите попытку.",
-    "COSMOS": {
+    "CAPTAIN": {
       "TITLE": "Капитан",
-      "DESCRIPTION": "Управляйте использованием и кредитами для Cosmos AI.",
+      "DESCRIPTION": "Управляйте использованием и кредитами для Captain AI.",
       "BUTTON_TXT": "Купить дополнительные кредиты",
       "DOCUMENTS": "Документы",
       "RESPONSES": "Ответы",
-      "UPGRADE": "Cosmos недоступен в бесплатном тарифном плане, обновите его, чтобы получить доступ к ассистентам, copilot и другим функциям."
+      "UPGRADE": "Captain недоступен в бесплатном тарифном плане, обновите его, чтобы получить доступ к ассистентам, copilot и другим функциям.",
+      "REFRESH_CREDITS": "Обновить"
+    },
+    "TOPUP": {
+      "BUY_CREDITS": "Купить дополнительные кредиты",
+      "MODAL_TITLE": "Купить ИИ кредиты",
+      "MODAL_DESCRIPTION": "Купить дополнительные кредиты для Captain AI.",
+      "CREDITS": "КРЕДИТЫ",
+      "ONE_TIME": "один раз",
+      "POPULAR": "Самый популярный",
+      "NOTE_TITLE": "Примечание:",
+      "NOTE_DESCRIPTION": "Credits are added immediately and expire in 6 months. An active subscription is required to use credits. Purchased credits are consumed after your monthly plan credits.",
+      "CANCEL": "Отменить",
+      "PURCHASE": "Купить кредиты",
+      "LOADING": "Загрузка настроек...",
+      "FETCH_ERROR": "Не удалось загрузить настройки оплаты. Попробуйте ещё раз.",
+      "PURCHASE_ERROR": "Не удалось провести оплату. Попробуйте ещё раз.",
+      "PURCHASE_SUCCESS": "Successfully added {credits} credits to your account",
+      "CONFIRM": {
+        "TITLE": "Confirm Purchase",
+        "DESCRIPTION": "You are about to purchase {credits} credits for {amount}.",
+        "INSTANT_DEDUCTION_NOTE": "Your saved card will be charged immediately upon confirmation.",
+        "GO_BACK": "Вернуться",
+        "CONFIRM_PURCHASE": "Confirm Purchase"
+      }
     }
   },
   "CREATE_ACCOUNT": {
@@ -487,7 +535,8 @@
         "CREATE_BUTTON": "Create policy",
         "API": {
           "SUCCESS_MESSAGE": "Assignment policy created successfully",
-          "ERROR_MESSAGE": "Failed to create assignment policy"
+          "ERROR_MESSAGE": "Failed to create assignment policy",
+          "INBOX_LINKED": "Inbox has been linked to the policy"
         }
       },
       "EDIT": {
@@ -514,6 +563,12 @@
             "SUCCESS_MESSAGE": "Inbox removed from policy successfully",
             "ERROR_MESSAGE": "Failed to remove inbox from policy"
           }
+        },
+        "INBOX_LINK_PROMPT": {
+          "TITLE": "Link inbox to policy",
+          "DESCRIPTION": "Would you like to link this inbox to the assignment policy?",
+          "LINK_BUTTON": "Link inbox",
+          "CANCEL_BUTTON": "Skip"
         }
       },
       "FORM": {
@@ -539,7 +594,9 @@
           },
           "BALANCED": {
             "LABEL": "Balanced",
-            "DESCRIPTION": "Assign conversations based on available capacity."
+            "DESCRIPTION": "Assign conversations based on available capacity.",
+            "PREMIUM_MESSAGE": "Upgrade to access balanced assignment and agent capacity management.",
+            "PREMIUM_BADGE": "Premium"
           }
         },
         "ASSIGNMENT_PRIORITY": {
@@ -625,6 +682,20 @@
             "SUCCESS_MESSAGE": "Agent removed from policy successfully",
             "ERROR_MESSAGE": "Failed to remove agent from policy"
           }
+        },
+        "INBOX_LIMIT_API": {
+          "ADD": {
+            "SUCCESS_MESSAGE": "Inbox limit added successfully",
+            "ERROR_MESSAGE": "Failed to add inbox limit"
+          },
+          "UPDATE": {
+            "SUCCESS_MESSAGE": "Inbox limit updated successfully",
+            "ERROR_MESSAGE": "Failed to update inbox limit"
+          },
+          "DELETE": {
+            "SUCCESS_MESSAGE": "Inbox limit deleted successfully",
+            "ERROR_MESSAGE": "Failed to delete inbox limit"
+          }
         }
       },
       "FORM": {
@@ -687,6 +758,178 @@
       "DESCRIPTION": "Are you sure you want to delete this policy? This action cannot be undone.",
       "CONFIRM_BUTTON_LABEL": "Удалить",
       "CANCEL_BUTTON_LABEL": "Отменить"
+    }
+  },
+  "CAPTAIN_SETTINGS": {
+    "TITLE": "Captain Settings",
+    "DESCRIPTION": "Configure your AI models and features for Captain. Captain follows a credit based billing, you will be charged credits for every action Captain takes based on the model selected.",
+    "LOADING": "Loading Captain configuration...",
+    "LINK_TEXT": "Learn more about Captain Credits",
+    "NOT_ENABLED": "Captain is not enabled for your account. Please upgrade your plan to access Captain features.",
+    "MODEL_CONFIG": {
+      "TITLE": "Model Configuration",
+      "DESCRIPTION": "Select AI models for different features.",
+      "SELECT_MODEL": "Select model",
+      "CREDITS_PER_MESSAGE": "{credits} credit/message",
+      "COMING_SOON": "Coming soon",
+      "EDITOR": {
+        "TITLE": "Editor Features",
+        "DESCRIPTION": "Powers smart compose, grammar corrections, tone adjustments, and content enhancement in your message editor."
+      },
+      "ASSISTANT": {
+        "TITLE": "Ассистент",
+        "DESCRIPTION": "Handles automated responses, conversation summaries, and intelligent reply suggestions for customer interactions."
+      },
+      "COPILOT": {
+        "TITLE": "Co-pilot",
+        "DESCRIPTION": "Provides real-time contextual suggestions, knowledge base recommendations, and proactive insights during conversations."
+      }
+    },
+    "FEATURES": {
+      "TITLE": "Возможности",
+      "DESCRIPTION": "Enable or disable AI-powered features.",
+      "AUDIO_TRANSCRIPTION": {
+        "TITLE": "Audio Transcription",
+        "DESCRIPTION": "Automatically convert voice messages and call recordings into searchable text transcripts."
+      },
+      "HELP_CENTER_SEARCH": {
+        "TITLE": "Help Center Search Indexing",
+        "DESCRIPTION": "Use AI for context aware search inside your help center articles."
+      },
+      "LABEL_SUGGESTION": {
+        "TITLE": "Label Suggestion",
+        "DESCRIPTION": "Automatically suggest relevant labels and tags for conversations based on content analysis and context.",
+        "MODEL_TITLE": "Label Suggestion Model",
+        "MODEL_DESCRIPTION": "Select the AI model to use for analyzing conversations and suggesting appropriate labels"
+      }
+    },
+    "API": {
+      "SUCCESS": "Captain settings updated successfully.",
+      "ERROR": "Failed to update Captain settings. Please try again."
+    }
+  },
+  "SECURITY_SETTINGS": {
+    "TITLE": "Безопасность",
+    "DESCRIPTION": "Управление настройками безопасности вашего аккаунта.",
+    "LINK_TEXT": "Узнать больше о SAML SSO",
+    "SAML_DISABLED_MESSAGE": "SAML SSO is currently disabled. Please contact your administrator to enable this feature.",
+    "SAML": {
+      "TITLE": "SAML SSO",
+      "NOTE": "Настройка единого SAML входа для вашей учетной записи. Пользователи будут аутентифицироваться через вашего провайдера идентификации вместо использования электронной почты/пароля.",
+      "ACS_URL": {
+        "LABEL": "ACS URL",
+        "TOOLTIP": "Assertion Consumer Service URL - Настройте этот URL в IdP в качестве назначения для SAML ответов"
+      },
+      "SSO_URL": {
+        "LABEL": "SSO URL",
+        "HELP": "URL, куда будут отправляться запросы аутентификации SAML",
+        "PLACEHOLDER": "https://your-idp.com/saml/sso"
+      },
+      "CERTIFICATE": {
+        "LABEL": "Подписанный сертификат в формате PEM",
+        "HELP": "Публичный сертификат от вашего поставщика сертификатов используемый для проверки SAML ответов",
+        "PLACEHOLDER": "-----BEGIN CERTIFICATE-----\nMIIC..."
+      },
+      "FINGERPRINT": {
+        "LABEL": "Отпечаток",
+        "TOOLTIP": "Отпечаток SHA-1 сертификата. Используется для проверки сертификата в конфигурации IdP"
+      },
+      "COPY_SUCCESS": "Код скопирован в буфер обмена",
+      "SP_ENTITY_ID": {
+        "LABEL": "ID сущности SP",
+        "HELP": "Уникальный идентификатор для этого приложения как поставщика услуг (автосгенерированный).",
+        "TOOLTIP": "Уникальный идентификатор для Chatwoot как поставщик услуг - Настройте это в настройках IdP"
+      },
+      "IDP_ENTITY_ID": {
+        "LABEL": "ID сущности провайдера идентификации",
+        "HELP": "Уникальный идентификатор для вашего поставщика идентификации (обычно находится в конфигурации IdP)",
+        "PLACEHOLDER": "https://your-idp.com/saml"
+      },
+      "UPDATE_BUTTON": "Обновить настройки SAML",
+      "API": {
+        "SUCCESS": "Настройки SAML успешно обновлены",
+        "ERROR": "Не удалось обновить настройки SAML",
+        "ERROR_LOADING": "Не удалось загрузить настройки SAML",
+        "DISABLED": "SAML настройки успешно отключены"
+      },
+      "VALIDATION": {
+        "REQUIRED_FIELDS": "SSO URL, идентификатор сущности провайдера и сертификат являются обязательными полями",
+        "SSO_URL_ERROR": "Пожалуйста, введите правильный SSO URL",
+        "CERTIFICATE_ERROR": "Сертификат обязателен",
+        "IDP_ENTITY_ID_ERROR": "ID сущности поставщика идентификации обязателен"
+      },
+      "ENTERPRISE_PAYWALL": {
+        "AVAILABLE_ON": "Функция SAML SSO доступна только в Enterprise plan.",
+        "UPGRADE_PROMPT": "Обновитесь до Enterprise plan, чтобы получить доступ к единому входу SAML и другим продвинутым функциям безопасности.",
+        "ASK_ADMIN": "Пожалуйста, обратитесь к вашему администратору для обновления."
+      },
+      "PAYWALL": {
+        "TITLE": "Обновитесь, чтобы включить SAML SSO",
+        "AVAILABLE_ON": "Функция SAML SSO доступна только в Enterprise plan.",
+        "UPGRADE_PROMPT": "Обновите свой тарифный план, чтобы получить доступ к единому входу SAML и другим расширенным функциям.",
+        "UPGRADE_NOW": "Обновить сейчас",
+        "CANCEL_ANYTIME": "Вы можете изменить или отменить ваш тарифный план в любое время"
+      },
+      "ATTRIBUTE_MAPPING": {
+        "TITLE": "Настройки SAML Атрибута",
+        "DESCRIPTION": "Следующие сопоставления атрибутов должны быть настроены в вашем поставщике идентификации"
+      },
+      "INFO_SECTION": {
+        "TITLE": "Информация о поставщике услуг SAML",
+        "TOOLTIP": "Скопируйте эти значения и настройте их в вашем поставщике идентификации для установления соединения SAML"
+      }
+    }
+  },
+  "CONVERSATION_WORKFLOW": {
+    "INDEX": {
+      "HEADER": {
+        "TITLE": "Conversation Workflows",
+        "DESCRIPTION": "Configure rules and required fields for conversation resolution."
+      }
+    },
+    "REQUIRED_ATTRIBUTES": {
+      "TITLE": "Attributes required on resolution",
+      "DESCRIPTION": "When resolving a conversation, agents will be prompted to fill these attributes if they haven't yet.",
+      "NO_ATTRIBUTES": "No attributes added yet",
+      "ADD": {
+        "TITLE": "Add Attributes",
+        "SEARCH_PLACEHOLDER": "Поиск по атрибутам"
+      },
+      "SAVE": {
+        "SUCCESS": "Required attributes updated",
+        "ERROR": "Could not update required attributes, please try again"
+      },
+      "MODAL": {
+        "TITLE": "Решить разговор",
+        "DESCRIPTION": "Please fill in the following custom attributes before resolving this conversation",
+        "ACTIONS": {
+          "RESOLVE": "Решить разговор",
+          "CANCEL": "Отменить"
+        },
+        "PLACEHOLDERS": {
+          "TEXT": "Write a note...",
+          "NUMBER": "Enter a number",
+          "LINK": "Add a link",
+          "DATE": "Pick a date",
+          "LIST": "Выберите параметр"
+        },
+        "CHECKBOX": {
+          "YES": "Да",
+          "NO": "Нет"
+        }
+      },
+      "PAYWALL": {
+        "TITLE": "Upgrade to use required attributes",
+        "AVAILABLE_ON": "The required conversation attributes feature is available on the Business and Enterprise plans.",
+        "UPGRADE_PROMPT": "Upgrade your plan to prompt agents to fill required attributes before conversation resolution.",
+        "UPGRADE_NOW": "Обновить сейчас",
+        "CANCEL_ANYTIME": "Вы можете изменить или отменить ваш тарифный план в любое время"
+      },
+      "ENTERPRISE_PAYWALL": {
+        "AVAILABLE_ON": "The required conversation attributes feature is available on the paid plans.",
+        "UPGRADE_PROMPT": "Upgrade to a paid plan to enforce required attributes before conversation resolution.",
+        "ASK_ADMIN": "Пожалуйста, обратитесь к вашему администратору для обновления."
+      }
     }
   }
 }

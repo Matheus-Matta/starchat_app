@@ -35,7 +35,18 @@
       "NO_TEAMS_AVAILABLE": "このアカウントにはまだチームが追加されていません。",
       "ASSIGN_SELECTED_TEAMS": "選択したチームを割り当てる",
       "ASSIGN_SUCCESFUL": "チームが正常に割り当てられました。",
-      "ASSIGN_FAILED": "チームの割り当てに失敗しました。再試行してください。"
+      "ASSIGN_FAILED": "チームの割り当てに失敗しました。再試行してください。",
+      "ASSIGN_TEAM_CONFIRMATION_LABEL": "Are you sure you want to assign {n} conversation to {teamName}? | Are you sure you want to assign {n} conversations to {teamName}?",
+      "UNASSIGN_TEAM_CONFIRMATION_LABEL": "Are you sure you want to unassign {n} conversation? | Are you sure you want to unassign {n} conversations?"
+    },
+    "NONE": "なし",
+    "CLEAR_SELECTION": "クリア",
+    "ASSIGN_AGENT_CONFIRMATION_LABEL": "Are you sure you want to assign {n} conversation to {agentName}? | Are you sure you want to assign {n} conversations to {agentName}?",
+    "UNASSIGN_AGENT_CONFIRMATION_LABEL": "Are you sure you want to unassign {n} conversation? | Are you sure you want to unassign {n} conversations?",
+    "CANCEL": "キャンセル",
+    "RESOLVE": {
+      "ALL_MISSING_ATTRIBUTES": "Cannot resolve conversations due to missing required attributes",
+      "PARTIAL_SUCCESS": "Some conversations need required attributes before resolving and were skipped"
     }
   }
 }

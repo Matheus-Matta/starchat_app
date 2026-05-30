@@ -13,7 +13,8 @@
       "TABLE_HEADER": {
         "NAME": "Naam",
         "DESCRIPTION": "Beschrijving",
-        "COLOR": "Kleur"
+        "COLOR": "Kleur",
+        "ACTION": "Acties"
       }
     },
     "FORM": {
@@ -80,6 +81,9 @@
         "YES": "Ja, verwijderen ",
         "NO": "Nee, Behouden "
       }
-    }
+    },
+    "COUNT": "{n} label | {n} labels",
+    "SEARCH_PLACEHOLDER": "Zoek op labels...",
+    "NO_RESULTS": "No labels found matching your search"
   }
 }

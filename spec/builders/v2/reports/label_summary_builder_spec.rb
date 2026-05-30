@@ -325,8 +325,8 @@ RSpec.describe V2::Reports::LabelSummaryBuilder do
       let(:account2_builder) do
         described_class.new(account: account2, params: {
                               business_hours: false,
-                              since: test_date.to_time.to_i.to_s,
-                              until: test_date.end_of_day.to_time.to_i.to_s,
+                              since: Time.zone.local(test_date.year, test_date.month, test_date.day).to_i.to_s,
+                              until: Time.zone.local(test_date.year, test_date.month, test_date.day).end_of_day.to_i.to_s,
                               timezone_offset: 0
                             })
       end
@@ -349,10 +349,15 @@ RSpec.describe V2::Reports::LabelSummaryBuilder do
             conversation.update_labels(unique_label_name)
             conversation.label_list
             conversation.save!
-
-            conversation.resolved!
-            conversation.open!
-            conversation.resolved!
+            create_list(:reporting_event, 2,
+                        name: 'conversation_resolved',
+                        account: account2,
+                        inbox: inbox,
+                        user: user,
+                        conversation: conversation,
+                        created_at: test_date,
+                        event_start_time: test_date,
+                        event_end_time: test_date)
           end
         end
       end

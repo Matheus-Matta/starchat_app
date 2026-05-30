@@ -116,6 +116,9 @@
         "LABEL": "允许为这个团队自动分配。"
       },
       "SUBMIT_CREATE": "创建新团队"
-    }
+    },
+    "COUNT": "{n} team | {n} teams",
+    "SEARCH_PLACEHOLDER": "查找团队...",
+    "NO_RESULTS": "No teams found matching your search"
   }
 }

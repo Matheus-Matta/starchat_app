@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'SLA Policies API', type: :request do
   let(:account) { create(:account) }
-  let(:admin) { create(:user, account: account, role: :admin) }
+  let(:admin) { create(:user, account: account, role: :administrator) }
   let(:agent) { create(:user, account: account, role: :agent) }
 
   before do

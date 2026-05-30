@@ -1,4 +1,6 @@
 class Cosmos::Llm::PaginatedFaqGeneratorService < Llm::BaseOpenAiService
+  include Integrations::LlmInstrumentation
+
   # Default pages per chunk - easily configurable
   DEFAULT_PAGES_PER_CHUNK = 10
   MAX_ITERATIONS = 20 # Safety limit to prevent infinite loops
@@ -17,7 +19,7 @@ class Cosmos::Llm::PaginatedFaqGeneratorService < Llm::BaseOpenAiService
   end
 
   def generate
-    raise CustomExceptions::PdfFaqGenerationError, I18n.t('cosmos.documents.missing_openai_file_id') if @document&.openai_file_id.blank?
+    raise CustomExceptions::Pdf::FaqGenerationError, I18n.t('cosmos.documents.missing_openai_file_id') if @document&.openai_file_id.blank?
 
     generate_paginated_faqs
   end
@@ -176,6 +178,7 @@ class Cosmos::Llm::PaginatedFaqGeneratorService < Llm::BaseOpenAiService
     Rails.logger.error "Error parsing chunk response: #{e.message}"
     { 'faqs' => [], 'has_content' => false }
   end
+
 
   def deduplicate_faqs(faqs)
     # Remove exact duplicates

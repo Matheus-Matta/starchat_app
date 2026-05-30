@@ -26,6 +26,13 @@ class Cosmos::Scenario < ApplicationRecord
 
   self.table_name = 'cosmos_scenarios'
 
+  HANDOFF_KEY_PREFIX = 'scenario'.freeze
+  HANDOFF_KEY_SUFFIX = 'agent'.freeze
+  # Full tool name used by Agents SDK is "handoff_to_#{handoff_key}". OpenAI caps function
+  # names at 64 chars; we use 60 as the budget for "handoff_to_#{handoff_key}" (11 prefix + 49).
+  MAX_AGENT_NAME_LENGTH = 49
+  MAX_HANDOFF_SLUG_LENGTH = 30
+
   belongs_to :assistant, class_name: 'Cosmos::Assistant'
   belongs_to :account
 

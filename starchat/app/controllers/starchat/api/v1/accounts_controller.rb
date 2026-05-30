@@ -2,7 +2,7 @@ class Starchat::Api::V1::AccountsController < Api::BaseController
   include BillingHelper
   before_action :fetch_account
   before_action :check_authorization
-  before_action :check_cloud_env, only: [:limits, :toggle_deletion]
+  before_action :check_cloud_env, only: [:toggle_deletion]
 
   def subscription
     head :no_content
@@ -33,8 +33,6 @@ class Starchat::Api::V1::AccountsController < Api::BaseController
   end
 
   def checkout
-    # return create_stripe_billing_session(stripe_customer_id) if stripe_customer_id.present?
-
     render_invalid_billing_details
   end
 
@@ -43,9 +41,11 @@ class Starchat::Api::V1::AccountsController < Api::BaseController
 
     case action_type
     when 'delete'
-      mark_for_deletion
+      @account.mark_for_deletion
+      render json: { id: @account.id, custom_attributes: @account.custom_attributes }, status: :ok
     when 'undelete'
-      unmark_for_deletion
+      @account.unmark_for_deletion
+      render json: { id: @account.id, custom_attributes: @account.custom_attributes }, status: :ok
     else
       render json: { error: 'Invalid action_type. Must be either "delete" or "undelete"' }, status: :unprocessable_entity
     end
@@ -54,7 +54,7 @@ class Starchat::Api::V1::AccountsController < Api::BaseController
   def topup_checkout
     return render json: { error: I18n.t('errors.topup.credits_required') }, status: :unprocessable_entity if params[:credits].blank?
 
-    service = Enterprise::Billing::TopupCheckoutService.new(account: @account)
+    service = Starchat::Billing::TopupCheckoutService.new(account: @account)
     result = service.create_checkout_session(credits: params[:credits].to_i)
 
     @account.reload
@@ -63,7 +63,7 @@ class Starchat::Api::V1::AccountsController < Api::BaseController
       limits: @account.limits,
       custom_attributes: @account.custom_attributes
     )
-  rescue Enterprise::Billing::TopupCheckoutService::Error, Stripe::StripeError => e
+  rescue Starchat::Billing::TopupCheckoutService::Error, Stripe::StripeError => e
     render_could_not_create_error(e.message)
   end
 
@@ -91,7 +91,7 @@ class Starchat::Api::V1::AccountsController < Api::BaseController
   end
 
   def render_invalid_billing_details
-    render_could_not_create_error('Please subscribe to a plan before viewing the billing details')
+    render_could_not_create_error('Billing details are not available')
   end
 
   def pundit_user

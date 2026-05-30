@@ -157,6 +157,12 @@
             "DELETE_SUCCESS": "Portale eliminato con successo",
             "DELETE_ERROR": "Errore durante l'eliminazione del portale"
           }
+        },
+        "SEND_CNAME_INSTRUCTIONS": {
+          "API": {
+            "SUCCESS_MESSAGE": "Istruzioni CNAME inviate correttamente",
+            "ERROR_MESSAGE": "Errore nell'invio delle istruzioni CNAME"
+          }
         }
       },
       "EDIT": {
@@ -310,11 +316,23 @@
           "SUCCESS_MESSAGE": "Lingua rimossa dal portale con successo",
           "ERROR_MESSAGE": "Impossibile rimuovere la lingua dal portale. Riprova."
         }
+      },
+      "DRAFT_LOCALE": {
+        "API": {
+          "SUCCESS_MESSAGE": "Locale moved to draft successfully",
+          "ERROR_MESSAGE": "Unable to move locale to draft. Try again."
+        }
+      },
+      "PUBLISH_LOCALE": {
+        "API": {
+          "SUCCESS_MESSAGE": "Locale published successfully",
+          "ERROR_MESSAGE": "Unable to publish locale. Try again."
+        }
       }
     },
     "TABLE": {
-      "LOADING_MESSAGE": "Caricamento articoli...",
       "404": "Nessun articolo corrisponde alla tua ricerca 🔍",
+      "LOADING_MESSAGE": "Caricamento articoli...",
       "NO_ARTICLES": "Non ci sono articoli disponibili",
       "HEADERS": {
         "TITLE": "Titolo",
@@ -497,7 +515,8 @@
             "PUBLISH": "Pubblica",
             "DRAFT": "Bozza",
             "ARCHIVE": "Archive",
-            "DELETE": "Elimina"
+            "DELETE": "Elimina",
+            "TRANSLATE": "Traduci"
           },
           "STATUS": {
             "DRAFT": "Bozza",
@@ -551,6 +570,41 @@
           "TITLE": "There are no articles in this category",
           "SUBTITLE": "Articles in this category will appear here"
         }
+      },
+      "BULK_TRANSLATE": {
+        "TITLE": "Traduci articolo | Traduci {count} articoli",
+        "DESCRIPTION": "Traduci l'articolo selezionato in un'altra lingua. | Traduci gli articoli selezionati in un'altra lingua.",
+        "LOCALE_LABEL": "Lingua di destinazione",
+        "LOCALE_PLACEHOLDER": "Seleziona una lingua",
+        "CATEGORY_LABEL": "Categoria di destinazione",
+        "CATEGORY_PLACEHOLDER": "Seleziona una categoria",
+        "OPTIONAL": "(opzionale)",
+        "CONFIRM": "Traduci",
+        "SELECT_ALL": "Seleziona tutto ({count})",
+        "SELECTED_COUNT": "{count} selezionate",
+        "CLEAR_SELECTION": "Annulla selezione",
+        "TRANSLATE_BUTTON": "Traduci",
+        "CONFIRM_OVERWRITE": "Sovrascrivi e traduci",
+        "DUPLICATE_WARNING": "Esiste già una traduzione per questo articolo nella lingua selezionata. | Esistono già delle traduzioni per {count} articoli nella lingua selezionata.",
+        "DUPLICATE_CONFIRM_HINT": "Clicca Traduci di nuovo per sovrascrivere la traduzione esistente.",
+        "API": {
+          "SUCCESS_MESSAGE": "Traduzione in corso. L'articolo apparirà in bozza una volta pronto.",
+          "ERROR_MESSAGE": "Impossibile avviare la traduzione. Riprova."
+        }
+      },
+      "BULK_ACTIONS": {
+        "PUBLISH": "Pubblica",
+        "DRAFT": "Bozza",
+        "ARCHIVE": "Archivia",
+        "TRANSLATE": "Traduci",
+        "DELETE": "Elimina",
+        "STATUS_SUCCESS": "Articoli aggiornati correttamente",
+        "STATUS_ERROR": "Impossibile aggiornare gli articoli",
+        "DELETE_CONFIRM_TITLE": "Elimina articolo | Elimina {count} articoli",
+        "DELETE_CONFIRM_DESCRIPTION": "Questo eliminerà definitivamente l'articolo selezionato. Questa azione non può essere annullata. | Questo eliminerà definitivamente {count} articoli selezionati. Questa azione non può essere annullata.",
+        "DELETE_CONFIRM": "Elimina",
+        "DELETE_SUCCESS": "Articoli eliminati correttamente",
+        "DELETE_ERROR": "Impossibile eliminare gli articoli"
       }
     },
     "CATEGORY_PAGE": {
@@ -630,8 +684,11 @@
         "DEFAULT": "Predefinito",
         "DROPDOWN_MENU": {
           "MAKE_DEFAULT": "Make default",
-          "DELETE": "Elimina"
-        }
+          "DELETE": "Elimina",
+          "MOVE_TO_DRAFT": "Move to draft",
+          "PUBLISH_LOCALE": "Publish locale"
+        },
+        "DRAFT": "Bozza"
       },
       "ADD_LOCALE_DIALOG": {
         "TITLE": "Aggiungi una nuova lingua",
@@ -642,6 +699,13 @@
         "API": {
           "SUCCESS_MESSAGE": "Lingua aggiunta con successo",
           "ERROR_MESSAGE": "Impossibile aggiungere la lingua. Riprova."
+        },
+        "STATUS": {
+          "LABEL": "Stato",
+          "OPTIONS": {
+            "LIVE": "Pubblicato",
+            "DRAFT": "Bozza"
+          }
         }
       }
     },
@@ -735,7 +799,8 @@
         "LIVE_CHAT_WIDGET": {
           "LABEL": "Live chat widget",
           "PLACEHOLDER": "Select live chat widget",
-          "HELP_TEXT": "Select a live chat widget that will appear on your help center"
+          "HELP_TEXT": "Select a live chat widget that will appear on your help center",
+          "NONE_OPTION": "Nessun widget"
         },
         "BRAND_COLOR": {
           "LABEL": "Brand color"
@@ -757,13 +822,28 @@
             "EDIT_CONFIRM_BUTTON_LABEL": "Update domain",
             "LABEL": "Dominio personalizzato",
             "PLACEHOLDER": "Dominio personalizzato del portale",
-            "ERROR": "Custom domain is required"
+            "ERROR": "Custom domain is required",
+            "FORMAT_ERROR": "Inserisci un URL di dominio valido, ad esempio: docs.tuodominio.com"
           },
           "DNS_CONFIGURATION_DIALOG": {
             "HEADER": "DNS configuration",
             "DESCRIPTION": "Log in to the account you have with your DNS provider, and add a CNAME record for subdomain pointing to chatwoot.help",
             "HELP_TEXT": "Once this is done, you can reach out to our support to request for the auto-generated SSL certificate.",
-            "CONFIRM_BUTTON_LABEL": "Got it!"
+            "CONFIRM_BUTTON_LABEL": "Got it!",
+            "COPY": "CNAME copiato",
+            "SEND_INSTRUCTIONS": {
+              "HEADER": "Invia istruzioni",
+              "DESCRIPTION": "Se preferisci avere qualcuno dal tuo team di sviluppo per gestire questo passaggio, puoi inserire l'indirizzo email qui sotto, e invieremo loro le istruzioni richieste.",
+              "PLACEHOLDER": "Inserisci il loro indirizzo email",
+              "ERROR": "Inserisci un indirizzo email valido",
+              "SEND_BUTTON": "Invia"
+            }
+          },
+          "STATUS_DESCRIPTION": "Il tuo portale personalizzato inizierà a funzionare non appena verrà verificato.",
+          "STATUS": {
+            "LIVE": "Live",
+            "PENDING": "In attesa di verifica",
+            "ERROR": "Verifica non riuscita"
           }
         },
         "DELETE_PORTAL": {
@@ -840,6 +920,16 @@
       "FROM_DOCUMENT": "From document",
       "NO_CONTENT": "No generated content available. Upload a PDF document to get started.",
       "LOADING": "Loading generated content..."
+    },
+    "REORDER_ARTICLE": {
+      "API": {
+        "ERROR_MESSAGE": "Impossibile riordinare gli articoli. Riprova."
+      }
+    },
+    "REORDER_CATEGORY": {
+      "API": {
+        "ERROR_MESSAGE": "Impossibile riordinare le categorie. Riprova."
+      }
     }
   }
 }

@@ -40,13 +40,14 @@
       }
     },
     "LIST": {
+      "404": "Otomasyon kuralı bulunamadı",
       "TABLE_HEADER": {
         "NAME": "İsim",
         "DESCRIPTION": "Açıklama",
         "ACTIVE": "Aktif",
-        "CREATED_ON": "Oluşturma"
-      },
-      "404": "Otomasyon kuralı bulunamadı"
+        "CREATED_ON": "Oluşturma",
+        "ACTIONS": "Hareketler"
+      }
     },
     "DELETE": {
       "TITLE": "Otomasyon Kuralını Sil",
@@ -131,7 +132,8 @@
       "CONVERSATION_CREATED": "Görüşme Oluşturuldu",
       "CONVERSATION_UPDATED": "Görüşme Güncellendi",
       "MESSAGE_CREATED": "Mesaj Oluşturuldu",
-      "CONVERSATION_OPENED": "Sohbet Açıldı"
+      "CONVERSATION_OPENED": "Sohbet Açıldı",
+      "CONVERSATION_RESOLVED": "Konuşma Çözüldü"
     },
     "ACTIONS": {
       "ASSIGN_AGENT": "Temsilciye Ata",
@@ -149,7 +151,10 @@
       "ADD_PRIVATE_NOTE": "Özel Bir Not Ekle",
       "CHANGE_PRIORITY": "Önceliği Değiştir",
       "ADD_SLA": "Add SLA",
-      "OPEN_CONVERSATION": "Görüşmeyi aç"
+      "OPEN_CONVERSATION": "Görüşmeyi aç",
+      "REMOVE_ASSIGNED_AGENT": "Remove Assigned Agent",
+      "REMOVE_ASSIGNED_TEAM": "Atanan Ekibi Kaldır",
+      "PENDING_CONVERSATION": "Mark conversation as pending"
     },
     "MESSAGE_TYPES": {
       "INCOMING": "Incoming Message",
@@ -176,7 +181,14 @@
       "REFERER_LINK": "Yönlendiren Bağlantı",
       "ASSIGNEE_NAME": "Assignee",
       "TEAM_NAME": "Ekip",
-      "PRIORITY": "Öncelik"
-    }
+      "PRIORITY": "Öncelik",
+      "PRIVATE_NOTE": "Özel Not",
+      "COMPANY_NAME": "Şirket",
+      "LABELS": "Etiketler"
+    },
+    "COUNT": "{n} automation | {n} automations",
+    "SEARCH_PLACEHOLDER": "Otomasyon kurallarını ara...",
+    "NO_RESULTS": "Aramanızla eşleşen otomasyon kuralı bulunamadı",
+    "LAST_RESPONDING_AGENT": "Last Responding Agent"
   }
 }

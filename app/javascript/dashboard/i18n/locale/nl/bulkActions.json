@@ -35,7 +35,18 @@
       "NO_TEAMS_AVAILABLE": "Er zijn nog geen teams toegevoegd aan dit account.",
       "ASSIGN_SELECTED_TEAMS": "Geselecteerde team toewijzen.",
       "ASSIGN_SUCCESFUL": "Teams assigned successfully.",
-      "ASSIGN_FAILED": "Toewijzen team mislukt, probeer het opnieuw."
+      "ASSIGN_FAILED": "Toewijzen team mislukt, probeer het opnieuw.",
+      "ASSIGN_TEAM_CONFIRMATION_LABEL": "Are you sure you want to assign {n} conversation to {teamName}? | Are you sure you want to assign {n} conversations to {teamName}?",
+      "UNASSIGN_TEAM_CONFIRMATION_LABEL": "Are you sure you want to unassign {n} conversation? | Are you sure you want to unassign {n} conversations?"
+    },
+    "NONE": "Geen",
+    "CLEAR_SELECTION": "Clear",
+    "ASSIGN_AGENT_CONFIRMATION_LABEL": "Are you sure you want to assign {n} conversation to {agentName}? | Are you sure you want to assign {n} conversations to {agentName}?",
+    "UNASSIGN_AGENT_CONFIRMATION_LABEL": "Are you sure you want to unassign {n} conversation? | Are you sure you want to unassign {n} conversations?",
+    "CANCEL": "Annuleren",
+    "RESOLVE": {
+      "ALL_MISSING_ATTRIBUTES": "Cannot resolve conversations due to missing required attributes",
+      "PARTIAL_SUCCESS": "Some conversations need required attributes before resolving and were skipped"
     }
   }
 }

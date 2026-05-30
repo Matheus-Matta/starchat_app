@@ -7,7 +7,8 @@
     "LEARN_MORE": "Learn more about custom attributes",
     "ATTRIBUTE_MODELS": {
       "CONVERSATION": "Sohbet",
-      "CONTACT": "İletişim"
+      "CONTACT": "İletişim",
+      "COMPANY": "Şirket"
     },
     "ATTRIBUTE_TYPES": {
       "TEXT": "Metin",
@@ -63,6 +64,10 @@
         },
         "ENABLE_REGEX": {
           "LABEL": "Düzenli ifade doğrulamasını aç"
+        },
+        "BADGES": {
+          "PRE_CHAT": "Pre-chat",
+          "RESOLUTION": "Resolution"
         }
       },
       "API": {
@@ -101,7 +106,8 @@
     "TABS": {
       "HEADER": "Özel Nitelikler",
       "CONVERSATION": "Sohbet",
-      "CONTACT": "İletişim"
+      "CONTACT": "İletişim",
+      "COMPANY": "Şirket"
     },
     "LIST": {
       "TABLE_HEADER": {
@@ -129,6 +135,13 @@
       "ENABLE_REGEX": {
         "LABEL": "Düzenli ifade doğrulamasını aç"
       }
+    },
+    "COUNT": "{n} attribute | {n} attributes",
+    "SEARCH_PLACEHOLDER": "Öznitelik ara...",
+    "NO_RESULTS": "No attributes found matching your search",
+    "BADGES": {
+      "PRE_CHAT": "Pre-chat",
+      "RESOLUTION": "Resolution"
     }
   }
 }

@@ -16,8 +16,7 @@ RSpec.describe '', type: :request do
 
     context 'when it is an authenticated user' do
       before do
-        InstallationConfig.where(name: 'DEPLOYMENT_ENV').first_or_create(value: 'cloud')
-        InstallationConfig.where(name: 'CHATWOOT_CLOUD_PLANS').first_or_create(value: [{ 'name': 'Hacker' }])
+        InstallationConfig.find_or_initialize_by(name: 'DEPLOYMENT_ENV').update!(value: 'cloud')
       end
 
       context 'when it is an agent' do
@@ -31,17 +30,15 @@ RSpec.describe '', type: :request do
           expect(json_response['id']).to eq(account.id)
           expect(json_response['limits']).to eq(
             {
-              'conversation' => {
-                'allowed' => 500,
-                'consumed' => 0
-              },
-              'non_web_inboxes' => {
-                'allowed' => 0,
-                'consumed' => 0
-              },
+              'conversation' => {},
+              'non_web_inboxes' => {},
               'agents' => {
-                'allowed' => 2,
+                'allowed' => account.usage_limits[:agents],
                 'consumed' => 2
+              },
+              'cosmos' => {
+                'documents' => { 'consumed' => 0, 'current_available' => ChatwootApp.max_limit, 'total_count' => ChatwootApp.max_limit },
+                'responses' => { 'consumed' => 0, 'current_available' => ChatwootApp.max_limit, 'total_count' => ChatwootApp.max_limit }
               }
             }
           )
@@ -52,12 +49,10 @@ RSpec.describe '', type: :request do
         before do
           create(:conversation, account: account)
           create(:channel_api, account: account)
-          InstallationConfig.where(name: 'DEPLOYMENT_ENV').first_or_create(value: 'cloud')
-          InstallationConfig.where(name: 'CHATWOOT_CLOUD_PLANS').first_or_create(value: [{ 'name': 'Hacker' }])
+          InstallationConfig.find_or_initialize_by(name: 'DEPLOYMENT_ENV').update!(value: 'cloud')
         end
 
-        it 'returns the limits if the plan is default' do
-          account.update!(custom_attributes: { plan_name: 'Hacker' })
+        it 'returns account limits without enforcing a default plan' do
           get "/starchat/api/v1/accounts/#{account.id}/limits",
               headers: admin.create_new_auth_token,
               as: :json
@@ -65,17 +60,15 @@ RSpec.describe '', type: :request do
           expected_response = {
             'id' => account.id,
             'limits' => {
-              'conversation' => {
-                'allowed' => 500,
-                'consumed' => 1
-              },
-              'non_web_inboxes' => {
-                'allowed' => 0,
-                'consumed' => 1
-              },
+              'conversation' => {},
+              'non_web_inboxes' => {},
               'agents' => {
-                'allowed' => 2,
+                'allowed' => account.usage_limits[:agents],
                 'consumed' => 2
+              },
+              'cosmos' => {
+                'documents' => { 'consumed' => 0, 'current_available' => ChatwootApp.max_limit, 'total_count' => ChatwootApp.max_limit },
+                'responses' => { 'consumed' => 0, 'current_available' => ChatwootApp.max_limit, 'total_count' => ChatwootApp.max_limit }
               }
             }
           }
@@ -84,7 +77,7 @@ RSpec.describe '', type: :request do
           expect(JSON.parse(response.body)).to eq(expected_response)
         end
 
-        it 'returns nil if the plan is not default' do
+        it 'returns the same limits when plan attributes are present' do
           account.update!(custom_attributes: { plan_name: 'Startups' })
           get "/starchat/api/v1/accounts/#{account.id}/limits",
               headers: admin.create_new_auth_token,
@@ -110,7 +103,7 @@ RSpec.describe '', type: :request do
           expect(JSON.parse(response.body)).to eq(expected_response)
         end
 
-        it 'returns limits if a plan is not configured' do
+        it 'returns limits when no plan is configured' do
           get "/starchat/api/v1/accounts/#{account.id}/limits",
               headers: admin.create_new_auth_token,
               as: :json
@@ -118,17 +111,15 @@ RSpec.describe '', type: :request do
           expected_response = {
             'id' => account.id,
             'limits' => {
-              'conversation' => {
-                'allowed' => 500,
-                'consumed' => 1
-              },
-              'non_web_inboxes' => {
-                'allowed' => 0,
-                'consumed' => 1
-              },
+              'conversation' => {},
+              'non_web_inboxes' => {},
               'agents' => {
-                'allowed' => 2,
+                'allowed' => account.usage_limits[:agents],
                 'consumed' => 2
+              },
+              'cosmos' => {
+                'documents' => { 'consumed' => 0, 'current_available' => ChatwootApp.max_limit, 'total_count' => ChatwootApp.max_limit },
+                'responses' => { 'consumed' => 0, 'current_available' => ChatwootApp.max_limit, 'total_count' => ChatwootApp.max_limit }
               }
             }
           }
@@ -162,7 +153,7 @@ RSpec.describe '', type: :request do
       context 'when deployment environment is not cloud' do
         before do
           # Set deployment environment to something other than cloud
-          InstallationConfig.where(name: 'DEPLOYMENT_ENV').first_or_create(value: 'self_hosted')
+          InstallationConfig.find_or_initialize_by(name: 'DEPLOYMENT_ENV').update!(value: 'self_hosted')
         end
 
         it 'returns not found' do
@@ -179,7 +170,7 @@ RSpec.describe '', type: :request do
       context 'when it is an admin' do
         before do
           # Create the installation config for cloud environment
-          InstallationConfig.where(name: 'DEPLOYMENT_ENV').first_or_create(value: 'cloud')
+          InstallationConfig.find_or_initialize_by(name: 'DEPLOYMENT_ENV').update!(value: 'cloud')
         end
 
         it 'marks the account for deletion when action is delete' do

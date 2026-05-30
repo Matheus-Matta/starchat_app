@@ -34,7 +34,8 @@
       "LOADING": "Buscando robôs...",
       "TABLE_HEADER": {
         "DETAILS": "Detalhe do Robô",
-        "URL": "URL do Webhook"
+        "URL": "URL do Webhook",
+        "ACTIONS": "Ações"
       }
     },
     "DELETE": {
@@ -98,6 +99,19 @@
     },
     "TYPES": {
       "WEBHOOK": "Webhook robô"
+    },
+    "COUNT": "{n} robô | {n} robôs",
+    "SEARCH_PLACEHOLDER": "Pesquisar robôs...",
+    "NO_RESULTS": "Nenhum robô encontrado correspondente à sua busca",
+    "SECRET": {
+      "LABEL": "Segredo do Webhook",
+      "COPY": "Copiar segredo para a área de transferência",
+      "COPY_SUCCESS": "Segredo copiado para a área de transferência",
+      "TOGGLE": "Alternar visibilidade do segredo",
+      "CREATED_DESC": "Use o segredo abaixo para verificar as assinaturas do webhook. Copie-o agora, você também poderá encontrá-lo depois nas configurações do robô.",
+      "DONE": "Concluído",
+      "RESET_SUCCESS": "Segredo do webhook regenerado com sucesso",
+      "RESET_ERROR": "Não foi possível regenerar o segredo do webhook. Por favor, tente novamente"
     }
   }
 }

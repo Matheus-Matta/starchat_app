@@ -10,6 +10,7 @@ class Messages::Messenger::MessageBuilder
     attach_file(attachment_obj, attachment_params(attachment)[:remote_file_url]) if attachment_params(attachment)[:remote_file_url]
     fetch_story_link(attachment_obj) if attachment_obj.file_type == 'story_mention'
     update_attachment_file_type(attachment_obj)
+    update_ig_message_content(attachment) if %w[ig_story ig_post].include?(attachment['type'])
   end
 
   def attach_file(attachment, file_url)
@@ -29,6 +30,10 @@ class Messages::Messenger::MessageBuilder
 
     if [:image, :file, :audio, :video, :share, :story_mention, :ig_reel].include? file_type
       params.merge!(file_type_params(attachment))
+    elsif file_type == :ig_story
+      params[:external_url] = attachment['payload']['story_media_url']
+    elsif file_type == :ig_post
+      params[:external_url] = attachment['payload']['url']
     elsif file_type == :location
       params.merge!(location_params(attachment))
     elsif file_type == :fallback
@@ -36,6 +41,13 @@ class Messages::Messenger::MessageBuilder
     end
 
     params
+  end
+
+  def update_ig_message_content(attachment)
+    type_name = attachment['type'].sub('ig_', '')
+    @message.content = I18n.t("conversations.messages.instagram_shared_#{type_name}_content")
+    @message.content_attributes = @message.content_attributes.merge('image_type' => attachment['type'])
+    @message.save!
   end
 
   def file_type_params(attachment)

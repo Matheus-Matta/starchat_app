@@ -116,6 +116,9 @@
         "LABEL": "このチームで自動割り当てを許可する"
       },
       "SUBMIT_CREATE": "チームを作成"
-    }
+    },
+    "COUNT": "{n} team | {n} teams",
+    "SEARCH_PLACEHOLDER": "チームを検索...",
+    "NO_RESULTS": "No teams found matching your search"
   }
 }

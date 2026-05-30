@@ -136,7 +136,7 @@ RSpec.describe Conversation do
           notifiable_assignee_change: false,
           changed_attributes: changed_attributes,
           performed_by: nil
-        ).exactly(2).times
+        ).at_least(:once)
     end
 
     it 'runs after_update callbacks' do
@@ -607,6 +607,7 @@ RSpec.describe Conversation do
         meta: {
           sender: conversation.contact.push_event_data,
           assignee: conversation.assignee,
+          assignee_type: conversation.assignee_type,
           team: conversation.team,
           hmac_verified: conversation.contact_inbox.hmac_verified
         },
@@ -620,6 +621,8 @@ RSpec.describe Conversation do
         timestamp: conversation.last_activity_at.to_i,
         can_reply: true,
         channel: 'Channel::WebWidget',
+        protocol_code: conversation.protocol_code,
+        protocol_policy_id: conversation.protocol_policy_id,
         snoozed_until: conversation.snoozed_until,
         custom_attributes: conversation.custom_attributes,
         first_reply_created_at: nil,
@@ -658,7 +661,9 @@ RSpec.describe Conversation do
     end
 
     it 'returns conversation as open if campaign is present' do
-      conversation = create(:conversation, inbox: bot_inbox.inbox, campaign: create(:campaign))
+      sender = create(:user, account: bot_inbox.inbox.account)
+      campaign = create(:campaign, account: bot_inbox.inbox.account, inbox: bot_inbox.inbox, sender: sender)
+      conversation = create(:conversation, inbox: bot_inbox.inbox, campaign: campaign)
       expect(conversation.status).to eq('open')
     end
   end

@@ -329,7 +329,7 @@ RSpec.describe Cosmos::CustomTool, type: :model do
     end
 
     describe '#build_metadata_headers' do
-      let(:tool) { create(:captain_custom_tool, account: account, slug: 'custom_test_tool') }
+      let(:tool) { create(:cosmos_custom_tool, account: account, slug: 'custom_test_tool') }
       let(:conversation) { create(:conversation, account: account) }
       let(:contact) { conversation.contact }
 

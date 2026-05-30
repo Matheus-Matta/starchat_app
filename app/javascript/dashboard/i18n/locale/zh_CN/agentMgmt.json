@@ -119,6 +119,9 @@
           "INPUT": "查找客服代表"
         }
       }
-    }
+    },
+    "COUNT": "{n} agent | {n} agents",
+    "SEARCH_PLACEHOLDER": "搜索客服代表...",
+    "NO_RESULTS": "No agents found matching your search"
   }
 }

@@ -1,72 +1,35 @@
 {
   "CHAT_LIST": {
-    "LOADING": "Fetching conversations",
+    "UNREAD_COUNT_OVERFLOW": "9+",
+    "SENDING": "Sending",
     "LOAD_MORE_CONVERSATIONS": "Load more conversations",
-    "EOF": "All conversations loaded 🎉",
-    "LIST": {
-      "404": "There are no active conversations in this group."
-    },
-    "FAILED_TO_SEND": "Failed to send",
-    "TAB_HEADING": "Conversations",
-    "MENTION_HEADING": "Mentions",
-    "UNATTENDED_HEADING": "Unattended",
     "SEARCH": {
       "INPUT": "Search for People, Chats, Saved Replies .."
     },
-    "FILTER_ALL": "All",
+    "MESSAGE_READ": "Read",
+    "DELIVERED": "Delivered successfully",
+    "SORT_TOOLTIP_LABEL": "Sort conversations",
+    "VIEW_TWEET_IN_TWITTER": "View tweet in Twitter",
     "ASSIGNEE_TYPE_TABS": {
       "me": "Mine",
-      "unassigned": "Unassigned",
-      "all": "All"
-    },
-    "CHAT_STATUS_FILTER_ITEMS": {
-      "open": {
-        "TEXT": "Open"
-      },
-      "resolved": {
-        "TEXT": "Resolved"
-      },
-      "pending": {
-        "TEXT": "Pending"
-      },
-      "snoozed": {
-        "TEXT": "Snoozed"
-      },
-      "all": {
-        "TEXT": "All"
-      }
-    },
-    "VIEW_FILTER": "View",
-    "SORT_TOOLTIP_LABEL": "Sort conversations",
-    "CHAT_SORT": {
-      "STATUS": "Status",
-      "ORDER_BY": "Order by"
-    },
-    "CHAT_TIME_STAMP": {
-      "CREATED": {
-        "LATEST": "Created",
-        "OLDEST": "Created at:"
-      },
-      "LAST_ACTIVITY": {
-        "NOT_ACTIVE": "Last activity:",
-        "ACTIVE": "Last activity"
-      }
+      "all": "All",
+      "unassigned": "Unassigned"
     },
     "SORT_ORDER_ITEMS": {
-      "last_activity_at_asc": {
-        "TEXT": "Last activity: Oldest first"
+      "waiting_since_desc": {
+        "TEXT": "Pending Response: Shortest first"
       },
       "last_activity_at_desc": {
         "TEXT": "Last activity: Newest first"
       },
-      "created_at_desc": {
-        "TEXT": "Created at: Newest first"
-      },
-      "created_at_asc": {
-        "TEXT": "Created at: Oldest first"
+      "last_activity_at_asc": {
+        "TEXT": "Last activity: Oldest first"
       },
       "priority_desc": {
         "TEXT": "Priority: Highest first"
+      },
+      "created_at_desc": {
+        "TEXT": "Created at: Newest first"
       },
       "priority_asc": {
         "TEXT": "Priority: Lowest first"
@@ -74,42 +37,68 @@
       "waiting_since_asc": {
         "TEXT": "Pending Response: Longest first"
       },
-      "waiting_since_desc": {
-        "TEXT": "Pending Response: Shortest first"
+      "created_at_asc": {
+        "TEXT": "Created at: Oldest first"
       }
     },
+    "CHAT_STATUS_FILTER_ITEMS": {
+      "open": {
+        "TEXT": "Open"
+      },
+      "all": {
+        "TEXT": "All"
+      },
+      "resolved": {
+        "TEXT": "Resolved"
+      },
+      "snoozed": {
+        "TEXT": "Snoozed"
+      },
+      "pending": {
+        "TEXT": "Pending"
+      }
+    },
+    "CHAT_TIME_STAMP": {
+      "LAST_ACTIVITY": {
+        "ACTIVE": "Last activity",
+        "NOT_ACTIVE": "Last activity:"
+      },
+      "CREATED": {
+        "LATEST": "Created",
+        "OLDEST": "Created at:"
+      }
+    },
+    "RECEIVED_VIA_EMAIL": "Received via email",
     "ATTACHMENTS": {
-      "image": {
-        "CONTENT": "Picture message"
-      },
-      "audio": {
-        "CONTENT": "Audio message"
-      },
       "video": {
         "CONTENT": "Video message"
-      },
-      "file": {
-        "CONTENT": "File Attachment"
       },
       "location": {
         "CONTENT": "Location"
       },
+      "audio": {
+        "CONTENT": "Audio message"
+      },
       "ig_reel": {
         "CONTENT": "Instagram Reel"
       },
-      "fallback": {
-        "CONTENT": "has shared a url"
+      "image": {
+        "CONTENT": "Picture message"
       },
       "contact": {
         "CONTENT": "Shared contact"
       },
       "sticker": {
         "CONTENT": "Sticker message"
+      },
+      "file": {
+        "CONTENT": "File Attachment"
+      },
+      "fallback": {
+        "CONTENT": "has shared a url"
       }
     },
     "CHAT_SORT_BY_FILTER": {
-      "TITLE": "Sort conversation",
-      "DROPDOWN_TITLE": "Sort by",
       "ITEMS": {
         "LATEST": {
           "NAME": "Last activity at",
@@ -123,20 +112,32 @@
           "NAME": "Last user message at",
           "LABEL": "Last message"
         }
-      }
+      },
+      "TITLE": "Sort conversation",
+      "DROPDOWN_TITLE": "Sort by"
     },
-    "RECEIVED_VIA_EMAIL": "Received via email",
-    "VIEW_TWEET_IN_TWITTER": "View tweet in Twitter",
-    "REPLY_TO_TWEET": "Reply to this tweet",
-    "LINK_TO_STORY": "Go to instagram story",
-    "SENT": "Sent successfully",
-    "READ": "Read successfully",
-    "DELIVERED": "Delivered successfully",
-    "NO_MESSAGES": "No Messages",
+    "FILTER_ALL": "All",
+    "VIEW_FILTER": "View",
+    "LIST": {
+      "404": "There are no active conversations in this group."
+    },
     "NO_CONTENT": "No content available",
+    "TAB_HEADING": "Conversations",
+    "LINK_TO_STORY": "Go to instagram story",
+    "READ": "Read successfully",
+    "FAILED_TO_SEND": "Failed to send",
+    "EOF": "All conversations loaded 🎉",
     "HIDE_QUOTED_TEXT": "Hide Quoted Text",
+    "MENTION_HEADING": "Mentions",
     "SHOW_QUOTED_TEXT": "Show Quoted Text",
-    "MESSAGE_READ": "Read",
-    "SENDING": "Sending"
+    "LOADING": "Fetching conversations",
+    "SENT": "Sent successfully",
+    "UNATTENDED_HEADING": "Unattended",
+    "CHAT_SORT": {
+      "ORDER_BY": "Order by",
+      "STATUS": "Status"
+    },
+    "NO_MESSAGES": "No Messages",
+    "REPLY_TO_TWEET": "Reply to this tweet"
   }
 }

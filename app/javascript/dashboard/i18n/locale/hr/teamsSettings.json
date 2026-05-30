@@ -116,6 +116,9 @@
         "LABEL": "Allow auto assign for this team."
       },
       "SUBMIT_CREATE": "Create team"
-    }
+    },
+    "COUNT": "{n} team | {n} teams",
+    "SEARCH_PLACEHOLDER": "Search teams...",
+    "NO_RESULTS": "No teams found matching your search"
   }
 }

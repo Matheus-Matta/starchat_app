@@ -1461,7 +1461,7 @@
               "Contact",
               "User",
               "AgentBot",
-              "Captain::Assistant",
+              "Cosmos::Assistant",
               null
             ],
             "description": "The type of the sender"
@@ -2264,7 +2264,7 @@
                 "items": {
                   "type": "string"
                 },
-                "description": "List of subscribed enterprise features (if enterprise edition is enabled)"
+                "description": "List of subscribed starchat features (if starchat edition is enabled)"
               }
             }
           }
@@ -2885,7 +2885,7 @@
           },
           "avatar_url": {
             "type": "string",
-            "description": "Avatar URL of the sender. Present for senders of type user, agent_bot, and captain_assistant. Not present for contact senders (use thumbnail instead)."
+            "description": "Avatar URL of the sender. Present for senders of type user, agent_bot, and cosmos_assistant. Not present for contact senders (use thumbnail instead)."
           },
           "thumbnail": {
             "type": "string",
@@ -2897,7 +2897,7 @@
               "contact",
               "user",
               "agent_bot",
-              "captain_assistant"
+              "cosmos_assistant"
             ],
             "description": "Type of the sender"
           },
@@ -2959,14 +2959,14 @@
               "string",
               "null"
             ],
-            "description": "Description when the sender is a captain assistant"
+            "description": "Description when the sender is a cosmos assistant"
           },
           "created_at": {
             "type": [
               "string",
               "null"
             ],
-            "description": "Created timestamp in ISO 8601 format when the sender is a captain assistant"
+            "description": "Created timestamp in ISO 8601 format when the sender is a cosmos assistant"
           }
         }
       },

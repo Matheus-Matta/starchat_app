@@ -116,6 +116,9 @@
         "LABEL": "Permitir atribuição automática para este time."
       },
       "SUBMIT_CREATE": "Criar novo time"
-    }
+    },
+    "COUNT": "{n} time | {n} times",
+    "SEARCH_PLACEHOLDER": "Pesquisar times...",
+    "NO_RESULTS": "Nenhum time encontrado correspondente à sua busca"
   }
 }

@@ -25,13 +25,14 @@
       }
     },
     "LIST": {
+      "404": "Hiç kısayol bulunamadı",
       "TABLE_HEADER": {
         "NAME": "İsim",
         "CREATED BY": "Tarafından oluşturuldu",
         "LAST_UPDATED_BY": "Son güncelleyen",
-        "VISIBILITY": "Görünürlük"
-      },
-      "404": "Hiç kısayol bulunamadı"
+        "VISIBILITY": "Görünürlük",
+        "ACTIONS": "Hareketler"
+      }
     },
     "DELETE": {
       "TOOLTIP": "Kısayolu Sil",
@@ -62,7 +63,9 @@
         "LABEL": "Kısayol Görünürlüğü",
         "GLOBAL": {
           "LABEL": "Genel",
-          "DESCRIPTION": "Bu kısayol, tüm temsilciler için genel olarak kullanılabilir."
+          "DESCRIPTION": "Bu kısayol, tüm temsilciler için genel olarak kullanılabilir.",
+          "CREATE_DISABLED_DESCRIPTION": "Only administrators can create public macros.",
+          "EDIT_DISABLED_DESCRIPTION": "Only administrators can edit public macros."
         },
         "PERSONAL": {
           "LABEL": "Özel",
@@ -98,7 +101,8 @@
       "SEND_MESSAGE": "Mesaj Gönder",
       "CHANGE_PRIORITY": "Önceliği Değiştir",
       "ADD_PRIVATE_NOTE": "Özel Bir Not Ekle",
-      "SEND_WEBHOOK_EVENT": "Webhook Olayı Gönder"
+      "SEND_WEBHOOK_EVENT": "Webhook Olayı Gönder",
+      "REMOVE_ASSIGNED_AGENT": "Remove Assigned Agent"
     },
     "PRIORITY_TYPES": {
       "NONE": "Hiç",
@@ -106,6 +110,12 @@
       "MEDIUM": "Orta",
       "HIGH": "Yüksek",
       "URGENT": "Acil"
+    },
+    "COUNT": "{n} macro | {n} macros",
+    "SEARCH_PLACEHOLDER": "Search macros...",
+    "NO_RESULTS": "No macros found matching your search",
+    "VIEW": {
+      "TOOLTIP": "View macro"
     }
   }
 }

@@ -40,13 +40,14 @@
       }
     },
     "LIST": {
+      "404": "No s'han trobat regles d'automatització",
       "TABLE_HEADER": {
         "NAME": "Nom",
         "DESCRIPTION": "Descripció",
         "ACTIVE": "Actiu",
-        "CREATED_ON": "Creat el"
-      },
-      "404": "No s'han trobat regles d'automatització"
+        "CREATED_ON": "Creat el",
+        "ACTIONS": "Accions"
+      }
     },
     "DELETE": {
       "TITLE": "Suprimeix una regla d'automatització",
@@ -131,7 +132,8 @@
       "CONVERSATION_CREATED": "Conversa Creada",
       "CONVERSATION_UPDATED": "Conversa Actualitzada",
       "MESSAGE_CREATED": "Message Created",
-      "CONVERSATION_OPENED": "Conversation Opened"
+      "CONVERSATION_OPENED": "Conversation Opened",
+      "CONVERSATION_RESOLVED": "Conversation Resolved"
     },
     "ACTIONS": {
       "ASSIGN_AGENT": "Assign to Agent",
@@ -149,7 +151,10 @@
       "ADD_PRIVATE_NOTE": "Add a Private Note",
       "CHANGE_PRIORITY": "Canvia la prioritat",
       "ADD_SLA": "Afegeix SLA",
-      "OPEN_CONVERSATION": "Obrir conversa"
+      "OPEN_CONVERSATION": "Obrir conversa",
+      "REMOVE_ASSIGNED_AGENT": "Remove Assigned Agent",
+      "REMOVE_ASSIGNED_TEAM": "Remove Assigned Team",
+      "PENDING_CONVERSATION": "Mark conversation as pending"
     },
     "MESSAGE_TYPES": {
       "INCOMING": "Incoming Message",
@@ -176,7 +181,14 @@
       "REFERER_LINK": "Referrer Link",
       "ASSIGNEE_NAME": "Cessionari",
       "TEAM_NAME": "Equip",
-      "PRIORITY": "Prioritat"
-    }
+      "PRIORITY": "Prioritat",
+      "PRIVATE_NOTE": "Nota privada",
+      "COMPANY_NAME": "Companyia",
+      "LABELS": "Etiquetes"
+    },
+    "COUNT": "{n} automation | {n} automations",
+    "SEARCH_PLACEHOLDER": "Search automation rules...",
+    "NO_RESULTS": "No automation rules found matching your search",
+    "LAST_RESPONDING_AGENT": "Last Responding Agent"
   }
 }

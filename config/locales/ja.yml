@@ -695,9 +695,9 @@ ja:
     copilot_message_required: メッセージは必須です
     copilot_error: 'この受信トレイにアシスタントを接続してCopilotを使用してください'
     copilot_limit: 'Copilot残高がありません。課金セクションからクレジットを追加購入することができます。'
-    upgrade: 'Captain AIを有効にするにはプランをアップグレードしてください。'
-    disabled: 'このアカウントではCaptain AIが無効化されています。'
-    api_key_missing: 'Captain AI APIキーが設定されていません。'
+    upgrade: 'Cosmos AIを有効にするにはプランをアップグレードしてください。'
+    disabled: 'このアカウントではCosmos AIが無効化されています。'
+    api_key_missing: 'Cosmos AI APIキーが設定されていません。'
     copilot:
       using_tool: 'ツール%{function_name}を使用中'
       completed_tool_call: '%{function_name}ツール呼び出しが完了しました。'

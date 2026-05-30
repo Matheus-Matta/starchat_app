@@ -148,6 +148,7 @@ RSpec.describe Starchat::AutoAssignment::CapacityService, type: :service do
       allow(selector).to receive(:select_agent) do |agents|
         agents.map(&:user).find { |u| [agent_with_capacity, agent_without_capacity].include?(u) }
       end
+      allow(selector).to receive(:queue_snapshot).and_return([])
 
       assigned_count = service.perform_bulk_assignment(limit: 1)
       expect(assigned_count).to eq(1)

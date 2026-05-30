@@ -27,6 +27,42 @@
     "WROTE": "wrote:",
     "FROM": "da",
     "EMAIL": "email",
-    "EMAIL_SUBJECT": "oggetto"
+    "EMAIL_SUBJECT": "oggetto",
+    "RECENT_SEARCHES": "Ricerche recenti",
+    "CLEAR_ALL": "Rimuovi tutto",
+    "MOST_RECENT": "Più recenti",
+    "READ_LESS": "Leggi meno",
+    "PRIVATE": "Nota Privata",
+    "TRANSCRIPT": "Trascrizione",
+    "CREATED_AT": "creato {time}",
+    "UPDATED_AT": "aggiornato {time}",
+    "SORT_BY": {
+      "RELEVANCE": "Rilevanza"
+    },
+    "DATE_RANGE": {
+      "LAST_7_DAYS": "Ultimi 7 giorni",
+      "LAST_30_DAYS": "Ultimi 30 giorni",
+      "LAST_60_DAYS": "Ultimi 60 giorni",
+      "LAST_90_DAYS": "Ultimi 90 giorni",
+      "CUSTOM_RANGE": "Range personalizzato:",
+      "CREATED_BETWEEN": "Creato tra",
+      "AND": "e",
+      "APPLY": "Applica",
+      "BEFORE_DATE": "Prima del {date}",
+      "AFTER_DATE": "Dopo il {date}",
+      "TIME_RANGE": "Filtra per orario",
+      "CLEAR_FILTER": "Rimuovi filtro"
+    },
+    "FILTERS": {
+      "FILTER_MESSAGE": "Filtra i messaggi per:",
+      "FROM": "Mittente",
+      "IN": "Inbox",
+      "AGENTS": "Operatori",
+      "CONTACTS": "Contatti",
+      "INBOXES": "Inbox",
+      "NO_AGENTS": "Nessun operatore trovato",
+      "NO_CONTACTS": "Avvia una ricerca per vedere risultati",
+      "NO_INBOXES": "Nessuna Inbox trovata"
+    }
   }
 }

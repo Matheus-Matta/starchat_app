@@ -220,11 +220,9 @@ onMounted(() => {
 <template>
   <div
     ref="monitoringRoot"
-    class="monitoring-root flex flex-col gap-6 rounded-3xl px-4 lg:px-6"
+    class="monitoring-root flex flex-col gap-4 pb-6"
     :class="
-      isFullscreen
-        ? 'bg-n-solid-1 rounded-none px-3 lg:px-3 py-3 gap-4 h-screen overflow-auto'
-        : ''
+      isFullscreen ? 'bg-n-background px-3 py-3 h-screen overflow-auto' : ''
     "
   >
     <ReportHeader
@@ -234,7 +232,7 @@ onMounted(() => {
     />
 
     <section
-      class="shadow outline-1 outline outline-n-container rounded-xl bg-n-solid-2 px-6 py-4"
+      class="outline outline-1 outline-n-container rounded-xl bg-n-solid-2 px-4 py-4 shadow-sm lg:px-5"
       :class="isFullscreen ? 'sticky top-0 z-30' : ''"
     >
       <div class="flex flex-col gap-4">
@@ -248,7 +246,7 @@ onMounted(() => {
               v-if="uiFlags.isFetching"
               class="inline-flex items-center gap-2 text-sm text-n-slate-12"
             >
-              <Spinner size="sm" />
+              <Spinner :size="14" />
               {{ t('REPORT.LOADING_CHART') }}
             </span>
           </div>
@@ -339,7 +337,7 @@ onMounted(() => {
               v-if="uiFlags.isFetching && !isFullscreen"
               class="inline-flex items-center gap-2 text-n-slate-12"
             >
-              <Spinner size="sm" />
+              <Spinner :size="14" />
               {{ t('REPORT.LOADING_CHART') }}
             </span>
 

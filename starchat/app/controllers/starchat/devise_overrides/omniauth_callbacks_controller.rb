@@ -12,11 +12,15 @@ module Starchat::DeviseOverrides::OmniauthCallbacksController
 
     # preserve omniauth info for success route. ignore 'extra' in twitter
     # auth response to avoid CookieOverflow.
-    session['dta.omniauth.auth'] = request.env['omniauth.auth'].except('extra')
+    omniauth_auth = request.env['omniauth.auth']
+    session['dta.omniauth.auth'] = omniauth_auth.except('extra') if omniauth_auth.present?
     session['dta.omniauth.params'] = request.env['omniauth.params']
 
-    # For SAML, use 303 See Other to convert POST to GET and preserve session
+    # For SAML, use 303 See Other to convert POST to GET and preserve session.
+    # Also persist account_id so handle_saml_auth can find it in the second request.
     if params[:provider] == 'saml'
+      saml_account_id = params[:account_id] || request.env['omniauth.params']&.dig('account_id')
+      session[:saml_account_id] = saml_account_id if saml_account_id.present?
       redirect_to redirect_route, { status: 303 }.merge(redirect_options)
     else
       super

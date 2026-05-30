@@ -13,7 +13,8 @@
       "TABLE_HEADER": {
         "NAME": "Όνομα",
         "DESCRIPTION": "Περιγραφή",
-        "COLOR": "Χρώμα"
+        "COLOR": "Χρώμα",
+        "ACTION": "Ενέργειες"
       }
     },
     "FORM": {
@@ -80,6 +81,9 @@
         "YES": "Ναι, Διέγραψε το ",
         "NO": "Όχι, Κράτησε τον/την"
       }
-    }
+    },
+    "COUNT": "{n} label | {n} labels",
+    "SEARCH_PLACEHOLDER": "Αναζήτηση ετικετών...",
+    "NO_RESULTS": "No labels found matching your search"
   }
 }

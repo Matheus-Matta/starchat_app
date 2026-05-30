@@ -116,6 +116,9 @@
         "LABEL": "Разрешить автоматическое назначение для этой команды."
       },
       "SUBMIT_CREATE": "Создать команду"
-    }
+    },
+    "COUNT": "{n} team | {n} teams",
+    "SEARCH_PLACEHOLDER": "Поиск команд...",
+    "NO_RESULTS": "No teams found matching your search"
   }
 }

@@ -1,4 +1,9 @@
-describe 'GET /api/v1/accounts/{account.id}/portals/{portal.slug}/ssl_status' do
+require 'rails_helper'
+
+RSpec.describe 'GET /api/v1/accounts/{account.id}/portals/{portal.slug}/ssl_status', type: :request do
+  let(:account) { create(:account) }
+  let(:agent) { create(:user, account: account, role: :agent) }
+  let(:portal) { create(:portal, slug: 'portal-no-domain', account_id: account.id) }
   let(:portal_with_domain) { create(:portal, slug: 'portal-with-domain', account_id: account.id, custom_domain: 'docs.example.com') }
 
   context 'when it is an unauthenticated user' do

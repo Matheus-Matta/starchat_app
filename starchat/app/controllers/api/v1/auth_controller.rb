@@ -54,7 +54,7 @@ class Api::V1::AuthController < Api::BaseController
     error = 'saml-authentication-failed'
 
     if mobile_target?
-      mobile_deep_link_base = GlobalConfigService.load('MOBILE_DEEP_LINK_BASE', 'starchatsapp')
+      mobile_deep_link_base = GlobalConfigService.load('MOBILE_DEEP_LINK_BASE', 'starchatapp')
       redirect_to "#{mobile_deep_link_base}://auth/saml?error=#{ERB::Util.url_encode(error)}", allow_other_host: true
     else
       redirect_to sso_login_page_url(error: error)

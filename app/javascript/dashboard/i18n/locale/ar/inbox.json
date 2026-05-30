@@ -1,10 +1,10 @@
 {
   "INBOX": {
     "LIST": {
+      "404": "لا توجد إشعارات نشطة في هذه المجموعة.",
       "TITLE": "My Inbox",
       "DISPLAY_DROPDOWN": "عرض",
       "LOADING": "جار جلب الإشعارات",
-      "404": "لا توجد إشعارات نشطة في هذه المجموعة.",
       "NO_NOTIFICATIONS": "لا توجد إشعارات",
       "NOTE": "الإشعارات من جميع صناديق الوارد المشترك بها",
       "NO_MESSAGES_AVAILABLE": "عذرًا! لا يمكن جلب الرسائل",
@@ -72,6 +72,24 @@
       "MARK_ALL_READ": "تم تحديد جميع الإشعارات كمقروءة",
       "DELETE_ALL": "تم حذف كل الإشعارات",
       "DELETE_ALL_READ": "تم حذف كل الإشعارات المقروءة"
+    },
+    "REAUTHORIZE": {
+      "TITLE": "Reauthorization Required",
+      "DESCRIPTION": "Your WhatsApp connection has expired. Please reconnect to continue receiving and sending messages.",
+      "BUTTON_TEXT": "Reconnect WhatsApp",
+      "LOADING_FACEBOOK": "Loading Facebook SDK...",
+      "SUCCESS": "WhatsApp reconnected successfully",
+      "ERROR": "Failed to reconnect WhatsApp. Please try again.",
+      "WHATSAPP_APP_ID_MISSING": "WhatsApp App ID is not configured. Please contact your administrator.",
+      "WHATSAPP_CONFIG_ID_MISSING": "WhatsApp Configuration ID is not configured. Please contact your administrator.",
+      "CONFIGURATION_ERROR": "Configuration error occurred during reauthorization.",
+      "FACEBOOK_LOAD_ERROR": "Failed to load Facebook SDK. Please try again.",
+      "TROUBLESHOOTING": {
+        "TITLE": "Troubleshooting",
+        "POPUP_BLOCKED": "Ensure pop-ups are allowed for this site",
+        "COOKIES": "Third-party cookies must be enabled",
+        "ADMIN_ACCESS": "You need admin access to the WhatsApp Business Account"
+      }
     }
   }
 }

@@ -13,7 +13,8 @@
       "TABLE_HEADER": {
         "NAME": "പേര്",
         "DESCRIPTION": "വിവരണം",
-        "COLOR": "നിറം"
+        "COLOR": "നിറം",
+        "ACTION": "പ്രവർത്തനങ്ങൾ"
       }
     },
     "FORM": {
@@ -80,6 +81,9 @@
         "YES": "അതെ, ഇല്ലാതാക്കുക ",
         "NO": "ഇല്ല, സൂക്ഷിക്കുക"
       }
-    }
+    },
+    "COUNT": "{n} label | {n} labels",
+    "SEARCH_PLACEHOLDER": "ലേബലുകൾ തിരയുക...",
+    "NO_RESULTS": "No labels found matching your search"
   }
 }

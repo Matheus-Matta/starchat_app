@@ -7,7 +7,7 @@ import { computed } from 'vue';
 
 export function useLabelSuggestions() {
   // Keep upstream-compatible names to avoid refactors in callers
-  const captainTasksEnabled = computed(() => false);
+  const cosmosTasksEnabled = computed(() => false);
   const isLabelSuggestionFeatureEnabled = computed(() => false);
 
   const getLabelSuggestions = async () => {
@@ -15,7 +15,7 @@ export function useLabelSuggestions() {
   };
 
   return {
-    captainTasksEnabled,
+    cosmosTasksEnabled,
     isLabelSuggestionFeatureEnabled,
     getLabelSuggestions,
   };

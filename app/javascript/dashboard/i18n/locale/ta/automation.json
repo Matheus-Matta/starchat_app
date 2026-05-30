@@ -40,13 +40,14 @@
       }
     },
     "LIST": {
+      "404": "No automation rules found",
       "TABLE_HEADER": {
         "NAME": "பெயர்",
         "DESCRIPTION": "Description",
         "ACTIVE": "Active",
-        "CREATED_ON": "Created on"
-      },
-      "404": "No automation rules found"
+        "CREATED_ON": "Created on",
+        "ACTIONS": "செயல்கள்"
+      }
     },
     "DELETE": {
       "TITLE": "Delete Automation Rule",
@@ -131,7 +132,8 @@
       "CONVERSATION_CREATED": "Conversation Created",
       "CONVERSATION_UPDATED": "Conversation Updated",
       "MESSAGE_CREATED": "Message Created",
-      "CONVERSATION_OPENED": "Conversation Opened"
+      "CONVERSATION_OPENED": "Conversation Opened",
+      "CONVERSATION_RESOLVED": "Conversation Resolved"
     },
     "ACTIONS": {
       "ASSIGN_AGENT": "Assign to Agent",
@@ -149,7 +151,10 @@
       "ADD_PRIVATE_NOTE": "Add a Private Note",
       "CHANGE_PRIORITY": "Change Priority",
       "ADD_SLA": "Add SLA",
-      "OPEN_CONVERSATION": "Open conversation"
+      "OPEN_CONVERSATION": "Open conversation",
+      "REMOVE_ASSIGNED_AGENT": "Remove Assigned Agent",
+      "REMOVE_ASSIGNED_TEAM": "Remove Assigned Team",
+      "PENDING_CONVERSATION": "Mark conversation as pending"
     },
     "MESSAGE_TYPES": {
       "INCOMING": "Incoming Message",
@@ -176,7 +181,14 @@
       "REFERER_LINK": "Referrer Link",
       "ASSIGNEE_NAME": "Assignee",
       "TEAM_NAME": "Team",
-      "PRIORITY": "Priority"
-    }
+      "PRIORITY": "Priority",
+      "PRIVATE_NOTE": "தனிப்பட்ட குறிப்பு",
+      "COMPANY_NAME": "Company",
+      "LABELS": "Labels"
+    },
+    "COUNT": "{n} automation | {n} automations",
+    "SEARCH_PLACEHOLDER": "Search automation rules...",
+    "NO_RESULTS": "No automation rules found matching your search",
+    "LAST_RESPONDING_AGENT": "Last Responding Agent"
   }
 }

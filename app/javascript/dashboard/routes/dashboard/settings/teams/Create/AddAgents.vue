@@ -2,7 +2,6 @@
 import { mapGetters } from 'vuex';
 import { useAlert } from 'dashboard/composables';
 
-import router from '../../../../index';
 import PageHeader from '../../SettingsSubPageHeader.vue';
 import AgentSelector from '../AgentSelector.vue';
 import { useVuelidate } from '@vuelidate/core';
@@ -70,7 +69,7 @@ export default {
           teamId,
           agentsList: selectedAgents,
         });
-        router.replace({
+        this.$router.replace({
           name: 'settings_teams_finish',
           params: {
             page: 'new',

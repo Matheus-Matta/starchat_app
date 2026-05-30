@@ -24,6 +24,8 @@ RSpec.describe 'Enterprise Inboxes API', type: :request do
       end
 
       it 'creates a voice inbox when administrator' do
+        allow_any_instance_of(Twilio::VoiceWebhookSetupService).to receive(:perform).and_return('AP123456fake')
+
         post "/api/v1/accounts/#{account.id}/inboxes",
              headers: admin.create_new_auth_token,
              params: { name: 'Voice Inbox',

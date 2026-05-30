@@ -116,6 +116,9 @@
         "LABEL": "Permitir a atribuição automática para esta equipa."
       },
       "SUBMIT_CREATE": "Criar uma equipa"
-    }
+    },
+    "COUNT": "{n} team | {n} teams",
+    "SEARCH_PLACEHOLDER": "Procurar equipas...",
+    "NO_RESULTS": "No teams found matching your search"
   }
 }

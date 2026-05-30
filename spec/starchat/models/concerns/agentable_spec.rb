@@ -120,7 +120,7 @@ RSpec.describe Concerns::Agentable do
                                          }
                                        })
 
-      expect(Captain::PromptRenderer).to receive(:render).with(
+      expect(Cosmos::PromptRenderer).to receive(:render).with(
         'dummy_class',
         hash_including(
           campaign: { id: 10, title: 'Summer Sale', message: 'Check it out' }

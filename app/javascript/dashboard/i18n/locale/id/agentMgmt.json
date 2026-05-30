@@ -119,6 +119,9 @@
           "INPUT": "Mencari Agen"
         }
       }
-    }
+    },
+    "COUNT": "{n} agent | {n} agents",
+    "SEARCH_PLACEHOLDER": "Mencari Agen...",
+    "NO_RESULTS": "No agents found matching your search"
   }
 }

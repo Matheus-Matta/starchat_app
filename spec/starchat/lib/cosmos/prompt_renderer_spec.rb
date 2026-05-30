@@ -68,7 +68,7 @@ RSpec.describe Cosmos::PromptRenderer do
   end
 
   describe 'snippet rendering' do
-    let(:snippets_dir) { Rails.root.join('enterprise/lib/captain/prompts/snippets') }
+    let(:snippets_dir) { Rails.root.join('starchat/lib/cosmos/prompts/snippets') }
     let(:snippet_path) { snippets_dir.join('greeting.liquid') }
 
     before do

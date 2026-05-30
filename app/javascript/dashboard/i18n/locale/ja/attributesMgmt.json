@@ -7,7 +7,8 @@
     "LEARN_MORE": "カスタム属性について詳しく学ぶ",
     "ATTRIBUTE_MODELS": {
       "CONVERSATION": "会話",
-      "CONTACT": "連絡先"
+      "CONTACT": "連絡先",
+      "COMPANY": "企業名"
     },
     "ATTRIBUTE_TYPES": {
       "TEXT": "テキスト",
@@ -63,6 +64,10 @@
         },
         "ENABLE_REGEX": {
           "LABEL": "正規表現の検証を有効にする"
+        },
+        "BADGES": {
+          "PRE_CHAT": "Pre-chat",
+          "RESOLUTION": "Resolution"
         }
       },
       "API": {
@@ -101,7 +106,8 @@
     "TABS": {
       "HEADER": "カスタム属性",
       "CONVERSATION": "会話",
-      "CONTACT": "連絡先"
+      "CONTACT": "連絡先",
+      "COMPANY": "企業名"
     },
     "LIST": {
       "TABLE_HEADER": {
@@ -129,6 +135,13 @@
       "ENABLE_REGEX": {
         "LABEL": "正規表現の検証を有効にする"
       }
+    },
+    "COUNT": "{n} attribute | {n} attributes",
+    "SEARCH_PLACEHOLDER": "属性を検索...",
+    "NO_RESULTS": "No attributes found matching your search",
+    "BADGES": {
+      "PRE_CHAT": "Pre-chat",
+      "RESOLUTION": "Resolution"
     }
   }
 }

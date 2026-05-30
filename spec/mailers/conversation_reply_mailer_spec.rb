@@ -10,6 +10,7 @@ RSpec.describe ConversationReplyMailer do
     let(:email_channel) { create(:channel_email, account: account) }
 
     before do
+      account.update!(feature_flags: 0)
       allow(described_class).to receive(:new).and_return(class_instance)
       allow(class_instance).to receive(:smtp_config_set_or_development?).and_return(true)
     end

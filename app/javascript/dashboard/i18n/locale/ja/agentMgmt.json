@@ -119,6 +119,9 @@
           "INPUT": "担当者を検索"
         }
       }
-    }
+    },
+    "COUNT": "{n} agent | {n} agents",
+    "SEARCH_PLACEHOLDER": "担当者を検索...",
+    "NO_RESULTS": "No agents found matching your search"
   }
 }

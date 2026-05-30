@@ -34,7 +34,8 @@
       "LOADING": "Pobieranie botów...",
       "TABLE_HEADER": {
         "DETAILS": "Szczegóły bota",
-        "URL": "Adres URL webhooka"
+        "URL": "Adres URL webhooka",
+        "ACTIONS": "Akcje"
       }
     },
     "DELETE": {
@@ -98,6 +99,19 @@
     },
     "TYPES": {
       "WEBHOOK": "Bot webhook"
+    },
+    "COUNT": "{n} bot | {n} bots",
+    "SEARCH_PLACEHOLDER": "Search bots...",
+    "NO_RESULTS": "No bots found matching your search",
+    "SECRET": {
+      "LABEL": "Webhook Secret",
+      "COPY": "Copy secret to clipboard",
+      "COPY_SUCCESS": "Secret copied to clipboard",
+      "TOGGLE": "Toggle secret visibility",
+      "CREATED_DESC": "Use the secret below to verify webhook signatures. Please copy it now, you can also find it later in the bot settings.",
+      "DONE": "Done",
+      "RESET_SUCCESS": "Webhook secret regenerated successfully",
+      "RESET_ERROR": "Unable to regenerate webhook secret. Please try again"
     }
   }
 }

@@ -32,11 +32,14 @@ class Public::Api::V1::Portals::ArticlesController < Public::Api::V1::Portals::B
     expires_in 24.hours, public: false
     response.headers['Content-Type'] = 'image/png'
 
-    pixel_path = Rails.public_path.join('assets/images/tracking-pixel.png')
-    send_file pixel_path, type: 'image/png', disposition: 'inline'
+    send_data tracking_pixel_png, type: 'image/png', disposition: 'inline'
   end
 
   private
+
+  def tracking_pixel_png
+    Base64.decode64('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+/p9sAAAAASUVORK5CYII=')
+  end
 
   def limit_results
     return if list_params[:per_page].blank?

@@ -1,8 +1,8 @@
 {
   "CONVERSATION": {
+    "404": "Desculpe, não conseguimos encontrar a conversa. Por favor, tente novamente",
     "SELECT_A_CONVERSATION": "Por favor, selecione uma conversa no painel da esquerda",
     "CSAT_REPLY_MESSAGE": "Por favor, classifique a conversa",
-    "404": "Desculpe, não conseguimos encontrar a conversa. Por favor, tente novamente",
     "SWITCH_VIEW_LAYOUT": "Alternar o layout",
     "DASHBOARD_APP_TAB_MESSAGES": "Mensagens",
     "UNVERIFIED_SESSION": "A identidade deste usuário não foi verificada",
@@ -69,7 +69,8 @@
     "REPLY_MESSAGE_NOT_FOUND": "Mensagem não disponível",
     "CARD": {
       "SHOW_LABELS": "Mostrar etiquetas",
-      "HIDE_LABELS": "Ocultar as etiquetas"
+      "HIDE_LABELS": "Ocultar as etiquetas",
+      "LABELS_COUNT": "{count} etiquetas"
     },
     "VOICE_CALL": {
       "INCOMING_CALL": "Incoming call",
@@ -80,7 +81,9 @@
       "CALL_ENDED": "Call ended",
       "NOT_ANSWERED_YET": "Not answered yet",
       "THEY_ANSWERED": "They answered",
-      "YOU_ANSWERED": "You answered"
+      "YOU_ANSWERED": "You answered",
+      "AGENT_ANSWERED": "{agentName} respondeu",
+      "JOIN_CALL": "Entrar na chamada"
     },
     "HEADER": {
       "RESOLVE_ACTION": "Resolver",
@@ -102,7 +105,8 @@
         "DUE": "venceu"
       },
       "PROTOCOL_COPIED": "Protocolo copiado",
-      "COPY_PROTOCOL": "Copiar Protocolo"
+      "COPY_PROTOCOL": "Copiar Protocolo",
+      "COPY_ID_SUCCESS": "ID da conversa copiado para área de transferência"
     },
     "RESOLVE_DROPDOWN": {
       "MARK_PENDING": "Deixar pendente",
@@ -177,6 +181,10 @@
         "TEAM_ASSIGNMENT": {
           "SUCCESFUL": "Time {team} atribuído para o id de conversa {conversationId}",
           "FAILED": "Não foi possível atribuir time. Por favor, tente novamente."
+        },
+        "LABEL_REMOVAL": {
+          "SUCCESFUL": "Etiqueta #{labelName} removida da conversa com id {conversationId}",
+          "FAILED": "Não foi possível remover a etiqueta. Por favor, tente novamente."
         }
       }
     },
@@ -188,7 +196,11 @@
       "PRIVATE_MSG_INPUT": "A mensagem será visível apenas para agentes",
       "MESSAGE_SIGNATURE_NOT_CONFIGURED": "A assinatura da mensagem não está configurada. Por favor, configure-a nas configurações do perfil.",
       "CLICK_HERE": "Clique aqui para atualizar",
-      "WHATSAPP_TEMPLATES": "Templates do Whatsapp"
+      "WHATSAPP_TEMPLATES": "Templates do Whatsapp",
+      "MESSAGING_RESTRICTED": "Você não pode responder esta conversa",
+      "MESSAGING_RESTRICTED_WHATSAPP": "Você só pode responder usando uma mensagem de modelo devido à restrição da janela de 24 horas",
+      "MESSAGING_RESTRICTED_API": "Você só pode responder usando uma mensagem de template devido à restrição da janela de mensagens",
+      "COPILOT_MSG_INPUT": "Forneça instruções adicionais ao Copiloto ou pergunte algo mais... Pressione Enter para enviar"
     },
     "REPLYBOX": {
       "REPLY": "Responder",
@@ -229,6 +241,14 @@
           "YES": "Enviar",
           "CANCEL": "Cancelar"
         }
+      },
+      "COPILOT_THINKING": "O Copiloto está pensando",
+      "QUOTED_REPLY": {
+        "ENABLE_TOOLTIP": "Incluir o encadeamento de e-mails citado",
+        "DISABLE_TOOLTIP": "Não incluir o encadeamento de e-mails citado",
+        "REMOVE_PREVIEW": "Remover o encadeamento de e-mails citado",
+        "COLLAPSE": "Recolher a prévia",
+        "EXPAND": "Expandir a prévia"
       }
     },
     "VISIBLE_TO_AGENTS": "Mensagem Privada: Apenas visível para você e seu time",
@@ -270,6 +290,21 @@
     "SIDEBAR": {
       "CONTACT": "Contatos",
       "COPILOT": "Cosmoso"
+    },
+    "48_HOURS_WINDOW": "Restrição da janela de mensagens de 48 horas",
+    "UNSUPPORTED_MESSAGE_TIKTOK": "Esta mensagem não é compatível. Você pode visualizá-la no aplicativo do TikTok.",
+    "FILE_TYPE_NOT_SUPPORTED": "O tipo de arquivo {fileName} não é suportado nesta conversa",
+    "NATIVE_APP": "Aplicativo nativo",
+    "NATIVE_APP_ADVISORY": "Esta mensagem foi enviada a partir do aplicativo nativo. Responda pelo Chatwoot para manter a janela de mensagens ativa.",
+    "VOICE_WIDGET": {
+      "INCOMING_CALL": "Chamada recebida",
+      "OUTGOING_CALL": "Chamada realizada",
+      "CALL_IN_PROGRESS": "Chamada em andamento",
+      "NOT_ANSWERED_YET": "Ainda não respondido",
+      "HANDLED_IN_ANOTHER_TAB": "Sendo atendida em outra aba",
+      "REJECT_CALL": "Recusar",
+      "JOIN_CALL": "Entrar na chamada",
+      "END_CALL": "Encerrar chamada"
     }
   },
   "EMAIL_TRANSCRIPT": {
@@ -287,7 +322,8 @@
         "PLACEHOLDER": "Digite um endereço de e-mail",
         "ERROR": "Por favor, insira um endereço de e-mail válido"
       }
-    }
+    },
+    "SEND_EMAIL_PAYMENT_REQUIRED": "A transcrição de e-mail não está disponível no seu plano atual. Por favor, atualize para usar este recurso."
   },
   "ONBOARDING": {
     "TITLE": "Olá, 👋. Bem-vindo ao {installationName}!",
@@ -335,7 +371,8 @@
       "MACROS": "Macros",
       "LINEAR_ISSUES": "Problemas do Linear vinculados",
       "SHOPIFY_ORDERS": "Shopify Orders",
-      "PROTOCOL": "Protocolo SAC"
+      "PROTOCOL": "Protocolo SAC",
+      "SHARED_FILES": "Anexos"
     },
     "SHOPIFY": {
       "ORDER_ID": "Order #{id}",
@@ -355,6 +392,17 @@
         "PARTIALLY_FULFILLED": "Partially Fulfilled",
         "UNFULFILLED": "Unfulfilled"
       }
+    },
+    "SHARED_FILES": {
+      "EMPTY": "Nenhum anexo ainda",
+      "DOWNLOAD": "Baixar arquivo",
+      "DOWNLOAD_ERROR": "Não foi possível baixar o arquivo. Por favor, tente novamente.",
+      "MEDIA_HEADING": "Mídia",
+      "FILES_HEADING": "Arquivos",
+      "VIEW_ALL": "Visualizar tudo",
+      "SHOW_LESS": "Mostrar menos",
+      "MORE_COUNT": "+{count}",
+      "UNTITLED_FILE": "Arquivo sem nome"
     }
   },
   "CONVERSATION_CUSTOM_ATTRIBUTES": {

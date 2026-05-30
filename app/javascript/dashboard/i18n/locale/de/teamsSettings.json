@@ -116,6 +116,9 @@
         "LABEL": "Automatische Zuweisung in diesem Team aktivieren."
       },
       "SUBMIT_CREATE": "Neues Team erstellen"
-    }
+    },
+    "COUNT": "{n} team | {n} teams",
+    "SEARCH_PLACEHOLDER": "Teams suchen...",
+    "NO_RESULTS": "No teams found matching your search"
   }
 }

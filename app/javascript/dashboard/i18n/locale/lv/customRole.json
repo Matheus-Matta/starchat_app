@@ -13,7 +13,7 @@
       "UPGRADE_NOW": "Pāriet uz maksas versiju tagad",
       "CANCEL_ANYTIME": "Jūs varat jebkurā laikā mainīt vai atcelt savu versiju"
     },
-    "ENTERPRISE_PAYWALL": {
+    "STARCHAT_PAYWALL": {
       "AVAILABLE_ON": "Pielāgotu lomu funkcija ir pieejama tikai maksas plānos.",
       "UPGRADE_PROMPT": "Pārejiet uz maksas versiju, lai piekļūtu papildu funkcijām. Piemēram: audita žurnāliem, aģentu kapacitātei, un citām.",
       "ASK_ADMIN": "Lai pārietu uz maksas versiju, lūdzu sazinieties ar savu administratoru."
@@ -87,6 +87,14 @@
         "YES": "Jā, dzēst ",
         "NO": "Nē, paturēt "
       }
+    },
+    "COUNT": "{n} custom role | {n} custom roles",
+    "SEARCH_PLACEHOLDER": "Search custom roles...",
+    "NO_RESULTS": "No custom roles found matching your search",
+    "ENTERPRISE_PAYWALL": {
+      "AVAILABLE_ON": "Pielāgotu lomu funkcija ir pieejama tikai maksas plānos.",
+      "UPGRADE_PROMPT": "Pārejiet uz maksas versiju, lai piekļūtu papildu funkcijām. Piemēram: audita žurnāliem, aģentu kapacitātei, un citām.",
+      "ASK_ADMIN": "Lai pārietu uz maksas versiju, lūdzu sazinieties ar savu administratoru."
     }
   }
 }

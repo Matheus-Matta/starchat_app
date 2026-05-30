@@ -44,7 +44,7 @@ class Portal < ApplicationRecord
 
   scope :active, -> { where(archived: false) }
 
-  CONFIG_JSON_KEYS = %w[allowed_locales default_locale website_token].freeze
+  CONFIG_JSON_KEYS = %w[allowed_locales default_locale draft_locales website_token].freeze
 
   def file_base_data
     {
@@ -60,6 +60,14 @@ class Portal < ApplicationRecord
 
   def default_locale
     config['default_locale'] || 'en'
+  end
+
+  def allowed_locale_codes
+    Array(config['allowed_locales'])
+  end
+
+  def draft_locale_codes
+    Array(config['draft_locales'])
   end
 
   private

@@ -25,13 +25,14 @@
       }
     },
     "LIST": {
+      "404": "未找到宏",
       "TABLE_HEADER": {
         "NAME": "姓名：",
         "CREATED BY": "创建者",
         "LAST_UPDATED_BY": "最后更新者",
-        "VISIBILITY": "可视性"
-      },
-      "404": "未找到宏"
+        "VISIBILITY": "可视性",
+        "ACTIONS": "操作"
+      }
     },
     "DELETE": {
       "TOOLTIP": "删除宏文件",
@@ -62,7 +63,9 @@
         "LABEL": "宏可见性",
         "GLOBAL": {
           "LABEL": "公开的",
-          "DESCRIPTION": "此宏对此帐户中的所有代理公开可用"
+          "DESCRIPTION": "此宏对此帐户中的所有代理公开可用",
+          "CREATE_DISABLED_DESCRIPTION": "Only administrators can create public macros.",
+          "EDIT_DISABLED_DESCRIPTION": "Only administrators can edit public macros."
         },
         "PERSONAL": {
           "LABEL": "私人的",
@@ -98,7 +101,8 @@
       "SEND_MESSAGE": "发送消息",
       "CHANGE_PRIORITY": "更改优先级",
       "ADD_PRIVATE_NOTE": "添加私密注释",
-      "SEND_WEBHOOK_EVENT": "发送 Webhook 事件"
+      "SEND_WEBHOOK_EVENT": "发送 Webhook 事件",
+      "REMOVE_ASSIGNED_AGENT": "Remove Assigned Agent"
     },
     "PRIORITY_TYPES": {
       "NONE": "啥都没有",
@@ -106,6 +110,12 @@
       "MEDIUM": "中",
       "HIGH": "高",
       "URGENT": "紧急的"
+    },
+    "COUNT": "{n} macro | {n} macros",
+    "SEARCH_PLACEHOLDER": "Search macros...",
+    "NO_RESULTS": "No macros found matching your search",
+    "VIEW": {
+      "TOOLTIP": "View macro"
     }
   }
 }

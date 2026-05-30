@@ -1,15 +1,8 @@
-class Captain::Llm::EmbeddingService
-  include Integrations::LlmInstrumentation
-
 class Cosmos::Llm::EmbeddingService < Llm::BaseOpenAiService
   class EmbeddingsError < StandardError; end
 
   def self.embedding_model
     @embedding_model = InstallationConfig.find_by(name: 'COSMOS_EMBEDDING_MODEL')&.value.presence || OpenAiConstants::DEFAULT_EMBEDDING_MODEL
-  end
-
-  def self.embedding_model
-    InstallationConfig.find_by(name: 'CAPTAIN_EMBEDDING_MODEL')&.value.presence || LlmConstants::DEFAULT_EMBEDDING_MODEL
   end
 
   def get_embedding(content, model: @embedding_model)
@@ -27,7 +20,7 @@ class Cosmos::Llm::EmbeddingService < Llm::BaseOpenAiService
 
   def instrumentation_params(content, model)
     {
-      span_name: 'llm.captain.embedding',
+      span_name: 'llm.cosmos.embedding',
       model: model,
       input: content,
       feature_name: 'embedding',

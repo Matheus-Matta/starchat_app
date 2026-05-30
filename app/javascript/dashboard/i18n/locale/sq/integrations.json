@@ -13,7 +13,8 @@
         "CANCEL": "Cancel",
         "SUBMIT": "Connect Store"
       },
-      "ERROR": "There was an error connecting to Shopify. Please try again or contact support if the issue persists."
+      "ERROR": "There was an error connecting to Shopify. Please try again or contact support if the issue persists.",
+      "HEADER": "Shopify"
     },
     "HEADER": "Integrations",
     "DESCRIPTION": "Chatwoot integrates with multiple tools and services to improve your team's efficiency. Explore the list below to configure your favorite apps.",
@@ -52,7 +53,11 @@
           "ERROR": "Please enter a valid URL"
         },
         "EDIT_SUBMIT": "Update webhook",
-        "ADD_SUBMIT": "Create webhook"
+        "ADD_SUBMIT": "Create webhook",
+        "NAME": {
+          "LABEL": "Webhook Name",
+          "PLACEHOLDER": "Shkruani emrin e webhook-ut"
+        }
       },
       "TITLE": "Webhook",
       "CONFIGURE": "Configure",
@@ -97,7 +102,18 @@
           "YES": "Yes, Delete ",
           "NO": "No, Keep it"
         }
-      }
+      },
+      "SECRET": {
+        "LABEL": "Sekret",
+        "COPY": "Kopjo sekretin në kujtesën e përkohshme",
+        "COPY_SUCCESS": "Sekreti u kopjua në kujtesën e përkohshme",
+        "TOGGLE": "Ndrysho dukshmërinë e sekretit",
+        "CREATED_DESC": "Webhook juaj është krijuar. Përdorni sekretin më poshtë për të verifikuar nënshkrimet e webhook-ut. Ju lutemi kopjoni tani — mund ta gjeni edhe më vonë në formularin e redaktimit të webhook-ut.",
+        "DONE": "U krye"
+      },
+      "COUNT": "{n} webhook | {n} webhooks",
+      "SEARCH_PLACEHOLDER": "Search webhooks...",
+      "NO_RESULTS": "No webhooks found matching your search"
     },
     "SLACK": {
       "DELETE": "Delete",
@@ -120,7 +136,8 @@
       },
       "UPDATE_ERROR": "There was an error updating the integration, please try again",
       "UPDATE_SUCCESS": "The channel is connected successfully",
-      "FAILED_TO_FETCH_CHANNELS": "There was an error fetching the channels from Slack, please try again"
+      "FAILED_TO_FETCH_CHANNELS": "There was an error fetching the channels from Slack, please try again",
+      "HEADER": "Slack"
     },
     "DYTE": {
       "CLICK_HERE_TO_JOIN": "Click here to join",
@@ -141,7 +158,11 @@
         "EXPAND": "Expand",
         "MAKE_FRIENDLY": "Change message tone to friendly",
         "MAKE_FORMAL": "Use formal tone",
-        "SIMPLIFY": "Simplify"
+        "SIMPLIFY": "Simplify",
+        "CONFIDENT": "Përdor ton të sigurt",
+        "PROFESSIONAL": "Përdor ton profesional",
+        "CASUAL": "Përdor ton të përditshëm",
+        "STRAIGHTFORWARD": "Përdor ton të drejtpërdrejtë"
       },
       "ASSISTANCE_MODAL": {
         "DRAFT_TITLE": "Draft content",
@@ -180,7 +201,25 @@
         "GENERATING": "Generating...",
         "CANCEL": "Cancel"
       },
-      "GENERATE_ERROR": "There was an error processing the content, please verify your OpenAI API key and try again"
+      "GENERATE_ERROR": "There was an error processing the content, please verify your OpenAI API key and try again",
+      "REPLY_OPTIONS": {
+        "IMPROVE_REPLY": "Përmirëso përgjigjen",
+        "IMPROVE_REPLY_SELECTION": "Përmirëso përzgjedhjen",
+        "CHANGE_TONE": {
+          "TITLE": "Ndrysho tonin",
+          "OPTIONS": {
+            "PROFESSIONAL": "Profesional",
+            "CASUAL": "I përditshëm",
+            "STRAIGHTFORWARD": "I thjeshtë",
+            "CONFIDENT": "I sigurt",
+            "FRIENDLY": "Miqësor"
+          }
+        },
+        "GRAMMAR": "Rregullo gramatikën dhe drejtshkrimin",
+        "SUGGESTION": "Sugjero një përgjigje",
+        "SUMMARIZE": "Përmbledh bisedën",
+        "ASK_COPILOT": "Ask Copilot"
+      }
     },
     "DELETE": {
       "BUTTON_TEXT": "Delete",
@@ -202,7 +241,8 @@
         "LOADING": "Fetching dashboard apps...",
         "TABLE_HEADER": {
           "NAME": "Name",
-          "ENDPOINT": "Endpoint"
+          "ENDPOINT": "Endpoint",
+          "ACTIONS": "Veprime"
         },
         "EDIT_TOOLTIP": "Edit app",
         "DELETE_TOOLTIP": "Delete app"
@@ -236,7 +276,10 @@
         "MESSAGE": "Are you sure to delete the app - {appName}?",
         "API_SUCCESS": "Dashboard app deleted successfully",
         "API_ERROR": "We couldn't delete the app. Please try again later"
-      }
+      },
+      "COUNT": "{n} aplikacion paneli | {n} aplikacione paneli",
+      "SEARCH_PLACEHOLDER": "Kërko aplikacione në panelin e kontrollit...",
+      "NO_RESULTS": "Nuk u gjetën aplikacione në panelin e kontrollit që përputhen me kërkimin tuaj"
     },
     "LINEAR": {
       "ADD_OR_LINK_BUTTON": "Create/Link Linear Issue",
@@ -330,7 +373,8 @@
         "AGENT_DESCRIPTION": "Linear workspace is not connected. Request your administrator to connect a workspace to use this integration.",
         "DESCRIPTION": "Linear workspace is not connected. Click the button below to connect your workspace to use this integration.",
         "BUTTON_TEXT": "Connect Linear workspace"
-      }
+      },
+      "HEADER": "Linear"
     },
     "NOTION": {
       "DELETE": {
@@ -338,7 +382,16 @@
         "MESSAGE": "Deleting this integration will remove access to your Notion workspace and stop all related functionality.",
         "CONFIRM": "Yes, delete",
         "CANCEL": "Cancel"
-      }
+      },
+      "HEADER": "Notion"
+    },
+    "SEARCH_PLACEHOLDER": "Kërko integrime...",
+    "NO_RESULTS": "Nuk u gjet asnjë integrim që përputhet me kërkimin tuaj",
+    "CAPTAIN": {
+      "DISABLED": "Captain nuk është aktivizuar në llogarinë tuaj.",
+      "CLICK_HERE_TO_CONFIGURE": "Klikoni këtu për të konfiguruar",
+      "LOADING_CONSOLE": "Duke ngarkuar Konsolën Captain...",
+      "FAILED_TO_LOAD_CONSOLE": "Ngarkimi i Konsolës Captain dështoi. Ju lutemi rifreskoni dhe provoni përsëri."
     }
   },
   "COSMOS": {
@@ -395,7 +448,7 @@
       "UPGRADE_NOW": "Upgrade now",
       "CANCEL_ANYTIME": "You can change or cancel your plan anytime"
     },
-    "ENTERPRISE_PAYWALL": {
+    "STARCHAT_PAYWALL": {
       "UPGRADE_PROMPT": "Upgrade your plan to get access to our assistants, cosmos and more.",
       "ASK_ADMIN": "Please reach out to your administrator for the upgrade."
     },
@@ -861,6 +914,718 @@
       "EMPTY_STATE": {
         "TITLE": "No Connected Inboxes",
         "SUBTITLE": "Connecting an inbox allows the assistant to handle initial questions from your customers before transferring them to you."
+      }
+    }
+  },
+  "CAPTAIN": {
+    "NAME": "Kapiten",
+    "HEADER_KNOW_MORE": "Mëso më shumë",
+    "ASSISTANT_SWITCHER": {
+      "ASSISTANTS": "Asistentë",
+      "SWITCH_ASSISTANT": "Ndrysho midis asistentëve",
+      "NEW_ASSISTANT": "Krijo Asistent",
+      "EMPTY_LIST": "Nuk u gjetën asistentë, ju lutemi krijoni një për të filluar"
+    },
+    "COPILOT": {
+      "TITLE": "Kopilot",
+      "TRY_THESE_PROMPTS": "Provo këto sugjerime",
+      "PANEL_TITLE": "Filloni me Copilot",
+      "KICK_OFF_MESSAGE": "Keni nevojë për një përmbledhje të shpejtë, doni të kontrolloni bisedat e kaluara, apo të hartoni një përgjigje më të mirë? Copilot është këtu për të përshpejtuar punën.",
+      "SEND_MESSAGE": "Dërgo mesazh...",
+      "EMPTY_MESSAGE": "Ndodhi një gabim gjatë gjenerimit të përgjigjes. Ju lutemi provoni përsëri.",
+      "LOADER": "Kapiteni po mendon",
+      "YOU": "Ju",
+      "USE": "Përdor këtë",
+      "RESET": "Rivendos",
+      "SHOW_STEPS": "Trego hapat",
+      "SELECT_ASSISTANT": "Zgjidh Asistentin",
+      "PROMPTS": {
+        "SUMMARIZE": {
+          "LABEL": "Përmbledh këtë bisedë",
+          "CONTENT": "Përmbledh pikat kryesore të diskutimit midis klientit dhe agjentit të mbështetjes, duke përfshirë shqetësimet, pyetjet e klientit dhe zgjidhjet ose përgjigjet e ofruara nga agjenti i mbështetjes"
+        },
+        "SUGGEST": {
+          "LABEL": "Sugjero një përgjigje",
+          "CONTENT": "Analizo pyetjen e klientit dhe harto një përgjigje që adreson në mënyrë efektive shqetësimet ose pyetjet e tyre. Sigurohu që përgjigjja të jetë e qartë, koncize dhe të ofrojë informacion të dobishëm."
+        },
+        "RATE": {
+          "LABEL": "Vlerëso këtë bisedë",
+          "CONTENT": "Rishiko bisedën për të parë sa mirë i përmbush nevojat e klientit. Jep një vlerësim nga 5 bazuar në tonin, qartësinë dhe efektivitetin."
+        },
+        "HIGH_PRIORITY": {
+          "LABEL": "Biseda me prioritet të lartë",
+          "CONTENT": "Më jep një përmbledhje të të gjitha bisedave të hapura me prioritet të lartë. Përfshi ID-në e bisedës, emrin e klientit (nëse është i disponueshëm), përmbajtjen e mesazhit të fundit dhe agjentin e caktuar. Grupohu sipas statusit nëse është e rëndësishme."
+        },
+        "LIST_CONTACTS": {
+          "LABEL": "Listo kontaktet",
+          "CONTENT": "Më trego listën e 10 kontakteve kryesore. Përfshi emrin, emailin ose numrin e telefonit (nëse është i disponueshëm), kohën e fundit kur janë parë, etiketat (nëse ka)."
+        }
+      }
+    },
+    "PLAYGROUND": {
+      "USER": "Ju",
+      "ASSISTANT": "Asistent",
+      "MESSAGE_PLACEHOLDER": "Shkruani mesazhin tuaj...",
+      "HEADER": "Fushë loje",
+      "DESCRIPTION": "Përdorni këtë fushë loje për të dërguar mesazhe asistentit tuaj dhe për të kontrolluar nëse përgjigjet saktë, shpejt dhe me tonin që prisni.",
+      "CREDIT_NOTE": "Mesazhet e dërguara këtu do të llogariten në kreditë tuaja të Captain."
+    },
+    "PAYWALL": {
+      "TITLE": "Përmirëso për të përdorur Captain AI",
+      "AVAILABLE_ON": "Captain nuk është i disponueshëm në planin falas.",
+      "UPGRADE_PROMPT": "Përmirëso planin tënd për të pasur akses në asistentët tanë, copilot dhe më shumë.",
+      "UPGRADE_NOW": "Përmirëso tani",
+      "CANCEL_ANYTIME": "Mund të ndryshosh ose anullosh planin tënd në çdo kohë"
+    },
+    "ENTERPRISE_PAYWALL": {
+      "AVAILABLE_ON": "Captain AI është në dispozicion vetëm në planet Enterprise.",
+      "UPGRADE_PROMPT": "Përmirëso planin tënd për të pasur akses në asistentët tanë, copilot dhe më shumë.",
+      "ASK_ADMIN": "Ju lutemi kontaktoni administratorin tuaj për përmirësimin."
+    },
+    "BANNER": {
+      "RESPONSES": "Keni përdorur mbi 80% të kufirit të përgjigjeve tuaja. Për të vazhduar përdorimin e Captain AI, ju lutemi përmirësoni.",
+      "DOCUMENTS": "Kufiri i dokumenteve është arritur. Përmirësoni për të vazhduar përdorimin e Captain AI."
+    },
+    "FORM": {
+      "CANCEL": "Anulo",
+      "CREATE": "Krijo",
+      "EDIT": "Përditëso"
+    },
+    "ASSISTANTS": {
+      "HEADER": "Asistentë",
+      "NO_ASSISTANTS_AVAILABLE": "Nuk ka asistentë të disponueshëm në llogarinë tuaj.",
+      "ADD_NEW": "Krijo një asistent të ri",
+      "DELETE": {
+        "TITLE": "A jeni i sigurt që dëshironi të fshini ndihmësin?",
+        "DESCRIPTION": "Kjo veprim është i përhershëm. Fshirja e këtij ndihmësi do ta heqë atë nga të gjitha kutitë postare të lidhura dhe do të fshijë përgjithmonë gjithë njohuritë e gjeneruara.",
+        "CONFIRM": "Po, fshi",
+        "SUCCESS_MESSAGE": "Ndihmësi është fshirë me sukses",
+        "ERROR_MESSAGE": "Ndodhi një gabim gjatë fshirjes së ndihmësit, ju lutemi provoni përsëri."
+      },
+      "FORM_DESCRIPTION": "Plotësoni detajet më poshtë për të emëruar asistentin tuaj, përshkruani qëllimin e tij dhe specifikoni produktin që do të mbështesë.",
+      "CREATE": {
+        "TITLE": "Krijo një asistent",
+        "SUCCESS_MESSAGE": "Asistenti u krijua me sukses",
+        "ERROR_MESSAGE": "Ndodhi një gabim gjatë krijimit të asistentit, ju lutemi provoni përsëri."
+      },
+      "FORM": {
+        "UPDATE": "Përditëso",
+        "SECTIONS": {
+          "BASIC_INFO": "Informacion bazë",
+          "SYSTEM_MESSAGES": "Mesazhet e Sistemit",
+          "INSTRUCTIONS": "Udhëzime",
+          "FEATURES": "Veçoritë",
+          "TOOLS": "Mjetet "
+        },
+        "NAME": {
+          "LABEL": "Emri",
+          "PLACEHOLDER": "Shkruani emrin e asistentit",
+          "ERROR": "Emri është i nevojshëm"
+        },
+        "TEMPERATURE": {
+          "LABEL": "Temperatura e përgjigjes",
+          "DESCRIPTION": "Rregullo sa krijuese ose kufizuese duhet të jenë përgjigjet e asistentit. Vlerat më të ulëta prodhojnë përgjigje më të përqendruara dhe deterministe, ndërsa vlerat më të larta lejojnë rezultate më krijuese dhe të ndryshme."
+        },
+        "DESCRIPTION": {
+          "LABEL": "Përshkrimi",
+          "PLACEHOLDER": "Shkruani përshkrimin e asistentit",
+          "ERROR": "Përshkrimi është i nevojshëm"
+        },
+        "PRODUCT_NAME": {
+          "LABEL": "Emri i Produktit",
+          "PLACEHOLDER": "Shkruani emrin e produktit",
+          "ERROR": "Emri i produktit është i nevojshëm"
+        },
+        "WELCOME_MESSAGE": {
+          "LABEL": "Mesazhi i mirëseardhjes",
+          "PLACEHOLDER": "Fut mesazhin e mirëseardhjes"
+        },
+        "HANDOFF_MESSAGE": {
+          "LABEL": "Mesazhi i dorëzimit",
+          "PLACEHOLDER": "Fut mesazhin e dorëzimit"
+        },
+        "RESOLUTION_MESSAGE": {
+          "LABEL": "Mesazhi i zgjidhjes",
+          "PLACEHOLDER": "Fut mesazhin e zgjidhjes"
+        },
+        "INSTRUCTIONS": {
+          "LABEL": "Udhëzime",
+          "PLACEHOLDER": "Fut udhëzimet për asistentin"
+        },
+        "FEATURES": {
+          "TITLE": "Veçoritë",
+          "ALLOW_CONVERSATION_FAQS": "Gjenero Pyetje të Shpeshta nga bisedat e zgjidhura",
+          "ALLOW_MEMORIES": "Kapni detajet kyçe si kujtime nga ndërveprimet me klientët.",
+          "ALLOW_CITATIONS": "Përfshini citime burimesh në përgjigje",
+          "ALLOW_CONTACT_ATTRIBUTES": "Allow access to contact information"
+        }
+      },
+      "EDIT": {
+        "TITLE": "Përditësoni asistentin",
+        "SUCCESS_MESSAGE": "Asistenti është përditësuar me sukses",
+        "ERROR_MESSAGE": "Ndodhi një gabim gjatë përditësimit të asistentit, ju lutemi provoni përsëri.",
+        "NOT_FOUND": "Asistenti nuk u gjet. Ju lutemi provoni përsëri."
+      },
+      "SETTINGS": {
+        "HEADER": "Cilësimet",
+        "BASIC_SETTINGS": {
+          "TITLE": "Cilësimet bazë",
+          "DESCRIPTION": "Përshtatni atë që thotë asistenti kur përfundon një bisedë ose e transferon te një njeri."
+        },
+        "SYSTEM_SETTINGS": {
+          "TITLE": "Cilësimet e sistemit",
+          "DESCRIPTION": "Përshtatni se çfarë thotë asistenti kur përfundon një bisedë ose kur e transferon te një agjent."
+        },
+        "CONTROL_ITEMS": {
+          "TITLE": "Gjërat argëtuese",
+          "DESCRIPTION": "Shto më shumë kontroll asistentit. (pak më vizual si një histori: Kufiri i pyetjes → skenarët → rezultati) Nxit përdoruesin ta përdorë me të vërtetë.",
+          "OPTIONS": {
+            "GUARDRAILS": {
+              "TITLE": "Kufij mbrojtës",
+              "DESCRIPTION": "Mban gjërat në rrugën e duhur—vetëm llojet e pyetjeve që dëshiron që asistenti yt t’i përgjigjet, asgjë jashtë kufijve ose jashtë temës."
+            },
+            "RESPONSE_GUIDELINES": {
+              "TITLE": "Udhëzime përgjigjeje",
+              "DESCRIPTION": "Stili dhe struktura e përgjigjeve të asistentit tënd—të qarta dhe miqësore? Të shkurtra dhe të gjalla? Të detajuara dhe formale?"
+            }
+          }
+        },
+        "DELETE": {
+          "TITLE": "Fshi Asistentin",
+          "DESCRIPTION": "Kjo veprim është i përhershëm. Fshirja e këtij asistenti do ta heqë atë nga të gjitha kutitë e lidhura dhe do të fshijë përgjithmonë të gjithë njohuritë e gjeneruara.",
+          "BUTTON_TEXT": "Fshij {assistantName}"
+        }
+      },
+      "OPTIONS": {
+        "EDIT_ASSISTANT": "Ndrysho Asistentin",
+        "DELETE_ASSISTANT": "Fshi Asistentin",
+        "VIEW_CONNECTED_INBOXES": "Shiko kutitë postare të lidhura"
+      },
+      "EMPTY_STATE": {
+        "TITLE": "Nuk ka asistentë në dispozicion",
+        "SUBTITLE": "Krijoni një asistent për të dhënë përgjigje të shpejta dhe të sakta për përdoruesit tuaj. Ai mund të mësojë nga artikujt tuaj të ndihmës dhe bisedat e kaluara.",
+        "FEATURE_SPOTLIGHT": {
+          "TITLE": "Asistenti Captain",
+          "NOTE": "Asistenti Captain komunikon drejtpërdrejt me klientët, mëson nga dokumentacioni juaj i ndihmës dhe bisedat e kaluara, dhe jep përgjigje të menjëhershme e të sakta. Ai trajton pyetjet fillestare dhe ofron zgjidhje të shpejta përpara se bisedën ta kalojë te një agjent kur është e nevojshme."
+        }
+      },
+      "GUARDRAILS": {
+        "TITLE": "Kufizime",
+        "DESCRIPTION": "I mban gjërat në vijë—vetëm llojet e pyetjeve që dëshironi që asistenti juaj t’u përgjigjet, asgjë e ndaluar apo jashtë teme.",
+        "BULK_ACTION": {
+          "SELECTED": "{count} artikull i zgjedhur | {count} artikuj të zgjedhur",
+          "SELECT_ALL": "Zgjidh të gjitha ({count})",
+          "UNSELECT_ALL": "Hiq përzgjedhjen nga të gjitha ({count})",
+          "BULK_DELETE_BUTTON": "Fshi"
+        },
+        "ADD": {
+          "SUGGESTED": {
+            "TITLE": "Shembuj rregullash mbrojtëse",
+            "ADD": "Shto të gjitha",
+            "ADD_SINGLE": "Shto këtë",
+            "SAVE": "Shto dhe ruaj (↵)",
+            "PLACEHOLDER": "Shkruaj një gardh tjetër..."
+          },
+          "NEW": {
+            "TITLE": "Shto një gardh",
+            "CREATE": "Krijo",
+            "CANCEL": "Anulo",
+            "PLACEHOLDER": "Shkruani një kufizim tjetër...",
+            "TEST_ALL": "Testo të gjitha"
+          }
+        },
+        "LIST": {
+          "SEARCH_PLACEHOLDER": "Kërko..."
+        },
+        "EMPTY_MESSAGE": "Nuk u gjetën kufizime. Krijo ose shto shembuj për të filluar.",
+        "SEARCH_EMPTY_MESSAGE": "Nuk u gjetën kufizime për këtë kërkim.",
+        "API": {
+          "ADD": {
+            "SUCCESS": "Kufizimet u shtuan me sukses",
+            "ERROR": "Ndodhi një gabim gjatë shtimit të kufizimeve, ju lutemi provoni përsëri."
+          },
+          "UPDATE": {
+            "SUCCESS": "Guardrails updated successfully",
+            "ERROR": "Ndodhi një gabim gjatë përditësimit të rregullave, ju lutemi provoni përsëri."
+          },
+          "DELETE": {
+            "SUCCESS": "Rregullat u fshinë me sukses",
+            "ERROR": "Ndodhi një gabim gjatë fshirjes së rregullave, ju lutemi provoni përsëri."
+          }
+        }
+      },
+      "RESPONSE_GUIDELINES": {
+        "TITLE": "Udhëzimet e përgjigjes",
+        "DESCRIPTION": "Stili dhe struktura e përgjigjeve të asistentit tuaj—të qarta dhe miqësore? Të shkurtra dhe koncize? Të detajuara dhe formale?",
+        "BULK_ACTION": {
+          "SELECTED": "{count, plural, one {{count} element i përzgjedhur} other {{count} elemente të përzgjedhura}}",
+          "SELECT_ALL": "Zgjidh të gjitha ({count})",
+          "UNSELECT_ALL": "Hiq përzgjedhjen nga të gjitha ({count})",
+          "BULK_DELETE_BUTTON": "Fshij"
+        },
+        "ADD": {
+          "SUGGESTED": {
+            "TITLE": "Udhëzime shembull për përgjigjet",
+            "ADD": "Shto të gjitha",
+            "ADD_SINGLE": "Shto këtë",
+            "SAVE": "Shto dhe ruaj (↵)",
+            "PLACEHOLDER": "Shkruani një udhëzim tjetër për përgjigjen..."
+          },
+          "NEW": {
+            "TITLE": "Shto një udhëzim për përgjigjen",
+            "CREATE": "Krijo",
+            "CANCEL": "Anulo",
+            "PLACEHOLDER": "Shkruani një udhëzim tjetër për përgjigjet...",
+            "TEST_ALL": "Testo të gjitha"
+          }
+        },
+        "LIST": {
+          "SEARCH_PLACEHOLDER": "Kërko..."
+        },
+        "EMPTY_MESSAGE": "Nuk u gjetën udhëzime përgjigjeje. Krijoni ose shtoni shembuj për të filluar.",
+        "SEARCH_EMPTY_MESSAGE": "Nuk u gjetën udhëzime përgjigjeje për këtë kërkim.",
+        "API": {
+          "ADD": {
+            "SUCCESS": "Udhëzimet e përgjigjes u shtuan me sukses",
+            "ERROR": "Ndodhi një gabim gjatë shtimit të udhëzimeve të përgjigjes, ju lutemi provoni përsëri."
+          },
+          "UPDATE": {
+            "SUCCESS": "Response Guidelines updated successfully",
+            "ERROR": "Ndodhi një gabim gjatë përditësimit të udhëzimeve të përgjigjes, ju lutemi provoni përsëri."
+          },
+          "DELETE": {
+            "SUCCESS": "Udhëzimet e përgjigjes u fshinë me sukses",
+            "ERROR": "Ndodhi një gabim gjatë fshirjes së udhëzimeve të përgjigjes, ju lutemi provoni përsëri."
+          }
+        }
+      },
+      "SCENARIOS": {
+        "TITLE": "Skenarë",
+        "DESCRIPTION": "Jepini asistentit pak kontekst—si p.sh. “çfarë të bëjë kur një përdorues ngec” ose “si të veprojë gjatë një kërkese për rimbursim”.",
+        "BULK_ACTION": {
+          "SELECTED": "{count, plural, one {{count} element i përzgjedhur} other {{count} elemente të përzgjedhura}}",
+          "SELECT_ALL": "Zgjidh të gjitha ({count})",
+          "UNSELECT_ALL": "Hiq përzgjedhjen nga të gjitha ({count})",
+          "BULK_DELETE_BUTTON": "Fshi"
+        },
+        "ADD": {
+          "SUGGESTED": {
+            "TITLE": "Shembuj skenarësh",
+            "ADD": "Shto të gjitha",
+            "ADD_SINGLE": "Shto këtë",
+            "TOOLS_USED": "Mjetet e përdorura :"
+          },
+          "NEW": {
+            "CREATE": "Shto një skenar",
+            "TITLE": "Krijo një skenar",
+            "FORM": {
+              "TITLE": {
+                "LABEL": "Titulli",
+                "PLACEHOLDER": "Shkruaj një emër për skenarin",
+                "ERROR": "Emri i skenarit është i nevojshëm"
+              },
+              "DESCRIPTION": {
+                "LABEL": "Përshkrimi",
+                "PLACEHOLDER": "Përshkruani se si dhe ku do të përdoret ky skenar",
+                "ERROR": "Përshkrimi i skenarit është i nevojshëm"
+              },
+              "INSTRUCTION": {
+                "LABEL": "Si të trajtohet",
+                "PLACEHOLDER": "Përshkruani se si dhe ku do të trajtohet ky skenar",
+                "ERROR": "Përmbajtja e skenarit është e nevojshme"
+              },
+              "CREATE": "Krijo",
+              "CANCEL": "Anulo"
+            }
+          }
+        },
+        "UPDATE": {
+          "CANCEL": "Anulo",
+          "UPDATE": "Përditëso ndryshimet"
+        },
+        "LIST": {
+          "SEARCH_PLACEHOLDER": "Kërko..."
+        },
+        "EMPTY_MESSAGE": "Nuk u gjetën skenarë. Krijo ose shto shembuj për të filluar.",
+        "SEARCH_EMPTY_MESSAGE": "Nuk u gjetën skenarë për këtë kërkim.",
+        "API": {
+          "ADD": {
+            "SUCCESS": "Skenarët u shtuan me sukses",
+            "ERROR": "Ndodhi një gabim gjatë shtimit të skenarëve, ju lutemi provoni përsëri."
+          },
+          "UPDATE": {
+            "SUCCESS": "Scenarios updated successfully",
+            "ERROR": "Ndodhi një gabim gjatë përditësimit të skenarëve, ju lutemi provoni përsëri."
+          },
+          "DELETE": {
+            "SUCCESS": "Skenarët u fshinë me sukses",
+            "ERROR": "Ndodhi një gabim gjatë fshirjes së skenarëve, ju lutemi provoni përsëri."
+          }
+        }
+      }
+    },
+    "DOCUMENTS": {
+      "HEADER": "Dokumentet",
+      "ADD_NEW": "Krijo një dokument të ri",
+      "SELECTED": "{count} i/e zgjedhur",
+      "SELECT_ALL": "Zgjidh të gjitha ({count})",
+      "UNSELECT_ALL": "Hiq zgjedhjen nga të gjitha ({count})",
+      "BULK_DELETE_BUTTON": "Delete",
+      "BULK_SYNC_BUTTON": "Refresh",
+      "BULK_DELETE": {
+        "TITLE": "Delete documents?",
+        "DESCRIPTION": "Are you sure you want to delete the selected documents? This action cannot be undone.",
+        "CONFIRM": "Po, fshij të gjitha",
+        "SUCCESS_MESSAGE": "Documents deleted successfully",
+        "ERROR_MESSAGE": "There was an error deleting the documents, please try again."
+      },
+      "BULK_SYNC": {
+        "SUCCESS_MESSAGE_ONE": "Refresh queued for 1 document",
+        "SUCCESS_MESSAGE": "Refresh queued for {count} documents",
+        "ZERO_MESSAGE": "No documents marked for refresh.",
+        "ERROR_MESSAGE": "There was an error queuing the refresh, please try again."
+      },
+      "SYNC": {
+        "QUEUED_MESSAGE": "Refresh queued. We'll update the document shortly.",
+        "ERROR_MESSAGE": "Could not queue refresh, please try again."
+      },
+      "FILTERS": {
+        "SOURCE": {
+          "ALL": "All sources",
+          "WEB": "Web pages",
+          "PDF": "PDFs"
+        },
+        "STATUS": {
+          "ANY": "Any status",
+          "UPDATED": "Updated",
+          "NEEDS_UPDATE": "Needs update",
+          "UPDATING": "Updating",
+          "FAILED": "Dështuar"
+        },
+        "SORT": {
+          "RECENTLY_UPDATED": "Recently updated",
+          "RECENTLY_CREATED": "Recently created"
+        },
+        "SEARCH_PLACEHOLDER": "Search..."
+      },
+      "SYNC_STATUS": {
+        "SYNCED": "last updated {time}",
+        "SYNCING": "updating...",
+        "STALE_SYNC": "update stalled",
+        "FAILED": "Failed to sync",
+        "NEVER_SYNCED": "not updated yet"
+      },
+      "SYNC_ERRORS": {
+        "NOT_FOUND": "Page not found",
+        "ACCESS_DENIED": "Access denied",
+        "TIMEOUT": "Page took too long to respond",
+        "CONTENT_EMPTY": "Page returned empty content",
+        "FETCH_FAILED": "Could not fetch page",
+        "SYNC_ERROR": "Unexpected error",
+        "DEFAULT": "Sync error"
+      },
+      "RELATED_RESPONSES": {
+        "TITLE": "Pyetje të Shpeshta të lidhura",
+        "DESCRIPTION": "Këto Pyetje të Shpeshta janë gjeneruar direkt nga dokumenti."
+      },
+      "FORM_DESCRIPTION": "Futni URL-në e dokumentit për ta shtuar si burim njohurish dhe zgjidhni asistentin me të cilin do të lidhet.",
+      "CREATE": {
+        "TITLE": "Shto një dokument",
+        "SUCCESS_MESSAGE": "Dokumenti u krijua me sukses",
+        "ERROR_MESSAGE": "Ndodhi një gabim gjatë krijimit të dokumentit, ju lutemi provoni përsëri."
+      },
+      "FORM": {
+        "TYPE": {
+          "LABEL": "Lloji i Dokumentit",
+          "URL": "URL",
+          "PDF": "Skedar PDF"
+        },
+        "URL": {
+          "LABEL": "URL",
+          "PLACEHOLDER": "Futni URL-në e dokumentit",
+          "ERROR": "Ju lutemi jepni një URL të vlefshme për dokumentin"
+        },
+        "PDF_FILE": {
+          "LABEL": "Skedar PDF",
+          "CHOOSE_FILE": "Zgjidh skedarin PDF",
+          "ERROR": "Ju lutemi zgjidhni një skedar PDF",
+          "HELP_TEXT": "Madhësia maksimale e skedarit: 10MB",
+          "INVALID_TYPE": "Ju lutemi zgjidhni një skedar PDF të vlefshëm",
+          "TOO_LARGE": "Madhësia e skedarit tejkalon kufirin prej 10MB"
+        },
+        "NAME": {
+          "LABEL": "Document Name (Optional)",
+          "PLACEHOLDER": "Shkruani një emër për dokumentin"
+        }
+      },
+      "DELETE": {
+        "TITLE": "A jeni i sigurt që dëshironi të fshini dokumentin?",
+        "DESCRIPTION": "Kjo veprim është i përhershëm. Fshirja e këtij dokumenti do të fshijë përgjithmonë të gjitha njohuritë e gjeneruara.",
+        "CONFIRM": "Po, fshij",
+        "SUCCESS_MESSAGE": "Dokumenti është fshirë me sukses",
+        "ERROR_MESSAGE": "Ndodhi një gabim gjatë fshirjes së dokumentit, ju lutemi provoni përsëri."
+      },
+      "OPTIONS": {
+        "VIEW_RELATED_RESPONSES": "Shiko Përgjigjet e Lidhura",
+        "SYNC_NOW": "Refresh now",
+        "RETRY_SYNC": "Retry refresh",
+        "DELETE_DOCUMENT": "Fshi Dokumentin"
+      },
+      "EMPTY_STATE": {
+        "TITLE": "Nuk ka dokumente në dispozicion",
+        "SUBTITLE": "Dokumentet përdoren nga asistenti juaj për të krijuar pyetje të shpeshta. Mund të importoni dokumente për t’i dhënë kontekst asistentit tuaj.",
+        "FILTERED_TITLE": "No matching documents",
+        "FILTERED_SUBTITLE": "Try changing the source, status, or search term.",
+        "FEATURE_SPOTLIGHT": {
+          "TITLE": "Dokumenti Captain",
+          "NOTE": "Një dokument në Captain shërben si një burim njohurish për asistentin. Duke lidhur qendrën tuaj të ndihmës ose udhëzuesit, Captain mund të analizojë përmbajtjen dhe të ofrojë përgjigje të sakta për pyetjet e klientëve."
+        }
+      }
+    },
+    "CUSTOM_TOOLS": {
+      "HEADER": "Mjetet",
+      "ADD_NEW": "Krijo një mjet të ri",
+      "SOFT_LIMIT_WARNING": "Having more than 10 tools may reduce the assistant's reliability in selecting the right tool. Consider removing unused tools for better results.",
+      "EMPTY_STATE": {
+        "TITLE": "Nuk ka mjete të personalizuara në dispozicion",
+        "SUBTITLE": "Krijo mjete të personalizuara për të lidhur asistentin tënd me API dhe shërbime të jashtme, duke i mundësuar të marrë të dhëna dhe të kryejë veprime në emrin tënd.",
+        "FEATURE_SPOTLIGHT": {
+          "TITLE": "Mjetet e personalizuara",
+          "NOTE": "Mjetet e personalizuara i lejojnë asistentit tuaj të ndërveprojë me API dhe shërbime të jashtme. Krijoni mjete për të marrë të dhëna, për të kryer veprime ose për t'u integruar me sistemet ekzistuese për të zgjeruar aftësitë e asistentit tuaj."
+        }
+      },
+      "FORM_DESCRIPTION": "Konfiguro mjetin tënd të personalizuar për t'u lidhur me API të jashtme",
+      "OPTIONS": {
+        "EDIT_TOOL": "Ndrysho mjetin",
+        "DELETE_TOOL": "Fshi mjetin"
+      },
+      "CREATE": {
+        "TITLE": "Krijo Mjet të Përshtatur",
+        "SUCCESS_MESSAGE": "Mjeti i përshtatur u krijua me sukses",
+        "ERROR_MESSAGE": "Dështoi krijimi i mjetit të përshtatur"
+      },
+      "EDIT": {
+        "TITLE": "Ndrysho Mjetin e Përshtatur",
+        "SUCCESS_MESSAGE": "Mjeti i përshtatur u përditësua me sukses",
+        "ERROR_MESSAGE": "Dështoi përditësimi i mjetit të personalizuar"
+      },
+      "DELETE": {
+        "TITLE": "Fshi Mjetin e Personalizuar",
+        "DESCRIPTION": "Jeni i sigurt që dëshironi të fshini këtë mjet të personalizuar? Kjo veprim nuk mund të zhbëhet.",
+        "CONFIRM": "Po, fshij",
+        "SUCCESS_MESSAGE": "Mjeti i personalizuar u fshi me sukses",
+        "ERROR_MESSAGE": "Dështoi fshirja e mjetit të personalizuar"
+      },
+      "PAYWALL": {
+        "TITLE": "Upgrade to use tools with Captain",
+        "AVAILABLE_ON": "Captain Tools are only available in Business and Enterprise plans. Please upgrade to Business plan to use the feature.",
+        "UPGRADE_PROMPT": "",
+        "UPGRADE_NOW": "Open billing",
+        "CANCEL_ANYTIME": ""
+      },
+      "ENTERPRISE_PAYWALL": {
+        "AVAILABLE_ON": "Captain Tools are only available in the paid plans.",
+        "UPGRADE_PROMPT": "Please upgrade to a paid plan to use this feature.",
+        "ASK_ADMIN": "Please reach out to your administrator for the upgrade."
+      },
+      "TEST": {
+        "BUTTON": "Test connection",
+        "SUCCESS": "Endpoint returned HTTP {status}",
+        "ERROR": "Connection failed",
+        "DISABLED_HINT": "Testing is only available for endpoints without templates or request bodies."
+      },
+      "FORM": {
+        "TITLE": {
+          "LABEL": "Emri i mjetit",
+          "PLACEHOLDER": "Kërkimi i porosisë",
+          "ERROR": "Emri i mjetit është i nevojshëm",
+          "MAX_LENGTH_ERROR": "Tool name must be {max} characters or fewer"
+        },
+        "DESCRIPTION": {
+          "LABEL": "Përshkrimi",
+          "PLACEHOLDER": "Looks up order details by order ID"
+        },
+        "HTTP_METHOD": {
+          "LABEL": "Metoda"
+        },
+        "ENDPOINT_URL": {
+          "LABEL": "URL e pikës së përfundimit",
+          "PLACEHOLDER": "https://api.example.com/orders/{'{{'} order_id {'}}'}",
+          "ERROR": "Kërkohet një URL e vlefshme"
+        },
+        "AUTH_TYPE": {
+          "LABEL": "Authentication Type"
+        },
+        "AUTH_TYPES": {
+          "NONE": "Asnjë",
+          "BEARER": "Token i autorizimit",
+          "BASIC": "Basic Auth",
+          "API_KEY": "Çelësi API"
+        },
+        "AUTH_CONFIG": {
+          "BEARER_TOKEN": "Token Mbajtës",
+          "BEARER_TOKEN_PLACEHOLDER": "Shkruani token-in tuaj bearer",
+          "USERNAME": "Emri i përdoruesit",
+          "USERNAME_PLACEHOLDER": "Fut emrin e përdoruesit",
+          "PASSWORD": "Fjalëkalimi",
+          "PASSWORD_PLACEHOLDER": "Fut fjalëkalimin",
+          "API_KEY": "Header Name",
+          "API_KEY_PLACEHOLDER": "X-API-Key",
+          "API_VALUE": "Header Value",
+          "API_VALUE_PLACEHOLDER": "Fut vlerën e çelësit API"
+        },
+        "PARAMETERS": {
+          "LABEL": "Parametrat",
+          "HELP_TEXT": "Përcaktoni parametrat që do të nxirren nga pyetjet e përdoruesve"
+        },
+        "ADD_PARAMETER": "Shto Parametër",
+        "PARAM_NAME": {
+          "PLACEHOLDER": "Emri i parametrin (p.sh., order_id)"
+        },
+        "PARAM_TYPE": {
+          "PLACEHOLDER": "Lloji"
+        },
+        "PARAM_TYPES": {
+          "STRING": "Varg",
+          "NUMBER": "Numër",
+          "BOOLEAN": "Boolean",
+          "ARRAY": "Vektor",
+          "OBJECT": "Objekt"
+        },
+        "PARAM_DESCRIPTION": {
+          "PLACEHOLDER": "Përshkrimi i parametrave"
+        },
+        "PARAM_REQUIRED": {
+          "LABEL": "I nevojshëm"
+        },
+        "REQUEST_TEMPLATE": {
+          "LABEL": "Shabllon i trupit të kërkesës (opsionale)",
+          "PLACEHOLDER": "{'{'}\n  \"order_id\": \"{'{{'} order_id {'}}'}\"\n{'}'}"
+        },
+        "RESPONSE_TEMPLATE": {
+          "LABEL": "Shabllon i përgjigjes (opsionale)",
+          "PLACEHOLDER": "Order {'{{'} order_id {'}}'} status: {'{{'} status {'}}'}"
+        },
+        "ERRORS": {
+          "PARAM_NAME_REQUIRED": "Emri i parametrave është i nevojshëm"
+        }
+      }
+    },
+    "RESPONSES": {
+      "HEADER": "Pyetjet e Bëra Më Shpesh",
+      "PENDING_FAQS": "Pyetjet e shpeshta në pritje",
+      "ADD_NEW": "Krijo FAQ të re",
+      "DOCUMENTABLE": {
+        "CONVERSATION": "Biseda #{id}"
+      },
+      "SELECTED": "{count} i/e zgjedhur",
+      "SELECT_ALL": "Zgjidh të gjitha ({count})",
+      "UNSELECT_ALL": "Hiq zgjedhjen nga të gjitha ({count})",
+      "SEARCH_PLACEHOLDER": "Kërko në Pyetjet e Shpeshta...",
+      "BULK_APPROVE_BUTTON": "Miratoj",
+      "BULK_DELETE_BUTTON": "Fshij",
+      "BULK_APPROVE": {
+        "SUCCESS_MESSAGE": "Pyetjet e shpeshta u miratuan me sukses",
+        "ERROR_MESSAGE": "Ndodhi një gabim gjatë miratimit të FAQ-ve, ju lutemi provoni përsëri."
+      },
+      "BULK_DELETE": {
+        "TITLE": "Fshini FAQ-të?",
+        "DESCRIPTION": "Jeni i sigurt që dëshironi të fshini FAQ-të e përzgjedhura? Kjo veprim nuk mund të zhbëhet.",
+        "CONFIRM": "Po, fshij të gjitha",
+        "SUCCESS_MESSAGE": "FAQ-të u fshinë me sukses",
+        "ERROR_MESSAGE": "Ndodhi një gabim gjatë fshirjes së Pyetjeve të Shpeshta, ju lutemi provoni përsëri."
+      },
+      "DELETE": {
+        "TITLE": "A jeni i sigurt që dëshironi të fshini FAQ-në?",
+        "DESCRIPTION": "",
+        "CONFIRM": "Po, fshij",
+        "SUCCESS_MESSAGE": "FAQ u fshi me sukses",
+        "ERROR_MESSAGE": "Ndodhi një gabim gjatë fshirjes së FAQ-së, ju lutemi provoni përsëri."
+      },
+      "FILTER": {
+        "ASSISTANT": "Asistenti: {selected}",
+        "STATUS": "Statusi: {selected}",
+        "ALL_ASSISTANTS": "Të gjitha"
+      },
+      "STATUS": {
+        "TITLE": "Statusi",
+        "PENDING": "Në pritje",
+        "APPROVED": "Miratuar",
+        "ALL": "Të gjitha"
+      },
+      "PENDING_BANNER": {
+        "TITLE": "Captain ka gjetur disa pyetje të shpeshta që klientët tuaj po kërkonin.",
+        "ACTION": "Klikoni këtu për të rishikuar"
+      },
+      "FORM_DESCRIPTION": "Shtoni një pyetje dhe përgjigjen përkatëse në bazën e njohurive dhe zgjidhni asistentin me të cilin duhet të lidhet.",
+      "CREATE": {
+        "TITLE": "Shto një Pyetje të Shpeshë",
+        "SUCCESS_MESSAGE": "Përgjigjja u shtua me sukses.",
+        "ERROR_MESSAGE": "Ndodhi një gabim gjatë shtimit të përgjigjes. Ju lutemi provoni përsëri."
+      },
+      "FORM": {
+        "QUESTION": {
+          "LABEL": "Pyetja",
+          "PLACEHOLDER": "Shkruani pyetjen këtu",
+          "ERROR": "Ju lutemi jepni një pyetje të vlefshme."
+        },
+        "ANSWER": {
+          "LABEL": "Përgjigje",
+          "PLACEHOLDER": "Shkruani përgjigjen këtu",
+          "ERROR": "Ju lutemi jepni një përgjigje të vlefshme."
+        }
+      },
+      "EDIT": {
+        "TITLE": "Përditësoni FAQ-në",
+        "SUCCESS_MESSAGE": "FAQ-u është përditësuar me sukses",
+        "ERROR_MESSAGE": "Ndodhi një gabim gjatë përditësimit të FAQ, ju lutemi provoni përsëri",
+        "APPROVE_SUCCESS_MESSAGE": "FAQ u shënua si e miratuar"
+      },
+      "OPTIONS": {
+        "APPROVE": "Mirato",
+        "EDIT_RESPONSE": "Ndrysho",
+        "DELETE_RESPONSE": "Fshij"
+      },
+      "EMPTY_STATE": {
+        "TITLE": "Nuk u gjetën FAQ",
+        "NO_PENDING_TITLE": "Nuk ka më Pyetje të Shpeshta në pritje për rishikim",
+        "SUBTITLE": "Pyetjet e Shpeshta ndihmojnë asistentin tuaj të japë përgjigje të shpejta dhe të sakta për pyetjet e klientëve tuaj. Ato mund të gjenerohen automatikisht nga përmbajtja juaj ose të shtohen manualisht.",
+        "CLEAR_SEARCH": "Pastro filtrat aktivë",
+        "FEATURE_SPOTLIGHT": {
+          "TITLE": "Pyetjet e Shpeshta Captain",
+          "NOTE": "Pyetjet e Shpeshta Captain zbulojnë pyetjet e zakonshme të klientëve—qoftë ato që mungojnë në bazën tuaj të njohurive ose që kërkohen shpesh—dhe gjenerojnë Pyetje të Shpeshta relevante për të përmirësuar mbështetjen. Ju mund të rishikoni çdo sugjerim dhe të vendosni nëse do ta miratoni apo refuzoni."
+        }
+      }
+    },
+    "INBOXES": {
+      "HEADER": "Kutia të lidhura",
+      "ADD_NEW": "Lidh një kuti të re",
+      "OPTIONS": {
+        "DISCONNECT": "Çlidh"
+      },
+      "DELETE": {
+        "TITLE": "A jeni i sigurt që dëshironi të çlidheni nga kutia?",
+        "DESCRIPTION": "",
+        "CONFIRM": "Po, fshi",
+        "SUCCESS_MESSAGE": "Kutia e postës u shkëput me sukses.",
+        "ERROR_MESSAGE": "Ndodhi një gabim gjatë shkëputjes së kutisë së postës, ju lutemi provoni përsëri."
+      },
+      "FORM_DESCRIPTION": "Zgjidhni një kuti postare për t’u lidhur me asistentin.",
+      "CREATE": {
+        "TITLE": "Lidhu me një kuti postare",
+        "SUCCESS_MESSAGE": "Kutia postare u lidh me sukses.",
+        "ERROR_MESSAGE": "Ndodhi një gabim gjatë lidhjes së kutisë postare. Ju lutemi provoni përsëri."
+      },
+      "FORM": {
+        "INBOX": {
+          "LABEL": "Kutia postare",
+          "PLACEHOLDER": "Zgjidhni kutinë postare ku do të vendoset asistenti.",
+          "ERROR": "Kërkohet të zgjidhet një kuti postare."
+        }
+      },
+      "EMPTY_STATE": {
+        "TITLE": "Asnjë Postë e Lidhur",
+        "SUBTITLE": "Lidhja e një kutie postare i lejon asistentit të trajtojë pyetjet fillestare nga klientët tuaj para se t’ua transferojë atyre."
       }
     }
   }

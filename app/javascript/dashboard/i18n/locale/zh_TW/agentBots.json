@@ -34,7 +34,8 @@
       "LOADING": "正在取得機器人...",
       "TABLE_HEADER": {
         "DETAILS": "Bot Details",
-        "URL": "Webhook 網址"
+        "URL": "Webhook 網址",
+        "ACTIONS": "操作"
       }
     },
     "DELETE": {
@@ -98,6 +99,19 @@
     },
     "TYPES": {
       "WEBHOOK": "Webhook 機器人"
+    },
+    "COUNT": "{n} 個機器人 | {n} 個機器人",
+    "SEARCH_PLACEHOLDER": "搜尋機器人...",
+    "NO_RESULTS": "找不到符合搜尋條件的機器人",
+    "SECRET": {
+      "LABEL": "Webhook Secret",
+      "COPY": "複製密鑰至剪貼簿",
+      "COPY_SUCCESS": "密鑰已複製至剪貼簿",
+      "TOGGLE": "切換密鑰顯示",
+      "CREATED_DESC": "Use the secret below to verify webhook signatures. Please copy it now, you can also find it later in the bot settings.",
+      "DONE": "完成",
+      "RESET_SUCCESS": "Webhook secret regenerated successfully",
+      "RESET_ERROR": "Unable to regenerate webhook secret. Please try again"
     }
   }
 }

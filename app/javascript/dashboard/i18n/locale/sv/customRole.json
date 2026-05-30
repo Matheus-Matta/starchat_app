@@ -13,7 +13,7 @@
       "UPGRADE_NOW": "Upgrade now",
       "CANCEL_ANYTIME": "You can change or cancel your plan anytime"
     },
-    "ENTERPRISE_PAYWALL": {
+    "STARCHAT_PAYWALL": {
       "AVAILABLE_ON": "The custom role feature is only available in the paid plans.",
       "UPGRADE_PROMPT": "Upgrade to a paid plan to access advanced features like audit logs, agent capacity, and more.",
       "ASK_ADMIN": "Please reach out to your administrator for the upgrade."
@@ -87,6 +87,14 @@
         "YES": "Ja, ta bort ",
         "NO": "Nej, behåll "
       }
+    },
+    "COUNT": "{n} custom role | {n} custom roles",
+    "SEARCH_PLACEHOLDER": "Search custom roles...",
+    "NO_RESULTS": "No custom roles found matching your search",
+    "ENTERPRISE_PAYWALL": {
+      "AVAILABLE_ON": "The custom role feature is only available in the paid plans.",
+      "UPGRADE_PROMPT": "Upgrade to a paid plan to access advanced features like audit logs, agent capacity, and more.",
+      "ASK_ADMIN": "Please reach out to your administrator for the upgrade."
     }
   }
 }

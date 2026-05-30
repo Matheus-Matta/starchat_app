@@ -7,7 +7,8 @@
     "LEARN_MORE": "Learn more about custom attributes",
     "ATTRIBUTE_MODELS": {
       "CONVERSATION": "Cuộc hội thoại",
-      "CONTACT": "Liên hệ"
+      "CONTACT": "Liên hệ",
+      "COMPANY": "Công ty"
     },
     "ATTRIBUTE_TYPES": {
       "TEXT": "Văn bản",
@@ -63,6 +64,10 @@
         },
         "ENABLE_REGEX": {
           "LABEL": "Enable regex validation"
+        },
+        "BADGES": {
+          "PRE_CHAT": "Pre-chat",
+          "RESOLUTION": "Resolution"
         }
       },
       "API": {
@@ -101,7 +106,8 @@
     "TABS": {
       "HEADER": "Thuộc tính tùy chỉnh",
       "CONVERSATION": "Cuộc hội thoại",
-      "CONTACT": "Liên lạc"
+      "CONTACT": "Liên lạc",
+      "COMPANY": "Công ty"
     },
     "LIST": {
       "TABLE_HEADER": {
@@ -129,6 +135,13 @@
       "ENABLE_REGEX": {
         "LABEL": "Enable regex validation"
       }
+    },
+    "COUNT": "{n} attribute | {n} attributes",
+    "SEARCH_PLACEHOLDER": "Tìm kiếm nhiều thuộc tính...",
+    "NO_RESULTS": "No attributes found matching your search",
+    "BADGES": {
+      "PRE_CHAT": "Pre-chat",
+      "RESOLUTION": "Resolution"
     }
   }
 }

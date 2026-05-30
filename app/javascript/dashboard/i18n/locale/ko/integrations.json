@@ -13,7 +13,8 @@
         "CANCEL": "취소",
         "SUBMIT": "Connect Store"
       },
-      "ERROR": "There was an error connecting to Shopify. Please try again or contact support if the issue persists."
+      "ERROR": "There was an error connecting to Shopify. Please try again or contact support if the issue persists.",
+      "HEADER": "Shopify"
     },
     "HEADER": "통합",
     "DESCRIPTION": "Chatwoot integrates with multiple tools and services to improve your team's efficiency. Explore the list below to configure your favorite apps.",
@@ -52,7 +53,11 @@
           "ERROR": "올바른 URL을 입력하십시오."
         },
         "EDIT_SUBMIT": "Update webhook",
-        "ADD_SUBMIT": "웹훅 만들기"
+        "ADD_SUBMIT": "웹훅 만들기",
+        "NAME": {
+          "LABEL": "webhook 이름",
+          "PLACEHOLDER": "webhook 이름을 입력하십시오"
+        }
       },
       "TITLE": "웹훅",
       "CONFIGURE": "구성",
@@ -97,7 +102,18 @@
           "YES": "예, 삭제합니다. ",
           "NO": "아니요, 유지합니다."
         }
-      }
+      },
+      "SECRET": {
+        "LABEL": "Secret",
+        "COPY": "시크릿을 클립보드에 복사",
+        "COPY_SUCCESS": "시크릿이 클립보드에 복사되었습니다",
+        "TOGGLE": "시크릿 표시 전환",
+        "CREATED_DESC": "Your webhook has been created. Use the secret below to verify webhook signatures. Please copy it now — you can also find it later in the webhook edit form.",
+        "DONE": "Done"
+      },
+      "COUNT": "{n}개의 웹훅 | {n}개의 웹훅",
+      "SEARCH_PLACEHOLDER": "웹훅 검색...",
+      "NO_RESULTS": "검색과 일치하는 웹훅이 없습니다"
     },
     "SLACK": {
       "DELETE": "삭제",
@@ -120,7 +136,8 @@
       },
       "UPDATE_ERROR": "There was an error updating the integration, please try again",
       "UPDATE_SUCCESS": "The channel is connected successfully",
-      "FAILED_TO_FETCH_CHANNELS": "There was an error fetching the channels from Slack, please try again"
+      "FAILED_TO_FETCH_CHANNELS": "There was an error fetching the channels from Slack, please try again",
+      "HEADER": "Slack"
     },
     "DYTE": {
       "CLICK_HERE_TO_JOIN": "Click here to join",
@@ -141,7 +158,11 @@
         "EXPAND": "Expand",
         "MAKE_FRIENDLY": "Change message tone to friendly",
         "MAKE_FORMAL": "Use formal tone",
-        "SIMPLIFY": "Simplify"
+        "SIMPLIFY": "Simplify",
+        "CONFIDENT": "자신감 있는 톤 사용",
+        "PROFESSIONAL": "전문적인 톤 사용",
+        "CASUAL": "캐주얼한 톤 사용",
+        "STRAIGHTFORWARD": "직설적인 톤 사용"
       },
       "ASSISTANCE_MODAL": {
         "DRAFT_TITLE": "Draft content",
@@ -180,7 +201,25 @@
         "GENERATING": "Generating...",
         "CANCEL": "취소"
       },
-      "GENERATE_ERROR": "There was an error processing the content, please try again"
+      "GENERATE_ERROR": "There was an error processing the content, please try again",
+      "REPLY_OPTIONS": {
+        "IMPROVE_REPLY": "답장 개선",
+        "IMPROVE_REPLY_SELECTION": "선택 항목 개선",
+        "CHANGE_TONE": {
+          "TITLE": "톤 변경",
+          "OPTIONS": {
+            "PROFESSIONAL": "전문적",
+            "CASUAL": "캐주얼",
+            "STRAIGHTFORWARD": "직설적",
+            "CONFIDENT": "자신감 있는",
+            "FRIENDLY": "친근한"
+          }
+        },
+        "GRAMMAR": "문법 및 맞춤법 수정",
+        "SUGGESTION": "답장 제안",
+        "SUMMARIZE": "대화 요약",
+        "ASK_COPILOT": "Copilot에게 질문"
+      }
     },
     "DELETE": {
       "BUTTON_TEXT": "삭제",
@@ -202,7 +241,8 @@
         "LOADING": "Fetching dashboard apps...",
         "TABLE_HEADER": {
           "NAME": "이름",
-          "ENDPOINT": "Endpoint"
+          "ENDPOINT": "Endpoint",
+          "ACTIONS": "액션"
         },
         "EDIT_TOOLTIP": "Edit app",
         "DELETE_TOOLTIP": "Delete app"
@@ -236,7 +276,10 @@
         "MESSAGE": "Are you sure to delete the app - {appName}?",
         "API_SUCCESS": "Dashboard app deleted successfully",
         "API_ERROR": "We couldn't delete the app. Please try again later"
-      }
+      },
+      "COUNT": "{n}개의 대시보드 앱 | {n}개의 대시보드 앱",
+      "SEARCH_PLACEHOLDER": "대시보드 앱 검색...",
+      "NO_RESULTS": "검색과 일치하는 대시보드 앱이 없습니다"
     },
     "LINEAR": {
       "ADD_OR_LINK_BUTTON": "Create/Link Linear Issue",
@@ -330,7 +373,8 @@
         "AGENT_DESCRIPTION": "Linear workspace is not connected. Request your administrator to connect a workspace to use this integration.",
         "DESCRIPTION": "Linear workspace is not connected. Click the button below to connect your workspace to use this integration.",
         "BUTTON_TEXT": "Connect Linear workspace"
-      }
+      },
+      "HEADER": "Linear"
     },
     "NOTION": {
       "DELETE": {
@@ -338,7 +382,16 @@
         "MESSAGE": "Deleting this integration will remove access to your Notion workspace and stop all related functionality.",
         "CONFIRM": "Yes, delete",
         "CANCEL": "취소"
-      }
+      },
+      "HEADER": "Notion"
+    },
+    "SEARCH_PLACEHOLDER": "통합 검색...",
+    "NO_RESULTS": "검색과 일치하는 통합이 없습니다",
+    "CAPTAIN": {
+      "DISABLED": "계정에서 Captain이 활성화되어 있지 않습니다.",
+      "CLICK_HERE_TO_CONFIGURE": "여기를 클릭하여 구성하십시오",
+      "LOADING_CONSOLE": "Captain 콘솔을 로드하는 중...",
+      "FAILED_TO_LOAD_CONSOLE": "Captain 콘솔을 로드하지 못했습니다. 페이지를 새로고침한 후 다시 시도하십시오."
     }
   },
   "COSMOS": {
@@ -395,7 +448,7 @@
       "UPGRADE_NOW": "Upgrade now",
       "CANCEL_ANYTIME": "You can change or cancel your plan anytime"
     },
-    "ENTERPRISE_PAYWALL": {
+    "STARCHAT_PAYWALL": {
       "UPGRADE_PROMPT": "Upgrade your plan to get access to our assistants, cosmos and more.",
       "ASK_ADMIN": "Please reach out to your administrator for the upgrade."
     },
@@ -794,6 +847,718 @@
       "EMPTY_STATE": {
         "TITLE": "No Connected Inboxes",
         "SUBTITLE": "Connecting an inbox allows the assistant to handle initial questions from your customers before transferring them to you."
+      }
+    }
+  },
+  "CAPTAIN": {
+    "NAME": "Captain",
+    "HEADER_KNOW_MORE": "자세히 알아보기",
+    "ASSISTANT_SWITCHER": {
+      "ASSISTANTS": "어시스턴트",
+      "SWITCH_ASSISTANT": "어시스턴트 간 전환",
+      "NEW_ASSISTANT": "어시스턴트 만들기",
+      "EMPTY_LIST": "어시스턴트가 없습니다. 시작하려면 하나를 만드십시오."
+    },
+    "COPILOT": {
+      "TITLE": "Copilot",
+      "TRY_THESE_PROMPTS": "다음 프롬프트를 시도하십시오",
+      "PANEL_TITLE": "Copilot 시작하기",
+      "KICK_OFF_MESSAGE": "빠른 요약이 필요하거나 이전 대화를 확인하거나 더 나은 답장을 작성하고 싶으신가요? Copilot이 도와드립니다.",
+      "SEND_MESSAGE": "메시지 보내기...",
+      "EMPTY_MESSAGE": "응답을 생성하는 중 오류가 발생했습니다. 다시 시도하십시오.",
+      "LOADER": "Captain이 생각 중입니다",
+      "YOU": "나",
+      "USE": "사용하기",
+      "RESET": "초기화",
+      "SHOW_STEPS": "단계 표시",
+      "SELECT_ASSISTANT": "어시스턴트 선택",
+      "PROMPTS": {
+        "SUMMARIZE": {
+          "LABEL": "이 대화 요약",
+          "CONTENT": "고객과 지원 상담원 간에 논의된 주요 사항을 요약하십시오. 고객의 우려 사항, 질문, 지원 상담원이 제공한 솔루션 또는 응답을 포함하십시오."
+        },
+        "SUGGEST": {
+          "LABEL": "답변 제안",
+          "CONTENT": "고객의 문의를 분석하고 우려 사항이나 질문에 효과적으로 대응하는 답변을 작성하십시오. 답변이 명확하고 간결하며 유용한 정보를 제공하도록 하십시오."
+        },
+        "RATE": {
+          "LABEL": "이 대화 평가",
+          "CONTENT": "대화가 고객의 요구를 얼마나 잘 충족하는지 검토하십시오. 톤, 명확성 및 효과를 기준으로 5점 만점으로 평가하십시오."
+        },
+        "HIGH_PRIORITY": {
+          "LABEL": "높은 우선순위 대화",
+          "CONTENT": "모든 높은 우선순위 열린 대화의 요약을 알려 주십시오. 대화 ID, 고객 이름(가능한 경우), 마지막 메시지 내용 및 배정된 상담원을 포함하십시오. 관련이 있는 경우 상태별로 그룹화하십시오."
+        },
+        "LIST_CONTACTS": {
+          "LABEL": "연락처 목록",
+          "CONTENT": "상위 10개 연락처 목록을 보여 주십시오. 이름, 이메일 또는 전화번호(가능한 경우), 마지막 접속 시간, 태그(있는 경우)를 포함하십시오."
+        }
+      }
+    },
+    "PLAYGROUND": {
+      "USER": "나",
+      "ASSISTANT": "어시스턴트",
+      "MESSAGE_PLACEHOLDER": "메시지를 입력하십시오...",
+      "HEADER": "플레이그라운드",
+      "DESCRIPTION": "이 플레이그라운드를 사용하여 어시스턴트에게 메시지를 보내고 정확하고 빠르게 기대하는 톤으로 응답하는지 확인하십시오.",
+      "CREDIT_NOTE": "여기에서 보낸 메시지는 Captain 크레딧에 포함됩니다."
+    },
+    "PAYWALL": {
+      "TITLE": "Captain AI를 사용하려면 업그레이드하십시오",
+      "AVAILABLE_ON": "Captain은 무료 요금제에서 사용할 수 없습니다.",
+      "UPGRADE_PROMPT": "어시스턴트, Copilot 등에 액세스하려면 요금제를 업그레이드하십시오.",
+      "UPGRADE_NOW": "지금 업그레이드",
+      "CANCEL_ANYTIME": "언제든지 요금제를 변경하거나 취소할 수 있습니다"
+    },
+    "ENTERPRISE_PAYWALL": {
+      "AVAILABLE_ON": "Captain AI는 Enterprise 요금제에서만 사용할 수 있습니다.",
+      "UPGRADE_PROMPT": "어시스턴트, Copilot 등에 액세스하려면 요금제를 업그레이드하십시오.",
+      "ASK_ADMIN": "업그레이드를 위해 관리자에게 문의하십시오."
+    },
+    "BANNER": {
+      "RESPONSES": "응답 한도의 80% 이상을 사용했습니다. Captain AI를 계속 사용하려면 업그레이드하십시오.",
+      "DOCUMENTS": "문서 한도에 도달했습니다. Captain AI를 계속 사용하려면 업그레이드하십시오."
+    },
+    "FORM": {
+      "CANCEL": "취소",
+      "CREATE": "만들기",
+      "EDIT": "업데이트"
+    },
+    "ASSISTANTS": {
+      "HEADER": "어시스턴트",
+      "NO_ASSISTANTS_AVAILABLE": "계정에 사용 가능한 어시스턴트가 없습니다.",
+      "ADD_NEW": "새 어시스턴트 만들기",
+      "DELETE": {
+        "TITLE": "어시스턴트를 삭제하시겠습니까?",
+        "DESCRIPTION": "이 작업은 영구적입니다. 이 어시스턴트를 삭제하면 연결된 모든 받은 편지함에서 제거되고 생성된 모든 지식이 영구적으로 삭제됩니다.",
+        "CONFIRM": "예, 삭제합니다",
+        "SUCCESS_MESSAGE": "어시스턴트가 성공적으로 삭제되었습니다",
+        "ERROR_MESSAGE": "어시스턴트를 삭제하는 중 오류가 발생했습니다. 다시 시도하십시오."
+      },
+      "FORM_DESCRIPTION": "아래 세부 정보를 입력하여 어시스턴트의 이름, 목적 및 지원할 제품을 지정하십시오.",
+      "CREATE": {
+        "TITLE": "어시스턴트 만들기",
+        "SUCCESS_MESSAGE": "어시스턴트가 성공적으로 생성되었습니다",
+        "ERROR_MESSAGE": "어시스턴트를 생성하는 중 오류가 발생했습니다. 다시 시도하십시오."
+      },
+      "FORM": {
+        "UPDATE": "업데이트",
+        "SECTIONS": {
+          "BASIC_INFO": "기본 정보",
+          "SYSTEM_MESSAGES": "시스템 메시지",
+          "INSTRUCTIONS": "지침",
+          "FEATURES": "기능",
+          "TOOLS": "도구 "
+        },
+        "NAME": {
+          "LABEL": "이름",
+          "PLACEHOLDER": "어시스턴트 이름을 입력하십시오",
+          "ERROR": "이름은 필수입니다"
+        },
+        "TEMPERATURE": {
+          "LABEL": "응답 온도",
+          "DESCRIPTION": "어시스턴트의 응답이 얼마나 창의적이거나 제한적이어야 하는지 조정합니다. 낮은 값은 더 집중적이고 결정론적인 응답을 생성하고, 높은 값은 더 창의적이고 다양한 출력을 허용합니다."
+        },
+        "DESCRIPTION": {
+          "LABEL": "설명",
+          "PLACEHOLDER": "어시스턴트 설명을 입력하십시오",
+          "ERROR": "설명은 필수입니다"
+        },
+        "PRODUCT_NAME": {
+          "LABEL": "제품 이름",
+          "PLACEHOLDER": "제품 이름을 입력하십시오",
+          "ERROR": "제품 이름은 필수입니다"
+        },
+        "WELCOME_MESSAGE": {
+          "LABEL": "환영 메시지",
+          "PLACEHOLDER": "환영 메시지를 입력하십시오"
+        },
+        "HANDOFF_MESSAGE": {
+          "LABEL": "전환 메시지",
+          "PLACEHOLDER": "전환 메시지를 입력하십시오"
+        },
+        "RESOLUTION_MESSAGE": {
+          "LABEL": "해결 메시지",
+          "PLACEHOLDER": "해결 메시지를 입력하십시오"
+        },
+        "INSTRUCTIONS": {
+          "LABEL": "지침",
+          "PLACEHOLDER": "어시스턴트에 대한 지침을 입력하십시오"
+        },
+        "FEATURES": {
+          "TITLE": "기능",
+          "ALLOW_CONVERSATION_FAQS": "해결된 대화에서 FAQ 생성",
+          "ALLOW_MEMORIES": "고객 상호작용에서 주요 세부 정보를 기억으로 캡처합니다.",
+          "ALLOW_CITATIONS": "응답에 출처 인용을 포함합니다",
+          "ALLOW_CONTACT_ATTRIBUTES": "Allow access to contact information"
+        }
+      },
+      "EDIT": {
+        "TITLE": "어시스턴트 업데이트",
+        "SUCCESS_MESSAGE": "어시스턴트가 성공적으로 업데이트되었습니다",
+        "ERROR_MESSAGE": "어시스턴트를 업데이트하는 중 오류가 발생했습니다. 다시 시도하십시오.",
+        "NOT_FOUND": "어시스턴트를 찾을 수 없습니다. 다시 시도하십시오."
+      },
+      "SETTINGS": {
+        "HEADER": "설정",
+        "BASIC_SETTINGS": {
+          "TITLE": "기본 설정",
+          "DESCRIPTION": "대화를 종료하거나 상담원에게 전환할 때 어시스턴트가 표시하는 메시지를 맞춤 설정합니다."
+        },
+        "SYSTEM_SETTINGS": {
+          "TITLE": "시스템 설정",
+          "DESCRIPTION": "대화를 종료하거나 상담원에게 전환할 때 어시스턴트가 표시하는 메시지를 맞춤 설정합니다."
+        },
+        "CONTROL_ITEMS": {
+          "TITLE": "고급 설정",
+          "DESCRIPTION": "어시스턴트에 더 많은 제어 기능을 추가합니다. (쿼리 가드레일 → 시나리오 → 출력과 같은 흐름으로 구성됩니다) 이 기능들을 적극적으로 활용하십시오.",
+          "OPTIONS": {
+            "GUARDRAILS": {
+              "TITLE": "가드레일",
+              "DESCRIPTION": "어시스턴트가 답변할 질문의 종류만 허용하여 주제에서 벗어나거나 부적절한 내용을 방지합니다."
+            },
+            "RESPONSE_GUIDELINES": {
+              "TITLE": "응답 가이드라인",
+              "DESCRIPTION": "어시스턴트 답변의 분위기와 구조를 설정합니다. 명확하고 친근하게? 짧고 간결하게? 상세하고 격식 있게?"
+            }
+          }
+        },
+        "DELETE": {
+          "TITLE": "어시스턴트 삭제",
+          "DESCRIPTION": "이 작업은 영구적입니다. 이 어시스턴트를 삭제하면 연결된 모든 받은 편지함에서 제거되고 생성된 모든 지식이 영구적으로 삭제됩니다.",
+          "BUTTON_TEXT": "{assistantName} 삭제"
+        }
+      },
+      "OPTIONS": {
+        "EDIT_ASSISTANT": "어시스턴트 수정",
+        "DELETE_ASSISTANT": "어시스턴트 삭제",
+        "VIEW_CONNECTED_INBOXES": "연결된 받은 편지함 보기"
+      },
+      "EMPTY_STATE": {
+        "TITLE": "사용 가능한 어시스턴트가 없습니다",
+        "SUBTITLE": "사용자에게 빠르고 정확한 응답을 제공하는 어시스턴트를 만드십시오. 도움말 문서와 이전 대화에서 학습할 수 있습니다.",
+        "FEATURE_SPOTLIGHT": {
+          "TITLE": "Captain 어시스턴트",
+          "NOTE": "Captain 어시스턴트는 고객과 직접 대화하며, 도움말 문서와 이전 대화에서 학습하여 즉각적이고 정확한 응답을 제공합니다. 초기 문의를 처리하여 빠른 해결을 제공하고 필요한 경우 상담원에게 전환합니다."
+        }
+      },
+      "GUARDRAILS": {
+        "TITLE": "가드레일",
+        "DESCRIPTION": "어시스턴트가 답변할 질문의 종류만 허용하여 주제에서 벗어나거나 부적절한 내용을 방지합니다.",
+        "BULK_ACTION": {
+          "SELECTED": "{count}개 항목 선택됨",
+          "SELECT_ALL": "전체 선택 ({count})",
+          "UNSELECT_ALL": "전체 선택 해제 ({count})",
+          "BULK_DELETE_BUTTON": "삭제"
+        },
+        "ADD": {
+          "SUGGESTED": {
+            "TITLE": "가드레일 예시",
+            "ADD": "모두 추가",
+            "ADD_SINGLE": "이것 추가",
+            "SAVE": "추가 및 저장 (↵)",
+            "PLACEHOLDER": "다른 가드레일을 입력하십시오..."
+          },
+          "NEW": {
+            "TITLE": "가드레일 추가",
+            "CREATE": "만들기",
+            "CANCEL": "취소",
+            "PLACEHOLDER": "다른 가드레일을 입력하십시오...",
+            "TEST_ALL": "모두 테스트"
+          }
+        },
+        "LIST": {
+          "SEARCH_PLACEHOLDER": "검색..."
+        },
+        "EMPTY_MESSAGE": "가드레일이 없습니다. 예시를 만들거나 추가하여 시작하십시오.",
+        "SEARCH_EMPTY_MESSAGE": "이 검색에 해당하는 가드레일이 없습니다.",
+        "API": {
+          "ADD": {
+            "SUCCESS": "가드레일이 성공적으로 추가되었습니다",
+            "ERROR": "가드레일을 추가하는 중 오류가 발생했습니다. 다시 시도하십시오."
+          },
+          "UPDATE": {
+            "SUCCESS": "가드레일이 성공적으로 업데이트되었습니다",
+            "ERROR": "가드레일을 업데이트하는 중 오류가 발생했습니다. 다시 시도하십시오."
+          },
+          "DELETE": {
+            "SUCCESS": "가드레일이 성공적으로 삭제되었습니다",
+            "ERROR": "가드레일을 삭제하는 중 오류가 발생했습니다. 다시 시도하십시오."
+          }
+        }
+      },
+      "RESPONSE_GUIDELINES": {
+        "TITLE": "응답 가이드라인",
+        "DESCRIPTION": "어시스턴트 답변의 분위기와 구조를 설정합니다. 명확하고 친근하게? 짧고 간결하게? 상세하고 격식 있게?",
+        "BULK_ACTION": {
+          "SELECTED": "{count}개 항목 선택됨",
+          "SELECT_ALL": "전체 선택 ({count})",
+          "UNSELECT_ALL": "전체 선택 해제 ({count})",
+          "BULK_DELETE_BUTTON": "삭제"
+        },
+        "ADD": {
+          "SUGGESTED": {
+            "TITLE": "응답 가이드라인 예시",
+            "ADD": "모두 추가",
+            "ADD_SINGLE": "이것 추가",
+            "SAVE": "추가 및 저장 (↵)",
+            "PLACEHOLDER": "다른 응답 가이드라인을 입력하십시오..."
+          },
+          "NEW": {
+            "TITLE": "응답 가이드라인 추가",
+            "CREATE": "만들기",
+            "CANCEL": "취소",
+            "PLACEHOLDER": "다른 응답 가이드라인을 입력하십시오...",
+            "TEST_ALL": "모두 테스트"
+          }
+        },
+        "LIST": {
+          "SEARCH_PLACEHOLDER": "검색..."
+        },
+        "EMPTY_MESSAGE": "응답 가이드라인이 없습니다. 예시를 만들거나 추가하여 시작하십시오.",
+        "SEARCH_EMPTY_MESSAGE": "이 검색에 해당하는 응답 가이드라인이 없습니다.",
+        "API": {
+          "ADD": {
+            "SUCCESS": "응답 가이드라인이 성공적으로 추가되었습니다",
+            "ERROR": "응답 가이드라인을 추가하는 중 오류가 발생했습니다. 다시 시도하십시오."
+          },
+          "UPDATE": {
+            "SUCCESS": "응답 가이드라인이 성공적으로 업데이트되었습니다",
+            "ERROR": "응답 가이드라인을 업데이트하는 중 오류가 발생했습니다. 다시 시도하십시오."
+          },
+          "DELETE": {
+            "SUCCESS": "응답 가이드라인이 성공적으로 삭제되었습니다",
+            "ERROR": "응답 가이드라인을 삭제하는 중 오류가 발생했습니다. 다시 시도하십시오."
+          }
+        }
+      },
+      "SCENARIOS": {
+        "TITLE": "시나리오",
+        "DESCRIPTION": "어시스턴트에게 컨텍스트를 제공하십시오. 예: \"사용자가 막혔을 때 할 일\" 또는 \"환불 요청 시 대응 방법\"",
+        "BULK_ACTION": {
+          "SELECTED": "{count}개 항목 선택됨",
+          "SELECT_ALL": "전체 선택 ({count})",
+          "UNSELECT_ALL": "전체 선택 해제 ({count})",
+          "BULK_DELETE_BUTTON": "삭제"
+        },
+        "ADD": {
+          "SUGGESTED": {
+            "TITLE": "시나리오 예시",
+            "ADD": "모두 추가",
+            "ADD_SINGLE": "이것 추가",
+            "TOOLS_USED": "사용된 도구 :"
+          },
+          "NEW": {
+            "CREATE": "시나리오 추가",
+            "TITLE": "시나리오 만들기",
+            "FORM": {
+              "TITLE": {
+                "LABEL": "제목",
+                "PLACEHOLDER": "시나리오 이름을 입력하십시오",
+                "ERROR": "시나리오 이름은 필수입니다"
+              },
+              "DESCRIPTION": {
+                "LABEL": "설명",
+                "PLACEHOLDER": "이 시나리오가 어떻게 그리고 어디에서 사용될지 설명하십시오",
+                "ERROR": "시나리오 설명은 필수입니다"
+              },
+              "INSTRUCTION": {
+                "LABEL": "처리 방법",
+                "PLACEHOLDER": "이 시나리오가 어떻게 그리고 어디에서 처리될지 설명하십시오",
+                "ERROR": "시나리오 내용은 필수입니다"
+              },
+              "CREATE": "만들기",
+              "CANCEL": "취소"
+            }
+          }
+        },
+        "UPDATE": {
+          "CANCEL": "취소",
+          "UPDATE": "변경 사항 업데이트"
+        },
+        "LIST": {
+          "SEARCH_PLACEHOLDER": "검색..."
+        },
+        "EMPTY_MESSAGE": "시나리오가 없습니다. 예시를 만들거나 추가하여 시작하십시오.",
+        "SEARCH_EMPTY_MESSAGE": "이 검색에 해당하는 시나리오가 없습니다.",
+        "API": {
+          "ADD": {
+            "SUCCESS": "시나리오가 성공적으로 추가되었습니다",
+            "ERROR": "시나리오를 추가하는 중 오류가 발생했습니다. 다시 시도하십시오."
+          },
+          "UPDATE": {
+            "SUCCESS": "시나리오가 성공적으로 업데이트되었습니다",
+            "ERROR": "시나리오를 업데이트하는 중 오류가 발생했습니다. 다시 시도하십시오."
+          },
+          "DELETE": {
+            "SUCCESS": "시나리오가 성공적으로 삭제되었습니다",
+            "ERROR": "시나리오를 삭제하는 중 오류가 발생했습니다. 다시 시도하십시오."
+          }
+        }
+      }
+    },
+    "DOCUMENTS": {
+      "HEADER": "문서",
+      "ADD_NEW": "새 문서 만들기",
+      "SELECTED": "{count}개 선택됨",
+      "SELECT_ALL": "전체 선택 ({count})",
+      "UNSELECT_ALL": "전체 선택 해제 ({count})",
+      "BULK_DELETE_BUTTON": "삭제",
+      "BULK_SYNC_BUTTON": "새로고침",
+      "BULK_DELETE": {
+        "TITLE": "Delete documents?",
+        "DESCRIPTION": "Are you sure you want to delete the selected documents? This action cannot be undone.",
+        "CONFIRM": "예, 모두 삭제합니다",
+        "SUCCESS_MESSAGE": "Documents deleted successfully",
+        "ERROR_MESSAGE": "There was an error deleting the documents, please try again."
+      },
+      "BULK_SYNC": {
+        "SUCCESS_MESSAGE_ONE": "Refresh queued for 1 document",
+        "SUCCESS_MESSAGE": "Refresh queued for {count} documents",
+        "ZERO_MESSAGE": "No documents marked for refresh.",
+        "ERROR_MESSAGE": "There was an error queuing the refresh, please try again."
+      },
+      "SYNC": {
+        "QUEUED_MESSAGE": "Refresh queued. We'll update the document shortly.",
+        "ERROR_MESSAGE": "Could not queue refresh, please try again."
+      },
+      "FILTERS": {
+        "SOURCE": {
+          "ALL": "All sources",
+          "WEB": "Web pages",
+          "PDF": "PDFs"
+        },
+        "STATUS": {
+          "ANY": "Any status",
+          "UPDATED": "Updated",
+          "NEEDS_UPDATE": "Needs update",
+          "UPDATING": "Updating",
+          "FAILED": "실패"
+        },
+        "SORT": {
+          "RECENTLY_UPDATED": "Recently updated",
+          "RECENTLY_CREATED": "Recently created"
+        },
+        "SEARCH_PLACEHOLDER": "검색..."
+      },
+      "SYNC_STATUS": {
+        "SYNCED": "last updated {time}",
+        "SYNCING": "업데이트 중...",
+        "STALE_SYNC": "update stalled",
+        "FAILED": "Failed to sync",
+        "NEVER_SYNCED": "not updated yet"
+      },
+      "SYNC_ERRORS": {
+        "NOT_FOUND": "페이지를 찾을 수 없습니다",
+        "ACCESS_DENIED": "Access denied",
+        "TIMEOUT": "Page took too long to respond",
+        "CONTENT_EMPTY": "Page returned empty content",
+        "FETCH_FAILED": "Could not fetch page",
+        "SYNC_ERROR": "Unexpected error",
+        "DEFAULT": "Sync error"
+      },
+      "RELATED_RESPONSES": {
+        "TITLE": "관련 FAQ",
+        "DESCRIPTION": "이 FAQ는 문서에서 직접 생성되었습니다."
+      },
+      "FORM_DESCRIPTION": "문서의 URL을 입력하여 지식 소스로 추가하고 연결할 어시스턴트를 선택하십시오.",
+      "CREATE": {
+        "TITLE": "문서 추가",
+        "SUCCESS_MESSAGE": "문서가 성공적으로 생성되었습니다",
+        "ERROR_MESSAGE": "문서를 생성하는 중 오류가 발생했습니다. 다시 시도하십시오."
+      },
+      "FORM": {
+        "TYPE": {
+          "LABEL": "문서 유형",
+          "URL": "URL",
+          "PDF": "PDF 파일"
+        },
+        "URL": {
+          "LABEL": "URL",
+          "PLACEHOLDER": "문서의 URL을 입력하십시오",
+          "ERROR": "문서에 대한 유효한 URL을 제공하십시오"
+        },
+        "PDF_FILE": {
+          "LABEL": "PDF 파일",
+          "CHOOSE_FILE": "PDF 파일 선택",
+          "ERROR": "PDF 파일을 선택하십시오",
+          "HELP_TEXT": "최대 파일 크기: 10MB",
+          "INVALID_TYPE": "유효한 PDF 파일을 선택하십시오",
+          "TOO_LARGE": "파일 크기가 10MB 한도를 초과합니다"
+        },
+        "NAME": {
+          "LABEL": "문서 이름 (선택 사항)",
+          "PLACEHOLDER": "문서 이름을 입력하십시오"
+        }
+      },
+      "DELETE": {
+        "TITLE": "문서를 삭제하시겠습니까?",
+        "DESCRIPTION": "이 작업은 영구적입니다. 이 문서를 삭제하면 생성된 모든 지식이 영구적으로 삭제됩니다.",
+        "CONFIRM": "예, 삭제합니다",
+        "SUCCESS_MESSAGE": "문서가 성공적으로 삭제되었습니다",
+        "ERROR_MESSAGE": "문서를 삭제하는 중 오류가 발생했습니다. 다시 시도하십시오."
+      },
+      "OPTIONS": {
+        "VIEW_RELATED_RESPONSES": "관련 응답 보기",
+        "SYNC_NOW": "Refresh now",
+        "RETRY_SYNC": "Retry refresh",
+        "DELETE_DOCUMENT": "문서 삭제"
+      },
+      "EMPTY_STATE": {
+        "TITLE": "사용 가능한 문서가 없습니다",
+        "SUBTITLE": "문서는 어시스턴트가 FAQ를 생성하는 데 사용됩니다. 어시스턴트에 컨텍스트를 제공하기 위해 문서를 가져올 수 있습니다.",
+        "FILTERED_TITLE": "No matching documents",
+        "FILTERED_SUBTITLE": "Try changing the source, status, or search term.",
+        "FEATURE_SPOTLIGHT": {
+          "TITLE": "Captain 문서",
+          "NOTE": "Captain의 문서는 어시스턴트를 위한 지식 리소스로 활용됩니다. 도움말 센터나 가이드를 연결하면 Captain이 내용을 분석하여 고객 문의에 대한 정확한 응답을 제공할 수 있습니다."
+        }
+      }
+    },
+    "CUSTOM_TOOLS": {
+      "HEADER": "도구",
+      "ADD_NEW": "새 도구 만들기",
+      "SOFT_LIMIT_WARNING": "Having more than 10 tools may reduce the assistant's reliability in selecting the right tool. Consider removing unused tools for better results.",
+      "EMPTY_STATE": {
+        "TITLE": "사용 가능한 사용자 정의 도구가 없습니다",
+        "SUBTITLE": "사용자 정의 도구를 만들어 어시스턴트를 외부 API 및 서비스와 연결하고, 데이터를 가져오거나 사용자를 대신하여 작업을 수행할 수 있도록 하십시오.",
+        "FEATURE_SPOTLIGHT": {
+          "TITLE": "사용자 정의 도구",
+          "NOTE": "사용자 정의 도구를 사용하면 어시스턴트가 외부 API 및 서비스와 상호작용할 수 있습니다. 데이터를 가져오거나 작업을 수행하거나 기존 시스템과 통합하여 어시스턴트의 기능을 향상시키는 도구를 만드십시오."
+        }
+      },
+      "FORM_DESCRIPTION": "외부 API와 연결하기 위해 사용자 정의 도구를 구성하십시오",
+      "OPTIONS": {
+        "EDIT_TOOL": "도구 수정",
+        "DELETE_TOOL": "도구 삭제"
+      },
+      "CREATE": {
+        "TITLE": "사용자 정의 도구 만들기",
+        "SUCCESS_MESSAGE": "사용자 정의 도구가 성공적으로 생성되었습니다",
+        "ERROR_MESSAGE": "사용자 정의 도구를 생성하지 못했습니다"
+      },
+      "EDIT": {
+        "TITLE": "사용자 정의 도구 수정",
+        "SUCCESS_MESSAGE": "사용자 정의 도구가 성공적으로 업데이트되었습니다",
+        "ERROR_MESSAGE": "사용자 정의 도구를 업데이트하지 못했습니다"
+      },
+      "DELETE": {
+        "TITLE": "사용자 정의 도구 삭제",
+        "DESCRIPTION": "이 사용자 정의 도구를 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.",
+        "CONFIRM": "예, 삭제합니다",
+        "SUCCESS_MESSAGE": "사용자 정의 도구가 성공적으로 삭제되었습니다",
+        "ERROR_MESSAGE": "사용자 정의 도구를 삭제하지 못했습니다"
+      },
+      "PAYWALL": {
+        "TITLE": "Upgrade to use tools with Captain",
+        "AVAILABLE_ON": "Captain Tools are only available in Business and Enterprise plans. Please upgrade to Business plan to use the feature.",
+        "UPGRADE_PROMPT": "",
+        "UPGRADE_NOW": "청구서 열기",
+        "CANCEL_ANYTIME": ""
+      },
+      "ENTERPRISE_PAYWALL": {
+        "AVAILABLE_ON": "Captain Tools are only available in the paid plans.",
+        "UPGRADE_PROMPT": "Please upgrade to a paid plan to use this feature.",
+        "ASK_ADMIN": "업그레이드에 대해 관리자에게 문의하십시오."
+      },
+      "TEST": {
+        "BUTTON": "Test connection",
+        "SUCCESS": "Endpoint returned HTTP {status}",
+        "ERROR": "Connection failed",
+        "DISABLED_HINT": "Testing is only available for endpoints without templates or request bodies."
+      },
+      "FORM": {
+        "TITLE": {
+          "LABEL": "도구 이름",
+          "PLACEHOLDER": "주문 조회",
+          "ERROR": "도구 이름은 필수입니다",
+          "MAX_LENGTH_ERROR": "Tool name must be {max} characters or fewer"
+        },
+        "DESCRIPTION": {
+          "LABEL": "설명",
+          "PLACEHOLDER": "주문 ID로 주문 세부 정보를 조회합니다"
+        },
+        "HTTP_METHOD": {
+          "LABEL": "메서드"
+        },
+        "ENDPOINT_URL": {
+          "LABEL": "엔드포인트 URL",
+          "PLACEHOLDER": "https://api.example.com/orders/{'{{'} order_id {'}}'}",
+          "ERROR": "유효한 URL이 필요합니다"
+        },
+        "AUTH_TYPE": {
+          "LABEL": "인증 유형"
+        },
+        "AUTH_TYPES": {
+          "NONE": "없음",
+          "BEARER": "Bearer Token",
+          "BASIC": "Basic Auth",
+          "API_KEY": "API Key"
+        },
+        "AUTH_CONFIG": {
+          "BEARER_TOKEN": "Bearer Token",
+          "BEARER_TOKEN_PLACEHOLDER": "Bearer 토큰을 입력하십시오",
+          "USERNAME": "사용자 이름",
+          "USERNAME_PLACEHOLDER": "사용자 이름을 입력하십시오",
+          "PASSWORD": "비밀번호",
+          "PASSWORD_PLACEHOLDER": "비밀번호를 입력하십시오",
+          "API_KEY": "헤더 이름",
+          "API_KEY_PLACEHOLDER": "X-API-Key",
+          "API_VALUE": "헤더 값",
+          "API_VALUE_PLACEHOLDER": "API 키 값을 입력하십시오"
+        },
+        "PARAMETERS": {
+          "LABEL": "매개변수",
+          "HELP_TEXT": "사용자 쿼리에서 추출할 매개변수를 정의하십시오"
+        },
+        "ADD_PARAMETER": "매개변수 추가",
+        "PARAM_NAME": {
+          "PLACEHOLDER": "매개변수 이름 (예: order_id)"
+        },
+        "PARAM_TYPE": {
+          "PLACEHOLDER": "유형"
+        },
+        "PARAM_TYPES": {
+          "STRING": "String",
+          "NUMBER": "숫자",
+          "BOOLEAN": "Boolean",
+          "ARRAY": "Array",
+          "OBJECT": "Object"
+        },
+        "PARAM_DESCRIPTION": {
+          "PLACEHOLDER": "매개변수에 대한 설명"
+        },
+        "PARAM_REQUIRED": {
+          "LABEL": "필수"
+        },
+        "REQUEST_TEMPLATE": {
+          "LABEL": "요청 본문 템플릿 (선택 사항)",
+          "PLACEHOLDER": "{'{'}\n  \"order_id\": \"{'{{'} order_id {'}}'}\"\n{'}'}"
+        },
+        "RESPONSE_TEMPLATE": {
+          "LABEL": "응답 템플릿 (선택 사항)",
+          "PLACEHOLDER": "Order {'{{'} order_id {'}}'} status: {'{{'} status {'}}'}"
+        },
+        "ERRORS": {
+          "PARAM_NAME_REQUIRED": "매개변수 이름은 필수입니다"
+        }
+      }
+    },
+    "RESPONSES": {
+      "HEADER": "FAQ",
+      "PENDING_FAQS": "대기 중인 FAQ",
+      "ADD_NEW": "새 FAQ 만들기",
+      "DOCUMENTABLE": {
+        "CONVERSATION": "대화 #{id}"
+      },
+      "SELECTED": "{count}개 선택됨",
+      "SELECT_ALL": "전체 선택 ({count})",
+      "UNSELECT_ALL": "전체 선택 해제 ({count})",
+      "SEARCH_PLACEHOLDER": "FAQ 검색...",
+      "BULK_APPROVE_BUTTON": "승인",
+      "BULK_DELETE_BUTTON": "삭제",
+      "BULK_APPROVE": {
+        "SUCCESS_MESSAGE": "FAQ가 성공적으로 승인되었습니다",
+        "ERROR_MESSAGE": "FAQ를 승인하는 중 오류가 발생했습니다. 다시 시도하십시오."
+      },
+      "BULK_DELETE": {
+        "TITLE": "FAQ를 삭제하시겠습니까?",
+        "DESCRIPTION": "선택한 FAQ를 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.",
+        "CONFIRM": "예, 모두 삭제합니다",
+        "SUCCESS_MESSAGE": "FAQ가 성공적으로 삭제되었습니다",
+        "ERROR_MESSAGE": "FAQ를 삭제하는 중 오류가 발생했습니다. 다시 시도하십시오."
+      },
+      "DELETE": {
+        "TITLE": "FAQ를 삭제하시겠습니까?",
+        "DESCRIPTION": "",
+        "CONFIRM": "예, 삭제합니다",
+        "SUCCESS_MESSAGE": "FAQ가 성공적으로 삭제되었습니다",
+        "ERROR_MESSAGE": "FAQ를 삭제하는 중 오류가 발생했습니다. 다시 시도하십시오."
+      },
+      "FILTER": {
+        "ASSISTANT": "어시스턴트: {selected}",
+        "STATUS": "상태: {selected}",
+        "ALL_ASSISTANTS": "전체"
+      },
+      "STATUS": {
+        "TITLE": "상태",
+        "PENDING": "대기 중",
+        "APPROVED": "승인됨",
+        "ALL": "전체"
+      },
+      "PENDING_BANNER": {
+        "TITLE": "Captain이 고객이 찾고 있던 FAQ를 발견했습니다.",
+        "ACTION": "여기를 클릭하여 검토하십시오"
+      },
+      "FORM_DESCRIPTION": "지식 베이스에 질문과 해당 답변을 추가하고 연결할 어시스턴트를 선택하십시오.",
+      "CREATE": {
+        "TITLE": "FAQ 추가",
+        "SUCCESS_MESSAGE": "응답이 성공적으로 추가되었습니다.",
+        "ERROR_MESSAGE": "응답을 추가하는 중 오류가 발생했습니다. 다시 시도하십시오."
+      },
+      "FORM": {
+        "QUESTION": {
+          "LABEL": "질문",
+          "PLACEHOLDER": "여기에 질문을 입력하십시오",
+          "ERROR": "유효한 질문을 입력하십시오."
+        },
+        "ANSWER": {
+          "LABEL": "답변",
+          "PLACEHOLDER": "여기에 답변을 입력하십시오",
+          "ERROR": "유효한 답변을 입력하십시오."
+        }
+      },
+      "EDIT": {
+        "TITLE": "FAQ 업데이트",
+        "SUCCESS_MESSAGE": "FAQ가 성공적으로 업데이트되었습니다",
+        "ERROR_MESSAGE": "FAQ를 업데이트하는 중 오류가 발생했습니다. 다시 시도하십시오.",
+        "APPROVE_SUCCESS_MESSAGE": "FAQ가 승인됨으로 표시되었습니다"
+      },
+      "OPTIONS": {
+        "APPROVE": "승인",
+        "EDIT_RESPONSE": "수정",
+        "DELETE_RESPONSE": "삭제"
+      },
+      "EMPTY_STATE": {
+        "TITLE": "FAQ를 찾을 수 없습니다",
+        "NO_PENDING_TITLE": "검토할 대기 중인 FAQ가 더 이상 없습니다",
+        "SUBTITLE": "FAQ는 어시스턴트가 고객의 질문에 빠르고 정확한 답변을 제공하는 데 도움이 됩니다. 콘텐츠에서 자동으로 생성되거나 수동으로 추가할 수 있습니다.",
+        "CLEAR_SEARCH": "활성 필터 지우기",
+        "FEATURE_SPOTLIGHT": {
+          "TITLE": "Captain FAQ",
+          "NOTE": "Captain FAQ는 지식 베이스에서 누락되었거나 자주 질문되는 일반적인 고객 질문을 감지하고 관련 FAQ를 생성하여 지원을 개선합니다. 각 제안을 검토하고 승인 또는 거부를 결정할 수 있습니다."
+        }
+      }
+    },
+    "INBOXES": {
+      "HEADER": "연결된 받은 편지함",
+      "ADD_NEW": "새 받은 편지함 연결",
+      "OPTIONS": {
+        "DISCONNECT": "연결 해제"
+      },
+      "DELETE": {
+        "TITLE": "받은 편지함 연결을 해제하시겠습니까?",
+        "DESCRIPTION": "",
+        "CONFIRM": "예, 삭제합니다",
+        "SUCCESS_MESSAGE": "받은 편지함이 성공적으로 연결 해제되었습니다.",
+        "ERROR_MESSAGE": "받은 편지함 연결을 해제하는 중 오류가 발생했습니다. 다시 시도하십시오."
+      },
+      "FORM_DESCRIPTION": "어시스턴트와 연결할 받은 편지함을 선택하십시오.",
+      "CREATE": {
+        "TITLE": "받은 편지함 연결",
+        "SUCCESS_MESSAGE": "받은 편지함이 성공적으로 연결되었습니다.",
+        "ERROR_MESSAGE": "받은 편지함을 연결하는 중 오류가 발생했습니다. 다시 시도하십시오."
+      },
+      "FORM": {
+        "INBOX": {
+          "LABEL": "받은 편지함",
+          "PLACEHOLDER": "어시스턴트를 배포할 받은 편지함을 선택하십시오.",
+          "ERROR": "받은 편지함 선택은 필수입니다."
+        }
+      },
+      "EMPTY_STATE": {
+        "TITLE": "연결된 받은 편지함이 없습니다",
+        "SUBTITLE": "받은 편지함을 연결하면 어시스턴트가 고객의 초기 질문을 처리한 후 상담원에게 전환할 수 있습니다."
       }
     }
   }

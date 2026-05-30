@@ -27,7 +27,12 @@
       "LABEL": "Geslo",
       "PLACEHOLDER": "Geslo",
       "ERROR": "Geslo je prekratko.",
-      "IS_INVALID_PASSWORD": "Geslo mora vsebovati vsaj 1 veliko črko, 1 malo črko, 1 številko in 1 poseben znak."
+      "IS_INVALID_PASSWORD": "Geslo mora vsebovati vsaj 1 veliko črko, 1 malo črko, 1 številko in 1 poseben znak.",
+      "REQUIREMENTS_LENGTH": "At least 6 characters long",
+      "REQUIREMENTS_UPPERCASE": "At least one uppercase letter",
+      "REQUIREMENTS_LOWERCASE": "At least one lowercase letter",
+      "REQUIREMENTS_NUMBER": "At least one number",
+      "REQUIREMENTS_SPECIAL": "At least one special character"
     },
     "CONFIRM_PASSWORD": {
       "LABEL": "Potrdite geslo",
@@ -39,6 +44,14 @@
       "ERROR_MESSAGE": "Ni bilo mogoče vzpostaviti povezave s strežnikom. Prosimo poskusite ponovno."
     },
     "SUBMIT": "Ustvari račun",
-    "HAVE_AN_ACCOUNT": "Že imate račun?"
+    "HAVE_AN_ACCOUNT": "Že imate račun?",
+    "GET_STARTED": "Get started with Chatwoot",
+    "VERIFY_EMAIL": {
+      "TITLE": "Check your inbox",
+      "DESCRIPTION": "We sent a verification link to {email}. Click the link to verify your email and get started.",
+      "RESEND": "Ponovno pošlji potrditveni e-poštni naslov",
+      "RESEND_SUCCESS": "Verification email sent. Please check your inbox.",
+      "RESEND_ERROR": "Could not send verification email. Please try again."
+    }
   }
 }

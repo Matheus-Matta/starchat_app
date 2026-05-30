@@ -1,4 +1,4 @@
-class Messages::AudioTranscriptionService< Llm::LegacyBaseOpenAiService
+class Messages::AudioTranscriptionService < Llm::BaseOpenAiService
   include Integrations::LlmInstrumentation
 
   WHISPER_MODEL = 'whisper-1'.freeze

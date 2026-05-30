@@ -7,7 +7,8 @@
     "LEARN_MORE": "تعرف على المزيد حول السمات المخصصة",
     "ATTRIBUTE_MODELS": {
       "CONVERSATION": "المحادثات",
-      "CONTACT": "جهات الاتصال"
+      "CONTACT": "جهات الاتصال",
+      "COMPANY": "المنشأة"
     },
     "ATTRIBUTE_TYPES": {
       "TEXT": "النص",
@@ -63,6 +64,10 @@
         },
         "ENABLE_REGEX": {
           "LABEL": "تمكين التحقق من صحة regex"
+        },
+        "BADGES": {
+          "PRE_CHAT": "Pre-chat",
+          "RESOLUTION": "Resolution"
         }
       },
       "API": {
@@ -101,7 +106,8 @@
     "TABS": {
       "HEADER": "صفات مخصصة",
       "CONVERSATION": "المحادثات",
-      "CONTACT": "جهات الاتصال"
+      "CONTACT": "جهات الاتصال",
+      "COMPANY": "المنشأة"
     },
     "LIST": {
       "TABLE_HEADER": {
@@ -129,6 +135,13 @@
       "ENABLE_REGEX": {
         "LABEL": "تمكين التحقق من صحة regex"
       }
+    },
+    "COUNT": "{n} attribute | {n} attributes",
+    "SEARCH_PLACEHOLDER": "البحث عن صفات...",
+    "NO_RESULTS": "No attributes found matching your search",
+    "BADGES": {
+      "PRE_CHAT": "Pre-chat",
+      "RESOLUTION": "Resolution"
     }
   }
 }

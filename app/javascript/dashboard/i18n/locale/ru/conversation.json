@@ -1,8 +1,8 @@
 {
   "CONVERSATION": {
+    "404": "Мы не можем найти диалог. Пожалуйста, попробуйте еще раз",
     "SELECT_A_CONVERSATION": "Пожалуйста, выберите диалог из левой панели",
     "CSAT_REPLY_MESSAGE": "Пожалуйста, оцените диалог",
-    "404": "Мы не можем найти диалог. Пожалуйста, попробуйте еще раз",
     "SWITCH_VIEW_LAYOUT": "Переключить вид",
     "DASHBOARD_APP_TAB_MESSAGES": "Сообщения",
     "UNVERIFIED_SESSION": "Подлинность этого пользователя не подтверждена",
@@ -69,7 +69,8 @@
     "REPLY_MESSAGE_NOT_FOUND": "Сообщение недоступно",
     "CARD": {
       "SHOW_LABELS": "Показать метки",
-      "HIDE_LABELS": "Скрыть метки"
+      "HIDE_LABELS": "Скрыть метки",
+      "LABELS_COUNT": "{count} labels"
     },
     "VOICE_CALL": {
       "INCOMING_CALL": "Incoming call",
@@ -80,7 +81,9 @@
       "CALL_ENDED": "Call ended",
       "NOT_ANSWERED_YET": "Not answered yet",
       "THEY_ANSWERED": "They answered",
-      "YOU_ANSWERED": "You answered"
+      "YOU_ANSWERED": "You answered",
+      "AGENT_ANSWERED": "{agentName} answered",
+      "JOIN_CALL": "Присоединиться к звонку"
     },
     "HEADER": {
       "RESOLVE_ACTION": "Завершить",
@@ -100,7 +103,8 @@
         "RT": "RT {status}",
         "MISSED": "пропущенный",
         "DUE": "до"
-      }
+      },
+      "COPY_ID_SUCCESS": "Conversation ID copied to clipboard"
     },
     "RESOLVE_DROPDOWN": {
       "MARK_PENDING": "Отметить как ожидающие",
@@ -172,8 +176,15 @@
         "TEAM_ASSIGNMENT": {
           "SUCCESFUL": "Назначена метка #{team} в разговор id {conversationId}",
           "FAILED": "Не удалось назначить команду. Пожалуйста, попробуйте еще раз."
+        },
+        "LABEL_REMOVAL": {
+          "SUCCESFUL": "Удалена метка #{labelName} из диалога с ID {conversationId}",
+          "FAILED": "Не удалось удалить метку. Пожалуйста, попробуйте еще раз."
         }
-      }
+      },
+      "OPEN_IN_NEW_TAB": "Открыть в новой вкладке",
+      "COPY_LINK": "Скопировать ссылку на диалог",
+      "COPY_LINK_SUCCESS": "Ссылка на диалог скопирована в буфер обмена"
     },
     "FOOTER": {
       "MESSAGE_SIGN_TOOLTIP": "Подпись сообщения",
@@ -183,7 +194,11 @@
       "PRIVATE_MSG_INPUT": "Shift + enter для новой строки. Это будет видно только Операторам",
       "MESSAGE_SIGNATURE_NOT_CONFIGURED": "Подпись сообщения не настроена, пожалуйста настройте её в настройках профиля.",
       "CLICK_HERE": "Нажмите здесь, чтобы обновить",
-      "WHATSAPP_TEMPLATES": "Шаблоны Whatsapp"
+      "WHATSAPP_TEMPLATES": "Шаблоны Whatsapp",
+      "MESSAGING_RESTRICTED": "Вы не можете отвечать в этот диалог",
+      "MESSAGING_RESTRICTED_WHATSAPP": "You can only reply using a template message due to 24-hour message window restriction",
+      "MESSAGING_RESTRICTED_API": "You can only reply using a template message due to message window restriction",
+      "COPILOT_MSG_INPUT": "Задайте Copilot дополнительные промпты или спросите что-нибудь другое... Нажмите Enter, чтобы дополнить информацию"
     },
     "REPLYBOX": {
       "REPLY": "Ответить",
@@ -224,6 +239,14 @@
           "YES": "Отправить",
           "CANCEL": "Отменить"
         }
+      },
+      "COPILOT_THINKING": "Copilot думает",
+      "QUOTED_REPLY": {
+        "ENABLE_TOOLTIP": "Включить цитируемые сообщения email",
+        "DISABLE_TOOLTIP": "Не включать цитируемые сообщения электронной почты",
+        "REMOVE_PREVIEW": "Удалить цитируемые сообщения email",
+        "COLLAPSE": "Свернуть предпросмотр",
+        "EXPAND": "Развернуть предпросмотр"
       }
     },
     "VISIBLE_TO_AGENTS": "Приватная заметка: видна только вам и вашей команде",
@@ -265,6 +288,21 @@
     "SIDEBAR": {
       "CONTACT": "Контакт",
       "COPILOT": "Cosmos"
+    },
+    "48_HOURS_WINDOW": "Ограничение на 48 часа",
+    "UNSUPPORTED_MESSAGE_TIKTOK": "Это сообщение не поддерживается. Вы можете просмотреть это сообщение в приложении TikTok.",
+    "FILE_TYPE_NOT_SUPPORTED": "Тип файла {fileName} не поддерживается в этом диалоге",
+    "NATIVE_APP": "Нативное приложение",
+    "NATIVE_APP_ADVISORY": "Это сообщение было отправлено из нативного приложения. Ответьте через ChatWoot, чтобы продолжить диалог.",
+    "VOICE_WIDGET": {
+      "INCOMING_CALL": "Входящий звонок",
+      "OUTGOING_CALL": "Исходящий звонок",
+      "CALL_IN_PROGRESS": "Идёт звонок",
+      "NOT_ANSWERED_YET": "Пока нет ответа",
+      "HANDLED_IN_ANOTHER_TAB": "Обрабатывается в другой вкладке",
+      "REJECT_CALL": "Отклонить",
+      "JOIN_CALL": "Присоединиться к звонку",
+      "END_CALL": "Завершить звонок"
     }
   },
   "EMAIL_TRANSCRIPT": {
@@ -282,7 +320,8 @@
         "PLACEHOLDER": "Введите адрес электронной почты",
         "ERROR": "Пожалуйста, введите действительный адрес электронной почты"
       }
-    }
+    },
+    "SEND_EMAIL_PAYMENT_REQUIRED": "Отправка транскрипта на электронную почту не поддерживается вашим планом. Пожалуйста, обновите план, чтобы получить доступ к этой функции."
   },
   "ONBOARDING": {
     "TITLE": "Привет 👋, добро пожаловать в {installationName}!",
@@ -329,7 +368,8 @@
       "PREVIOUS_CONVERSATION": "Предыдущие диалоги",
       "MACROS": "Макросс",
       "LINEAR_ISSUES": "Linked Linear Issues",
-      "SHOPIFY_ORDERS": "Shopify Orders"
+      "SHOPIFY_ORDERS": "Shopify Orders",
+      "SHARED_FILES": "Attachments"
     },
     "SHOPIFY": {
       "ORDER_ID": "Order #{id}",
@@ -349,6 +389,17 @@
         "PARTIALLY_FULFILLED": "Partially Fulfilled",
         "UNFULFILLED": "Unfulfilled"
       }
+    },
+    "SHARED_FILES": {
+      "EMPTY": "No attachments yet",
+      "DOWNLOAD": "Download file",
+      "DOWNLOAD_ERROR": "Could not download the file. Please try again.",
+      "MEDIA_HEADING": "Медиа",
+      "FILES_HEADING": "Files",
+      "VIEW_ALL": "Посмотреть все",
+      "SHOW_LESS": "Show less",
+      "MORE_COUNT": "+{count}",
+      "UNTITLED_FILE": "Untitled file"
     }
   },
   "CONVERSATION_CUSTOM_ATTRIBUTES": {

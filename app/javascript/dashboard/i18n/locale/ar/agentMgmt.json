@@ -119,6 +119,9 @@
           "INPUT": "البحث عن وكلاء"
         }
       }
-    }
+    },
+    "COUNT": "{n} وكيل | {n} وكلاء",
+    "SEARCH_PLACEHOLDER": "البحث عن وكلاء...",
+    "NO_RESULTS": "No agents found matching your search"
   }
 }

@@ -13,7 +13,7 @@
       "UPGRADE_NOW": "حالا ارتقا دهید",
       "CANCEL_ANYTIME": "You can change or cancel your plan anytime"
     },
-    "ENTERPRISE_PAYWALL": {
+    "STARCHAT_PAYWALL": {
       "AVAILABLE_ON": "The custom role feature is only available in the paid plans.",
       "UPGRADE_PROMPT": "برای دسترسی به ویژگی‌های پیشرفته مانند گزارش‌های حسابرسی، ظرفیت اپراتور و غیره، به یک طرح پولی ارتقا دهید.",
       "ASK_ADMIN": "لطفاً برای ارتقا با ادمین خود تماس بگیرید."
@@ -87,6 +87,14 @@
         "YES": "بله، حذف شود ",
         "NO": "خیر، نگه‌دار "
       }
+    },
+    "COUNT": "{n} custom role | {n} custom roles",
+    "SEARCH_PLACEHOLDER": "Search custom roles...",
+    "NO_RESULTS": "No custom roles found matching your search",
+    "ENTERPRISE_PAYWALL": {
+      "AVAILABLE_ON": "The custom role feature is only available in the paid plans.",
+      "UPGRADE_PROMPT": "برای دسترسی به ویژگی‌های پیشرفته مانند گزارش‌های حسابرسی، ظرفیت اپراتور و غیره، به یک طرح پولی ارتقا دهید.",
+      "ASK_ADMIN": "لطفاً برای ارتقا با ادمین خود تماس بگیرید."
     }
   }
 }

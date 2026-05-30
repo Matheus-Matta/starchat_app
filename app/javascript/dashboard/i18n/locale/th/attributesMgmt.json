@@ -7,7 +7,8 @@
     "LEARN_MORE": "Learn more about custom attributes",
     "ATTRIBUTE_MODELS": {
       "CONVERSATION": "การสนทนา",
-      "CONTACT": "ผู้ติดต่อ"
+      "CONTACT": "ผู้ติดต่อ",
+      "COMPANY": "บริษัท"
     },
     "ATTRIBUTE_TYPES": {
       "TEXT": "ข้อความ",
@@ -63,6 +64,10 @@
         },
         "ENABLE_REGEX": {
           "LABEL": "Enable regex validation"
+        },
+        "BADGES": {
+          "PRE_CHAT": "Pre-chat",
+          "RESOLUTION": "Resolution"
         }
       },
       "API": {
@@ -101,7 +106,8 @@
     "TABS": {
       "HEADER": "แอตทริบิวต์ที่กำหนดเอง",
       "CONVERSATION": "การสนทนา",
-      "CONTACT": "รายชื่อผู้ติดต่อ"
+      "CONTACT": "รายชื่อผู้ติดต่อ",
+      "COMPANY": "บริษัท"
     },
     "LIST": {
       "TABLE_HEADER": {
@@ -129,6 +135,13 @@
       "ENABLE_REGEX": {
         "LABEL": "Enable regex validation"
       }
+    },
+    "COUNT": "{n} attribute | {n} attributes",
+    "SEARCH_PLACEHOLDER": "Search attributes...",
+    "NO_RESULTS": "No attributes found matching your search",
+    "BADGES": {
+      "PRE_CHAT": "Pre-chat",
+      "RESOLUTION": "Resolution"
     }
   }
 }

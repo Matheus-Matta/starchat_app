@@ -13,7 +13,7 @@
       "UPGRADE_NOW": "Actualitza ara",
       "CANCEL_ANYTIME": "Pots canviar o cancel·lar el teu pla en qualsevol moment"
     },
-    "ENTERPRISE_PAYWALL": {
+    "STARCHAT_PAYWALL": {
       "AVAILABLE_ON": "The custom role feature is only available in the paid plans.",
       "UPGRADE_PROMPT": "Actualitza a un pla de pagament per accedir a funcions avançades com els registres d'auditoria, la capacitat de l'agent i molt més.",
       "ASK_ADMIN": "Posa't en contacte amb el vostre administrador per obtenir l'actualització."
@@ -87,6 +87,14 @@
         "YES": "Sí, esborra ",
         "NO": "No, mantén-la "
       }
+    },
+    "COUNT": "{n} custom role | {n} custom roles",
+    "SEARCH_PLACEHOLDER": "Search custom roles...",
+    "NO_RESULTS": "No custom roles found matching your search",
+    "ENTERPRISE_PAYWALL": {
+      "AVAILABLE_ON": "The custom role feature is only available in the paid plans.",
+      "UPGRADE_PROMPT": "Actualitza a un pla de pagament per accedir a funcions avançades com els registres d'auditoria, la capacitat de l'agent i molt més.",
+      "ASK_ADMIN": "Posa't en contacte amb el vostre administrador per obtenir l'actualització."
     }
   }
 }

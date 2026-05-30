@@ -7,7 +7,7 @@ class Cosmos::InboxPendingConversationsResolutionJob < ApplicationJob
     resolvable_conversations = inbox.conversations.pending.where('last_activity_at < ? ',
                                                                  Time.now.utc - 1.hour).limit(Limits::BULK_ACTIONS_LIMIT)
     resolvable_conversations.each do |conversation|
-      create_outgoing_message(conversation, inbox)
+      create_resolution_message(conversation, inbox)
       conversation.resolved!
     end
   ensure
@@ -17,11 +17,11 @@ class Cosmos::InboxPendingConversationsResolutionJob < ApplicationJob
   private
 
   def evaluate_conversation_completion?(account)
-    account.feature_enabled?('captain_tasks') && account.captain_auto_resolve_evaluated?
+    account.feature_enabled?('cosmos_tasks') && account.cosmos_auto_resolve_evaluated?
   end
 
   def perform_time_based(inbox)
-    Current.executed_by = inbox.captain_assistant
+    Current.executed_by = inbox.cosmos_assistant
 
     resolvable_pending_conversations(inbox).each do |conversation|
       create_resolution_message(conversation, inbox)
@@ -30,7 +30,7 @@ class Cosmos::InboxPendingConversationsResolutionJob < ApplicationJob
   end
 
   def perform_with_evaluation(inbox)
-    Current.executed_by = inbox.captain_assistant
+    Current.executed_by = inbox.cosmos_assistant
 
     resolvable_pending_conversations(inbox).each do |conversation|
       evaluation = evaluate_conversation(conversation, inbox)
@@ -45,7 +45,7 @@ class Cosmos::InboxPendingConversationsResolutionJob < ApplicationJob
   end
 
   def evaluate_conversation(conversation, inbox)
-    Captain::ConversationCompletionService.new(
+    Cosmos::ConversationCompletionService.new(
       account: inbox.account,
       conversation_display_id: conversation.display_id
     ).perform
@@ -71,21 +71,21 @@ class Cosmos::InboxPendingConversationsResolutionJob < ApplicationJob
   def resolve_conversation(conversation, inbox, reason)
     create_private_note(conversation, inbox, "Auto-resolved: #{reason}")
     create_resolution_message(conversation, inbox)
-    conversation.with_captain_activity_context(
-      reason: CAPTAIN_INFERENCE_RESOLVE_ACTIVITY_REASON,
+    conversation.with_cosmos_activity_context(
+      reason: COSMOS_INFERENCE_RESOLVE_ACTIVITY_REASON,
       reason_type: :inference
     ) { conversation.resolved! }
-    conversation.dispatch_captain_inference_resolved_event
+    conversation.dispatch_cosmos_inference_resolved_event
   end
 
   def handoff_conversation(conversation, inbox, reason)
     create_private_note(conversation, inbox, "Auto-handoff: #{reason}")
     create_handoff_message(conversation, inbox)
-    conversation.with_captain_activity_context(
-      reason: CAPTAIN_INFERENCE_HANDOFF_ACTIVITY_REASON,
+    conversation.with_cosmos_activity_context(
+      reason: COSMOS_INFERENCE_HANDOFF_ACTIVITY_REASON,
       reason_type: :inference
     ) { conversation.bot_handoff! }
-    conversation.dispatch_captain_inference_handoff_event
+    conversation.dispatch_cosmos_inference_handoff_event
     send_out_of_office_message_if_applicable(conversation.reload)
   end
 
@@ -101,7 +101,7 @@ class Cosmos::InboxPendingConversationsResolutionJob < ApplicationJob
     conversation.messages.create!(
       message_type: :outgoing,
       private: true,
-      sender: inbox.captain_assistant,
+      sender: inbox.cosmos_assistant,
       account_id: conversation.account_id,
       inbox_id: conversation.inbox_id,
       content: content
@@ -124,12 +124,12 @@ class Cosmos::InboxPendingConversationsResolutionJob < ApplicationJob
   end
 
   def create_handoff_message(conversation, inbox)
-    handoff_message = inbox.captain_assistant.config['handoff_message']
+    handoff_message = inbox.cosmos_assistant.config['handoff_message']
     return if handoff_message.blank?
 
     conversation.messages.create!(
       message_type: :outgoing,
-      sender: inbox.captain_assistant,
+      sender: inbox.cosmos_assistant,
       account_id: conversation.account_id,
       inbox_id: conversation.inbox_id,
       content: handoff_message,

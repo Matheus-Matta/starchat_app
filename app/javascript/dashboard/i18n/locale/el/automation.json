@@ -40,13 +40,14 @@
       }
     },
     "LIST": {
+      "404": "Δεν βρέθηκαν κανόνες αυτοματισμού",
       "TABLE_HEADER": {
         "NAME": "Όνομα",
         "DESCRIPTION": "Περιγραφή",
         "ACTIVE": "Ενεργή",
-        "CREATED_ON": "Δημιουργήθηκε στις"
-      },
-      "404": "Δεν βρέθηκαν κανόνες αυτοματισμού"
+        "CREATED_ON": "Δημιουργήθηκε στις",
+        "ACTIONS": "Ενέργειες"
+      }
     },
     "DELETE": {
       "TITLE": "Διαγραφή Κανόνα Αυτοματισμού",
@@ -131,7 +132,8 @@
       "CONVERSATION_CREATED": "Δημιουργήθηκε Συνομιλία",
       "CONVERSATION_UPDATED": "Η Συνομιλία Ενημερώθηκε",
       "MESSAGE_CREATED": "Message Created",
-      "CONVERSATION_OPENED": "Conversation Opened"
+      "CONVERSATION_OPENED": "Conversation Opened",
+      "CONVERSATION_RESOLVED": "Conversation Resolved"
     },
     "ACTIONS": {
       "ASSIGN_AGENT": "Assign to Agent",
@@ -149,7 +151,10 @@
       "ADD_PRIVATE_NOTE": "Add a Private Note",
       "CHANGE_PRIORITY": "Change Priority",
       "ADD_SLA": "Add SLA",
-      "OPEN_CONVERSATION": "Άνοιγμα συνομιλίας"
+      "OPEN_CONVERSATION": "Άνοιγμα συνομιλίας",
+      "REMOVE_ASSIGNED_AGENT": "Remove Assigned Agent",
+      "REMOVE_ASSIGNED_TEAM": "Remove Assigned Team",
+      "PENDING_CONVERSATION": "Mark conversation as pending"
     },
     "MESSAGE_TYPES": {
       "INCOMING": "Incoming Message",
@@ -176,7 +181,14 @@
       "REFERER_LINK": "Referrer Link",
       "ASSIGNEE_NAME": "Assignee",
       "TEAM_NAME": "Ομάδα",
-      "PRIORITY": "Priority"
-    }
+      "PRIORITY": "Priority",
+      "PRIVATE_NOTE": "Ιδιωτική Σημείωση",
+      "COMPANY_NAME": "Εταιρία",
+      "LABELS": "Ετικέτες"
+    },
+    "COUNT": "{n} automation | {n} automations",
+    "SEARCH_PLACEHOLDER": "Search automation rules...",
+    "NO_RESULTS": "No automation rules found matching your search",
+    "LAST_RESPONDING_AGENT": "Last Responding Agent"
   }
 }

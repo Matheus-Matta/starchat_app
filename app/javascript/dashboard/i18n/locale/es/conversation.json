@@ -69,7 +69,8 @@
     "REPLY_MESSAGE_NOT_FOUND": "Mensaje no disponible",
     "CARD": {
       "SHOW_LABELS": "Mostrar etiquetas",
-      "HIDE_LABELS": "Ocultar etiquetas"
+      "HIDE_LABELS": "Ocultar etiquetas",
+      "LABELS_COUNT": "{count} labels"
     },
     "VOICE_CALL": {
       "INCOMING_CALL": "Incoming call",
@@ -80,7 +81,9 @@
       "CALL_ENDED": "Call ended",
       "NOT_ANSWERED_YET": "Not answered yet",
       "THEY_ANSWERED": "They answered",
-      "YOU_ANSWERED": "You answered"
+      "YOU_ANSWERED": "You answered",
+      "AGENT_ANSWERED": "{agentName} answered",
+      "JOIN_CALL": "Unirse a la llamada"
     },
     "HEADER": {
       "RESOLVE_ACTION": "Resolver",
@@ -100,7 +103,8 @@
         "RT": "RT {status}",
         "MISSED": "perdido",
         "DUE": "vencido"
-      }
+      },
+      "COPY_ID_SUCCESS": "Conversation ID copied to clipboard"
     },
     "RESOLVE_DROPDOWN": {
       "MARK_PENDING": "Marcar como pendiente",
@@ -175,6 +179,10 @@
         "TEAM_ASSIGNMENT": {
           "SUCCESFUL": "Equipo asignado \"{team}\" al ID de conversación {conversationId}",
           "FAILED": "No se pudo asignar el equipo. Por favor, inténtelo de nuevo."
+        },
+        "LABEL_REMOVAL": {
+          "SUCCESFUL": "Removed label #{labelName} from conversation id {conversationId}",
+          "FAILED": "Couldn't remove label. Please try again."
         }
       }
     },
@@ -186,7 +194,11 @@
       "PRIVATE_MSG_INPUT": "Mayús + entrar para una nueva línea. Esto será visible sólo para los agentes",
       "MESSAGE_SIGNATURE_NOT_CONFIGURED": "La firma del mensaje no está configurada, por favor configúrela en la configuración del perfil.",
       "CLICK_HERE": "Haga clic aquí para actualizar",
-      "WHATSAPP_TEMPLATES": "Plantillas de Whatsapp"
+      "WHATSAPP_TEMPLATES": "Plantillas de Whatsapp",
+      "MESSAGING_RESTRICTED": "You cannot reply to this conversation",
+      "MESSAGING_RESTRICTED_WHATSAPP": "You can only reply using a template message due to 24-hour message window restriction",
+      "MESSAGING_RESTRICTED_API": "You can only reply using a template message due to message window restriction",
+      "COPILOT_MSG_INPUT": "Dale instrucciones adicionales a Copilot o pregúntale cualquier otra cosa... Pulsa Enter para enviar el seguimiento"
     },
     "REPLYBOX": {
       "REPLY": "Responder",
@@ -227,6 +239,14 @@
           "YES": "Enviar",
           "CANCEL": "Cancelar"
         }
+      },
+      "COPILOT_THINKING": "Copilot está pensando",
+      "QUOTED_REPLY": {
+        "ENABLE_TOOLTIP": "Include quoted email thread",
+        "DISABLE_TOOLTIP": "Don't include quoted email thread",
+        "REMOVE_PREVIEW": "Remove quoted email thread",
+        "COLLAPSE": "Collapse preview",
+        "EXPAND": "Expand preview"
       }
     },
     "VISIBLE_TO_AGENTS": "Nota privada: solo visible para ti y tu equipo",
@@ -268,6 +288,21 @@
     "SIDEBAR": {
       "CONTACT": "Contacto",
       "COPILOT": "Cosmos"
+    },
+    "48_HOURS_WINDOW": "Restricción de la ventana de mensajes de 48 horas",
+    "UNSUPPORTED_MESSAGE_TIKTOK": "This message is unsupported. You can view this message on the TikTok app.",
+    "FILE_TYPE_NOT_SUPPORTED": "This {fileName} file type is not supported in this conversation",
+    "NATIVE_APP": "Native app",
+    "NATIVE_APP_ADVISORY": "This message was sent from the native app. Reply from Chatwoot to maintain the message window.",
+    "VOICE_WIDGET": {
+      "INCOMING_CALL": "Incoming call",
+      "OUTGOING_CALL": "Outgoing call",
+      "CALL_IN_PROGRESS": "Call in progress",
+      "NOT_ANSWERED_YET": "Not answered yet",
+      "HANDLED_IN_ANOTHER_TAB": "Atendido en otra pestaña",
+      "REJECT_CALL": "Rechazar",
+      "JOIN_CALL": "Unirse a la llamada",
+      "END_CALL": "Terminar llamada"
     }
   },
   "EMAIL_TRANSCRIPT": {
@@ -285,7 +320,8 @@
         "PLACEHOLDER": "Escriba la dirección de correo",
         "ERROR": "Por favor, introduzca una dirección de correo válida"
       }
-    }
+    },
+    "SEND_EMAIL_PAYMENT_REQUIRED": "Email transcript is not available on your current plan. Please upgrade to use this feature."
   },
   "ONBOARDING": {
     "TITLE": "Hola 👋, ¡Bienvenido a {installationName}!",
@@ -332,7 +368,8 @@
       "PREVIOUS_CONVERSATION": "Conversaciones anteriores",
       "MACROS": "Macros",
       "LINEAR_ISSUES": "Problemas lineales vinculados",
-      "SHOPIFY_ORDERS": "Shopify Orders"
+      "SHOPIFY_ORDERS": "Shopify Orders",
+      "SHARED_FILES": "Attachments"
     },
     "SHOPIFY": {
       "ORDER_ID": "Order #{id}",
@@ -352,6 +389,17 @@
         "PARTIALLY_FULFILLED": "Partially Fulfilled",
         "UNFULFILLED": "Unfulfilled"
       }
+    },
+    "SHARED_FILES": {
+      "EMPTY": "No attachments yet",
+      "DOWNLOAD": "Download file",
+      "DOWNLOAD_ERROR": "Could not download the file. Please try again.",
+      "MEDIA_HEADING": "Media",
+      "FILES_HEADING": "Files",
+      "VIEW_ALL": "Ver todo",
+      "SHOW_LESS": "Show less",
+      "MORE_COUNT": "+{count}",
+      "UNTITLED_FILE": "Untitled file"
     }
   },
   "CONVERSATION_CUSTOM_ATTRIBUTES": {

@@ -697,9 +697,9 @@ ne:
     copilot_message_required: Message is required
     copilot_error: 'Please connect an assistant to this inbox to use Copilot'
     copilot_limit: 'तपाईंका Copilot क्रेडिट सकिएका छन्। तपाईं बिलिङ सेक्सनबाट थप क्रेडिट किन्न सक्नुहुन्छ।.'
-    upgrade: 'Captain AI सक्षम गर्न आफ्नो योजना सुधार्नुहोस्'
-    disabled: 'यस खातामा Captain AI अक्षम गरिएको छ।.'
-    api_key_missing: 'Captain AI API कुञ्जी सेटअप गरिएको छैन।.'
+    upgrade: 'Cosmos AI सक्षम गर्न आफ्नो योजना सुधार्नुहोस्'
+    disabled: 'यस खातामा Cosmos AI अक्षम गरिएको छ।.'
+    api_key_missing: 'Cosmos AI API कुञ्जी सेटअप गरिएको छैन।.'
     copilot:
       using_tool: 'उपकरण %{function_name} प्रयोग गर्दै'
       completed_tool_call: '%{function_name} उपकरण कल पूरा भयो'

@@ -26,6 +26,29 @@
           "LABEL": "Name",
           "PLACEHOLDER": "Enter a name for this document"
         }
+      },
+      "SELECT_ALL": "Select all ({count})",
+      "UNSELECT_ALL": "Unselect all ({count})",
+      "SELECTED": "{count} selected",
+      "BULK_DELETE_BUTTON": "Delete selected"
+    },
+    "CUSTOM_TOOLS": {
+      "ADD_NEW": "Add new tool",
+      "SOFT_LIMIT_WARNING": "You are approaching the custom tools limit for your account.",
+      "EMPTY_STATE": {
+        "TITLE": "No custom tools yet",
+        "SUBTITLE": "Create your first custom tool to extend Cosmos AI capabilities.",
+        "FEATURE_SPOTLIGHT": {
+          "TITLE": "Custom Tools",
+          "NOTE": "Connect Cosmos AI to external services and APIs with custom tools."
+        }
+      }
+    },
+    "ASSISTANTS": {
+      "FORM": {
+        "FEATURES": {
+          "ALLOW_CONTACT_ATTRIBUTES": "Allow access to contact attributes"
+        }
       }
     },
     "FORM": {

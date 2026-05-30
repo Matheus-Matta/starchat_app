@@ -119,6 +119,9 @@
           "INPUT": "Søk etter agenter"
         }
       }
-    }
+    },
+    "COUNT": "{n} agent | {n} agents",
+    "SEARCH_PLACEHOLDER": "Søk etter agenter...",
+    "NO_RESULTS": "No agents found matching your search"
   }
 }

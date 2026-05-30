@@ -20,7 +20,7 @@ RSpec.describe AdministratorNotifications::AccountNotificationMailer do
     end
 
     it 'renders the subject' do
-      expect(mail.subject).to eq('Your account has been marked for deletion')
+      expect(mail.subject).to eq('Your Starchat account deletion has been scheduled')
     end
 
     it 'renders the receiver email' do
@@ -32,7 +32,8 @@ RSpec.describe AdministratorNotifications::AccountNotificationMailer do
     end
 
     it 'includes the deletion date in the email body' do
-      expect(mail.body.encoded).to include(deletion_date)
+      formatted_date = Time.zone.parse(deletion_date).strftime('%B %d, %Y')
+      expect(mail.body.encoded).to include(formatted_date)
     end
 
     it 'includes a link to cancel the deletion' do

@@ -116,6 +116,9 @@
         "LABEL": "Leisti automatiškai priskirti šiai komandai."
       },
       "SUBMIT_CREATE": "Sukurti komandą"
-    }
+    },
+    "COUNT": "{n} team | {n} teams",
+    "SEARCH_PLACEHOLDER": "Ieškoti komandų...",
+    "NO_RESULTS": "No teams found matching your search"
   }
 }

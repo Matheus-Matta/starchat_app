@@ -13,7 +13,7 @@
       "UPGRADE_NOW": "Upgrade now",
       "CANCEL_ANYTIME": "You can change or cancel your plan anytime"
     },
-    "ENTERPRISE_PAYWALL": {
+    "STARCHAT_PAYWALL": {
       "AVAILABLE_ON": "The custom role feature is only available in the paid plans.",
       "UPGRADE_PROMPT": "Upgrade to a paid plan to access advanced features like audit logs, agent capacity, and more.",
       "ASK_ADMIN": "Please reach out to your administrator for the upgrade."
@@ -87,6 +87,14 @@
         "YES": "是的，刪除 ",
         "NO": "No, keep "
       }
+    },
+    "COUNT": "{n} 個自訂角色 | {n} 個自訂角色",
+    "SEARCH_PLACEHOLDER": "搜尋自訂角色...",
+    "NO_RESULTS": "找不到符合搜尋條件的自訂角色",
+    "ENTERPRISE_PAYWALL": {
+      "AVAILABLE_ON": "自訂角色功能僅在付費方案中提供。",
+      "UPGRADE_PROMPT": "升級至付費方案以存取進階功能，例如稽核日誌、客服容量等。",
+      "ASK_ADMIN": "請聯繫您的管理員進行升級。"
     }
   }
 }

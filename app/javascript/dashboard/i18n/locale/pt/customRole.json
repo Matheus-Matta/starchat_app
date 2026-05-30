@@ -13,7 +13,7 @@
       "UPGRADE_NOW": "Fazer upgrade agora",
       "CANCEL_ANYTIME": "Pode alterar ou cancelar o plano a qualquer momento"
     },
-    "ENTERPRISE_PAYWALL": {
+    "STARCHAT_PAYWALL": {
       "AVAILABLE_ON": "O recurso de função personalizada está disponível apenas nos planos pagos.",
       "UPGRADE_PROMPT": "Faça upgrade para um plano pago para obter recursos avançados, como logs de auditoria, capacidade de agentes e muito mais.",
       "ASK_ADMIN": "Por favor, entre em contato com o administrador para atualização."
@@ -88,6 +88,14 @@
         "YES": "Sim, excluir ",
         "NO": "Não, manter "
       }
+    },
+    "COUNT": "{n} custom role | {n} custom roles",
+    "SEARCH_PLACEHOLDER": "Search custom roles...",
+    "NO_RESULTS": "No custom roles found matching your search",
+    "ENTERPRISE_PAYWALL": {
+      "AVAILABLE_ON": "O recurso de função personalizada está disponível apenas nos planos pagos.",
+      "UPGRADE_PROMPT": "Faça upgrade para um plano pago para obter recursos avançados, como logs de auditoria, capacidade de agentes e muito mais.",
+      "ASK_ADMIN": "Por favor, entre em contato com o administrador para atualização."
     }
   }
 }

@@ -3,7 +3,7 @@ class WebhookJob < ApplicationJob
   sidekiq_options retry: 3
 
   #  There are 3 types of webhooks, account, inbox and agent_bot
-  def perform(url, payload, webhook_type = :account_webhook)
-    Webhooks::Trigger.execute(url, payload, webhook_type)
+  def perform(url, payload, webhook_type = :account_webhook, **kwargs)
+    Webhooks::Trigger.execute(url, payload, webhook_type, **kwargs)
   end
 end

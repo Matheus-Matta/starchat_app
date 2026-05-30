@@ -583,10 +583,10 @@ const menuItems = computed(() => {
           to: accountScopedRoute('general_settings_index'),
         },
         // {
-        //   name: 'Settings Captain',
-        //   label: t('SIDEBAR.CAPTAIN_AI'),
-        //   icon: 'i-woot-captain',
-        //   to: accountScopedRoute('captain_settings_index'),
+        //   name: 'Settings Cosmos',
+        //   label: t('SIDEBAR.COSMOS_AI'),
+        //   icon: 'i-woot-cosmos',
+        //   to: accountScopedRoute('cosmos_settings_index'),
         // },
         {
           name: 'Settings Agents',

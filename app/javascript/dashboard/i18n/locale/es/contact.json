@@ -407,7 +407,8 @@
       "ACTIVE_FILTERS": {
         "MORE_FILTERS": "+ {count} filtros más",
         "CLEAR_FILTERS": "Limpiar filtros"
-      }
+      },
+      "COMPANY": "Empresa"
     },
     "CARD": {
       "OF": "de",

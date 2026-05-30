@@ -157,6 +157,12 @@
             "DELETE_SUCCESS": "Портал успешно удален",
             "DELETE_ERROR": "Ошибка при удалении портала"
           }
+        },
+        "SEND_CNAME_INSTRUCTIONS": {
+          "API": {
+            "SUCCESS_MESSAGE": "Инструкции CNAME успешно отправлены",
+            "ERROR_MESSAGE": "Ошибка при отправке инструкций CNAME"
+          }
         }
       },
       "EDIT": {
@@ -310,11 +316,23 @@
           "SUCCESS_MESSAGE": "Локаль успешно удалена из портала",
           "ERROR_MESSAGE": "Невозможно удалить локаль из портала. Повторите попытку."
         }
+      },
+      "DRAFT_LOCALE": {
+        "API": {
+          "SUCCESS_MESSAGE": "Locale moved to draft successfully",
+          "ERROR_MESSAGE": "Unable to move locale to draft. Try again."
+        }
+      },
+      "PUBLISH_LOCALE": {
+        "API": {
+          "SUCCESS_MESSAGE": "Locale published successfully",
+          "ERROR_MESSAGE": "Unable to publish locale. Try again."
+        }
       }
     },
     "TABLE": {
-      "LOADING_MESSAGE": "Загрузка статей...",
       "404": "Нет статей, соответствующих вашему запросу 🔍",
+      "LOADING_MESSAGE": "Загрузка статей...",
       "NO_ARTICLES": "Нет доступных статей",
       "HEADERS": {
         "TITLE": "Название",
@@ -497,7 +515,8 @@
             "PUBLISH": "Опубликовано",
             "DRAFT": "Черновик",
             "ARCHIVE": "Архив",
-            "DELETE": "Удалить"
+            "DELETE": "Удалить",
+            "TRANSLATE": "Перевести"
           },
           "STATUS": {
             "DRAFT": "Черновик",
@@ -551,6 +570,41 @@
           "TITLE": "В этой категории нет статей",
           "SUBTITLE": "Статьи в этой категории будут отображаться здесь"
         }
+      },
+      "BULK_TRANSLATE": {
+        "TITLE": "Translate article | Translate {count} articles",
+        "DESCRIPTION": "Translate the selected article to another language. | Translate the selected articles to another language.",
+        "LOCALE_LABEL": "Target language",
+        "LOCALE_PLACEHOLDER": "Select a language",
+        "CATEGORY_LABEL": "Target category",
+        "CATEGORY_PLACEHOLDER": "Select a category",
+        "OPTIONAL": "(optional)",
+        "CONFIRM": "Перевести",
+        "SELECT_ALL": "Выбрать все ({count})",
+        "SELECTED_COUNT": "Выбрано {count}",
+        "CLEAR_SELECTION": "Clear selection",
+        "TRANSLATE_BUTTON": "Перевести",
+        "CONFIRM_OVERWRITE": "Overwrite and translate",
+        "DUPLICATE_WARNING": "A translation already exists for this article in the selected language. | Translations already exist for {count} articles in the selected language.",
+        "DUPLICATE_CONFIRM_HINT": "Click translate again to overwrite the existing translation.",
+        "API": {
+          "SUCCESS_MESSAGE": "Translation in progress. The article will appear as a draft once ready.",
+          "ERROR_MESSAGE": "Failed to start translation. Please try again."
+        }
+      },
+      "BULK_ACTIONS": {
+        "PUBLISH": "Опубликовано",
+        "DRAFT": "Черновик",
+        "ARCHIVE": "Архив",
+        "TRANSLATE": "Перевести",
+        "DELETE": "Удалить",
+        "STATUS_SUCCESS": "Articles updated successfully",
+        "STATUS_ERROR": "Failed to update articles",
+        "DELETE_CONFIRM_TITLE": "Delete article | Delete {count} articles",
+        "DELETE_CONFIRM_DESCRIPTION": "This will permanently delete the selected article. This action cannot be undone. | This will permanently delete {count} selected articles. This action cannot be undone.",
+        "DELETE_CONFIRM": "Удалить",
+        "DELETE_SUCCESS": "Articles deleted successfully",
+        "DELETE_ERROR": "Failed to delete articles"
       }
     },
     "CATEGORY_PAGE": {
@@ -630,8 +684,11 @@
         "DEFAULT": "По умолчанию",
         "DROPDOWN_MENU": {
           "MAKE_DEFAULT": "Сделать по умолчанию",
-          "DELETE": "Удалить"
-        }
+          "DELETE": "Удалить",
+          "MOVE_TO_DRAFT": "Move to draft",
+          "PUBLISH_LOCALE": "Publish locale"
+        },
+        "DRAFT": "Черновик"
       },
       "ADD_LOCALE_DIALOG": {
         "TITLE": "Добавить новую локаль",
@@ -642,6 +699,13 @@
         "API": {
           "SUCCESS_MESSAGE": "Локаль успешно добавлен",
           "ERROR_MESSAGE": "Не удалось добавить локаль. Попробуйте еще раз."
+        },
+        "STATUS": {
+          "LABEL": "Статус",
+          "OPTIONS": {
+            "LIVE": "Опубликовано",
+            "DRAFT": "Черновик"
+          }
         }
       }
     },
@@ -735,7 +799,8 @@
         "LIVE_CHAT_WIDGET": {
           "LABEL": "Виджет онлайн чата",
           "PLACEHOLDER": "Выберите виджет онлайн чата",
-          "HELP_TEXT": "Выберите виджет онлайн-чата, который появится в вашем центре помощи"
+          "HELP_TEXT": "Выберите виджет онлайн-чата, который появится в вашем центре помощи",
+          "NONE_OPTION": "Нет виджета"
         },
         "BRAND_COLOR": {
           "LABEL": "Цвет бренда"
@@ -757,13 +822,28 @@
             "EDIT_CONFIRM_BUTTON_LABEL": "Обновить домен",
             "LABEL": "Свой домен",
             "PLACEHOLDER": "Пользовательский домен портала",
-            "ERROR": "Требуется пользовательский домен"
+            "ERROR": "Требуется пользовательский домен",
+            "FORMAT_ERROR": "Пожалуйста, введите корректный URL домена, например docs.yourdomain.com"
           },
           "DNS_CONFIGURATION_DIALOG": {
             "HEADER": "Настройка DNS",
             "DESCRIPTION": "Войдите в учетную запись с вашим DNS провайдером и добавьте запись CNAME для поддомена, указывающего на chatwoot.help",
             "HELP_TEXT": "Как только это будет сделано, вы можете связаться с нашей службой поддержки для запроса SSL-сертификата.",
-            "CONFIRM_BUTTON_LABEL": "Понял!"
+            "CONFIRM_BUTTON_LABEL": "Понял!",
+            "COPY": "CNAME успешно скопирован",
+            "SEND_INSTRUCTIONS": {
+              "HEADER": "Отправить инструкции",
+              "DESCRIPTION": "Если вы предпочитаете иметь кого-то из вашей команды разработчиков, вы можете ввести адрес электронной почты ниже, и мы отправим им необходимые инструкции.",
+              "PLACEHOLDER": "Введите их email",
+              "ERROR": "Введите правильный адрес электронной почты",
+              "SEND_BUTTON": "Отправить"
+            }
+          },
+          "STATUS_DESCRIPTION": "Ваш портал начнет работать, как только он будет проверен.",
+          "STATUS": {
+            "LIVE": "Онлайн",
+            "PENDING": "Ожидание проверки",
+            "ERROR": "Проверка не удалась"
           }
         },
         "DELETE_PORTAL": {
@@ -840,6 +920,16 @@
       "FROM_DOCUMENT": "From document",
       "NO_CONTENT": "No generated content available. Upload a PDF document to get started.",
       "LOADING": "Loading generated content..."
+    },
+    "REORDER_ARTICLE": {
+      "API": {
+        "ERROR_MESSAGE": "Unable to reorder articles. Please try again."
+      }
+    },
+    "REORDER_CATEGORY": {
+      "API": {
+        "ERROR_MESSAGE": "Unable to reorder categories. Please try again."
+      }
     }
   }
 }

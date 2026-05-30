@@ -55,7 +55,10 @@
       "LAST_3_MONTHS": "Últimos 3 meses",
       "LAST_6_MONTHS": "Últimos 6 meses",
       "LAST_YEAR": "Último ano",
-      "CUSTOM_DATE_RANGE": "Intervalo de tempo personalizado"
+      "CUSTOM_DATE_RANGE": "Intervalo de tempo personalizado",
+      "LAST_14_DAYS": "Últimos 14 Dias",
+      "THIS_MONTH": "This month",
+      "LAST_MONTH": "Last month"
     },
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "Confirmar",
@@ -121,7 +124,8 @@
     "PAGINATION": {
       "RESULTS": "Showing {start} to {end} of {total} results",
       "PER_PAGE_TEMPLATE": "{size} / page"
-    }
+    },
+    "DOWNLOAD_CONVERSATION_REPORTS": "Baixar relatórios de conversas"
   },
   "AGENT_REPORTS": {
     "HEADER": "Visão geral de agentes",
@@ -189,6 +193,11 @@
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "Confirmar",
       "PLACEHOLDER": "Selecionar intervalo de tempo"
+    },
+    "FILTERS": {
+      "INPUT_PLACEHOLDER": {
+        "AGENTS": "Procurar agentes"
+      }
     }
   },
   "LABEL_REPORTS": {
@@ -257,6 +266,11 @@
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "Confirmar",
       "PLACEHOLDER": "Selecionar intervalo de tempo"
+    },
+    "FILTERS": {
+      "INPUT_PLACEHOLDER": {
+        "LABELS": "Procurar etiquetas"
+      }
     }
   },
   "INBOX_REPORTS": {
@@ -325,6 +339,13 @@
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "Confirmar",
       "PLACEHOLDER": "Selecionar intervalo de tempo"
+    },
+    "ALL_INBOXES": "All Inboxes",
+    "SEARCH_INBOX": "Search Inbox",
+    "FILTERS": {
+      "INPUT_PLACEHOLDER": {
+        "INBOXES": "Search inboxes"
+      }
     }
   },
   "TEAM_REPORTS": {
@@ -393,6 +414,14 @@
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "Confirmar",
       "PLACEHOLDER": "Selecionar intervalo de tempo"
+    },
+    "FILTERS": {
+      "ADD_FILTER": "Adicionar filtro",
+      "CLEAR_ALL": "Limpar tudo",
+      "NO_FILTER": "Sem filtros disponíveis",
+      "INPUT_PLACEHOLDER": {
+        "TEAMS": "Procurar equipas"
+      }
     }
   },
   "CSAT_REPORTS": {
@@ -402,7 +431,26 @@
     "DOWNLOAD_FAILED": "Falha ao descarregar os relatórios CSAT",
     "FILTERS": {
       "AGENTS": {
-        "PLACEHOLDER": "Escolher agentes"
+        "PLACEHOLDER": "Escolher agentes",
+        "LABEL": "Agente"
+      },
+      "ADD_FILTER": "Adicionar filtro",
+      "CLEAR_ALL": "Limpar tudo",
+      "NO_FILTER": "Sem filtros disponíveis",
+      "INPUT_PLACEHOLDER": {
+        "AGENTS": "Procurar agentes",
+        "INBOXES": "Search inboxes",
+        "TEAMS": "Procurar equipas",
+        "RATINGS": "Search ratings"
+      },
+      "INBOXES": {
+        "LABEL": "Caixa de entrada"
+      },
+      "TEAMS": {
+        "LABEL": "Equipa"
+      },
+      "RATINGS": {
+        "LABEL": "Avaliar"
       }
     },
     "TABLE": {
@@ -410,8 +458,13 @@
         "CONTACT_NAME": "Contacto",
         "AGENT_NAME": "Agente atribuído",
         "RATING": "Classificação",
-        "FEEDBACK_TEXT": "Comentário de feedback"
-      }
+        "FEEDBACK_TEXT": "Comentário de feedback",
+        "CONVERSATION": "Conversa",
+        "CUSTOMER": "Customer",
+        "RESPONSE": "Response",
+        "HANDLED_BY": "Handled by"
+      },
+      "UNKNOWN_CUSTOMER": "Unknown customer"
     },
     "METRIC": {
       "TOTAL_RESPONSES": {
@@ -425,6 +478,28 @@
       "RESPONSE_RATE": {
         "LABEL": "Taxa de resposta",
         "TOOLTIP": "Número total de respostas / Número total de mensagens de questionários CSAT enviadas * 100"
+      },
+      "RATING_DISTRIBUTION": "Rating distribution"
+    },
+    "NO_RECORDS_DESCRIPTION": "CSAT survey responses will appear here once customers start providing feedback.",
+    "NO_AGENT": "No assigned agent",
+    "NO_FEEDBACK": "No feedback provided",
+    "REVIEW_NOTES": {
+      "TITLE": "Review notes",
+      "PLACEHOLDER": "Add review notes about this rating...",
+      "SAVE": "Guardar",
+      "CANCEL": "Cancelar",
+      "SAVING": "A guardar...",
+      "SAVED": "Notes saved successfully",
+      "SAVE_ERROR": "Failed to save notes",
+      "UPDATED_BY": "Updated by {name} {time}",
+      "UPDATED_BY_LABEL": "Updated by",
+      "PAYWALL": {
+        "TITLE": "Upgrade to add review notes",
+        "AVAILABLE_ON": "The review notes feature is only available in the Business and Enterprise plans.",
+        "UPGRADE_PROMPT": "Add internal context to every CSAT response with review notes. Capture what really happened, spot patterns faster, and make better decisions from your feedback.",
+        "UPGRADE_NOW": "Fazer upgrade agora",
+        "CANCEL_ANYTIME": "Pode alterar ou cancelar o plano a qualquer momento"
       }
     }
   },
@@ -495,6 +570,13 @@
       "ONLINE": "Disponível",
       "BUSY": "Ocupado",
       "OFFLINE": "Ausente"
+    },
+    "RESOLUTION_HEATMAP": {
+      "HEADER": "Resolutions",
+      "NO_CONVERSATIONS": "Não existem conversas",
+      "CONVERSATION": "{count} conversa",
+      "CONVERSATIONS": "{count} conversas",
+      "DOWNLOAD_REPORT": "Descarregar relatório"
     }
   },
   "DAYS_OF_WEEK": {

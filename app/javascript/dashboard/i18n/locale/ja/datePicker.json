@@ -13,7 +13,12 @@
       "LAST_3_MONTHS": "過去 3 ヶ月",
       "LAST_6_MONTHS": "過去 6 ヶ月",
       "LAST_YEAR": "過去 1 年",
-      "CUSTOM_RANGE": "カスタム日付範囲"
-    }
+      "CUSTOM_RANGE": "カスタム日付範囲",
+      "THIS_WEEK": "This week",
+      "MONTH_TO_DATE": "This month"
+    },
+    "PREVIOUS_PERIOD": "Previous period",
+    "NEXT_PERIOD": "Next period",
+    "WEEK_NUMBER": "Week #{weekNumber}"
   }
 }

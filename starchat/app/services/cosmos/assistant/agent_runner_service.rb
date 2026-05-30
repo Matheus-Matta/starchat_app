@@ -67,7 +67,7 @@ class Cosmos::Assistant::AgentRunnerService
     content = last_user_msg[:content]
     return extract_text_from_content(content) unless content.is_a?(Array)
 
-    text, attachments = Captain::OpenAiMessageBuilderService.extract_text_and_attachments(content)
+    text, attachments = Cosmos::OpenAiMessageBuilderService.extract_text_and_attachments(content)
     return text if attachments.blank?
 
     RubyLLM::Content.new(text, attachments)
@@ -96,7 +96,7 @@ class Cosmos::Assistant::AgentRunnerService
 
     # Extract agent name from context
     response['agent_name'] = result.context&.dig(:current_agent)
-    response['handoff_tool_called'] = result.context&.dig(:captain_v2_handoff_tool_called) || false
+    response['handoff_tool_called'] = result.context&.dig(:cosmos_v2_handoff_tool_called) || false
     response
   end
 
@@ -148,9 +148,9 @@ class Cosmos::Assistant::AgentRunnerService
     Agents::Instrumentation.install(
       runner,
       tracer: OpentelemetryConfig.tracer,
-      trace_name: 'llm.captain_v2',
+      trace_name: 'llm.cosmos_v2',
       span_attributes: {
-        ATTR_LANGFUSE_TAGS => ['captain_v2'].to_json
+        ATTR_LANGFUSE_TAGS => ['cosmos_v2'].to_json
       },
       attribute_provider: ->(context_wrapper) { dynamic_trace_attributes(context_wrapper) }
     )
@@ -160,7 +160,7 @@ class Cosmos::Assistant::AgentRunnerService
   def dynamic_trace_attributes(context_wrapper)
     state = context_wrapper&.context&.dig(:state) || {}
     conversation = state[:conversation] || {}
-    trace_input = context_wrapper&.context&.dig(:captain_v2_trace_input)
+    trace_input = context_wrapper&.context&.dig(:cosmos_v2_trace_input)
 
     {
       ATTR_LANGFUSE_USER_ID => state[:account_id],
@@ -175,7 +175,7 @@ class Cosmos::Assistant::AgentRunnerService
   end
 
   def add_usage_metadata_callback(runner)
-    handoff_tool_name = Captain::Tools::HandoffTool.new(@assistant).name
+    handoff_tool_name = Cosmos::Tools::HandoffTool.new(@assistant).name
 
     # Tool tracking always runs — process_response in the job consumes the resulting
     # handoff_tool_called flag regardless of whether OTEL is enabled.

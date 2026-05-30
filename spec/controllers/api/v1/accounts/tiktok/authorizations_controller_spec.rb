@@ -37,19 +37,19 @@ RSpec.describe 'TikTok Authorization API', type: :request do
             post "/api/v1/accounts/#{account.id}/tiktok/authorization",
                  headers: administrator.create_new_auth_token,
                  as: :json
+
+            expect(response).to have_http_status(:success)
+            expect(response.parsed_body['success']).to be true
+
+            helper = Class.new do
+              include Tiktok::IntegrationHelper
+            end.new
+
+            expected_state = helper.generate_tiktok_token(account.id)
+            expected_url = Tiktok::AuthClient.authorize_url(state: expected_state)
+
+            expect(response.parsed_body['url']).to eq(expected_url)
           end
-
-          expect(response).to have_http_status(:success)
-          expect(response.parsed_body['success']).to be true
-
-          helper = Class.new do
-            include Tiktok::IntegrationHelper
-          end.new
-
-          expected_state = helper.generate_tiktok_token(account.id)
-          expected_url = Tiktok::AuthClient.authorize_url(state: expected_state)
-
-          expect(response.parsed_body['url']).to eq(expected_url)
         end
       end
     end

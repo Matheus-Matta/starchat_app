@@ -10,12 +10,14 @@ RSpec.describe AccountEmailRateLimitable do
     end
 
     it 'returns global config when no account override' do
-      InstallationConfig.where(name: 'ACCOUNT_EMAILS_LIMIT').first_or_create(value: 200)
+      InstallationConfig.find_or_initialize_by(name: 'ACCOUNT_EMAILS_LIMIT').update!(value: 200)
+      GlobalConfig.clear_cache
       expect(account.email_rate_limit).to eq(200)
     end
 
     it 'returns account override over global config' do
-      InstallationConfig.where(name: 'ACCOUNT_EMAILS_LIMIT').first_or_create(value: 200)
+      InstallationConfig.find_or_initialize_by(name: 'ACCOUNT_EMAILS_LIMIT').update!(value: 200)
+      GlobalConfig.clear_cache
       account.update!(limits: { 'emails' => 50 })
       expect(account.email_rate_limit).to eq(50)
     end

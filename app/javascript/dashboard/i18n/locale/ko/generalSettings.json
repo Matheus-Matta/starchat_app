@@ -150,8 +150,8 @@
       "EMPTY_MESSAGE": "You have no unread notifications"
     },
     "LIST": {
-      "LOADING_MESSAGE": "알림을 불러오는 중...",
       "404": "알림 없음",
+      "LOADING_MESSAGE": "알림을 불러오는 중...",
       "TABLE_HEADER": [
         "이름",
         "전화 번호",
@@ -239,7 +239,8 @@
       "DARK_MODE": "Dark",
       "SYSTEM_MODE": "System",
       "SNOOZE_NOTIFICATION": "Snooze Notification"
-    }
+    },
+    "SNOOZE_PLACEHOLDER": "시간을 입력하세요. 예: 내일, 2시간 후, 다음 금요일, 1월 15일..."
   },
   "DASHBOARD_APPS": {
     "LOADING_MESSAGE": "Loading Dashboard App..."

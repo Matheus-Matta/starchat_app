@@ -110,6 +110,14 @@
         "SUBMIT_BUTTON": "Gelen Kutusu Oluştur",
         "API": {
           "ERROR_MESSAGE": "Web sitesi kanalı oluşturulamadı, lütfen tekrar deneyin"
+        },
+        "CHANNEL_WEBHOOK_SECRET": {
+          "LABEL": "Webhook Secret",
+          "COPY": "Copy secret to clipboard",
+          "COPY_SUCCESS": "Secret copied to clipboard",
+          "TOGGLE": "Toggle secret visibility",
+          "RESET_SUCCESS": "Webhook secret regenerated successfully",
+          "RESET_ERROR": "Unable to regenerate webhook secret. Please try again"
         }
       },
       "TWILIO": {
@@ -291,7 +299,13 @@
           "INVALID_BUSINESS_DATA": "Invalid business data received from Facebook. Please try again.",
           "SIGNUP_ERROR": "Signup error occurred",
           "AUTH_NOT_COMPLETED": "Authentication not completed. Please restart the process.",
-          "SUCCESS_FALLBACK": "WhatsApp Business Account has been successfully configured"
+          "SUCCESS_FALLBACK": "WhatsApp Business Account has been successfully configured",
+          "LEARN_MORE": {
+            "TEXT": "Entegre kayıt, fiyatlandırma ve sınırlamalar hakkında daha fazla bilgi için {link} adresini ziyaret edin.",
+            "LINK_TEXT": "bu bağlantı"
+          },
+          "MANUAL_FALLBACK": "Numaranız zaten WhatsApp Business Platformuna (API) bağlıysa veya kendi numaranızı ekleyen bir teknoloji sağlayıcısıysanız, lütfen {link} akışını kullanın",
+          "MANUAL_LINK_TEXT": "manuel kurulum akışı"
         },
         "API": {
           "ERROR_MESSAGE": "WhatsApp kanalını kaydedemedik"
@@ -373,7 +387,11 @@
         "API": {
           "ERROR_MESSAGE": "E-posta kanalını kaydedemedik"
         },
-        "FINISH_MESSAGE": "E-postalarınızı aşağıdaki e-posta adresine iletmeye başlayın."
+        "FINISH_MESSAGE": "E-postalarınızı aşağıdaki e-posta adresine iletmeye başlayın.",
+        "FINISH_MESSAGE_NO_FORWARDING": "E-posta gelen kutunuz başarıyla oluşturuldu! E-posta gönderip almak için SMTP ve IMAP bilgilerinizi yapılandırmanız gerekmektedir. Bu ayarlar yapılmadan hiçbir e-posta işlenmeyecektir.",
+        "FORWARDING_ADDRESS_LABEL": "E-postaları bu adrese yönlendirin:",
+        "CONFIGURE_SMTP_IMAP_LINK": "Buraya Tıkla",
+        "CONFIGURE_SMTP_IMAP_TEXT": " IMAP ve SMTP ayarlarını yapılandırmak için"
       },
       "LINE_CHANNEL": {
         "TITLE": "LINE Kanalı",
@@ -462,6 +480,10 @@
           "VOICE": {
             "TITLE": "Voice",
             "DESCRIPTION": "Integrate with Twilio Voice"
+          },
+          "TIKTOK": {
+            "TITLE": "TikTok",
+            "DESCRIPTION": "Connect your TikTok account"
           }
         }
       },
@@ -496,6 +518,13 @@
         "SIGN_IN": "Sign in with Google",
         "EMAIL_PLACEHOLDER": "E-posta adresini girin",
         "ERROR_MESSAGE": "There was an error connecting to Google, please try again"
+      },
+      "TIKTOK": {
+        "CONTINUE_WITH_TIKTOK": "Continue with TikTok",
+        "CONNECT_YOUR_TIKTOK_PROFILE": "Connect your TikTok Profile",
+        "HELP": "To add your TikTok profile as a channel, you need to authenticate your TikTok Profile by clicking on 'Continue with TikTok' ",
+        "ERROR_MESSAGE": "There was an error connecting to TikTok, please try again",
+        "ERROR_AUTH": "There was an error connecting to TikTok, please try again"
       }
     },
     "DETAILS": {
@@ -567,7 +596,9 @@
       },
       "LOCK_TO_SINGLE_CONVERSATION": {
         "ENABLED": "Etkin",
-        "DISABLED": "Devre dışı"
+        "DISABLED": "Devre dışı",
+        "ENABLED_DESCRIPTION": "When a contact messages again, the previous conversation will be reopened.",
+        "DISABLED_DESCRIPTION": "A new conversation will be created each time after the previous one is resolved."
       },
       "ENABLE_HMAC": {
         "LABEL": "Etkinleştir"
@@ -599,7 +630,9 @@
       "BUSINESS_HOURS": "İş Saatleri",
       "WIDGET_BUILDER": "Widget Oluşturucu",
       "BOT_CONFIGURATION": "Bot Yapılandırma",
-      "CSAT": "CSAT"
+      "CSAT": "CSAT",
+      "ACCOUNT_HEALTH": "Hesap Sağlığı",
+      "VOICE": "Ses"
     },
     "SETTINGS": "Ayarlar",
     "FEATURES": {
@@ -652,14 +685,49 @@
       "WHATSAPP_TEMPLATES_SYNC_SUBHEADER": "Manually sync message templates from WhatsApp to update your available templates.",
       "WHATSAPP_TEMPLATES_SYNC_BUTTON": "Sync Templates",
       "WHATSAPP_TEMPLATES_SYNC_SUCCESS": "Templates sync initiated successfully. It may take a couple of minutes to update.",
-      "UPDATE_PRE_CHAT_FORM_SETTINGS": "Sohbet Öncesi Form Ayarlarını Güncelleme"
+      "UPDATE_PRE_CHAT_FORM_SETTINGS": "Sohbet Öncesi Form Ayarlarını Güncelleme",
+      "ALLOWED_DOMAINS": {
+        "TITLE": "İzin Verilen Alan Adları",
+        "DESCRIPTION": "Sohbet widget'ınızı hangi web sitelerinin yerleştirebileceğini kısıtlayın. Güvenlik amacıyla, yalnızca sahip olduğunuz ve güvendiğiniz alan adlarını ekleyin. Bir veya daha fazla alan adını virgülle ayırarak ekleyin. Tüm alan adlarına izin vermek için boş bırakın (canlı ortamlar için önerilmez).",
+        "PLACEHOLDER": "example.com, www.example.com, app.example.com"
+      },
+      "ALLOW_MOBILE_WEBVIEW": {
+        "LABEL": "Mobil uygulamalarda widget'ı etkinleştir",
+        "SUBTITLE": "Widget'ı iOS veya Android uygulamalarına yerleştiriyorsanız bu seçeneği işaretleyin. Mobil uygulamalar alan adı bilgisi göndermediğinden, bu seçenek etkinleştirilmezse alan adı kısıtlamalarına takılarak engellenirler."
+      },
+      "IDENTITY_VALIDATION": {
+        "TITLE": "Kimlik Doğrulama",
+        "DESCRIPTION": "Güvenli token'lar oluşturarak kullanıcıların gerçekliğini doğrulayın. Bu işlem, yetkisiz kişilerin sohbetinizde başkalarının kimliğine bürünmesini engeller.",
+        "SECRET_KEY": "Gizli Anahtar",
+        "VIEW_DOCS": "Dokümantasyonu görüntüle",
+        "REQUIRE_LABEL": "Tüm sohbetler için kimlik doğrulamayı zorunlu kıl",
+        "REQUIRE_DESCRIPTION": "Etkinleştirildiğinde, kullanıcıların sohbet başlatabilmesi için geçerli bir kimlik token'ı sunması gerekir. Geçerli bir token içermeyen istekler reddedilecektir."
+      },
+      "ENABLE_CONTINUITY_VIA_EMAIL_DISABLED_TEXT": "This feature is available on a paid plan. Upgrade to enable conversation continuity via email.",
+      "FORWARD_EMAIL_NOT_CONFIGURED": "E-postaların gelen kutunuza yönlendirilmesi bu kurulumda şu anda devre dışı bırakılmıştır. Bu özelliği kullanabilmek için yöneticiniz tarafından etkinleştirilmesi gerekmektedir. Devam etmek için lütfen yönetici ile iletişime geçin.",
+      "WHATSAPP_EMBEDDED_SIGNUP_TITLE": "WhatsApp Embedded Signup",
+      "WHATSAPP_EMBEDDED_SIGNUP_SUBHEADER": "Bu gelen kutusu, WhatsApp embedded signup yoluyla bağlandı.",
+      "WHATSAPP_EMBEDDED_SIGNUP_DESCRIPTION": "WhatsApp Business ayarlarınızı güncellemek için bu gelen kutusunu yeniden yapılandırabilirsiniz.",
+      "WHATSAPP_RECONFIGURE_BUTTON": "Yeniden yapılandır",
+      "WHATSAPP_CONNECT_TITLE": "WhatsApp Business'a Bağlan",
+      "WHATSAPP_CONNECT_SUBHEADER": "Daha kolay yönetim için WhatsApp gömülü kayda (embedded signup) yükseltin.",
+      "WHATSAPP_CONNECT_DESCRIPTION": "Gelişmiş özellikler ve daha kolay yönetim için bu gelen kutusunu WhatsApp Business'a bağlayın.",
+      "WHATSAPP_CONNECT_BUTTON": "Bağlan",
+      "WHATSAPP_CONNECT_SUCCESS": "WhatsApp Business'a başarıyla bağlandı!",
+      "WHATSAPP_CONNECT_ERROR": "WhatsApp Business'a bağlanılamadı. Lütfen tekrar deneyin.",
+      "WHATSAPP_RECONFIGURE_SUCCESS": "WhatsApp Business başarıyla yeniden yapılandırıldı!",
+      "WHATSAPP_RECONFIGURE_ERROR": "WhatsApp Business yeniden yapılandırılamadı. Lütfen tekrar deneyin.",
+      "WHATSAPP_APP_ID_MISSING": "WhatsApp Uygulama Kimliği yapılandırılmamış. Lütfen yöneticinize başvurun.",
+      "WHATSAPP_CONFIG_ID_MISSING": "WhatsApp Yapılandırma Kimliği yapılandırılmamış. Lütfen yöneticinize başvurun.",
+      "WHATSAPP_LOGIN_CANCELLED": "WhatsApp oturum açma işlemi iptal edildi. Lütfen tekrar deneyin."
     },
     "HELP_CENTER": {
       "LABEL": "Yardım Merkezi",
       "PLACEHOLDER": "Yardım Merkezi Seçin",
       "SELECT_PLACEHOLDER": "Yardım Merkezi Seçin",
       "REMOVE": "Yardım Merkezini Kaldır",
-      "SUB_TEXT": "Yardım Merkezini gelen kutusuna ekleyin"
+      "SUB_TEXT": "Yardım Merkezini gelen kutusuna ekleyin",
+      "NONE": "Hiç"
     },
     "AUTO_ASSIGNMENT": {
       "MAX_ASSIGNMENT_LIMIT": "Otomatik atama limiti",
@@ -722,7 +790,51 @@
       "API": {
         "SUCCESS_MESSAGE": "CSAT ayarları başarıyla güncellendi",
         "ERROR_MESSAGE": "CSAT ayarları güncellenemedi. Lütfen daha sonra tekrar deneyin."
-      }
+      },
+      "BUTTON_TEXT": {
+        "LABEL": "Button text",
+        "PLACEHOLDER": "Lütfen bizi değerlendirin"
+      },
+      "LANGUAGE": {
+        "LABEL": "Dil",
+        "PLACEHOLDER": "Select template language"
+      },
+      "MESSAGE_PREVIEW": {
+        "LABEL": "Mesaj önizlemesi",
+        "TOOLTIP": "This may vary slightly when rendered on WhatsApp's platform."
+      },
+      "TEMPLATE_STATUS": {
+        "APPROVED": "WhatsApp tarafından onaylandı",
+        "PENDING": "WhatsApp onayı bekleniyor",
+        "REJECTED": "Meta rejected the template",
+        "DEFAULT": "Needs WhatsApp approval",
+        "NOT_FOUND": "The template does not exist in the Meta platform."
+      },
+      "TEMPLATE_CREATION": {
+        "SUCCESS_MESSAGE": "WhatsApp template created successfully and sent for approval",
+        "ERROR_MESSAGE": "Failed to create WhatsApp template"
+      },
+      "TEMPLATE_UPDATE_DIALOG": {
+        "TITLE": "Anket ayrıntılarını düzenle",
+        "DESCRIPTION": "We will delete the previous template and make a new one which will be sent again for WhatsApp approval",
+        "CONFIRM": "Yeni şablon oluştur",
+        "CANCEL": "Geri git"
+      },
+      "UTILITY_ANALYZER": {
+        "ACTION": "Check utility fit",
+        "HELPER_NOTE": "Check this message before submission to improve Utility fit. The system creates a dedicated CSAT template with buttons for reporting and submits it as Utility; Meta may still reclassify it as Marketing based on content.",
+        "RESULT_LABEL": "Meta category prediction",
+        "GUIDANCE_NOTE": "This is a guidance check, not a guarantee of Meta approval.",
+        "SUGGESTION_LABEL": "Suggested utility-safe rewrite",
+        "APPLY": "Use this rewrite",
+        "ERROR_MESSAGE": "Couldn't analyze the message. Please try again.",
+        "CLASSIFICATION": {
+          "LIKELY_UTILITY": "Likely Utility",
+          "LIKELY_MARKETING": "Likely Marketing",
+          "UNCLEAR": "Needs clarification"
+        }
+      },
+      "WHATSAPP_NOTE": "Note: When you save, the system creates a dedicated CSAT template in WhatsApp (used to capture rating and feedback in reports) and submits it as Utility for approval. Meta may still classify it as Marketing based on content. After approval, surveys are sent only once per conversation as per the survey rule."
     },
     "BUSINESS_HOURS": {
       "TITLE": "Uygunluk Durumunuzu Ayarlayın",
@@ -738,7 +850,9 @@
         "UNAVAILABLE": "Uygun Değil",
         "HOURS": "saat",
         "VALIDATION_ERROR": "Başlangıç saati kapanış saatinden önce olmalıdır.",
-        "CHOOSE": "Seçin"
+        "CHOOSE": "Seçin",
+        "DAY": "Gün",
+        "AVAILABILITY": "Uygunluk"
       },
       "ALL_DAY": "Tüm Gün"
     },
@@ -769,7 +883,8 @@
         "LABEL": "Parola",
         "PLACE_HOLDER": "Parola"
       },
-      "ENABLE_SSL": "SSL'yi Etkinleştir"
+      "ENABLE_SSL": "SSL'yi Etkinleştir",
+      "AUTH_MECHANISM": "Kimlik Doğrulama"
     },
     "MICROSOFT": {
       "TITLE": "Microsoft",
@@ -868,7 +983,8 @@
         "WIDGET_BUBBLE_TYPE": {
           "STANDARD": "Standart",
           "EXPANDED_BUBBLE": "Genişletilmiş Kabarcık"
-        }
+        },
+        "WIDGET_BUBBLE": "Bubble"
       },
       "WIDGET_SCREEN": {
         "DEFAULT": "Varsayılan",
@@ -920,7 +1036,136 @@
       "LINE": "Line",
       "API": "API Kanalı",
       "INSTAGRAM": "Instagram",
-      "VOICE": "Voice"
+      "VOICE": "Voice",
+      "TIKTOK": "TikTok"
+    },
+    "COUNT": "{n} inbox | {n} inboxes",
+    "SEARCH_PLACEHOLDER": "Gelen kutularını ara...",
+    "NO_RESULTS": "No inboxes found matching your search",
+    "WHATSAPP_REGISTRATION_INCOMPLETE": "WhatsApp Business kaydınız tamamlanmadı. Yeniden bağlanmadan önce lütfen Meta Business Manager'da görünen adınızın (display name) durumunu kontrol edin.",
+    "COMPLETE_REGISTRATION": "Kaydı Tamamla",
+    "VOICE_CONFIGURATION": {
+      "ENABLE_VOICE": {
+        "LABEL": "Enable Voice Calling",
+        "DESCRIPTION": "Enable voice calling on this inbox. Agents will be able to make and receive phone calls."
+      },
+      "CREDENTIALS": {
+        "DESCRIPTION": "Voice calling requires Twilio API Key credentials. These are used to generate tokens for agent voice connections."
+      }
+    },
+    "CHANNEL_PREFERENCES": "Channel Preferences",
+    "WIDGET_FEATURES": "Widget features",
+    "ACCOUNT_HEALTH": {
+      "TITLE": "WhatsApp hesabınızı yönetin",
+      "DESCRIPTION": "WhatsApp hesap durumunuzu, mesajlaşma limitlerinizi ve kalitesini inceleyin. Gerekirse ayarları güncelleyin veya sorunları çözün",
+      "GO_TO_SETTINGS": "Meta Business Manager'a gidin",
+      "NO_DATA": "Sağlık verisi mevcut değil",
+      "FIELDS": {
+        "DISPLAY_PHONE_NUMBER": {
+          "LABEL": "Telefon numarasını göster",
+          "TOOLTIP": "Müşterilere gösterilen telefon numarası"
+        },
+        "VERIFIED_NAME": {
+          "LABEL": "İşletme adı",
+          "TOOLTIP": "WhatsApp tarafından onaylanmış işletme adı"
+        },
+        "DISPLAY_NAME_STATUS": {
+          "LABEL": "Görünen adın durumu",
+          "TOOLTIP": "İşletme adı doğrulamanızın durumu"
+        },
+        "QUALITY_RATING": {
+          "LABEL": "Kalite puanı",
+          "TOOLTIP": "Hesabınız için WhatsApp kalite puanı"
+        },
+        "MESSAGING_LIMIT_TIER": {
+          "LABEL": "Mesajlaşma limiti seviyesi",
+          "TOOLTIP": "Hesabınız için günlük mesajlaşma limiti"
+        },
+        "ACCOUNT_MODE": {
+          "LABEL": "Hesap modu",
+          "TOOLTIP": "WhatsApp hesabınızın mevcut çalışma modu"
+        }
+      },
+      "VALUES": {
+        "TIERS": {
+          "TIER_250": "24 saatte 250 müşteri",
+          "TIER_1000": "24 saatte 1000 müşteri",
+          "TIER_1K": "24 saatte 1000 müşteri",
+          "TIER_10K": "24 saatte 10000 müşteri",
+          "TIER_100K": "24 saatte 100000 müşteri",
+          "TIER_UNLIMITED": "24 saatte sınırsız müşteri",
+          "UNKNOWN": "Değerlendirme mevcut değil"
+        },
+        "STATUSES": {
+          "APPROVED": "Approved",
+          "PENDING_REVIEW": "İnceleme Bekliyor",
+          "AVAILABLE_WITHOUT_REVIEW": "İnceleme Olmadan Kullanılabilir",
+          "REJECTED": "Reddedildi",
+          "DECLINED": "Reddedildi",
+          "NON_EXISTS": "Mevcut değil"
+        },
+        "MODES": {
+          "SANDBOX": "Sandbox",
+          "LIVE": "Canlı"
+        }
+      },
+      "WEBHOOK": {
+        "TITLE": "Webhook Configuration",
+        "DESCRIPTION": "Webhook URL is required for your WhatsApp Business Account to receive messages from customers",
+        "ACTION_REQUIRED": "Webhook not configured",
+        "REGISTER_BUTTON": "Register Webhook",
+        "REGISTER_SUCCESS": "Webhook registered successfully",
+        "REGISTER_ERROR": "Failed to register webhook. Please try again.",
+        "CONFIGURED_SUCCESS": "Webhook configured successfully",
+        "URL_MISMATCH": "Webhook URL mismatch"
+      }
+    },
+    "ASSIGNMENT": {
+      "TITLE": "Görüşme Atama",
+      "DESCRIPTION": "Automatically assign incoming conversations to available agents based on assignment policies",
+      "ENABLE_AUTO_ASSIGNMENT": "Enable automatic conversation assignment",
+      "DEFAULT_RULES_TITLE": "Default assignment rules",
+      "DEFAULT_RULES_DESCRIPTION": "Using the default assignment behavior for all conversations",
+      "DEFAULT_RULE_1": "Earliest created conversations first",
+      "DEFAULT_RULE_2": "Round robin distribution",
+      "CUSTOMIZE_WITH_POLICY": "Customize with assignment policy",
+      "USING_POLICY": "Using custom assignment policy for this inbox",
+      "CUSTOMIZE_POLICY": "Customize with assignment policy",
+      "DELETE_POLICY": "Politikayı sil",
+      "POLICY_LABEL": "Assignment policy",
+      "ASSIGNMENT_ORDER_LABEL": "Assignment Order",
+      "ASSIGNMENT_METHOD_LABEL": "Assignment Method",
+      "POLICY_STATUS": {
+        "ACTIVE": "Aktif",
+        "INACTIVE": "Inactive"
+      },
+      "PRIORITY": {
+        "EARLIEST_CREATED": "Earliest created",
+        "LONGEST_WAITING": "Longest waiting"
+      },
+      "METHOD": {
+        "ROUND_ROBIN": "Round robin",
+        "BALANCED": "Balanced assignment"
+      },
+      "UPGRADE_PROMPT": "Custom assignment policies are available on the Business plan",
+      "UPGRADE_TO_BUSINESS": "Upgrade to Business",
+      "DEFAULT_POLICY_LINKED": "Default policy linked",
+      "DEFAULT_POLICY_DESCRIPTION": "Link a custom assignment policy to customize how conversations are assigned to agents in this inbox.",
+      "LINK_EXISTING_POLICY": "Link existing policy",
+      "CREATE_NEW_POLICY": "Create new policy",
+      "NO_POLICIES": "No assignment policies found",
+      "VIEW_ALL_POLICIES": "View all policies",
+      "CURRENT_BEHAVIOR": "Currently using default assignment behavior:",
+      "LINK_SUCCESS": "Assignment policy linked successfully",
+      "LINK_ERROR": "Failed to link assignment policy"
+    },
+    "ASSIGNMENT_POLICY": {
+      "DELETE_CONFIRM_TITLE": "Delete assignment policy?",
+      "DELETE_CONFIRM_MESSAGE": "Are you sure you want to remove this assignment policy from this inbox? The inbox will revert to default assignment rules.",
+      "CANCEL": "İptal Et",
+      "CONFIRM_DELETE": "Sil",
+      "DELETE_SUCCESS": "Assignment policy removed successfully",
+      "DELETE_ERROR": "Failed to remove assignment policy"
     }
   }
 }

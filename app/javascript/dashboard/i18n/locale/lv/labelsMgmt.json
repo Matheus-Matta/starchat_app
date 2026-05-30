@@ -13,7 +13,8 @@
       "TABLE_HEADER": {
         "NAME": "Nosaukums",
         "DESCRIPTION": "Apraksts",
-        "COLOR": "Krāsa"
+        "COLOR": "Krāsa",
+        "ACTION": "Darbības"
       }
     },
     "FORM": {
@@ -80,6 +81,9 @@
         "YES": "Jā, Dzēst ",
         "NO": "Nē, Paturēt "
       }
-    }
+    },
+    "COUNT": "{n} label | {n} labels",
+    "SEARCH_PLACEHOLDER": "Meklēt etiķetes...",
+    "NO_RESULTS": "No labels found matching your search"
   }
 }

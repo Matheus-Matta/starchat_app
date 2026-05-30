@@ -28,6 +28,7 @@ class Account < ApplicationRecord
   include Reportable
   include Featurable
   include CacheKeys
+  include AccountEmailRateLimitable
 
   SETTINGS_PARAMS_SCHEMA = {
     'type': 'object',
@@ -60,7 +61,7 @@ class Account < ApplicationRecord
 
   store_accessor :settings, :auto_resolve_after, :auto_resolve_message, :auto_resolve_ignore_waiting
   store_accessor :settings, :audio_transcriptions, :auto_resolve_label, :require_contact_inbox_messaging,
-                 :prioritize_responsible_agent
+                 :prioritize_responsible_agent, :reporting_timezone, :keep_pending_on_bot_failure
 
   has_many :account_users, dependent: :destroy_async
   has_many :agent_bot_inboxes, dependent: :destroy_async

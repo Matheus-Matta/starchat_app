@@ -55,7 +55,10 @@
       "LAST_3_MONTHS": "3 החודשים האחרונים",
       "LAST_6_MONTHS": "6 החודשים האחרונים",
       "LAST_YEAR": "שנה שעברה",
-      "CUSTOM_DATE_RANGE": "טווח תאריכים מותאם אישית"
+      "CUSTOM_DATE_RANGE": "טווח תאריכים מותאם אישית",
+      "LAST_14_DAYS": "14 הימים האחרונים",
+      "THIS_MONTH": "החודש",
+      "LAST_MONTH": "חודש שעבר"
     },
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "להגיש מועמדות",
@@ -121,7 +124,8 @@
     "PAGINATION": {
       "RESULTS": "Showing {start} to {end} of {total} results",
       "PER_PAGE_TEMPLATE": "{size} / page"
-    }
+    },
+    "DOWNLOAD_CONVERSATION_REPORTS": "Download conversation reports"
   },
   "AGENT_REPORTS": {
     "HEADER": "סקירה כללית של סוכנים",
@@ -189,6 +193,11 @@
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "להגיש מועמדות",
       "PLACEHOLDER": "בחר טווח תאריכים"
+    },
+    "FILTERS": {
+      "INPUT_PLACEHOLDER": {
+        "AGENTS": "חפש סוכנים"
+      }
     }
   },
   "LABEL_REPORTS": {
@@ -257,6 +266,11 @@
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "להגיש מועמדות",
       "PLACEHOLDER": "בחר טווח תאריכים"
+    },
+    "FILTERS": {
+      "INPUT_PLACEHOLDER": {
+        "LABELS": "חפש תוויות"
+      }
     }
   },
   "INBOX_REPORTS": {
@@ -325,6 +339,13 @@
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "להגיש מועמדות",
       "PLACEHOLDER": "בחר טווח תאריכים"
+    },
+    "ALL_INBOXES": "כל תיבות הדואר הנכנס",
+    "SEARCH_INBOX": "חפש תיבת דואר נכנס",
+    "FILTERS": {
+      "INPUT_PLACEHOLDER": {
+        "INBOXES": "Search inboxes"
+      }
     }
   },
   "TEAM_REPORTS": {
@@ -393,6 +414,14 @@
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "להגיש מועמדות",
       "PLACEHOLDER": "בחר טווח תאריכים"
+    },
+    "FILTERS": {
+      "ADD_FILTER": "הוסף מסנן",
+      "CLEAR_ALL": "נקה הכל",
+      "NO_FILTER": "אין מסננים זמינים",
+      "INPUT_PLACEHOLDER": {
+        "TEAMS": "חפש צוותים"
+      }
     }
   },
   "CSAT_REPORTS": {
@@ -402,7 +431,26 @@
     "DOWNLOAD_FAILED": "Failed to download CSAT Reports",
     "FILTERS": {
       "AGENTS": {
-        "PLACEHOLDER": "בחר סוכנים"
+        "PLACEHOLDER": "בחר סוכנים",
+        "LABEL": "סוכן"
+      },
+      "ADD_FILTER": "הוסף מסנן",
+      "CLEAR_ALL": "נקה הכל",
+      "NO_FILTER": "אין מסננים זמינים",
+      "INPUT_PLACEHOLDER": {
+        "AGENTS": "חפש סוכנים",
+        "INBOXES": "Search inboxes",
+        "TEAMS": "חפש צוותים",
+        "RATINGS": "Search ratings"
+      },
+      "INBOXES": {
+        "LABEL": "תיבת הדואר הנכנס"
+      },
+      "TEAMS": {
+        "LABEL": "צוות"
+      },
+      "RATINGS": {
+        "LABEL": "דירוג"
       }
     },
     "TABLE": {
@@ -410,8 +458,13 @@
         "CONTACT_NAME": "איש קשר",
         "AGENT_NAME": "סוכן מוקצה",
         "RATING": "דירוג",
-        "FEEDBACK_TEXT": "הערת משוב"
-      }
+        "FEEDBACK_TEXT": "הערת משוב",
+        "CONVERSATION": "שיחה",
+        "CUSTOMER": "Customer",
+        "RESPONSE": "תגובה",
+        "HANDLED_BY": "Handled by"
+      },
+      "UNKNOWN_CUSTOMER": "Unknown customer"
     },
     "METRIC": {
       "TOTAL_RESPONSES": {
@@ -425,6 +478,28 @@
       "RESPONSE_RATE": {
         "LABEL": "שיעור תגובה",
         "TOOLTIP": "מספר כולל של תגובות / מספר כולל של הודעות סקר CSAT שנשלחו * 100"
+      },
+      "RATING_DISTRIBUTION": "Rating distribution"
+    },
+    "NO_RECORDS_DESCRIPTION": "CSAT survey responses will appear here once customers start providing feedback.",
+    "NO_AGENT": "No assigned agent",
+    "NO_FEEDBACK": "No feedback provided",
+    "REVIEW_NOTES": {
+      "TITLE": "Review notes",
+      "PLACEHOLDER": "Add review notes about this rating...",
+      "SAVE": "שמור",
+      "CANCEL": "ביטול",
+      "SAVING": "שומר...",
+      "SAVED": "Notes saved successfully",
+      "SAVE_ERROR": "Failed to save notes",
+      "UPDATED_BY": "Updated by {name} {time}",
+      "UPDATED_BY_LABEL": "Updated by",
+      "PAYWALL": {
+        "TITLE": "Upgrade to add review notes",
+        "AVAILABLE_ON": "The review notes feature is only available in the Business and Enterprise plans.",
+        "UPGRADE_PROMPT": "Add internal context to every CSAT response with review notes. Capture what really happened, spot patterns faster, and make better decisions from your feedback.",
+        "UPGRADE_NOW": "שדרג עכשיו",
+        "CANCEL_ANYTIME": "תוכל לשנות או לבטל את התוכנית שלך בכל עת"
       }
     }
   },
@@ -495,6 +570,13 @@
       "ONLINE": "מחובר",
       "BUSY": "עסוק",
       "OFFLINE": "לא מחובר"
+    },
+    "RESOLUTION_HEATMAP": {
+      "HEADER": "סגירות",
+      "NO_CONVERSATIONS": "בלי שיחות",
+      "CONVERSATION": "שיחה {count}",
+      "CONVERSATIONS": "{count} שיחות",
+      "DOWNLOAD_REPORT": "הורד דוח"
     }
   },
   "DAYS_OF_WEEK": {

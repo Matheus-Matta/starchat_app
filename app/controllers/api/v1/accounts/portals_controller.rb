@@ -23,7 +23,11 @@ class Api::V1::Accounts::PortalsController < Api::V1::Accounts::BaseController
 
   def update
     ActiveRecord::Base.transaction do
-      @portal.update!(portal_params.merge(live_chat_widget_params)) if params[:portal].present?
+      update_params = portal_params.merge(live_chat_widget_params)
+      if update_params[:config].present? && !params.dig(:portal, :config, :draft_locales)
+        update_params[:config] = update_params[:config].to_h.merge('draft_locales' => @portal.draft_locale_codes)
+      end
+      @portal.update!(update_params) if params[:portal].present?
       # @portal.custom_domain = parsed_custom_domain
       process_attached_logo if params[:blob_id].present?
     rescue ActiveRecord::RecordInvalid => e

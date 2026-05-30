@@ -27,6 +27,42 @@
     "WROTE": "wrote:",
     "FROM": "from",
     "EMAIL": "email",
-    "EMAIL_SUBJECT": "主旨"
+    "EMAIL_SUBJECT": "主旨",
+    "RECENT_SEARCHES": "最近搜尋",
+    "CLEAR_ALL": "清除全部",
+    "MOST_RECENT": "最新",
+    "READ_LESS": "收合",
+    "PRIVATE": "私人備註",
+    "TRANSCRIPT": "對話紀錄",
+    "CREATED_AT": "建立於 {time}",
+    "UPDATED_AT": "更新於 {time}",
+    "SORT_BY": {
+      "RELEVANCE": "相關性"
+    },
+    "DATE_RANGE": {
+      "LAST_7_DAYS": "最近 7 天",
+      "LAST_30_DAYS": "最近 30 天",
+      "LAST_60_DAYS": "最近 60 天",
+      "LAST_90_DAYS": "最近 90 天",
+      "CUSTOM_RANGE": "自訂範圍：",
+      "CREATED_BETWEEN": "建立於",
+      "AND": "至",
+      "APPLY": "套用",
+      "BEFORE_DATE": "{date} 之前",
+      "AFTER_DATE": "{date} 之後",
+      "TIME_RANGE": "依時間篩選",
+      "CLEAR_FILTER": "清除篩選條件"
+    },
+    "FILTERS": {
+      "FILTER_MESSAGE": "依以下條件篩選訊息：",
+      "FROM": "發送者",
+      "IN": "收件匣",
+      "AGENTS": "客服人員",
+      "CONTACTS": "聯絡人",
+      "INBOXES": "收件匣",
+      "NO_AGENTS": "找不到客服人員",
+      "NO_CONTACTS": "開始搜尋以查看結果",
+      "NO_INBOXES": "找不到收件匣"
+    }
   }
 }

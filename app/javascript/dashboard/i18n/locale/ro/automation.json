@@ -40,13 +40,14 @@
       }
     },
     "LIST": {
+      "404": "Nu s-au găsit reguli de automatizare",
       "TABLE_HEADER": {
         "NAME": "Nume",
         "DESCRIPTION": "Descriere",
         "ACTIVE": "Activ",
-        "CREATED_ON": "Creat in"
-      },
-      "404": "Nu s-au găsit reguli de automatizare"
+        "CREATED_ON": "Creat in",
+        "ACTIONS": "Actiuni"
+      }
     },
     "DELETE": {
       "TITLE": "Ștergeți regula de automatizare",
@@ -131,7 +132,8 @@
       "CONVERSATION_CREATED": "Conversație creată",
       "CONVERSATION_UPDATED": "Conversație actualizată",
       "MESSAGE_CREATED": "Message Created",
-      "CONVERSATION_OPENED": "Conversation Opened"
+      "CONVERSATION_OPENED": "Conversation Opened",
+      "CONVERSATION_RESOLVED": "Conversation Resolved"
     },
     "ACTIONS": {
       "ASSIGN_AGENT": "Assign to Agent",
@@ -149,7 +151,10 @@
       "ADD_PRIVATE_NOTE": "Add a Private Note",
       "CHANGE_PRIORITY": "Modificarea priorității",
       "ADD_SLA": "Add SLA",
-      "OPEN_CONVERSATION": "Deschiderea conversației"
+      "OPEN_CONVERSATION": "Deschiderea conversației",
+      "REMOVE_ASSIGNED_AGENT": "Remove Assigned Agent",
+      "REMOVE_ASSIGNED_TEAM": "Remove Assigned Team",
+      "PENDING_CONVERSATION": "Mark conversation as pending"
     },
     "MESSAGE_TYPES": {
       "INCOMING": "Incoming Message",
@@ -176,7 +181,14 @@
       "REFERER_LINK": "Referrer Link",
       "ASSIGNEE_NAME": "Assignee",
       "TEAM_NAME": "Echipa",
-      "PRIORITY": "Prioritate"
-    }
+      "PRIORITY": "Prioritate",
+      "PRIVATE_NOTE": "Notă privată",
+      "COMPANY_NAME": "Companie",
+      "LABELS": "Etichete"
+    },
+    "COUNT": "{n} automation | {n} automations",
+    "SEARCH_PLACEHOLDER": "Search automation rules...",
+    "NO_RESULTS": "No automation rules found matching your search",
+    "LAST_RESPONDING_AGENT": "Last Responding Agent"
   }
 }

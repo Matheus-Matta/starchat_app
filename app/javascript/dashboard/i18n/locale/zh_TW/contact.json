@@ -55,7 +55,10 @@
     "CALL_UNDER_DEVELOPMENT": "Calling is under development",
     "VOICE_INBOX_PICKER": {
       "TITLE": "Choose a voice inbox"
-    }
+    },
+    "CALL_INITIATED": "正在撥打聯絡人電話…",
+    "CALL_FAILED": "無法撥打電話，請稍後再試。",
+    "CLICK_TO_EDIT": "點擊以編輯"
   },
   "EDIT_CONTACT": {
     "BUTTON_LABEL": "編輯聯絡人",
@@ -405,7 +408,8 @@
       "ACTIVE_FILTERS": {
         "MORE_FILTERS": "+ {count} more filters",
         "CLEAR_FILTERS": "清除查詢條件"
-      }
+      },
+      "COMPANY": "公司"
     },
     "CARD": {
       "OF": "of",
@@ -461,6 +465,12 @@
           },
           "TWITTER": {
             "PLACEHOLDER": "Add Twitter"
+          },
+          "TELEGRAM": {
+            "PLACEHOLDER": "新增 Telegram"
+          },
+          "TIKTOK": {
+            "PLACEHOLDER": "新增 TikTok"
           }
         }
       },
@@ -557,7 +567,9 @@
         "EXPAND": "Expand",
         "COLLAPSE": "Collapse",
         "NO_NOTES": "No notes, you can add notes from the contact details page.",
-        "EMPTY_STATE": "There are no notes associated to this contact. You can add a note by typing in the box above."
+        "EMPTY_STATE": "There are no notes associated to this contact. You can add a note by typing in the box above.",
+        "ADD_NOTE": "新增聯絡人備註",
+        "CONVERSATION_EMPTY_STATE": "尚無備註。使用新增備註按鈕來建立一個。"
       }
     },
     "EMPTY_STATE": {
@@ -567,7 +579,8 @@
       "SEARCH_EMPTY_STATE_TITLE": "找不到符合條件的聯絡人 🔍",
       "LIST_EMPTY_STATE_TITLE": "No contacts available in this view 📋",
       "ACTIVE_EMPTY_STATE_TITLE": "No contacts are active at the moment 🌙"
-    }
+    },
+    "LOAD_MORE": "載入更多"
   },
   "COMPOSE_NEW_CONVERSATION": {
     "CONTACT_SEARCH": {
@@ -623,6 +636,27 @@
           "SEND_MESSAGE": "傳送訊息"
         }
       }
+    }
+  },
+  "CONTACTS_BULK_ACTIONS": {
+    "ASSIGN_LABELS": "指派標籤",
+    "ASSIGN_LABELS_SUCCESS": "標籤已成功指派。",
+    "ASSIGN_LABELS_FAILED": "指派標籤失敗",
+    "DESCRIPTION": "選擇您要新增到所選聯絡人的標籤。",
+    "NO_LABELS_FOUND": "尚無可用的標籤。",
+    "SELECTED_COUNT": "已選取 {count} 個",
+    "CLEAR_SELECTION": "清除選取",
+    "SELECT_ALL": "全選（{count}）",
+    "DELETE_CONTACTS": "刪除",
+    "DELETE_SUCCESS": "聯絡人已成功刪除。",
+    "DELETE_FAILED": "刪除聯絡人失敗。",
+    "DELETE_DIALOG": {
+      "TITLE": "刪除所選聯絡人",
+      "SINGULAR_TITLE": "刪除所選聯絡人",
+      "DESCRIPTION": "此操作將永久刪除 {count} 位所選聯絡人。此操作無法復原。",
+      "SINGULAR_DESCRIPTION": "此操作將永久刪除所選聯絡人。此操作無法復原。",
+      "CONFIRM_MULTIPLE": "刪除聯絡人",
+      "CONFIRM_SINGLE": "刪除聯絡人"
     }
   }
 }

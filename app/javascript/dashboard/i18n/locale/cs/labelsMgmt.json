@@ -13,7 +13,8 @@
       "TABLE_HEADER": {
         "NAME": "Název",
         "DESCRIPTION": "Description",
-        "COLOR": "Color"
+        "COLOR": "Color",
+        "ACTION": "Akce"
       }
     },
     "FORM": {
@@ -80,6 +81,9 @@
         "YES": "Ano, odstranit ",
         "NO": "Ne, zachovat "
       }
-    }
+    },
+    "COUNT": "{n} label | {n} labels",
+    "SEARCH_PLACEHOLDER": "Search labels...",
+    "NO_RESULTS": "No labels found matching your search"
   }
 }
