@@ -3,7 +3,7 @@
 FactoryBot.define do
   factory :channel_email, class: 'Channel::Email' do
     sequence(:email) { |n| "care-#{n}@example.com" }
-    sequence(:forward_to_email) { |n| "forward-#{n}@starchats.com.br" }
+    sequence(:forward_to_email) { |n| "forward-#{n}@chatwoot.com" }
     account
     after(:create) do |channel_email|
       create(:inbox, channel: channel_email, account: channel_email.account)
@@ -16,6 +16,7 @@ FactoryBot.define do
       imap_login { 'email@example.com' }
       imap_password { '' }
       imap_enable_ssl { true }
+
       provider_config do
         {
           expires_on: Time.zone.now + 3600,
@@ -33,6 +34,7 @@ FactoryBot.define do
       imap_login { 'email@example.com' }
       imap_password { 'random-password' }
       imap_enable_ssl { true }
+      imap_authentication { 'plain' }
     end
   end
 end

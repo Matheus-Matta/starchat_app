@@ -26,7 +26,7 @@ class Cosmos::Documents::ResponseBuilderJob < ApplicationJob
   end
 
   def generate_standard_faqs(document)
-    Cosmos::Llm::FaqGeneratorService.new(document.content, document.account.locale_english_name).generate
+    Cosmos::Llm::FaqGeneratorService.new(document: document).generate
   end
 
   def build_paginated_service(document, options)
@@ -57,12 +57,12 @@ class Cosmos::Documents::ResponseBuilderJob < ApplicationJob
 
   def should_use_pagination?(document)
     # Auto-detect when to use pagination
-    # For now, use pagination for files with OpenAI file ID
-    document.file_document? && document.openai_file_id.present?
+    # For now, use pagination for PDFs with OpenAI file ID
+    document.pdf_document? && document.openai_file_id.present?
   end
 
   def reset_previous_responses(response_document)
-    response_document.responses.destroy_all
+    response_document.responses.where(edited: false).destroy_all
   end
 
   def create_response(faq, document)
@@ -73,6 +73,6 @@ class Cosmos::Documents::ResponseBuilderJob < ApplicationJob
       documentable: document
     )
   rescue ActiveRecord::RecordInvalid => e
-    Rails.logger.error I18n.t('cosmos.documents.response_creation_error', error: e.message)
+    Rails.logger.error I18n.t('captain.documents.response_creation_error', error: e.message)
   end
 end

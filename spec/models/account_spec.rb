@@ -8,7 +8,7 @@ RSpec.describe Account do
   it { is_expected.to have_many(:inboxes).dependent(:destroy_async) }
   it { is_expected.to have_many(:conversations).dependent(:destroy_async) }
   it { is_expected.to have_many(:contacts).dependent(:destroy_async) }
-it { is_expected.to have_many(:canned_responses).dependent(:destroy_async) }
+  it { is_expected.to have_many(:canned_responses).dependent(:destroy_async) }
   it { is_expected.to have_many(:facebook_pages).class_name('::Channel::FacebookPage').dependent(:destroy_async) }
   it { is_expected.to have_many(:web_widgets).class_name('::Channel::WebWidget').dependent(:destroy_async) }
   it { is_expected.to have_many(:webhooks).dependent(:destroy_async) }
@@ -50,19 +50,41 @@ it { is_expected.to have_many(:canned_responses).dependent(:destroy_async) }
     end
   end
 
-  describe 'feature flags' do
+  describe 'conversation unread counts feature flag' do
     let(:account) { create(:account) }
+    let(:inbox) { create(:inbox, account: account) }
+    let(:store) { Conversations::UnreadCounts::Store }
+    let(:inbox_key) { store.inbox_key(account.id, inbox.id) }
 
-    it 'stores features beyond bigint capacity in internal attributes' do
-      all_flags = Account::FEATURE_LIST.pluck('name').map { |name| "feature_#{name}" }
+    after do
+      store.clear_account!(account.id)
+    end
 
-      account.selected_feature_flags = all_flags
-      account.save!
+    it 'clears unread count cache when the feature is enabled' do
+      build_unread_count_cache
 
-      expect(account.feature_flags).to eq(9_223_372_036_854_775_807)
-      expect(account.internal_attributes['overflow_feature_flags']).to eq(['cosmos_custom_tools'])
-      expect(account.feature_enabled?('cosmos_custom_tools')).to be true
-      expect(account.selected_feature_flags).to include(:feature_cosmos_custom_tools)
+      account.enable_features!(:conversation_unread_counts)
+
+      expect(store.base_ready?(account.id)).to be(false)
+      expect(store.assignment_ready?(account.id)).to be(false)
+      expect(store.counts_for_keys([inbox_key])).to eq(inbox_key => 0)
+    end
+
+    it 'clears unread count cache when the feature is disabled' do
+      account.enable_features!(:conversation_unread_counts)
+      build_unread_count_cache
+
+      account.disable_features!(:conversation_unread_counts)
+
+      expect(store.base_ready?(account.id)).to be(false)
+      expect(store.assignment_ready?(account.id)).to be(false)
+      expect(store.counts_for_keys([inbox_key])).to eq(inbox_key => 0)
+    end
+
+    def build_unread_count_cache
+      store.mark_base_ready!(account.id)
+      store.mark_assignment_ready!(account.id)
+      store.add_base_membership(account_id: account.id, inbox_id: inbox.id, label_ids: [], conversation_id: 1)
     end
   end
 
@@ -95,23 +117,23 @@ it { is_expected.to have_many(:canned_responses).dependent(:destroy_async) }
     let(:account) { create(:account) }
 
     it 'returns the support email from inbox if inbox value is present' do
-      account.update(support_email: 'support@starchats.com.br')
-      with_modified_env MAILER_SENDER_EMAIL: 'hello@starchats.com.br' do
-        expect(account.support_email).to eq('support@starchats.com.br')
+      account.update(support_email: 'support@chatwoot.com')
+      with_modified_env MAILER_SENDER_EMAIL: 'hello@chatwoot.com' do
+        expect(account.support_email).to eq('support@chatwoot.com')
       end
     end
 
     it 'returns the support email from ENV if inbox value is nil' do
       account.update(support_email: nil)
-      with_modified_env MAILER_SENDER_EMAIL: 'hello@starchats.com.br' do
-        expect(account.support_email).to eq('hello@starchats.com.br')
+      with_modified_env MAILER_SENDER_EMAIL: 'hello@chatwoot.com' do
+        expect(account.support_email).to eq('hello@chatwoot.com')
       end
     end
 
     it 'returns the support email from ENV if inbox value is empty string' do
       account.update(support_email: '')
-      with_modified_env MAILER_SENDER_EMAIL: 'hello@starchats.com.br' do
-        expect(account.support_email).to eq('hello@starchats.com.br')
+      with_modified_env MAILER_SENDER_EMAIL: 'hello@chatwoot.com' do
+        expect(account.support_email).to eq('hello@chatwoot.com')
       end
     end
   end
@@ -214,42 +236,42 @@ it { is_expected.to have_many(:canned_responses).dependent(:destroy_async) }
         expect(account.settings['auto_resolve_message']).to eq(message)
       end
 
-      it 'defaults cosmos_auto_resolve_mode to legacy when cosmos_tasks is disabled' do
-        allow(account).to receive(:feature_enabled?).with('cosmos_tasks').and_return(false)
+      it 'defaults captain_auto_resolve_mode to legacy when captain_tasks is disabled' do
+        allow(account).to receive(:feature_enabled?).with('captain_tasks').and_return(false)
 
-        expect(account.cosmos_auto_resolve_mode).to eq('legacy')
-        expect(account).to be_cosmos_auto_resolve_legacy
+        expect(account.captain_auto_resolve_mode).to eq('legacy')
+        expect(account).to be_captain_auto_resolve_legacy
       end
 
-      it 'defaults cosmos_auto_resolve_mode to evaluated when cosmos_tasks is enabled' do
-        allow(account).to receive(:feature_enabled?).with('cosmos_tasks').and_return(true)
+      it 'defaults captain_auto_resolve_mode to evaluated when captain_tasks is enabled' do
+        allow(account).to receive(:feature_enabled?).with('captain_tasks').and_return(true)
 
-        expect(account.cosmos_auto_resolve_mode).to eq('evaluated')
-        expect(account).to be_cosmos_auto_resolve_evaluated
+        expect(account.captain_auto_resolve_mode).to eq('evaluated')
+        expect(account).to be_captain_auto_resolve_evaluated
       end
 
-      it 'correctly gets and sets cosmos_auto_resolve_mode' do
-        account.cosmos_auto_resolve_mode = 'legacy'
+      it 'correctly gets and sets captain_auto_resolve_mode' do
+        account.captain_auto_resolve_mode = 'legacy'
 
-        expect(account.cosmos_auto_resolve_mode).to eq('legacy')
-        expect(account.settings['cosmos_auto_resolve_mode']).to eq('legacy')
-        expect(account).to be_cosmos_auto_resolve_legacy
+        expect(account.captain_auto_resolve_mode).to eq('legacy')
+        expect(account.settings['captain_auto_resolve_mode']).to eq('legacy')
+        expect(account).to be_captain_auto_resolve_legacy
       end
 
-      it 'allows clearing cosmos_auto_resolve_mode to fall back to feature defaults' do
-        allow(account).to receive(:feature_enabled?).with('cosmos_tasks').and_return(false)
-        account.cosmos_auto_resolve_mode = nil
+      it 'allows clearing captain_auto_resolve_mode to fall back to feature defaults' do
+        allow(account).to receive(:feature_enabled?).with('captain_tasks').and_return(false)
+        account.captain_auto_resolve_mode = nil
 
         expect(account).to be_valid
-        expect(account.cosmos_auto_resolve_mode).to eq('legacy')
-        expect(account.settings['cosmos_auto_resolve_mode']).to be_nil
+        expect(account.captain_auto_resolve_mode).to eq('legacy')
+        expect(account.settings['captain_auto_resolve_mode']).to be_nil
       end
 
       it 'falls back to disabled mode from legacy settings key' do
-        account.settings = { 'cosmos_disable_auto_resolve' => true }
+        account.settings = { 'captain_disable_auto_resolve' => true }
 
-        expect(account.cosmos_auto_resolve_mode).to eq('disabled')
-        expect(account).to be_cosmos_auto_resolve_disabled
+        expect(account.captain_auto_resolve_mode).to eq('disabled')
+        expect(account).to be_captain_auto_resolve_disabled
       end
 
       it 'handles nil values correctly' do
@@ -311,12 +333,12 @@ it { is_expected.to have_many(:canned_responses).dependent(:destroy_async) }
     end
   end
 
-  describe 'cosmos_preferences' do
+  describe 'captain_preferences' do
     let(:account) { create(:account) }
 
     describe 'with no saved preferences' do
       it 'returns defaults from llm.yml' do
-        prefs = account.cosmos_preferences
+        prefs = account.captain_preferences
 
         expect(prefs[:features].values).to all(be false)
 
@@ -328,9 +350,9 @@ it { is_expected.to have_many(:canned_responses).dependent(:destroy_async) }
 
     describe 'with saved model preferences' do
       it 'returns saved preferences merged with defaults' do
-        account.update!(cosmos_models: { 'editor' => 'gpt-4.1-mini', 'assistant' => 'gpt-5.2' })
+        account.update!(captain_models: { 'editor' => 'gpt-4.1-mini', 'assistant' => 'gpt-5.2' })
 
-        prefs = account.cosmos_preferences
+        prefs = account.captain_preferences
 
         expect(prefs[:models]['editor']).to eq('gpt-4.1-mini')
         expect(prefs[:models]['assistant']).to eq('gpt-5.2')
@@ -340,9 +362,9 @@ it { is_expected.to have_many(:canned_responses).dependent(:destroy_async) }
 
     describe 'with saved feature preferences' do
       it 'returns saved feature states' do
-        account.update!(cosmos_features: { 'editor' => true, 'assistant' => true })
+        account.update!(captain_features: { 'editor' => true, 'assistant' => true })
 
-        prefs = account.cosmos_preferences
+        prefs = account.captain_preferences
 
         expect(prefs[:features]['editor']).to be true
         expect(prefs[:features]['assistant']).to be true
@@ -352,14 +374,14 @@ it { is_expected.to have_many(:canned_responses).dependent(:destroy_async) }
 
     describe 'validation' do
       it 'rejects invalid model for a feature' do
-        account.cosmos_models = { 'label_suggestion' => 'gpt-5.1' }
+        account.captain_models = { 'label_suggestion' => 'gpt-5.1' }
 
         expect(account).not_to be_valid
-        expect(account.errors[:cosmos_models].first).to include('not a valid model for label_suggestion')
+        expect(account.errors[:captain_models].first).to include('not a valid model for label_suggestion')
       end
 
       it 'accepts valid model for a feature' do
-        account.cosmos_models = { 'editor' => 'gpt-4.1-mini', 'label_suggestion' => 'gpt-4.1-nano' }
+        account.captain_models = { 'editor' => 'gpt-4.1-mini', 'label_suggestion' => 'gpt-4.1-nano' }
 
         expect(account).to be_valid
       end

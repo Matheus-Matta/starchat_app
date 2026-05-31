@@ -297,7 +297,7 @@ onMounted(() => {
         }"
         @bulk-delete="bulkDeleteDialog.dialogRef.open()"
       >
-        <template #secondary-actions>
+        <template #secondaryActions>
           <Button
             :label="$t('COSMOS.RESPONSES.BULK_APPROVE_BUTTON')"
             sm

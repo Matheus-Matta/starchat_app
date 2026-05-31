@@ -6,14 +6,21 @@ class CosmosDocument extends ApiClient {
     super('cosmos/documents', { accountScoped: true });
   }
 
-  get({ page = 1, searchKey, assistantId } = {}) {
+  get({ page = 1, searchKey, assistantId, filter, source, sort } = {}) {
     return axios.get(this.url, {
       params: {
         page,
-        searchKey,
+        search_key: searchKey,
         assistant_id: assistantId,
+        filter,
+        source,
+        sort,
       },
     });
+  }
+
+  sync(id) {
+    return axios.post(`${this.url}/${id}/sync`);
   }
 }
 

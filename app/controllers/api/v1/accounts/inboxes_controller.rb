@@ -3,15 +3,15 @@ class Api::V1::Accounts::InboxesController < Api::V1::Accounts::BaseController
   before_action :fetch_inbox, except: [:index, :create]
   before_action :fetch_agent_bot, only: [:set_agent_bot]
   before_action :validate_limit, only: [:create]
-  before_action :fetch_inbox, except: [:index, :create, :bulk_destroy]
-
   # we are already handling the authorization in fetch inbox
   before_action :check_authorization, except: [:show]
 
   include Api::V1::Accounts::Concerns::WhatsappHealthManagement
 
   def index
-    @inboxes = policy_scope(Current.account.inboxes.order_by_name.includes(:channel, :portal, { avatar_attachment: [:blob] }))
+    @inboxes = policy_scope(Current.account.inboxes)
+               .includes(:channel, :portal, :working_hours, { avatar_attachment: :blob })
+               .order_by_name
   end
 
   def show; end
@@ -48,33 +48,6 @@ class Api::V1::Accounts::InboxesController < Api::V1::Accounts::BaseController
   def update
     inbox_params = permitted_params.except(:channel, :csat_config)
     inbox_params[:csat_config] = format_csat_config(permitted_params[:csat_config]) if permitted_params[:csat_config].present?
-
-    if params[:anti_spam_config].present?
-      anti_spam_config = params[:anti_spam_config]
-      inbox_params[:anti_spam_config] = if anti_spam_config.is_a?(String)
-                                          JSON.parse(anti_spam_config)
-                                        elsif anti_spam_config.respond_to?(:to_unsafe_h)
-                                          anti_spam_config.to_unsafe_h
-                                        else
-                                          anti_spam_config
-                                        end
-    elsif permitted_params[:anti_spam_config].present?
-      inbox_params[:anti_spam_config] = permitted_params[:anti_spam_config]
-    end
-
-    if params[:sender_config].present?
-      sender_config = params[:sender_config]
-      inbox_params[:sender_config] = if sender_config.is_a?(String)
-                                       JSON.parse(sender_config)
-                                     elsif sender_config.respond_to?(:to_unsafe_h)
-                                       sender_config.to_unsafe_h
-                                     else
-                                       sender_config
-                                     end
-    elsif permitted_params[:sender_config].present?
-      inbox_params[:sender_config] = permitted_params[:sender_config]
-    end
-
     @inbox.update!(inbox_params)
     update_inbox_working_hours
     update_channel if channel_update_required?
@@ -114,7 +87,7 @@ class Api::V1::Accounts::InboxesController < Api::V1::Accounts::BaseController
   end
 
   def fetch_agent_bot
-    @agent_bot = AgentBot.find(params[:agent_bot]) if params[:agent_bot]
+    @agent_bot = AgentBot.accessible_to(Current.account).find(params[:agent_bot]) if params[:agent_bot]
   end
 
   def create_channel
@@ -124,7 +97,7 @@ class Api::V1::Accounts::InboxesController < Api::V1::Accounts::BaseController
   end
 
   def allowed_channel_types
-    %w[web_widget api email line telegram whatsapp sms evolution]
+    %w[web_widget api email line telegram whatsapp sms]
   end
 
   def update_inbox_working_hours
@@ -187,12 +160,9 @@ class Api::V1::Accounts::InboxesController < Api::V1::Accounts::BaseController
     [:name, :avatar, :greeting_enabled, :greeting_message, :enable_email_collect, :csat_survey_enabled,
      :enable_auto_assignment, :working_hours_enabled, :out_of_office_message, :timezone, :allow_messages_after_resolved,
      :lock_to_single_conversation, :portal_id, :sender_name_type, :business_name,
-     :auto_resolve_duration, :auto_resolve_message, :auto_resolve_ignore_waiting, :auto_resolve_label,
-     :protocol_policy_id,
-     { csat_config: [:display_type, :message, { survey_rules: [:operator, { values: [] }] },
-                     { template: [:name, :template_id, :language, :created_at] }] },
-     { anti_spam_config: [:active, :max_messages, :time_window, :block_duration] },
-     { sender_config: [:send_agent_name] }]
+     { csat_config: [:display_type, :message, :button_text, :language,
+                     { survey_rules: [:operator, { values: [] }],
+                       template: [:name, :template_id, :friendly_name, :content_sid, :approval_sid, :created_at, :language, :status] }] }]
   end
 
   def permitted_params(channel_attributes = [])
@@ -209,66 +179,12 @@ class Api::V1::Accounts::InboxesController < Api::V1::Accounts::BaseController
       'line' => Channel::Line,
       'telegram' => Channel::Telegram,
       'whatsapp' => Channel::Whatsapp,
-      'sms' => Channel::Sms,
-      'evolution' => Channel::Evolution
+      'sms' => Channel::Sms
     }[permitted_params[:channel][:type]]
   end
 
   def get_channel_attributes(channel_type)
-    if channel_type.constantize.const_defined?(:EDITABLE_ATTRS)
-      channel_type.constantize::EDITABLE_ATTRS.presence
-    else
-      []
-    end
-  end
-
-  def bulk_destroy
-    ids = Array(params[:ids]).presence || begin
-      raw = begin
-        request.raw_post.presence && JSON.parse(request.raw_post)
-      rescue StandardError
-        {}
-      end
-      Array(raw['ids'])
-    end
-    return render json: { ok: false, error: 'IDs ausentes' }, status: :unprocessable_entity if ids.blank?
-
-    ids = ids.map(&:to_i).uniq
-    inboxes = policy_scope(Current.account.inboxes).where(id: ids)
-    deleted = 0
-    failed  = []
-    inboxes.find_each do |inbox|
-      authorize inbox, :destroy? # por item
-      ::DeleteObjectJob.perform_later(inbox, Current.user, request.ip)
-      deleted += 1
-    rescue Pundit::NotAuthorizedError => e
-      failed << { id: inbox.id, error: e.message }
-    rescue StandardError => e
-      failed << { id: inbox.id, error: e.message }
-    end
-    missing = ids - inboxes.pluck(:id)
-    failed.concat(missing.map { |mid| { id: mid, error: 'not_found' } }) if missing.any?
-    status =
-      if deleted.positive? && failed.empty?
-        :ok
-      elsif deleted.positive?
-        207
-      else
-        :unprocessable_entity
-      end
-    render json: { ok: deleted.positive?, deleted: deleted, failed: failed, requested: ids.size }, status: status
-  end
-
-  def whatsapp_channel?
-    @inbox.whatsapp? || (@inbox.twilio? && @inbox.channel.whatsapp?)
-  end
-
-  def trigger_template_sync
-    if @inbox.whatsapp?
-      Channels::Whatsapp::TemplatesSyncJob.perform_later(@inbox.channel)
-    elsif @inbox.twilio? && @inbox.channel.whatsapp?
-      Channels::Twilio::TemplatesSyncJob.perform_later(@inbox.channel)
-    end
+    channel_type.constantize.const_defined?(:EDITABLE_ATTRS) ? channel_type.constantize::EDITABLE_ATTRS.presence : []
   end
 end
 

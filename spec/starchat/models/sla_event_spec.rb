@@ -54,6 +54,7 @@ RSpec.describe SlaEvent, type: :model do
 
     before do
       create(:user, account: account)
+      create(:inbox_member, inbox: inbox, user: assignee)
       create(:inbox_member, inbox: inbox, user: participant)
       create(:conversation_participant, conversation: conversation, user: participant)
     end

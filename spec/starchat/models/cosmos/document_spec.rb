@@ -43,6 +43,11 @@ RSpec.describe Cosmos::Document, type: :model do
         expect(doc.pdf_document?).to be true
       end
 
+      it 'returns true for PDF:-prefixed external links even when the blob is missing' do
+        doc = build(:cosmos_document, external_link: 'PDF: report_20250101120000')
+        expect(doc.pdf_document?).to be true
+      end
+
       it 'returns false for non-PDF documents' do
         doc = build(:cosmos_document, external_link: 'https://example.com')
         expect(doc.pdf_document?).to be false

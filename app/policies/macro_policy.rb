@@ -4,7 +4,7 @@ class MacroPolicy < ApplicationPolicy
   end
 
   def create?
-    @account_user.permission?(:create_macro)
+    true
   end
 
   def show?
@@ -12,15 +12,15 @@ class MacroPolicy < ApplicationPolicy
   end
 
   def update?
-    return false unless @account_user.permission?(:create_macro)
+    return @account_user.administrator? if @record.global?
 
-    author? || (@account_user.administrator? && @record.global?)
+    author?
   end
 
   def destroy?
-    return false unless @account_user.permission?(:create_macro)
+    return @account_user.administrator? if @record.global?
 
-    author? || orphan_record?
+    author?
   end
 
   def execute?
@@ -31,11 +31,5 @@ class MacroPolicy < ApplicationPolicy
 
   def author?
     @record.created_by == @account_user.user
-  end
-
-  def orphan_record?
-    return @account_user.administrator? if @record.created_by.nil? && @record.global?
-
-    false
   end
 end

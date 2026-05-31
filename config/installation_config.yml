@@ -15,45 +15,45 @@
 
 # ------- Branding Related Config ------- #
 - name: INSTALLATION_NAME
-  value: 'Starchats'
+  value: 'Chatwoot'
   display_title: 'Installation Name'
   description: 'The installation wide name that would be used in the dashboard, title etc.'
 - name: LOGO_THUMBNAIL
-  value: '/brand-assets/logo_thumbnail_v2.png'
+  value: '/brand-assets/logo_thumbnail.svg'
   display_title: 'Logo Thumbnail'
   description: 'The thumbnail that would be used for favicon (512px X 512px)'
 - name: LOGO
-  value: '/brand-assets/logo_v2.png'
+  value: '/brand-assets/logo.svg'
   display_title: 'Logo'
   description: 'The logo that would be used on the dashboard, login page etc.'
 - name: LOGO_DARK
-  value: '/brand-assets/logo_dark_v2.png'
+  value: '/brand-assets/logo_dark.svg'
   display_title: 'Logo Dark Mode'
   description: 'The logo that would be used on the dashboard, login page etc. for dark mode'
 - name: BRAND_URL
-  value: 'https://www.starchat.com'
+  value: 'https://www.chatwoot.com'
   display_title: 'Brand URL'
   description: 'The URL that would be used in emails under the section “Powered By”'
 - name: WIDGET_BRAND_URL
-  value: 'https://www.starchat.com'
+  value: 'https://www.chatwoot.com'
   display_title: 'Widget Brand URL'
   description: 'The URL that would be used in the widget under the section “Powered By”'
 - name: BRAND_NAME
-  value: 'StarChat'
+  value: 'Chatwoot'
   display_title: 'Brand Name'
   description: 'The name that would be used in emails and the widget'
 - name: TERMS_URL
-  value: 'https://starchat.star.dev.br/termos-de-uso/'
+  value: 'https://www.chatwoot.com/terms-of-service'
   display_title: 'Terms URL'
   description: 'The terms of service URL displayed in Signup Page'
 - name: PRIVACY_URL
-  value: 'https://starchat.star.dev.br/politica-de-privacidade/'
+  value: 'https://www.chatwoot.com/privacy-policy'
   display_title: 'Privacy URL'
   description: 'The privacy policy URL displayed in the app'
 - name: DISPLAY_MANIFEST
   value: true
-  display_title: 'StarChat Metadata'
-  description: 'Display default StarChat metadata like favicons and upgrade warnings'
+  display_title: 'Chatwoot Metadata'
+  description: 'Display default Chatwoot metadata like favicons and upgrade warnings'
   type: boolean
 # ------- End of Branding Related Config ------- #
 
@@ -181,35 +181,53 @@
   type: secret
 # End of Microsoft Email Channel Config
 
-# MARK: Cosmos Config
-- name: COSMOS_OPEN_AI_API_KEY
+# MARK: Captain Config
+- name: CAPTAIN_OPEN_AI_API_KEY
   display_title: 'OpenAI API Key'
-  description: 'The API key used to authenticate requests to OpenAI services for Cosmos AI.'
+  description: 'The API key used to authenticate requests to OpenAI services for Captain AI.'
   locked: false
   type: secret
-- name: COSMOS_OPEN_AI_MODEL
+- name: CAPTAIN_OPEN_AI_MODEL
   display_title: 'OpenAI Model'
-  description: 'The OpenAI model configured for use in Cosmos AI. Default: gpt-4o-mini'
+  description: 'The OpenAI model configured for use in Captain AI. Default: gpt-4.1-mini'
   locked: false
-- name: COSMOS_OPEN_AI_ENDPOINT
+- name: CAPTAIN_OPEN_AI_ENDPOINT
   display_title: 'OpenAI API Endpoint (optional)'
-  description: 'The OpenAI endpoint configured for use in Cosmos AI. Default: https://api.openai.com/'
+  description: 'The OpenAI endpoint configured for use in Captain AI. Default: https://api.openai.com/'
   locked: false
-- name: COSMOS_FIRECRAWL_API_KEY
-- name: COSMOS_EMBEDDING_MODEL
+- name: CAPTAIN_EMBEDDING_MODEL
   display_title: 'Embedding Model (optional)'
-  description: 'The embedding model configured for use in Cosmos AI. Default: text-embedding-3-small'
+  description: 'The embedding model configured for use in Captain AI. Default: text-embedding-3-small'
   locked: false
-- name: COSMOS_EMBEDDING_MODEL
-  display_title: 'Embedding Model (optional)'
-  description: 'The embedding model configured for use in Cosmos AI. Default: text-embedding-3-small'
-  locked: false
-- name: COSMOS_FIRECRAWL_API_KEY
+- name: CAPTAIN_FIRECRAWL_API_KEY
   display_title: 'FireCrawl API Key (optional)'
-  description: 'The FireCrawl API key for the Cosmos AI service'
+  description: 'The FireCrawl API key for the Captain AI service'
   locked: false
   type: secret
-# End of Cosmos Config
+- name: CAPTAIN_CLOUD_PLAN_LIMITS
+  display_title: 'Captain Cloud Plan Limits'
+  description: 'The limits for the Captain AI service for different plans'
+  value:
+  type: code
+- name: CAPTAIN_DOCUMENT_AUTO_SYNC_INTERVALS
+  display_title: 'Captain Document Auto Sync Intervals'
+  description: 'JSON map of plan-wise Captain document auto-sync intervals in hours. Use null to disable auto-sync for a plan.'
+  value:
+  locked: false
+  type: code
+- name: CAPTAIN_DOCUMENT_AUTO_SYNC_PER_ACCOUNT_BATCH_LIMIT
+  display_title: 'Captain Document Auto Sync Per Account Batch Limit'
+  description: 'Maximum syncable Captain documents to enqueue per account in one scheduler run. Defaults to 50.'
+  value: 50
+  locked: false
+  type: number
+- name: CAPTAIN_DOCUMENT_AUTO_SYNC_GLOBAL_BATCH_LIMIT
+  display_title: 'Captain Document Auto Sync Global Batch Limit'
+  description: 'Maximum syncable Captain documents to enqueue globally in one scheduler run. Defaults to 1000.'
+  value: 1000
+  locked: false
+  type: number
+# End of Captain Config
 
 # ------- Context.dev Config ------- #
 - name: CONTEXT_DEV_API_KEY
@@ -222,22 +240,30 @@
 - name: CHATWOOT_INBOX_TOKEN
   value:
   display_title: 'Inbox Token'
-  description: 'The starchat Inbox Token for Contact Support in Cloud'
+  description: 'The Chatwoot Inbox Token for Contact Support in Cloud'
   locked: false
   type: secret
 - name: CHATWOOT_INBOX_HMAC_KEY
   value:
   display_title: 'Inbox HMAC Key'
-  description: 'The starchat Inbox HMAC Key for Contact Support in Cloud'
+  description: 'The Chatwoot Inbox HMAC Key for Contact Support in Cloud'
   locked: false
   type: secret
+- name: CHATWOOT_CLOUD_PLANS
+  display_title: 'Cloud Plans'
+  value:
+  description: 'Config to store stripe plans for cloud'
+- name: CHATWOOT_CLOUD_PLAN_FEATURES
+  display_title: 'Planwise Features List'
+  value:
+  description: 'Config to features and their associated plans'
 - name: DEPLOYMENT_ENV
   value: self-hosted
-  description: 'The deployment environment of the installation, to differentiate between starchat cloud and self-hosted'
-- name: ANALYTICS_TOKEN
+  description: 'The deployment environment of the installation, to differentiate between Chatwoot cloud and self-hosted'
+- name: CLOUD_ANALYTICS_TOKEN
   value:
   display_title: 'Analytics Token'
-  description: 'The PostHog analytics token for starchat cloud'
+  description: 'The Amplitude analytics API key for Chatwoot cloud'
   type: secret
 - name: CLEARBIT_API_KEY
   value:
@@ -265,21 +291,28 @@
   type: code
 # ------- End of Chatwoot Internal Config for Cloud ----#
 
+# ------- Chatwoot Internal Config for Self Hosted ----#
+- name: INSTALLATION_PRICING_PLAN
+  value: 'community'
+  description: 'The pricing plan for the installation, retrieved from the billing API'
+- name: INSTALLATION_PRICING_PLAN_QUANTITY
+  value: 0
+  description: 'The number of licenses purchased for the installation, retrieved from the billing API'
 - name: CHATWOOT_SUPPORT_WEBSITE_TOKEN
   value:
-  description: 'The starchat website token, used to identify the starchat inbox and display the "Contact Support" option on the billing page'
+  description: 'The Chatwoot website token, used to identify the Chatwoot inbox and display the "Contact Support" option on the billing page'
   type: secret
 - name: CHATWOOT_SUPPORT_SCRIPT_URL
   value:
-  description: 'The starchat script base URL, to display the "Contact Support" option on the billing page'
+  description: 'The Chatwoot script base URL, to display the "Contact Support" option on the billing page'
 - name: CHATWOOT_SUPPORT_IDENTIFIER_HASH
   value:
-  description: 'The starchat identifier hash, to validate the contact in the live chat window.'
+  description: 'The Chatwoot identifier hash, to validate the contact in the live chat window.'
   type: secret
 - name: ACCOUNT_SECURITY_NOTIFICATION_WEBHOOK_URL
   display_title: Webhook URL to post security analysis
   value:
-  description: Used to notify starchat about account abuses, potential threads (Should be a Discord Webhook URL)
+  description: Used to notify Chatwoot about account abuses, potential threads (Should be a Discord Webhook URL)
 # ------- End of Chatwoot Internal Config for Self Hosted ----#
 
 # ------- Compliance Related Config ----#

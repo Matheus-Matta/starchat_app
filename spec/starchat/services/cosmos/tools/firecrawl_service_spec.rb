@@ -7,7 +7,7 @@ RSpec.describe Cosmos::Tools::FirecrawlService do
   let(:crawl_limit) { 15 }
 
   before do
-    create(:installation_config, name: 'COSMOS_FIRECRAWL_API_KEY', value: api_key)
+    create(:installation_config, name: 'COSMOSFIRECRAWL_API_KEY', value: api_key)
   end
 
   describe '#initialize' do
@@ -19,7 +19,7 @@ RSpec.describe Cosmos::Tools::FirecrawlService do
 
     context 'when API key is missing' do
       before do
-        InstallationConfig.find_by(name: 'COSMOS_FIRECRAWL_API_KEY').destroy
+        InstallationConfig.find_by(name: 'COSMOSFIRECRAWL_API_KEY').destroy
       end
 
       it 'raises an error' do
@@ -29,17 +29,17 @@ RSpec.describe Cosmos::Tools::FirecrawlService do
 
     context 'when API key is nil' do
       before do
-        InstallationConfig.find_by(name: 'COSMOS_FIRECRAWL_API_KEY').update(value: nil)
+        InstallationConfig.find_by(name: 'COSMOSFIRECRAWL_API_KEY').update(value: nil)
       end
 
       it 'raises an error' do
-        expect { described_class.new }.to raise_error(NoMethodError)
+        expect { described_class.new }.to raise_error('Missing API key')
       end
     end
 
     context 'when API key is empty' do
       before do
-        InstallationConfig.find_by(name: 'COSMOS_FIRECRAWL_API_KEY').update(value: '')
+        InstallationConfig.find_by(name: 'COSMOSFIRECRAWL_API_KEY').update(value: '')
       end
 
       it 'raises an error' do
@@ -58,9 +58,9 @@ RSpec.describe Cosmos::Tools::FirecrawlService do
         limit: crawl_limit,
         webhook: webhook_url,
         scrapeOptions: {
-          onlyMainContent: false,
+          onlyMainContent: true,
           formats: ['markdown'],
-          excludeTags: ['iframe']
+          excludeTags: Cosmos::Tools::FirecrawlService::FIRECRAWL_EXCLUDE_TAGS
         }
       }.to_json
     end

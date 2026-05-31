@@ -8,36 +8,36 @@ import InboxName from '../InboxName.vue';
 import MoreActions from './MoreActions.vue';
 import Avatar from 'next/avatar/Avatar.vue';
 import SLACardLabel from './components/SLACardLabel.vue';
+import ConversationCallButton from './ConversationCallButton.vue';
 import wootConstants from 'dashboard/constants/globals';
 import { conversationListPageURL } from 'dashboard/helper/URLHelper';
 import { snoozedReopenTime } from 'dashboard/helper/snoozeHelpers';
 import { useInbox } from 'dashboard/composables/useInbox';
-import { useI18n } from 'vue-i18n';
 import { useAlert } from 'dashboard/composables';
+import { useI18n } from 'vue-i18n';
 import { copyTextToClipboard } from 'shared/helpers/clipboard';
 
 const props = defineProps({
-  chat: { type: Object, default: () => ({}) },
-  showBackButton: { type: Boolean, default: false },
+  chat: {
+    type: Object,
+    default: () => ({}),
+  },
+  showBackButton: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const { t } = useI18n();
-
-const copyProtocolCode = async () => {
-  if (props.chat?.protocol_code) {
-    await copyTextToClipboard(props.chat.protocol_code);
-    useAlert(t('CONVERSATION.HEADER.PROTOCOL_COPIED'));
-  }
-};
 const store = useStore();
 const route = useRoute();
-
 const conversationHeader = ref(null);
 const { width } = useElementSize(conversationHeader);
 const { isAWebWidgetInbox } = useInbox();
 
 const currentChat = computed(() => store.getters.getSelectedChat);
 const accountId = computed(() => store.getters.getCurrentAccountId);
+
 const chatMetadata = computed(() => props.chat.meta);
 
 const backButtonUrl = computed(() => {
@@ -51,7 +51,6 @@ const backButtonUrl = computed(() => {
     conversation_through_participating: 'participating',
     conversation_through_unattended: 'unattended',
   };
-
   return conversationListPageURL({
     accountId: accountId.value,
     inboxId,
@@ -63,12 +62,14 @@ const backButtonUrl = computed(() => {
 });
 
 const isHMACVerified = computed(() => {
-  if (!isAWebWidgetInbox.value) return true;
-  return chatMetadata.value?.hmac_verified;
+  if (!isAWebWidgetInbox.value) {
+    return true;
+  }
+  return chatMetadata.value.hmac_verified;
 });
 
-const currentContact = computed(
-  () => store.getters['contacts/getContact'](props.chat?.meta?.sender?.id) || {}
+const currentContact = computed(() =>
+  store.getters['contacts/getContact'](props.chat.meta.sender.id)
 );
 
 const isSnoozed = computed(
@@ -76,7 +77,7 @@ const isSnoozed = computed(
 );
 
 const snoozedDisplayText = computed(() => {
-  const { snoozed_until: snoozedUntil } = currentChat.value || {};
+  const { snoozed_until: snoozedUntil } = currentChat.value;
   if (snoozedUntil) {
     return `${t('CONVERSATION.HEADER.SNOOZED_UNTIL')} ${snoozedReopenTime(snoozedUntil)}`;
   }
@@ -84,38 +85,24 @@ const snoozedDisplayText = computed(() => {
 });
 
 const inbox = computed(() => {
-  const { inbox_id: inboxId } = props.chat || {};
+  const { inbox_id: inboxId } = props.chat;
   return store.getters['inboxes/getInbox'](inboxId);
 });
 
 const hasMultipleInboxes = computed(
-  () => (store.getters['inboxes/getInboxes'] || []).length > 1
+  () => store.getters['inboxes/getInboxes'].length > 1
 );
 
 const hasSlaPolicyId = computed(() => props.chat?.sla_policy_id);
 
-// ---- FALLBACK (WA) + SRC NORMALIZADO ----
-const waProfilePicUrl = computed(() => {
-  const c = currentContact.value || {};
-  const aa = c.additional_attributes || c.additionalAttributes || {};
-  const ca = c.custom_attributes || c.customAttributes || {};
-
-  const url =
-    aa.wa_profile_pic_url ||
-    aa.waProfilePicUrl ||
-    aa.waProfilePicURL ||
-    ca.wa_profile_pic_url ||
-    ca.waProfilePicUrl ||
-    ca.waProfilePicURL ||
-    '';
-
-  return typeof url === 'string' ? url.trim() : '';
-});
-
-const primaryAvatarSrc = computed(() => {
-  const thumb = (currentContact.value?.thumbnail || '').trim();
-  return thumb || waProfilePicUrl.value || '';
-});
+const copyConversationId = async () => {
+  try {
+    await copyTextToClipboard(String(props.chat.id));
+    useAlert(t('CONVERSATION.HEADER.COPY_ID_SUCCESS'));
+  } catch (error) {
+    // error
+  }
+};
 </script>
 
 <template>
@@ -132,10 +119,8 @@ const primaryAvatarSrc = computed(() => {
         class="ltr:mr-2 rtl:ml-2"
       />
       <Avatar
-        :key="`${props.chat?.id || ''}-${currentContact.id || ''}`"
         :name="currentContact.name"
-        :src="primaryAvatarSrc"
-        :fallback-src="waProfilePicUrl"
+        :src="currentContact.thumbnail"
         :size="32"
         :status="currentContact.availability_status"
         hide-offline-status
@@ -160,30 +145,24 @@ const primaryAvatarSrc = computed(() => {
         </div>
 
         <div
-          class="flex items-center gap-2 overflow-hidden text-xs conversation--header--actions text-ellipsis whitespace-nowrap"
+          class="flex items-center gap-1 overflow-hidden text-xs conversation--header--actions text-n-slate-11 text-ellipsis whitespace-nowrap"
         >
+          <button
+            type="button"
+            class="truncate text-label-small text-n-slate-11 hover:text-n-slate-12 !p-0 cucursor-pointer"
+            @click="copyConversationId"
+          >
+            {{ `#${chat.id}` }}
+          </button>
+          <span v-if="hasMultipleInboxes">•</span>
           <InboxName v-if="hasMultipleInboxes" :inbox="inbox" class="!mx-0" />
+          <span v-if="isSnoozed">•</span>
           <span v-if="isSnoozed" class="font-medium text-n-amber-10">
             {{ snoozedDisplayText }}
           </span>
-          <div
-            v-if="chat.protocol_code"
-            class="flex gap-1 items-center bg-n-alpha-1 px-1.5 py-0.5 rounded text-[11px] font-mono text-n-slate-11"
-          >
-            <fluent-icon icon="hashtag" size="12" />
-            <span class="select-all">{{ chat.protocol_code }}</span>
-            <fluent-icon
-              v-tooltip="$t('CONVERSATION.HEADER.COPY_PROTOCOL')"
-              icon="copy"
-              size="12"
-              class="cursor-pointer hover:text-n-slate-12"
-              @click="copyProtocolCode"
-            />
-          </div>
         </div>
       </div>
     </div>
-
     <div
       class="flex flex-row items-center justify-start xl:justify-end flex-shrink-0 gap-2 w-full xl:w-auto header-actions-wrap"
     >
@@ -194,6 +173,7 @@ const primaryAvatarSrc = computed(() => {
         :parent-width="width"
         class="hidden md:flex"
       />
+      <ConversationCallButton :inbox="inbox" :chat="currentChat" />
       <MoreActions :conversation-id="currentChat.id" />
     </div>
   </div>

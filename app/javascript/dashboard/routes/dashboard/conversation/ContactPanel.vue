@@ -16,8 +16,8 @@ import ConversationParticipant from './ConversationParticipant.vue';
 import ContactInfo from './contact/ContactInfo.vue';
 import ContactNotes from './contact/ContactNotes.vue';
 import ConversationInfo from './ConversationInfo.vue';
-import ConversationProtocol from './ConversationProtocol.vue';
 import CustomAttributes from './customAttributes/CustomAttributes.vue';
+import SharedFiles from './SharedFiles.vue';
 import Draggable from 'vuedraggable';
 import MacrosList from './Macros/List.vue';
 import ShopifyOrdersList from 'dashboard/components/widgets/conversation/ShopifyOrdersList.vue';
@@ -197,8 +197,6 @@ onMounted(() => {
               <ConversationInfo
                 :conversation-attributes="conversationAdditionalAttributes"
                 :contact-attributes="contactAdditionalAttributes"
-                :protocol-code="currentChat.protocol_code"
-                :protocol-policy-id="currentChat.protocol_policy_id"
               />
             </AccordionItem>
           </div>
@@ -300,22 +298,16 @@ onMounted(() => {
               <ContactNotes :contact-id="contactId" />
             </AccordionItem>
           </div>
-          <!-- [COMING SOON] Protocol field - hidden until feature is ready -->
-          <div v-else-if="element.name === 'protocol'" class="hidden">
+          <div v-else-if="element.name === 'shared_files'">
             <AccordionItem
-              v-if="currentChat.protocol_code || currentChat.protocol_id"
-              :title="$t('CONVERSATION_SIDEBAR.ACCORDION.PROTOCOL')"
-              :is-open="isContactSidebarItemOpen('is_protocol_open')"
+              :title="$t('CONVERSATION_SIDEBAR.ACCORDION.SHARED_FILES')"
+              :is-open="isContactSidebarItemOpen('is_shared_files_open')"
               compact
               @toggle="
-                value => toggleSidebarUIState('is_protocol_open', value)
+                value => toggleSidebarUIState('is_shared_files_open', value)
               "
             >
-              <ConversationProtocol
-                :conversation-id="conversationId"
-                :protocol-id="currentChat.protocol_id"
-                :protocol-code="currentChat.protocol_code"
-              />
+              <SharedFiles />
             </AccordionItem>
           </div>
         </template>
@@ -325,9 +317,7 @@ onMounted(() => {
 </template>
 
 <style lang="scss" scoped>
-::v-deep {
-  .contact--profile {
-    @apply pb-3 border-b border-solid border-n-weak;
-  }
+:deep(.contact--profile) {
+  @apply pb-3 border-b border-solid border-n-weak;
 }
 </style>

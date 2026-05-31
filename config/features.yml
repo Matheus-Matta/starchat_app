@@ -17,20 +17,20 @@
   display_name: Facebook Channel
   enabled: true
   help_url: https://chwt.app/hc/fb
-- name: channel_twitter
-  display_name: Twitter Channel
-  enabled: true
-  deprecated: true
+- name: conversation_unread_counts
+  display_name: Conversation Unread Counts
+  enabled: false
+  chatwoot_internal: true
 - name: ip_lookup
   display_name: IP Lookup
-  enabled: true
+  enabled: false
 - name: disable_branding
   display_name: Disable Branding
-  enabled: true
+  enabled: false
   premium: true
 - name: email_continuity_on_api_channel
   display_name: Email Continuity on API Channel
-  enabled: true
+  enabled: false
 - name: help_center
   display_name: Help Center
   enabled: true
@@ -76,7 +76,7 @@
   enabled: true
 - name: report_rollup
   display_name: Report Rollup
-  enabled: true
+  enabled: false
 - name: channel_website
   display_name: Website Channel
   enabled: true
@@ -96,17 +96,17 @@
   enabled: true
 - name: custom_reply_email
   display_name: Custom Reply Email
-  enabled: true
+  enabled: false
 - name: custom_reply_domain
   display_name: Custom Reply Domain
-  enabled: true
+  enabled: false
 - name: audit_logs
   display_name: Audit Logs
-  enabled: true
+  enabled: false
   premium: true
 - name: custom_tools
   display_name: Custom Tools
-  enabled: true
+  enabled: false
   premium: true
 - name: message_reply_to
   display_name: Message Reply To
@@ -118,36 +118,37 @@
   deprecated: true
 - name: inbox_view
   display_name: Inbox View
-  enabled: true
+  enabled: false
   chatwoot_internal: true
 - name: sla
   display_name: SLA
-  enabled: true
+  enabled: false
   premium: true
   help_url: https://chwt.app/hc/sla
 - name: help_center_embedding_search
   display_name: Help Center Embedding Search
-  enabled: true
+  enabled: false
   premium: true
   chatwoot_internal: true
 - name: linear_integration
   display_name: Linear Integration
-  enabled: true
-- name: cosmos_integration
-  display_name: Cosmos
-  enabled: true
+  enabled: false
+- name: captain_integration
+  display_name: Captain
+  enabled: false
   premium: true
 - name: custom_roles
   display_name: Custom Roles
-  enabled: true
+  enabled: false
   premium: true
 - name: chatwoot_v4
   display_name: Chatwoot V4
   enabled: true
-- name: report_v4
-  display_name: Report V4
+- name: captain_v1_action_classifier
+  display_name: Captain V1 Action Classifier
   enabled: false
-  deprecated: true
+  premium: true
+  chatwoot_internal: true
 - name: contact_chatwoot_support_team
   display_name: Contact Chatwoot Support Team
   enabled: true
@@ -165,17 +166,17 @@
   enabled: true
 - name: crm_integration
   display_name: CRM Integration
-  enabled: true
+  enabled: false
 - name: channel_voice
   display_name: Voice Channel
-  enabled: true
+  enabled: false
   premium: true
 - name: notion_integration
   display_name: Notion Integration
-  enabled: true
-- name: cosmos_integration_v2
-  display_name: Cosmos V2
-  enabled: true
+  enabled: false
+- name: captain_integration_v2
+  display_name: Captain V2
+  enabled: false
   premium: true
 - name: whatsapp_embedded_signup
   display_name: WhatsApp Embedded Signup
@@ -183,7 +184,7 @@
   deprecated: true
 - name: whatsapp_campaign
   display_name: WhatsApp Campaign
-  enabled: true
+  enabled: false
 - name: crm_v2
   display_name: CRM V2
   enabled: false
@@ -191,23 +192,22 @@
 - name: assignment_v2
   display_name: Assignment V2
   enabled: true
-  chatwoot_internal: false
-- name: twilio_content_templates
-  display_name: Twilio Content Templates
+- name: captain_document_auto_sync
+  display_name: Captain Document Auto Sync
   enabled: false
-  deprecated: true
+  premium: true
 - name: advanced_search
   display_name: Advanced Search
-  enabled: true
+  enabled: false
   premium: true
   chatwoot_internal: true
 - name: saml
   display_name: SAML
-  enabled: true
+  enabled: false
   premium: true
 - name: advanced_search_indexing
   display_name: Advanced Search Indexing
-  enabled: true
+  enabled: false
   premium: true
   chatwoot_internal: true
 - name: reply_mailer_migration
@@ -218,31 +218,27 @@
   chatwoot_internal: true
 - name: quoted_email_reply
   display_name: Quoted Email Reply
-  enabled: true
+  enabled: false
+  deprecated: true
 - name: companies
   display_name: Companies
-  enabled: true
+  enabled: false
   premium: true
-  chatwoot_internal: true
 - name: channel_tiktok
   display_name: TikTok Channel
   enabled: true
 - name: csat_review_notes
   display_name: CSAT Review Notes
-  enabled: true
+  enabled: false
   premium: true
-- name: cosmos_tasks
-  display_name: Cosmos Tasks
+- name: captain_tasks
+  display_name: Captain Tasks
   enabled: true
 - name: conversation_required_attributes
   display_name: Required Conversation Attributes
-  enabled: true
+  enabled: false
   premium: true
 - name: advanced_assignment
   display_name: Advanced Assignment
-  enabled: true
-  premium: true
-- name: cosmos_custom_tools
-  display_name: Cosmos Custom Tools
-  enabled: true
+  enabled: false
   premium: true

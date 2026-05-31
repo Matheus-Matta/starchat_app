@@ -6,12 +6,7 @@
 #
 #  id                            :integer          not null, primary key
 #  allow_messages_after_resolved :boolean          default(TRUE)
-#  anti_spam_config              :jsonb
 #  auto_assignment_config        :jsonb
-#  auto_resolve_duration         :integer
-#  auto_resolve_ignore_waiting   :boolean
-#  auto_resolve_label            :string
-#  auto_resolve_message          :text
 #  business_name                 :string
 #  channel_type                  :string
 #  csat_config                   :jsonb            not null
@@ -24,7 +19,6 @@
 #  lock_to_single_conversation   :boolean          default(FALSE), not null
 #  name                          :string           not null
 #  out_of_office_message         :string
-#  sender_config                 :jsonb
 #  sender_name_type              :integer          default("friendly"), not null
 #  timezone                      :string           default("UTC")
 #  working_hours_enabled         :boolean          default(FALSE)
@@ -33,19 +27,16 @@
 #  account_id                    :integer          not null
 #  channel_id                    :integer          not null
 #  portal_id                     :bigint
-#  protocol_policy_id            :bigint
 #
 # Indexes
 #
 #  index_inboxes_on_account_id                   (account_id)
 #  index_inboxes_on_channel_id_and_channel_type  (channel_id,channel_type)
 #  index_inboxes_on_portal_id                    (portal_id)
-#  index_inboxes_on_protocol_policy_id           (protocol_policy_id)
 #
 # Foreign Keys
 #
 #  fk_rails_...  (portal_id => portals.id)
-#  fk_rails_...  (protocol_policy_id => protocol_policies.id)
 #
 
 class Inbox < ApplicationRecord
@@ -65,7 +56,6 @@ class Inbox < ApplicationRecord
 
   belongs_to :account
   belongs_to :portal, optional: true
-  belongs_to :protocol_policy, optional: true
 
   belongs_to :channel, polymorphic: true, dependent: :destroy
 
@@ -84,7 +74,6 @@ class Inbox < ApplicationRecord
   has_one :agent_bot, through: :agent_bot_inbox
   has_many :webhooks, dependent: :destroy_async
   has_many :hooks, dependent: :destroy_async, class_name: 'Integrations::Hook'
-  has_many :inbox_capacity_limits, dependent: :destroy_async
 
   enum sender_name_type: { friendly: 0, professional: 1 }
 
@@ -94,42 +83,13 @@ class Inbox < ApplicationRecord
   after_update_commit :dispatch_update_event
 
   scope :order_by_name, -> { order('lower(name) ASC') }
-  scope :with_inbox_auto_resolve, -> { where.not(auto_resolve_duration: nil) }
-
-  # Duração efetiva de auto-resolução: usa do inbox se configurado, caso contrário herda da conta
-  def effective_auto_resolve_duration
-    auto_resolve_duration.presence || account.auto_resolve_after
-  end
-
-  # Mensagem efetiva de auto-resolução
-  def effective_auto_resolve_message
-    auto_resolve_message.presence || account.auto_resolve_message
-  end
-
-  # Flag efetiva para ignorar conversas em espera
-  def effective_auto_resolve_ignore_waiting
-    return auto_resolve_ignore_waiting unless auto_resolve_ignore_waiting.nil?
-
-    account.auto_resolve_ignore_waiting
-  end
-
-  # Label efetiva de auto-resolução
-  def effective_auto_resolve_label
-    auto_resolve_label.presence || account.auto_resolve_label
-  end
-
-  # Verifica se deve ser auto-resolvido por lógica do inbox ou da conta
-  def should_auto_resolve?
-    effective_auto_resolve_duration.to_i.positive?
-  end
 
   # Adds multiple members to the inbox
   # @param user_ids [Array<Integer>] Array of user IDs to add as members
   # @return [void]
   def add_members(user_ids)
     inbox_members.create!(user_ids.map { |user_id| { user_id: user_id } })
-    # NOTE: cache invalidation is handled by InboxMember after_commit :update_inbox_cache
-    # to ensure the key only rotates after the transaction commits
+    update_account_cache
   end
 
   # Removes multiple members from the inbox
@@ -137,18 +97,21 @@ class Inbox < ApplicationRecord
   # @return [void]
   def remove_members(user_ids)
     inbox_members.where(user_id: user_ids).destroy_all
-    # NOTE: cache invalidation is handled by InboxMember after_commit :update_inbox_cache
-    # to ensure the key only rotates after the transaction commits
+    update_account_cache
   end
 
   # Sanitizes inbox name for balanced email provider compatibility
   # ALLOWS: /'._- and Unicode letters/numbers/emojis
-  # REMOVES: Forbidden chars (\<>@") + spam-trigger symbols (!#$%&*+=?^`{|}~)
+  # REMOVES: Forbidden chars (\<>@"()) + spam-trigger symbols (!#$%&*+=?^`{|}~)
   def sanitized_name
     return default_name_for_blank_name if name.blank?
 
     sanitized = apply_sanitization_rules(name)
     sanitized.blank? && email? ? display_name_from_email : sanitized
+  end
+
+  def sanitized_business_name
+    sanitize_raw_name(business_name) || sanitized_name
   end
 
   def sms?
@@ -187,10 +150,6 @@ class Inbox < ApplicationRecord
     channel_type == 'Channel::TwilioSms'
   end
 
-  def twilio_whatsapp?
-    twilio? && channel.whatsapp?
-  end
-
   def twitter?
     channel_type == 'Channel::TwitterProfile'
   end
@@ -203,8 +162,8 @@ class Inbox < ApplicationRecord
     channel_type == 'Channel::Whatsapp'
   end
 
-  def evolution?
-    channel_type == 'Channel::Evolution'
+  def twilio_whatsapp?
+    channel_type == 'Channel::TwilioSms' && channel.medium == 'whatsapp'
   end
 
   def assignable_agents
@@ -248,29 +207,13 @@ class Inbox < ApplicationRecord
     account.feature_enabled?('assignment_v2')
   end
 
-  def anti_spam_enabled?
-    return false if anti_spam_config.blank?
+  # Callers (Reauthorizable) only invoke this on a real transition, so the previous
+  # value is always the inverse of the new boolean value.
+  def dispatch_reauthorization_event(reauthorization_required)
+    return if ENV['ENABLE_INBOX_EVENTS'].blank?
 
-    anti_spam_config['active'] == true
-  end
-
-  def anti_spam_max_messages
-    return 5 if anti_spam_config.blank?
-
-    (anti_spam_config['max_messages'] || 5).to_i
-  end
-
-  def anti_spam_time_window
-    return 1 if anti_spam_config.blank?
-
-    (anti_spam_config['time_window'] || 1).to_i
-  end
-
-  def push_event_data
-    {
-      id: id,
-      name: name
-    }
+    changed_attributes = { reauthorization_required: [!reauthorization_required, reauthorization_required] }
+    Rails.configuration.dispatcher.dispatch(INBOX_UPDATED, Time.zone.now, inbox: self, changed_attributes: changed_attributes)
   end
 
   private
@@ -279,8 +222,15 @@ class Inbox < ApplicationRecord
     email? ? display_name_from_email : ''
   end
 
+  def sanitize_raw_name(raw)
+    return nil if raw.blank?
+
+    result = apply_sanitization_rules(raw)
+    result.presence
+  end
+
   def apply_sanitization_rules(name)
-    name.gsub(/[\\<>@"!#$%&*+=?^`{|}~:;]/, '')         # Remove forbidden chars
+    name.gsub(/[\\<>@"!#$%&*+=?^`{|}~:;()]/, '')        # Remove forbidden chars
         .gsub(/[\x00-\x1F\x7F]/, ' ')                   # Replace control chars with spaces
         .gsub(/\A[[:punct:]]+|[[:punct:]]+\z/, '')      # Remove leading/trailing punctuation
         .gsub(/\s+/, ' ')                               # Normalize spaces
@@ -303,7 +253,9 @@ class Inbox < ApplicationRecord
     Rails.configuration.dispatcher.dispatch(INBOX_UPDATED, Time.zone.now, inbox: self, changed_attributes: previous_changes)
   end
 
-  def ensure_valid_max_assignment_limit; end
+  def ensure_valid_max_assignment_limit
+    # overridden in enterprise/app/models/enterprise/inbox.rb
+  end
 
   def delete_round_robin_agents
     ::AutoAssignment::InboxRoundRobinService.new(inbox: self).clear_queue
@@ -311,26 +263,6 @@ class Inbox < ApplicationRecord
 
   def check_channel_type?
     ['Channel::Email', 'Channel::Api', 'Channel::WebWidget'].include?(channel_type)
-  end
-
-  def _stash_evolution_channel_credentials
-    return unless channel_type == 'Channel::Evolution' && channel.present?
-
-    @evo_delete_payload = {
-      instance_name: channel.try(:instance_name),
-      api_key: channel.try(:api_key)
-    }.compact
-  end
-
-  def _enqueue_evolution_delete_if_needed
-    payload = @evo_delete_payload
-    return if payload.blank? || payload[:instance_name].blank? || payload[:api_key].blank?
-
-    Evolution::DeleteInstanceJob.perform_later(
-      base_url: ENV.fetch('EVOLUTION_BASE_URL'),
-      api_key: payload[:api_key],
-      instance_name: payload[:instance_name]
-    )
   end
 end
 

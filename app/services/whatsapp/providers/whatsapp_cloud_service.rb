@@ -204,3 +204,5 @@ class Whatsapp::Providers::WhatsappCloudService < Whatsapp::Providers::BaseServi
     @csat_template_service ||= Whatsapp::CsatTemplateService.new(whatsapp_channel)
   end
 end
+
+Whatsapp::Providers::WhatsappCloudService.prepend_mod_with('Whatsapp::Providers::WhatsappCloudService')

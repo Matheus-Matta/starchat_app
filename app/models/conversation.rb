@@ -13,9 +13,6 @@
 #  identifier             :string
 #  last_activity_at       :datetime         not null
 #  priority               :integer
-#  protocol_code          :string
-#  protocol_date          :date
-#  protocol_seq           :integer
 #  snoozed_until          :datetime
 #  status                 :integer          default("open"), not null
 #  uuid                   :uuid             not null
@@ -30,8 +27,6 @@
 #  contact_inbox_id       :bigint
 #  display_id             :integer          not null
 #  inbox_id               :integer          not null
-#  protocol_id            :bigint
-#  protocol_policy_id     :bigint
 #  sla_policy_id          :bigint
 #  team_id                :bigint
 #
@@ -49,19 +44,11 @@
 #  index_conversations_on_identifier_and_account_id   (identifier,account_id)
 #  index_conversations_on_inbox_id                    (inbox_id)
 #  index_conversations_on_priority                    (priority)
-#  index_conversations_on_protocol_code               (protocol_code) UNIQUE
-#  index_conversations_on_protocol_id                 (protocol_id)
-#  index_conversations_on_protocol_policy_id          (protocol_policy_id)
 #  index_conversations_on_status_and_account_id       (status,account_id)
 #  index_conversations_on_status_and_priority         (status,priority)
 #  index_conversations_on_team_id                     (team_id)
 #  index_conversations_on_uuid                        (uuid) UNIQUE
 #  index_conversations_on_waiting_since               (waiting_since)
-#
-# Foreign Keys
-#
-#  fk_rails_...  (protocol_id => protocols.id)
-#  fk_rails_...  (protocol_policy_id => protocol_policies.id)
 #
 
 class Conversation < ApplicationRecord
@@ -118,8 +105,6 @@ class Conversation < ApplicationRecord
   belongs_to :contact_inbox
   belongs_to :team, optional: true
   belongs_to :campaign, optional: true
-  belongs_to :protocol_policy, optional: true
-  belongs_to :protocol, optional: true   # protocolo SAC vinculado (pode abranger N conversas)
 
   has_many :mentions, dependent: :destroy_async
   has_many :messages, dependent: :destroy_async, autosave: true
@@ -136,7 +121,8 @@ class Conversation < ApplicationRecord
   after_update_commit :execute_after_update_commit_callbacks
   after_create_commit :notify_conversation_creation
   after_create_commit :load_attributes_created_by_db_triggers
-  after_create_commit :generate_protocol_code
+  before_destroy :set_unread_count_deletion_data
+  after_destroy_commit :notify_conversation_deletion
 
   delegate :auto_resolve_after, to: :account
 
@@ -225,44 +211,11 @@ class Conversation < ApplicationRecord
   end
 
   def csat_survey_link
-    base_url = ENV['FRONTEND_URL_TESTE'].presence || ENV.fetch('FRONTEND_URL', nil)
-    "#{base_url}/survey/responses/#{uuid}"
+    "#{ENV.fetch('FRONTEND_URL', nil)}/survey/responses/#{uuid}"
   end
 
   def dispatch_conversation_updated_event(previous_changes = nil)
     dispatcher_dispatch(CONVERSATION_UPDATED, previous_changes)
-  end
-
-  # Resolve o source_id do ContactInbox desta conversa de forma resiliente.
-  # Necessário porque algumas conversas (especialmente do canal Evolution) podem
-  # ter contact_inbox_id com registro deletado (orphaned FK) ou associação em cache
-  # desatualizada.
-  #
-  # Cadeia de fallback:
-  #   1. Usa contact_inbox da associação Rails (caminho feliz)
-  #   2. Busca diretamente no banco pelo contact_inbox_id (cache stale)
-  #   3. Para Evolution: busca ContactInbox por contact_id + inbox_id
-  #   4. Para Evolution: deriva do phone_number do contato (55XXXXXXXXXXX)
-  #   5. Retorna nil se não conseguir resolver
-  def resolve_contact_inbox_source_id
-    # Nível 1: associação Rails carregada corretamente
-    return contact_inbox.source_id if contact_inbox.present?
-
-    # Nível 2: contact_inbox_id existe mas a associação está stale/nil em memória
-    if contact_inbox_id.present?
-      ci = ContactInbox.find_by(id: contact_inbox_id)
-      return ci.source_id if ci.present?
-    end
-
-    # exclusivos para Evolution (source_id = número sem '+')
-    return nil unless inbox&.channel.is_a?(Channel::Evolution)
-
-    #  encontra o ContactInbox pelo par contact+inbox
-    ci = ContactInbox.find_by(contact_id: contact_id, inbox_id: inbox_id)
-    return ci.source_id if ci.present?
-
-    #  deriva do phone_number do contato ("+5521912345678" → "5521912345678")
-    contact&.phone_number.to_s.delete_prefix('+').presence
   end
 
   private
@@ -274,14 +227,11 @@ class Conversation < ApplicationRecord
     notify_conversation_updation
   end
 
-  def generate_protocol_code
-    Conversations::ProtocolGenerator.new(self).perform if inbox&.protocol_policy_id.present?
-  end
-
   def handle_resolved_status_change
     # When conversation is resolved, clear waiting_since using update_column to avoid callbacks
     return unless saved_change_to_status? && status == 'resolved'
 
+    # rubocop:disable Rails/SkipsModelValidations
     update_column(:waiting_since, nil)
     # rubocop:enable Rails/SkipsModelValidations
   end
@@ -291,7 +241,6 @@ class Conversation < ApplicationRecord
   end
 
   def ensure_waiting_since
-    self.created_at ||= Time.current
     self.waiting_since = created_at
   end
 
@@ -323,6 +272,12 @@ class Conversation < ApplicationRecord
     dispatcher_dispatch(CONVERSATION_CREATED)
   end
 
+  def notify_conversation_deletion
+    return if @unread_count_deletion_data.blank?
+
+    Rails.configuration.dispatcher.dispatch(CONVERSATION_DELETED, Time.zone.now, conversation_data: @unread_count_deletion_data)
+  end
+
   def notify_conversation_updation
     return unless previous_changes.keys.present? && allowed_keys?
 
@@ -331,7 +286,7 @@ class Conversation < ApplicationRecord
 
   def list_of_keys
     %w[team_id assignee_id assignee_agent_bot_id status snoozed_until custom_attributes label_list waiting_since
-       first_reply_created_at priority protocol_code protocol_policy_id]
+       first_reply_created_at priority]
   end
 
   def allowed_keys?
@@ -366,6 +321,17 @@ class Conversation < ApplicationRecord
     Rails.configuration.dispatcher.dispatch(event_name, Time.zone.now, conversation: self, notifiable_assignee_change: notifiable_assignee_change?,
                                                                        changed_attributes: changed_attributes,
                                                                        performed_by: Current.executed_by)
+  end
+
+  def set_unread_count_deletion_data
+    @unread_count_deletion_data = {
+      id: id,
+      account_id: account_id,
+      inbox_id: inbox_id,
+      assignee_id: assignee_id,
+      team_id: team_id,
+      cached_label_list: cached_label_list
+    }
   end
 
   def conversation_status_changed_to_open?

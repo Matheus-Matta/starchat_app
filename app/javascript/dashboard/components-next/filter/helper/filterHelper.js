@@ -23,7 +23,7 @@ export const CONTACT_ATTRIBUTES = {
   IDENTIFIER: 'identifier',
   COUNTRY_CODE: 'country_code',
   CITY: 'city',
-  INBOX_ID: 'inbox_id',
+  COMPANY_NAME: 'company_name',
   CREATED_AT: 'created_at',
   LAST_ACTIVITY_AT: 'last_activity_at',
   REFERER: 'referer',

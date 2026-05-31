@@ -57,10 +57,8 @@ class Api::V1::AccountsController < Api::BaseController
   def update
     @account.assign_attributes(account_params.slice(:name, :locale, :domain, :support_email))
     @account.custom_attributes.merge!(custom_attributes_params)
-
-    # Usamos assign_attributes para garantir que o dirty tracking do JSONB funcione
-    @account.assign_attributes(settings: @account.settings.merge(settings_params.to_h))
-
+    @account.settings.merge!(settings_params)
+    @account.custom_attributes.delete('onboarding_step') if @account.custom_attributes['onboarding_step'] == 'account_details'
     @account.custom_attributes['onboarding_step'] = 'invite_team' if @account.custom_attributes['onboarding_step'] == 'account_update'
     @account.save!
   end
@@ -74,9 +72,10 @@ class Api::V1::AccountsController < Api::BaseController
   private
 
   def enqueue_branding_enrichment
-    return if account_params[:email].blank?
+    email = account_params[:email].presence || @user&.email
+    return if email.blank?
 
-    Account::BrandingEnrichmentJob.perform_later(@account.id, account_params[:email])
+    Account::BrandingEnrichmentJob.perform_later(@account.id, email)
     Redis::Alfred.set(format(Redis::Alfred::ACCOUNT_ONBOARDING_ENRICHMENT, account_id: @account.id), '1', ex: 30)
   rescue StandardError => e
     # Enrichment is optional — never let queue/Redis failures abort signup
@@ -112,12 +111,15 @@ class Api::V1::AccountsController < Api::BaseController
   end
 
   def custom_attributes_params
-    params.permit(:industry, :company_size, :timezone)
+    params.permit(:industry, :company_size, :timezone, :referral_source, :user_role, :website)
   end
 
   def settings_params
-    permitted = %i[auto_resolve_after auto_resolve_message auto_resolve_ignore_waiting audio_transcriptions auto_resolve_label require_contact_inbox_messaging prioritize_responsible_agent]
-    params.permit(permitted).to_h.merge(params.fetch(:account, {}).permit(permitted).to_h)
+    params.permit(*permitted_settings_attributes)
+  end
+
+  def permitted_settings_attributes
+    [:auto_resolve_after, :auto_resolve_message, :auto_resolve_ignore_waiting, :audio_transcriptions, :auto_resolve_label]
   end
 
   def check_signup_enabled

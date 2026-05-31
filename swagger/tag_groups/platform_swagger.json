@@ -1,12 +1,12 @@
 {
   "openapi": "3.1.0",
   "info": {
-    "title": "Starchats",
-    "description": "This is the API documentation for Starchats server.",
+    "title": "Chatwoot",
+    "description": "This is the API documentation for Chatwoot server.",
     "version": "1.1.0",
-    "termsOfService": "https://www.starchats.com.br/terms-of-service/",
+    "termsOfService": "https://www.chatwoot.com/terms-of-service/",
     "contact": {
-      "email": "hello@starchats.com.br"
+      "email": "hello@chatwoot.com"
     },
     "license": {
       "name": "MIT License",
@@ -15,7 +15,7 @@
   },
   "servers": [
     {
-      "url": "https://app.starchats.com.br/"
+      "url": "https://app.chatwoot.com/"
     }
   ],
   "paths": {
@@ -1637,7 +1637,7 @@
               "Contact",
               "User",
               "AgentBot",
-              "Cosmos::Assistant",
+              "Captain::Assistant",
               null
             ],
             "description": "The type of the sender"
@@ -1840,15 +1840,16 @@
           "availability_status": {
             "type": "string",
             "enum": [
-              "available",
+              "online",
               "busy",
               "offline"
             ],
-            "description": "The availability status of the agent computed by Starchats."
+            "readOnly": true,
+            "description": "The effective availability status of the agent, derived from the configured availability, auto-offline setting, and current presence. To update an agent's configured availability, use the availability field in create or update requests."
           },
           "auto_offline": {
             "type": "boolean",
-            "description": "Whether the availability status of agent is configured to go offline automatically when away."
+            "description": "Whether the agent is automatically marked offline when they are away."
           },
           "confirmed": {
             "type": "boolean",
@@ -2263,10 +2264,17 @@
                 "contact_updated",
                 "message_created",
                 "message_updated",
-                "webwidget_triggered"
+                "webwidget_triggered",
+                "conversation_typing_on",
+                "conversation_typing_off"
               ]
             },
             "description": "The list of subscribed events"
+          },
+          "secret": {
+            "type": "string",
+            "nullable": true,
+            "description": "Secret used to sign webhook requests. Signed webhook deliveries include `X-Chatwoot-Timestamp` and `X-Chatwoot-Signature`; the signature is `sha256=` followed by the HMAC-SHA256 of `{timestamp}.{raw_request_body}` using this secret. Deliveries also include `X-Chatwoot-Delivery` when a delivery id is available."
           },
           "account_id": {
             "type": "number",
@@ -2427,9 +2435,12 @@
           {
             "type": "object",
             "properties": {
-              "latest_starchats_version": {
-                "type": "string",
-                "description": "Latest version of Starchats available",
+              "latest_chatwoot_version": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "description": "Latest version of Chatwoot available",
                 "example": "3.0.0"
               },
               "subscribed_features": {
@@ -2437,7 +2448,7 @@
                 "items": {
                   "type": "string"
                 },
-                "description": "List of subscribed starchat features (if starchat edition is enabled)"
+                "description": "List of subscribed enterprise features (if enterprise edition is enabled)"
               }
             }
           }
@@ -2717,7 +2728,7 @@
           },
           "pubsub_token": {
             "type": "string",
-            "description": "The token to be used to connect to starchats websocket"
+            "description": "The token to be used to connect to chatwoot websocket"
           }
         }
       },
@@ -3058,7 +3069,7 @@
           },
           "avatar_url": {
             "type": "string",
-            "description": "Avatar URL of the sender. Present for senders of type user, agent_bot, and cosmos_assistant. Not present for contact senders (use thumbnail instead)."
+            "description": "Avatar URL of the sender. Present for senders of type user, agent_bot, and captain_assistant. Not present for contact senders (use thumbnail instead)."
           },
           "thumbnail": {
             "type": "string",
@@ -3070,7 +3081,7 @@
               "contact",
               "user",
               "agent_bot",
-              "cosmos_assistant"
+              "captain_assistant"
             ],
             "description": "Type of the sender"
           },
@@ -3132,14 +3143,14 @@
               "string",
               "null"
             ],
-            "description": "Description when the sender is a cosmos assistant"
+            "description": "Description when the sender is a captain assistant"
           },
           "created_at": {
             "type": [
               "string",
               "null"
             ],
-            "description": "Created timestamp in ISO 8601 format when the sender is a cosmos assistant"
+            "description": "Created timestamp in ISO 8601 format when the sender is a captain assistant"
           }
         }
       },
@@ -3540,19 +3551,19 @@
             "description": "Whether its administrator or agent",
             "example": "agent"
           },
-          "availability_status": {
+          "availability": {
             "type": "string",
             "enum": [
-              "available",
+              "online",
               "busy",
               "offline"
             ],
-            "description": "The availability setting of the agent.",
-            "example": "available"
+            "description": "The configured availability of the agent.",
+            "example": "online"
           },
           "auto_offline": {
             "type": "boolean",
-            "description": "Whether the availability status of agent is configured to go offline automatically when away.",
+            "description": "Whether the agent is automatically marked offline when they are away.",
             "example": true
           }
         }
@@ -3572,19 +3583,19 @@
             "description": "Whether its administrator or agent",
             "example": "agent"
           },
-          "availability_status": {
+          "availability": {
             "type": "string",
             "enum": [
-              "available",
+              "online",
               "busy",
               "offline"
             ],
-            "description": "The availability status of the agent.",
-            "example": "available"
+            "description": "The configured availability of the agent.",
+            "example": "online"
           },
           "auto_offline": {
             "type": "boolean",
-            "description": "Whether the availability status of agent is configured to go offline automatically when away.",
+            "description": "Whether the agent is automatically marked offline when they are away.",
             "example": true
           }
         }
@@ -3803,7 +3814,7 @@
                     "type": "object",
                     "description": "The processed param values for template variables in template",
                     "example": {
-                      "1": "Starchats"
+                      "1": "Chatwoot"
                     }
                   }
                 }
@@ -4284,7 +4295,9 @@
                 "message_updated",
                 "contact_created",
                 "contact_updated",
-                "webwidget_triggered"
+                "webwidget_triggered",
+                "conversation_typing_on",
+                "conversation_typing_off"
               ]
             },
             "description": "The events you want to subscribe to.",
@@ -4404,7 +4417,7 @@
           "custom_domain": {
             "type": "string",
             "description": "Custom domain to display help center.",
-            "example": "starchats.help"
+            "example": "chatwoot.help"
           },
           "header_text": {
             "type": "string",
@@ -4414,7 +4427,7 @@
           "homepage_link": {
             "type": "string",
             "description": "link to main dashboard",
-            "example": "https://www.starchats.com.br/"
+            "example": "https://www.chatwoot.com/"
           },
           "name": {
             "type": "string",
@@ -6488,7 +6501,7 @@
         "schema": {
           "type": "string"
         },
-        "description": "Id of the session for which the conversation is created.\n\n\n\n Source Ids can be obtained through contactable inboxes API or via generated.<br/><br/>Website: Starchats generated string which can be obtained from webhook events. <br/> Phone Channels(Twilio): Phone number in e164 format <br/> Email Channels: Contact Email address <br/> API Channel: Any Random String"
+        "description": "Id of the session for which the conversation is created.\n\n\n\n Source Ids can be obtained through contactable inboxes API or via generated.<br/><br/>Website: Chatwoot generated string which can be obtained from webhook events. <br/> Phone Channels(Twilio): Phone number in e164 format <br/> Email Channels: Contact Email address <br/> API Channel: Any Random String"
       },
       "contact_sort_param": {
         "in": "query",

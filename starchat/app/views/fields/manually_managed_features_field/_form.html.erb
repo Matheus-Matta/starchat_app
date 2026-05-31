@@ -2,7 +2,8 @@
   # Get all feature names and their display names
   all_feature_display_names = SuperAdmin::AccountFeaturesHelper.feature_display_names
   
-  premium_features = SuperAdmin::AccountFeaturesHelper.account_premium_features
+  # Features that can be manually managed
+  premium_features = Internal::Accounts::InternalAttributesService.new(field.resource).valid_feature_list
   
   # Get only premium features with display names
   premium_features_with_display = premium_features.map do |feature|
@@ -17,7 +18,7 @@
   <%= f.label :manually_managed_features %>
 </div>
 <div class="field-unit__field feature-container">
-  <p class="text-gray-400 text-xs italic mb-4">Features managed manually for this account</p>
+  <p class="text-gray-400 text-xs italic mb-4">Features that remain enabled even when account plan is downgraded</p>
   
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
     <% premium_features_with_display.each do |feature_key, display_name| %>

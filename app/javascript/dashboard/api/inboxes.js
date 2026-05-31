@@ -36,6 +36,14 @@ class Inboxes extends CacheEnabledApiClient {
   updateEqualDistribution(inboxId, config) {
     return axios.patch(`${this.url}/${inboxId}/assignment_policy`, config);
   }
+
+  enableWhatsappCalling(inboxId) {
+    return axios.post(`${this.url}/${inboxId}/enable_whatsapp_calling`);
+  }
+
+  disableWhatsappCalling(inboxId) {
+    return axios.post(`${this.url}/${inboxId}/disable_whatsapp_calling`);
+  }
 }
 
 export default new Inboxes();

@@ -28,7 +28,7 @@ class Api::V1::Accounts::ConversationsController < Api::V1::Accounts::BaseContro
   def attachments
     @attachments_count = @conversation.attachments.count
     @attachments = @conversation.attachments
-                                .includes(:message)
+                                .includes({ file_attachment: :blob }, message: [:inbox, { sender: { avatar_attachment: :blob } }])
                                 .order(created_at: :desc)
                                 .page(attachment_params[:page])
                                 .per(ATTACHMENT_RESULTS_PER_PAGE)
@@ -159,6 +159,8 @@ class Api::V1::Accounts::ConversationsController < Api::V1::Accounts::BaseContro
     @conversation.update_column(:agent_last_seen_at, last_seen_at)
     @conversation.update_column(:assignee_last_seen_at, last_seen_at) if update_assignee.present?
     # rubocop:enable Rails/SkipsModelValidations
+
+    ::Conversations::UnreadCounts::Notifier.new(@conversation).perform
   end
 
   def should_update_last_seen?
