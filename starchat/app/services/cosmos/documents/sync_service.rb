@@ -1,4 +1,4 @@
-class Captain::Documents::SyncService
+class Cosmos::Documents::SyncService
   class PermanentSyncError < StandardError
   end
 
@@ -13,7 +13,7 @@ class Captain::Documents::SyncService
 
   def perform
     @document.update!(sync_step: 'fetching')
-    result = Captain::Documents::SinglePageFetcher.new(@document.external_link).fetch
+    result = Cosmos::Documents::SinglePageFetcher.new(@document.external_link).fetch
 
     handle_fetch_error(result.error_code) unless result.success
 

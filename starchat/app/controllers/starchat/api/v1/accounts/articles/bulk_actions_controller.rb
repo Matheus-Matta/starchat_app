@@ -1,4 +1,4 @@
-module Enterprise::Api::V1::Accounts::Articles::BulkActionsController
+module Starchat::Api::V1::Accounts::Articles::BulkActionsController
   def translate
     return unless validate_translate_params?
 
@@ -10,7 +10,7 @@ module Enterprise::Api::V1::Accounts::Articles::BulkActionsController
     end
 
     @articles.find_each do |article|
-      Captain::Articles::TranslateJob.perform_later(
+      Cosmos::Articles::TranslateJob.perform_later(
         Current.account, article.id, @locale, @category&.id, Current.user
       )
     end

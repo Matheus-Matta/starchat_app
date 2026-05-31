@@ -1,4 +1,4 @@
-module Enterprise::Webhooks::WhatsappEventsJob
+module Starchat::Webhooks::WhatsappEventsJob
   def handle_message_events(channel, params)
     return handle_call_events(channel, params) if call_event?(params)
     return handle_call_permission_reply(channel, params) if call_permission_reply?(params)

@@ -1,5 +1,5 @@
 module Firecrawl::Configuration
-  INSTALLATION_CONFIG_KEY = 'CAPTAIN_FIRECRAWL_API_KEY'.freeze
+  INSTALLATION_CONFIG_KEY = 'COSMOS_FIRECRAWL_API_KEY'.freeze
   EXCLUDE_TAGS = %w[iframe .sidebar .cookie-banner [role=navigation] [role=banner] [role=contentinfo]].freeze
   DEFAULT_SCRAPE_MAX_AGE_MS = 7 * 24 * 60 * 60 * 1000
 

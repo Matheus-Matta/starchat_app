@@ -55,7 +55,7 @@ class Onboarding::HelpCenterArticleBuilder
   end
 
   def rewrite(source_pages)
-    response = Captain::Llm::ArticleWriterService.new(
+    response = Cosmos::Llm::ArticleWriterService.new(
       account: @account,
       source_pages: source_pages,
       hint_title: @title.presence || source_pages.first[:page_title]

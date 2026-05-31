@@ -1,8 +1,8 @@
-class Captain::Documents::SinglePageFetcher
+class Cosmos::Documents::SinglePageFetcher
   Result = Struct.new(:success, :title, :content, :error_code, keyword_init: true)
 
   CONTENT_MAX_LENGTH = 200_000
-  TITLE_MAX_LENGTH = 255 # captain_documents.name is a varchar(255)
+  TITLE_MAX_LENGTH = 255 # cosmos_documents.name is a varchar(255)
 
   def initialize(url)
     @url = url
@@ -20,11 +20,11 @@ class Captain::Documents::SinglePageFetcher
   private
 
   def firecrawl_configured?
-    Captain::Tools::FirecrawlService.configured?
+    Cosmos::Tools::FirecrawlService.configured?
   end
 
   def fetch_with_firecrawl
-    response = Captain::Tools::FirecrawlService.new.scrape(@url)
+    response = Cosmos::Tools::FirecrawlService.new.scrape(@url)
     handle_firecrawl_response(response)
   end
 
@@ -52,7 +52,7 @@ class Captain::Documents::SinglePageFetcher
   end
 
   def fetch_with_fallback
-    crawler = Captain::Tools::SimplePageCrawlService.new(@url)
+    crawler = Cosmos::Tools::SimplePageCrawlService.new(@url)
     return Result.new(success: false, error_code: http_error_code(crawler.status_code)) unless crawler.success?
 
     Result.new(

@@ -1,4 +1,4 @@
-module Enterprise::Whatsapp::Providers::WhatsappCloudService
+module Starchat::Whatsapp::Providers::WhatsappCloudService
   # Calls API + the call_permission_request interactive message both require Graph
   # API v17+; OSS phone_id_path is locked at v13.0 for legacy /messages compatibility.
   # Use the configured global version (defaulting to v22.0) for call-flow endpoints.

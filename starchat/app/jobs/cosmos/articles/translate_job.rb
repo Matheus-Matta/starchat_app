@@ -1,4 +1,4 @@
-class Captain::Articles::TranslateJob < ApplicationJob
+class Cosmos::Articles::TranslateJob < ApplicationJob
   queue_as :low
 
   def perform(account, article_id, target_locale, target_category_id, user)
@@ -26,7 +26,7 @@ class Captain::Articles::TranslateJob < ApplicationJob
   private
 
   def translate(text, target_language:, type:)
-    response = Captain::Llm::ArticleTranslationService.new(
+    response = Cosmos::Llm::ArticleTranslationService.new(
       account: @account, text: text, target_language: target_language, type: type
     ).perform
     raise "Translation failed: #{response[:error]}" if response[:error]

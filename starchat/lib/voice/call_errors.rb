@@ -1,7 +1,7 @@
 module Voice::CallErrors
   # Meta WhatsApp Cloud Calling error code returned when the contact has not
   # granted call permission yet. See `initiate_call` in
-  # Enterprise::Whatsapp::Providers::WhatsappCloudService.
+  # Starchat::Whatsapp::Providers::WhatsappCloudService.
   NO_CALL_PERMISSION_CODE = 138_006
 
   class NoCallPermission < StandardError; end

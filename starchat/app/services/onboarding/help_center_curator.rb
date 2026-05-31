@@ -39,7 +39,7 @@ class Onboarding::HelpCenterCurator
   end
 
   def curate(links)
-    response = Captain::Llm::HelpCenterCurationService.new(account: @account, links: links).perform
+    response = Cosmos::Llm::HelpCenterCurationService.new(account: @account, links: links).perform
     raise Skipped, "curator LLM error: #{response[:error]}" if response[:error]
 
     response[:message] || { categories: [], articles: [] }

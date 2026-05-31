@@ -1,4 +1,4 @@
-module Enterprise::Channel::TwilioSms
+module Starchat::Channel::TwilioSms
   extend ActiveSupport::Concern
 
   def self.prepended(base)
