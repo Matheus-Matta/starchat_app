@@ -73,6 +73,6 @@ class Cosmos::Documents::ResponseBuilderJob < ApplicationJob
       documentable: document
     )
   rescue ActiveRecord::RecordInvalid => e
-    Rails.logger.error I18n.t('captain.documents.response_creation_error', error: e.message)
+    Rails.logger.error I18n.t('cosmos.documents.response_creation_error', error: e.message)
   end
 end

@@ -387,11 +387,11 @@
     },
     "SEARCH_PLACEHOLDER": "இணைப்புகளைத் தேடு...",
     "NO_RESULTS": "No integrations found matching your search",
-    "CAPTAIN": {
-      "DISABLED": "உங்கள் கணக்கில் Captain இயங்கவில்லை.",
+    "COSMOS": {
+      "DISABLED": "உங்கள் கணக்கில் Cosmos இயங்கவில்லை.",
       "CLICK_HERE_TO_CONFIGURE": "கட்டமைக்க இங்கே கிளிக் செய்யவும்",
       "LOADING_CONSOLE": "கேப்டன் கன்சோல் ஏற்றப்படுகிறது...",
-      "FAILED_TO_LOAD_CONSOLE": "Failed to load Captain Console. Please refresh and try again."
+      "FAILED_TO_LOAD_CONSOLE": "Failed to load Cosmos Console. Please refresh and try again."
     }
   },
   "COSMOS": {
@@ -850,7 +850,7 @@
       }
     }
   },
-  "CAPTAIN": {
+  "COSMOS": {
     "NAME": "கேப்டன்",
     "HEADER_KNOW_MORE": "மேலும் அறியவும்",
     "ASSISTANT_SWITCHER": {
@@ -901,23 +901,23 @@
       "MESSAGE_PLACEHOLDER": "உங்கள் செய்தியை தட்டச்சு செய்யவும்...",
       "HEADER": "விளையாட்டு மைதானம்",
       "DESCRIPTION": "உங்கள் உதவியாளருக்கு செய்திகள் அனுப்பவும், அது துல்லியமாக, விரைவாக மற்றும் எதிர்பார்க்கும் தொனியில் பதிலளிக்கிறதா என சரிபார்க்க இந்த மைதானத்தை பயன்படுத்தவும்.",
-      "CREDIT_NOTE": "இங்கே அனுப்பப்படும் செய்திகள் உங்கள் Captain கிரெடிட்களுக்கு சேர்க்கப்படும்."
+      "CREDIT_NOTE": "இங்கே அனுப்பப்படும் செய்திகள் உங்கள் Cosmos கிரெடிட்களுக்கு சேர்க்கப்படும்."
     },
     "PAYWALL": {
-      "TITLE": "Captain AI ஐ பயன்படுத்த மேம்படுத்தவும்",
-      "AVAILABLE_ON": "Captain இலவச திட்டத்தில் கிடைக்கவில்லை.",
+      "TITLE": "Cosmos AI ஐ பயன்படுத்த மேம்படுத்தவும்",
+      "AVAILABLE_ON": "Cosmos இலவச திட்டத்தில் கிடைக்கவில்லை.",
       "UPGRADE_PROMPT": "எங்கள் உதவியாளர்கள், கோபைலட் மற்றும் மேலும் பலவற்றை அணுக உங்கள் திட்டத்தை மேம்படுத்தவும்.",
       "UPGRADE_NOW": "இப்போது மேம்படுத்தவும்",
       "CANCEL_ANYTIME": "உங்கள் திட்டத்தை எப்போது வேண்டுமானாலும் மாற்றவோ அல்லது ரத்து செய்யவோ முடியும்"
     },
     "ENTERPRISE_PAYWALL": {
-      "AVAILABLE_ON": "Captain AI என்பது Enterprise திட்டங்களில் மட்டுமே கிடைக்கிறது.",
+      "AVAILABLE_ON": "Cosmos AI என்பது Enterprise திட்டங்களில் மட்டுமே கிடைக்கிறது.",
       "UPGRADE_PROMPT": "எங்கள் உதவியாளர்கள், கோபைலட் மற்றும் மேலும் பலவற்றுக்கு அணுகலை பெற உங்கள் திட்டத்தை மேம்படுத்தவும்.",
       "ASK_ADMIN": "மேம்படுத்துவதற்கு உங்கள் நிர்வாகியை அணுகவும்."
     },
     "BANNER": {
-      "RESPONSES": "நீங்கள் உங்கள் பதில் வரம்பின் 80% க்கும் மேல் பயன்படுத்தியுள்ளீர்கள். Captain AI ஐ தொடர பயன்படுத்த, தயவுசெய்து மேம்படுத்தவும்.",
-      "DOCUMENTS": "ஆவண வரம்பு எட்டியுள்ளது. Captain AI ஐ தொடர பயன்படுத்த, மேம்படுத்தவும்."
+      "RESPONSES": "நீங்கள் உங்கள் பதில் வரம்பின் 80% க்கும் மேல் பயன்படுத்தியுள்ளீர்கள். Cosmos AI ஐ தொடர பயன்படுத்த, தயவுசெய்து மேம்படுத்தவும்.",
+      "DOCUMENTS": "ஆவண வரம்பு எட்டியுள்ளது. Cosmos AI ஐ தொடர பயன்படுத்த, மேம்படுத்தவும்."
     },
     "FORM": {
       "CANCEL": "ரத்துசெய்",
@@ -1039,7 +1039,7 @@
         "SUBTITLE": "Create an assistant to provide quick and accurate responses to your users. It can learn from your help articles and past conversations.",
         "FEATURE_SPOTLIGHT": {
           "TITLE": "கேப்டன் உதவியாளர்",
-          "NOTE": "Captain உதவியாளர் நேரடியாக வாடிக்கையாளர்களுடன் தொடர்பு கொண்டு, உங்கள் உதவி ஆவணங்கள் மற்றும் முந்தைய உரையாடல்களில் இருந்து கற்றுக்கொண்டு, உடனடி மற்றும் துல்லியமான பதில்களை வழங்குகிறது. அது ஆரம்ப கேள்விகளை கையாளி, தேவையான போது முகவருக்கு விரைவான தீர்வுகளை வழங்குகிறது."
+          "NOTE": "Cosmos உதவியாளர் நேரடியாக வாடிக்கையாளர்களுடன் தொடர்பு கொண்டு, உங்கள் உதவி ஆவணங்கள் மற்றும் முந்தைய உரையாடல்களில் இருந்து கற்றுக்கொண்டு, உடனடி மற்றும் துல்லியமான பதில்களை வழங்குகிறது. அது ஆரம்ப கேள்விகளை கையாளி, தேவையான போது முகவருக்கு விரைவான தீர்வுகளை வழங்குகிறது."
         }
       },
       "GUARDRAILS": {
@@ -1310,8 +1310,8 @@
         "FILTERED_TITLE": "No matching documents",
         "FILTERED_SUBTITLE": "Try changing the source, status, or search term.",
         "FEATURE_SPOTLIGHT": {
-          "TITLE": "Captain ஆவணம்",
-          "NOTE": "Captain இல் உள்ள ஆவணம் உதவியாளருக்கு அறிவுத்தளமாக செயல்படுகிறது. உங்கள் உதவி மையம் அல்லது வழிகாட்டிகளை இணைத்து, Captain உள்ளடக்கத்தை பகுப்பாய்வு செய்து வாடிக்கையாளர் கேள்விகளுக்கு துல்லியமான பதில்களை வழங்க முடியும்."
+          "TITLE": "Cosmos ஆவணம்",
+          "NOTE": "Cosmos இல் உள்ள ஆவணம் உதவியாளருக்கு அறிவுத்தளமாக செயல்படுகிறது. உங்கள் உதவி மையம் அல்லது வழிகாட்டிகளை இணைத்து, Cosmos உள்ளடக்கத்தை பகுப்பாய்வு செய்து வாடிக்கையாளர் கேள்விகளுக்கு துல்லியமான பதில்களை வழங்க முடியும்."
         }
       }
     },
@@ -1350,14 +1350,14 @@
         "ERROR_MESSAGE": "தனிப்பயன் கருவியை நீக்க முடியவில்லை"
       },
       "PAYWALL": {
-        "TITLE": "Upgrade to use tools with Captain",
-        "AVAILABLE_ON": "Captain Tools are only available in Business and Enterprise plans. Please upgrade to Business plan to use the feature.",
+        "TITLE": "Upgrade to use tools with Cosmos",
+        "AVAILABLE_ON": "Cosmos Tools are only available in Business and Enterprise plans. Please upgrade to Business plan to use the feature.",
         "UPGRADE_PROMPT": "",
         "UPGRADE_NOW": "Open billing",
         "CANCEL_ANYTIME": ""
       },
       "ENTERPRISE_PAYWALL": {
-        "AVAILABLE_ON": "Captain Tools are only available in the paid plans.",
+        "AVAILABLE_ON": "Cosmos Tools are only available in the paid plans.",
         "UPGRADE_PROMPT": "Please upgrade to a paid plan to use this feature.",
         "ASK_ADMIN": "Please reach out to your administrator for the upgrade."
       },
@@ -1487,7 +1487,7 @@
         "ALL": "எல்லாம்"
       },
       "PENDING_BANNER": {
-        "TITLE": "உங்கள் வாடிக்கையாளர்கள் தேடிய சில அடிக்கடி கேட்கப்படும் கேள்விகளை Captain கண்டுபிடித்துள்ளது.",
+        "TITLE": "உங்கள் வாடிக்கையாளர்கள் தேடிய சில அடிக்கடி கேட்கப்படும் கேள்விகளை Cosmos கண்டுபிடித்துள்ளது.",
         "ACTION": "சரிபார்க்க இங்கே கிளிக் செய்யவும்"
       },
       "FORM_DESCRIPTION": "ஒரு கேள்வி மற்றும் அதற்கான பதிலை அறிவுத்தளத்தில் சேர்க்கவும் மற்றும் அது தொடர்புபடுத்த வேண்டிய உதவியாளரை தேர்ந்தெடுக்கவும்.",
@@ -1525,8 +1525,8 @@
         "SUBTITLE": "FAQs help your assistant provide quick and accurate answers to questions from your customers. They can be generated automatically from your content or can be added manually.",
         "CLEAR_SEARCH": "செயலில் உள்ள வடிகட்டிகளை அழிக்கவும்",
         "FEATURE_SPOTLIGHT": {
-          "TITLE": "Captain அடிக்கடி கேட்கப்படும் கேள்விகள்",
-          "NOTE": "Captain FAQs பொதுவான வாடிக்கையாளர் கேள்விகளை கண்டறிந்து அவை உங்கள் அறிவுத்தளத்தில் இல்லையெனில் அல்லது அடிக்கடி கேட்கப்படும் தொடர்புடைய FAQs உருவாக்கி ஆதரவை மேம்படுத்துகிறது. ஒவ்வொரு பரிந்துரையையும் நீங்கள் மதிப்பாய்வு செய்து ஒப்புதல் அல்லது நிராகரிப்பு செய்ய முடியும்."
+          "TITLE": "Cosmos அடிக்கடி கேட்கப்படும் கேள்விகள்",
+          "NOTE": "Cosmos FAQs பொதுவான வாடிக்கையாளர் கேள்விகளை கண்டறிந்து அவை உங்கள் அறிவுத்தளத்தில் இல்லையெனில் அல்லது அடிக்கடி கேட்கப்படும் தொடர்புடைய FAQs உருவாக்கி ஆதரவை மேம்படுத்துகிறது. ஒவ்வொரு பரிந்துரையையும் நீங்கள் மதிப்பாய்வு செய்து ஒப்புதல் அல்லது நிராகரிப்பு செய்ய முடியும்."
         }
       }
     },

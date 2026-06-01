@@ -141,7 +141,7 @@ class Cosmos::Llm::HelpCenterCurationService < Cosmos::BaseTaskService
     @llm_credential ||= system_llm_credential
   end
 
-  def captain_tasks_enabled?
+  def cosmos_tasks_enabled?
     true
   end
 

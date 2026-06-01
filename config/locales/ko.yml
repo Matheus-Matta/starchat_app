@@ -828,7 +828,7 @@ ko:
     inbox_already_assigned: '받은 메시지함이 이미 이 정책에 배정되어 있습니다'
   portals:
     articles:
-      captain_not_available: 'Translation requires Captain to be enabled for this account'
+      cosmos_not_available: 'Translation requires Cosmos to be enabled for this account'
       locale_not_available: 'Locale not available in this portal'
       category_not_found: 'Category not found in this portal'
       no_articles_found: 'No articles found to process'

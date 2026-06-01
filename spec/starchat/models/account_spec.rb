@@ -182,7 +182,7 @@ RSpec.describe Account, type: :model do
     end
   end
 
-  describe 'captain document sync cadence' do
+  describe 'cosmos document sync cadence' do
     let(:account) { create(:account) }
 
     it 'has no cadence when installation config is missing' do

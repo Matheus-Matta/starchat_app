@@ -375,17 +375,17 @@
     "AGENT_ASSIGNMENT": "Agent Assignment",
     "COMPANIES": "Ընկերություններ",
     "ALL_COMPANIES": "Բոլոր ընկերությունները",
-    "CAPTAIN": "Կապիտան",
-    "CAPTAIN_ASSISTANTS": "Օգնակիցներ",
-    "CAPTAIN_DOCUMENTS": "Փաստաթղթեր",
-    "CAPTAIN_RESPONSES": "Հաճախ տրվող հարցեր",
-    "CAPTAIN_TOOLS": "Գործիքներ",
-    "CAPTAIN_SCENARIOS": "Սցենարներ",
-    "CAPTAIN_PLAYGROUND": "Խաղահրապարակ",
-    "CAPTAIN_INBOXES": "Նամակներ",
-    "CAPTAIN_SETTINGS": "Կարգավորումներ",
+    "COSMOS": "Կապիտան",
+    "COSMOS_ASSISTANTS": "Օգնակիցներ",
+    "COSMOS_DOCUMENTS": "Փաստաթղթեր",
+    "COSMOS_RESPONSES": "Հաճախ տրվող հարցեր",
+    "COSMOS_TOOLS": "Գործիքներ",
+    "COSMOS_SCENARIOS": "Սցենարներ",
+    "COSMOS_PLAYGROUND": "Խաղահրապարակ",
+    "COSMOS_INBOXES": "Նամակներ",
+    "COSMOS_SETTINGS": "Կարգավորումներ",
     "SECURITY": "Անվտանգություն",
-    "CAPTAIN_AI": "Կապիտան",
+    "COSMOS_AI": "Կապիտան",
     "CONVERSATION_WORKFLOW": "Զրույցների աշխատանքային հոսք"
   },
   "BILLING_SETTINGS": {
@@ -417,19 +417,19 @@
       "BUTTON_TXT": "Chat with us"
     },
     "NO_BILLING_USER": "Your billing account is being configured. Please refresh the page and try again.",
-    "CAPTAIN": {
+    "COSMOS": {
       "TITLE": "Կապիտան",
-      "DESCRIPTION": "Կառավարեք Captain AI-ի օգտագործումն ու կրեդիտները։",
+      "DESCRIPTION": "Կառավարեք Cosmos AI-ի օգտագործումն ու կրեդիտները։",
       "BUTTON_TXT": "Գնել ավելի շատ կրեդիտներ",
       "DOCUMENTS": "Փաստաթղթեր",
       "RESPONSES": "Responses",
-      "UPGRADE": "Captain-ը հասանելի չէ անվճար պլանում, արդիականացրեք հիմա՝ ստանալու օգնականներ, կոպիլոտ և ավելին։",
+      "UPGRADE": "Cosmos-ը հասանելի չէ անվճար պլանում, արդիականացրեք հիմա՝ ստանալու օգնականներ, կոպիլոտ և ավելին։",
       "REFRESH_CREDITS": "Թարմացնել"
     },
     "TOPUP": {
       "BUY_CREDITS": "Գնել ավելի շատ կրեդիտներ",
       "MODAL_TITLE": "Գնել AI կրեդիտներ",
-      "MODAL_DESCRIPTION": "Գնել լրացուցիչ կրեդիտներ Captain AI-ի համար։",
+      "MODAL_DESCRIPTION": "Գնել լրացուցիչ կրեդիտներ Cosmos AI-ի համար։",
       "CREDITS": "ԿՐԵԴԻՏՆԵՐ",
       "ONE_TIME": "մեկանգամյա",
       "POPULAR": "Ամենատարածված",
@@ -760,12 +760,12 @@
       "CANCEL_BUTTON_LABEL": "Cancel"
     }
   },
-  "CAPTAIN_SETTINGS": {
-    "TITLE": "Captain-ի կարգավորումներ",
-    "DESCRIPTION": "Կարգավորեք ձեր AI մոդելներն ու ֆունկցիաները Captain-ի համար։ Captain-ը գործում է կրեդիտների վրա հիմնված վճարման համակարգով, և յուրաքանչյուր գործողության համար, որը կատարում է Captain-ը ընտրված մոդելի հիման վրա, ձեզ կվճարվի կրեդիտներ։",
-    "LOADING": "Բեռնվում է Captain-ի կազմաձևումը...",
-    "LINK_TEXT": "Իմանալ ավելին Captain կրեդիտների մասին",
-    "NOT_ENABLED": "Captain-ը ձեր հաշվին ակտիվացված չէ։ Խնդրում ենք արդիականացնել ձեր պլանը՝ Captain-ի ֆունկցիաներին հասանելիություն ստանալու համար։",
+  "COSMOS_SETTINGS": {
+    "TITLE": "Cosmos-ի կարգավորումներ",
+    "DESCRIPTION": "Կարգավորեք ձեր AI մոդելներն ու ֆունկցիաները Cosmos-ի համար։ Cosmos-ը գործում է կրեդիտների վրա հիմնված վճարման համակարգով, և յուրաքանչյուր գործողության համար, որը կատարում է Cosmos-ը ընտրված մոդելի հիման վրա, ձեզ կվճարվի կրեդիտներ։",
+    "LOADING": "Բեռնվում է Cosmos-ի կազմաձևումը...",
+    "LINK_TEXT": "Իմանալ ավելին Cosmos կրեդիտների մասին",
+    "NOT_ENABLED": "Cosmos-ը ձեր հաշվին ակտիվացված չէ։ Խնդրում ենք արդիականացնել ձեր պլանը՝ Cosmos-ի ֆունկցիաներին հասանելիություն ստանալու համար։",
     "MODEL_CONFIG": {
       "TITLE": "Մոդելի կազմաձևում",
       "DESCRIPTION": "Ընտրեք AI մոդելներ տարբեր ֆունկցիաների համար։",
@@ -804,8 +804,8 @@
       }
     },
     "API": {
-      "SUCCESS": "Captain կարգավորումները հաջողությամբ թարմացվել են։",
-      "ERROR": "Չհաջողվեց թարմացնել Captain կարգավորումները։ Խնդրում ենք փորձել կրկին։"
+      "SUCCESS": "Cosmos կարգավորումները հաջողությամբ թարմացվել են։",
+      "ERROR": "Չհաջողվեց թարմացնել Cosmos կարգավորումները։ Խնդրում ենք փորձել կրկին։"
     }
   },
   "SECURITY_SETTINGS": {

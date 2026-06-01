@@ -497,7 +497,7 @@ it:
     inbox_already_assigned: 'La Inbox è già stata assegnata a questa policy'
   portals:
     articles:
-      captain_not_available: 'La traduzione richiede che Captain sia abilitato per questo account'
+      cosmos_not_available: 'La traduzione richiede che Cosmos sia abilitato per questo account'
       locale_not_available: 'Lingua non disponibile in questo portale'
       category_not_found: 'Categoria non trovata in questo portale'
       no_articles_found: 'Nessun articolo trovato da elaborare'

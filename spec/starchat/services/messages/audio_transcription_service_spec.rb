@@ -12,15 +12,15 @@ RSpec.describe Messages::AudioTranscriptionService, type: :service do
     InstallationConfig.find_or_create_by!(name: 'COSMOSOPEN_AI_MODEL') { |config| config.value = 'gpt-4o-mini' }
 
     # Mock usage limits for transcription to be available
-    allow(account).to receive(:usage_limits).and_return({ captain: { responses: { current_available: 100 } } })
+    allow(account).to receive(:usage_limits).and_return({ cosmos: { responses: { current_available: 100 } } })
   end
 
   describe '#perform' do
     let(:service) { described_class.new(attachment) }
 
-    context 'when captain_integration feature is not enabled' do
+    context 'when cosmos_integration feature is not enabled' do
       before do
-        account.disable_features!('captain_integration')
+        account.disable_features!('cosmos_integration')
       end
 
       it 'returns transcription limit exceeded' do

@@ -7,7 +7,7 @@ RSpec.describe Cosmos::Llm::ArticleTranslationService do
   before do
     create(:installation_config, name: 'COSMOSOPEN_AI_API_KEY', value: 'test-key')
     allow(account).to receive(:feature_enabled?).and_call_original
-    allow(account).to receive(:feature_enabled?).with('captain_tasks').and_return(true)
+    allow(account).to receive(:feature_enabled?).with('cosmos_tasks').and_return(true)
   end
 
   describe '#perform with type: :title' do

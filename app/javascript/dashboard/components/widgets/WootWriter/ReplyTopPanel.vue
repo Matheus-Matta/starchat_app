@@ -1,11 +1,11 @@
 <script>
 import { ref } from 'vue';
 import { useKeyboardEvents } from 'dashboard/composables/useKeyboardEvents';
-import { useCaptain } from 'dashboard/composables/useCaptain';
+import { useCosmos } from 'dashboard/composables/useCosmos';
 import { useTrack } from 'dashboard/composables';
 import { vOnClickOutside } from '@vueuse/components';
 import { REPLY_EDITOR_MODES, CHAR_LENGTH_WARNING } from './constants';
-import { CAPTAIN_EVENTS } from 'dashboard/helper/AnalyticsHelper/events';
+import { COSMOS_EVENTS } from 'dashboard/helper/AnalyticsHelper/events';
 import NextButton from 'dashboard/components-next/button/Button.vue';
 import EditorModeToggle from './EditorModeToggle.vue';
 import CopilotMenuBar from './CopilotMenuBar.vue';
@@ -78,7 +78,7 @@ export default {
       setReplyMode(newMode);
     };
 
-    const { captainTasksEnabled } = useCaptain();
+    const { cosmosTasksEnabled } = useCosmos();
     const showCopilotMenu = ref(false);
     const copilotToggleRef = ref(null);
 
@@ -90,7 +90,7 @@ export default {
     const toggleCopilotMenu = () => {
       const isOpening = !showCopilotMenu.value;
       if (isOpening) {
-        useTrack(CAPTAIN_EVENTS.EDITOR_AI_MENU_OPENED, {
+        useTrack(COSMOS_EVENTS.EDITOR_AI_MENU_OPENED, {
           conversationId: props.conversationId,
           entryPoint: 'top_panel',
         });
@@ -119,7 +119,7 @@ export default {
       handleReplyClick,
       handleNoteClick,
       REPLY_EDITOR_MODES,
-      captainTasksEnabled,
+      cosmosTasksEnabled,
       handleCopilotAction,
       showCopilotMenu,
       copilotToggleRef,
@@ -167,7 +167,7 @@ export default {
         </span>
       </div>
     </div>
-    <div v-if="captainTasksEnabled" class="flex items-center gap-2">
+    <div v-if="cosmosTasksEnabled" class="flex items-center gap-2">
       <div class="relative">
         <NextButton
           ref="copilotToggleRef"

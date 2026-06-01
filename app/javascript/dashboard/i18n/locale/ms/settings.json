@@ -375,17 +375,17 @@
     "AGENT_ASSIGNMENT": "Agent Assignment",
     "COMPANIES": "Syarikat",
     "ALL_COMPANIES": "Semua Syarikat",
-    "CAPTAIN": "Captain",
-    "CAPTAIN_ASSISTANTS": "Pembantu",
-    "CAPTAIN_DOCUMENTS": "Dokumen",
-    "CAPTAIN_RESPONSES": "Soalan Lazim",
-    "CAPTAIN_TOOLS": "Alat",
-    "CAPTAIN_SCENARIOS": "Senario",
-    "CAPTAIN_PLAYGROUND": "Padang Permainan",
-    "CAPTAIN_INBOXES": "Petak Masuk",
-    "CAPTAIN_SETTINGS": "Tetapan",
+    "COSMOS": "Cosmos",
+    "COSMOS_ASSISTANTS": "Pembantu",
+    "COSMOS_DOCUMENTS": "Dokumen",
+    "COSMOS_RESPONSES": "Soalan Lazim",
+    "COSMOS_TOOLS": "Alat",
+    "COSMOS_SCENARIOS": "Senario",
+    "COSMOS_PLAYGROUND": "Padang Permainan",
+    "COSMOS_INBOXES": "Petak Masuk",
+    "COSMOS_SETTINGS": "Tetapan",
     "SECURITY": "Keselamatan",
-    "CAPTAIN_AI": "Captain",
+    "COSMOS_AI": "Cosmos",
     "CONVERSATION_WORKFLOW": "Aliran Kerja Perbualan"
   },
   "BILLING_SETTINGS": {
@@ -417,19 +417,19 @@
       "BUTTON_TXT": "Chat with us"
     },
     "NO_BILLING_USER": "Your billing account is being configured. Please refresh the page and try again.",
-    "CAPTAIN": {
-      "TITLE": "Captain",
-      "DESCRIPTION": "Urus penggunaan dan kredit untuk Captain AI.",
+    "COSMOS": {
+      "TITLE": "Cosmos",
+      "DESCRIPTION": "Urus penggunaan dan kredit untuk Cosmos AI.",
       "BUTTON_TXT": "Beli lebih banyak kredit",
       "DOCUMENTS": "Dokumen",
       "RESPONSES": "Responses",
-      "UPGRADE": "Captain tidak tersedia dalam pelan percuma, naik taraf sekarang untuk mendapatkan akses kepada pembantu, copilot dan lain-lain.",
+      "UPGRADE": "Cosmos tidak tersedia dalam pelan percuma, naik taraf sekarang untuk mendapatkan akses kepada pembantu, copilot dan lain-lain.",
       "REFRESH_CREDITS": "Segarkan"
     },
     "TOPUP": {
       "BUY_CREDITS": "Beli lebih banyak kredit",
       "MODAL_TITLE": "Beli Kredit AI",
-      "MODAL_DESCRIPTION": "Beli kredit tambahan untuk Captain AI.",
+      "MODAL_DESCRIPTION": "Beli kredit tambahan untuk Cosmos AI.",
       "CREDITS": "CREDITS",
       "ONE_TIME": "sekali sahaja",
       "POPULAR": "Paling Popular",
@@ -760,12 +760,12 @@
       "CANCEL_BUTTON_LABEL": "Batalkan"
     }
   },
-  "CAPTAIN_SETTINGS": {
-    "TITLE": "Tetapan Captain",
-    "DESCRIPTION": "Konfigurasikan model AI dan ciri untuk Captain anda. Captain menggunakan pengebilan berasaskan kredit, anda akan dikenakan kredit untuk setiap tindakan yang diambil Captain berdasarkan model yang dipilih.",
-    "LOADING": "Memuatkan konfigurasi Captain...",
-    "LINK_TEXT": "Ketahui lebih lanjut tentang Kredit Captain",
-    "NOT_ENABLED": "Captain tidak diaktifkan untuk akaun anda. Sila naik taraf pelan anda untuk mengakses ciri Captain.",
+  "COSMOS_SETTINGS": {
+    "TITLE": "Tetapan Cosmos",
+    "DESCRIPTION": "Konfigurasikan model AI dan ciri untuk Cosmos anda. Cosmos menggunakan pengebilan berasaskan kredit, anda akan dikenakan kredit untuk setiap tindakan yang diambil Cosmos berdasarkan model yang dipilih.",
+    "LOADING": "Memuatkan konfigurasi Cosmos...",
+    "LINK_TEXT": "Ketahui lebih lanjut tentang Kredit Cosmos",
+    "NOT_ENABLED": "Cosmos tidak diaktifkan untuk akaun anda. Sila naik taraf pelan anda untuk mengakses ciri Cosmos.",
     "MODEL_CONFIG": {
       "TITLE": "Konfigurasi Model",
       "DESCRIPTION": "Pilih model AI untuk ciri yang berbeza.",
@@ -804,8 +804,8 @@
       }
     },
     "API": {
-      "SUCCESS": "Tetapan Captain berjaya dikemas kini.",
-      "ERROR": "Gagal mengemas kini tetapan Captain. Sila cuba lagi."
+      "SUCCESS": "Tetapan Cosmos berjaya dikemas kini.",
+      "ERROR": "Gagal mengemas kini tetapan Cosmos. Sila cuba lagi."
     }
   },
   "SECURITY_SETTINGS": {

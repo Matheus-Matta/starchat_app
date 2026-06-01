@@ -16,7 +16,7 @@ class Cosmos::Onboarding::WebsiteAnalyzerService < Llm::BaseAiService
 
     extract_business_info
   rescue StandardError => e
-    Rails.logger.error "[Captain Onboarding] Website analysis error: #{e.message}"
+    Rails.logger.error "[Cosmos Onboarding] Website analysis error: #{e.message}"
     error_response(e.message)
   end
 
@@ -36,7 +36,7 @@ class Cosmos::Onboarding::WebsiteAnalyzerService < Llm::BaseAiService
     meta_description = crawler.meta_description
 
     if page_title.blank? && meta_description.blank? && text_content.blank?
-      Rails.logger.error "[Captain Onboarding] Failed to fetch #{@website_url}: No content found"
+      Rails.logger.error "[Cosmos Onboarding] Failed to fetch #{@website_url}: No content found"
       return false
     end
 
@@ -49,7 +49,7 @@ class Cosmos::Onboarding::WebsiteAnalyzerService < Llm::BaseAiService
     @favicon_url = crawler.favicon_url
     true
   rescue StandardError => e
-    Rails.logger.error "[Captain Onboarding] Failed to fetch #{@website_url}: #{e.message}"
+    Rails.logger.error "[Cosmos Onboarding] Failed to fetch #{@website_url}: #{e.message}"
     false
   end
 
@@ -72,7 +72,7 @@ class Cosmos::Onboarding::WebsiteAnalyzerService < Llm::BaseAiService
 
   def instrumentation_params
     {
-      span_name: 'llm.captain.website_analyzer',
+      span_name: 'llm.cosmos.website_analyzer',
       model: @model,
       temperature: 0.1,
       feature_name: 'website_analyzer',
@@ -90,7 +90,7 @@ class Cosmos::Onboarding::WebsiteAnalyzerService < Llm::BaseAiService
 
       {
         "business_name": "The company or business name",
-        "suggested_assistant_name": "A friendly assistant name (e.g., 'Captain Assistant', 'Support Genie', etc.)",
+        "suggested_assistant_name": "A friendly assistant name (e.g., 'Cosmos Assistant', 'Support Genie', etc.)",
         "description": "Persona of the assistant based on the business type"
       }
 
@@ -120,8 +120,8 @@ class Cosmos::Onboarding::WebsiteAnalyzerService < Llm::BaseAiService
       }
     }
   rescue JSON::ParserError => e
-    Rails.logger.error "[Captain Onboarding] JSON parsing error: #{e.message}"
-    Rails.logger.error "[Captain Onboarding] Raw response: #{response_text}"
+    Rails.logger.error "[Cosmos Onboarding] JSON parsing error: #{e.message}"
+    Rails.logger.error "[Cosmos Onboarding] Raw response: #{response_text}"
     error_response('Failed to parse business information from website')
   end
 

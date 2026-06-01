@@ -15,7 +15,7 @@ import CardLayout from 'dashboard/components-next/CardLayout.vue';
 import DropdownMenu from 'dashboard/components-next/dropdown-menu/DropdownMenu.vue';
 import Button from 'dashboard/components-next/button/Button.vue';
 import Checkbox from 'dashboard/components-next/checkbox/Checkbox.vue';
-import DocumentSyncStatus from 'dashboard/components-next/captain/assistant/DocumentSyncStatus.vue';
+import DocumentSyncStatus from 'dashboard/components-next/cosmos/assistant/DocumentSyncStatus.vue';
 
 const props = defineProps({
   id: {
@@ -112,7 +112,7 @@ const showSyncStatus = computed(() => !isPdf.value);
 const menuItems = computed(() => {
   const allOptions = [
     {
-      label: t('CAPTAIN.DOCUMENTS.OPTIONS.VIEW_RELATED_RESPONSES'),
+      label: t('COSMOS.DOCUMENTS.OPTIONS.VIEW_RELATED_RESPONSES'),
       value: 'viewRelatedQuestions',
       action: 'viewRelatedQuestions',
       icon: 'i-ph-tree-view-duotone',
@@ -122,8 +122,8 @@ const menuItems = computed(() => {
   if (canSync.value) {
     allOptions.push({
       label: isRetryableSync.value
-        ? t('CAPTAIN.DOCUMENTS.OPTIONS.RETRY_SYNC')
-        : t('CAPTAIN.DOCUMENTS.OPTIONS.SYNC_NOW'),
+        ? t('COSMOS.DOCUMENTS.OPTIONS.RETRY_SYNC')
+        : t('COSMOS.DOCUMENTS.OPTIONS.SYNC_NOW'),
       value: 'sync',
       action: 'sync',
       icon: 'i-lucide-refresh-cw',
@@ -132,7 +132,7 @@ const menuItems = computed(() => {
 
   if (canManage.value) {
     allOptions.push({
-      label: t('CAPTAIN.DOCUMENTS.OPTIONS.DELETE_DOCUMENT'),
+      label: t('COSMOS.DOCUMENTS.OPTIONS.DELETE_DOCUMENT'),
       value: 'delete',
       action: 'delete',
       icon: 'i-lucide-trash',
@@ -205,7 +205,7 @@ const handleRetry = () => {
       <span
         class="flex gap-1 items-center text-sm truncate shrink-0 text-n-slate-11"
       >
-        <Icon icon="i-woot-captain" />
+        <Icon icon="i-woot-cosmos" />
         {{ assistant?.name || '' }}
       </span>
       <a

@@ -1,7 +1,7 @@
 module Starchat::Account
   class << self
     def cosmos_document_sync_intervals
-      parse_cosmos_document_sync_intervals(InstallationConfig.find_by(name: 'CAPTAIN_DOCUMENT_AUTO_SYNC_INTERVALS')&.value)
+      parse_cosmos_document_sync_intervals(InstallationConfig.find_by(name: 'COSMOS_DOCUMENT_AUTO_SYNC_INTERVALS')&.value)
     end
 
     private

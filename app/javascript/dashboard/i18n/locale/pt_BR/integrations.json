@@ -388,7 +388,7 @@
     },
     "SEARCH_PLACEHOLDER": "Pesquisar integrações...",
     "NO_RESULTS": "Nenhuma integração encontrada correspondente à sua busca",
-    "CAPTAIN": {
+    "COSMOS": {
       "DISABLED": "O capitão não está ativado na sua conta.",
       "CLICK_HERE_TO_CONFIGURE": "Clique aqui para configurar",
       "LOADING_CONSOLE": "Carregando console do Capitão...",
@@ -1048,7 +1048,7 @@
     "BUTTON_TXT": "Configurar Cosmos",
     "UPGRADE": "Faça upgrade para desbloquear recursos do Cosmos"
   },
-  "CAPTAIN": {
+  "COSMOS": {
     "NAME": "Capitão",
     "HEADER_KNOW_MORE": "Saiba mais",
     "ASSISTANT_SWITCHER": {

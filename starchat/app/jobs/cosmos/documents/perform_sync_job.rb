@@ -110,7 +110,7 @@ class Cosmos::Documents::PerformSyncJob < MutexApplicationJob
   end
 
   def lock_key(document)
-    format(::Redis::Alfred::CAPTAIN_DOCUMENT_SYNC_MUTEX, document_id: document.id)
+    format(::Redis::Alfred::COSMOS_DOCUMENT_SYNC_MUTEX, document_id: document.id)
   end
 
   def duration_ms_since(start_time)

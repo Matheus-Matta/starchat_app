@@ -9,8 +9,8 @@ class Cosmos::Documents::ScheduleSyncsJob < ApplicationJob
   MONTHLY_SYNC_JITTER = 4.days
 
   def perform(plan_name = nil)
-    @per_account_batch_limit = configured_sync_limit('CAPTAIN_DOCUMENT_AUTO_SYNC_PER_ACCOUNT_BATCH_LIMIT', DEFAULT_PER_ACCOUNT_BATCH_LIMIT)
-    @global_batch_limit = configured_sync_limit('CAPTAIN_DOCUMENT_AUTO_SYNC_GLOBAL_BATCH_LIMIT', DEFAULT_GLOBAL_BATCH_LIMIT)
+    @per_account_batch_limit = configured_sync_limit('COSMOS_DOCUMENT_AUTO_SYNC_PER_ACCOUNT_BATCH_LIMIT', DEFAULT_PER_ACCOUNT_BATCH_LIMIT)
+    @global_batch_limit = configured_sync_limit('COSMOS_DOCUMENT_AUTO_SYNC_GLOBAL_BATCH_LIMIT', DEFAULT_GLOBAL_BATCH_LIMIT)
     @remaining_global_capacity = @global_batch_limit
     @plan_name = plan_name.to_s.downcase.presence
     sync_intervals = Starchat::Account.cosmos_document_sync_intervals

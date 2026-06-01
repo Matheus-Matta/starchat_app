@@ -381,16 +381,16 @@
     "SECURITY": "Security",
     "COMPANIES": "কোম্পানি",
     "ALL_COMPANIES": "সমস্ত কোম্পানি",
-    "CAPTAIN": "ক্যাপ্টেন",
-    "CAPTAIN_ASSISTANTS": "সহকারী",
-    "CAPTAIN_DOCUMENTS": "ডকুমেন্ট",
-    "CAPTAIN_RESPONSES": "প্রশ্নাবলী",
-    "CAPTAIN_TOOLS": "টুলস",
-    "CAPTAIN_SCENARIOS": "পরিস্থিতি",
-    "CAPTAIN_PLAYGROUND": "খেলার মাঠ",
-    "CAPTAIN_INBOXES": "ইনবক্স",
-    "CAPTAIN_SETTINGS": "সেটিংস",
-    "CAPTAIN_AI": "ক্যাপ্টেন",
+    "COSMOS": "ক্যাপ্টেন",
+    "COSMOS_ASSISTANTS": "সহকারী",
+    "COSMOS_DOCUMENTS": "ডকুমেন্ট",
+    "COSMOS_RESPONSES": "প্রশ্নাবলী",
+    "COSMOS_TOOLS": "টুলস",
+    "COSMOS_SCENARIOS": "পরিস্থিতি",
+    "COSMOS_PLAYGROUND": "খেলার মাঠ",
+    "COSMOS_INBOXES": "ইনবক্স",
+    "COSMOS_SETTINGS": "সেটিংস",
+    "COSMOS_AI": "ক্যাপ্টেন",
     "CONVERSATION_WORKFLOW": "কথোপকথন ওয়ার্কফ্লো"
   },
   "BILLING_SETTINGS": {
@@ -422,19 +422,19 @@
       "BUTTON_TXT": "Chat with us"
     },
     "NO_BILLING_USER": "Your billing account is being configured. Please refresh the page and try again.",
-    "CAPTAIN": {
+    "COSMOS": {
       "TITLE": "ক্যাপ্টেন",
-      "DESCRIPTION": "Captain AI-এর জন্য ব্যবহার এবং ক্রেডিট পরিচালনা করুন।.",
+      "DESCRIPTION": "Cosmos AI-এর জন্য ব্যবহার এবং ক্রেডিট পরিচালনা করুন।.",
       "BUTTON_TXT": "আরও ক্রেডিট কিনুন",
       "DOCUMENTS": "নথিপত্র",
       "RESPONSES": "Responses",
-      "UPGRADE": "Captain ফ্রি প্ল্যানে উপলব্ধ নয়, সহকারী, কপাইলট এবং আরও অনেক কিছু অ্যাক্সেস পেতে এখনই আপগ্রেড করুন.",
+      "UPGRADE": "Cosmos ফ্রি প্ল্যানে উপলব্ধ নয়, সহকারী, কপাইলট এবং আরও অনেক কিছু অ্যাক্সেস পেতে এখনই আপগ্রেড করুন.",
       "REFRESH_CREDITS": "রিফ্রেশ"
     },
     "TOPUP": {
       "BUY_CREDITS": "আরও ক্রেডিট কিনুন",
       "MODAL_TITLE": "AI ক্রেডিট কিনুন",
-      "MODAL_DESCRIPTION": "Captain AI-এর জন্য অতিরিক্ত ক্রেডিট কিনুন।.",
+      "MODAL_DESCRIPTION": "Cosmos AI-এর জন্য অতিরিক্ত ক্রেডিট কিনুন।.",
       "CREDITS": "ক্রেডিট",
       "ONE_TIME": "এককালীন",
       "POPULAR": "সর্বাধিক জনপ্রিয়",
@@ -842,7 +842,7 @@
       "CANCEL_BUTTON_LABEL": "Cancel"
     }
   },
-  "CAPTAIN_SETTINGS": {
+  "COSMOS_SETTINGS": {
     "TITLE": "ক্যাপ্টেন সেটিংস",
     "DESCRIPTION": "ক্যাপ্টেনের জন্য আপনার AI মডেল এবং বৈশিষ্ট্যগুলি কনফিগার করুন। ক্যাপ্টেন একটি ক্রেডিট ভিত্তিক বিলিং অনুসরণ করে, নির্বাচিত মডেলের উপর ভিত্তি করে ক্যাপ্টেন যে প্রতিটি ক্রিয়া গ্রহণ করে তার জন্য আপনাকে ক্রেডিট চার্জ করা হবে।.",
     "LOADING": "ক্যাপ্টেন কনফিগারেশন লোড হচ্ছে...",

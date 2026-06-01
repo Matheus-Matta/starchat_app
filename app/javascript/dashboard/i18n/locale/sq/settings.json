@@ -375,17 +375,17 @@
     "AGENT_ASSIGNMENT": "Agent Assignment",
     "COMPANIES": "Kompani",
     "ALL_COMPANIES": "Të gjitha kompanitë",
-    "CAPTAIN": "Kapiten",
-    "CAPTAIN_ASSISTANTS": "Asistentët",
-    "CAPTAIN_DOCUMENTS": "Dokumentet",
-    "CAPTAIN_RESPONSES": "Pyetjet e Shpeshta",
-    "CAPTAIN_TOOLS": "Mjetet",
-    "CAPTAIN_SCENARIOS": "Skenarë",
-    "CAPTAIN_PLAYGROUND": "Fusha e lojës",
-    "CAPTAIN_INBOXES": "Kutia postare",
-    "CAPTAIN_SETTINGS": "Cilësimet",
+    "COSMOS": "Kapiten",
+    "COSMOS_ASSISTANTS": "Asistentët",
+    "COSMOS_DOCUMENTS": "Dokumentet",
+    "COSMOS_RESPONSES": "Pyetjet e Shpeshta",
+    "COSMOS_TOOLS": "Mjetet",
+    "COSMOS_SCENARIOS": "Skenarë",
+    "COSMOS_PLAYGROUND": "Fusha e lojës",
+    "COSMOS_INBOXES": "Kutia postare",
+    "COSMOS_SETTINGS": "Cilësimet",
     "SECURITY": "Siguria",
-    "CAPTAIN_AI": "Captain",
+    "COSMOS_AI": "Cosmos",
     "CONVERSATION_WORKFLOW": "Procesi i Bisedës"
   },
   "BILLING_SETTINGS": {
@@ -417,19 +417,19 @@
       "BUTTON_TXT": "Chat with us"
     },
     "NO_BILLING_USER": "Your billing account is being configured. Please refresh the page and try again.",
-    "CAPTAIN": {
-      "TITLE": "Captain",
-      "DESCRIPTION": "Menaxhoni përdorimin dhe kreditë për Captain AI.",
+    "COSMOS": {
+      "TITLE": "Cosmos",
+      "DESCRIPTION": "Menaxhoni përdorimin dhe kreditë për Cosmos AI.",
       "BUTTON_TXT": "Bleni më shumë kredi",
       "DOCUMENTS": "Dokumentet",
       "RESPONSES": "Responses",
-      "UPGRADE": "Captain nuk është i disponueshëm në planin falas, përmirësoni tani për të pasur akses në asistentë, copilot dhe më shumë.",
+      "UPGRADE": "Cosmos nuk është i disponueshëm në planin falas, përmirësoni tani për të pasur akses në asistentë, copilot dhe më shumë.",
       "REFRESH_CREDITS": "Rifresko"
     },
     "TOPUP": {
       "BUY_CREDITS": "Bleni më shumë kredite",
       "MODAL_TITLE": "Bleni Kredite AI",
-      "MODAL_DESCRIPTION": "Bleni kredi shtesë për Captain AI.",
+      "MODAL_DESCRIPTION": "Bleni kredi shtesë për Cosmos AI.",
       "CREDITS": "KREDITE",
       "ONE_TIME": "një herë",
       "POPULAR": "Më e Popullarizuar",
@@ -760,12 +760,12 @@
       "CANCEL_BUTTON_LABEL": "Cancel"
     }
   },
-  "CAPTAIN_SETTINGS": {
-    "TITLE": "Cilësimet e Captain",
-    "DESCRIPTION": "Konfiguroni modelet dhe veçoritë AI për Captain. Captain përdor faturim bazuar në kredi, do të ngarkoheni me kredi për çdo veprim që Captain kryen bazuar në modelin e zgjedhur.",
-    "LOADING": "Duke ngarkuar konfigurimin e Captain...",
-    "LINK_TEXT": "Mësoni më shumë rreth Kredive të Captain",
-    "NOT_ENABLED": "Captain nuk është aktivizuar për llogarinë tuaj. Ju lutemi përmirësoni planin tuaj për të pasur akses në veçoritë e Captain.",
+  "COSMOS_SETTINGS": {
+    "TITLE": "Cilësimet e Cosmos",
+    "DESCRIPTION": "Konfiguroni modelet dhe veçoritë AI për Cosmos. Cosmos përdor faturim bazuar në kredi, do të ngarkoheni me kredi për çdo veprim që Cosmos kryen bazuar në modelin e zgjedhur.",
+    "LOADING": "Duke ngarkuar konfigurimin e Cosmos...",
+    "LINK_TEXT": "Mësoni më shumë rreth Kredive të Cosmos",
+    "NOT_ENABLED": "Cosmos nuk është aktivizuar për llogarinë tuaj. Ju lutemi përmirësoni planin tuaj për të pasur akses në veçoritë e Cosmos.",
     "MODEL_CONFIG": {
       "TITLE": "Konfigurimi i Modelit",
       "DESCRIPTION": "Zgjidhni modelet AI për veçori të ndryshme.",
@@ -804,8 +804,8 @@
       }
     },
     "API": {
-      "SUCCESS": "Cilësimet e Captain u përditësuan me sukses.",
-      "ERROR": "Dështoi përditësimi i cilësimeve të Captain. Ju lutemi provoni përsëri."
+      "SUCCESS": "Cilësimet e Cosmos u përditësuan me sukses.",
+      "ERROR": "Dështoi përditësimi i cilësimeve të Cosmos. Ju lutemi provoni përsëri."
     }
   },
   "SECURITY_SETTINGS": {

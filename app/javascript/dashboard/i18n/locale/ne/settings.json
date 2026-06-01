@@ -375,17 +375,17 @@
     "AGENT_ASSIGNMENT": "Agent Assignment",
     "COMPANIES": "कम्पनीहरू",
     "ALL_COMPANIES": "सबै कम्पनीहरू",
-    "CAPTAIN": "क्याप्टेन",
-    "CAPTAIN_ASSISTANTS": "सहायकहरू",
-    "CAPTAIN_DOCUMENTS": "कागजातहरू",
-    "CAPTAIN_RESPONSES": "सोधिने प्रश्नहरू",
-    "CAPTAIN_TOOLS": "उपकरणहरू",
-    "CAPTAIN_SCENARIOS": "परिदृश्यहरू",
-    "CAPTAIN_PLAYGROUND": "प्लेग्राउन्ड",
-    "CAPTAIN_INBOXES": "इनबक्सहरू",
-    "CAPTAIN_SETTINGS": "सेटिङहरू",
+    "COSMOS": "क्याप्टेन",
+    "COSMOS_ASSISTANTS": "सहायकहरू",
+    "COSMOS_DOCUMENTS": "कागजातहरू",
+    "COSMOS_RESPONSES": "सोधिने प्रश्नहरू",
+    "COSMOS_TOOLS": "उपकरणहरू",
+    "COSMOS_SCENARIOS": "परिदृश्यहरू",
+    "COSMOS_PLAYGROUND": "प्लेग्राउन्ड",
+    "COSMOS_INBOXES": "इनबक्सहरू",
+    "COSMOS_SETTINGS": "सेटिङहरू",
     "SECURITY": "सुरक्षा",
-    "CAPTAIN_AI": "Captain",
+    "COSMOS_AI": "Cosmos",
     "CONVERSATION_WORKFLOW": "वार्ता कार्यप्रवाह"
   },
   "BILLING_SETTINGS": {
@@ -417,7 +417,7 @@
       "BUTTON_TXT": "हामीसँग कुराकानी गर्नुहोस्"
     },
     "NO_BILLING_USER": "Your billing account is being configured. Please refresh the page and try again.",
-    "CAPTAIN": {
+    "COSMOS": {
       "TITLE": "क्याप्टेन",
       "DESCRIPTION": "क्याप्टेन AI को प्रयोग र क्रेडिटहरू व्यवस्थापन गर्नुहोस्।",
       "BUTTON_TXT": "थप क्रेडिटहरू किन्नुहोस्",
@@ -429,7 +429,7 @@
     "TOPUP": {
       "BUY_CREDITS": "थप क्रेडिट किन्नुहोस्",
       "MODAL_TITLE": "AI क्रेडिट किन्नुहोस्",
-      "MODAL_DESCRIPTION": "Captain AI का लागि थप क्रेडिट किन्नुहोस्।",
+      "MODAL_DESCRIPTION": "Cosmos AI का लागि थप क्रेडिट किन्नुहोस्।",
       "CREDITS": "CREDITS",
       "ONE_TIME": "एक पटकको",
       "POPULAR": "सबैभन्दा लोकप्रिय",
@@ -760,12 +760,12 @@
       "CANCEL_BUTTON_LABEL": "Cancel"
     }
   },
-  "CAPTAIN_SETTINGS": {
-    "TITLE": "Captain सेटिङहरू",
-    "DESCRIPTION": "Captain का लागि तपाईंका AI मोडेल र सुविधाहरू कन्फिगर गर्नुहोस्। Captain क्रेडिटमा आधारित बिलिङमा चल्छ, चयन गरिएको मोडेलअनुसार Captain ले प्रत्येक कार्य गर्दा तपाईंको क्रेडिट कटौती हुनेछ।",
-    "LOADING": "Captain कन्फिगरेसन लोड हुँदैछ...",
-    "LINK_TEXT": "Captain क्रेडिटबारे थप जान्नुहोस्",
-    "NOT_ENABLED": "तपाईंको खातामा Captain सक्षम गरिएको छैन। Captain सुविधाहरू प्रयोग गर्न योजना स्तरोन्नति गर्नुहोस्।",
+  "COSMOS_SETTINGS": {
+    "TITLE": "Cosmos सेटिङहरू",
+    "DESCRIPTION": "Cosmos का लागि तपाईंका AI मोडेल र सुविधाहरू कन्फिगर गर्नुहोस्। Cosmos क्रेडिटमा आधारित बिलिङमा चल्छ, चयन गरिएको मोडेलअनुसार Cosmos ले प्रत्येक कार्य गर्दा तपाईंको क्रेडिट कटौती हुनेछ।",
+    "LOADING": "Cosmos कन्फिगरेसन लोड हुँदैछ...",
+    "LINK_TEXT": "Cosmos क्रेडिटबारे थप जान्नुहोस्",
+    "NOT_ENABLED": "तपाईंको खातामा Cosmos सक्षम गरिएको छैन। Cosmos सुविधाहरू प्रयोग गर्न योजना स्तरोन्नति गर्नुहोस्।",
     "MODEL_CONFIG": {
       "TITLE": "मोडेल कन्फिगरेसन",
       "DESCRIPTION": "विभिन्न सुविधाहरूका लागि AI मोडेलहरू छान्नुहोस्।",
@@ -804,8 +804,8 @@
       }
     },
     "API": {
-      "SUCCESS": "Captain सेटिङहरू सफलतापूर्वक अद्यावधिक गरियो।",
-      "ERROR": "Captain सेटिङहरू अद्यावधिक गर्न असफल। कृपया फेरि प्रयास गर्नुहोस्।"
+      "SUCCESS": "Cosmos सेटिङहरू सफलतापूर्वक अद्यावधिक गरियो।",
+      "ERROR": "Cosmos सेटिङहरू अद्यावधिक गर्न असफल। कृपया फेरि प्रयास गर्नुहोस्।"
     }
   },
   "SECURITY_SETTINGS": {

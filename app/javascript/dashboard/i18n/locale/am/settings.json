@@ -375,17 +375,17 @@
     "AGENT_ASSIGNMENT": "Agent Assignment",
     "COMPANIES": "ኩባንያዎች",
     "ALL_COMPANIES": "ሁሉም ኩባንያዎች",
-    "CAPTAIN": "ካፕቴን",
-    "CAPTAIN_ASSISTANTS": "እርዳታ አገልጋዮች",
-    "CAPTAIN_DOCUMENTS": "ሰነዶች",
-    "CAPTAIN_RESPONSES": "ተደጋጋሚ ጥያቄዎች",
-    "CAPTAIN_TOOLS": "መሣሪያዎች",
-    "CAPTAIN_SCENARIOS": "ሁኔታዎች",
-    "CAPTAIN_PLAYGROUND": "መጫወቻ ቦታ",
-    "CAPTAIN_INBOXES": "ኢንቦክሶች",
-    "CAPTAIN_SETTINGS": "ቅንብሮች",
+    "COSMOS": "ካፕቴን",
+    "COSMOS_ASSISTANTS": "እርዳታ አገልጋዮች",
+    "COSMOS_DOCUMENTS": "ሰነዶች",
+    "COSMOS_RESPONSES": "ተደጋጋሚ ጥያቄዎች",
+    "COSMOS_TOOLS": "መሣሪያዎች",
+    "COSMOS_SCENARIOS": "ሁኔታዎች",
+    "COSMOS_PLAYGROUND": "መጫወቻ ቦታ",
+    "COSMOS_INBOXES": "ኢንቦክሶች",
+    "COSMOS_SETTINGS": "ቅንብሮች",
     "SECURITY": "ደህንነት",
-    "CAPTAIN_AI": "ካፕቴን",
+    "COSMOS_AI": "ካፕቴን",
     "CONVERSATION_WORKFLOW": "የውይይት ስርዓት"
   },
   "BILLING_SETTINGS": {
@@ -417,19 +417,19 @@
       "BUTTON_TXT": "Chat with us"
     },
     "NO_BILLING_USER": "Your billing account is being configured. Please refresh the page and try again.",
-    "CAPTAIN": {
+    "COSMOS": {
       "TITLE": "ካፕቴን",
       "DESCRIPTION": "ለCaptain AI አጠቃቀምና ክሬዲቶችን ያስተዳድሩ።.",
       "BUTTON_TXT": "ተጨማሪ ክሬዲቶች ግዙ",
       "DOCUMENTS": "ሰነዶች",
       "RESPONSES": "Responses",
-      "UPGRADE": "Captain በነፃ እቅድ ላይ አይገኝም፣ አሁን ያሻሽሉ እና ለአስስታንት፣ ኮፓይሎት እና ሌሎች ያግኙ።.",
+      "UPGRADE": "Cosmos በነፃ እቅድ ላይ አይገኝም፣ አሁን ያሻሽሉ እና ለአስስታንት፣ ኮፓይሎት እና ሌሎች ያግኙ።.",
       "REFRESH_CREDITS": "አዘምን"
     },
     "TOPUP": {
       "BUY_CREDITS": "ተጨማሪ ክሬዲቶች ግዛ",
       "MODAL_TITLE": "AI ክሬዲቶች ግዛ",
-      "MODAL_DESCRIPTION": "Captain AI ለተጨማሪ ክሬዲቶች ግዛ.",
+      "MODAL_DESCRIPTION": "Cosmos AI ለተጨማሪ ክሬዲቶች ግዛ.",
       "CREDITS": "ክሬዲቶች",
       "ONE_TIME": "አንድ ጊዜ",
       "POPULAR": "በጣም ተወዳጅ",
@@ -760,12 +760,12 @@
       "CANCEL_BUTTON_LABEL": "Cancel"
     }
   },
-  "CAPTAIN_SETTINGS": {
+  "COSMOS_SETTINGS": {
     "TITLE": "የCaptain ቅንብሮች",
-    "DESCRIPTION": "ለCaptain የAI ሞዴሎችና ባለስልጣናት ያስተካክሉ። Captain በክሬዲት መሠረት ክፍያ ያደርጋል፣ ለእያንዳንዱ እርምጃ በሞዴሉ መሠረት ክሬዲቶች ይከፈላሉ።.",
+    "DESCRIPTION": "ለCaptain የAI ሞዴሎችና ባለስልጣናት ያስተካክሉ። Cosmos በክሬዲት መሠረት ክፍያ ያደርጋል፣ ለእያንዳንዱ እርምጃ በሞዴሉ መሠረት ክሬዲቶች ይከፈላሉ።.",
     "LOADING": "የCaptain ቅንብር እየጫነ ነው...",
-    "LINK_TEXT": "ስለ Captain ክሬዲቶች ተጨማሪ ያውቁ",
-    "NOT_ENABLED": "Captain ለመለያዎ አልተነሳሳም። ለCaptain ባለስልጣናት ባለስልጣናት እቅድዎን ያሻሽሉ።.",
+    "LINK_TEXT": "ስለ Cosmos ክሬዲቶች ተጨማሪ ያውቁ",
+    "NOT_ENABLED": "Cosmos ለመለያዎ አልተነሳሳም። ለCaptain ባለስልጣናት ባለስልጣናት እቅድዎን ያሻሽሉ።.",
     "MODEL_CONFIG": {
       "TITLE": "የሞዴል ቅንብር",
       "DESCRIPTION": "ለተለያዩ ባለስልጣናት AI ሞዴሎችን ይምረጡ።.",

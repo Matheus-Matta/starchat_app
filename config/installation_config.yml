@@ -181,53 +181,53 @@
   type: secret
 # End of Microsoft Email Channel Config
 
-# MARK: Captain Config
-- name: CAPTAIN_OPEN_AI_API_KEY
+# MARK: Cosmos Config
+- name: COSMOS_OPEN_AI_API_KEY
   display_title: 'OpenAI API Key'
-  description: 'The API key used to authenticate requests to OpenAI services for Captain AI.'
+  description: 'The API key used to authenticate requests to OpenAI services for Cosmos AI.'
   locked: false
   type: secret
-- name: CAPTAIN_OPEN_AI_MODEL
+- name: COSMOS_OPEN_AI_MODEL
   display_title: 'OpenAI Model'
-  description: 'The OpenAI model configured for use in Captain AI. Default: gpt-4.1-mini'
+  description: 'The OpenAI model configured for use in Cosmos AI. Default: gpt-4.1-mini'
   locked: false
-- name: CAPTAIN_OPEN_AI_ENDPOINT
+- name: COSMOS_OPEN_AI_ENDPOINT
   display_title: 'OpenAI API Endpoint (optional)'
-  description: 'The OpenAI endpoint configured for use in Captain AI. Default: https://api.openai.com/'
+  description: 'The OpenAI endpoint configured for use in Cosmos AI. Default: https://api.openai.com/'
   locked: false
-- name: CAPTAIN_EMBEDDING_MODEL
+- name: COSMOS_EMBEDDING_MODEL
   display_title: 'Embedding Model (optional)'
-  description: 'The embedding model configured for use in Captain AI. Default: text-embedding-3-small'
+  description: 'The embedding model configured for use in Cosmos AI. Default: text-embedding-3-small'
   locked: false
-- name: CAPTAIN_FIRECRAWL_API_KEY
+- name: COSMOS_FIRECRAWL_API_KEY
   display_title: 'FireCrawl API Key (optional)'
-  description: 'The FireCrawl API key for the Captain AI service'
+  description: 'The FireCrawl API key for the Cosmos AI service'
   locked: false
   type: secret
-- name: CAPTAIN_CLOUD_PLAN_LIMITS
-  display_title: 'Captain Cloud Plan Limits'
-  description: 'The limits for the Captain AI service for different plans'
+- name: COSMOS_CLOUD_PLAN_LIMITS
+  display_title: 'Cosmos Cloud Plan Limits'
+  description: 'The limits for the Cosmos AI service for different plans'
   value:
   type: code
-- name: CAPTAIN_DOCUMENT_AUTO_SYNC_INTERVALS
-  display_title: 'Captain Document Auto Sync Intervals'
-  description: 'JSON map of plan-wise Captain document auto-sync intervals in hours. Use null to disable auto-sync for a plan.'
+- name: COSMOS_DOCUMENT_AUTO_SYNC_INTERVALS
+  display_title: 'Cosmos Document Auto Sync Intervals'
+  description: 'JSON map of plan-wise Cosmos document auto-sync intervals in hours. Use null to disable auto-sync for a plan.'
   value:
   locked: false
   type: code
-- name: CAPTAIN_DOCUMENT_AUTO_SYNC_PER_ACCOUNT_BATCH_LIMIT
-  display_title: 'Captain Document Auto Sync Per Account Batch Limit'
-  description: 'Maximum syncable Captain documents to enqueue per account in one scheduler run. Defaults to 50.'
+- name: COSMOS_DOCUMENT_AUTO_SYNC_PER_ACCOUNT_BATCH_LIMIT
+  display_title: 'Cosmos Document Auto Sync Per Account Batch Limit'
+  description: 'Maximum syncable Cosmos documents to enqueue per account in one scheduler run. Defaults to 50.'
   value: 50
   locked: false
   type: number
-- name: CAPTAIN_DOCUMENT_AUTO_SYNC_GLOBAL_BATCH_LIMIT
-  display_title: 'Captain Document Auto Sync Global Batch Limit'
-  description: 'Maximum syncable Captain documents to enqueue globally in one scheduler run. Defaults to 1000.'
+- name: COSMOS_DOCUMENT_AUTO_SYNC_GLOBAL_BATCH_LIMIT
+  display_title: 'Cosmos Document Auto Sync Global Batch Limit'
+  description: 'Maximum syncable Cosmos documents to enqueue globally in one scheduler run. Defaults to 1000.'
   value: 1000
   locked: false
   type: number
-# End of Captain Config
+# End of Cosmos Config
 
 # ------- Context.dev Config ------- #
 - name: CONTEXT_DEV_API_KEY

@@ -14,7 +14,7 @@ class Cosmos::Conversation::ResponseBuilderJob < ApplicationJob
 
     Current.executed_by = @assistant
 
-    if captain_v2_enabled?
+    if cosmos_v2_enabled?
       generate_response_with_v2
     else
       generate_and_process_response
@@ -73,7 +73,7 @@ class Cosmos::Conversation::ResponseBuilderJob < ApplicationJob
     elsif conversation_pending?
       ActiveRecord::Base.transaction do
         create_messages
-        Rails.logger.info("[CAPTAIN][ResponseBuilderJob] Incrementing response usage for #{account.id}")
+        Rails.logger.info("[COSMOS][ResponseBuilderJob] Incrementing response usage for #{account.id}")
         account.increment_response_usage
       end
     end
@@ -124,7 +124,7 @@ class Cosmos::Conversation::ResponseBuilderJob < ApplicationJob
   def process_v1_handoff
     I18n.with_locale(@assistant.account.locale) do
       Rails.logger.info(
-        "[CAPTAIN][ResponseBuilderJob] V1 handoff requested for account=#{account.id} conversation=#{@conversation.display_id} " \
+        "[COSMOS][ResponseBuilderJob] V1 handoff requested for account=#{account.id} conversation=#{@conversation.display_id} " \
         "source=#{@response&.dig('action_source') || 'legacy'} reason=#{@response&.dig('action_reason')}"
       )
       create_handoff_message
@@ -152,7 +152,7 @@ class Cosmos::Conversation::ResponseBuilderJob < ApplicationJob
 
   def create_handoff_message(preserve_waiting_since: false)
     create_outgoing_message(
-      @assistant.config['handoff_message'].presence || I18n.t('conversations.captain.handoff'),
+      @assistant.config['handoff_message'].presence || I18n.t('conversations.cosmos.handoff'),
       preserve_waiting_since: preserve_waiting_since
     )
   end
@@ -198,15 +198,15 @@ class Cosmos::Conversation::ResponseBuilderJob < ApplicationJob
     error.class.name.underscore.tr('/', '_')
   end
 
-  def captain_v2_enabled?
-    account.feature_enabled?('captain_integration_v2')
+  def cosmos_v2_enabled?
+    account.feature_enabled?('cosmos_integration_v2')
   end
 
   def report_v1_handoff_not_executed
-    error = StandardError.new("Captain V1 handoff requested but conversation #{@conversation.display_id} is still pending")
+    error = StandardError.new("Cosmos V1 handoff requested but conversation #{@conversation.display_id} is still pending")
     ChatwootExceptionTracker.new(error, account: account).capture_exception
     Rails.logger.error(
-      "[CAPTAIN][ResponseBuilderJob] V1 handoff requested but not executed for account=#{account.id} " \
+      "[COSMOS][ResponseBuilderJob] V1 handoff requested but not executed for account=#{account.id} " \
       "conversation=#{@conversation.display_id}"
     )
   end

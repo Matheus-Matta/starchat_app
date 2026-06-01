@@ -21,11 +21,11 @@ const store = useStore();
 
 const dialogRef = ref(null);
 
-const i18nKey = 'CAPTAIN.DOCUMENTS.CREATE';
+const i18nKey = 'COSMOS.DOCUMENTS.CREATE';
 
 const handleSubmit = async newDocument => {
   try {
-    await store.dispatch('captainDocuments/create', newDocument);
+    await store.dispatch('cosmosDocuments/create', newDocument);
     emit('createSuccess');
     useAlert(t(`${i18nKey}.SUCCESS_MESSAGE`));
     dialogRef.value.close();
@@ -51,7 +51,7 @@ defineExpose({ dialogRef });
   <Dialog
     ref="dialogRef"
     :title="$t(`${i18nKey}.TITLE`)"
-    :description="$t('CAPTAIN.DOCUMENTS.FORM_DESCRIPTION')"
+    :description="$t('COSMOS.DOCUMENTS.FORM_DESCRIPTION')"
     :show-cancel-button="false"
     :show-confirm-button="false"
     @close="handleClose"

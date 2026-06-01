@@ -18,7 +18,7 @@ module Cosmos::Conversation::V1ActionClassifier
   rescue StandardError => e
     ChatwootExceptionTracker.new(e, account: account).capture_exception
     Rails.logger.warn(
-      "[CAPTAIN][ResponseBuilderJob] V1 action classifier failed for account=#{account.id} " \
+      "[COSMOS][ResponseBuilderJob] V1 action classifier failed for account=#{account.id} " \
       "conversation=#{@conversation.display_id}: #{e.class.name}: #{e.message}"
     )
   end
@@ -39,7 +39,7 @@ module Cosmos::Conversation::V1ActionClassifier
 
   def log_v1_action_classification(action, classification)
     Rails.logger.info(
-      "[CAPTAIN][ResponseBuilderJob] V1 action classifier account=#{account.id} conversation=#{@conversation.display_id} " \
+      "[COSMOS][ResponseBuilderJob] V1 action classifier account=#{account.id} conversation=#{@conversation.display_id} " \
       "action=#{action} reason=#{classification['action_reason']} model=#{classification['model']}"
     )
   end
@@ -50,7 +50,7 @@ module Cosmos::Conversation::V1ActionClassifier
 
   def log_invalid_v1_action_classification(classification)
     Rails.logger.warn(
-      '[CAPTAIN][ResponseBuilderJob] V1 action classifier returned invalid action; falling back to assistant response ' \
+      '[COSMOS][ResponseBuilderJob] V1 action classifier returned invalid action; falling back to assistant response ' \
       "for account=#{account.id} conversation=#{@conversation.display_id}: #{classification['error'] || classification['raw_response']}"
     )
   end

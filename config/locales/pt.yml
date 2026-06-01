@@ -230,7 +230,7 @@ pt:
     attachment: 'Anexo'
     no_content: 'Sem conteúdo'
   conversations:
-    captain:
+    cosmos:
       handoff: 'A transferir para outro agente que lhe prestará assistência adicional.'
     messages:
       instagram_story_content: '%{story_sender} mencionou você na história: '
@@ -247,7 +247,7 @@ pt:
       delivery_status:
         error_code: 'Código de erro: %{error_code}'
     activity:
-      captain:
+      cosmos:
         resolved: 'A conversa foi marcada como resolvida por %{user_name} devido à inatividade'
         resolved_with_reason: 'Conversation was marked resolved by %{user_name} (%{reason})'
         resolved_by_tool: 'Conversation was marked resolved by %{user_name}: %{reason}'
@@ -358,8 +358,8 @@ pt:
       attachment_link_title: 'Conversa (#%{conversation_id}) com %{name}'
     notion:
       name: 'Noção'
-      short_description: 'Integrar bases de dados, documentos e páginas diretamente com o Captain.'
-      description: 'Conecte o seu workspace Notion para permitir que o Captain aceda e gere respostas inteligentes utilizando o conteúdo das suas base de dados, documentos e páginas para fornecer mais apoio contextual ao cliente.'
+      short_description: 'Integrar bases de dados, documentos e páginas diretamente com o Cosmos.'
+      description: 'Conecte o seu workspace Notion para permitir que o Cosmos aceda e gere respostas inteligentes utilizando o conteúdo das suas base de dados, documentos e páginas para fornecer mais apoio contextual ao cliente.'
     shopify:
       name: 'Shopify'
       short_description: 'Aceder a detalhes do pedido e dados de clientes da sua loja Shopify.'
@@ -368,13 +368,13 @@ pt:
       name: 'LeadSquared'
       short_description: 'Sincronize contatos e conversas com o seu LeadSquared CRM.'
       description: 'Sincronize contatos e conversas com o seu LeadSquared CRM. Essa integração cria automaticamente leads em LeadSquared quando novos contatos são adicionados, e regista a atividade das conversas para fornecer à sua equipa de vendas um contexto completo.'
-  captain:
+  cosmos:
     copilot_message_required: A mensagem é obrigatória
     copilot_error: 'Please connect an assistant to this inbox to use Copilot'
     copilot_limit: 'You are out of Copilot credits. You can buy more credits from the billing section.'
-    upgrade: 'Faça upgrade do seu plano para ativar o Captain AI'
-    disabled: 'Captain AI está desativado para esta conta.'
-    api_key_missing: 'A chave API do Captain AI não está configurada.'
+    upgrade: 'Faça upgrade do seu plano para ativar o Cosmos AI'
+    disabled: 'Cosmos AI está desativado para esta conta.'
+    api_key_missing: 'A chave API do Cosmos AI não está configurada.'
     copilot:
       using_tool: 'A usar a ferramenta %{function_name}'
       completed_tool_call: 'Chamada da ferramenta %{function_name} concluída'
@@ -485,7 +485,7 @@ pt:
     inbox_already_assigned: 'Inbox has already been assigned to this policy'
   portals:
     articles:
-      captain_not_available: 'Translation requires Captain to be enabled for this account'
+      cosmos_not_available: 'Translation requires Cosmos to be enabled for this account'
       locale_not_available: 'Locale not available in this portal'
       category_not_found: 'Category not found in this portal'
       no_articles_found: 'No articles found to process'

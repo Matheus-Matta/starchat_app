@@ -28,7 +28,7 @@ RSpec.describe 'Api::V1::Accounts::Cosmos::BulkActions', type: :request do
     JSON.parse(response.body, symbolize_names: true)
   end
 
-  describe 'POST /api/v1/accounts/:account_id/captain/bulk_actions' do
+  describe 'POST /api/v1/accounts/:account_id/cosmos/bulk_actions' do
     context 'when approving responses' do
       let(:valid_params) do
         {
@@ -39,7 +39,7 @@ RSpec.describe 'Api::V1::Accounts::Cosmos::BulkActions', type: :request do
       end
 
       it 'approves the responses and returns the updated records' do
-        post "/api/v1/accounts/#{account.id}/captain/bulk_actions",
+        post "/api/v1/accounts/#{account.id}/cosmos/bulk_actions",
              params: valid_params,
              headers: admin.create_new_auth_token,
              as: :json
@@ -66,7 +66,7 @@ RSpec.describe 'Api::V1::Accounts::Cosmos::BulkActions', type: :request do
 
       it 'deletes the responses and returns an empty array' do
         expect do
-          post "/api/v1/accounts/#{account.id}/captain/bulk_actions",
+          post "/api/v1/accounts/#{account.id}/cosmos/bulk_actions",
                params: delete_params,
                headers: admin.create_new_auth_token,
                as: :json
@@ -92,7 +92,7 @@ RSpec.describe 'Api::V1::Accounts::Cosmos::BulkActions', type: :request do
       end
 
       it 'returns unprocessable entity status' do
-        post "/api/v1/accounts/#{account.id}/captain/bulk_actions",
+        post "/api/v1/accounts/#{account.id}/cosmos/bulk_actions",
              params: invalid_params,
              headers: admin.create_new_auth_token,
              as: :json
@@ -118,7 +118,7 @@ RSpec.describe 'Api::V1::Accounts::Cosmos::BulkActions', type: :request do
 
       it 'deletes the documents and returns the deleted count' do
         expect do
-          post "/api/v1/accounts/#{account.id}/captain/bulk_actions",
+          post "/api/v1/accounts/#{account.id}/cosmos/bulk_actions",
                params: document_delete_params,
                headers: admin.create_new_auth_token,
                as: :json
@@ -143,7 +143,7 @@ RSpec.describe 'Api::V1::Accounts::Cosmos::BulkActions', type: :request do
       it 'queues a sync for each web document and returns the enqueued document ids' do
         freeze_time do
           expect do
-            post "/api/v1/accounts/#{account.id}/captain/bulk_actions",
+            post "/api/v1/accounts/#{account.id}/cosmos/bulk_actions",
                  params: sync_params,
                  headers: admin.create_new_auth_token,
                  as: :json
@@ -168,7 +168,7 @@ RSpec.describe 'Api::V1::Accounts::Cosmos::BulkActions', type: :request do
         pdf_document.save!
 
         expect do
-          post "/api/v1/accounts/#{account.id}/captain/bulk_actions",
+          post "/api/v1/accounts/#{account.id}/cosmos/bulk_actions",
                params: sync_params.merge(ids: [pdf_document.id]),
                headers: admin.create_new_auth_token,
                as: :json
@@ -181,7 +181,7 @@ RSpec.describe 'Api::V1::Accounts::Cosmos::BulkActions', type: :request do
         in_progress_document = create(:cosmos_document, assistant: assistant, account: account, status: :in_progress)
 
         expect do
-          post "/api/v1/accounts/#{account.id}/captain/bulk_actions",
+          post "/api/v1/accounts/#{account.id}/cosmos/bulk_actions",
                params: sync_params.merge(ids: [in_progress_document.id]),
                headers: admin.create_new_auth_token,
                as: :json
@@ -195,7 +195,7 @@ RSpec.describe 'Api::V1::Accounts::Cosmos::BulkActions', type: :request do
         syncing_document.update!(sync_status: :syncing, last_sync_attempted_at: 1.minute.ago)
 
         expect do
-          post "/api/v1/accounts/#{account.id}/captain/bulk_actions",
+          post "/api/v1/accounts/#{account.id}/cosmos/bulk_actions",
                params: sync_params.merge(ids: [syncing_document.id]),
                headers: admin.create_new_auth_token,
                as: :json
@@ -215,7 +215,7 @@ RSpec.describe 'Api::V1::Accounts::Cosmos::BulkActions', type: :request do
           )
 
           expect do
-            post "/api/v1/accounts/#{account.id}/captain/bulk_actions",
+            post "/api/v1/accounts/#{account.id}/cosmos/bulk_actions",
                  params: sync_params.merge(ids: [syncing_document.id]),
                  headers: admin.create_new_auth_token,
                  as: :json
@@ -232,7 +232,7 @@ RSpec.describe 'Api::V1::Accounts::Cosmos::BulkActions', type: :request do
       end
 
       it 'denies non-administrators' do
-        post "/api/v1/accounts/#{account.id}/captain/bulk_actions",
+        post "/api/v1/accounts/#{account.id}/cosmos/bulk_actions",
              params: sync_params,
              headers: agent.create_new_auth_token,
              as: :json
@@ -250,7 +250,7 @@ RSpec.describe 'Api::V1::Accounts::Cosmos::BulkActions', type: :request do
       end
 
       it 'returns unprocessable entity status' do
-        post "/api/v1/accounts/#{account.id}/captain/bulk_actions",
+        post "/api/v1/accounts/#{account.id}/cosmos/bulk_actions",
              params: missing_params,
              headers: admin.create_new_auth_token,
              as: :json
@@ -269,7 +269,7 @@ RSpec.describe 'Api::V1::Accounts::Cosmos::BulkActions', type: :request do
       let(:unauthorized_user) { create(:user, account: create(:account)) }
 
       it 'returns unauthorized status' do
-        post "/api/v1/accounts/#{account.id}/captain/bulk_actions",
+        post "/api/v1/accounts/#{account.id}/cosmos/bulk_actions",
              params: { type: 'AssistantResponse', ids: [1], fields: { status: 'approve' } },
              headers: unauthorized_user.create_new_auth_token,
              as: :json

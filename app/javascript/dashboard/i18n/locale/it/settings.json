@@ -375,17 +375,17 @@
     "AGENT_ASSIGNMENT": "Agent Assignment",
     "COMPANIES": "Aziende",
     "ALL_COMPANIES": "Tutte le Aziende",
-    "CAPTAIN": "Captain",
-    "CAPTAIN_ASSISTANTS": "Assistenti",
-    "CAPTAIN_DOCUMENTS": "Documenti",
-    "CAPTAIN_RESPONSES": "FAQ",
-    "CAPTAIN_TOOLS": "Strumenti",
-    "CAPTAIN_SCENARIOS": "Scenari",
-    "CAPTAIN_PLAYGROUND": "Playground",
-    "CAPTAIN_INBOXES": "Inbox",
-    "CAPTAIN_SETTINGS": "Impostazioni",
+    "COSMOS": "Cosmos",
+    "COSMOS_ASSISTANTS": "Assistenti",
+    "COSMOS_DOCUMENTS": "Documenti",
+    "COSMOS_RESPONSES": "FAQ",
+    "COSMOS_TOOLS": "Strumenti",
+    "COSMOS_SCENARIOS": "Scenari",
+    "COSMOS_PLAYGROUND": "Playground",
+    "COSMOS_INBOXES": "Inbox",
+    "COSMOS_SETTINGS": "Impostazioni",
     "SECURITY": "Sicurezza",
-    "CAPTAIN_AI": "Captain",
+    "COSMOS_AI": "Cosmos",
     "CONVERSATION_WORKFLOW": "Workflow Conversazione"
   },
   "BILLING_SETTINGS": {
@@ -417,19 +417,19 @@
       "BUTTON_TXT": "Chatta con noi"
     },
     "NO_BILLING_USER": "Il tuo account di fatturazione è in fase di configurazione. Per favore aggiorna la pagina e riprova.",
-    "CAPTAIN": {
-      "TITLE": "Captain",
-      "DESCRIPTION": "Gestisci utilizzo e crediti per Captain AI.",
+    "COSMOS": {
+      "TITLE": "Cosmos",
+      "DESCRIPTION": "Gestisci utilizzo e crediti per Cosmos AI.",
       "BUTTON_TXT": "Acquista più crediti",
       "DOCUMENTS": "Documenti",
       "RESPONSES": "Risposte",
-      "UPGRADE": "Captain non è disponibile sul piano gratuito, aggiorna ora per ottenere l'accesso agli assistenti, copilot e altro ancora.",
+      "UPGRADE": "Cosmos non è disponibile sul piano gratuito, aggiorna ora per ottenere l'accesso agli assistenti, copilot e altro ancora.",
       "REFRESH_CREDITS": "Aggiorna"
     },
     "TOPUP": {
       "BUY_CREDITS": "Acquista più crediti",
       "MODAL_TITLE": "Acquista Crediti AI",
-      "MODAL_DESCRIPTION": "Acquista crediti aggiuntivi per Captain AI.",
+      "MODAL_DESCRIPTION": "Acquista crediti aggiuntivi per Cosmos AI.",
       "CREDITS": "CREDITI",
       "ONE_TIME": "una tantum",
       "POPULAR": "Più Popolare",
@@ -760,12 +760,12 @@
       "CANCEL_BUTTON_LABEL": "annulla"
     }
   },
-  "CAPTAIN_SETTINGS": {
-    "TITLE": "Impostazioni Captain",
-    "DESCRIPTION": "Configura i tuoi modelli AI e le funzionalità di Captain. La fatturazione di Captain si basa sui crediti, che ti verranno scalati per ogni azione di Captain in base al modello selezionato.",
-    "LOADING": "Caricamento configurazione Captain...",
-    "LINK_TEXT": "Scopri di più sui Crediti Captain",
-    "NOT_ENABLED": "Captain non è abilitato per il tuo account. Aggiorna il tuo piano per accedere alle funzionalità Captain.",
+  "COSMOS_SETTINGS": {
+    "TITLE": "Impostazioni Cosmos",
+    "DESCRIPTION": "Configura i tuoi modelli AI e le funzionalità di Cosmos. La fatturazione di Cosmos si basa sui crediti, che ti verranno scalati per ogni azione di Cosmos in base al modello selezionato.",
+    "LOADING": "Caricamento configurazione Cosmos...",
+    "LINK_TEXT": "Scopri di più sui Crediti Cosmos",
+    "NOT_ENABLED": "Cosmos non è abilitato per il tuo account. Aggiorna il tuo piano per accedere alle funzionalità Cosmos.",
     "MODEL_CONFIG": {
       "TITLE": "Configurazione Modello",
       "DESCRIPTION": "Seleziona modelli AI per le varie funzionalità.",
@@ -804,8 +804,8 @@
       }
     },
     "API": {
-      "SUCCESS": "Impostazioni Captain aggiornate con successo.",
-      "ERROR": "Impossibile aggiornare le impostazioni Captain. Per favore riprova."
+      "SUCCESS": "Impostazioni Cosmos aggiornate con successo.",
+      "ERROR": "Impossibile aggiornare le impostazioni Cosmos. Per favore riprova."
     }
   },
   "SECURITY_SETTINGS": {

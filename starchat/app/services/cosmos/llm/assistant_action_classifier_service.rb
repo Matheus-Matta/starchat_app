@@ -28,7 +28,7 @@ class Cosmos::Llm::AssistantActionClassifierService < Llm::BaseAiService
   rescue StandardError => e
     ChatwootExceptionTracker.new(e, account: @conversation.account).capture_exception
     Rails.logger.warn(
-      "[CAPTAIN][AssistantActionClassifier] Failed for conversation #{@conversation.display_id}: #{e.class.name}: #{e.message}"
+      "[COSMOS][AssistantActionClassifier] Failed for conversation #{@conversation.display_id}: #{e.class.name}: #{e.message}"
     )
     { 'action' => nil, 'action_reason' => nil, 'error' => e.message, 'model' => @model }
   end
@@ -122,7 +122,7 @@ class Cosmos::Llm::AssistantActionClassifierService < Llm::BaseAiService
 
   def instrumentation_params(user_prompt)
     {
-      span_name: 'llm.captain.assistant_action_classifier',
+      span_name: 'llm.cosmos.assistant_action_classifier',
       model: @model,
       temperature: @temperature,
       account_id: @conversation.account_id,

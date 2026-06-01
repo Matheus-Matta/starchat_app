@@ -34,7 +34,7 @@ class Cosmos::Llm::ArticleTranslationService < Cosmos::BaseTaskService
   end
 
   def translation_model
-    @translation_model ||= InstallationConfig.find_by(name: 'CAPTAIN_OPEN_AI_MODEL')&.value.presence || GPT_MODEL
+    @translation_model ||= InstallationConfig.find_by(name: 'COSMOS_OPEN_AI_MODEL')&.value.presence || GPT_MODEL
   end
 
   def title_system_prompt

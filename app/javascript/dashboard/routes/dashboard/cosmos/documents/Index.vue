@@ -9,20 +9,20 @@ import { useAlert } from 'dashboard/composables';
 import { usePolicy } from 'dashboard/composables/usePolicy';
 import { debounce } from '@chatwoot/utils';
 
-import DeleteDialog from 'dashboard/components-next/captain/pageComponents/DeleteDialog.vue';
-import DocumentCard from 'dashboard/components-next/captain/assistant/DocumentCard.vue';
-import DocumentFilter from 'dashboard/components-next/captain/assistant/DocumentFilter.vue';
-import DocumentBulkActions from 'dashboard/components-next/captain/assistant/DocumentBulkActions.vue';
+import DeleteDialog from 'dashboard/components-next/cosmos/pageComponents/DeleteDialog.vue';
+import DocumentCard from 'dashboard/components-next/cosmos/assistant/DocumentCard.vue';
+import DocumentFilter from 'dashboard/components-next/cosmos/assistant/DocumentFilter.vue';
+import DocumentBulkActions from 'dashboard/components-next/cosmos/assistant/DocumentBulkActions.vue';
 import Input from 'dashboard/components-next/input/Input.vue';
 import Policy from 'dashboard/components/policy.vue';
-import PageLayout from 'dashboard/components-next/captain/PageLayout.vue';
-import CaptainPaywall from 'dashboard/components-next/captain/pageComponents/Paywall.vue';
-import RelatedResponses from 'dashboard/components-next/captain/pageComponents/document/RelatedResponses.vue';
-import CreateDocumentDialog from 'dashboard/components-next/captain/pageComponents/document/CreateDocumentDialog.vue';
-import DocumentPageEmptyState from 'dashboard/components-next/captain/pageComponents/emptyStates/DocumentPageEmptyState.vue';
+import PageLayout from 'dashboard/components-next/cosmos/PageLayout.vue';
+import CosmosPaywall from 'dashboard/components-next/cosmos/pageComponents/Paywall.vue';
+import RelatedResponses from 'dashboard/components-next/cosmos/pageComponents/document/RelatedResponses.vue';
+import CreateDocumentDialog from 'dashboard/components-next/cosmos/pageComponents/document/CreateDocumentDialog.vue';
+import DocumentPageEmptyState from 'dashboard/components-next/cosmos/pageComponents/emptyStates/DocumentPageEmptyState.vue';
 import FeatureSpotlightPopover from 'dashboard/components-next/feature-spotlight/FeatureSpotlightPopover.vue';
-import LimitBanner from 'dashboard/components-next/captain/pageComponents/document/LimitBanner.vue';
-import CaptainDocumentAPI from 'dashboard/api/captain/document';
+import LimitBanner from 'dashboard/components-next/cosmos/pageComponents/document/LimitBanner.vue';
+import CosmosDocumentAPI from 'dashboard/api/cosmos/document';
 import { useI18n } from 'vue-i18n';
 
 const route = useRoute();
@@ -34,10 +34,10 @@ const SYNC_POLL_INTERVAL_MS = 5000;
 const SYNC_POLL_MAX_DURATION_MS = 15 * 60 * 1000;
 
 const { isOnChatwootCloud } = useAccount();
-const uiFlags = useMapGetter('captainDocuments/getUIFlags');
-const documents = useMapGetter('captainDocuments/getRecords');
+const uiFlags = useMapGetter('cosmosDocuments/getUIFlags');
+const documents = useMapGetter('cosmosDocuments/getRecords');
 const isFetching = computed(() => uiFlags.value.fetchingList);
-const documentsMeta = useMapGetter('captainDocuments/getMeta');
+const documentsMeta = useMapGetter('cosmosDocuments/getMeta');
 
 const selectedAssistantId = computed(() => Number(route.params.assistantId));
 const canManageDocuments = computed(() => checkPermissions(['administrator']));
@@ -119,18 +119,18 @@ const fetchDocuments = async (page = 1, { showLoader = true } = {}) => {
 
   if (showLoader) {
     fetchingListRequestId = requestId;
-    store.dispatch('captainDocuments/setFetchingList', true);
+    store.dispatch('cosmosDocuments/setFetchingList', true);
   }
 
   try {
-    const response = await CaptainDocumentAPI.get(filterParams);
+    const response = await CosmosDocumentAPI.get(filterParams);
 
     if (!isCurrentDocumentRequest(requestId, filterParams)) {
       return [];
     }
 
     const { payload, meta } = response.data;
-    store.dispatch('captainDocuments/setRecords', { records: payload, meta });
+    store.dispatch('cosmosDocuments/setRecords', { records: payload, meta });
     pruneSelectionToDocuments(payload);
     syncIntervalHours.value = Number(meta?.sync_interval_hours) || null;
     return payload;
@@ -142,7 +142,7 @@ const fetchDocuments = async (page = 1, { showLoader = true } = {}) => {
   } finally {
     if (showLoader && fetchingListRequestId === requestId) {
       fetchingListRequestId = null;
-      store.dispatch('captainDocuments/setFetchingList', false);
+      store.dispatch('cosmosDocuments/setFetchingList', false);
     }
   }
 };
@@ -219,17 +219,17 @@ watch(hasSyncingDocuments, isSyncing => {
 
 const handleSync = async id => {
   try {
-    await store.dispatch('captainDocuments/sync', id);
-    useAlert(t('CAPTAIN.DOCUMENTS.SYNC.QUEUED_MESSAGE'));
+    await store.dispatch('cosmosDocuments/sync', id);
+    useAlert(t('COSMOS.DOCUMENTS.SYNC.QUEUED_MESSAGE'));
     scheduleSyncPoll({ extendWindow: true });
   } catch (error) {
-    useAlert(t('CAPTAIN.DOCUMENTS.SYNC.ERROR_MESSAGE'));
+    useAlert(t('COSMOS.DOCUMENTS.SYNC.ERROR_MESSAGE'));
   }
 };
 
 const handleAction = ({ action, id }) => {
   selectedDocument.value = documents.value.find(
-    captainDocument => id === captainDocument.id
+    cosmosDocument => id === cosmosDocument.id
   );
 
   nextTick(() => {
@@ -321,15 +321,15 @@ onUnmounted(() => {
 
 <template>
   <PageLayout
-    :header-title="$t('CAPTAIN.DOCUMENTS.HEADER')"
-    :button-label="$t('CAPTAIN.DOCUMENTS.ADD_NEW')"
+    :header-title="$t('COSMOS.DOCUMENTS.HEADER')"
+    :button-label="$t('COSMOS.DOCUMENTS.ADD_NEW')"
     :button-policy="['administrator']"
     :total-count="documentsMeta.totalCount"
     :current-page="documentsMeta.page"
     :show-pagination-footer="!isFetching && !!documents.length"
     :is-fetching="isFetching"
     :is-empty="!documents.length && !hasActiveDocumentFilters"
-    :feature-flag="FEATURE_FLAGS.CAPTAIN"
+    :feature-flag="FEATURE_FLAGS.COSMOS"
     @update:current-page="onPageChange"
     @click="handleCreateDocument"
   >
@@ -340,7 +340,7 @@ onUnmounted(() => {
       >
         <Input
           v-model="searchQuery"
-          :placeholder="$t('CAPTAIN.DOCUMENTS.FILTERS.SEARCH_PLACEHOLDER')"
+          :placeholder="$t('COSMOS.DOCUMENTS.FILTERS.SEARCH_PLACEHOLDER')"
           class="max-w-64 min-w-0 w-full"
           size="sm"
           type="search"
@@ -367,13 +367,13 @@ onUnmounted(() => {
     </template>
     <template #knowMore>
       <FeatureSpotlightPopover
-        :button-label="$t('CAPTAIN.HEADER_KNOW_MORE')"
-        :title="$t('CAPTAIN.DOCUMENTS.EMPTY_STATE.FEATURE_SPOTLIGHT.TITLE')"
-        :note="$t('CAPTAIN.DOCUMENTS.EMPTY_STATE.FEATURE_SPOTLIGHT.NOTE')"
+        :button-label="$t('COSMOS.HEADER_KNOW_MORE')"
+        :title="$t('COSMOS.DOCUMENTS.EMPTY_STATE.FEATURE_SPOTLIGHT.TITLE')"
+        :note="$t('COSMOS.DOCUMENTS.EMPTY_STATE.FEATURE_SPOTLIGHT.NOTE')"
         :hide-actions="!isOnChatwootCloud"
-        fallback-thumbnail="/assets/images/dashboard/captain/document-popover-light.svg"
-        fallback-thumbnail-dark="/assets/images/dashboard/captain/document-popover-dark.svg"
-        learn-more-url="https://chwt.app/captain-document"
+        fallback-thumbnail="/assets/images/dashboard/cosmos/document-popover-light.svg"
+        fallback-thumbnail-dark="/assets/images/dashboard/cosmos/document-popover-dark.svg"
+        learn-more-url="https://chwt.app/cosmos-document"
       />
     </template>
 
@@ -382,7 +382,7 @@ onUnmounted(() => {
     </template>
 
     <template #paywall>
-      <CaptainPaywall />
+      <CosmosPaywall />
     </template>
 
     <template #body>
@@ -393,10 +393,10 @@ onUnmounted(() => {
         class="flex flex-col items-center justify-center min-h-80 gap-2 text-center"
       >
         <span class="text-base font-medium text-n-slate-12">
-          {{ $t('CAPTAIN.DOCUMENTS.EMPTY_STATE.FILTERED_TITLE') }}
+          {{ $t('COSMOS.DOCUMENTS.EMPTY_STATE.FILTERED_TITLE') }}
         </span>
         <span class="max-w-md text-sm text-n-slate-11">
-          {{ $t('CAPTAIN.DOCUMENTS.EMPTY_STATE.FILTERED_SUBTITLE') }}
+          {{ $t('COSMOS.DOCUMENTS.EMPTY_STATE.FILTERED_SUBTITLE') }}
         </span>
       </div>
 
@@ -430,7 +430,7 @@ onUnmounted(() => {
     <RelatedResponses
       v-if="showRelatedResponses"
       ref="relationQuestionDialog"
-      :captain-document="selectedDocument"
+      :cosmos-document="selectedDocument"
       @close="handleRelatedResponseClose"
     />
     <CreateDocumentDialog

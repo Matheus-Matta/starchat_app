@@ -85,7 +85,7 @@ class Cosmos::Tools::SimplePageCrawlParserJob < ApplicationJob
   end
 
   def limit_exceeded?(account)
-    limits = account.usage_limits[:captain][:documents]
+    limits = account.usage_limits[:cosmos][:documents]
     limits[:current_available].negative? || limits[:current_available].zero?
   end
 end

@@ -7,7 +7,7 @@ RSpec.describe 'Api::V1::Accounts::Cosmos::Documents', type: :request do
   let(:assistant) { create(:cosmos_assistant, account: account) }
   let(:assistant2) { create(:cosmos_assistant, account: account) }
   let(:document) { create(:cosmos_document, assistant: assistant, account: account, status: :available) }
-  let(:captain_limits) do
+  let(:cosmos_limits) do
     {
       :startups => { :documents => 1, :responses => 100 }
     }.with_indifferent_access
@@ -17,10 +17,10 @@ RSpec.describe 'Api::V1::Accounts::Cosmos::Documents', type: :request do
     JSON.parse(response.body, symbolize_names: true)
   end
 
-  describe 'GET /api/v1/accounts/:account_id/captain/documents' do
+  describe 'GET /api/v1/accounts/:account_id/cosmos/documents' do
     context 'when it is an un-authenticated user' do
       before do
-        get "/api/v1/accounts/#{account.id}/captain/documents"
+        get "/api/v1/accounts/#{account.id}/cosmos/documents"
       end
 
       it 'returns unauthorized status' do
@@ -35,7 +35,7 @@ RSpec.describe 'Api::V1::Accounts::Cosmos::Documents', type: :request do
         end
 
         it 'returns the first page of documents' do
-          get "/api/v1/accounts/#{account.id}/captain/documents", headers: agent.create_new_auth_token, as: :json
+          get "/api/v1/accounts/#{account.id}/cosmos/documents", headers: agent.create_new_auth_token, as: :json
 
           expect(response).to have_http_status(:ok)
           expect(json_response[:payload].length).to eq(25)
@@ -43,7 +43,7 @@ RSpec.describe 'Api::V1::Accounts::Cosmos::Documents', type: :request do
         end
 
         it 'returns the second page of documents' do
-          get "/api/v1/accounts/#{account.id}/captain/documents",
+          get "/api/v1/accounts/#{account.id}/cosmos/documents",
               params: { page: 2 },
               headers: agent.create_new_auth_token, as: :json
 
@@ -60,7 +60,7 @@ RSpec.describe 'Api::V1::Accounts::Cosmos::Documents', type: :request do
         end
 
         it 'returns only documents for the specified assistant' do
-          get "/api/v1/accounts/#{account.id}/captain/documents",
+          get "/api/v1/accounts/#{account.id}/cosmos/documents",
               params: { assistant_id: assistant.id },
               headers: agent.create_new_auth_token, as: :json
           expect(response).to have_http_status(:ok)
@@ -70,7 +70,7 @@ RSpec.describe 'Api::V1::Accounts::Cosmos::Documents', type: :request do
 
         it 'returns empty array when assistant has no documents' do
           new_assistant = create(:cosmos_assistant, account: account)
-          get "/api/v1/accounts/#{account.id}/captain/documents",
+          get "/api/v1/accounts/#{account.id}/cosmos/documents",
               params: { assistant_id: new_assistant.id },
               headers: agent.create_new_auth_token, as: :json
           expect(response).to have_http_status(:ok)
@@ -87,7 +87,7 @@ RSpec.describe 'Api::V1::Accounts::Cosmos::Documents', type: :request do
         end
 
         it 'only returns documents for the current account' do
-          get "/api/v1/accounts/#{account.id}/captain/documents",
+          get "/api/v1/accounts/#{account.id}/cosmos/documents",
               headers: agent.create_new_auth_token, as: :json
           expect(response).to have_http_status(:ok)
           expect(json_response[:payload].length).to eq(3)
@@ -103,7 +103,7 @@ RSpec.describe 'Api::V1::Accounts::Cosmos::Documents', type: :request do
         end
 
         it 'returns paginated results for specific assistant' do
-          get "/api/v1/accounts/#{account.id}/captain/documents",
+          get "/api/v1/accounts/#{account.id}/cosmos/documents",
               params: { assistant_id: assistant.id, page: 2 },
               headers: agent.create_new_auth_token, as: :json
           expect(response).to have_http_status(:ok)
@@ -115,10 +115,10 @@ RSpec.describe 'Api::V1::Accounts::Cosmos::Documents', type: :request do
     end
   end
 
-  describe 'GET /api/v1/accounts/:account_id/captain/documents/:id' do
+  describe 'GET /api/v1/accounts/:account_id/cosmos/documents/:id' do
     context 'when it is an un-authenticated user' do
       before do
-        get "/api/v1/accounts/#{account.id}/captain/documents/#{document.id}"
+        get "/api/v1/accounts/#{account.id}/cosmos/documents/#{document.id}"
       end
 
       it 'returns unauthorized status' do
@@ -128,7 +128,7 @@ RSpec.describe 'Api::V1::Accounts::Cosmos::Documents', type: :request do
 
     context 'when it is an agent' do
       before do
-        get "/api/v1/accounts/#{account.id}/captain/documents/#{document.id}",
+        get "/api/v1/accounts/#{account.id}/cosmos/documents/#{document.id}",
             headers: agent.create_new_auth_token, as: :json
       end
 
@@ -146,7 +146,7 @@ RSpec.describe 'Api::V1::Accounts::Cosmos::Documents', type: :request do
         synced_at = 1.hour.ago
         document.update!(sync_status: :synced, last_synced_at: synced_at)
 
-        get "/api/v1/accounts/#{account.id}/captain/documents/#{document.id}",
+        get "/api/v1/accounts/#{account.id}/cosmos/documents/#{document.id}",
             headers: agent.create_new_auth_token, as: :json
 
         expect(json_response[:sync_status]).to eq('synced')
@@ -156,7 +156,7 @@ RSpec.describe 'Api::V1::Accounts::Cosmos::Documents', type: :request do
       it 'does not report failed documents without a successful sync as last synced' do
         document.update!(sync_status: :failed, last_sync_attempted_at: 1.minute.ago)
 
-        get "/api/v1/accounts/#{account.id}/captain/documents/#{document.id}",
+        get "/api/v1/accounts/#{account.id}/cosmos/documents/#{document.id}",
             headers: agent.create_new_auth_token, as: :json
 
         expect(json_response[:sync_status]).to eq('failed')
@@ -165,7 +165,7 @@ RSpec.describe 'Api::V1::Accounts::Cosmos::Documents', type: :request do
     end
   end
 
-  describe 'POST /api/v1/accounts/:account_id/captain/documents' do
+  describe 'POST /api/v1/accounts/:account_id/cosmos/documents' do
     let(:valid_attributes) do
       {
         document: {
@@ -187,7 +187,7 @@ RSpec.describe 'Api::V1::Accounts::Cosmos::Documents', type: :request do
 
     context 'when it is an un-authenticated user' do
       before do
-        post "/api/v1/accounts/#{account.id}/captain/documents",
+        post "/api/v1/accounts/#{account.id}/cosmos/documents",
              params: valid_attributes, as: :json
       end
 
@@ -198,7 +198,7 @@ RSpec.describe 'Api::V1::Accounts::Cosmos::Documents', type: :request do
 
     context 'when it is an agent' do
       it 'returns unauthorized' do
-        post "/api/v1/accounts/#{account.id}/captain/documents",
+        post "/api/v1/accounts/#{account.id}/cosmos/documents",
              params: valid_attributes,
              headers: agent.create_new_auth_token
 
@@ -210,14 +210,14 @@ RSpec.describe 'Api::V1::Accounts::Cosmos::Documents', type: :request do
       context 'with valid parameters' do
         it 'creates a new document' do
           expect do
-            post "/api/v1/accounts/#{account.id}/captain/documents",
+            post "/api/v1/accounts/#{account.id}/cosmos/documents",
                  params: valid_attributes,
                  headers: admin.create_new_auth_token
           end.to change(Cosmos::Document, :count).by(1)
         end
 
         it 'returns success status and the created document' do
-          post "/api/v1/accounts/#{account.id}/captain/documents",
+          post "/api/v1/accounts/#{account.id}/cosmos/documents",
                params: valid_attributes,
                headers: admin.create_new_auth_token, as: :json
 
@@ -229,7 +229,7 @@ RSpec.describe 'Api::V1::Accounts::Cosmos::Documents', type: :request do
 
       context 'with invalid parameters' do
         before do
-          post "/api/v1/accounts/#{account.id}/captain/documents",
+          post "/api/v1/accounts/#{account.id}/cosmos/documents",
                params: invalid_attributes,
                headers: admin.create_new_auth_token
         end
@@ -243,8 +243,8 @@ RSpec.describe 'Api::V1::Accounts::Cosmos::Documents', type: :request do
         before do
           create_list(:cosmos_document, 5, assistant: assistant, account: account)
 
-          InstallationConfig.find_or_initialize_by(name: 'COSMOSCLOUD_PLAN_LIMITS').update!(value: captain_limits.to_json)
-          post "/api/v1/accounts/#{account.id}/captain/documents",
+          InstallationConfig.find_or_initialize_by(name: 'COSMOSCLOUD_PLAN_LIMITS').update!(value: cosmos_limits.to_json)
+          post "/api/v1/accounts/#{account.id}/cosmos/documents",
                params: valid_attributes,
                headers: admin.create_new_auth_token
         end
@@ -256,19 +256,19 @@ RSpec.describe 'Api::V1::Accounts::Cosmos::Documents', type: :request do
     end
   end
 
-  describe 'POST /api/v1/accounts/:account_id/captain/documents/:id/sync' do
+  describe 'POST /api/v1/accounts/:account_id/cosmos/documents/:id/sync' do
     before { clear_enqueued_jobs }
 
     context 'when it is an un-authenticated user' do
       it 'returns unauthorized status' do
-        post "/api/v1/accounts/#{account.id}/captain/documents/#{document.id}/sync"
+        post "/api/v1/accounts/#{account.id}/cosmos/documents/#{document.id}/sync"
         expect(response).to have_http_status(:unauthorized)
       end
     end
 
     context 'when it is an agent' do
       it 'denies the request' do
-        post "/api/v1/accounts/#{account.id}/captain/documents/#{document.id}/sync",
+        post "/api/v1/accounts/#{account.id}/cosmos/documents/#{document.id}/sync",
              headers: agent.create_new_auth_token, as: :json
 
         expect(response).to have_http_status(:unauthorized)
@@ -279,7 +279,7 @@ RSpec.describe 'Api::V1::Accounts::Cosmos::Documents', type: :request do
       it 'queues a sync and returns accepted' do
         freeze_time do
           expect do
-            post "/api/v1/accounts/#{account.id}/captain/documents/#{document.id}/sync",
+            post "/api/v1/accounts/#{account.id}/cosmos/documents/#{document.id}/sync",
                  headers: admin.create_new_auth_token, as: :json
           end.to have_enqueued_job(Cosmos::Documents::PerformSyncJob).with(document).on_queue('low')
 
@@ -296,7 +296,7 @@ RSpec.describe 'Api::V1::Accounts::Cosmos::Documents', type: :request do
         document.update!(sync_status: :syncing, last_sync_attempted_at: 1.minute.ago)
 
         expect do
-          post "/api/v1/accounts/#{account.id}/captain/documents/#{document.id}/sync",
+          post "/api/v1/accounts/#{account.id}/cosmos/documents/#{document.id}/sync",
                headers: admin.create_new_auth_token, as: :json
         end.to have_enqueued_job(Cosmos::Documents::PerformSyncJob).with(document).on_queue('low')
 
@@ -308,7 +308,7 @@ RSpec.describe 'Api::V1::Accounts::Cosmos::Documents', type: :request do
           document.update!(sync_status: :syncing, last_sync_attempted_at: (Cosmos::Document::SYNC_STALE_TIMEOUT + 1.minute).ago)
 
           expect do
-            post "/api/v1/accounts/#{account.id}/captain/documents/#{document.id}/sync",
+            post "/api/v1/accounts/#{account.id}/cosmos/documents/#{document.id}/sync",
                  headers: admin.create_new_auth_token, as: :json
           end.to have_enqueued_job(Cosmos::Documents::PerformSyncJob).with(document)
 
@@ -328,7 +328,7 @@ RSpec.describe 'Api::V1::Accounts::Cosmos::Documents', type: :request do
         pdf_document.save!
 
         expect do
-          post "/api/v1/accounts/#{account.id}/captain/documents/#{pdf_document.id}/sync",
+          post "/api/v1/accounts/#{account.id}/cosmos/documents/#{pdf_document.id}/sync",
                headers: admin.create_new_auth_token, as: :json
         end.not_to have_enqueued_job(Cosmos::Documents::PerformSyncJob)
 
@@ -339,7 +339,7 @@ RSpec.describe 'Api::V1::Accounts::Cosmos::Documents', type: :request do
         in_progress_document = create(:cosmos_document, assistant: assistant, account: account, status: :in_progress)
 
         expect do
-          post "/api/v1/accounts/#{account.id}/captain/documents/#{in_progress_document.id}/sync",
+          post "/api/v1/accounts/#{account.id}/cosmos/documents/#{in_progress_document.id}/sync",
                headers: admin.create_new_auth_token, as: :json
         end.not_to have_enqueued_job(Cosmos::Documents::PerformSyncJob)
 
@@ -348,10 +348,10 @@ RSpec.describe 'Api::V1::Accounts::Cosmos::Documents', type: :request do
     end
   end
 
-  describe 'DELETE /api/v1/accounts/:account_id/captain/documents/:id' do
+  describe 'DELETE /api/v1/accounts/:account_id/cosmos/documents/:id' do
     context 'when it is an un-authenticated user' do
       before do
-        delete "/api/v1/accounts/#{account.id}/captain/documents/#{document.id}"
+        delete "/api/v1/accounts/#{account.id}/cosmos/documents/#{document.id}"
       end
 
       it 'returns unauthorized status' do
@@ -363,7 +363,7 @@ RSpec.describe 'Api::V1::Accounts::Cosmos::Documents', type: :request do
       let!(:document_to_delete) { create(:cosmos_document, assistant: assistant) }
 
       it 'deletes the document' do
-        delete "/api/v1/accounts/#{account.id}/captain/documents/#{document_to_delete.id}",
+        delete "/api/v1/accounts/#{account.id}/cosmos/documents/#{document_to_delete.id}",
                headers: agent.create_new_auth_token
 
         expect(response).to have_http_status(:unauthorized)
@@ -376,13 +376,13 @@ RSpec.describe 'Api::V1::Accounts::Cosmos::Documents', type: :request do
 
         it 'deletes the document' do
           expect do
-            delete "/api/v1/accounts/#{account.id}/captain/documents/#{document_to_delete.id}",
+            delete "/api/v1/accounts/#{account.id}/cosmos/documents/#{document_to_delete.id}",
                    headers: admin.create_new_auth_token
           end.to change(Cosmos::Document, :count).by(-1)
         end
 
         it 'returns no content status' do
-          delete "/api/v1/accounts/#{account.id}/captain/documents/#{document_to_delete.id}",
+          delete "/api/v1/accounts/#{account.id}/cosmos/documents/#{document_to_delete.id}",
                  headers: admin.create_new_auth_token
 
           expect(response).to have_http_status(:no_content)
@@ -391,7 +391,7 @@ RSpec.describe 'Api::V1::Accounts::Cosmos::Documents', type: :request do
 
       context 'when document does not exist' do
         before do
-          delete "/api/v1/accounts/#{account.id}/captain/documents/invalid_id",
+          delete "/api/v1/accounts/#{account.id}/cosmos/documents/invalid_id",
                  headers: admin.create_new_auth_token
         end
 

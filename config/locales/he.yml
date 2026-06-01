@@ -852,7 +852,7 @@ he:
     inbox_already_assigned: 'תיבת דואר נכנס כבר הוקצתה למדיניות זו'
   portals:
     articles:
-      captain_not_available: 'Translation requires Captain to be enabled for this account'
+      cosmos_not_available: 'Translation requires Cosmos to be enabled for this account'
       locale_not_available: 'Locale not available in this portal'
       category_not_found: 'Category not found in this portal'
       no_articles_found: 'No articles found to process'

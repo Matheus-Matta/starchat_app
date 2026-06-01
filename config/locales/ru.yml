@@ -505,7 +505,7 @@ ru:
     inbox_already_assigned: 'Входящие уже были назначены на эту политику'
   portals:
     articles:
-      captain_not_available: 'Перевод требует включения Captain для этой учетной записи'
+      cosmos_not_available: 'Перевод требует включения Cosmos для этой учетной записи'
       locale_not_available: 'Язык не доступен на этом портале'
       category_not_found: 'Категория не найдена в этом портале'
       no_articles_found: 'Нет статей для обработки'

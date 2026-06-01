@@ -84,7 +84,7 @@ const isTranslationAvailable = computed(
     isEnterprise &&
     isFeatureEnabledonAccount.value(
       currentAccountId.value,
-      FEATURE_FLAGS.CAPTAIN_TASKS
+      FEATURE_FLAGS.COSMOS_TASKS
     )
 );
 

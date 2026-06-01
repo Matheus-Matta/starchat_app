@@ -375,17 +375,17 @@
     "AGENT_ASSIGNMENT": "Agent Assignment",
     "COMPANIES": "Şirkətlər",
     "ALL_COMPANIES": "Bütün Şirkətlər",
-    "CAPTAIN": "Captain",
-    "CAPTAIN_ASSISTANTS": "Köməkçilər",
-    "CAPTAIN_DOCUMENTS": "Sənədlər",
-    "CAPTAIN_RESPONSES": "Tez-tez verilən suallar",
-    "CAPTAIN_TOOLS": "Alətlər",
-    "CAPTAIN_SCENARIOS": "Ssenarilər",
-    "CAPTAIN_PLAYGROUND": "Oyun meydanı",
-    "CAPTAIN_INBOXES": "Gələn qutuları",
-    "CAPTAIN_SETTINGS": "Parametrlər",
+    "COSMOS": "Cosmos",
+    "COSMOS_ASSISTANTS": "Köməkçilər",
+    "COSMOS_DOCUMENTS": "Sənədlər",
+    "COSMOS_RESPONSES": "Tez-tez verilən suallar",
+    "COSMOS_TOOLS": "Alətlər",
+    "COSMOS_SCENARIOS": "Ssenarilər",
+    "COSMOS_PLAYGROUND": "Oyun meydanı",
+    "COSMOS_INBOXES": "Gələn qutuları",
+    "COSMOS_SETTINGS": "Parametrlər",
     "SECURITY": "Təhlükəsizlik",
-    "CAPTAIN_AI": "Kapitan",
+    "COSMOS_AI": "Kapitan",
     "CONVERSATION_WORKFLOW": "Söhbət İş Axını"
   },
   "BILLING_SETTINGS": {
@@ -417,7 +417,7 @@
       "BUTTON_TXT": "Chat with us"
     },
     "NO_BILLING_USER": "Your billing account is being configured. Please refresh the page and try again.",
-    "CAPTAIN": {
+    "COSMOS": {
       "TITLE": "Kapitan",
       "DESCRIPTION": "Kapitan AI üçün istifadə və kreditləri idarə edin.",
       "BUTTON_TXT": "Daha çox kredit alın",
@@ -429,7 +429,7 @@
     "TOPUP": {
       "BUY_CREDITS": "Daha çox kredit al",
       "MODAL_TITLE": "AI Kreditləri Al",
-      "MODAL_DESCRIPTION": "Captain AI üçün əlavə kreditlər satın alın.",
+      "MODAL_DESCRIPTION": "Cosmos AI üçün əlavə kreditlər satın alın.",
       "CREDITS": "KREDİTLƏR",
       "ONE_TIME": "bir dəfəlik",
       "POPULAR": "Ən Populyar",
@@ -760,12 +760,12 @@
       "CANCEL_BUTTON_LABEL": "Cancel"
     }
   },
-  "CAPTAIN_SETTINGS": {
+  "COSMOS_SETTINGS": {
     "TITLE": "Kapitan Ayarları",
     "DESCRIPTION": "Kapitan üçün AI modellərinizi və xüsusiyyətlərinizi konfiqurasiya edin. Kapitan kredit əsaslı ödəniş sistemi ilə işləyir, seçilmiş modelə əsasən Kapitanın hər hərəkəti üçün kreditlər hesablanacaq.",
-    "LOADING": "Captain konfiqurasiyası yüklənir...",
-    "LINK_TEXT": "Captain Krediti haqqında daha çox məlumat əldə edin",
-    "NOT_ENABLED": "Captain hesabınız üçün aktiv deyil. Captain xüsusiyyətlərinə daxil olmaq üçün planınızı yüksəldin.",
+    "LOADING": "Cosmos konfiqurasiyası yüklənir...",
+    "LINK_TEXT": "Cosmos Krediti haqqında daha çox məlumat əldə edin",
+    "NOT_ENABLED": "Cosmos hesabınız üçün aktiv deyil. Cosmos xüsusiyyətlərinə daxil olmaq üçün planınızı yüksəldin.",
     "MODEL_CONFIG": {
       "TITLE": "Model Konfiqurasiyası",
       "DESCRIPTION": "Fərqli xüsusiyyətlər üçün AI modellərini seçin.",
@@ -804,8 +804,8 @@
       }
     },
     "API": {
-      "SUCCESS": "Captain parametrləri uğurla yeniləndi.",
-      "ERROR": "Captain parametrlərini yeniləmək alınmadı. Zəhmət olmasa, yenidən cəhd edin."
+      "SUCCESS": "Cosmos parametrləri uğurla yeniləndi.",
+      "ERROR": "Cosmos parametrlərini yeniləmək alınmadı. Zəhmət olmasa, yenidən cəhd edin."
     }
   },
   "SECURITY_SETTINGS": {

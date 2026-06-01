@@ -58,7 +58,7 @@ class Cosmos::Llm::WidgetTaglineService < Cosmos::BaseTaskService
     @llm_credential ||= system_llm_credential
   end
 
-  def captain_tasks_enabled?
+  def cosmos_tasks_enabled?
     true
   end
 
@@ -69,7 +69,7 @@ class Cosmos::Llm::WidgetTaglineService < Cosmos::BaseTaskService
   end
 
   def tagline_model
-    @tagline_model ||= InstallationConfig.find_by(name: 'CAPTAIN_OPEN_AI_MODEL')&.value.presence || GPT_MODEL
+    @tagline_model ||= InstallationConfig.find_by(name: 'COSMOS_OPEN_AI_MODEL')&.value.presence || GPT_MODEL
   end
 
   def build_follow_up_context?

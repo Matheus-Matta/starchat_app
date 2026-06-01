@@ -375,17 +375,17 @@
     "AGENT_ASSIGNMENT": "Agent Assignment",
     "COMPANIES": "Şirketler",
     "ALL_COMPANIES": "Tüm Şirketler",
-    "CAPTAIN": "Captain",
-    "CAPTAIN_ASSISTANTS": "Assistants",
-    "CAPTAIN_DOCUMENTS": "Belgeler",
-    "CAPTAIN_RESPONSES": "SSS",
-    "CAPTAIN_TOOLS": "Araçlar",
-    "CAPTAIN_SCENARIOS": "Scenarios",
-    "CAPTAIN_PLAYGROUND": "Oyun Alanı",
-    "CAPTAIN_INBOXES": "Gelen kutuları",
-    "CAPTAIN_SETTINGS": "Ayarlar",
+    "COSMOS": "Cosmos",
+    "COSMOS_ASSISTANTS": "Assistants",
+    "COSMOS_DOCUMENTS": "Belgeler",
+    "COSMOS_RESPONSES": "SSS",
+    "COSMOS_TOOLS": "Araçlar",
+    "COSMOS_SCENARIOS": "Scenarios",
+    "COSMOS_PLAYGROUND": "Oyun Alanı",
+    "COSMOS_INBOXES": "Gelen kutuları",
+    "COSMOS_SETTINGS": "Ayarlar",
     "SECURITY": "Güvenlik",
-    "CAPTAIN_AI": "Captain",
+    "COSMOS_AI": "Cosmos",
     "CONVERSATION_WORKFLOW": "Konuşma Akışı"
   },
   "BILLING_SETTINGS": {
@@ -417,19 +417,19 @@
       "BUTTON_TXT": "Sohbet et"
     },
     "NO_BILLING_USER": "Fatura hesabınız yapılandırılıyor. Lütfen sayfayı yenileyip tekrar deneyin.",
-    "CAPTAIN": {
-      "TITLE": "Captain",
-      "DESCRIPTION": "Manage usage and credits for Captain AI.",
+    "COSMOS": {
+      "TITLE": "Cosmos",
+      "DESCRIPTION": "Manage usage and credits for Cosmos AI.",
       "BUTTON_TXT": "Buy more credits",
       "DOCUMENTS": "Belgeler",
       "RESPONSES": "Responses",
-      "UPGRADE": "Captain, ücretsiz planda mevcut değildir. Asistanlara, Copilot'a ve daha fazlasına erişim sağlamak için şimdi yükseltin.",
+      "UPGRADE": "Cosmos, ücretsiz planda mevcut değildir. Asistanlara, Copilot'a ve daha fazlasına erişim sağlamak için şimdi yükseltin.",
       "REFRESH_CREDITS": "Yenile"
     },
     "TOPUP": {
       "BUY_CREDITS": "Buy more credits",
       "MODAL_TITLE": "Buy AI Credits",
-      "MODAL_DESCRIPTION": "Purchase additional credits for Captain AI.",
+      "MODAL_DESCRIPTION": "Purchase additional credits for Cosmos AI.",
       "CREDITS": "CREDITS",
       "ONE_TIME": "one-time",
       "POPULAR": "Most Popular",
@@ -760,12 +760,12 @@
       "CANCEL_BUTTON_LABEL": "İptal Et"
     }
   },
-  "CAPTAIN_SETTINGS": {
-    "TITLE": "Captain Settings",
-    "DESCRIPTION": "Configure your AI models and features for Captain. Captain follows a credit based billing, you will be charged credits for every action Captain takes based on the model selected.",
-    "LOADING": "Loading Captain configuration...",
-    "LINK_TEXT": "Learn more about Captain Credits",
-    "NOT_ENABLED": "Captain is not enabled for your account. Please upgrade your plan to access Captain features.",
+  "COSMOS_SETTINGS": {
+    "TITLE": "Cosmos Settings",
+    "DESCRIPTION": "Configure your AI models and features for Cosmos. Cosmos follows a credit based billing, you will be charged credits for every action Cosmos takes based on the model selected.",
+    "LOADING": "Loading Cosmos configuration...",
+    "LINK_TEXT": "Learn more about Cosmos Credits",
+    "NOT_ENABLED": "Cosmos is not enabled for your account. Please upgrade your plan to access Cosmos features.",
     "MODEL_CONFIG": {
       "TITLE": "Model Configuration",
       "DESCRIPTION": "Select AI models for different features.",
@@ -804,8 +804,8 @@
       }
     },
     "API": {
-      "SUCCESS": "Captain settings updated successfully.",
-      "ERROR": "Failed to update Captain settings. Please try again."
+      "SUCCESS": "Cosmos settings updated successfully.",
+      "ERROR": "Failed to update Cosmos settings. Please try again."
     }
   },
   "SECURITY_SETTINGS": {

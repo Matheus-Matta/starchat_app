@@ -385,16 +385,16 @@
     "SECURITY": "Segurança",
     "COMPANIES": "Empresas",
     "ALL_COMPANIES": "Todas as Empresas",
-    "CAPTAIN": "Capitão",
-    "CAPTAIN_ASSISTANTS": "Assistentes",
-    "CAPTAIN_DOCUMENTS": "Documentos",
-    "CAPTAIN_RESPONSES": "FAQs",
-    "CAPTAIN_TOOLS": "Ferramentas",
-    "CAPTAIN_SCENARIOS": "Cenários",
-    "CAPTAIN_PLAYGROUND": "Playground",
-    "CAPTAIN_INBOXES": "Caixas de Entrada",
-    "CAPTAIN_SETTINGS": "Configurações",
-    "CAPTAIN_AI": "Capitão"
+    "COSMOS": "Capitão",
+    "COSMOS_ASSISTANTS": "Assistentes",
+    "COSMOS_DOCUMENTS": "Documentos",
+    "COSMOS_RESPONSES": "FAQs",
+    "COSMOS_TOOLS": "Ferramentas",
+    "COSMOS_SCENARIOS": "Cenários",
+    "COSMOS_PLAYGROUND": "Playground",
+    "COSMOS_INBOXES": "Caixas de Entrada",
+    "COSMOS_SETTINGS": "Configurações",
+    "COSMOS_AI": "Capitão"
   },
   "BILLING_SETTINGS": {
     "TITLE": "Cobrança",
@@ -425,9 +425,9 @@
       "BUTTON_TXT": "Fale conosco no chat"
     },
     "NO_BILLING_USER": "A sua conta de cobrança está sendo configurada. Atualize a página e tente novamente.",
-    "CAPTAIN": {
+    "COSMOS": {
       "TITLE": "Capitão",
-      "DESCRIPTION": "Gerenciar uso e créditos para o Captain AI.",
+      "DESCRIPTION": "Gerenciar uso e créditos para o Cosmos AI.",
       "BUTTON_TXT": "Comprar mais créditos",
       "DOCUMENTS": "Documentos",
       "RESPONSES": "Respostas",
@@ -924,7 +924,7 @@
       }
     }
   },
-  "CAPTAIN_SETTINGS": {
+  "COSMOS_SETTINGS": {
     "TITLE": "Configurações do Capitão",
     "DESCRIPTION": "Configure seus modelos e recursos de IA para o Capitão. O Capitão utiliza um modelo de cobrança baseado em créditos; você será cobrado em créditos por cada ação que o Capitão realizar, dependendo do modelo selecionado.",
     "LOADING": "Carregando configurações do Capitão...",

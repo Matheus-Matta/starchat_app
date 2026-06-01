@@ -63,7 +63,7 @@ export default createStore({
         ids,
       });
 
-      await dispatch('captainDocuments/markSyncing', response.ids || [], {
+      await dispatch('cosmosDocuments/markSyncing', response.ids || [], {
         root: true,
       });
       return response;

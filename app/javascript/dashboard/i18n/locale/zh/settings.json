@@ -322,15 +322,15 @@
     "ACTIVE": "状态",
     "COMPANIES": "公司",
     "ALL_COMPANIES": "All Companies",
-    "CAPTAIN": "Captain",
-    "CAPTAIN_ASSISTANTS": "助手",
-    "CAPTAIN_DOCUMENTS": "文档",
-    "CAPTAIN_RESPONSES": "常见问题",
-    "CAPTAIN_TOOLS": "工具",
-    "CAPTAIN_SCENARIOS": "Scenarios",
-    "CAPTAIN_PLAYGROUND": "试验场",
-    "CAPTAIN_INBOXES": "收件箱",
-    "CAPTAIN_SETTINGS": "设置",
+    "COSMOS": "Cosmos",
+    "COSMOS_ASSISTANTS": "助手",
+    "COSMOS_DOCUMENTS": "文档",
+    "COSMOS_RESPONSES": "常见问题",
+    "COSMOS_TOOLS": "工具",
+    "COSMOS_SCENARIOS": "Scenarios",
+    "COSMOS_PLAYGROUND": "试验场",
+    "COSMOS_INBOXES": "收件箱",
+    "COSMOS_SETTINGS": "设置",
     "AGENT_BOTS": "机器人",
     "AUDIT_LOGS": "审计日志",
     "NOTIFICATIONS": "消息通知",
@@ -385,7 +385,7 @@
     },
     "DOCS": "阅读文档",
     "SECURITY": "安全",
-    "CAPTAIN_AI": "Captain",
+    "COSMOS_AI": "Cosmos",
     "CONVERSATION_WORKFLOW": "Conversation Workflow"
   },
   "CREATE_ACCOUNT": {
@@ -406,12 +406,12 @@
     },
     "NO_ACCOUNT_WARNING": "哦，糟糕！我们找不到任何 Chatwoot 账户。请创建一个新账户以继续。"
   },
-  "CAPTAIN_SETTINGS": {
-    "TITLE": "Captain Settings",
-    "DESCRIPTION": "Configure your AI models and features for Captain. Captain follows a credit based billing, you will be charged credits for every action Captain takes based on the model selected.",
-    "LOADING": "Loading Captain configuration...",
-    "LINK_TEXT": "Learn more about Captain Credits",
-    "NOT_ENABLED": "Captain is not enabled for your account. Please upgrade your plan to access Captain features.",
+  "COSMOS_SETTINGS": {
+    "TITLE": "Cosmos Settings",
+    "DESCRIPTION": "Configure your AI models and features for Cosmos. Cosmos follows a credit based billing, you will be charged credits for every action Cosmos takes based on the model selected.",
+    "LOADING": "Loading Cosmos configuration...",
+    "LINK_TEXT": "Learn more about Cosmos Credits",
+    "NOT_ENABLED": "Cosmos is not enabled for your account. Please upgrade your plan to access Cosmos features.",
     "MODEL_CONFIG": {
       "TITLE": "Model Configuration",
       "DESCRIPTION": "Select AI models for different features.",
@@ -450,8 +450,8 @@
       }
     },
     "API": {
-      "SUCCESS": "Captain settings updated successfully.",
-      "ERROR": "Failed to update Captain settings. Please try again."
+      "SUCCESS": "Cosmos settings updated successfully.",
+      "ERROR": "Failed to update Cosmos settings. Please try again."
     }
   },
   "BILLING_SETTINGS": {
@@ -469,13 +469,13 @@
       "DESCRIPTION": "查看您之前的发票，编辑您的账单详细信息或取消您的订阅。",
       "BUTTON_TXT": "前往账单门户"
     },
-    "CAPTAIN": {
-      "TITLE": "Captain",
-      "DESCRIPTION": "管理 Captain AI 的使用和积分。",
+    "COSMOS": {
+      "TITLE": "Cosmos",
+      "DESCRIPTION": "管理 Cosmos AI 的使用和积分。",
       "BUTTON_TXT": "购买更多积分",
       "DOCUMENTS": "文档",
       "RESPONSES": "常见问题",
-      "UPGRADE": "Captain 在免费计划中不可用，立即升级以获取助手、副驾驶等更多功能。",
+      "UPGRADE": "Cosmos 在免费计划中不可用，立即升级以获取助手、副驾驶等更多功能。",
       "REFRESH_CREDITS": "刷新"
     },
     "CHAT_WITH_US": {
@@ -487,7 +487,7 @@
     "TOPUP": {
       "BUY_CREDITS": "购买更多积分",
       "MODAL_TITLE": "Buy AI Credits",
-      "MODAL_DESCRIPTION": "Purchase additional credits for Captain AI.",
+      "MODAL_DESCRIPTION": "Purchase additional credits for Cosmos AI.",
       "CREDITS": "CREDITS",
       "ONE_TIME": "one-time",
       "POPULAR": "Most Popular",

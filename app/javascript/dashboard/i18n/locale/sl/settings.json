@@ -375,17 +375,17 @@
     "AGENT_ASSIGNMENT": "Agent Assignment",
     "COMPANIES": "Companies",
     "ALL_COMPANIES": "All Companies",
-    "CAPTAIN": "Kapitan",
-    "CAPTAIN_ASSISTANTS": "Pomočniki",
-    "CAPTAIN_DOCUMENTS": "Dokumenti",
-    "CAPTAIN_RESPONSES": "Pogosta vprašanja",
-    "CAPTAIN_TOOLS": "Tools",
-    "CAPTAIN_SCENARIOS": "Scenarios",
-    "CAPTAIN_PLAYGROUND": "Playground",
-    "CAPTAIN_INBOXES": "Inboxes",
-    "CAPTAIN_SETTINGS": "Settings",
+    "COSMOS": "Kapitan",
+    "COSMOS_ASSISTANTS": "Pomočniki",
+    "COSMOS_DOCUMENTS": "Dokumenti",
+    "COSMOS_RESPONSES": "Pogosta vprašanja",
+    "COSMOS_TOOLS": "Tools",
+    "COSMOS_SCENARIOS": "Scenarios",
+    "COSMOS_PLAYGROUND": "Playground",
+    "COSMOS_INBOXES": "Inboxes",
+    "COSMOS_SETTINGS": "Settings",
     "SECURITY": "Security",
-    "CAPTAIN_AI": "Captain",
+    "COSMOS_AI": "Cosmos",
     "CONVERSATION_WORKFLOW": "Conversation Workflow"
   },
   "BILLING_SETTINGS": {
@@ -417,19 +417,19 @@
       "BUTTON_TXT": "Klepetajte z nami"
     },
     "NO_BILLING_USER": "Your billing account is being configured. Please refresh the page and try again.",
-    "CAPTAIN": {
+    "COSMOS": {
       "TITLE": "Kapitan",
-      "DESCRIPTION": "Upravljajte uporabo in kredite za Captain AI.",
+      "DESCRIPTION": "Upravljajte uporabo in kredite za Cosmos AI.",
       "BUTTON_TXT": "Kupite več kreditov",
       "DOCUMENTS": "Dokumenti",
       "RESPONSES": "Responses",
-      "UPGRADE": "Captain ni na voljo v brezplačnem paketu, nadgradite zdaj za dostop do pomočnikov, kopilota in več.",
+      "UPGRADE": "Cosmos ni na voljo v brezplačnem paketu, nadgradite zdaj za dostop do pomočnikov, kopilota in več.",
       "REFRESH_CREDITS": "Refresh"
     },
     "TOPUP": {
       "BUY_CREDITS": "Buy more credits",
       "MODAL_TITLE": "Buy AI Credits",
-      "MODAL_DESCRIPTION": "Purchase additional credits for Captain AI.",
+      "MODAL_DESCRIPTION": "Purchase additional credits for Cosmos AI.",
       "CREDITS": "CREDITS",
       "ONE_TIME": "one-time",
       "POPULAR": "Most Popular",
@@ -760,12 +760,12 @@
       "CANCEL_BUTTON_LABEL": "Cancel"
     }
   },
-  "CAPTAIN_SETTINGS": {
-    "TITLE": "Captain Settings",
-    "DESCRIPTION": "Configure your AI models and features for Captain. Captain follows a credit based billing, you will be charged credits for every action Captain takes based on the model selected.",
-    "LOADING": "Loading Captain configuration...",
-    "LINK_TEXT": "Learn more about Captain Credits",
-    "NOT_ENABLED": "Captain is not enabled for your account. Please upgrade your plan to access Captain features.",
+  "COSMOS_SETTINGS": {
+    "TITLE": "Cosmos Settings",
+    "DESCRIPTION": "Configure your AI models and features for Cosmos. Cosmos follows a credit based billing, you will be charged credits for every action Cosmos takes based on the model selected.",
+    "LOADING": "Loading Cosmos configuration...",
+    "LINK_TEXT": "Learn more about Cosmos Credits",
+    "NOT_ENABLED": "Cosmos is not enabled for your account. Please upgrade your plan to access Cosmos features.",
     "MODEL_CONFIG": {
       "TITLE": "Model Configuration",
       "DESCRIPTION": "Select AI models for different features.",
@@ -804,8 +804,8 @@
       }
     },
     "API": {
-      "SUCCESS": "Captain settings updated successfully.",
-      "ERROR": "Failed to update Captain settings. Please try again."
+      "SUCCESS": "Cosmos settings updated successfully.",
+      "ERROR": "Failed to update Cosmos settings. Please try again."
     }
   },
   "SECURITY_SETTINGS": {

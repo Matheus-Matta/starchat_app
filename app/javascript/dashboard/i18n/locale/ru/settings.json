@@ -375,17 +375,17 @@
     "AGENT_ASSIGNMENT": "Agent Assignment",
     "COMPANIES": "Компании",
     "ALL_COMPANIES": "Все компании",
-    "CAPTAIN": "Капитан",
-    "CAPTAIN_ASSISTANTS": "Ассистенты",
-    "CAPTAIN_DOCUMENTS": "Документы",
-    "CAPTAIN_RESPONSES": "FAQ",
-    "CAPTAIN_TOOLS": "Инструменты",
-    "CAPTAIN_SCENARIOS": "Сценарии",
-    "CAPTAIN_PLAYGROUND": "Площадка",
-    "CAPTAIN_INBOXES": "Источники",
-    "CAPTAIN_SETTINGS": "Настройки",
+    "COSMOS": "Капитан",
+    "COSMOS_ASSISTANTS": "Ассистенты",
+    "COSMOS_DOCUMENTS": "Документы",
+    "COSMOS_RESPONSES": "FAQ",
+    "COSMOS_TOOLS": "Инструменты",
+    "COSMOS_SCENARIOS": "Сценарии",
+    "COSMOS_PLAYGROUND": "Площадка",
+    "COSMOS_INBOXES": "Источники",
+    "COSMOS_SETTINGS": "Настройки",
     "SECURITY": "Безопасность",
-    "CAPTAIN_AI": "Капитан",
+    "COSMOS_AI": "Капитан",
     "CONVERSATION_WORKFLOW": "Conversation Workflow"
   },
   "BILLING_SETTINGS": {
@@ -417,19 +417,19 @@
       "BUTTON_TXT": "Пообщайтесь с нами"
     },
     "NO_BILLING_USER": "Ваш платёжный счёт настраивается. Пожалуйста, обновите страницу и повторите попытку.",
-    "CAPTAIN": {
+    "COSMOS": {
       "TITLE": "Капитан",
-      "DESCRIPTION": "Управляйте использованием и кредитами для Captain AI.",
+      "DESCRIPTION": "Управляйте использованием и кредитами для Cosmos AI.",
       "BUTTON_TXT": "Купить дополнительные кредиты",
       "DOCUMENTS": "Документы",
       "RESPONSES": "Ответы",
-      "UPGRADE": "Captain недоступен в бесплатном тарифном плане, обновите его, чтобы получить доступ к ассистентам, copilot и другим функциям.",
+      "UPGRADE": "Cosmos недоступен в бесплатном тарифном плане, обновите его, чтобы получить доступ к ассистентам, copilot и другим функциям.",
       "REFRESH_CREDITS": "Обновить"
     },
     "TOPUP": {
       "BUY_CREDITS": "Купить дополнительные кредиты",
       "MODAL_TITLE": "Купить ИИ кредиты",
-      "MODAL_DESCRIPTION": "Купить дополнительные кредиты для Captain AI.",
+      "MODAL_DESCRIPTION": "Купить дополнительные кредиты для Cosmos AI.",
       "CREDITS": "КРЕДИТЫ",
       "ONE_TIME": "один раз",
       "POPULAR": "Самый популярный",
@@ -760,12 +760,12 @@
       "CANCEL_BUTTON_LABEL": "Отменить"
     }
   },
-  "CAPTAIN_SETTINGS": {
-    "TITLE": "Captain Settings",
-    "DESCRIPTION": "Configure your AI models and features for Captain. Captain follows a credit based billing, you will be charged credits for every action Captain takes based on the model selected.",
-    "LOADING": "Loading Captain configuration...",
-    "LINK_TEXT": "Learn more about Captain Credits",
-    "NOT_ENABLED": "Captain is not enabled for your account. Please upgrade your plan to access Captain features.",
+  "COSMOS_SETTINGS": {
+    "TITLE": "Cosmos Settings",
+    "DESCRIPTION": "Configure your AI models and features for Cosmos. Cosmos follows a credit based billing, you will be charged credits for every action Cosmos takes based on the model selected.",
+    "LOADING": "Loading Cosmos configuration...",
+    "LINK_TEXT": "Learn more about Cosmos Credits",
+    "NOT_ENABLED": "Cosmos is not enabled for your account. Please upgrade your plan to access Cosmos features.",
     "MODEL_CONFIG": {
       "TITLE": "Model Configuration",
       "DESCRIPTION": "Select AI models for different features.",
@@ -804,8 +804,8 @@
       }
     },
     "API": {
-      "SUCCESS": "Captain settings updated successfully.",
-      "ERROR": "Failed to update Captain settings. Please try again."
+      "SUCCESS": "Cosmos settings updated successfully.",
+      "ERROR": "Failed to update Cosmos settings. Please try again."
     }
   },
   "SECURITY_SETTINGS": {

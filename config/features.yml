@@ -133,8 +133,8 @@
 - name: linear_integration
   display_name: Linear Integration
   enabled: false
-- name: captain_integration
-  display_name: Captain
+- name: cosmos_integration
+  display_name: Cosmos
   enabled: false
   premium: true
 - name: custom_roles
@@ -144,8 +144,8 @@
 - name: chatwoot_v4
   display_name: Chatwoot V4
   enabled: true
-- name: captain_v1_action_classifier
-  display_name: Captain V1 Action Classifier
+- name: cosmos_v1_action_classifier
+  display_name: Cosmos V1 Action Classifier
   enabled: false
   premium: true
   chatwoot_internal: true
@@ -174,8 +174,8 @@
 - name: notion_integration
   display_name: Notion Integration
   enabled: false
-- name: captain_integration_v2
-  display_name: Captain V2
+- name: cosmos_integration_v2
+  display_name: Cosmos V2
   enabled: false
   premium: true
 - name: whatsapp_embedded_signup
@@ -192,8 +192,8 @@
 - name: assignment_v2
   display_name: Assignment V2
   enabled: true
-- name: captain_document_auto_sync
-  display_name: Captain Document Auto Sync
+- name: cosmos_document_auto_sync
+  display_name: Cosmos Document Auto Sync
   enabled: false
   premium: true
 - name: advanced_search
@@ -231,8 +231,8 @@
   display_name: CSAT Review Notes
   enabled: false
   premium: true
-- name: captain_tasks
-  display_name: Captain Tasks
+- name: cosmos_tasks
+  display_name: Cosmos Tasks
   enabled: true
 - name: conversation_required_attributes
   display_name: Required Conversation Attributes

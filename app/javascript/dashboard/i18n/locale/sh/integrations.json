@@ -387,11 +387,11 @@
     },
     "SEARCH_PLACEHOLDER": "Pretraži integracije...",
     "NO_RESULTS": "Nema integracija koje odgovaraju vašoj pretrazi",
-    "CAPTAIN": {
-      "DISABLED": "Captain is not enabled on your account.",
+    "COSMOS": {
+      "DISABLED": "Cosmos is not enabled on your account.",
       "CLICK_HERE_TO_CONFIGURE": "Kliknite ovdje za konfiguraciju",
-      "LOADING_CONSOLE": "Loading Captain Console...",
-      "FAILED_TO_LOAD_CONSOLE": "Nije uspjelo učitavanje Captain konzole. Molimo osvježite stranicu i pokušajte ponovno."
+      "LOADING_CONSOLE": "Loading Cosmos Console...",
+      "FAILED_TO_LOAD_CONSOLE": "Nije uspjelo učitavanje Cosmos konzole. Molimo osvježite stranicu i pokušajte ponovno."
     }
   },
   "COSMOS": {
@@ -850,7 +850,7 @@
       }
     }
   },
-  "CAPTAIN": {
+  "COSMOS": {
     "NAME": "Kapetan",
     "HEADER_KNOW_MORE": "Saznaj više",
     "ASSISTANT_SWITCHER": {
@@ -901,23 +901,23 @@
       "MESSAGE_PLACEHOLDER": "Upišite svoju poruku...",
       "HEADER": "Igralište",
       "DESCRIPTION": "Koristite ovaj poligon za slanje poruka svom asistentu i provjeru hoće li odgovarati tačno, brzo i u tonu koji očekujete.",
-      "CREDIT_NOTE": "Poruke poslane ovdje računaju se prema vašim Captain kreditima."
+      "CREDIT_NOTE": "Poruke poslane ovdje računaju se prema vašim Cosmos kreditima."
     },
     "PAYWALL": {
-      "TITLE": "Nadogradite se da biste koristili Captain AI",
-      "AVAILABLE_ON": "Captain nije dostupan na besplatnom planu.",
+      "TITLE": "Nadogradite se da biste koristili Cosmos AI",
+      "AVAILABLE_ON": "Cosmos nije dostupan na besplatnom planu.",
       "UPGRADE_PROMPT": "Nadogradi svoj plan za pristup našim asistentima, kopilotu i još mnogo toga.",
       "UPGRADE_NOW": "Nadogradi sada",
       "CANCEL_ANYTIME": "Plan možete promijeniti ili otkazati u bilo kojem trenutku"
     },
     "ENTERPRISE_PAYWALL": {
-      "AVAILABLE_ON": "Captain AI je dostupan samo na Enterprise planovima.",
+      "AVAILABLE_ON": "Cosmos AI je dostupan samo na Enterprise planovima.",
       "UPGRADE_PROMPT": "Nadogradite svoj plan kako biste dobili pristup našim asistentima, kopilotu i još mnogo toga.",
       "ASK_ADMIN": "Molimo obratite se svom administratoru za nadogradnju."
     },
     "BANNER": {
-      "RESPONSES": "Iskoristili ste preko 80% svog limita odgovora. Da biste nastavili koristiti Captain AI, molimo nadogradite se.",
-      "DOCUMENTS": "Dosegnut je limit dokumenata. Nadogradite se da biste nastavili koristiti Captain AI."
+      "RESPONSES": "Iskoristili ste preko 80% svog limita odgovora. Da biste nastavili koristiti Cosmos AI, molimo nadogradite se.",
+      "DOCUMENTS": "Dosegnut je limit dokumenata. Nadogradite se da biste nastavili koristiti Cosmos AI."
     },
     "FORM": {
       "CANCEL": "Otkaži",
@@ -1038,8 +1038,8 @@
         "TITLE": "Nema dostupnih asistenata",
         "SUBTITLE": "Kreirajte asistenta koji će pružati brze i točne odgovore vašim korisnicima. Može učiti iz vaših pomoćnih članaka i prošlih razgovora.",
         "FEATURE_SPOTLIGHT": {
-          "TITLE": "Captain asistent",
-          "NOTE": "Captain asistent izravno komunicira s korisnicima, uči iz vaših pomoćnih dokumenata i prošlih razgovora te pruža trenutne, točne odgovore. Rješava početne upite brzo, prije nego što ih po potrebi proslijedi agentu."
+          "TITLE": "Cosmos asistent",
+          "NOTE": "Cosmos asistent izravno komunicira s korisnicima, uči iz vaših pomoćnih dokumenata i prošlih razgovora te pruža trenutne, točne odgovore. Rješava početne upite brzo, prije nego što ih po potrebi proslijedi agentu."
         }
       },
       "GUARDRAILS": {
@@ -1310,8 +1310,8 @@
         "FILTERED_TITLE": "No matching documents",
         "FILTERED_SUBTITLE": "Try changing the source, status, or search term.",
         "FEATURE_SPOTLIGHT": {
-          "TITLE": "Captain Document",
-          "NOTE": "A document in Captain serves as a knowledge resource for the assistant. By connecting your help center or guides, Captain can analyze the content and provide accurate responses for customer inquiries."
+          "TITLE": "Cosmos Document",
+          "NOTE": "A document in Cosmos serves as a knowledge resource for the assistant. By connecting your help center or guides, Cosmos can analyze the content and provide accurate responses for customer inquiries."
         }
       }
     },
@@ -1350,14 +1350,14 @@
         "ERROR_MESSAGE": "Brisanje prilagođenog alata nije uspjelo"
       },
       "PAYWALL": {
-        "TITLE": "Upgrade to use tools with Captain",
-        "AVAILABLE_ON": "Captain Tools are only available in Business and Enterprise plans. Please upgrade to Business plan to use the feature.",
+        "TITLE": "Upgrade to use tools with Cosmos",
+        "AVAILABLE_ON": "Cosmos Tools are only available in Business and Enterprise plans. Please upgrade to Business plan to use the feature.",
         "UPGRADE_PROMPT": "",
         "UPGRADE_NOW": "Open billing",
         "CANCEL_ANYTIME": ""
       },
       "ENTERPRISE_PAYWALL": {
-        "AVAILABLE_ON": "Captain Tools are only available in the paid plans.",
+        "AVAILABLE_ON": "Cosmos Tools are only available in the paid plans.",
         "UPGRADE_PROMPT": "Please upgrade to a paid plan to use this feature.",
         "ASK_ADMIN": "Please reach out to your administrator for the upgrade."
       },
@@ -1487,7 +1487,7 @@
         "ALL": "Sve"
       },
       "PENDING_BANNER": {
-        "TITLE": "Captain has found some FAQs your customers were looking for.",
+        "TITLE": "Cosmos has found some FAQs your customers were looking for.",
         "ACTION": "Kliknite ovdje za pregled"
       },
       "FORM_DESCRIPTION": "Dodajte pitanje i njegov odgovarajući odgovor u bazu znanja i odaberite asistenta s kojim bi trebao biti povezan.",
@@ -1525,8 +1525,8 @@
         "SUBTITLE": "FAQs help your assistant provide quick and accurate answers to questions from your customers. They can be generated automatically from your content or can be added manually.",
         "CLEAR_SEARCH": "Očisti aktivne filtre",
         "FEATURE_SPOTLIGHT": {
-          "TITLE": "Captain FAQ",
-          "NOTE": "Captain FAQs detects common customer questions—whether missing from your knowledge base or frequently asked—and generates relevant FAQs to improve support. You can review each suggestion and decide whether to approve or reject it."
+          "TITLE": "Cosmos FAQ",
+          "NOTE": "Cosmos FAQs detects common customer questions—whether missing from your knowledge base or frequently asked—and generates relevant FAQs to improve support. You can review each suggestion and decide whether to approve or reject it."
         }
       }
     },
