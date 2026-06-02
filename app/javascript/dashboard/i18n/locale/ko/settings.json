@@ -423,7 +423,7 @@
       "BUTTON_TXT": "크레딧 추가 구매",
       "DOCUMENTS": "문서",
       "RESPONSES": "크레딧",
-      "UPGRADE": "무료 플랜에서는 Captain을 사용할 수 없습니다. 지금 업그레이드하여 어시스턴트, Copilot 등에 접근하십시오.",
+      "UPGRADE": "무료 플랜에서는 Cosmos을 사용할 수 없습니다. 지금 업그레이드하여 어시스턴트, Copilot 등에 접근하십시오.",
       "REFRESH_CREDITS": "새로고침"
     },
     "TOPUP": {
@@ -762,10 +762,10 @@
   },
   "COSMOS_SETTINGS": {
     "TITLE": "Cosmos 설정",
-    "DESCRIPTION": "Captain의 AI 모델과 기능을 구성합니다. Captain은 크레딧 기반 청구를 따르며, 선택한 모델에 따라 Captain이 수행하는 모든 작업에 대해 크레딧이 청구됩니다.",
+    "DESCRIPTION": "Cosmos의 AI 모델과 기능을 구성합니다. Cosmos은 크레딧 기반 청구를 따르며, 선택한 모델에 따라 Cosmos이 수행하는 모든 작업에 대해 크레딧이 청구됩니다.",
     "LOADING": "Cosmos 구성 로딩 중...",
     "LINK_TEXT": "Cosmos 크레딧에 대해 자세히 알아보기",
-    "NOT_ENABLED": "이 계정에서 Captain이 활성화되지 않았습니다. Cosmos 기능에 접근하려면 플랜을 업그레이드하십시오.",
+    "NOT_ENABLED": "이 계정에서 Cosmos이 활성화되지 않았습니다. Cosmos 기능에 접근하려면 플랜을 업그레이드하십시오.",
     "MODEL_CONFIG": {
       "TITLE": "모델 구성",
       "DESCRIPTION": "다양한 기능에 대한 AI 모델을 선택합니다.",

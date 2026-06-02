@@ -844,10 +844,10 @@
   },
   "COSMOS_SETTINGS": {
     "TITLE": "Cosmos Settings",
-    "DESCRIPTION": "Seadista oma AI mudelid ja funktsioonid Captainile. Cosmos kasutab krediidipõhist arveldamist, iga Captaini tegevuse eest valitud mudeli alusel võetakse krediite.",
+    "DESCRIPTION": "Seadista oma AI mudelid ja funktsioonid Cosmos. Cosmos kasutab krediidipõhist arveldamist, iga Cosmos tegevuse eest valitud mudeli alusel võetakse krediite.",
     "LOADING": "Loading Cosmos configuration...",
     "LINK_TEXT": "Learn more about Cosmos Credits",
-    "NOT_ENABLED": "Cosmos ei ole sinu kontol lubatud. Palun uuenda oma plaani, et pääseda Captaini funktsioonidele ligi.",
+    "NOT_ENABLED": "Cosmos ei ole sinu kontol lubatud. Palun uuenda oma plaani, et pääseda Cosmos funktsioonidele ligi.",
     "MODEL_CONFIG": {
       "TITLE": "Mudeli seadistus",
       "DESCRIPTION": "Vali AI mudelid erinevate funktsioonide jaoks.",

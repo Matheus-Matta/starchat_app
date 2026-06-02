@@ -24,11 +24,11 @@ RSpec.describe Onboarding::HelpCenterCurator do
 
   before do
     firecrawl_client = instance_double(Firecrawl::Client, map: instance_double(Firecrawl::Models::MapData, links: links))
-    llm_service = instance_double(Captain::Llm::HelpCenterCurationService, perform: llm_response)
+    llm_service = instance_double(Cosmos::Llm::HelpCenterCurationService, perform: llm_response)
 
     allow(Firecrawl::Configuration).to receive(:configured?).and_return(true)
     allow(Firecrawl::Configuration).to receive(:client).and_return(firecrawl_client)
-    allow(Captain::Llm::HelpCenterCurationService).to receive(:new)
+    allow(Cosmos::Llm::HelpCenterCurationService).to receive(:new)
       .with(account: account, links: links)
       .and_return(llm_service)
   end

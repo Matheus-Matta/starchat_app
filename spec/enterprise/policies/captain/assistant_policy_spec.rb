@@ -2,13 +2,13 @@
 
 require 'rails_helper'
 
-RSpec.describe Captain::AssistantPolicy, type: :policy do
+RSpec.describe Cosmos::AssistantPolicy, type: :policy do
   subject(:assistant_policy) { described_class }
 
   let(:account) { create(:account) }
   let(:administrator) { create(:user, :administrator, account: account) }
   let(:agent) { create(:user, account: account) }
-  let(:assistant) { create(:captain_assistant, account: account) }
+  let(:assistant) { create(:cosmos_assistant, account: account) }
   let(:administrator_context) { { user: administrator, account: account, account_user: account.account_users.first } }
   let(:agent_context) { { user: agent, account: account, account_user: account.account_users.first } }
 

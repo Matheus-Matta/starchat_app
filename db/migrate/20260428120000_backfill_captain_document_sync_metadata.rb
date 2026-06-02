@@ -1,9 +1,9 @@
-class BackfillCaptainDocumentSyncMetadata < ActiveRecord::Migration[7.0]
+class BackfillCosmosDocumentSyncMetadata < ActiveRecord::Migration[7.0]
   def up
     return unless ChatwootApp.enterprise?
 
     # rubocop:disable Rails/SkipsModelValidations
-    Captain::Document
+    Cosmos::Document
       .syncable
       .where(status: :available, sync_status: nil, last_synced_at: nil)
       .in_batches(of: 1000) do |batch|

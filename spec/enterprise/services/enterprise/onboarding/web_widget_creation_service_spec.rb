@@ -18,10 +18,10 @@ RSpec.describe Enterprise::Onboarding::WebWidgetCreationService do
   before { create(:account_user, account: account, user: user, role: :administrator) }
 
   describe '#welcome_tagline_text via #perform' do
-    let(:llm_double) { instance_double(Captain::Llm::WidgetTaglineService) }
+    let(:llm_double) { instance_double(Cosmos::Llm::WidgetTaglineService) }
 
     before do
-      allow(Captain::Llm::WidgetTaglineService).to receive(:new).and_return(llm_double)
+      allow(Cosmos::Llm::WidgetTaglineService).to receive(:new).and_return(llm_double)
     end
 
     context 'when the LLM returns a tagline' do

@@ -419,7 +419,7 @@
     "NO_BILLING_USER": "Your billing account is being configured. Please refresh the page and try again.",
     "COSMOS": {
       "TITLE": "ካፕቴን",
-      "DESCRIPTION": "ለCaptain AI አጠቃቀምና ክሬዲቶችን ያስተዳድሩ።.",
+      "DESCRIPTION": "ለCosmos AI አጠቃቀምና ክሬዲቶችን ያስተዳድሩ።.",
       "BUTTON_TXT": "ተጨማሪ ክሬዲቶች ግዙ",
       "DOCUMENTS": "ሰነዶች",
       "RESPONSES": "Responses",
@@ -761,11 +761,11 @@
     }
   },
   "COSMOS_SETTINGS": {
-    "TITLE": "የCaptain ቅንብሮች",
-    "DESCRIPTION": "ለCaptain የAI ሞዴሎችና ባለስልጣናት ያስተካክሉ። Cosmos በክሬዲት መሠረት ክፍያ ያደርጋል፣ ለእያንዳንዱ እርምጃ በሞዴሉ መሠረት ክሬዲቶች ይከፈላሉ።.",
-    "LOADING": "የCaptain ቅንብር እየጫነ ነው...",
+    "TITLE": "የCosmos ቅንብሮች",
+    "DESCRIPTION": "ለCosmos የAI ሞዴሎችና ባለስልጣናት ያስተካክሉ። Cosmos በክሬዲት መሠረት ክፍያ ያደርጋል፣ ለእያንዳንዱ እርምጃ በሞዴሉ መሠረት ክሬዲቶች ይከፈላሉ።.",
+    "LOADING": "የCosmos ቅንብር እየጫነ ነው...",
     "LINK_TEXT": "ስለ Cosmos ክሬዲቶች ተጨማሪ ያውቁ",
-    "NOT_ENABLED": "Cosmos ለመለያዎ አልተነሳሳም። ለCaptain ባለስልጣናት ባለስልጣናት እቅድዎን ያሻሽሉ።.",
+    "NOT_ENABLED": "Cosmos ለመለያዎ አልተነሳሳም። ለCosmos ባለስልጣናት ባለስልጣናት እቅድዎን ያሻሽሉ።.",
     "MODEL_CONFIG": {
       "TITLE": "የሞዴል ቅንብር",
       "DESCRIPTION": "ለተለያዩ ባለስልጣናት AI ሞዴሎችን ይምረጡ።.",
@@ -804,8 +804,8 @@
       }
     },
     "API": {
-      "SUCCESS": "የCaptain ቅንብሮች በተሳካ ሁኔታ ተሻሽለዋል።.",
-      "ERROR": "የCaptain ቅንብሮችን ማሻሻያ አልተሳካም። እባክዎ እንደገና ይሞክሩ።."
+      "SUCCESS": "የCosmos ቅንብሮች በተሳካ ሁኔታ ተሻሽለዋል።.",
+      "ERROR": "የCosmos ቅንብሮችን ማሻሻያ አልተሳካም። እባክዎ እንደገና ይሞክሩ።."
     }
   },
   "SECURITY_SETTINGS": {

@@ -388,10 +388,10 @@
     "SEARCH_PLACEHOLDER": "Search integrations...",
     "NO_RESULTS": "No integrations found matching your search",
     "COSMOS": {
-      "DISABLED": "Captainはあなたのアカウントで有効になっていません。",
+      "DISABLED": "Cosmosはあなたのアカウントで有効になっていません。",
       "CLICK_HERE_TO_CONFIGURE": "設定するにはここをクリック",
-      "LOADING_CONSOLE": "Captainコンソールを読み込み中...",
-      "FAILED_TO_LOAD_CONSOLE": "Captainコンソールの読み込みに失敗しました。リフレッシュしてもう一度お試しください。"
+      "LOADING_CONSOLE": "Cosmosコンソールを読み込み中...",
+      "FAILED_TO_LOAD_CONSOLE": "Cosmosコンソールの読み込みに失敗しました。リフレッシュしてもう一度お試しください。"
     }
   },
   "COSMOS": {
@@ -866,7 +866,7 @@
       "KICK_OFF_MESSAGE": "簡単な要約が欲しい、過去の会話を確認したい、より良い返信を作成したい？Copilotが処理をスピードアップします。",
       "SEND_MESSAGE": "メッセージを送信...",
       "EMPTY_MESSAGE": "回答の生成中にエラーが発生しました。もう一度お試しください。",
-      "LOADER": "Captainが考え中",
+      "LOADER": "Cosmosが考え中",
       "YOU": "あなた",
       "USE": "これを使用",
       "RESET": "リセット",
@@ -901,11 +901,11 @@
       "MESSAGE_PLACEHOLDER": "Type your message...",
       "HEADER": "プレイグラウンド",
       "DESCRIPTION": "このプレイグラウンドを使ってアシスタントへメッセージを送り、正確かつ迅速に、期待したトーンで応答するかを確認してください。",
-      "CREDIT_NOTE": "ここで送信したメッセージはCaptainのクレジットにカウントされます。"
+      "CREDIT_NOTE": "ここで送信したメッセージはCosmosのクレジットにカウントされます。"
     },
     "PAYWALL": {
-      "TITLE": "アップグレードしてCaptain AIを利用する",
-      "AVAILABLE_ON": "Captainは無料プランでは利用できません。",
+      "TITLE": "アップグレードしてCosmos AIを利用する",
+      "AVAILABLE_ON": "Cosmosは無料プランでは利用できません。",
       "UPGRADE_PROMPT": "アシスタント、Copilotなどにアクセスするには、プランをアップグレードしてください。",
       "UPGRADE_NOW": "今すぐアップグレード",
       "CANCEL_ANYTIME": "プランはいつでも変更またはキャンセルできます"

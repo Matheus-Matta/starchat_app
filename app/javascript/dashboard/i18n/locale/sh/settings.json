@@ -765,7 +765,7 @@
     "DESCRIPTION": "Konfigurirajte svoje AI modele i značajke za Cosmos. Cosmos koristi naplatu temeljenu na kreditima, bit ćete naplaćeni kredite za svaku radnju koju Cosmos izvrši na temelju odabranog modela.",
     "LOADING": "Loading Cosmos configuration...",
     "LINK_TEXT": "Learn more about Cosmos Credits",
-    "NOT_ENABLED": "Cosmos nije omogućen za vaš račun. Molimo nadogradite svoj plan da biste pristupili značajkama Captaina.",
+    "NOT_ENABLED": "Cosmos nije omogućen za vaš račun. Molimo nadogradite svoj plan da biste pristupili značajkama Cosmosa.",
     "MODEL_CONFIG": {
       "TITLE": "Konfiguracija modela",
       "DESCRIPTION": "Odaberite AI modele za različite značajke.",

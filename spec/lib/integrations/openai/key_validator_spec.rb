@@ -29,7 +29,7 @@ RSpec.describe Integrations::Openai::KeyValidator do
 
   it 'routes the probe through the configured endpoint' do
     custom_url = 'https://proxy.example.com/v1/models'
-    allow(InstallationConfig).to receive(:find_by).with(name: 'CAPTAIN_OPEN_AI_ENDPOINT')
+    allow(InstallationConfig).to receive(:find_by).with(name: 'COSMOS_OPEN_AI_ENDPOINT')
                                                   .and_return(instance_double(InstallationConfig, value: 'https://proxy.example.com/'))
     stub_request(:get, custom_url).to_return(status: 200)
 

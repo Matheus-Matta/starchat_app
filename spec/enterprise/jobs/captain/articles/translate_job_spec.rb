@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Captain::Articles::TranslateJob, type: :job do
+RSpec.describe Cosmos::Articles::TranslateJob, type: :job do
   let(:account) { create(:account) }
   let(:user) { create(:user, account: account, role: :administrator) }
   let!(:portal) { create(:portal, account: account, config: { allowed_locales: %w[en es] }) }
@@ -11,12 +11,12 @@ RSpec.describe Captain::Articles::TranslateJob, type: :job do
                      title: 'Getting Started', content: '# Welcome\nThis is a guide.')
   end
 
-  let(:title_service) { instance_double(Captain::Llm::ArticleTranslationService) }
-  let(:content_service) { instance_double(Captain::Llm::ArticleTranslationService) }
+  let(:title_service) { instance_double(Cosmos::Llm::ArticleTranslationService) }
+  let(:content_service) { instance_double(Cosmos::Llm::ArticleTranslationService) }
 
   before do
-    allow(Captain::Llm::ArticleTranslationService).to receive(:new).with(hash_including(type: :title)).and_return(title_service)
-    allow(Captain::Llm::ArticleTranslationService).to receive(:new).with(hash_including(type: :content)).and_return(content_service)
+    allow(Cosmos::Llm::ArticleTranslationService).to receive(:new).with(hash_including(type: :title)).and_return(title_service)
+    allow(Cosmos::Llm::ArticleTranslationService).to receive(:new).with(hash_including(type: :content)).and_return(content_service)
     allow(title_service).to receive(:perform).and_return(message: 'Primeros pasos')
     allow(content_service).to receive(:perform).and_return(message: '# Bienvenido\nEsta es una guía.')
   end
@@ -61,10 +61,10 @@ RSpec.describe Captain::Articles::TranslateJob, type: :job do
   it 'calls the translation service with the correct language' do
     described_class.perform_now(account, article.id, 'es', category_es.id, user)
 
-    expect(Captain::Llm::ArticleTranslationService).to have_received(:new).with(
+    expect(Cosmos::Llm::ArticleTranslationService).to have_received(:new).with(
       account: account, text: 'Getting Started', target_language: 'Spanish', type: :title
     )
-    expect(Captain::Llm::ArticleTranslationService).to have_received(:new).with(
+    expect(Cosmos::Llm::ArticleTranslationService).to have_received(:new).with(
       account: account, text: '# Welcome\nThis is a guide.', target_language: 'Spanish', type: :content
     )
   end
@@ -72,7 +72,7 @@ RSpec.describe Captain::Articles::TranslateJob, type: :job do
   it 'uses language_map for locale name resolution' do
     described_class.perform_now(account, article.id, 'pt_BR', category_es.id, user)
 
-    expect(Captain::Llm::ArticleTranslationService).to have_received(:new).with(
+    expect(Cosmos::Llm::ArticleTranslationService).to have_received(:new).with(
       hash_including(target_language: 'Portuguese (Brazil)', type: :title)
     )
   end

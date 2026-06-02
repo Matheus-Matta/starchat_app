@@ -1,10 +1,10 @@
-class RepurposeTwilioContentTemplatesFlagForCaptainDocumentAutoSync < ActiveRecord::Migration[7.1]
+class RepurposeTwilioContentTemplatesFlagForCosmosDocumentAutoSync < ActiveRecord::Migration[7.1]
   def up
-    # The twilio_content_templates flag (deprecated) has been renamed to captain_document_auto_sync.
+    # The twilio_content_templates flag (deprecated) has been renamed to cosmos_document_auto_sync.
     # Disable it on any accounts that had twilio_content_templates enabled so the repurposed
     # flag starts in its intended default-off state.
-    Account.feature_captain_document_auto_sync.find_each(batch_size: 100) do |account|
-      account.disable_features(:captain_document_auto_sync)
+    Account.feature_cosmos_document_auto_sync.find_each(batch_size: 100) do |account|
+      account.disable_features(:cosmos_document_auto_sync)
       account.save!(validate: false)
     end
 
