@@ -67,7 +67,7 @@ RSpec.describe Cosmos::Llm::AssistantActionClassifierService do
     end
 
     it 'uses the configured Cosmos model' do
-      create(:installation_config, name: 'COSMOSOPEN_AI_MODEL', value: 'gpt-4.1-nano')
+      create(:installation_config, name: 'COSMOS_OPEN_AI_MODEL', value: 'gpt-4.1-nano')
 
       expect(RubyLLM).to receive(:chat).with(model: 'gpt-4.1-nano').and_return(mock_chat)
       allow(mock_chat).to receive(:ask).and_return(mock_response)

@@ -8,8 +8,8 @@ RSpec.describe Messages::AudioTranscriptionService, type: :service do
 
   before do
     # Create required installation configs
-    InstallationConfig.find_or_create_by!(name: 'COSMOSOPEN_AI_API_KEY') { |config| config.value = 'test-api-key' }
-    InstallationConfig.find_or_create_by!(name: 'COSMOSOPEN_AI_MODEL') { |config| config.value = 'gpt-4o-mini' }
+    InstallationConfig.find_or_create_by!(name: 'COSMOS_OPEN_AI_API_KEY') { |config| config.value = 'test-api-key' }
+    InstallationConfig.find_or_create_by!(name: 'COSMOS_OPEN_AI_MODEL') { |config| config.value = 'gpt-4o-mini' }
 
     # Mock usage limits for transcription to be available
     allow(account).to receive(:usage_limits).and_return({ cosmos: { responses: { current_available: 100 } } })

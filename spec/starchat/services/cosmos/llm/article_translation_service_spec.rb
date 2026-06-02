@@ -5,7 +5,7 @@ RSpec.describe Cosmos::Llm::ArticleTranslationService do
   let(:target_language) { 'Spanish' }
 
   before do
-    create(:installation_config, name: 'COSMOSOPEN_AI_API_KEY', value: 'test-key')
+    create(:installation_config, name: 'COSMOS_OPEN_AI_API_KEY', value: 'test-key')
     allow(account).to receive(:feature_enabled?).and_call_original
     allow(account).to receive(:feature_enabled?).with('cosmos_tasks').and_return(true)
   end

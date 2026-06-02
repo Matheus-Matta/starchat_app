@@ -2,10 +2,10 @@ require 'rails_helper'
 
 # Simulate the prepend_mod_with overlay for testing.
 test_klass = Class.new(Onboarding::WebWidgetCreationService) do
-  prepend Enterprise::Onboarding::WebWidgetCreationService
+  prepend Starchat::Onboarding::WebWidgetCreationService
 end
 
-RSpec.describe Enterprise::Onboarding::WebWidgetCreationService do
+RSpec.describe Starchat::Onboarding::WebWidgetCreationService do
   let(:account) do
     create(:account, name: 'Acme Inc', custom_attributes: {
              'website' => 'acme.com',

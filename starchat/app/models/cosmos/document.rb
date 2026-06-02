@@ -23,6 +23,7 @@
 class Cosmos::Document < ApplicationRecord
   class LimitExceededError < StandardError; end
   self.table_name = 'cosmos_documents'
+  SYNC_STALE_TIMEOUT = 2.hours
 
   belongs_to :assistant, class_name: 'Cosmos::Assistant'
   has_many :responses, class_name: 'Cosmos::AssistantResponse', dependent: :destroy, as: :documentable

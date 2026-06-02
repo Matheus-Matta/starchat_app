@@ -1,0 +1,197 @@
+class Cosmos::BaseTaskService
+  include Integrations::LlmInstrumentation
+  include Cosmos::ToolInstrumentation
+  include Llm::ExceptionTrackable
+
+  TOKEN_LIMIT = 400_000
+  GPT_MODEL = Llm::Config::DEFAULT_MODEL
+
+  def self.inherited(subclass)
+    super
+    subclass.prepend_mod_with('Cosmos::BaseTaskService')
+  end
+
+  pattr_initialize [:account!, { conversation_display_id: nil }]
+
+  private
+
+  def event_name
+    raise NotImplementedError, "#{self.class} must implement #event_name"
+  end
+
+  def conversation
+    @conversation ||= account.conversations.find_by(display_id: conversation_display_id)
+  end
+
+  def api_base
+    endpoint = InstallationConfig.find_by(name: 'COSMOS_OPEN_AI_ENDPOINT')&.value.presence || 'https://api.openai.com/'
+    endpoint = endpoint.chomp('/')
+    "#{endpoint}/v1"
+  end
+
+  def make_api_call(model:, messages:, schema: nil, tools: [])
+    return { error: I18n.t('cosmos.disabled'), error_code: 403 } unless cosmos_tasks_enabled?
+    return { error: I18n.t('cosmos.api_key_missing'), error_code: 401 } unless api_key_configured?
+
+    instrumentation_params = build_instrumentation_params(model, messages)
+    instrumentation_method = tools.any? ? :instrument_tool_session : :instrument_llm_call
+
+    response = send(instrumentation_method, instrumentation_params) do
+      execute_ruby_llm_request(model: model, messages: messages, schema: schema, tools: tools)
+    end
+
+    return response unless build_follow_up_context? && response[:message].present?
+
+    response.merge(follow_up_context: build_follow_up_context(messages, response))
+  end
+
+  def execute_ruby_llm_request(model:, messages:, schema: nil, tools: [])
+    credential = llm_credential
+
+    Llm::Config.with_api_key(credential[:api_key], api_base: api_base) do |context|
+      chat = build_chat(context, model: model, messages: messages, schema: schema, tools: tools)
+
+      conversation_messages = messages.reject { |m| m[:role] == 'system' }
+      return { error: 'No conversation messages provided', error_code: 400, request_messages: messages } if conversation_messages.empty?
+
+      add_messages_if_needed(chat, conversation_messages)
+      build_ruby_llm_response(chat.ask(conversation_messages.last[:content]), messages)
+    end
+  rescue StandardError => e
+    capture_llm_exception(e, credential: credential)
+    { error: e.message, request_messages: messages }
+  end
+
+  def build_chat(context, model:, messages:, schema: nil, tools: [])
+    chat = context.chat(model: model)
+    system_msg = messages.find { |m| m[:role] == 'system' }
+    chat.with_instructions(system_msg[:content]) if system_msg
+    chat.with_schema(schema) if schema
+
+    if tools.any?
+      tools.each { |tool| chat = chat.with_tool(tool) }
+      chat.on_end_message { |message| record_generation(chat, message, model) }
+    end
+
+    chat
+  end
+
+  def add_messages_if_needed(chat, conversation_messages)
+    return if conversation_messages.length == 1
+
+    conversation_messages[0...-1].each do |msg|
+      chat.add_message(role: msg[:role].to_sym, content: msg[:content])
+    end
+  end
+
+  def build_ruby_llm_response(response, messages)
+    {
+      message: response.content,
+      usage: {
+        'prompt_tokens' => response.input_tokens,
+        'completion_tokens' => response.output_tokens,
+        'total_tokens' => (response.input_tokens || 0) + (response.output_tokens || 0)
+      },
+      request_messages: messages
+    }
+  end
+
+  def build_instrumentation_params(model, messages)
+    {
+      span_name: "llm.#{event_name}",
+      account_id: account.id,
+      conversation_id: conversation&.display_id,
+      feature_name: event_name,
+      model: model,
+      messages: messages,
+      temperature: nil,
+      metadata: instrumentation_metadata
+    }
+  end
+
+  def instrumentation_metadata
+    { channel_type: conversation&.inbox&.channel_type }.compact
+  end
+
+  def conversation_messages(start_from: 0)
+    messages = []
+    character_count = start_from
+
+    conversation.messages
+                .where(message_type: [:incoming, :outgoing])
+                .where(private: false)
+                .reorder('id desc')
+                .each do |message|
+      content = message.content_for_llm
+      next if content.blank?
+      break if character_count + content.length > TOKEN_LIMIT
+
+      messages.prepend({ role: (message.incoming? ? 'user' : 'assistant'), content: content })
+      character_count += content.length
+    end
+
+    messages
+  end
+
+  def cosmos_tasks_enabled?
+    account.feature_enabled?('cosmos_tasks')
+  end
+
+  def api_key_configured?
+    llm_credential.present?
+  end
+
+  def api_key
+    llm_credential&.dig(:api_key)
+  end
+
+  def llm_credential
+    @llm_credential ||= hook_llm_credential || system_llm_credential
+  end
+
+  def hook_llm_credential
+    key = openai_hook&.settings&.dig('api_key').presence
+    { api_key: key, source: :hook } if key
+  end
+
+  def system_llm_credential
+    { api_key: system_api_key, source: :system } if system_api_key.present?
+  end
+
+  def openai_hook
+    @openai_hook ||= account.hooks.find_by(app_id: 'openai', status: 'enabled')
+  end
+
+  def system_api_key
+    @system_api_key ||= InstallationConfig.find_by(name: 'COSMOS_OPEN_AI_API_KEY')&.value
+  end
+
+  def exception_tracking_account
+    account
+  end
+
+  def prompt_from_file(file_name)
+    Rails.root.join('lib/integrations/openai/openai_prompts', "#{file_name}.liquid").read
+  end
+
+  def build_follow_up_context?
+    !is_a?(Cosmos::FollowUpService)
+  end
+
+  def build_follow_up_context(messages, response)
+    {
+      event_name: event_name,
+      original_context: extract_original_context(messages),
+      last_response: response[:message],
+      conversation_history: [],
+      channel_type: conversation&.inbox&.channel_type
+    }
+  end
+
+  def extract_original_context(messages)
+    user_msg = messages.reverse.find { |m| m[:role] == 'user' }
+    user_msg ? user_msg[:content] : nil
+  end
+end
+
+Cosmos::BaseTaskService.prepend_mod_with('Cosmos::BaseTaskService')
