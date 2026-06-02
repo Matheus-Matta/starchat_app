@@ -6,7 +6,12 @@
 #
 #  id                            :integer          not null, primary key
 #  allow_messages_after_resolved :boolean          default(TRUE)
+#  anti_spam_config              :jsonb
 #  auto_assignment_config        :jsonb
+#  auto_resolve_duration         :integer
+#  auto_resolve_ignore_waiting   :boolean
+#  auto_resolve_label            :string
+#  auto_resolve_message          :text
 #  business_name                 :string
 #  channel_type                  :string
 #  csat_config                   :jsonb            not null
@@ -19,6 +24,7 @@
 #  lock_to_single_conversation   :boolean          default(FALSE), not null
 #  name                          :string           not null
 #  out_of_office_message         :string
+#  sender_config                 :jsonb
 #  sender_name_type              :integer          default("friendly"), not null
 #  timezone                      :string           default("UTC")
 #  working_hours_enabled         :boolean          default(FALSE)
@@ -27,16 +33,19 @@
 #  account_id                    :integer          not null
 #  channel_id                    :integer          not null
 #  portal_id                     :bigint
+#  protocol_policy_id            :bigint
 #
 # Indexes
 #
 #  index_inboxes_on_account_id                   (account_id)
 #  index_inboxes_on_channel_id_and_channel_type  (channel_id,channel_type)
 #  index_inboxes_on_portal_id                    (portal_id)
+#  index_inboxes_on_protocol_policy_id           (protocol_policy_id)
 #
 # Foreign Keys
 #
 #  fk_rails_...  (portal_id => portals.id)
+#  fk_rails_...  (protocol_policy_id => protocol_policies.id)
 #
 
 class Inbox < ApplicationRecord

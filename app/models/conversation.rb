@@ -13,6 +13,9 @@
 #  identifier             :string
 #  last_activity_at       :datetime         not null
 #  priority               :integer
+#  protocol_code          :string
+#  protocol_date          :date
+#  protocol_seq           :integer
 #  snoozed_until          :datetime
 #  status                 :integer          default("open"), not null
 #  uuid                   :uuid             not null
@@ -27,6 +30,8 @@
 #  contact_inbox_id       :bigint
 #  display_id             :integer          not null
 #  inbox_id               :integer          not null
+#  protocol_id            :bigint
+#  protocol_policy_id     :bigint
 #  sla_policy_id          :bigint
 #  team_id                :bigint
 #
@@ -44,11 +49,19 @@
 #  index_conversations_on_identifier_and_account_id   (identifier,account_id)
 #  index_conversations_on_inbox_id                    (inbox_id)
 #  index_conversations_on_priority                    (priority)
+#  index_conversations_on_protocol_code               (protocol_code) UNIQUE
+#  index_conversations_on_protocol_id                 (protocol_id)
+#  index_conversations_on_protocol_policy_id          (protocol_policy_id)
 #  index_conversations_on_status_and_account_id       (status,account_id)
 #  index_conversations_on_status_and_priority         (status,priority)
 #  index_conversations_on_team_id                     (team_id)
 #  index_conversations_on_uuid                        (uuid) UNIQUE
 #  index_conversations_on_waiting_since               (waiting_since)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (protocol_id => protocols.id)
+#  fk_rails_...  (protocol_policy_id => protocol_policies.id)
 #
 
 class Conversation < ApplicationRecord
