@@ -55,6 +55,8 @@ class Internal::Accounts::InternalAttributesService
     Starchat::Billing::ReconcilePlanFeaturesService::BUSINESS_PLAN_FEATURES +
       Starchat::Billing::ReconcilePlanFeaturesService::ENTERPRISE_PLAN_FEATURES +
       %w[inbound_emails]
+  rescue NameError
+    %w[inbound_emails]
   end
 
   # Account notes functionality removed for now

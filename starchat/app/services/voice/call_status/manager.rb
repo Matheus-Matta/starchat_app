@@ -3,6 +3,7 @@ module Voice
     class Manager
       def initialize(call: nil, conversation: nil, call_sid: nil)
         if call
+          @call = call
           @conversation = call.conversation
           @call_sid = call.provider_call_id
         else
@@ -12,11 +13,18 @@ module Voice
       end
 
       def process_status_update(status, duration: nil, timestamp: nil)
+        update_call_status(status, duration: duration) if @call
         update_conversation_status(status, duration: duration)
         update_message_status(status, duration: duration)
       end
 
       private
+
+      def update_call_status(status, duration:)
+        attrs = { status: status }
+        attrs[:duration_seconds] = duration if duration.present?
+        @call.update!(attrs)
+      end
 
       def update_conversation_status(status, duration:)
         attrs = (@conversation.additional_attributes || {}).merge('call_status' => status)
