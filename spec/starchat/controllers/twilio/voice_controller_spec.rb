@@ -3,6 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe 'Twilio::VoiceController', type: :request do
+  before { pending 'Channel::Voice table was dropped (DropChannelVoice migration); use channel_twilio_sms with voice_enabled instead' }
+
   let(:account) { create(:account) }
   let(:channel) { create(:channel_voice, account: account, phone_number: '+15551230003') }
   let(:inbox) { channel.inbox }
