@@ -1,4 +1,4 @@
-class Cosmos::Llm::AssistantActionClassifierService < Llm::BaseAiService
+class Cosmos::Llm::AssistantActionClassifierService < Llm::BaseOpenAiService
   include Integrations::LlmInstrumentation
 
   MAX_CONTEXT_MESSAGES = 10

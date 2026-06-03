@@ -118,6 +118,8 @@ class Conversation < ApplicationRecord
   belongs_to :contact_inbox
   belongs_to :team, optional: true
   belongs_to :campaign, optional: true
+  belongs_to :protocol_policy, optional: true
+  belongs_to :protocol, optional: true
 
   has_many :mentions, dependent: :destroy_async
   has_many :messages, dependent: :destroy_async, autosave: true
@@ -134,6 +136,7 @@ class Conversation < ApplicationRecord
   after_update_commit :execute_after_update_commit_callbacks
   after_create_commit :notify_conversation_creation
   after_create_commit :load_attributes_created_by_db_triggers
+  after_create_commit :generate_protocol_code
   before_destroy :set_unread_count_deletion_data
   after_destroy_commit :notify_conversation_deletion
 
@@ -231,6 +234,22 @@ class Conversation < ApplicationRecord
     dispatcher_dispatch(CONVERSATION_UPDATED, previous_changes)
   end
 
+  def resolve_contact_inbox_source_id
+    return contact_inbox.source_id if contact_inbox.present?
+
+    if contact_inbox_id.present?
+      ci = ContactInbox.find_by(id: contact_inbox_id)
+      return ci.source_id if ci.present?
+    end
+
+    return nil unless inbox&.channel.is_a?(Channel::Evolution)
+
+    ci = ContactInbox.find_by(contact_id: contact_id, inbox_id: inbox_id)
+    return ci.source_id if ci.present?
+
+    contact&.phone_number.to_s.delete_prefix('+').presence
+  end
+
   private
 
   def execute_after_update_commit_callbacks
@@ -316,6 +335,10 @@ class Conversation < ApplicationRecord
     obj_from_db = self.class.find(id)
     self[:display_id] = obj_from_db[:display_id]
     self[:uuid] = obj_from_db[:uuid]
+  end
+
+  def generate_protocol_code
+    Conversations::ProtocolGenerator.new(self).perform if inbox&.protocol_policy_id.present?
   end
 
   def notify_status_change

@@ -94,6 +94,22 @@ class Cosmos::Document < ApplicationRecord
   # Deprecated alias
   alias pdf_document? file_document?
 
+  def syncable?
+    !file_document?
+  end
+
+  def sync_stale?
+    sync_syncing? && (last_sync_attempted_at.blank? || last_sync_attempted_at < SYNC_STALE_TIMEOUT.ago)
+  end
+
+  def sync_in_progress?
+    sync_syncing? && !sync_stale?
+  end
+
+  def to_llm_metadata
+    { document_id: id, assistant_id: assistant_id, external_link: external_link }
+  end
+
   def store_openai_file_id(file_id)
     metadata['openai_file_id'] = file_id
     save!

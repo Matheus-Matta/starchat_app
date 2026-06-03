@@ -92,6 +92,7 @@ class Inbox < ApplicationRecord
   after_update_commit :dispatch_update_event
 
   scope :order_by_name, -> { order('lower(name) ASC') }
+  scope :with_inbox_auto_resolve, -> { where.not(auto_resolve_duration: nil) }
 
   # Adds multiple members to the inbox
   # @param user_ids [Array<Integer>] Array of user IDs to add as members
@@ -173,6 +174,50 @@ class Inbox < ApplicationRecord
 
   def twilio_whatsapp?
     channel_type == 'Channel::TwilioSms' && channel.medium == 'whatsapp'
+  end
+
+  def evolution?
+    channel_type == 'Channel::Evolution'
+  end
+
+  def effective_auto_resolve_duration
+    auto_resolve_duration.presence || account.auto_resolve_after
+  end
+
+  def effective_auto_resolve_message
+    auto_resolve_message.presence || account.auto_resolve_message
+  end
+
+  def effective_auto_resolve_ignore_waiting
+    return auto_resolve_ignore_waiting unless auto_resolve_ignore_waiting.nil?
+
+    account.auto_resolve_ignore_waiting
+  end
+
+  def effective_auto_resolve_label
+    auto_resolve_label.presence || account.auto_resolve_label
+  end
+
+  def should_auto_resolve?
+    effective_auto_resolve_duration.to_i.positive?
+  end
+
+  def anti_spam_enabled?
+    return false if anti_spam_config.blank?
+
+    anti_spam_config['active'] == true
+  end
+
+  def anti_spam_max_messages
+    return 5 if anti_spam_config.blank?
+
+    (anti_spam_config['max_messages'] || 5).to_i
+  end
+
+  def anti_spam_time_window
+    return 1 if anti_spam_config.blank?
+
+    (anti_spam_config['time_window'] || 1).to_i
   end
 
   def assignable_agents
