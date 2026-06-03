@@ -19,6 +19,7 @@ RSpec.describe Cosmos::Conversation::ResponseBuilderJob, type: :job do
       allow(mock_llm_chat_service).to receive(:generate_response).and_return({ 'response' => 'Hey, welcome to cosmos Specs' })
       allow(Cosmos::Assistant::AgentRunnerService).to receive(:new).and_return(mock_agent_runner_service)
       allow(mock_agent_runner_service).to receive(:generate_response).and_return({ 'response' => 'Hey, welcome to Cosmos V2' })
+      allow_any_instance_of(Cosmos::OpenAiMessageBuilderService).to receive(:generate_content).and_return('Hello')
     end
 
     context 'when Cosmos_v2 is disabled' do
