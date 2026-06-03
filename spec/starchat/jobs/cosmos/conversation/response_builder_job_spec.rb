@@ -84,6 +84,7 @@ RSpec.describe Cosmos::Conversation::ResponseBuilderJob, type: :job do
         create(:message, conversation: conversation, content: 'Hello with image', message_type: :incoming)
         allow(account).to receive(:feature_enabled?).and_call_original
         allow(account).to receive(:feature_enabled?).with('cosmos_integration_v2').and_return(false)
+        allow(account).to receive(:feature_enabled?).with('cosmos_v1_action_classifier').and_return(false)
         allow(Cosmos::Llm::AssistantChatService).to receive(:new).and_return(mock_llm_chat_service)
         allow(Cosmos::OpenAiMessageBuilderService).to receive(:new).with(message: anything).and_return(mock_message_builder)
         allow(mock_message_builder).to receive(:generate_content).and_return('Hello with image')
