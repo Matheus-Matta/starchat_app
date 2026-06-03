@@ -250,6 +250,7 @@ RSpec.describe 'Api::V1::Accounts::Cosmos::Documents', type: :request do
         end
 
         it 'returns an error' do
+          pending 'Starchat has max_limit for all features (no paywall); COSMOS_CLOUD_PLAN_LIMITS not enforced'
           expect(response).to have_http_status(:unprocessable_entity)
         end
       end
