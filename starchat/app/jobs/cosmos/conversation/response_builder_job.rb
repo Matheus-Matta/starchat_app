@@ -34,7 +34,7 @@ class Cosmos::Conversation::ResponseBuilderJob < ApplicationJob
 
   def generate_and_process_response
     message_history = collect_previous_messages
-    @response = Cosmos::Llm::AssistantChatService.new(assistant: @assistant, conversation: @conversation).generate_response(
+    @response = Cosmos::Llm::AssistantChatService.new(assistant: @assistant).generate_response(
       message_history: message_history
     )
     classify_v1_response_action(message_history) if conversation_pending?
