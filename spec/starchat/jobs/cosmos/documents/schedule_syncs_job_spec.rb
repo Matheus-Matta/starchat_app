@@ -5,9 +5,9 @@ RSpec.describe Cosmos::Documents::ScheduleSyncsJob, type: :job do
   let(:assistant) { create(:cosmos_assistant, account: account) }
 
   before do
-    set_installation_config('COSMOSDOCUMENT_AUTO_SYNC_INTERVALS', { business: 168, enterprise: 24, startups: 720, hacker: nil }.to_json)
-    set_installation_config('COSMOSDOCUMENT_AUTO_SYNC_PER_ACCOUNT_BATCH_LIMIT', 50)
-    set_installation_config('COSMOSDOCUMENT_AUTO_SYNC_GLOBAL_BATCH_LIMIT', 1000)
+    set_installation_config('COSMOS_DOCUMENT_AUTO_SYNC_INTERVALS', { business: 168, enterprise: 24, startups: 720, hacker: nil }.to_json)
+    set_installation_config('COSMOS_DOCUMENT_AUTO_SYNC_PER_ACCOUNT_BATCH_LIMIT', 50)
+    set_installation_config('COSMOS_DOCUMENT_AUTO_SYNC_GLOBAL_BATCH_LIMIT', 1000)
     account.enable_features!('cosmos_document_auto_sync')
     clear_enqueued_jobs
   end
@@ -185,7 +185,7 @@ RSpec.describe Cosmos::Documents::ScheduleSyncsJob, type: :job do
 
   context 'when more documents are due than the account cap allows' do
     before do
-      update_sync_limit('COSMOSDOCUMENT_AUTO_SYNC_PER_ACCOUNT_BATCH_LIMIT', 2)
+      update_sync_limit('COSMOS_DOCUMENT_AUTO_SYNC_PER_ACCOUNT_BATCH_LIMIT', 2)
     end
 
     it 'queues backfilled and oldest-attempted documents first' do
@@ -207,8 +207,8 @@ RSpec.describe Cosmos::Documents::ScheduleSyncsJob, type: :job do
 
   context 'when sync caps are configured' do
     it 'uses installation config caps for per-account and global limits' do
-      update_sync_limit('COSMOSDOCUMENT_AUTO_SYNC_PER_ACCOUNT_BATCH_LIMIT', 2)
-      update_sync_limit('COSMOSDOCUMENT_AUTO_SYNC_GLOBAL_BATCH_LIMIT', 3)
+      update_sync_limit('COSMOS_DOCUMENT_AUTO_SYNC_PER_ACCOUNT_BATCH_LIMIT', 2)
+      update_sync_limit('COSMOS_DOCUMENT_AUTO_SYNC_GLOBAL_BATCH_LIMIT', 3)
 
       second_account = create(:account, custom_attributes: { plan_name: 'business' })
       second_account.enable_features!('cosmos_document_auto_sync')

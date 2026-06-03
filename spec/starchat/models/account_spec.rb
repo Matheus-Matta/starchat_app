@@ -195,14 +195,14 @@ RSpec.describe Account, type: :model do
         business: 48,
         enterprise: 24
       }
-      create(:installation_config, name: 'COSMOSDOCUMENT_AUTO_SYNC_INTERVALS', value: intervals.to_json)
+      create(:installation_config, name: 'COSMOS_DOCUMENT_AUTO_SYNC_INTERVALS', value: intervals.to_json)
       account.update!(custom_attributes: { plan_name: 'business' })
 
       expect(account.cosmos_document_sync_interval).to eq(2.days)
     end
 
     it 'normalizes configured plan name casing' do
-      create(:installation_config, name: 'COSMOSDOCUMENT_AUTO_SYNC_INTERVALS', value: { business: 24 }.to_json)
+      create(:installation_config, name: 'COSMOS_DOCUMENT_AUTO_SYNC_INTERVALS', value: { business: 24 }.to_json)
       account.update!(custom_attributes: { plan_name: 'Business' })
 
       expect(account.cosmos_document_sync_interval).to eq(1.day)
@@ -210,21 +210,21 @@ RSpec.describe Account, type: :model do
 
     it 'uses the enterprise cadence for self-hosted enterprise installs without a plan_name' do
       allow(ChatwootApp).to receive(:self_hosted_enterprise?).and_return(true)
-      create(:installation_config, name: 'COSMOSDOCUMENT_AUTO_SYNC_INTERVALS', value: { enterprise: 6 }.to_json)
+      create(:installation_config, name: 'COSMOS_DOCUMENT_AUTO_SYNC_INTERVALS', value: { enterprise: 6 }.to_json)
       account.update!(custom_attributes: {})
 
       expect(account.cosmos_document_sync_interval).to eq(6.hours)
     end
 
     it 'allows installation config to disable a plan cadence' do
-      create(:installation_config, name: 'COSMOSDOCUMENT_AUTO_SYNC_INTERVALS', value: { business: nil }.to_json)
+      create(:installation_config, name: 'COSMOS_DOCUMENT_AUTO_SYNC_INTERVALS', value: { business: nil }.to_json)
       account.update!(custom_attributes: { plan_name: 'business' })
 
       expect(account.cosmos_document_sync_interval).to be_nil
     end
 
     it 'has no cadence when installation config is invalid' do
-      create(:installation_config, name: 'COSMOSDOCUMENT_AUTO_SYNC_INTERVALS', value: 'invalid-json')
+      create(:installation_config, name: 'COSMOS_DOCUMENT_AUTO_SYNC_INTERVALS', value: 'invalid-json')
       account.update!(custom_attributes: { plan_name: 'business' })
 
       expect(account.cosmos_document_sync_interval).to be_nil
@@ -236,7 +236,7 @@ RSpec.describe Account, type: :model do
         enterprise: { hours: 6 },
         startups: '168'
       }
-      create(:installation_config, name: 'COSMOSDOCUMENT_AUTO_SYNC_INTERVALS', value: intervals.to_json)
+      create(:installation_config, name: 'COSMOS_DOCUMENT_AUTO_SYNC_INTERVALS', value: intervals.to_json)
 
       account.update!(custom_attributes: { plan_name: 'business' })
       expect(account.cosmos_document_sync_interval).to be_nil

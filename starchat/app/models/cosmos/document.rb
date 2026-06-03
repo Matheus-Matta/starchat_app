@@ -88,7 +88,10 @@ class Cosmos::Document < ApplicationRecord
   end
 
   def file_document?
-    pdf_file.attached? || external_link&.to_s&.downcase&.match?(/\.(pdf|xlsx?|csv)\z/)
+    return true if pdf_file.attached?
+
+    link = external_link.to_s
+    link.start_with?('PDF:') || link.downcase.match?(/\.(pdf|xlsx?|csv)\z/)
   end
 
   # Deprecated alias

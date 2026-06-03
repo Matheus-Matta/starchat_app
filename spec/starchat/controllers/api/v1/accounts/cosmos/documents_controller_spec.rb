@@ -243,7 +243,7 @@ RSpec.describe 'Api::V1::Accounts::Cosmos::Documents', type: :request do
         before do
           create_list(:cosmos_document, 5, assistant: assistant, account: account)
 
-          InstallationConfig.find_or_initialize_by(name: 'COSMOSCLOUD_PLAN_LIMITS').update!(value: cosmos_limits.to_json)
+          InstallationConfig.find_or_initialize_by(name: 'COSMOS_CLOUD_PLAN_LIMITS').update!(value: cosmos_limits.to_json)
           post "/api/v1/accounts/#{account.id}/cosmos/documents",
                params: valid_attributes,
                headers: admin.create_new_auth_token

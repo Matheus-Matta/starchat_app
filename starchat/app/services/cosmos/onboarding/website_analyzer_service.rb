@@ -1,4 +1,4 @@
-class Cosmos::Onboarding::WebsiteAnalyzerService < Llm::BaseAiService
+class Cosmos::Onboarding::WebsiteAnalyzerService < Llm::BaseOpenAiService
   include Integrations::LlmInstrumentation
 
   MAX_CONTENT_LENGTH = 8000
