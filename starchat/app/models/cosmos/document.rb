@@ -122,10 +122,6 @@ class Cosmos::Document < ApplicationRecord
     metadata['openai_file_id']
   end
 
-  def last_sync_error_code
-    metadata['last_sync_error_code']
-  end
-
   private
 
   def normalize_external_link

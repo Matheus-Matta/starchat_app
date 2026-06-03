@@ -26,7 +26,8 @@ class Cosmos::Documents::ResponseBuilderJob < ApplicationJob
   end
 
   def generate_standard_faqs(document)
-    Cosmos::Llm::FaqGeneratorService.new(document: document).generate
+    language = document.account.locale_english_name
+    Cosmos::Llm::FaqGeneratorService.new(document.content.to_s, language).generate
   end
 
   def build_paginated_service(document, options)
