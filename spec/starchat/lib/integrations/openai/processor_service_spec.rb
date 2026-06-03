@@ -4,6 +4,12 @@ RSpec.describe Integrations::Openai::ProcessorService do
   subject { described_class.new(hook: hook, event: event) }
 
   let(:account) { create(:account) }
+
+  before do
+    stub_request(:get, /api\.openai\.com\/v1\/models/)
+      .to_return(status: 200, body: { data: [] }.to_json, headers: { 'Content-Type' => 'application/json' })
+  end
+
   let(:hook) { create(:integrations_hook, :openai, account: account) }
   let(:expected_headers) { { 'Authorization' => "Bearer #{hook.settings['api_key']}" } }
   let(:openai_response) do
