@@ -234,6 +234,10 @@
 - name: cosmos_tasks
   display_name: Cosmos Tasks
   enabled: true
+- name: cosmos_custom_tools
+  display_name: Cosmos Custom Tools
+  enabled: true
+  premium: true
 - name: conversation_required_attributes
   display_name: Required Conversation Attributes
   enabled: false

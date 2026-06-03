@@ -6,6 +6,13 @@ class PublicController < ActionController::Base
 
   private
 
+  def ensure_portal_feature_enabled
+    return unless ChatwootApp.chatwoot_cloud?
+    return if @portal.account.feature_enabled?('help_center')
+
+    render 'public/api/v1/portals/not_active', status: :payment_required
+  end
+
   def ensure_custom_domain_request
     domain = request.host
     return if DomainHelper.chatwoot_domain?(domain)

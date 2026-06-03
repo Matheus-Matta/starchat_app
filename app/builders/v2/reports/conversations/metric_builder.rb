@@ -27,7 +27,10 @@ class V2::Reports::Conversations::MetricBuilder < V2::Reports::Conversations::Ba
   private
 
   def count(metric)
-    builder_class(metric).new(account, builder_params(metric)).aggregate_value
+    klass = builder_class(metric)
+    return 0 unless klass
+
+    klass.new(account, builder_params(metric)).aggregate_value
   end
 
   def builder_params(metric)
