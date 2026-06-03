@@ -158,8 +158,8 @@ class Whatsapp::IncomingCallService
 
   def update_call!(call, status, **attrs)
     call.update!(status: status, **attrs)
-    Voice::CallMessageBuilder.new(call).update_status!(status: status, agent: call.accepted_by_agent,
-                                                       duration_seconds: attrs[:duration_seconds])
+    Voice::CallMessageBuilder.update_status!(call: call, status: status, agent: call.accepted_by_agent,
+                                             duration_seconds: attrs[:duration_seconds])
     update_conversation(call)
   end
 

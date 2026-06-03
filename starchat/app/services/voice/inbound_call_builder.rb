@@ -23,7 +23,19 @@ class Voice::InboundCallBuilder
       contact = contact_inbox.contact
       conversation = resolve_conversation!(contact, contact_inbox)
       call = create_call!(contact, conversation)
-      message = Voice::CallMessageBuilder.new(call).perform!
+      message = Voice::CallMessageBuilder.perform!(
+        conversation: conversation,
+        direction: 'inbound',
+        payload: {
+          call_sid: call.provider_call_id,
+          status: call.status,
+          provider: call.provider,
+          from_number: from_number,
+          to_number: inbox.channel&.phone_number,
+          id: call.id
+        },
+        timestamps: { initiated_at: call.meta['initiated_at'].to_i }
+      )
       call.update!(message_id: message.id)
       call
     end

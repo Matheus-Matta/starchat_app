@@ -3,6 +3,17 @@ class Voice::CallMessageBuilder
     new(conversation: conversation, direction: direction, payload: payload, timestamps: timestamps).perform!
   end
 
+  def self.update_status!(call:, status:, agent: nil, duration_seconds: nil)
+    message = call.conversation.messages.voice_calls.last
+    return unless message
+
+    data = (message.content_attributes['data'] || {}).merge('status' => status)
+    data['duration_seconds'] = duration_seconds if duration_seconds.present?
+    data['agent_name'] = agent&.available_name if agent
+    message.update!(content_attributes: message.content_attributes.merge('data' => data))
+    message
+  end
+
   def initialize(conversation:, direction:, payload:, timestamps:)
     @conversation = conversation
     @direction = direction

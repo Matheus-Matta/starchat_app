@@ -91,7 +91,7 @@ class Whatsapp::CallService
   end
 
   def update_message_status(status, duration_seconds: nil)
-    Voice::CallMessageBuilder.new(call).update_status!(status: status, agent: agent, duration_seconds: duration_seconds)
+    Voice::CallMessageBuilder.update_status!(call: call, status: status, agent: agent, duration_seconds: duration_seconds)
   end
 
   def update_conversation_call_status(status)

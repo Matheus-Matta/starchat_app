@@ -1,9 +1,14 @@
 module Voice
   module CallStatus
     class Manager
-      def initialize(conversation:, call_sid:)
-        @conversation = conversation
-        @call_sid = call_sid
+      def initialize(call: nil, conversation: nil, call_sid: nil)
+        if call
+          @conversation = call.conversation
+          @call_sid = call.provider_call_id
+        else
+          @conversation = conversation
+          @call_sid = call_sid
+        end
       end
 
       def process_status_update(status, duration: nil, timestamp: nil)

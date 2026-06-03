@@ -40,7 +40,19 @@ class Api::V1::Accounts::WhatsappCallsController < Api::V1::Accounts::BaseContro
     # set. Otherwise the live ringing bubble receives a message with no `call`
     # payload (no direction/agent) and renders "Calling…" instead of "Handled by …".
     ActiveRecord::Base.transaction do
-      @message = Voice::CallMessageBuilder.new(@call).perform!
+      @message = Voice::CallMessageBuilder.perform!(
+        conversation: @call.conversation,
+        direction: @call.direction_label,
+        payload: {
+          id: @call.id,
+          call_sid: @call.provider_call_id,
+          status: @call.status,
+          provider: @call.provider,
+          from_number: @call.from_number,
+          to_number: @call.to_number
+        },
+        timestamps: { initiated_at: @call.meta['initiated_at'].to_i }
+      )
       @call.update!(message_id: @message.id)
     end
   end
