@@ -282,6 +282,6 @@ InboxCapacityLimit
 | `starchat/app/services/starchat/auto_assignment/equal_distribution_selector.rb` | Algoritmo de distribuição igualitária |
 | `starchat/app/services/starchat/auto_assignment/balanced_selector.rb` | Algoritmo de carga mínima |
 | `app/models/assignment_policy.rb` | Modelo e enum assignment_order |
-| `starchat/app/models/starchat/concerns/assignment_policy.rb` | Adiciona balanced + equal_distribution ao enum (enterprise) |
+| `starchat/app/models/starchat/concerns/assignment_policy.rb` | Adiciona balanced + equal_distribution ao enum (premium) |
 | `app/javascript/.../assignmentPolicy/pages/components/AgentAssignmentPolicyForm.vue` | Formulário com seleção de modo |
 | `app/javascript/.../assignmentPolicy/constants.js` | Constantes de modos e defaults |

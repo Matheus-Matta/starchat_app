@@ -1,5 +1,5 @@
-// Minimal stub for enterprise account API used in tests
-const EnterpriseAccountAPI = {
+// Minimal stub for starchat account API used in tests
+const StarChatAccountAPI = {
   get: async () => ({ data: {} }),
   show: async () => ({ data: {} }),
   create: async () => ({ data: {} }),
@@ -7,4 +7,4 @@ const EnterpriseAccountAPI = {
   delete: async () => ({}),
 };
 
-export default EnterpriseAccountAPI;
+export default StarChatAccountAPI;

@@ -160,7 +160,7 @@ Controlado pelo campo `assignment_order` de `AssignmentPolicy`.
 | Modo | Classe | Lógica |
 |---|---|---|
 | `round_robin` *(padrão)* | `AutoAssignment::RoundRobinSelector` | Fila Redis circular |
-| `balanced` *(Enterprise)* | `Starchat::AutoAssignment::BalancedSelector` | Agente com **menos** conversas abertas no momento |
+| `balanced` *(Premium)** | `Starchat::AutoAssignment::BalancedSelector` | Agente com **menos** conversas abertas no momento |
 
 O `BalancedSelector` **ignora** a fila Redis e usa `min_by` sobre o count de conversas abertas:
 

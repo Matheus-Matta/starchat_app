@@ -8,7 +8,7 @@ class AccountDashboard < Administrate::BaseDashboard
   # which determines how the attribute is displayed
   # on pages throughout the dashboard.
 
-  enterprise_attribute_types = if ChatwootApp.enterprise?
+  premium_attribute_types = if ChatwootApp.enterprise?
                                  attributes = {
                                    limits: AccountLimitsField
                                  }
@@ -35,7 +35,7 @@ class AccountDashboard < Administrate::BaseDashboard
     status: Field::Select.with_options(collection: [%w[Active active], %w[Suspended suspended]]),
     account_users: Field::HasMany,
     custom_attributes: Field::String
-  }.merge(enterprise_attribute_types).freeze
+  }.merge(premium_attribute_types).freeze
 
   # COLLECTION_ATTRIBUTES
   # an array of attributes that will be displayed on the model's index page.
@@ -53,7 +53,7 @@ class AccountDashboard < Administrate::BaseDashboard
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
-  enterprise_show_page_attributes = if ChatwootApp.enterprise?
+  premium_show_page_attributes = if ChatwootApp.enterprise?
                                       attrs = %i[custom_attributes limits]
                                       attrs << :manually_managed_features if ChatwootApp.chatwoot_cloud?
                                       attrs << :all_features
@@ -70,12 +70,12 @@ class AccountDashboard < Administrate::BaseDashboard
     status
     conversations
     account_users
-  ] + enterprise_show_page_attributes).freeze
+  ] + premium_show_page_attributes).freeze
 
   # FORM_ATTRIBUTES
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
-  enterprise_form_attributes = if ChatwootApp.enterprise?
+  premium_form_attributes = if ChatwootApp.enterprise?
                                  attrs = %i[limits]
                                  attrs << :manually_managed_features if ChatwootApp.chatwoot_cloud?
                                  attrs << :all_features
@@ -87,7 +87,7 @@ class AccountDashboard < Administrate::BaseDashboard
     name
     locale
     status
-  ] + enterprise_form_attributes).freeze
+  ] + premium_form_attributes).freeze
 
   # COLLECTION_FILTERS
   # a hash that defines filters that can be used while searching via the search

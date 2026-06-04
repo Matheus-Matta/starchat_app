@@ -21,9 +21,9 @@
     "LIST": {
       "404": "Šim kontam nav piesaistīti SLA līgumi.",
       "EMPTY": {
-        "TITLE_1": "Enterprise P0",
+        "TITLE_1": "Starchat P0",
         "DESC_1": "Uzņēmuma klientu izvirzītās problēmas, kurām nepieciešama tūlītēja uzmanība.",
-        "TITLE_2": "Enterprise P1",
+        "TITLE_2": "Starchat P1",
         "DESC_2": "Uzņēmuma klientu izvirzītās problēmas, uz kurām ātri jāreaģē."
       },
       "BUSINESS_HOURS_ON": "Darba laiks ieslēgts",

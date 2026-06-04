@@ -541,8 +541,8 @@ export const filterTypes = [
         name: 'Personal',
       },
       {
-        id: 'Enterprise',
-        name: 'Enterprise',
+        id: 'Starchat',
+        name: 'Starchat',
       },
       {
         id: 'Teams',
