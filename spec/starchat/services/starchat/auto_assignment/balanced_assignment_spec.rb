@@ -58,6 +58,10 @@ RSpec.describe 'Balanced Assignment', type: :service do
   # ─── Setup padrão ─────────────────────────────────────────────────────────
 
   before do
+    ActiveRecord::Base.connection.execute(
+      "CREATE SEQUENCE IF NOT EXISTS conv_dpid_seq_#{account.id}"
+    )
+
     create(:inbox_member, inbox: inbox, user: agent1)
     create(:inbox_member, inbox: inbox, user: agent2)
     create(:inbox_member, inbox: inbox, user: agent3)

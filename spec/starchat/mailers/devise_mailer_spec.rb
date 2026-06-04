@@ -11,6 +11,7 @@ RSpec.describe 'Devise::Mailer' do
     let(:mail_body) { CGI.unescapeHTML(mail.body.to_s) }
 
     before do
+      InstallationConfig.find_by(name: 'BRAND_NAME')&.destroy
       confirmable_user.update!(confirmed_at: nil)
       confirmable_user.send(:generate_confirmation_token)
     end

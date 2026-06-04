@@ -376,6 +376,13 @@ RSpec.describe 'Equal Distribution — Integração com AssignmentService', type
   let(:all_agents) { [agent1, agent2, agent3, agent4, agent5] }
 
   before do
+    # Ensure the display_id sequence exists for this account (may be missing after truncation)
+    ActiveRecord::Base.connection.execute(
+      "CREATE SEQUENCE IF NOT EXISTS conv_dpid_seq_#{account.id}"
+    )
+    # Reconnect in case a previous spec dropped the connection
+    ActiveRecord::Base.connection_pool.with_connection { |c| c.execute('SELECT 1') } rescue ActiveRecord::Base.connection_handler.clear_active_connections!
+
     account.enable_features!('assignment_v2')
     account.disable_features!('advanced_assignment')
     reset_all_assignment_redis

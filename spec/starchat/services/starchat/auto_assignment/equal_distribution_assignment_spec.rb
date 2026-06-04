@@ -63,6 +63,9 @@ RSpec.describe 'Equal Distribution Assignment', type: :service do
   # ─── Setup padrão ─────────────────────────────────────────────────────────
 
   before do
+    ActiveRecord::Base.connection.execute(
+      "CREATE SEQUENCE IF NOT EXISTS conv_dpid_seq_#{account.id}"
+    )
     account.enable_features!('assignment_v2')
     # Clear all relevant Redis keys to prevent flakiness
     Redis::Alfred.scan_each(match: "ASSIGNMENT::*") { |key| Redis::Alfred.delete(key) }
