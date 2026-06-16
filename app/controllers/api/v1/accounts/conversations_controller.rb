@@ -113,6 +113,9 @@ class Api::V1::Accounts::ConversationsController < Api::V1::Accounts::BaseContro
   end
 
   def update_last_seen
+    # Invisible mode: do not mark conversation as read or register any interaction
+    return if invisible_current_user?
+
     # High-traffic accounts generate excessive DB writes when agents frequently switch between conversations.
     # Throttle last_seen updates to once per hour when there are no unread messages to reduce DB load.
     # Always update immediately if there are unread messages to maintain accurate read/unread state.
@@ -231,6 +234,11 @@ class Api::V1::Accounts::ConversationsController < Api::V1::Accounts::BaseContro
 
   def assignee?
     @conversation.assignee_id? && Current.user == @conversation.assignee
+  end
+
+  def invisible_current_user?
+    account_user = Current.account.account_users.find_by(user: Current.user)
+    account_user&.invisible?
   end
 end
 

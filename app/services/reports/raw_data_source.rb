@@ -66,11 +66,17 @@ class Reports::RawDataSource < Reports::DataSource
   def count_scope
     case metric.to_s
     when 'conversations_count'
-      scope.conversations.where(account_id: account.id, created_at: range)
+      base = scope.conversations.where(account_id: account.id, created_at: range)
+      base = base.where(status: conversation_status) if conversation_status.present?
+      base
     when 'incoming_messages_count'
-      scope.messages.where(account_id: account.id, created_at: range).incoming.unscope(:order)
+      base = scope.messages.where(account_id: account.id, created_at: range).incoming.unscope(:order)
+      base = base.joins(:conversation).where(conversations: { status: conversation_status }) if conversation_status.present?
+      base
     when 'outgoing_messages_count'
-      scope.messages.where(account_id: account.id, created_at: range).outgoing.unscope(:order)
+      base = scope.messages.where(account_id: account.id, created_at: range).outgoing.unscope(:order)
+      base = base.joins(:conversation).where(conversations: { status: conversation_status }) if conversation_status.present?
+      base
     else
       reporting_event_count_scope
     end

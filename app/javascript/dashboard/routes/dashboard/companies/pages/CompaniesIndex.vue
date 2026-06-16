@@ -1,5 +1,6 @@
 <script setup>
 import { ref, computed, onMounted, reactive } from 'vue';
+import { storeToRefs } from 'pinia';
 import { useRoute, useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import { useUISettings } from 'dashboard/composables/useUISettings';
@@ -15,6 +16,7 @@ const DEFAULT_SORT_FIELD = 'name';
 const DEBOUNCE_DELAY = 300;
 
 const companiesStore = useCompaniesStore();
+const { records: companiesRecords } = storeToRefs(companiesStore);
 
 const route = useRoute();
 const router = useRouter();
@@ -22,7 +24,7 @@ const { t } = useI18n();
 
 const { updateUISettings, uiSettings } = useUISettings();
 
-const companies = computed(() => companiesStore.getCompaniesList);
+const companies = computed(() => companiesRecords.value || []);
 const meta = computed(() => companiesStore.getMeta);
 const uiFlags = computed(() => companiesStore.getUIFlags);
 
@@ -135,8 +137,8 @@ const createCompany = async company => {
     createCompanyDialogRef.value?.onSuccess();
     useAlert(t('COMPANIES.CREATE.MESSAGES.SUCCESS'));
     showCompany(newCompany.id);
-  } catch {
-    useAlert(t('COMPANIES.CREATE.MESSAGES.ERROR'));
+  } catch (error) {
+    useAlert(error?.message || t('COMPANIES.CREATE.MESSAGES.ERROR'));
   }
 };
 

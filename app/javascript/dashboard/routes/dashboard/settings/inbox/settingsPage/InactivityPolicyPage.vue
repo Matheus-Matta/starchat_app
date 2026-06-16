@@ -1,8 +1,10 @@
 <script setup>
-import { h, ref, watch, computed } from 'vue';
+import { h, ref, watch, computed, onMounted } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useAlert } from 'dashboard/composables';
 import { useStore, useMapGetter } from 'dashboard/composables/store';
+import { useRouter } from 'vue-router';
+import { useRoute } from 'vue-router';
 import SettingsSection from '../../../../../components/SettingsSection.vue';
 import WithLabel from 'v3/components/Form/WithLabel.vue';
 import TextArea from 'next/textarea/TextArea.vue';
@@ -21,7 +23,10 @@ const props = defineProps({
 
 const { t } = useI18n();
 const store = useStore();
+const router = useRouter();
+const route = useRoute();
 
+// ── Inline policy state ──────────────────────────────────────────────────────
 const duration = ref(0);
 const unit = ref(DURATION_UNITS.MINUTES);
 const message = ref('');
@@ -30,7 +35,13 @@ const ignoreWaiting = ref(false);
 const isEnabled = ref(false);
 const isSubmitting = ref(false);
 
+// ── Flow section state ───────────────────────────────────────────────────────
+const useFlow = ref(false);
+const selectedFlow = ref(null);
+const isFlowSubmitting = ref(false);
+
 const labels = useMapGetter('labels/getLabels');
+const conversationFlows = useMapGetter('conversationFlows/getConversationFlows');
 
 const labelOptions = computed(() =>
   labels.value?.length
@@ -45,41 +56,46 @@ const labelOptions = computed(() =>
     : []
 );
 
-const selectedLabelName = computed(() => {
-  return labelToApply.value?.name ?? null;
-});
+const flowOptions = computed(() =>
+  conversationFlows.value?.length
+    ? conversationFlows.value.map(f => ({ id: f.id, name: f.name }))
+    : []
+);
+
+const selectedLabelName = computed(() => labelToApply.value?.name ?? null);
 
 watch(
-  [() => props.inbox, labelOptions],
+  [() => props.inbox, labelOptions, flowOptions],
   () => {
     const {
       auto_resolve_duration,
       auto_resolve_message,
       auto_resolve_ignore_waiting,
       auto_resolve_label,
+      conversation_flow_id,
     } = props.inbox || {};
 
     duration.value = auto_resolve_duration;
     message.value = auto_resolve_message;
     ignoreWaiting.value = auto_resolve_ignore_waiting;
+    labelToApply.value = labelOptions.value.find(o => o.name === auto_resolve_label);
 
-    // find the correct label option from the list
-    labelToApply.value = labelOptions.value.find(
-      option => option.name === auto_resolve_label
-    );
-
-    // Set unit based on duration
     if (duration.value) {
-      if (duration.value % (24 * 60) === 0) {
-        unit.value = DURATION_UNITS.DAYS;
-      } else if (duration.value % 60 === 0) {
-        unit.value = DURATION_UNITS.HOURS;
-      } else {
-        unit.value = DURATION_UNITS.MINUTES;
-      }
+      if (duration.value % (24 * 60) === 0) unit.value = DURATION_UNITS.DAYS;
+      else if (duration.value % 60 === 0) unit.value = DURATION_UNITS.HOURS;
+      else unit.value = DURATION_UNITS.MINUTES;
       isEnabled.value = true;
     } else {
       isEnabled.value = false;
+    }
+
+    // Flow
+    if (conversation_flow_id) {
+      selectedFlow.value = flowOptions.value.find(f => f.id === conversation_flow_id) ?? null;
+      useFlow.value = true;
+    } else {
+      selectedFlow.value = null;
+      useFlow.value = false;
     }
   },
   { deep: true, immediate: true }
@@ -95,7 +111,7 @@ const updateInboxSettings = async settings => {
       ...settings,
     });
     useAlert(t('INBOX_MGMT.INACTIVITY_POLICY.SAVE_SUCCESS'));
-  } catch (error) {
+  } catch {
     useAlert(t('INBOX_MGMT.EDIT.API.ERROR_MESSAGE'));
   } finally {
     isSubmitting.value = false;
@@ -104,13 +120,9 @@ const updateInboxSettings = async settings => {
 
 const handleSubmit = async () => {
   if (duration.value && duration.value < 10) {
-    useAlert(
-      t('GENERAL_SETTINGS.FORM.AUTO_RESOLVE.DURATION.ERROR') ||
-        'A duração deve ser no mínimo 10 minutos'
-    );
-    return Promise.resolve();
+    useAlert(t('GENERAL_SETTINGS.FORM.AUTO_RESOLVE.DURATION.ERROR') || 'A duração deve ser no mínimo 10 minutos');
+    return;
   }
-
   return updateInboxSettings({
     auto_resolve_duration: duration.value,
     auto_resolve_message: message.value,
@@ -124,7 +136,6 @@ const handleDisable = async () => {
   message.value = '';
   ignoreWaiting.value = false;
   labelToApply.value = null;
-
   return updateInboxSettings({
     auto_resolve_duration: null,
     auto_resolve_message: '',
@@ -133,15 +144,93 @@ const handleDisable = async () => {
   });
 };
 
-const toggleAutoResolve = async () => {
-  if (!isEnabled.value) {
-    handleDisable();
+const toggleAutoResolve = () => {
+  if (!isEnabled.value) handleDisable();
+};
+
+// ── Flow handlers ────────────────────────────────────────────────────────────
+const handleFlowSave = async () => {
+  try {
+    isFlowSubmitting.value = true;
+    await store.dispatch('inboxes/updateInbox', {
+      id: props.inbox.id,
+      formData: false,
+      channel: {},
+      conversation_flow_id: useFlow.value ? (selectedFlow.value?.id ?? null) : null,
+    });
+    useAlert(t('INBOX_MGMT.INACTIVITY_POLICY.FLOW_SAVE_SUCCESS'));
+  } catch {
+    useAlert(t('INBOX_MGMT.EDIT.API.ERROR_MESSAGE'));
+  } finally {
+    isFlowSubmitting.value = false;
   }
 };
+
+const goToFlows = () => {
+  router.push({ name: 'conversation_flows_index', params: route.params });
+};
+
+onMounted(() => {
+  store.dispatch('conversationFlows/get');
+});
 </script>
 
 <template>
-  <div class="mx-8 mt-2">
+  <div class="mx-8 mt-2 flex flex-col gap-6">
+    <!-- ── Conversation Flow section ── -->
+    <SettingsSection
+      :title="t('INBOX_MGMT.INACTIVITY_POLICY.FLOW_SECTION_TITLE')"
+      :sub-title="t('INBOX_MGMT.INACTIVITY_POLICY.FLOW_SECTION_DESC')"
+      with-border
+    >
+      <div class="grid gap-4 max-w-lg">
+        <div
+          class="flex justify-between items-center bg-n-alpha-1 p-3 rounded-md border border-n-weak"
+        >
+          <span class="text-sm font-medium text-n-slate-12">
+            {{ t('INBOX_MGMT.INACTIVITY_POLICY.FLOW_ENABLED') }}
+          </span>
+          <Switch v-model="useFlow" />
+        </div>
+
+        <template v-if="useFlow">
+          <WithLabel :label="t('INBOX_MGMT.INACTIVITY_POLICY.FLOW_SELECT_LABEL')">
+            <SingleSelect
+              v-model="selectedFlow"
+              :options="flowOptions"
+              :placeholder="t('INBOX_MGMT.INACTIVITY_POLICY.FLOW_SELECT_PLACEHOLDER')"
+              placeholder-icon="i-lucide-chevron-down"
+              placeholder-trailing-icon
+              variant="faded"
+              class="w-full"
+            />
+          </WithLabel>
+
+          <div v-if="selectedFlow" class="text-xs text-n-slate-11 bg-s-blue-alpha-1 border border-s-blue-alpha-3 rounded-md p-3">
+            <span class="i-lucide-info size-3.5 inline mr-1 align-middle" />
+            Quando um fluxo está ativo, ele sobrescreve as configurações inline abaixo.
+          </div>
+        </template>
+
+        <div class="flex gap-2 items-center">
+          <NextButton
+            blue
+            :is-loading="isFlowSubmitting"
+            :label="t('INBOX_MGMT.INACTIVITY_POLICY.SAVE')"
+            @click="handleFlowSave"
+          />
+          <button
+            type="button"
+            class="text-xs text-s-blue-9 hover:underline"
+            @click="goToFlows"
+          >
+            {{ t('INBOX_MGMT.INACTIVITY_POLICY.FLOW_MANAGE_LINK') }}
+          </button>
+        </div>
+      </div>
+    </SettingsSection>
+
+    <!-- ── Inline policy section ── -->
     <SettingsSection
       :title="t('INBOX_MGMT.INACTIVITY_POLICY.TITLE')"
       :sub-title="t('INBOX_MGMT.INACTIVITY_POLICY.SUBTITLE')"
@@ -181,30 +270,18 @@ const toggleAutoResolve = async () => {
           />
         </WithLabel>
 
-        <WithLabel
-          :label="
-            t('GENERAL_SETTINGS.FORM.AUTO_RESOLVE.PREFERENCES') || 'Preferences'
-          "
-        >
-          <div
-            class="rounded-xl border border-n-weak bg-n-solid-1 w-full text-sm text-n-slate-12 divide-y divide-n-weak"
-          >
+        <WithLabel :label="t('GENERAL_SETTINGS.FORM.AUTO_RESOLVE.PREFERENCES') || 'Preferences'">
+          <div class="rounded-xl border border-n-weak bg-n-solid-1 w-full text-sm text-n-slate-12 divide-y divide-n-weak">
             <div class="p-3 h-12 flex items-center justify-between">
-              <span>
-                {{ t('INBOX_MGMT.INACTIVITY_POLICY.IGNORE_WAITING_LABEL') }}
-              </span>
+              <span>{{ t('INBOX_MGMT.INACTIVITY_POLICY.IGNORE_WAITING_LABEL') }}</span>
               <Switch v-model="ignoreWaiting" />
             </div>
             <div class="p-3 h-12 flex items-center justify-between">
-              <span>
-                {{ t('INBOX_MGMT.INACTIVITY_POLICY.LABEL_LABEL') }}
-              </span>
+              <span>{{ t('INBOX_MGMT.INACTIVITY_POLICY.LABEL_LABEL') }}</span>
               <SingleSelect
                 v-model="labelToApply"
                 :options="labelOptions"
-                :placeholder="
-                  t('INBOX_MGMT.INACTIVITY_POLICY.LABEL_PLACEHOLDER')
-                "
+                :placeholder="t('INBOX_MGMT.INACTIVITY_POLICY.LABEL_PLACEHOLDER')"
                 placeholder-icon="i-lucide-chevron-down"
                 placeholder-trailing-icon
                 variant="faded"

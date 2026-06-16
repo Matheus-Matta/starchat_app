@@ -52,7 +52,7 @@ export const createInitialState = () => ({
 });
 
 export const createGetters = () => ({
-  getRecords: state => state.records.sort((r1, r2) => r2.id - r1.id),
+  getRecords: state => [...state.records].sort((r1, r2) => r2.id - r1.id),
   getRecord: state => id =>
     state.records.find(record => record.id === Number(id)) || {},
   getUIFlags: state => state.uiFlags,

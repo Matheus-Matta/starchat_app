@@ -49,6 +49,9 @@ gem 'gmail_xoauth'
 gem 'net-smtp',  '~> 0.3.4'
 # Prevent CSV injection
 gem 'csv-safe'
+# Import contacts from XLS/XLSX (Excel) files
+gem 'roo'
+gem 'roo-xls'
 
 ##-- for active storage --##
 gem 'aws-sdk-s3', require: false

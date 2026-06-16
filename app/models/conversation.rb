@@ -12,6 +12,7 @@
 #  first_reply_created_at :datetime
 #  identifier             :string
 #  last_activity_at       :datetime         not null
+#  last_reengagement_at   :datetime
 #  priority               :integer
 #  protocol_code          :string
 #  protocol_date          :date
@@ -48,6 +49,7 @@
 #  index_conversations_on_id_and_account_id           (account_id,id)
 #  index_conversations_on_identifier_and_account_id   (identifier,account_id)
 #  index_conversations_on_inbox_id                    (inbox_id)
+#  index_conversations_on_last_reengagement_at        (last_reengagement_at)
 #  index_conversations_on_priority                    (priority)
 #  index_conversations_on_protocol_code               (protocol_code) UNIQUE
 #  index_conversations_on_protocol_id                 (protocol_id)
@@ -101,6 +103,25 @@ class Conversation < ApplicationRecord
     return none if auto_resolve_after.to_i.zero?
 
     open.where('last_activity_at < ?', Time.now.utc - auto_resolve_after.minutes)
+  }
+  scope :not_yet_resolvable, lambda { |duration|
+    return all if duration.to_i.zero?
+
+    where('last_activity_at >= ?', Time.now.utc - duration.minutes)
+  }
+  scope :needs_reengagement, lambda { |interval_minutes|
+    return none if interval_minutes.to_i.zero?
+
+    # Grace period prevents missing a scheduler cycle: last_reengagement_at is set
+    # a few seconds after the cron fires, so the strict cutoff would exclude it on
+    # the very next run even though the full interval has effectively elapsed.
+    cutoff = Time.now.utc - interval_minutes.minutes + 30.seconds
+    open
+      .where(waiting_since: nil)
+      .where(
+        '(last_reengagement_at IS NULL AND last_activity_at < ?) OR last_reengagement_at < ?',
+        cutoff, cutoff
+      )
   }
 
   scope :last_user_message_at, lambda {

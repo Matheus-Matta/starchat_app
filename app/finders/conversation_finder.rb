@@ -204,7 +204,7 @@ class ConversationFinder
     @conversations.includes(
       :inbox, :team, :contact_inbox, :assignee_agent_bot,
       { assignee: { avatar_attachment: [:blob] } },
-      { contact: { avatar_attachment: [:blob] } }
+      { contact: [{ avatar_attachment: [:blob] }, :company] }
     )
   end
 

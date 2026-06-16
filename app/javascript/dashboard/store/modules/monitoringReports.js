@@ -1,5 +1,6 @@
 import * as types from '../mutation-types';
 import MonitoringReportsAPI from '../../api/monitoringReports';
+import SummaryReportsAPI from '../../api/summaryReports';
 
 const defaultSummary = () => ({
   total_inboxes: 0,
@@ -17,6 +18,8 @@ export const state = {
   summary: defaultSummary(),
   inboxes: [],
   agents: [],
+  agentSummaries: [],
+  inboxSummaries: [],
   uiFlags: {
     isFetching: false,
     error: null,
@@ -33,6 +36,12 @@ export const getters = {
   },
   getAgents($state) {
     return $state.agents;
+  },
+  getAgentSummaries($state) {
+    return $state.agentSummaries;
+  },
+  getInboxSummaries($state) {
+    return $state.inboxSummaries;
   },
   getMonitoringUIFlags($state) {
     return $state.uiFlags;
@@ -55,6 +64,28 @@ export const actions = {
   },
   updateAgentPresence({ commit }, presencePayload) {
     commit(types.default.UPDATE_MONITORING_AGENT_PRESENCE, presencePayload);
+  },
+  async fetchAgentSummaries({ commit }, { since, until } = {}) {
+    try {
+      const response = await SummaryReportsAPI.getAgentReports({
+        since,
+        until,
+      });
+      commit(types.default.SET_MONITORING_AGENT_SUMMARIES, response.data);
+    } catch {
+      // silent — snapshot data still shows
+    }
+  },
+  async fetchInboxSummaries({ commit }, { since, until } = {}) {
+    try {
+      const response = await SummaryReportsAPI.getInboxReports({
+        since,
+        until,
+      });
+      commit(types.default.SET_MONITORING_INBOX_SUMMARIES, response.data);
+    } catch {
+      // silent — snapshot data still shows
+    }
   },
 };
 
@@ -122,6 +153,12 @@ export const mutations = {
     });
 
     syncAgentSummary($state);
+  },
+  [types.default.SET_MONITORING_AGENT_SUMMARIES]($state, summaries) {
+    $state.agentSummaries = summaries || [];
+  },
+  [types.default.SET_MONITORING_INBOX_SUMMARIES]($state, summaries) {
+    $state.inboxSummaries = summaries || [];
   },
 };
 

@@ -71,6 +71,30 @@ const defaulSpanRender = cellProps =>
     cellProps.getValue()
   );
 
+const noFirstReplyRender = cellProps =>
+  h(
+    'span',
+    {
+      class:
+        cellProps.row.original.noFirstReplyCount
+          ? 'font-semibold text-n-ruby-11'
+          : 'text-n-slate-11',
+    },
+    cellProps.getValue()
+  );
+
+const waitingRender = cellProps =>
+  h(
+    'span',
+    {
+      class:
+        cellProps.row.original.waitingCount
+          ? 'font-semibold text-n-amber-11'
+          : 'text-n-slate-11',
+    },
+    cellProps.getValue()
+  );
+
 const columns = computed(() => [
   columnHelper.accessor('name', {
     header: t(`SUMMARY_REPORTS.${props.type.toUpperCase()}`),
@@ -102,6 +126,20 @@ const columns = computed(() => [
     width: 200,
     cell: defaulSpanRender,
   }),
+  ...(props.type === 'agent'
+    ? [
+        columnHelper.accessor('noFirstReplyCountLabel', {
+          header: t('SUMMARY_REPORTS.NO_FIRST_REPLY'),
+          width: 150,
+          cell: noFirstReplyRender,
+        }),
+        columnHelper.accessor('waitingCountLabel', {
+          header: t('SUMMARY_REPORTS.WAITING'),
+          width: 150,
+          cell: waitingRender,
+        }),
+      ]
+    : []),
 ]);
 
 const renderAvgTime = value => (value ? formatTime(value) : '--');
@@ -118,6 +156,7 @@ const tableData = computed(() =>
       avgReplyTime,
       resolvedConversationsCount,
     } = rowMetrics;
+    const { noFirstReplyCount, waitingCount } = rowMetrics;
     return {
       id: row.id,
       // we fallback on title, label for instance does not have a name property
@@ -128,6 +167,10 @@ const tableData = computed(() =>
       avgReplyTime: renderAvgTime(avgReplyTime),
       avgResolutionTime: renderAvgTime(avgResolutionTime),
       resolutionsCount: renderCount(resolvedConversationsCount),
+      noFirstReplyCount: noFirstReplyCount ?? 0,
+      noFirstReplyCountLabel: String(noFirstReplyCount ?? 0),
+      waitingCount: waitingCount ?? 0,
+      waitingCountLabel: String(waitingCount ?? 0),
     };
   })
 );
@@ -176,7 +219,7 @@ const table = useVueTable({
 
 // downloadReports method is not used in this component
 // but it is exposed to be used in the parent component
-const downloadReports = () => {
+const downloadReports = (format = 'csv') => {
   const dispatchMethods = {
     agent: 'downloadAgentReports',
     label: 'downloadLabelReports',
@@ -194,6 +237,7 @@ const downloadReports = () => {
       to: to.value,
       fileName,
       businessHours: businessHours.value,
+      format,
     };
     store.dispatch(dispatchMethods[props.type], params);
   }

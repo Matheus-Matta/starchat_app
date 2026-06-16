@@ -197,7 +197,8 @@
         "STATUS": {
           "ONLINE": "Online",
           "BUSY": "Ocupado",
-          "OFFLINE": "Offline"
+          "OFFLINE": "Offline",
+          "INVISIBLE": "Invisível"
         },
         "SET_AVAILABILITY_SUCCESS": "Disponibilidade foi definida com sucesso",
         "SET_AVAILABILITY_ERROR": "Não foi possível definir a disponibilidade, por favor tente novamente",
@@ -379,6 +380,7 @@
     },
     "DOCS": "Ler documentos",
     "AGENT_ASSIGNMENT": "Política de Atribuição",
+    "CONVERSATION_FLOWS": "Fluxos de Conversa",
     "COSMOS_PLAYGROUND": "Playground",
     "COSMOS_TOOLS": "Ferramentas",
     "COSMOS_SCENARIOS": "Cenários",
@@ -971,5 +973,60 @@
       "SUCCESS": "Configurações do Capitão atualizadas com sucesso.",
       "ERROR": "Falha ao atualizar as configurações do Capitão. Por favor, tente novamente."
     }
+  },
+  "CONVERSATION_FLOWS": {
+    "TITLE": "Fluxos de Conversa",
+    "SUBTITLE": "Crie fluxos de inatividade reutilizáveis e vincule-os a diferentes caixas de entrada.",
+    "NEW_FLOW": "Novo Fluxo",
+    "NO_RECORDS_FOUND": "Nenhum fluxo de conversa encontrado. Crie um para começar.",
+    "FORM": {
+      "FLOW_NAME": "Nome do fluxo",
+      "FLOW_NAME_PLACEHOLDER": "ex. Fluxo WhatsApp Suporte",
+      "ENABLED": "Fluxo ativo",
+      "REENGAGEMENT_SECTION": "Mensagem de Reengajamento",
+      "REENGAGEMENT_SECTION_DESC": "Enviar mensagem ao cliente enquanto não houver resposta.",
+      "REENGAGEMENT_MESSAGE_LABEL": "Mensagem de reengajamento",
+      "REENGAGEMENT_MESSAGE_PLACEHOLDER": "ex. Olá! Ainda está aí? Podemos ajudar?",
+      "REENGAGEMENT_INTERVAL_LABEL": "Intervalo entre mensagens",
+      "REENGAGEMENT_INTERVAL_MIN_ERROR": "O intervalo mínimo é de 5 minutos (limite do agendador).",
+      "RESOLUTION_SECTION": "Resolução Automática",
+      "RESOLUTION_SECTION_DESC": "Resolver a conversa automaticamente após inatividade.",
+      "DURATION_LABEL": "Tempo de inatividade para resolução",
+      "MESSAGE_LABEL": "Mensagem ao resolver (opcional)",
+      "MESSAGE_PLACEHOLDER": "Encerramos esta conversa por inatividade.",
+      "IGNORE_WAITING": "Ignorar conversas aguardando agente",
+      "LABELS_SECTION": "Etiquetas Automáticas",
+      "LABELS_SECTION_DESC": "Aplicar etiqueta conforme quem não respondeu.",
+      "NO_CLIENT_LABEL": "Etiqueta: cliente não respondeu",
+      "NO_AGENT_LABEL": "Etiqueta: agente não respondeu",
+      "LABEL_PLACEHOLDER": "Selecionar etiqueta",
+      "SUBMIT_CREATE": "Criar Fluxo",
+      "SUBMIT_EDIT": "Salvar Alterações",
+      "CANCEL": "Cancelar"
+    },
+    "CREATE": {
+      "SUCCESS": "Fluxo criado com sucesso.",
+      "ERROR": "Erro ao criar fluxo. Tente novamente."
+    },
+    "UPDATE": {
+      "SUCCESS": "Fluxo atualizado com sucesso.",
+      "ERROR": "Erro ao atualizar fluxo. Tente novamente."
+    },
+    "DELETE": {
+      "TITLE": "Excluir fluxo",
+      "CONFIRM_MESSAGE": "Tem certeza que deseja excluir este fluxo? As caixas de entrada vinculadas perderão este fluxo.",
+      "SUCCESS": "Fluxo excluído com sucesso.",
+      "ERROR": "Erro ao excluir fluxo. Tente novamente.",
+      "CONFIRM": "Excluir",
+      "CANCEL": "Cancelar"
+    },
+    "STATUS_ACTIVE": "Ativo",
+    "STATUS_INACTIVE": "Inativo",
+    "META_REENGAGEMENT": "Reengajamento",
+    "META_RESOLVE": "Resolução",
+    "META_INBOX_SINGLE": "inbox",
+    "META_INBOX_PLURAL": "inboxes",
+    "EDIT_TOOLTIP": "Editar fluxo",
+    "DELETE_TOOLTIP": "Excluir fluxo"
   }
 }

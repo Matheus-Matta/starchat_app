@@ -361,8 +361,10 @@ class Message < ApplicationRecord
   end
 
   def set_waiting_since_on_incoming_message
-    # Set waiting_since when customer sends a message (if currently blank)
-    conversation.update(waiting_since: created_at) if incoming? && conversation.waiting_since.blank?
+    return unless incoming?
+
+    conversation.update(waiting_since: created_at) if conversation.waiting_since.blank?
+    conversation.update_column(:last_reengagement_at, nil) if conversation.last_reengagement_at.present?
   end
 
   def human_response?

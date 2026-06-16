@@ -92,6 +92,11 @@
         "COOKIES": "Third-party cookies must be enabled",
         "ADMIN_ACCESS": "You need administrator access on the WhatsApp Business account"
       }
+    },
+    "RECONNECT": {
+      "TITLE": "Reconnect WhatsApp",
+      "DESCRIPTION": "Use this option to reconnect your WhatsApp inbox with Meta if it is disconnected or not receiving messages. You can reconnect without deleting this inbox.",
+      "BUTTON_TEXT": "Reconnect with Meta"
     }
   }
 }

@@ -10,7 +10,7 @@ import Avatar from 'next/avatar/Avatar.vue';
 import SLACardLabel from './components/SLACardLabel.vue';
 import ConversationCallButton from './ConversationCallButton.vue';
 import wootConstants from 'dashboard/constants/globals';
-import { conversationListPageURL } from 'dashboard/helper/URLHelper';
+import { conversationListPageURL, frontendURL } from 'dashboard/helper/URLHelper';
 import { snoozedReopenTime } from 'dashboard/helper/snoozeHelpers';
 import { useInbox } from 'dashboard/composables/useInbox';
 import { useAlert } from 'dashboard/composables';
@@ -70,6 +70,13 @@ const isHMACVerified = computed(() => {
 
 const currentContact = computed(() =>
   store.getters['contacts/getContact'](props.chat.meta.sender.id)
+);
+
+const senderCompany = computed(() => props.chat.meta?.sender_company);
+const companyPageUrl = computed(() =>
+  senderCompany.value
+    ? frontendURL(`accounts/${accountId.value}/companies/${senderCompany.value.id}`)
+    : null
 );
 
 const isSnoozed = computed(
@@ -154,6 +161,16 @@ const copyConversationId = async () => {
           >
             {{ `#${chat.id}` }}
           </button>
+          <template v-if="senderCompany">
+            <span>•</span>
+            <router-link
+              :to="companyPageUrl"
+              class="flex items-center gap-1 min-w-0 text-label-small text-n-slate-11 hover:text-n-slate-12 no-underline"
+            >
+              <span class="i-lucide-building-2 size-3 flex-shrink-0 inline-block" />
+              <span class="truncate">{{ senderCompany.name }}</span>
+            </router-link>
+          </template>
           <span v-if="hasMultipleInboxes">•</span>
           <InboxName v-if="hasMultipleInboxes" :inbox="inbox" class="!mx-0" />
           <span v-if="isSnoozed">•</span>

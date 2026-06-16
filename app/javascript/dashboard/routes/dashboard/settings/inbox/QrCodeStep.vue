@@ -1,8 +1,6 @@
 <script>
-import { onMounted, onBeforeUnmount } from 'vue';
 import { emitter } from 'shared/helpers/mitt';
 import NextButton from 'dashboard/components-next/button/Button.vue';
-import { objectEntries } from '@vueuse/core';
 
 export default {
   name: 'QrCodeStep',
@@ -17,6 +15,9 @@ export default {
     };
   },
   computed: {
+    accountId() {
+      return this.$route.params.accountId;
+    },
     inboxId() {
       return this.$route.params.inbox_id;
     },

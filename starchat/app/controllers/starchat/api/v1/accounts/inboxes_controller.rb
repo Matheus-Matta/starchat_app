@@ -21,11 +21,31 @@ module Starchat::Api::V1::Accounts::InboxesController
     render_could_not_create_error(e.message)
   end
 
+  def update
+    super
+    apply_sender_config if params[:sender_config].present?
+  end
+
   def ee_inbox_attributes
-    [auto_assignment_config: [:max_assignment_limit]]
+    [{ auto_assignment_config: [:max_assignment_limit] }]
   end
 
   private
+
+  def apply_sender_config
+    raw = params[:sender_config]
+    incoming = raw.is_a?(Hash) ? raw : JSON.parse(raw)
+    @inbox.reload
+    current = @inbox.sender_config
+    current = case current
+              when Hash   then current
+              when String then JSON.parse(current)
+              else {}
+              end
+    @inbox.update_column(:sender_config, current.merge(incoming.stringify_keys))
+  rescue JSON::ParserError, StandardError => e
+    Rails.logger.warn("[InboxesController] apply_sender_config failed: #{e.class} #{e.message}")
+  end
 
   def ensure_whatsapp_calling_supported
     channel = @inbox.channel

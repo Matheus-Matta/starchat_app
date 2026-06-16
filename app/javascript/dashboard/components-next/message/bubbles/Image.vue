@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, onMounted } from 'vue';
+import { ref, computed, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useAlert } from 'dashboard/composables';
 import { useLoadWithRetry } from 'dashboard/composables/loadWithRetry';
@@ -25,11 +25,15 @@ const { isLoaded, hasError, loadWithRetry } = useLoadWithRetry();
 const showGallery = ref(false);
 const isDownloading = ref(false);
 
-onMounted(() => {
-  if (attachment.value?.dataUrl) {
-    loadWithRetry(attachment.value.dataUrl);
-  }
-});
+watch(
+  () => attachment.value?.dataUrl,
+  url => {
+    if (url && !isLoaded.value && !hasError.value) {
+      loadWithRetry(url);
+    }
+  },
+  { immediate: true }
+);
 
 const downloadAttachment = async () => {
   const { fileType, dataUrl, extension } = attachment.value;

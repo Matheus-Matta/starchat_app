@@ -65,6 +65,11 @@ module Evolution
       delete("/instance/delete/#{escape(instance_name)}")
     end
 
+    # DELETE /message/delete/:instance
+    def delete_message(instance_name, id:, number:)
+      delete("/message/delete/#{escape(instance_name)}", body: { id: id, number: number })
+    end
+
     # ========= Settings =========
 
     # GET /settings/find/:instance
@@ -107,24 +112,23 @@ module Evolution
       post("/message/sendText/#{escape(instance)}", body)
     end
 
-    def send_media(instance, number:, mediaType: nil, mediatype: nil, media:, mimetype:, caption: nil, file_name: nil, quoted: nil, delay: 0)
-      # Accept both mediaType (camelCase) and mediatype (lowercase) for compatibility
-      media_type = mediaType || mediatype
-
+    def send_media(instance, number:, mediatype:, media:, mimetype:, caption: nil, file_name: nil, quoted: nil, delay: 0)
       # raise Error, "invalid media URL" unless media.is_a?(String) && media.start_with?("http")
 
       # Deduplication check
-      key_payload = { instance: instance, number: number, media: media, mediatype: media_type, caption: caption }
+      key_payload = { instance: instance, number: number, media: media, mediatype: mediatype, caption: caption }
       return { 'success' => true, 'deduplicated' => true } if duplicate_request?(key_payload)
 
-      media_message = { mediaType: media_type, media: media }
-      media_message[:caption]  = caption  if caption.present?
-      media_message[:mimetype] = mimetype if mimetype.present?
-      media_message[:fileName] = file_name if file_name.present?
-
-      body = { number: normalize_number(number), mediaMessage: media_message }
-      body[:quoted] = quoted   if quoted.present?
-      body[:delay]  = delay.to_i if delay.to_i.positive?
+      body = {
+        number: normalize_number(number),
+        mediatype: mediatype,
+        media: media
+      }
+      body[:mimetype] = mimetype if mimetype.present?
+      body[:caption]  = caption  if caption.present?
+      body[:fileName] = file_name if file_name.present?
+      body[:quoted]   = quoted   if quoted.present?
+      body[:delay]    = delay.to_i if delay.to_i.positive?
 
       media_read_timeout = Integer(ENV.fetch('EVOLUTION_HTTP_MEDIA_READ_TIMEOUT', 180))
       post("/message/sendMedia/#{escape(instance)}", body,

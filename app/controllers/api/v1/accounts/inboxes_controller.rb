@@ -49,6 +49,7 @@ class Api::V1::Accounts::InboxesController < Api::V1::Accounts::BaseController
     inbox_params = permitted_params.except(:channel, :csat_config)
     inbox_params[:csat_config] = format_csat_config(permitted_params[:csat_config]) if permitted_params[:csat_config].present?
     @inbox.update!(inbox_params)
+    update_conversation_flow if params.key?(:conversation_flow_id)
     update_inbox_working_hours
     update_channel if channel_update_required?
   end
@@ -98,6 +99,15 @@ class Api::V1::Accounts::InboxesController < Api::V1::Accounts::BaseController
 
   def allowed_channel_types
     %w[web_widget api email line telegram whatsapp sms]
+  end
+
+  def update_conversation_flow
+    flow_id = params[:conversation_flow_id]
+    @inbox.inbox_conversation_flow&.destroy!
+    return if flow_id.blank?
+
+    flow = Current.account.conversation_flows.find(flow_id)
+    InboxConversationFlow.create!(inbox: @inbox, conversation_flow: flow)
   end
 
   def update_inbox_working_hours

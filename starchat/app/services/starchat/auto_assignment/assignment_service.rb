@@ -137,9 +137,9 @@ module Starchat::AutoAssignment::AssignmentService
 
     # Apply conversation priority using enum methods if policy exists
     scope = if policy&.longest_waiting?
-              scope.reorder(last_activity_at: :asc, created_at: :asc)
+              scope.reorder(last_activity_at: :asc, created_at: :asc, id: :asc)
             else
-              scope.reorder(created_at: :asc)
+              scope.reorder(created_at: :asc, id: :asc)
             end
 
     scope.limit(limit)

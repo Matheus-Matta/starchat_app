@@ -320,9 +320,9 @@
         "UNBLOCK_ERROR_MESSAGE": "Não foi possível desbloquear o contato. Tente novamente mais tarde.",
         "IMPORT_CONTACT": {
           "TITLE": "Importar contatos",
-          "DESCRIPTION": "Importar contatos através de um arquivo CSV.",
-          "DOWNLOAD_LABEL": "Baixar um exemplo de csv.",
-          "LABEL": "Arquivo CSV:",
+          "DESCRIPTION": "Importar contatos através de um arquivo CSV ou Excel (XLS/XLSX).",
+          "DOWNLOAD_LABEL": "Baixar um exemplo de CSV.",
+          "LABEL": "Arquivo (CSV ou Excel):",
           "CHOOSE_FILE": "Escolher arquivo",
           "CHANGE": "Trocar",
           "CANCEL": "Cancelar",

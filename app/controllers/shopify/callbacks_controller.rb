@@ -6,7 +6,8 @@ class Shopify::CallbacksController < ApplicationController
 
     @response = oauth_client.auth_code.get_token(
       params[:code],
-      redirect_uri: '/shopify/callback'
+      redirect_uri: '/shopify/callback',
+      expiring: '1'
     )
 
     handle_response
@@ -23,15 +24,21 @@ class Shopify::CallbacksController < ApplicationController
   end
 
   def handle_response
-    account.hooks.create!(
-      app_id: 'shopify',
-      access_token: parsed_body['access_token'],
-      status: 'enabled',
-      reference_id: params[:shop],
-      settings: {
-        scope: parsed_body['scope']
-      }
-    )
+    now = Time.current
+    expires_in = parsed_body['expires_in']
+    refresh_token_expires_in = parsed_body['refresh_token_expires_in']
+
+    hook = account.hooks.find_or_initialize_by(app_id: 'shopify')
+    hook.access_token = parsed_body['access_token']
+    hook.status = 'enabled'
+    hook.reference_id = params[:shop]
+    hook.settings = hook.settings.merge(
+      'scope' => parsed_body['scope'],
+      'expires_at' => expires_in ? (now + expires_in.to_i.seconds).utc.iso8601 : nil,
+      'refresh_token' => parsed_body['refresh_token'],
+      'refresh_token_expires_at' => refresh_token_expires_in ? (now + refresh_token_expires_in.to_i.seconds).utc.iso8601 : nil
+    ).compact
+    hook.save!
 
     redirect_to shopify_integration_url
   end

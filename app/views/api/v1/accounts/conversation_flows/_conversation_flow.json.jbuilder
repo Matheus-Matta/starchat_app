@@ -1,0 +1,13 @@
+json.id conversation_flow.id
+json.name conversation_flow.name
+json.enabled conversation_flow.enabled
+json.auto_resolve_duration conversation_flow.auto_resolve_duration
+json.auto_resolve_message conversation_flow.auto_resolve_message
+json.auto_resolve_ignore_waiting conversation_flow.auto_resolve_ignore_waiting
+json.no_client_interaction_label conversation_flow.no_client_interaction_label
+json.no_agent_interaction_label conversation_flow.no_agent_interaction_label
+json.reengagement_message conversation_flow.reengagement_message
+json.reengagement_interval conversation_flow.reengagement_interval
+json.inbox_ids conversation_flow.inboxes.pluck(:id)
+json.created_at conversation_flow.created_at.to_i
+json.updated_at conversation_flow.updated_at.to_i

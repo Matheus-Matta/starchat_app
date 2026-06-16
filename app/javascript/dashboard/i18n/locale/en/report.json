@@ -5,6 +5,10 @@
     "LOADING_CHART": "Loading chart data...",
     "NO_ENOUGH_DATA": "We've not received enough data points to generate report, Please try again later.",
     "DOWNLOAD_AGENT_REPORTS": "Download agent reports",
+    "DOWNLOAD_FORMAT": {
+      "CSV": "CSV",
+      "XLS": "Excel"
+    },
     "DATA_FETCHING_FAILED": "Failed to fetch data, please try again later.",
     "SUMMARY_FETCHING_FAILED": "Failed to fetch summary, please try again later.",
     "METRICS": {
@@ -88,6 +92,18 @@
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "Apply",
       "PLACEHOLDER": "Select date range"
+    },
+    "FILTERS": {
+      "DIMENSION_LABEL": "Filter by",
+      "STATUS_LABEL": "Status",
+      "ALL_TEAMS": "All teams",
+      "ALL_AGENTS": "All agents",
+      "ALL_INBOXES": "All inboxes",
+      "ALL_STATUSES": "All statuses",
+      "STATUS_OPEN": "Open",
+      "STATUS_RESOLVED": "Resolved",
+      "STATUS_PENDING": "Pending",
+      "STATUS_SNOOZED": "Snoozed"
     },
     "GROUP_BY_FILTER_DROPDOWN_LABEL": "Group By",
     "DURATION_FILTER_LABEL": "Duration",
@@ -668,11 +684,13 @@
     "AGENT": "Agent",
     "TEAM": "Team",
     "LABEL": "Label",
-    "AVG_RESOLUTION_TIME": "Avg. Resolution Time",
-    "AVG_FIRST_RESPONSE_TIME": "Avg. First Response Time",
-    "AVG_REPLY_TIME": "Avg. Customer Waiting Time",
-    "RESOLUTION_COUNT": "Resolution Count",
-    "CONVERSATIONS": "No. of conversations"
+    "AVG_RESOLUTION_TIME": "Resolution",
+    "AVG_FIRST_RESPONSE_TIME": "1st Response",
+    "AVG_REPLY_TIME": "Reply Time",
+    "RESOLUTION_COUNT": "Resolutions",
+    "CONVERSATIONS": "Conversations",
+    "NO_FIRST_REPLY": "No Reply",
+    "WAITING": "Waiting"
   },
   "MONITORING_REPORTS": {
     "HEADER": "Live Operations Monitor",
@@ -699,7 +717,20 @@
       "AGENT_SEARCH_PLACEHOLDER": "Search agents",
       "INBOX_STATUS": "Inbox status",
       "AGENT_STATUS": "Agent status",
+      "TEAM_FILTER_LABEL": "Filter by team",
+      "ALL_TEAMS": "All teams",
       "SECTION_VISIBILITY": "Sections"
+    },
+    "TABLE": {
+      "STATUS": "Status",
+      "CHANNEL": "Channel",
+      "CONVERSATIONS": "Conversations",
+      "AVG_FIRST_RESPONSE": "1st Response",
+      "AVG_RESOLUTION": "Resolution",
+      "AVG_REPLY": "Reply Time",
+      "RESOLUTIONS": "Resolutions",
+      "NO_FIRST_REPLY": "No Reply",
+      "WAITING": "Waiting"
     },
     "STATUS_FILTER": {
       "ALL": "All statuses",
@@ -713,6 +744,8 @@
     "SUMMARY": {
       "TITLE": "Operation overview",
       "TOTAL_INBOXES": "Total inboxes",
+      "TOTAL_INBOXES_SHORT": "total",
+      "TOTAL_AGENTS_SHORT": "total",
       "ONLINE_INBOXES": "Online inboxes",
       "WARNING_INBOXES": "Inboxes needing attention",
       "OFFLINE_INBOXES": "Offline inboxes",
@@ -724,6 +757,7 @@
     },
     "INBOXES": {
       "TITLE": "Inbox health",
+      "TITLE_COL": "Inbox",
       "SUBTITLE": "Follow workload, agent presence, and last activity for each inbox.",
       "LAST_ACTIVITY": "Last activity",
       "NEVER": "No recent activity",

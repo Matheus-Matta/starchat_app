@@ -471,9 +471,9 @@
         },
         "BLOCK_SUCCESS_MESSAGE": "This contact is blocked successfully",
         "IMPORT_CONTACT": {
-          "DESCRIPTION": "Import contacts through a CSV file.",
-          "DOWNLOAD_LABEL": "Download a sample csv.",
-          "LABEL": "CSV File:",
+          "DESCRIPTION": "Import contacts through a CSV or Excel file (XLS/XLSX).",
+          "DOWNLOAD_LABEL": "Download a sample CSV.",
+          "LABEL": "File (CSV or Excel):",
           "IMPORT": "Import",
           "TITLE": "Import contacts",
           "ERROR_MESSAGE": "There was an error, please try again",

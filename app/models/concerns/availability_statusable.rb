@@ -21,6 +21,9 @@ module AvailabilityStatusable
   end
 
   def user_availability_status
+    # Invisible mode: appears as offline to the rest of the system
+    return 'offline' if availability == 'invisible'
+
     # we are not considering presence in this case. Just returns the availability
     return availability unless auto_offline
 

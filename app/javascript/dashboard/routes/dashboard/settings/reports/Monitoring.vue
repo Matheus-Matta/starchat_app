@@ -3,6 +3,8 @@ import { computed, onMounted, reactive, ref } from 'vue';
 import { useStore } from 'vuex';
 import { useDebounceFn, useFullscreen } from '@vueuse/core';
 import { useI18n } from 'vue-i18n';
+import startOfDay from 'date-fns/startOfDay';
+import getUnixTime from 'date-fns/getUnixTime';
 
 import ReportHeader from './components/ReportHeader.vue';
 import MonitoringSummary from './components/monitoring/MonitoringSummary.vue';
@@ -14,6 +16,7 @@ import SelectMenu from 'dashboard/components-next/selectmenu/SelectMenu.vue';
 import Spinner from 'dashboard/components-next/spinner/Spinner.vue';
 import { useEmitter } from 'dashboard/composables/emitter';
 import { BUS_EVENTS } from 'shared/constants/busEvents';
+import { useMapGetter } from 'dashboard/composables/store';
 
 const store = useStore();
 const { t } = useI18n();
@@ -22,9 +25,16 @@ const monitoringRoot = ref(null);
 const summary = computed(() => store.getters['monitoringReports/getSummary']);
 const inboxes = computed(() => store.getters['monitoringReports/getInboxes']);
 const agents = computed(() => store.getters['monitoringReports/getAgents']);
+const agentSummaries = computed(
+  () => store.getters['monitoringReports/getAgentSummaries']
+);
+const inboxSummaries = computed(
+  () => store.getters['monitoringReports/getInboxSummaries']
+);
 const uiFlags = computed(
   () => store.getters['monitoringReports/getMonitoringUIFlags'] || {}
 );
+const allTeams = useMapGetter('teams/getTeams');
 
 const collapsedSections = reactive({
   summary: false,
@@ -33,62 +43,56 @@ const collapsedSections = reactive({
 });
 
 const filters = reactive({
-  inboxSearch: '',
+  inboxId: null,
   inboxStatus: 'all',
-  agentSearch: '',
-  agentStatus: 'all',
+  agentId: null,
+  agentTeamId: null,
 });
 
 const toggleSection = sectionKey => {
   collapsedSections[sectionKey] = !collapsedSections[sectionKey];
 };
 
-const normalizeSearch = value => value?.toString().trim().toLowerCase() || '';
-
-const channelDisplayName = channelType => {
-  if (!channelType) return '';
-  const raw = channelType.split('::').pop();
-  return raw.replace(/([a-z])([A-Z])/g, '$1 $2');
-};
-
-const filteredInboxes = computed(() => {
-  const query = normalizeSearch(filters.inboxSearch);
-  const list = inboxes.value || [];
-  return list
-    .filter(inbox => {
-      return (
-        filters.inboxStatus === 'all' ||
-        !inbox?.status ||
-        inbox.status === filters.inboxStatus
-      );
-    })
-    .filter(inbox => {
-      if (!query) return true;
-      const channelName = channelDisplayName(inbox.channel_type);
-      return [inbox.name, channelName]
-        .filter(Boolean)
-        .some(field => field.toLowerCase().includes(query));
-    });
+// Merge snapshot agents (name, status, team_ids) with today's report summaries
+const mergedAgents = computed(() => {
+  const summaryMap = Object.fromEntries(
+    (agentSummaries.value || []).map(s => [s.id, s])
+  );
+  return (agents.value || []).map(agent => ({
+    ...agent,
+    ...(summaryMap[agent.id] || {}),
+  }));
 });
 
-const filteredAgents = computed(() => {
-  const query = normalizeSearch(filters.agentSearch);
-  const list = agents.value || [];
-  return list
-    .filter(agent => {
-      return (
-        filters.agentStatus === 'all' ||
-        !agent?.availability_status ||
-        agent.availability_status === filters.agentStatus
-      );
-    })
-    .filter(agent => {
-      if (!query) return true;
-      return [agent.name, agent.email]
-        .filter(Boolean)
-        .some(field => field.toLowerCase().includes(query));
-    });
+// Merge snapshot inboxes (name, channel, status) with today's report summaries
+const mergedInboxes = computed(() => {
+  const summaryMap = Object.fromEntries(
+    (inboxSummaries.value || []).map(s => [s.id, s])
+  );
+  return (inboxes.value || []).map(inbox => ({
+    ...inbox,
+    ...(summaryMap[inbox.id] || {}),
+  }));
 });
+
+const filteredInboxes = computed(() =>
+  mergedInboxes.value
+    .filter(inbox => !filters.inboxId || inbox.id === filters.inboxId)
+    .filter(
+      inbox =>
+        filters.inboxStatus === 'all' || inbox.status === filters.inboxStatus
+    )
+);
+
+const filteredAgents = computed(() =>
+  mergedAgents.value
+    .filter(agent => !filters.agentId || agent.id === filters.agentId)
+    .filter(
+      agent =>
+        !filters.agentTeamId ||
+        (agent.team_ids || []).includes(filters.agentTeamId)
+    )
+);
 
 const locale = computed(() => window?.I18n?.locale || 'en');
 const timeFormatter = computed(
@@ -111,16 +115,32 @@ const lastUpdatedLabel = computed(() => {
   });
 });
 
-const fetchSnapshot = () => store.dispatch('monitoringReports/fetchSnapshot');
-const handleManualRefresh = () => fetchSnapshot();
+const todaySince = computed(() => getUnixTime(startOfDay(new Date())));
+const todayUntil = computed(() => Math.floor(Date.now() / 1000));
 
-const debouncedRealtimeRefresh = useDebounceFn(
-  () => {
-    fetchSnapshot();
-  },
-  1200,
-  { maxWait: 5000 }
-);
+const fetchSnapshot = () => store.dispatch('monitoringReports/fetchSnapshot');
+
+const fetchSummaries = () => {
+  store.dispatch('monitoringReports/fetchAgentSummaries', {
+    since: todaySince.value,
+    until: todayUntil.value,
+  });
+  store.dispatch('monitoringReports/fetchInboxSummaries', {
+    since: todaySince.value,
+    until: todayUntil.value,
+  });
+};
+
+const fetchAll = () => {
+  fetchSnapshot();
+  fetchSummaries();
+};
+
+const handleManualRefresh = () => fetchAll();
+
+const debouncedRealtimeRefresh = useDebounceFn(() => fetchAll(), 1200, {
+  maxWait: 5000,
+});
 
 useEmitter('fetch_conversation_stats', () => debouncedRealtimeRefresh());
 useEmitter(BUS_EVENTS.WEBSOCKET_RECONNECT, () => debouncedRealtimeRefresh());
@@ -133,61 +153,69 @@ const fullscreenIcon = computed(() =>
   isFullscreen.value ? 'i-ph-corners-in' : 'i-ph-corners-out'
 );
 
+// Select options
 const inboxStatusOptions = computed(() => [
   {
     value: 'all',
     label: t('MONITORING_REPORTS.STATUS_FILTER.ALL_INBOXES'),
   },
-  {
-    value: 'online',
-    label: t('MONITORING_REPORTS.STATUS.ONLINE'),
-  },
+  { value: 'online', label: t('MONITORING_REPORTS.STATUS.ONLINE') },
   {
     value: 'warning',
     label: t('MONITORING_REPORTS.STATUS_FILTER.WARNING'),
   },
-  {
-    value: 'offline',
-    label: t('MONITORING_REPORTS.STATUS.OFFLINE'),
-  },
+  { value: 'offline', label: t('MONITORING_REPORTS.STATUS.OFFLINE') },
 ]);
 
-const agentStatusOptions = computed(() => [
+const teamOptions = computed(() => [
+  { value: null, label: t('MONITORING_REPORTS.FILTERS.ALL_TEAMS') },
+  ...allTeams.value.map(team => ({ value: team.id, label: team.name })),
+]);
+
+const inboxOptions = computed(() => [
   {
-    value: 'all',
+    value: null,
+    label: t('MONITORING_REPORTS.STATUS_FILTER.ALL_INBOXES'),
+  },
+  ...(inboxes.value || []).map(i => ({ value: i.id, label: i.name })),
+]);
+
+const agentOptions = computed(() => [
+  {
+    value: null,
     label: t('MONITORING_REPORTS.STATUS_FILTER.ALL_AGENTS'),
   },
-  {
-    value: 'online',
-    label: t('MONITORING_REPORTS.STATUS.ONLINE'),
-  },
-  {
-    value: 'busy',
-    label: t('MONITORING_REPORTS.STATUS_FILTER.BUSY'),
-  },
-  {
-    value: 'offline',
-    label: t('MONITORING_REPORTS.STATUS.OFFLINE'),
-  },
+  ...(agents.value || []).map(a => ({ value: a.id, label: a.name })),
 ]);
 
-const getSelectedLabel = (options, value, fallback) => {
-  const found = options.find(option => option.value === value);
-  return found?.label || fallback;
-};
+const getLabel = (options, value, fallback) =>
+  options.find(o => o.value === value)?.label || fallback;
 
 const inboxStatusLabel = computed(() =>
-  getSelectedLabel(
+  getLabel(
     inboxStatusOptions.value,
     filters.inboxStatus,
     t('MONITORING_REPORTS.STATUS_FILTER.ALL_INBOXES')
   )
 );
-
-const agentStatusLabel = computed(() =>
-  getSelectedLabel(
-    agentStatusOptions.value,
-    filters.agentStatus,
+const teamLabel = computed(() =>
+  getLabel(
+    teamOptions.value,
+    filters.agentTeamId,
+    t('MONITORING_REPORTS.FILTERS.ALL_TEAMS')
+  )
+);
+const inboxLabel = computed(() =>
+  getLabel(
+    inboxOptions.value,
+    filters.inboxId,
+    t('MONITORING_REPORTS.STATUS_FILTER.ALL_INBOXES')
+  )
+);
+const agentLabel = computed(() =>
+  getLabel(
+    agentOptions.value,
+    filters.agentId,
     t('MONITORING_REPORTS.STATUS_FILTER.ALL_AGENTS')
   )
 );
@@ -210,10 +238,9 @@ const sectionButtons = computed(() => [
   },
 ]);
 
-const handleSectionToggle = sectionKey => toggleSection(sectionKey);
-
 onMounted(() => {
-  fetchSnapshot();
+  fetchAll();
+  store.dispatch('teams/get');
 });
 </script>
 
@@ -231,142 +258,114 @@ onMounted(() => {
       :header-description="t('MONITORING_REPORTS.DESCRIPTION')"
     />
 
+    <!-- Control bar -->
     <section
       class="outline outline-1 outline-n-container rounded-xl bg-n-solid-2 px-4 py-4 shadow-sm lg:px-5"
       :class="isFullscreen ? 'sticky top-0 z-30' : ''"
     >
-      <div class="flex flex-col gap-4">
-        <div v-if="isFullscreen" class="flex items-center justify-between">
-          <h1 class="text-n-slate-12 font-medium text-lg">
-            {{ t('MONITORING_REPORTS.HEADER') }}
-          </h1>
-          <div class="flex items-center gap-2">
-            <span class="text-sm text-n-slate-11">{{ lastUpdatedLabel }}</span>
-            <span
-              v-if="uiFlags.isFetching"
-              class="inline-flex items-center gap-2 text-sm text-n-slate-12"
-            >
-              <Spinner :size="14" />
-              {{ t('REPORT.LOADING_CHART') }}
-            </span>
-          </div>
-        </div>
+      <div v-if="isFullscreen" class="mb-4 flex items-center justify-between">
+        <h1 class="text-n-slate-12 font-medium text-lg">
+          {{ t('MONITORING_REPORTS.HEADER') }}
+        </h1>
+      </div>
 
-        <div class="grid gap-y-3 gap-x-3 md:grid-cols-2 xl:grid-cols-4">
-          <div class="flex flex-col gap-1">
-            <label class="text-xs font-semibold uppercase text-n-slate-11">
-              {{ t('MONITORING_REPORTS.FILTERS.INBOX_SEARCH_LABEL') }}
-            </label>
-            <woot-input
-              v-model.trim="filters.inboxSearch"
-              type="search"
-              data-testid="monitoring-inbox-search"
-              :placeholder="
-                t('MONITORING_REPORTS.FILTERS.INBOX_SEARCH_PLACEHOLDER')
-              "
-            />
-          </div>
-          <div class="flex flex-col gap-1">
-            <label class="text-xs font-semibold uppercase text-n-slate-11">
-              {{ t('MONITORING_REPORTS.FILTERS.INBOX_STATUS') }}
-            </label>
+      <!-- Filters: two labelled groups -->
+      <div class="flex flex-wrap items-end gap-x-6 gap-y-4">
+        <!-- Inboxes group -->
+        <div class="flex flex-col gap-1.5">
+          <span class="text-xs font-semibold uppercase text-n-slate-11">
+            {{ t('MONITORING_REPORTS.SECTIONS.INBOXES') }}
+          </span>
+          <div class="flex flex-wrap gap-2">
             <SelectMenu
-              full-width
+              sub-menu-position="bottom"
+              :options="inboxOptions"
+              :label="inboxLabel"
+              :model-value="filters.inboxId"
+              @update:model-value="v => (filters.inboxId = v)"
+            />
+            <SelectMenu
               sub-menu-position="bottom"
               :options="inboxStatusOptions"
               :label="inboxStatusLabel"
               :model-value="filters.inboxStatus"
-              @update:model-value="value => (filters.inboxStatus = value)"
-            />
-          </div>
-          <div class="flex flex-col gap-1">
-            <label class="text-xs font-semibold uppercase text-n-slate-11">
-              {{ t('MONITORING_REPORTS.FILTERS.AGENT_SEARCH_LABEL') }}
-            </label>
-            <woot-input
-              v-model.trim="filters.agentSearch"
-              type="search"
-              data-testid="monitoring-agent-search"
-              :placeholder="
-                t('MONITORING_REPORTS.FILTERS.AGENT_SEARCH_PLACEHOLDER')
-              "
-            />
-          </div>
-          <div class="flex flex-col gap-1">
-            <label class="text-xs font-semibold uppercase text-n-slate-11">
-              {{ t('MONITORING_REPORTS.FILTERS.AGENT_STATUS') }}
-            </label>
-            <SelectMenu
-              full-width
-              sub-menu-position="bottom"
-              :options="agentStatusOptions"
-              :label="agentStatusLabel"
-              :model-value="filters.agentStatus"
-              @update:model-value="value => (filters.agentStatus = value)"
+              @update:model-value="v => (filters.inboxStatus = v)"
             />
           </div>
         </div>
 
-        <div
-          class="flex flex-wrap items-center justify-between gap-3 border-t border-n-weak pt-3"
-        >
-          <div class="flex flex-wrap items-center gap-3">
-            <span class="text-xs font-semibold uppercase text-n-slate-11">
-              {{ t('MONITORING_REPORTS.SECTIONS.TOGGLE_LABEL') }}
-            </span>
-            <ButtonGroup class="flex flex-wrap gap-2">
-              <Button
-                v-for="section in sectionButtons"
-                :key="section.key"
-                size="xs"
-                :label="section.label"
-                color="slate"
-                :variant="section.collapsed ? 'ghost' : 'slate'"
-                class="capitalize"
-                :aria-pressed="!section.collapsed"
-                @click="handleSectionToggle(section.key)"
-              />
-            </ButtonGroup>
-          </div>
+        <div class="hidden md:block h-8 w-px self-end bg-n-weak" />
 
-          <div
-            class="flex flex-wrap items-center gap-2 text-sm text-n-slate-11"
-          >
-            <span v-if="!isFullscreen">{{ lastUpdatedLabel }}</span>
-            <span
-              v-if="uiFlags.isFetching && !isFullscreen"
-              class="inline-flex items-center gap-2 text-n-slate-12"
-            >
-              <Spinner :size="14" />
-              {{ t('REPORT.LOADING_CHART') }}
-            </span>
-
-            <ButtonGroup class="flex items-center gap-2">
-              <Button
-                size="sm"
-                variant="slate"
-                :label="t('MONITORING_REPORTS.ACTIONS.REFRESH')"
-                icon="i-ph-arrow-clockwise"
-                :disabled="uiFlags.isFetching"
-                @click="handleManualRefresh"
-              />
-              <Button
-                size="sm"
-                variant="ghost"
-                :label="
-                  isFullscreen
-                    ? t('MONITORING_REPORTS.ACTIONS.EXIT_FULLSCREEN')
-                    : t('MONITORING_REPORTS.ACTIONS.ENTER_FULLSCREEN')
-                "
-                :icon="fullscreenIcon"
-                @click="toggleFullscreen"
-              />
-            </ButtonGroup>
+        <!-- Agents group -->
+        <div class="flex flex-col gap-1.5">
+          <span class="text-xs font-semibold uppercase text-n-slate-11">
+            {{ t('MONITORING_REPORTS.SECTIONS.AGENTS') }}
+          </span>
+          <div class="flex flex-wrap gap-2">
+            <SelectMenu
+              sub-menu-position="bottom"
+              :options="teamOptions"
+              :label="teamLabel"
+              :model-value="filters.agentTeamId"
+              @update:model-value="v => (filters.agentTeamId = v)"
+            />
+            <SelectMenu
+              sub-menu-position="bottom"
+              :options="agentOptions"
+              :label="agentLabel"
+              :model-value="filters.agentId"
+              @update:model-value="v => (filters.agentId = v)"
+            />
           </div>
+        </div>
+      </div>
+
+      <!-- Bottom bar: section toggles + refresh -->
+      <div
+        class="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-n-weak pt-3"
+      >
+        <ButtonGroup class="flex flex-wrap gap-1.5">
+          <Button
+            v-for="section in sectionButtons"
+            :key="section.key"
+            size="xs"
+            :label="section.label"
+            color="slate"
+            :variant="section.collapsed ? 'ghost' : 'slate'"
+            :aria-pressed="!section.collapsed"
+            @click="toggleSection(section.key)"
+          />
+        </ButtonGroup>
+
+        <div class="flex flex-wrap items-center gap-2 text-sm text-n-slate-11">
+          <span>{{ lastUpdatedLabel }}</span>
+          <Spinner v-if="uiFlags.isFetching" :size="12" />
+          <ButtonGroup class="flex items-center gap-1.5">
+            <Button
+              size="sm"
+              variant="slate"
+              :label="t('MONITORING_REPORTS.ACTIONS.REFRESH')"
+              icon="i-ph-arrow-clockwise"
+              :disabled="uiFlags.isFetching"
+              @click="handleManualRefresh"
+            />
+            <Button
+              size="sm"
+              variant="ghost"
+              :label="
+                isFullscreen
+                  ? t('MONITORING_REPORTS.ACTIONS.EXIT_FULLSCREEN')
+                  : t('MONITORING_REPORTS.ACTIONS.ENTER_FULLSCREEN')
+              "
+              :icon="fullscreenIcon"
+              @click="toggleFullscreen"
+            />
+          </ButtonGroup>
         </div>
       </div>
     </section>
 
+    <!-- Error -->
     <div
       v-if="uiFlags.error"
       class="rounded-xl border border-rose-300/60 bg-rose-500/5 px-6 py-4 text-sm text-rose-500"
@@ -374,9 +373,7 @@ onMounted(() => {
       <p class="font-semibold">
         {{ t('MONITORING_REPORTS.ERROR.TITLE') }}
       </p>
-      <p class="mt-1 text-n-slate-12">
-        {{ uiFlags.error }}
-      </p>
+      <p class="mt-1 text-n-slate-12">{{ uiFlags.error }}</p>
       <Button
         size="sm"
         variant="ghost"

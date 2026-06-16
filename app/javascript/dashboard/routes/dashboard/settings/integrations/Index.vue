@@ -1,6 +1,7 @@
 <script setup>
 import { useStoreGetters, useStore } from 'dashboard/composables/store';
-import { computed, onMounted } from 'vue';
+import { computed, onMounted, ref } from 'vue';
+import { picoSearch } from '@scmmishra/pico-search';
 import IntegrationItem from './IntegrationItem.vue';
 import SettingsLayout from '../SettingsLayout.vue';
 import BaseSettingsHeader from '../components/BaseSettingsHeader.vue';

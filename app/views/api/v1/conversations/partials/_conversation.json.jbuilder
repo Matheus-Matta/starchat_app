@@ -24,6 +24,12 @@ json.meta do
     end
   end
   json.hmac_verified conversation.contact_inbox&.hmac_verified
+  if conversation.contact.company.present?
+    json.sender_company do
+      json.id conversation.contact.company.id
+      json.name conversation.contact.company.name
+    end
+  end
 end
 
 json.id conversation.display_id

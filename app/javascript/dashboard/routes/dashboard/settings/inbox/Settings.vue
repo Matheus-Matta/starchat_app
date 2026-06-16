@@ -27,6 +27,8 @@ import CustomerSatisfactionPage from './settingsPage/CustomerSatisfactionPage.vu
 import CollaboratorsPage from './settingsPage/CollaboratorsPage.vue';
 import BotConfiguration from './components/BotConfiguration.vue';
 import AccountHealth from './components/AccountHealth.vue';
+import EvolutionControls from './settingsPage/EvolutionControls.vue';
+import InactivityPolicyPage from './settingsPage/InactivityPolicyPage.vue';
 import { FEATURE_FLAGS } from '../../../../featureFlags';
 import SenderNameExamplePreview from './components/SenderNameExamplePreview.vue';
 import LockToSingleConversationPreview from './components/LockToSingleConversationPreview.vue';
@@ -76,6 +78,8 @@ export default {
     AccountHealth,
     Widget,
     AccessToken,
+    EvolutionControls,
+    InactivityPolicyPage,
   },
   mixins: [inboxMixin],
   setup() {
@@ -107,6 +111,7 @@ export default {
       isLoadingHealth: false,
       healthError: null,
       isRegisteringWebhook: false,
+      sendAgentName: false,
       widgetBubblePosition: 'right',
       widgetBubbleType: 'standard',
       widgetBubbleLauncherTitle: '',
@@ -266,6 +271,24 @@ export default {
           },
         ];
       }
+
+      if (this.isAEvolutionChannel) {
+        visibleToAllChannelTabs = [
+          ...visibleToAllChannelTabs,
+          {
+            key: 'evolution',
+            name: this.$t('INBOX_MGMT.TABS.EVOLUTION'),
+          },
+        ];
+      }
+
+      visibleToAllChannelTabs = [
+        ...visibleToAllChannelTabs,
+        {
+          key: 'inactivity-policy',
+          name: this.$t('INBOX_MGMT.TABS.INACTIVITY_POLICY'),
+        },
+      ];
 
       return visibleToAllChannelTabs;
     },
@@ -474,6 +497,7 @@ export default {
       this.channelWebsiteUrl = this.inbox.website_url;
       this.channelWelcomeTitle = this.inbox.welcome_title;
       this.channelWelcomeTagline = this.inbox.welcome_tagline || '';
+      this.sendAgentName = this.inbox.sender_config?.send_agent_name || false;
       this.selectedFeatureFlags = this.inbox.selected_feature_flags || [];
       this.replyTime = this.inbox.reply_time;
       this.locktoSingleConversation = this.inbox.lock_to_single_conversation;
@@ -593,6 +617,9 @@ export default {
           lock_to_single_conversation: this.locktoSingleConversation,
           sender_name_type: this.senderNameType,
           business_name: this.businessName || null,
+          ...(this.isAWhatsAppChannel && {
+            sender_config: { send_agent_name: this.sendAgentName },
+          }),
           channel: {
             widget_color: this.inbox.widget_color,
             website_url: this.channelWebsiteUrl,
@@ -1218,6 +1245,15 @@ export default {
                   isContinuityDisabled ? 'cursor-not-allowed opacity-50' : ''
                 "
               />
+
+              <SettingsToggleSection
+                v-if="isAWhatsAppChannel"
+                v-model="sendAgentName"
+                :header="$t('INBOX_MGMT.SENDER_CONFIG.SEND_AGENT_NAME')"
+                :description="
+                  $t('INBOX_MGMT.SENDER_CONFIG.SEND_AGENT_NAME_HELP')
+                "
+              />
             </SettingsAccordion>
 
             <div class="w-full flex justify-end items-center py-4 mt-2">
@@ -1299,11 +1335,24 @@ export default {
           <BotConfiguration :inbox="inbox" />
         </div>
         <div v-if="selectedTabKey === 'whatsapp-health'">
+          <WhatsappReauthorize
+            v-if="isEmbeddedSignupWhatsApp && !whatsappUnauthorized && !whatsappRegistrationIncomplete"
+            :inbox="inbox"
+            :whatsapp-registration-incomplete="false"
+            :show-as-reconnect-button="true"
+            class="mb-4"
+          />
           <AccountHealth
             :health-data="healthData"
             :is-registering-webhook="isRegisteringWebhook"
             @register-webhook="registerWebhook"
           />
+        </div>
+        <div v-if="selectedTabKey === 'evolution'" class="mx-6 max-w-4xl">
+          <EvolutionControls :inbox="inbox" />
+        </div>
+        <div v-if="selectedTabKey === 'inactivity-policy'">
+          <InactivityPolicyPage :inbox="inbox" />
         </div>
       </div>
     </section>

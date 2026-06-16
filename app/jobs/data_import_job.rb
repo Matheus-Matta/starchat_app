@@ -15,7 +15,7 @@ class DataImportJob < ApplicationJob
     begin
       process_import_file
       send_import_notification_to_admin
-    rescue CSV::MalformedCSVError => e
+    rescue CSV::MalformedCSVError, Roo::Error => e
       handle_csv_error(e)
     end
   end
@@ -35,13 +35,37 @@ class DataImportJob < ApplicationJob
     contacts = []
     rejected_contacts = []
 
-    with_import_file do |file|
-      csv_reader(file).each do |row|
-        build_contact_from_row(row, contacts, rejected_contacts)
-      end
+    each_import_row do |row|
+      build_contact_from_row(row, contacts, rejected_contacts)
     end
 
     [contacts, rejected_contacts]
+  end
+
+  def each_import_row(&block)
+    if spreadsheet_file?
+      each_spreadsheet_row(&block)
+    else
+      with_import_file do |file|
+        csv_reader(file).each(&block)
+      end
+    end
+  end
+
+  def spreadsheet_file?
+    @data_import.import_file.filename.to_s.downcase.match?(/\.(xls|xlsx)\z/)
+  end
+
+  def each_spreadsheet_row
+    with_import_file do |file|
+      ext = File.extname(@data_import.import_file.filename.to_s).delete_prefix('.').to_sym
+      spreadsheet = Roo::Spreadsheet.open(file.path, extension: ext)
+      headers = spreadsheet.row(1).map { |h| h.to_s.strip }
+      (2..spreadsheet.last_row).each do |i|
+        values = spreadsheet.row(i).map { |v| v.nil? ? nil : v.to_s }
+        yield CSV::Row.new(headers, values)
+      end
+    end
   end
 
   def build_contact_from_row(row, contacts, rejected_contacts)
@@ -189,6 +213,14 @@ class DataImportJob < ApplicationJob
   end
 
   def csv_headers
+    if spreadsheet_file?
+      with_import_file do |file|
+        ext = File.extname(@data_import.import_file.filename.to_s).delete_prefix('.').to_sym
+        spreadsheet = Roo::Spreadsheet.open(file.path, extension: ext)
+        return spreadsheet.row(1).map { |h| h.to_s.strip }
+      end
+    end
+
     header_row = nil
     with_import_file do |file|
       header_row = csv_reader(file).first

@@ -16,6 +16,7 @@ class Api::V1::Accounts::CompaniesController < Api::V1::Accounts::StarchatAccoun
   def index
     @companies = fetch_companies(resolved_companies)
     @companies_count = @companies.total_count
+    Rails.logger.info "[Companies] account=#{Current.account.id} action=index page=#{@current_page} total=#{@companies_count} sort=#{params[:sort]}"
   end
 
   def search
@@ -27,17 +28,22 @@ class Api::V1::Accounts::CompaniesController < Api::V1::Accounts::StarchatAccoun
     companies = resolved_companies.search_by_name_or_domain(params[:q])
     @companies = fetch_companies(companies)
     @companies_count = @companies.total_count
+    Rails.logger.info "[Companies] account=#{Current.account.id} action=search q=#{params[:q]} page=#{@current_page} total=#{@companies_count}"
   end
 
-  def show; end
+  def show
+    Rails.logger.info "[Companies] account=#{Current.account.id} action=show company_id=#{@company.id} name=#{@company.name}"
+  end
 
   def create
     @company = Current.account.companies.build(company_params)
     @company.save!
+    Rails.logger.info "[Companies] account=#{Current.account.id} action=create company_id=#{@company.id} name=#{@company.name}"
   end
 
   def update
     @company.update!(company_update_params)
+    Rails.logger.info "[Companies] account=#{Current.account.id} action=update company_id=#{@company.id} name=#{@company.name}"
   end
 
   def destroy_custom_attributes
@@ -49,6 +55,7 @@ class Api::V1::Accounts::CompaniesController < Api::V1::Accounts::StarchatAccoun
   end
 
   def destroy
+    Rails.logger.info "[Companies] account=#{Current.account.id} action=destroy company_id=#{@company.id} name=#{@company.name}"
     @company.destroy!
     head :ok
   end
@@ -60,7 +67,7 @@ class Api::V1::Accounts::CompaniesController < Api::V1::Accounts::StarchatAccoun
   private
 
   def resolved_companies
-    @resolved_companies ||= Current.account.companies
+    @resolved_companies ||= Current.account.companies.includes(avatar_attachment: :blob)
   end
 
   def set_current_page
@@ -76,6 +83,7 @@ class Api::V1::Accounts::CompaniesController < Api::V1::Accounts::StarchatAccoun
   def ensure_companies_enabled!
     return if Current.account.feature_enabled?('companies')
 
+    Rails.logger.warn "[Companies] account=#{Current.account.id} companies feature disabled — blocking #{action_name}"
     render json: { error: 'Companies are not enabled for this account' }, status: :forbidden
   end
 

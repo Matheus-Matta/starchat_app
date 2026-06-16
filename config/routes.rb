@@ -325,6 +325,11 @@ Rails.application.routes.draw do
             resources :inboxes, only: [:index, :create, :destroy], module: :assignment_policies
           end
 
+          # Conversation Flow Routes
+          resources :conversation_flows do
+            resources :inboxes, only: [:index, :create, :destroy], module: :conversation_flows
+          end
+
           resources :inboxes, only: [] do
             resource :assignment_policy, only: [:show, :create, :destroy, :update], module: :inboxes
           end

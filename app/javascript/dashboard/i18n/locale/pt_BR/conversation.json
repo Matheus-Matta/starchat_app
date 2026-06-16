@@ -314,6 +314,7 @@
     "CANCEL": "Cancelar",
     "SEND_EMAIL_SUCCESS": "A transcrição do chat foi enviada com sucesso",
     "SEND_EMAIL_ERROR": "Ocorreu um erro, por favor tente novamente",
+    "DOWNLOAD_TRANSCRIPT": "Baixar",
     "FORM": {
       "SEND_TO_CONTACT": "Envie a transcrição para o cliente",
       "SEND_TO_AGENT": "Envie a transcrição para o agente designado",
@@ -376,8 +377,10 @@
     },
     "SHOPIFY": {
       "ORDER_ID": "Order #{id}",
-      "ERROR": "Error loading orders",
-      "NO_SHOPIFY_ORDERS": "No orders found",
+      "ERROR": "Erro ao carregar pedidos",
+      "RECONNECT_REQUIRED": "Token do Shopify expirado. Reconecte sua loja em",
+      "RECONNECT_LINK": "Configurações de integrações",
+      "NO_SHOPIFY_ORDERS": "Nenhum pedido encontrado",
       "FINANCIAL_STATUS": {
         "PENDING": "Pendentes",
         "AUTHORIZED": "Authorized",

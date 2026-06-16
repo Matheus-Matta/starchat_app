@@ -2,12 +2,12 @@
 import { ref } from 'vue';
 import ReportHeader from './components/ReportHeader.vue';
 import SummaryReports from './components/SummaryReports.vue';
-import V4Button from 'dashboard/components-next/button/Button.vue';
+import DownloadReportButton from './components/DownloadReportButton.vue';
 
 const summarReportsRef = ref(null);
 
-const onDownloadClick = () => {
-  summarReportsRef.value.downloadReports();
+const onDownloadClick = format => {
+  summarReportsRef.value.downloadReports(format);
 };
 </script>
 
@@ -16,11 +16,9 @@ const onDownloadClick = () => {
     :header-title="$t('TEAM_REPORTS.HEADER')"
     :header-description="$t('TEAM_REPORTS.DESCRIPTION')"
   >
-    <V4Button
+    <DownloadReportButton
       :label="$t('TEAM_REPORTS.DOWNLOAD_TEAM_REPORTS')"
-      icon="i-ph-download-simple"
-      size="sm"
-      @click="onDownloadClick"
+      @download="onDownloadClick"
     />
   </ReportHeader>
 

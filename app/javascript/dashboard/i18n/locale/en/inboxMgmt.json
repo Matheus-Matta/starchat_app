@@ -845,6 +845,8 @@
       "INBOX_UPDATE_TITLE": "Inbox Settings"
     },
     "RECONNECTION_REQUIRED": "Your inbox is disconnected. You won't receive new messages until you reauthorize it.",
+    "WHATSAPP_REGISTRATION_INCOMPLETE": "Your WhatsApp Business registration isn't complete. Please check your display name status in Meta Business Manager before reconnecting.",
+    "COMPLETE_REGISTRATION": "Complete Registration",
     "SETTINGS": "Settings",
     "INACTIVITY_POLICY": {
       "TITLE": "Inactivity Policy",
@@ -861,7 +863,15 @@
       "INHERITANCE_NOTE": "If blank, the global account inactivity policy will apply to this inbox.",
       "SAVE": "Save",
       "CLEAR": "Clear (use account settings)",
-      "SAVE_SUCCESS": "Inactivity policy updated successfully."
+      "SAVE_SUCCESS": "Inactivity policy updated successfully.",
+      "FLOW_SECTION_TITLE": "Conversation Flow",
+      "FLOW_SECTION_DESC": "Link a conversation flow to use re-engagement messages and dual labels. Overrides inline settings.",
+      "FLOW_ENABLED": "Use conversation flow",
+      "FLOW_SELECT_LABEL": "Linked flow",
+      "FLOW_SELECT_PLACEHOLDER": "Select flow",
+      "FLOW_NONE": "No flow",
+      "FLOW_SAVE_SUCCESS": "Linked flow updated successfully.",
+      "FLOW_MANAGE_LINK": "Manage flows"
     },
     "BUSINESS_HOURS": {
       "TOGGLE_HELP": "Enabling business availability will show the available hours on live chat widget even if all the agents are offline. Outside available hours visitors can be warned with a message and a pre-chat form.",

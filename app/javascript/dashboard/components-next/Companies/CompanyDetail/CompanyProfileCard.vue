@@ -120,11 +120,11 @@ const handleUpdateCompany = async () => {
 
     syncForm(updated);
     useAlert(t('COMPANIES.DETAIL.PROFILE.MESSAGES.UPDATE_SUCCESS'));
-  } catch {
+  } catch (error) {
     if (!isCurrentCompany(companyId)) return;
 
     syncForm(props.company);
-    useAlert(t('COMPANIES.DETAIL.PROFILE.MESSAGES.UPDATE_ERROR'));
+    useAlert(error?.message || t('COMPANIES.DETAIL.PROFILE.MESSAGES.UPDATE_ERROR'));
   }
 };
 </script>

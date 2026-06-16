@@ -205,7 +205,7 @@ export default {
     <td class="py-3 ltr:pr-3 rtl:pl-3">
       <span
         v-if="isDayEnabled && !hasError"
-        class="label bg-n-blue-3 text-n-blue-11 text-label-small inline-block px-2 py-1 rounded-lg cursor-default whitespace-nowrap"
+        class="label bg-n-blue-4 text-n-blue-11 text-label-small inline-block px-2 py-1 rounded-lg cursor-default whitespace-nowrap"
       >
         {{ totalHours }}
       </span>

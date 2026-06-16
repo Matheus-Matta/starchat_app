@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_06_03_000003) do
+ActiveRecord::Schema[7.1].define(version: 2026_06_12_000002) do
   # These extensions should be enabled to support this database
   enable_extension "pg_stat_statements"
   enable_extension "pg_trgm"
@@ -549,7 +549,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_06_03_000003) do
     t.bigint "account_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "contacts_count"
+    t.integer "contacts_count", default: 0
     t.jsonb "additional_attributes", default: {}
     t.jsonb "custom_attributes", default: {}
     t.datetime "last_activity_at", precision: nil
@@ -615,6 +615,23 @@ ActiveRecord::Schema[7.1].define(version: 2026_06_03_000003) do
     t.index ["phone_number", "account_id"], name: "index_contacts_on_phone_number_and_account_id"
   end
 
+  create_table "conversation_flows", force: :cascade do |t|
+    t.bigint "account_id", null: false
+    t.string "name", null: false
+    t.boolean "enabled", default: true, null: false
+    t.integer "auto_resolve_duration"
+    t.text "auto_resolve_message"
+    t.boolean "auto_resolve_ignore_waiting", default: false
+    t.string "no_client_interaction_label"
+    t.string "no_agent_interaction_label"
+    t.text "reengagement_message"
+    t.integer "reengagement_interval"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id", "enabled"], name: "index_conversation_flows_on_account_id_and_enabled"
+    t.index ["account_id"], name: "index_conversation_flows_on_account_id"
+  end
+
   create_table "conversation_participants", force: :cascade do |t|
     t.bigint "account_id", null: false
     t.bigint "user_id", null: false
@@ -659,6 +676,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_06_03_000003) do
     t.date "protocol_date"
     t.bigint "protocol_policy_id"
     t.bigint "protocol_id"
+    t.datetime "last_reengagement_at"
     t.index ["account_id", "display_id"], name: "index_conversations_on_account_id_and_display_id", unique: true
     t.index ["account_id", "id"], name: "index_conversations_on_id_and_account_id"
     t.index ["account_id", "inbox_id", "status", "assignee_id"], name: "conv_acid_inbid_stat_asgnid_idx"
@@ -670,6 +688,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_06_03_000003) do
     t.index ["first_reply_created_at"], name: "index_conversations_on_first_reply_created_at"
     t.index ["identifier", "account_id"], name: "index_conversations_on_identifier_and_account_id"
     t.index ["inbox_id"], name: "index_conversations_on_inbox_id"
+    t.index ["last_reengagement_at"], name: "index_conversations_on_last_reengagement_at"
     t.index ["priority"], name: "index_conversations_on_priority"
     t.index ["protocol_code"], name: "index_conversations_on_protocol_code", unique: true
     t.index ["protocol_id"], name: "index_conversations_on_protocol_id"
@@ -927,6 +946,15 @@ ActiveRecord::Schema[7.1].define(version: 2026_06_03_000003) do
     t.index ["agent_capacity_policy_id", "inbox_id"], name: "idx_on_agent_capacity_policy_id_inbox_id_71c7ec4caf", unique: true
     t.index ["agent_capacity_policy_id"], name: "index_inbox_capacity_limits_on_agent_capacity_policy_id"
     t.index ["inbox_id"], name: "index_inbox_capacity_limits_on_inbox_id"
+  end
+
+  create_table "inbox_conversation_flows", force: :cascade do |t|
+    t.bigint "inbox_id", null: false
+    t.bigint "conversation_flow_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["conversation_flow_id"], name: "index_inbox_conversation_flows_on_conversation_flow_id"
+    t.index ["inbox_id"], name: "index_inbox_conversation_flows_on_inbox_id", unique: true
   end
 
   create_table "inbox_members", id: :serial, force: :cascade do |t|
@@ -1452,8 +1480,11 @@ ActiveRecord::Schema[7.1].define(version: 2026_06_03_000003) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "contact_responsible_agents", "contacts"
   add_foreign_key "contact_responsible_agents", "users"
+  add_foreign_key "conversation_flows", "accounts"
   add_foreign_key "conversations", "protocol_policies"
   add_foreign_key "conversations", "protocols"
+  add_foreign_key "inbox_conversation_flows", "conversation_flows"
+  add_foreign_key "inbox_conversation_flows", "inboxes"
   add_foreign_key "inboxes", "portals"
   add_foreign_key "inboxes", "protocol_policies"
   add_foreign_key "protocol_comments", "accounts"

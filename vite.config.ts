@@ -91,10 +91,12 @@ export default defineConfig({
       survey: path.resolve('./app/javascript/survey'),
       widget: path.resolve('./app/javascript/widget'),
       assets: path.resolve('./app/javascript/dashboard/assets'),
-      pinia: path.resolve('./app/javascript/mocks/pinia.js'),
     },
   },
   test: {
+    alias: {
+      pinia: path.resolve('./app/javascript/mocks/pinia.js'),
+    },
     environment: 'jsdom',
     include: ['app/**/*.{test,spec}.?(c|m)[jt]s?(x)'],
     coverage: {

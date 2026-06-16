@@ -13,8 +13,7 @@ class AccountDashboard < Administrate::BaseDashboard
                                    limits: AccountLimitsField
                                  }
 
-                                 # Only show manually managed features in Chatwoot Cloud deployment
-                                 attributes[:manually_managed_features] = ManuallyManagedFeaturesField if ChatwootApp.chatwoot_cloud?
+                                 attributes[:manually_managed_features] = ManuallyManagedFeaturesField
 
                                  # Add all_features last so it appears after manually_managed_features
                                  attributes[:all_features] = AccountFeaturesField
@@ -55,7 +54,7 @@ class AccountDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed on the model's show page.
   premium_show_page_attributes = if ChatwootApp.enterprise?
                                       attrs = %i[custom_attributes limits]
-                                      attrs << :manually_managed_features if ChatwootApp.chatwoot_cloud?
+                                      attrs << :manually_managed_features
                                       attrs << :all_features
                                       attrs
                                     else
@@ -77,7 +76,7 @@ class AccountDashboard < Administrate::BaseDashboard
   # on the model's form (`new` and `edit`) pages.
   premium_form_attributes = if ChatwootApp.enterprise?
                                  attrs = %i[limits]
-                                 attrs << :manually_managed_features if ChatwootApp.chatwoot_cloud?
+                                 attrs << :manually_managed_features
                                  attrs << :all_features
                                  attrs
                                else
@@ -119,8 +118,7 @@ class AccountDashboard < Administrate::BaseDashboard
   def permitted_attributes(action)
     attrs = super + [limits: {}]
 
-    # Add manually_managed_features to permitted attributes only for Chatwoot Cloud
-    attrs << { manually_managed_features: [] } if ChatwootApp.chatwoot_cloud?
+    attrs << { manually_managed_features: [] }
 
     attrs
   end

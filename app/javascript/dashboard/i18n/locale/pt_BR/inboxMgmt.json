@@ -1180,7 +1180,15 @@
       "INHERITANCE_NOTE": "Se em branco, a política de inatividade global da conta será aplicada a esta caixa de entrada.",
       "SAVE": "Salvar",
       "CLEAR": "Limpar (usar config. da conta)",
-      "SAVE_SUCCESS": "Política de inatividade atualizada com sucesso."
+      "SAVE_SUCCESS": "Política de inatividade atualizada com sucesso.",
+      "FLOW_SECTION_TITLE": "Fluxo de Conversa",
+      "FLOW_SECTION_DESC": "Vincule um fluxo de conversa para usar reengajamento e etiquetas duais. Substitui as configurações inline.",
+      "FLOW_ENABLED": "Usar fluxo de conversa",
+      "FLOW_SELECT_LABEL": "Fluxo vinculado",
+      "FLOW_SELECT_PLACEHOLDER": "Selecionar fluxo",
+      "FLOW_NONE": "Nenhum fluxo",
+      "FLOW_SAVE_SUCCESS": "Fluxo vinculado atualizado com sucesso.",
+      "FLOW_MANAGE_LINK": "Gerenciar fluxos"
     },
     "ACCOUNT_HEALTH": {
       "TITLE": "Saúde da Conta",

@@ -25,11 +25,29 @@ class V2::Reports::AgentSummaryBuilder < V2::Reports::BaseSummaryBuilder
       resolved_conversations_count: resolved_count[user_id] || 0,
       avg_resolution_time: avg_resolution_time[user_id],
       avg_first_response_time: avg_first_response_time[user_id],
-      avg_reply_time: avg_reply_time[user_id]
+      avg_reply_time: avg_reply_time[user_id],
+      no_first_reply_count: no_first_reply_by_agent[user_id] || 0,
+      waiting_count: waiting_by_agent[user_id] || 0
     }
   end
 
   def group_by_key
     :user_id
+  end
+
+  def no_first_reply_by_agent
+    @no_first_reply_by_agent ||= account.conversations.open
+                                        .where(first_reply_created_at: nil)
+                                        .where.not(assignee_id: nil)
+                                        .group(:assignee_id)
+                                        .count
+  end
+
+  def waiting_by_agent
+    @waiting_by_agent ||= account.conversations.open
+                                 .where.not(waiting_since: nil)
+                                 .where.not(assignee_id: nil)
+                                 .group(:assignee_id)
+                                 .count
   end
 end

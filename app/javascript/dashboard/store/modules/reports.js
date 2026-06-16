@@ -2,7 +2,11 @@
 import * as types from '../mutation-types';
 import { STATUS } from '../constants';
 import Report from '../../api/reports';
-import { downloadCsvFile, generateFileName } from '../../helper/downloadHelper';
+import {
+  downloadCsvFile,
+  downloadXlsFile,
+  generateFileName,
+} from '../../helper/downloadHelper';
 import AnalyticsHelper from '../../helper/AnalyticsHelper';
 import { REPORTS_EVENTS } from '../../helper/AnalyticsHelper/events';
 import { clampDataBetweenTimeline } from 'shared/helpers/ReportsDataHelper';
@@ -171,7 +175,8 @@ export const actions = {
       reportObj.type,
       reportObj.id,
       reportObj.groupBy,
-      reportObj.businessHours
+      reportObj.businessHours,
+      reportObj.status
     )
       .then(accountSummary => {
         commit(types.default.SET_ACCOUNT_SUMMARY, accountSummary.data);
@@ -240,9 +245,10 @@ export const actions = {
       });
   },
   downloadAgentReports(_, reportObj) {
+    const dl = reportObj.format === 'xls' ? downloadXlsFile : downloadCsvFile;
     return Report.getAgentReports(reportObj)
       .then(response => {
-        downloadCsvFile(reportObj.fileName, response.data);
+        dl(reportObj.fileName, response.data);
         AnalyticsHelper.track(REPORTS_EVENTS.DOWNLOAD_REPORT, {
           reportType: 'agent',
           businessHours: reportObj?.businessHours,
@@ -253,9 +259,10 @@ export const actions = {
       });
   },
   downloadConversationsSummaryReports(_, reportObj) {
+    const dl = reportObj.format === 'xls' ? downloadXlsFile : downloadCsvFile;
     return Report.getConversationsSummaryReports(reportObj)
       .then(response => {
-        downloadCsvFile(reportObj.fileName, response.data);
+        dl(reportObj.fileName, response.data);
         AnalyticsHelper.track(REPORTS_EVENTS.DOWNLOAD_REPORT, {
           reportType: 'conversations_summary',
           businessHours: reportObj?.businessHours,
@@ -266,9 +273,10 @@ export const actions = {
       });
   },
   downloadLabelReports(_, reportObj) {
+    const dl = reportObj.format === 'xls' ? downloadXlsFile : downloadCsvFile;
     return Report.getLabelReports(reportObj)
       .then(response => {
-        downloadCsvFile(reportObj.fileName, response.data);
+        dl(reportObj.fileName, response.data);
         AnalyticsHelper.track(REPORTS_EVENTS.DOWNLOAD_REPORT, {
           reportType: 'label',
           businessHours: reportObj?.businessHours,
@@ -279,9 +287,10 @@ export const actions = {
       });
   },
   downloadInboxReports(_, reportObj) {
+    const dl = reportObj.format === 'xls' ? downloadXlsFile : downloadCsvFile;
     return Report.getInboxReports(reportObj)
       .then(response => {
-        downloadCsvFile(reportObj.fileName, response.data);
+        dl(reportObj.fileName, response.data);
         AnalyticsHelper.track(REPORTS_EVENTS.DOWNLOAD_REPORT, {
           reportType: 'inbox',
           businessHours: reportObj?.businessHours,
@@ -292,9 +301,10 @@ export const actions = {
       });
   },
   downloadTeamReports(_, reportObj) {
+    const dl = reportObj.format === 'xls' ? downloadXlsFile : downloadCsvFile;
     return Report.getTeamReports(reportObj)
       .then(response => {
-        downloadCsvFile(reportObj.fileName, response.data);
+        dl(reportObj.fileName, response.data);
         AnalyticsHelper.track(REPORTS_EVENTS.DOWNLOAD_REPORT, {
           reportType: 'team',
           businessHours: reportObj?.businessHours,
@@ -305,9 +315,10 @@ export const actions = {
       });
   },
   downloadAccountConversationHeatmap(_, reportObj) {
+    const dl = reportObj.format === 'xls' ? downloadXlsFile : downloadCsvFile;
     Report.getConversationTrafficCSV({ daysBefore: reportObj.daysBefore })
       .then(response => {
-        downloadCsvFile(
+        dl(
           generateFileName({
             type: 'Conversation traffic',
             to: reportObj.to,

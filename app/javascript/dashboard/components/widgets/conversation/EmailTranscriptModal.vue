@@ -3,6 +3,8 @@ import { useVuelidate } from '@vuelidate/core';
 import { required, minLength, email } from '@vuelidate/validators';
 import { useAlert } from 'dashboard/composables';
 import NextButton from 'dashboard/components-next/button/Button.vue';
+import { MESSAGE_TYPE } from 'shared/constants/messages';
+import { downloadTextFile } from 'dashboard/helper/downloadHelper';
 
 export default {
   components: {
@@ -74,6 +76,101 @@ export default {
   methods: {
     onCancel() {
       this.$emit('cancel');
+    },
+    formatIso(unixSeconds) {
+      return new Date(unixSeconds * 1000).toISOString().replace('Z', this.tzOffset());
+    },
+    tzOffset() {
+      const pad = n => String(Math.abs(n)).padStart(2, '0');
+      const offset = -new Date().getTimezoneOffset();
+      const sign = offset >= 0 ? '+' : '-';
+      return `${sign}${pad(Math.floor(Math.abs(offset) / 60))}:${pad(Math.abs(offset) % 60)}`;
+    },
+    formatAttachments(attachments) {
+      if (!attachments || !attachments.length) return [];
+      return attachments.map(att => {
+        const typeLabel = (att.file_type || 'file').toUpperCase();
+        const url = att.data_url || att.thumb_url || '';
+        const ext = att.extension ? `.${att.extension}` : '';
+        return `      [${typeLabel}${ext}] ${url}`;
+      });
+    },
+    downloadTranscript() {
+      const sep = '='.repeat(80);
+      const contactName = this.currentChat.meta?.sender?.name || 'Contact';
+      const agentName = this.currentChat.meta?.assignee?.name || '';
+      const conversationId = this.currentChat.id;
+      const inboxName = this.currentChat.inbox_id || '';
+      const now = new Date();
+      const nowIso = now.toISOString().replace('Z', this.tzOffset());
+
+      const messages = (this.currentChat.messages || [])
+        .filter(
+          msg =>
+            !msg.private &&
+            (msg.message_type === MESSAGE_TYPE.INCOMING ||
+              msg.message_type === MESSAGE_TYPE.OUTGOING)
+        )
+        .sort((a, b) => a.created_at - b.created_at);
+
+      const firstAt = messages.length
+        ? this.formatIso(messages[0].created_at)
+        : nowIso;
+      const lastAt = messages.length
+        ? this.formatIso(messages[messages.length - 1].created_at)
+        : nowIso;
+
+      const header = [
+        sep,
+        'TRANSCRIPT OF ELECTRONIC COMMUNICATION',
+        sep,
+        `Reference :  #${conversationId}`,
+        `Contact   :  ${contactName}`,
+        agentName ? `Agent     :  ${agentName}` : null,
+        inboxName ? `Inbox ID  :  ${inboxName}` : null,
+        `Period    :  ${firstAt}  →  ${lastAt}`,
+        `Exported  :  ${nowIso}`,
+        sep,
+        '',
+      ]
+        .filter(l => l !== null)
+        .join('\n');
+
+      const body = messages
+        .map((msg, idx) => {
+          const seq = String(idx + 1).padStart(3, '0');
+          const ts = this.formatIso(msg.created_at);
+          const role =
+            msg.message_type === MESSAGE_TYPE.INCOMING ? 'CLIENT' : 'AGENT';
+          const senderName =
+            msg.message_type === MESSAGE_TYPE.INCOMING
+              ? contactName
+              : msg.sender?.name || agentName || 'Agent';
+          const lines = [
+            `[${seq}] ${ts} | ${role} - ${senderName}`,
+          ];
+          if (msg.content) {
+            lines.push(`      ${msg.content}`);
+          }
+          const attLines = this.formatAttachments(msg.attachments);
+          lines.push(...attLines);
+          return lines.join('\n');
+        })
+        .join('\n\n');
+
+      const footer = [
+        '',
+        sep,
+        `Total messages : ${messages.length}`,
+        `Exported at    : ${nowIso}`,
+        sep,
+      ].join('\n');
+
+      downloadTextFile(
+        `transcript-${conversationId}.txt`,
+        header + body + footer
+      );
+      this.onCancel();
     },
     async onSubmit() {
       this.isSubmitting = false;
@@ -161,19 +258,28 @@ export default {
             </label>
           </div>
         </div>
-        <div class="flex flex-row justify-end w-full gap-2 px-0 py-2">
+        <div class="flex flex-row justify-between w-full gap-2 px-0 py-2">
           <NextButton
             faded
             slate
-            type="reset"
-            :label="$t('EMAIL_TRANSCRIPT.CANCEL')"
-            @click.prevent="onCancel"
+            type="button"
+            :label="$t('EMAIL_TRANSCRIPT.DOWNLOAD_TRANSCRIPT')"
+            @click.prevent="downloadTranscript"
           />
-          <NextButton
-            type="submit"
-            :label="$t('EMAIL_TRANSCRIPT.SUBMIT')"
-            :disabled="!isFormValid"
-          />
+          <div class="flex gap-2">
+            <NextButton
+              faded
+              slate
+              type="reset"
+              :label="$t('EMAIL_TRANSCRIPT.CANCEL')"
+              @click.prevent="onCancel"
+            />
+            <NextButton
+              type="submit"
+              :label="$t('EMAIL_TRANSCRIPT.SUBMIT')"
+              :disabled="!isFormValid"
+            />
+          </div>
         </div>
       </form>
     </div>

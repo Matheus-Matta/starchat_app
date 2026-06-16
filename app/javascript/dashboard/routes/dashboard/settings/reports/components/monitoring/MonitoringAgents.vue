@@ -1,6 +1,7 @@
 <script setup>
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
+import { formatTime } from '@chatwoot/utils';
 
 const props = defineProps({
   agents: {
@@ -11,62 +12,34 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-  collapsed: {
-    type: Boolean,
-    default: false,
-  },
 });
 
 const { t } = useI18n();
-const locale = computed(() => window?.I18n?.locale || 'en');
-const timeFormatter = computed(
-  () =>
-    new Intl.DateTimeFormat(locale.value, {
-      hour: '2-digit',
-      minute: '2-digit',
-      second: '2-digit',
-      day: '2-digit',
-      month: 'short',
-    })
-);
-
-const availabilityTone = {
-  online: 'bg-n-teal-3 text-n-teal-11 border border-n-teal-4',
-  busy: 'bg-n-amber-3 text-n-amber-11 border border-n-amber-4',
-  offline: 'bg-n-ruby-3 text-n-ruby-11 border border-n-ruby-4',
-};
-
-const statusLabel = status => {
-  if (status === 'busy') {
-    return t('MONITORING_REPORTS.STATUS_FILTER.BUSY');
-  }
-  if (status === 'online') {
-    return t('MONITORING_REPORTS.STATUS_FILTER.ONLINE');
-  }
-  if (status === 'offline') {
-    return t('MONITORING_REPORTS.STATUS_FILTER.OFFLINE');
-  }
-  return t('MONITORING_REPORTS.STATUS_FILTER.OFFLINE');
-};
-
-const formatTimestamp = isoString => {
-  if (!isoString) {
-    return t('MONITORING_REPORTS.AGENTS.NEVER');
-  }
-  return timeFormatter.value.format(new Date(isoString));
-};
 
 const agentList = computed(() => props.agents || []);
 
-const statusBreakdown = computed(() => {
-  const list = agentList.value;
-  return {
-    online: list.filter(agent => agent.availability_status === 'online').length,
-    busy: list.filter(agent => agent.availability_status === 'busy').length,
-    offline: list.filter(agent => agent.availability_status === 'offline')
-      .length,
-  };
-});
+const fmt = v => (v != null ? formatTime(v) : '--');
+
+const agentStatusMap = computed(() => ({
+  online: {
+    dot: 'bg-n-teal-9',
+    text: 'text-n-teal-11',
+    label: t('OVERVIEW_REPORTS.AGENT_STATUS.ONLINE'),
+  },
+  busy: {
+    dot: 'bg-n-amber-9',
+    text: 'text-n-amber-11',
+    label: t('OVERVIEW_REPORTS.AGENT_STATUS.BUSY'),
+  },
+  offline: {
+    dot: 'bg-n-slate-6',
+    text: 'text-n-slate-10',
+    label: t('OVERVIEW_REPORTS.AGENT_STATUS.OFFLINE'),
+  },
+}));
+
+const agentStatus = s =>
+  agentStatusMap.value[s] || agentStatusMap.value.offline;
 </script>
 
 <template>
@@ -74,134 +47,165 @@ const statusBreakdown = computed(() => {
     class="shadow-sm outline-1 outline outline-n-container rounded-xl bg-n-solid-2 px-4 py-5 lg:px-5"
     data-testid="monitoring-agents"
   >
-    <header class="flex flex-wrap items-start justify-between gap-3">
+    <header class="mb-4 flex flex-wrap items-center justify-between gap-2">
       <div>
-        <h3 class="text-n-slate-12 font-medium text-lg mb-0">
+        <h3 class="mb-0 text-base font-medium text-n-slate-12">
           {{ t('MONITORING_REPORTS.AGENTS.TITLE') }}
         </h3>
-        <p class="text-sm text-n-slate-11">
+        <p class="text-xs text-n-slate-11">
           {{ t('MONITORING_REPORTS.AGENTS.SUBTITLE') }}
         </p>
       </div>
     </header>
 
     <div
-      v-if="collapsed"
-      class="mt-4 rounded-xl border border-dashed border-n-weak bg-n-solid-1 px-5 py-6 text-sm text-n-slate-11"
+      v-if="!agentList.length && !isLoading"
+      class="rounded-xl border border-n-weak bg-n-solid-1 px-6 py-10 text-center"
     >
-      {{ t('MONITORING_REPORTS.SECTIONS.HIDDEN_COPY') }}
+      <h4 class="text-base font-semibold text-n-slate-12">
+        {{ t('MONITORING_REPORTS.AGENTS.EMPTY_TITLE') }}
+      </h4>
+      <p class="mt-1 text-sm text-n-slate-11">
+        {{ t('MONITORING_REPORTS.AGENTS.EMPTY_MESSAGE') }}
+      </p>
     </div>
 
-    <template v-else>
-      <div class="mt-6 flex flex-wrap gap-2 text-xs font-semibold">
-        <span
-          class="inline-flex items-center gap-2 rounded-full px-3 py-1 bg-n-teal-3 text-n-teal-11 border border-n-teal-4"
-        >
-          {{ t('MONITORING_REPORTS.SUMMARY.AGENTS_AVAILABLE') }}:
-          {{ statusBreakdown.online }}
-        </span>
-        <span
-          class="inline-flex items-center gap-2 rounded-full px-3 py-1 bg-n-amber-3 text-n-amber-11 border border-n-amber-4"
-        >
-          {{ t('MONITORING_REPORTS.SUMMARY.AGENTS_BUSY') }}:
-          {{ statusBreakdown.busy }}
-        </span>
-        <span
-          class="inline-flex items-center gap-2 rounded-full px-3 py-1 bg-n-ruby-3 text-n-ruby-11 border border-n-ruby-4"
-        >
-          {{ t('MONITORING_REPORTS.SUMMARY.AGENTS_OFFLINE') }}:
-          {{ statusBreakdown.offline }}
-        </span>
-      </div>
-
-      <div
-        v-if="isLoading"
-        class="mt-4 grid auto-rows-[13rem] gap-3 grid-cols-1 sm:grid-cols-[repeat(auto-fit,minmax(17rem,21rem))] sm:justify-start"
-      >
-        <div
-          v-for="index in 3"
-          :key="`agent-skeleton-${index}`"
-          class="min-h-[13rem] rounded-lg border border-dashed border-n-weak bg-n-alpha-3 animate-pulse"
-        />
-      </div>
-
-      <div
-        v-else-if="!agentList.length"
-        class="mt-4 rounded-xl border border-n-weak bg-n-solid-1 px-6 py-10 text-center"
-      >
-        <h4 class="text-lg font-semibold text-n-slate-12">
-          {{ t('MONITORING_REPORTS.AGENTS.EMPTY_TITLE') }}
-        </h4>
-        <p class="text-sm text-n-slate-11 mt-2">
-          {{ t('MONITORING_REPORTS.AGENTS.EMPTY_MESSAGE') }}
-        </p>
-      </div>
-
-      <div
-        v-else
-        class="mt-4 grid auto-rows-[13rem] gap-3 grid-cols-1 sm:grid-cols-[repeat(auto-fit,minmax(17rem,21rem))] sm:justify-start"
-        data-testid="monitoring-agent-card"
-      >
-        <article
-          v-for="agent in agentList"
-          :key="agent.id"
-          class="flex h-full flex-col overflow-hidden rounded-lg border border-n-weak bg-n-solid-1 px-4 py-4"
-        >
-          <div class="flex items-start justify-between gap-3">
-            <div class="min-w-0">
-              <h4 class="text-lg font-semibold text-n-slate-12 truncate">
+    <div
+      v-else
+      class="overflow-x-auto rounded-xl border border-n-weak"
+      data-testid="monitoring-agent-table"
+    >
+      <table class="w-full">
+        <thead class="bg-n-slate-1">
+          <tr>
+            <th
+              class="ltr:first:rounded-tl-xl rtl:first:rounded-tr-xl py-3 px-5 text-left font-medium text-sm text-n-slate-12"
+            >
+              {{ t('MONITORING_REPORTS.AGENTS.TITLE') }}
+            </th>
+            <th class="py-3 px-5 text-left font-medium text-sm text-n-slate-12">
+              {{ t('MONITORING_REPORTS.TABLE.STATUS') }}
+            </th>
+            <th
+              class="py-3 px-5 text-right font-medium text-sm text-n-slate-12"
+            >
+              {{ t('MONITORING_REPORTS.TABLE.CONVERSATIONS') }}
+            </th>
+            <th
+              class="py-3 px-5 text-right font-medium text-sm text-n-slate-12"
+            >
+              {{ t('MONITORING_REPORTS.TABLE.AVG_FIRST_RESPONSE') }}
+            </th>
+            <th
+              class="py-3 px-5 text-right font-medium text-sm text-n-slate-12"
+            >
+              {{ t('MONITORING_REPORTS.TABLE.AVG_RESOLUTION') }}
+            </th>
+            <th
+              class="py-3 px-5 text-right font-medium text-sm text-n-slate-12"
+            >
+              {{ t('MONITORING_REPORTS.TABLE.AVG_REPLY') }}
+            </th>
+            <th
+              class="py-3 px-5 text-right font-medium text-sm text-n-slate-12"
+            >
+              {{ t('MONITORING_REPORTS.TABLE.RESOLUTIONS') }}
+            </th>
+            <th
+              class="py-3 px-5 text-right font-medium text-sm text-n-slate-12"
+            >
+              {{ t('MONITORING_REPORTS.TABLE.NO_FIRST_REPLY') }}
+            </th>
+            <th
+              class="ltr:last:rounded-tr-xl rtl:last:rounded-tl-xl py-3 px-5 text-right font-medium text-sm text-n-slate-12"
+            >
+              {{ t('MONITORING_REPORTS.TABLE.WAITING') }}
+            </th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-n-weak">
+          <tr v-if="isLoading && !agentList.length" class="text-center">
+            <td colspan="9" class="py-8 text-sm text-n-slate-11">
+              {{ t('REPORT.LOADING_CHART') }}
+            </td>
+          </tr>
+          <tr
+            v-for="agent in agentList"
+            :key="agent.id"
+            class="transition-colors hover:bg-n-alpha-1"
+          >
+            <td class="py-3 px-5">
+              <p
+                class="max-w-[200px] truncate text-sm font-medium text-n-slate-12"
+              >
                 {{ agent.name }}
-              </h4>
-              <p class="text-xs text-n-slate-11 truncate">
+              </p>
+              <p class="max-w-[200px] truncate text-xs text-n-slate-11">
                 {{ agent.email }}
               </p>
-            </div>
-            <span
-              class="inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-semibold"
-              :class="
-                availabilityTone[agent.availability_status] ||
-                availabilityTone.offline
-              "
+            </td>
+            <td class="py-3 px-5">
+              <span
+                class="inline-flex items-center gap-1.5 text-xs font-medium"
+                :class="agentStatus(agent.availability_status).text"
+              >
+                <span
+                  class="h-1.5 w-1.5 rounded-full"
+                  :class="agentStatus(agent.availability_status).dot"
+                />
+                {{ agentStatus(agent.availability_status).label }}
+              </span>
+            </td>
+            <td
+              class="py-3 px-5 text-right text-sm tabular-nums text-n-slate-12"
             >
-              <span class="size-2 rounded-full bg-current" />
-              {{ statusLabel(agent.availability_status) }}
-            </span>
-          </div>
-
-          <dl class="mt-4 grid flex-1 grid-cols-2 gap-3 text-sm">
-            <div>
-              <dt class="text-n-slate-11 line-clamp-1">
-                {{ t('MONITORING_REPORTS.AGENTS.ACTIVE_CONVERSATIONS') }}
-              </dt>
-              <dd
-                class="text-lg font-semibold tabular-nums"
+              {{ agent.conversations_count ?? 0 }}
+            </td>
+            <td
+              class="py-3 px-5 text-right text-sm tabular-nums text-n-slate-11"
+            >
+              {{ fmt(agent.avg_first_response_time) }}
+            </td>
+            <td
+              class="py-3 px-5 text-right text-sm tabular-nums text-n-slate-11"
+            >
+              {{ fmt(agent.avg_resolution_time) }}
+            </td>
+            <td
+              class="py-3 px-5 text-right text-sm tabular-nums text-n-slate-11"
+            >
+              {{ fmt(agent.avg_reply_time) }}
+            </td>
+            <td
+              class="py-3 px-5 text-right text-sm tabular-nums text-n-slate-12"
+            >
+              {{ agent.resolved_conversations_count ?? 0 }}
+            </td>
+            <td class="py-3 px-5 text-right text-sm tabular-nums">
+              <span
                 :class="
-                  agent.active_conversations_count
-                    ? 'text-n-slate-12'
+                  agent.no_first_reply_count
+                    ? 'font-semibold text-n-ruby-11'
                     : 'text-n-slate-11'
                 "
               >
-                {{ agent.active_conversations_count || 0 }}
-              </dd>
-            </div>
-            <div>
-              <dt class="text-n-slate-11 line-clamp-1">
-                {{ t('MONITORING_REPORTS.AGENTS.INBOXES') }}
-              </dt>
-              <dd class="text-lg font-semibold text-n-slate-12 tabular-nums">
-                {{ agent.inboxes_count || 0 }}
-              </dd>
-            </div>
-          </dl>
-
-          <p class="mt-4 line-clamp-1 text-xs text-n-slate-11">
-            {{ t('MONITORING_REPORTS.AGENTS.LAST_ACTIVITY') }}:
-            <strong class="text-n-slate-12">
-              {{ formatTimestamp(agent.last_activity_at) }}
-            </strong>
-          </p>
-        </article>
-      </div>
-    </template>
+                {{ agent.no_first_reply_count ?? 0 }}
+              </span>
+            </td>
+            <td class="py-3 px-5 text-right text-sm tabular-nums">
+              <span
+                :class="
+                  agent.waiting_count
+                    ? 'font-semibold text-n-amber-11'
+                    : 'text-n-slate-11'
+                "
+              >
+                {{ agent.waiting_count ?? 0 }}
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </section>
 </template>

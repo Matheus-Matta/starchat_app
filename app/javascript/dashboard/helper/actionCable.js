@@ -54,6 +54,8 @@ class ActionCableConnector extends BaseActionCableConnector {
       'voice_call.outbound_connected': this.onVoiceCallOutboundConnected,
       'voice_call.outbound_accepted': this.onVoiceCallOutboundAccepted,
       'voice_call.ended': this.onVoiceCallEnded,
+      'evolution.qrcode_updated': this.onEvolutionQRCodeUpdated,
+      'evolution.connection_update': this.onEvolutionConnectionUpdate,
     };
   }
 
@@ -80,6 +82,7 @@ class ActionCableConnector extends BaseActionCableConnector {
     this.app.$store.dispatch('contacts/updatePresence', data.contacts);
     this.app.$store.dispatch('agents/updatePresence', data.users);
     this.app.$store.dispatch('setCurrentUserAvailability', data.users);
+    this.fetchConversationStats();
   };
 
   onConversationContactChange = payload => {
@@ -341,6 +344,14 @@ class ActionCableConnector extends BaseActionCableConnector {
       }
     }
     useCallsStore().removeCall(data.call_id);
+  };
+
+  onEvolutionQRCodeUpdated = data => {
+    emitter.emit('evolution:qrcode_updated', data);
+  };
+
+  onEvolutionConnectionUpdate = data => {
+    emitter.emit('evolution:connection_update', data);
   };
 }
 

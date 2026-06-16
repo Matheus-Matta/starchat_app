@@ -92,6 +92,11 @@
         "COOKIES": "_Cookies_ de terceiros devem estar habilitados",
         "ADMIN_ACCESS": "Você precisa de acesso de administrador na conta do WhatsApp Business"
       }
+    },
+    "RECONNECT": {
+      "TITLE": "Reconectar WhatsApp",
+      "DESCRIPTION": "Use esta opção para reconectar sua caixa de entrada do WhatsApp com a Meta caso esteja desconectada ou não esteja recebendo mensagens. Você pode reconectar sem excluir esta caixa de entrada.",
+      "BUTTON_TEXT": "Reconectar com a Meta"
     }
   }
 }

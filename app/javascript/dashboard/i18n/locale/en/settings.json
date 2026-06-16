@@ -202,7 +202,8 @@
         "STATUS": {
           "ONLINE": "Online",
           "BUSY": "Busy",
-          "OFFLINE": "Offline"
+          "OFFLINE": "Offline",
+          "INVISIBLE": "Invisible"
         },
         "SET_AVAILABILITY_SUCCESS": "Availability has been set successfully",
         "SET_AVAILABILITY_ERROR": "Couldn't set availability, please try again",
@@ -358,6 +359,7 @@
     "REPORTS_TEAM": "Team",
     "REPORTS_MONITORING": "Monitoring",
     "AGENT_ASSIGNMENT": "Assignment Policy",
+    "CONVERSATION_FLOWS": "Conversation Flows",
     "SET_AVAILABILITY_TITLE": "Set yourself as",
     "SET_YOUR_AVAILABILITY": "Set your availability",
     "SLA": "SLA",
@@ -966,5 +968,60 @@
       "SUCCESS": "Cosmos settings updated successfully.",
       "ERROR": "Failed to update Cosmos settings. Please try again."
     }
+  },
+  "CONVERSATION_FLOWS": {
+    "TITLE": "Conversation Flows",
+    "SUBTITLE": "Create reusable inactivity flows and link them to different inboxes.",
+    "NEW_FLOW": "New Flow",
+    "NO_RECORDS_FOUND": "No conversation flows found. Create one to get started.",
+    "FORM": {
+      "FLOW_NAME": "Flow name",
+      "FLOW_NAME_PLACEHOLDER": "e.g. WhatsApp Support Flow",
+      "ENABLED": "Flow active",
+      "REENGAGEMENT_SECTION": "Re-engagement Message",
+      "REENGAGEMENT_SECTION_DESC": "Send a message to the client while there is no response.",
+      "REENGAGEMENT_MESSAGE_LABEL": "Re-engagement message",
+      "REENGAGEMENT_MESSAGE_PLACEHOLDER": "e.g. Hi! Are you still there? We can help!",
+      "REENGAGEMENT_INTERVAL_LABEL": "Interval between messages",
+      "REENGAGEMENT_INTERVAL_MIN_ERROR": "Minimum interval is 5 minutes (scheduler limit).",
+      "RESOLUTION_SECTION": "Auto Resolution",
+      "RESOLUTION_SECTION_DESC": "Automatically resolve the conversation after inactivity.",
+      "DURATION_LABEL": "Inactivity time for resolution",
+      "MESSAGE_LABEL": "Message on resolve (optional)",
+      "MESSAGE_PLACEHOLDER": "We closed this conversation due to inactivity.",
+      "IGNORE_WAITING": "Ignore conversations waiting for agent",
+      "LABELS_SECTION": "Automatic Labels",
+      "LABELS_SECTION_DESC": "Apply a label based on who did not respond.",
+      "NO_CLIENT_LABEL": "Label: client did not respond",
+      "NO_AGENT_LABEL": "Label: agent did not respond",
+      "LABEL_PLACEHOLDER": "Select label",
+      "SUBMIT_CREATE": "Create Flow",
+      "SUBMIT_EDIT": "Save Changes",
+      "CANCEL": "Cancel"
+    },
+    "CREATE": {
+      "SUCCESS": "Flow created successfully.",
+      "ERROR": "Error creating flow. Please try again."
+    },
+    "UPDATE": {
+      "SUCCESS": "Flow updated successfully.",
+      "ERROR": "Error updating flow. Please try again."
+    },
+    "DELETE": {
+      "TITLE": "Delete flow",
+      "CONFIRM_MESSAGE": "Are you sure you want to delete this flow? Linked inboxes will lose this flow.",
+      "SUCCESS": "Flow deleted successfully.",
+      "ERROR": "Error deleting flow. Please try again.",
+      "CONFIRM": "Delete",
+      "CANCEL": "Cancel"
+    },
+    "STATUS_ACTIVE": "Active",
+    "STATUS_INACTIVE": "Inactive",
+    "META_REENGAGEMENT": "Re-engagement",
+    "META_RESOLVE": "Resolution",
+    "META_INBOX_SINGLE": "inbox",
+    "META_INBOX_PLURAL": "inboxes",
+    "EDIT_TOOLTIP": "Edit flow",
+    "DELETE_TOOLTIP": "Delete flow"
   }
 }

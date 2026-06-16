@@ -2,7 +2,6 @@ class Starchat::Api::V1::AccountsController < Api::BaseController
   include BillingHelper
   before_action :fetch_account
   before_action :check_authorization
-  before_action :check_cloud_env, only: [:toggle_deletion]
 
   def subscription
     head :no_content
@@ -69,9 +68,6 @@ class Starchat::Api::V1::AccountsController < Api::BaseController
 
   private
 
-  def check_cloud_env
-    render json: { error: 'Not found' }, status: :not_found unless ChatwootApp.chatwoot_cloud?
-  end
 
   def default_limits
     {

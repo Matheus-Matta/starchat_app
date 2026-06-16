@@ -79,6 +79,8 @@ class Inbox < ApplicationRecord
 
   has_one :inbox_assignment_policy, dependent: :destroy
   has_one :assignment_policy, through: :inbox_assignment_policy
+  has_one :inbox_conversation_flow, dependent: :destroy
+  has_one :conversation_flow, through: :inbox_conversation_flow
   has_one :agent_bot_inbox, dependent: :destroy_async
   has_one :agent_bot, through: :agent_bot_inbox
   has_many :webhooks, dependent: :destroy_async
@@ -200,6 +202,10 @@ class Inbox < ApplicationRecord
 
   def should_auto_resolve?
     effective_auto_resolve_duration.to_i.positive?
+  end
+
+  def active_conversation_flow
+    conversation_flow&.enabled? ? conversation_flow : nil
   end
 
   def anti_spam_enabled?

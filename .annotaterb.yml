@@ -59,7 +59,7 @@
 :additional_file_patterns: []
 :model_dir:
 - app/models
-- enterprise/app/models
+- starchat/app/models
 :require: []
 :root_dir:
 - ''

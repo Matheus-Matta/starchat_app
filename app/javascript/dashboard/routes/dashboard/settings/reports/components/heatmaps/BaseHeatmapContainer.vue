@@ -16,7 +16,8 @@ import subDays from 'date-fns/subDays';
 import DropdownMenu from 'dashboard/components-next/dropdown-menu/DropdownMenu.vue';
 import Button from 'dashboard/components-next/button/Button.vue';
 import { useI18n } from 'vue-i18n';
-import { downloadCsvFile } from 'dashboard/helper/downloadHelper';
+import { downloadCsvFile, downloadXlsFile } from 'dashboard/helper/downloadHelper';
+import DownloadReportButton from '../DownloadReportButton.vue';
 
 const props = defineProps({
   metric: {
@@ -136,7 +137,7 @@ const resolveActiveRange = () => {
   return selectedRange.value;
 };
 
-const downloadHeatmapData = () => {
+const downloadHeatmapData = (fileFormat = 'csv') => {
   const range = resolveActiveRange();
   if (!range) {
     return;
@@ -151,6 +152,7 @@ const downloadHeatmapData = () => {
     store.dispatch(props.downloadAction, {
       daysBefore: selectedDaysBefore.value,
       to: getUnixTime(to),
+      format: fileFormat,
     });
     return;
   }
@@ -193,8 +195,11 @@ const downloadHeatmapData = () => {
     'dd-MM-yyyy'
   )}.csv`;
 
-  // Download the file
-  downloadCsvFile(fileName, csvContent);
+  if (fileFormat === 'xls') {
+    downloadXlsFile(fileName, csvContent);
+  } else {
+    downloadCsvFile(fileName, csvContent);
+  }
 };
 
 const [showInboxDropdown, toggleInboxDropdown] = useToggle();
@@ -302,14 +307,9 @@ onMounted(() => {
             @action="handleInboxAction($event)"
           />
         </div>
-        <Button
-          v-tooltip="t('OVERVIEW_REPORTS.CONVERSATION_HEATMAP.DOWNLOAD_REPORT')"
-          sm
-          slate
-          faded
-          icon="i-lucide-download"
-          class="rounded-md group-hover:bg-n-alpha-2"
-          @click="downloadHeatmapData"
+        <DownloadReportButton
+          :label="t('OVERVIEW_REPORTS.CONVERSATION_HEATMAP.DOWNLOAD_REPORT')"
+          @download="downloadHeatmapData"
         />
       </template>
       <BaseHeatmap

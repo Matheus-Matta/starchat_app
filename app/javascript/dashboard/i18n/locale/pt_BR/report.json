@@ -5,6 +5,10 @@
     "LOADING_CHART": "Carregando dados do gráfico...",
     "NO_ENOUGH_DATA": "Não existem dados suficientes para gerar o relatório. Tente novamente mais tarde.",
     "DOWNLOAD_AGENT_REPORTS": "Baixar relatórios de agentes",
+    "DOWNLOAD_FORMAT": {
+      "CSV": "CSV",
+      "XLS": "Excel"
+    },
     "DATA_FETCHING_FAILED": "Falha ao buscar dados, tente novamente mais tarde.",
     "SUMMARY_FETCHING_FAILED": "Não foi possível obter o resumo. Tente novamente mais tarde.",
     "METRICS": {
@@ -88,6 +92,18 @@
     "CUSTOM_DATE_RANGE": {
       "CONFIRM": "Aplicar",
       "PLACEHOLDER": "Selecionar intervalo de datas"
+    },
+    "FILTERS": {
+      "DIMENSION_LABEL": "Filtrar por",
+      "STATUS_LABEL": "Status",
+      "ALL_TEAMS": "Todas as equipes",
+      "ALL_AGENTS": "Todos os agentes",
+      "ALL_INBOXES": "Todas as caixas de entrada",
+      "ALL_STATUSES": "Todos os status",
+      "STATUS_OPEN": "Aberta",
+      "STATUS_RESOLVED": "Resolvida",
+      "STATUS_PENDING": "Pendente",
+      "STATUS_SNOOZED": "Adiada"
     },
     "GROUP_BY_FILTER_DROPDOWN_LABEL": "Agrupar por",
     "DURATION_FILTER_LABEL": "Duração",
@@ -668,11 +684,13 @@
     "AGENT": "Agente",
     "TEAM": "Time",
     "LABEL": "Nome do campo",
-    "AVG_RESOLUTION_TIME": "Tempo Médio de Resolução",
-    "AVG_FIRST_RESPONSE_TIME": "Tempo Médio de Primeira Resposta",
-    "AVG_REPLY_TIME": "Tempo Médio de Rspera do Cliente",
-    "RESOLUTION_COUNT": "Contagem de Resolução",
-    "CONVERSATIONS": "Nº de Conversas"
+    "AVG_RESOLUTION_TIME": "Resolução",
+    "AVG_FIRST_RESPONSE_TIME": "1ª Resposta",
+    "AVG_REPLY_TIME": "Espera",
+    "RESOLUTION_COUNT": "Resoluções",
+    "CONVERSATIONS": "Conversas",
+    "NO_FIRST_REPLY": "Sem Resp.",
+    "WAITING": "Aguardando"
   },
   "MONITORING_REPORTS": {
     "HEADER": "Monitoramento ao vivo das operações",
@@ -699,7 +717,20 @@
       "AGENT_SEARCH_PLACEHOLDER": "Pesquisar agentes",
       "INBOX_STATUS": "Status da caixa de entrada",
       "AGENT_STATUS": "Status do agente",
+      "TEAM_FILTER_LABEL": "Filtrar por equipe",
+      "ALL_TEAMS": "Todas as equipes",
       "SECTION_VISIBILITY": "Seções"
+    },
+    "TABLE": {
+      "STATUS": "Status",
+      "CHANNEL": "Canal",
+      "CONVERSATIONS": "Conversas",
+      "AVG_FIRST_RESPONSE": "1ª Resposta",
+      "AVG_RESOLUTION": "Resolução",
+      "AVG_REPLY": "Espera",
+      "RESOLUTIONS": "Resoluções",
+      "NO_FIRST_REPLY": "Sem Resposta",
+      "WAITING": "Aguardando"
     },
     "STATUS_FILTER": {
       "ALL": "Todos os status",
@@ -713,6 +744,8 @@
     "SUMMARY": {
       "TITLE": "Visão geral da operação",
       "TOTAL_INBOXES": "Total de caixas de entrada",
+      "TOTAL_INBOXES_SHORT": "total",
+      "TOTAL_AGENTS_SHORT": "total",
       "ONLINE_INBOXES": "Caixas online",
       "WARNING_INBOXES": "Caixas com atenção",
       "OFFLINE_INBOXES": "Caixas offline",
@@ -724,6 +757,7 @@
     },
     "INBOXES": {
       "TITLE": "Saúde das caixas de entrada",
+      "TITLE_COL": "Caixa de entrada",
       "SUBTITLE": "Acompanhe a carga, a presença dos agentes e a última atividade de cada caixa.",
       "LAST_ACTIVITY": "Última atividade",
       "NEVER": "Sem atividade recente",

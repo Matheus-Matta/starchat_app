@@ -35,6 +35,7 @@ json.auto_resolve_duration resource.auto_resolve_duration
 json.auto_resolve_message resource.auto_resolve_message
 json.auto_resolve_ignore_waiting resource.auto_resolve_ignore_waiting
 json.auto_resolve_label resource.auto_resolve_label
+json.conversation_flow_id resource.conversation_flow&.id
 json.protocol_policy_id resource.protocol_policy_id
 
 if resource.portal.present?

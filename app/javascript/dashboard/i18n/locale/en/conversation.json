@@ -6,6 +6,7 @@
     "DESC": "Send a copy of the conversation transcript to the specified email address",
     "SUBMIT": "Submit",
     "SEND_EMAIL_ERROR": "There was an error, please try again",
+    "DOWNLOAD_TRANSCRIPT": "Download",
     "FORM": {
       "SEND_TO_OTHER_EMAIL_ADDRESS": "Send the transcript to another email address",
       "EMAIL": {
@@ -414,6 +415,8 @@
         "UNFULFILLED": "Unfulfilled"
       },
       "ERROR": "Error loading orders",
+      "RECONNECT_REQUIRED": "Shopify token expired. Please reconnect your store in",
+      "RECONNECT_LINK": "Integrations settings",
       "NO_SHOPIFY_ORDERS": "No orders found"
     },
     "ASSIGNEE_LABEL": "Assigned Agent"

@@ -1,7 +1,6 @@
 <script setup>
 import { computed, h } from 'vue';
 import { useMapGetter, useStore } from 'dashboard/composables/store';
-import wootConstants from 'dashboard/constants/globals';
 import { useAlert } from 'dashboard/composables';
 import { useI18n } from 'vue-i18n';
 import { useImpersonation } from 'dashboard/composables/useImpersonation';
@@ -21,33 +20,37 @@ const store = useStore();
 const currentUserAvailability = useMapGetter('getCurrentUserAvailability');
 const currentAccountId = useMapGetter('getCurrentAccountId');
 const currentUserAutoOffline = useMapGetter('getCurrentUserAutoOffline');
+const currentRole = useMapGetter('getCurrentRole');
 
 const { isImpersonating } = useImpersonation();
 
-const { AVAILABILITY_STATUS_KEYS } = wootConstants;
-const statusList = computed(() => {
-  return [
-    t('PROFILE_SETTINGS.FORM.AVAILABILITY.STATUS.ONLINE'),
-    t('PROFILE_SETTINGS.FORM.AVAILABILITY.STATUS.BUSY'),
-    t('PROFILE_SETTINGS.FORM.AVAILABILITY.STATUS.OFFLINE'),
+const isAdmin = computed(() => currentRole.value === 'administrator');
+
+const allStatusDefs = computed(() => {
+  const base = [
+    { value: 'online', color: 'bg-n-teal-9', label: t('PROFILE_SETTINGS.FORM.AVAILABILITY.STATUS.ONLINE') },
+    { value: 'busy', color: 'bg-n-amber-9', label: t('PROFILE_SETTINGS.FORM.AVAILABILITY.STATUS.BUSY') },
+    { value: 'offline', color: 'bg-n-slate-9', label: t('PROFILE_SETTINGS.FORM.AVAILABILITY.STATUS.OFFLINE') },
   ];
+  if (isAdmin.value) {
+    base.push({ value: 'invisible', color: 'bg-n-slate-6', label: t('PROFILE_SETTINGS.FORM.AVAILABILITY.STATUS.INVISIBLE') });
+  }
+  return base;
 });
 
-const statusColors = ['bg-n-teal-9', 'bg-n-amber-9', 'bg-n-slate-9'];
+const availabilityStatuses = computed(() =>
+  allStatusDefs.value.map(s => ({
+    ...s,
+    icon: h('span', { class: [s.color, 'size-[12px] rounded'] }),
+    active: currentUserAvailability.value === s.value,
+  }))
+);
 
-const availabilityStatuses = computed(() => {
-  return statusList.value.map((statusLabel, index) => ({
-    label: statusLabel,
-    value: AVAILABILITY_STATUS_KEYS[index],
-    color: statusColors[index],
-    icon: h('span', { class: [statusColors[index], 'size-[12px] rounded'] }),
-    active: currentUserAvailability.value === AVAILABILITY_STATUS_KEYS[index],
-  }));
-});
-
-const activeStatus = computed(() => {
-  return availabilityStatuses.value.find(status => status.active);
-});
+const activeStatus = computed(
+  () =>
+    availabilityStatuses.value.find(s => s.active) ||
+    availabilityStatuses.value.find(s => s.value === 'offline')
+);
 
 const autoOfflineToggle = computed({
   get: () => currentUserAutoOffline.value,

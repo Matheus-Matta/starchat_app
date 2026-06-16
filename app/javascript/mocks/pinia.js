@@ -118,6 +118,19 @@ export function createPinia() {
   return {};
 }
 
+export function storeToRefs(store) {
+  const refs = {};
+  Object.keys(store).forEach(key => {
+    if (typeof store[key] !== 'function') {
+      refs[key] = {
+        get value() { return store[key]; },
+        set value(v) { store[key] = v; },
+      };
+    }
+  });
+  return refs;
+}
+
 let _activePinia = null;
 export function setActivePinia(pin) { _activePinia = pin; }
 export function getActivePinia() { return _activePinia; }

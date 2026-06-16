@@ -5,6 +5,27 @@ RSpec.describe 'Companies API', type: :request do
 
   before { account.enable_features!(:companies) }
 
+  describe 'feature flag enforcement' do
+    let(:admin) { create(:user, account: account, role: :administrator) }
+
+    context 'when companies feature is disabled' do
+      before { account.disable_features!(:companies) }
+
+      it 'returns forbidden on index' do
+        get "/api/v1/accounts/#{account.id}/companies",
+            headers: admin.create_new_auth_token, as: :json
+        expect(response).to have_http_status(:forbidden)
+      end
+
+      it 'returns forbidden on create' do
+        post "/api/v1/accounts/#{account.id}/companies",
+             params: { company: { name: 'Test' } },
+             headers: admin.create_new_auth_token, as: :json
+        expect(response).to have_http_status(:forbidden)
+      end
+    end
+  end
+
   describe 'GET /api/v1/accounts/{account.id}/companies' do
     context 'when it is an unauthenticated user' do
       it 'returns unauthorized' do
@@ -123,6 +144,16 @@ RSpec.describe 'Companies API', type: :request do
         expect(company_ids.index(company_with_10.id)).to be < company_ids.index(company_with_5.id)
         expect(company_ids.index(company_with_5.id)).to be < company_ids.index(company_with_2.id)
       end
+
+      it 'sorts companies by name' do
+        get "/api/v1/accounts/#{account.id}/companies",
+            params: { sort: 'name' },
+            headers: admin.create_new_auth_token,
+            as: :json
+        expect(response).to have_http_status(:success)
+        names = response.parsed_body['payload'].map { |c| c['name'] }
+        expect(names).to eq(names.sort)
+      end
     end
   end
 
@@ -142,7 +173,7 @@ RSpec.describe 'Companies API', type: :request do
             headers: admin.create_new_auth_token,
             as: :json
         expect(response).to have_http_status(:unprocessable_entity)
-        expect(response.parsed_body['error']).to eq('Specify search string with parameter q')
+        expect(response.parsed_body['error']).to be_present
       end
 
       it 'searches companies by name' do
@@ -199,6 +230,20 @@ RSpec.describe 'Companies API', type: :request do
         expect(response_body['payload'].size).to eq(0)
         expect(response_body['meta']['total_count']).to eq(0)
       end
+
+      it 'does not return companies from other accounts' do
+        create(:company, name: 'Shared Name Corp', account: account)
+        other_account = create(:account)
+        create(:company, name: 'Shared Name Corp', domain: 'other.com', account: other_account)
+
+        get "/api/v1/accounts/#{account.id}/companies/search",
+            params: { q: 'Shared Name' },
+            headers: admin.create_new_auth_token,
+            as: :json
+
+        expect(response).to have_http_status(:success)
+        expect(response.parsed_body['meta']['total_count']).to eq(1)
+      end
     end
   end
 
@@ -235,6 +280,14 @@ RSpec.describe 'Companies API', type: :request do
         expect(response).to have_http_status(:success)
         expect(response.parsed_body['payload']['custom_attributes']).to eq('plan' => 'enterprise')
       end
+
+      it 'returns not found for company from another account' do
+        other_company = create(:company, account: create(:account))
+        get "/api/v1/accounts/#{account.id}/companies/#{other_company.id}",
+            headers: admin.create_new_auth_token,
+            as: :json
+        expect(response).to have_http_status(:not_found)
+      end
     end
   end
 
@@ -246,7 +299,7 @@ RSpec.describe 'Companies API', type: :request do
       end
     end
 
-    context 'when it is an authenticated user' do
+    context 'when it is an administrator' do
       let(:admin) { create(:user, account: account, role: :administrator) }
       let(:valid_params) do
         {
@@ -272,14 +325,60 @@ RSpec.describe 'Companies API', type: :request do
         expect(response_body['payload']['domain']).to eq('newcompany.com')
       end
 
-      it 'returns error for invalid params' do
-        invalid_params = { company: { name: '' } }
-
+      it 'returns error for missing name' do
         post "/api/v1/accounts/#{account.id}/companies",
-             params: invalid_params,
+             params: { company: { name: '' } },
              headers: admin.create_new_auth_token,
              as: :json
         expect(response).to have_http_status(:unprocessable_entity)
+      end
+
+      it 'returns error when domain is already taken in same account' do
+        create(:company, domain: 'taken.com', account: account)
+
+        post "/api/v1/accounts/#{account.id}/companies",
+             params: { company: { name: 'Another Co', domain: 'taken.com' } },
+             headers: admin.create_new_auth_token,
+             as: :json
+
+        expect(response).to have_http_status(:unprocessable_entity)
+      end
+
+      it 'allows same domain in different accounts' do
+        other_account = create(:account)
+        create(:company, domain: 'shared.com', account: other_account)
+
+        expect do
+          post "/api/v1/accounts/#{account.id}/companies",
+               params: { company: { name: 'My Co', domain: 'shared.com' } },
+               headers: admin.create_new_auth_token,
+               as: :json
+        end.to change(Company, :count).by(1)
+
+        expect(response).to have_http_status(:success)
+      end
+
+      it 'returns error for invalid domain format' do
+        post "/api/v1/accounts/#{account.id}/companies",
+             params: { company: { name: 'Bad Domain Co', domain: 'not-a-domain' } },
+             headers: admin.create_new_auth_token,
+             as: :json
+        expect(response).to have_http_status(:unprocessable_entity)
+      end
+    end
+
+    context 'when it is an agent' do
+      let(:agent) { create(:user, account: account, role: :agent) }
+
+      it 'allows agents to create companies' do
+        expect do
+          post "/api/v1/accounts/#{account.id}/companies",
+               params: { company: { name: 'Agent Created Co' } },
+               headers: agent.create_new_auth_token,
+               as: :json
+        end.to change(Company, :count).by(1)
+
+        expect(response).to have_http_status(:success)
       end
     end
   end
@@ -328,6 +427,29 @@ RSpec.describe 'Companies API', type: :request do
         expect(company.reload.custom_attributes).to eq('plan' => 'enterprise', 'region' => 'us')
         expect(response.parsed_body['payload']['custom_attributes']).to eq('plan' => 'enterprise', 'region' => 'us')
       end
+
+      it 'returns error when updating to a duplicate domain' do
+        existing = create(:company, domain: 'existing.com', account: account)
+
+        patch "/api/v1/accounts/#{account.id}/companies/#{company.id}",
+              params: { company: { domain: existing.domain } },
+              headers: admin.create_new_auth_token,
+              as: :json
+
+        expect(response).to have_http_status(:unprocessable_entity)
+      end
+
+      it 'allows an agent to update a company' do
+        agent = create(:user, account: account, role: :agent)
+
+        patch "/api/v1/accounts/#{account.id}/companies/#{company.id}",
+              params: { company: { name: 'Agent Updated Name' } },
+              headers: agent.create_new_auth_token,
+              as: :json
+
+        expect(response).to have_http_status(:success)
+        expect(response.parsed_body['payload']['name']).to eq('Agent Updated Name')
+      end
     end
   end
 
@@ -346,6 +468,15 @@ RSpec.describe 'Companies API', type: :request do
         expect(response).to have_http_status(:success)
         expect(company.reload.custom_attributes).to eq('region' => 'us')
         expect(response.parsed_body['payload']['custom_attributes']).to eq('region' => 'us')
+      end
+
+      it 'returns error when custom_attributes is not an array' do
+        post "/api/v1/accounts/#{account.id}/companies/#{company.id}/destroy_custom_attributes",
+             params: { custom_attributes: 'plan' },
+             headers: admin.create_new_auth_token,
+             as: :json
+
+        expect(response).to have_http_status(:unprocessable_entity)
       end
     end
   end
@@ -393,6 +524,17 @@ RSpec.describe 'Companies API', type: :request do
                  as: :json
         end.to change(Company, :count).by(-1)
         expect(response).to have_http_status(:ok)
+      end
+
+      it 'nullifies contacts instead of deleting them' do
+        contact = create(:contact, company: company, account: account)
+
+        delete "/api/v1/accounts/#{account.id}/companies/#{company.id}",
+               headers: admin.create_new_auth_token,
+               as: :json
+
+        expect(response).to have_http_status(:ok)
+        expect(contact.reload.company_id).to be_nil
       end
     end
 

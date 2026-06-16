@@ -20,8 +20,12 @@ const createInitialUIFlags = () => ({
   removingContact: false,
 });
 
-const camelizeCompany = data =>
-  camelcaseKeys(data || {}, { deep: true, stopPaths: ['custom_attributes'] });
+const camelizeCompany = data => {
+  if (!data) return [];
+  return Array.isArray(data)
+    ? data.map(item => camelcaseKeys(item, { deep: true, stopPaths: ['custom_attributes'] }))
+    : camelcaseKeys(data, { deep: true, stopPaths: ['custom_attributes'] });
+};
 
 const camelizeContact = data =>
   camelcaseKeys(data || {}, {
@@ -81,7 +85,7 @@ export const useCompaniesStore = createStore({
   }),
 
   getters: {
-    getCompaniesList: state => state.records,
+    getCompaniesList: state => [...state.records],
   },
 
   actions: () => ({
@@ -125,9 +129,10 @@ export const useCompaniesStore = createStore({
         const {
           data: { payload, meta },
         } = await CompanyAPI.get({ page, sort });
-        this.records = camelizeCompany(payload);
+        const records = camelizeCompany(payload);
+        this.$patch({ records });
         this.setMeta(meta);
-        return this.records;
+        return records;
       } catch (error) {
         return throwErrorMessage(error);
       } finally {
@@ -221,9 +226,10 @@ export const useCompaniesStore = createStore({
         const {
           data: { payload, meta },
         } = await CompanyAPI.search(search, page, sort);
-        this.records = camelizeCompany(payload);
+        const records = camelizeCompany(payload);
+        this.$patch({ records });
         this.setMeta(meta);
-        return this.records;
+        return records;
       } catch (error) {
         return throwErrorMessage(error);
       } finally {

@@ -3,6 +3,7 @@ import { ref, computed, onMounted } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useAlert } from 'dashboard/composables';
 import InboxReconnectionRequired from '../../components/InboxReconnectionRequired.vue';
+import ButtonV4 from 'next/button/Button.vue';
 import whatsappChannel from 'dashboard/api/channel/whatsappChannel';
 import {
   setupFacebookSdk,
@@ -17,6 +18,10 @@ const props = defineProps({
     required: true,
   },
   whatsappRegistrationIncomplete: {
+    type: Boolean,
+    default: false,
+  },
+  showAsReconnectButton: {
     type: Boolean,
     default: false,
   },
@@ -171,23 +176,16 @@ const requestAuthorization = async () => {
 
 onMounted(async () => {
   try {
-    // Validate required configuration
-    if (!whatsappAppId.value) {
-      useAlert(t('INBOX.REAUTHORIZE.WHATSAPP_APP_ID_MISSING'));
-      return;
-    }
-    if (!whatsappConfigurationId.value) {
-      useAlert(t('INBOX.REAUTHORIZE.WHATSAPP_CONFIG_ID_MISSING'));
+    if (!whatsappAppId.value || !whatsappConfigurationId.value) {
       return;
     }
 
-    // Load Facebook SDK and initialize
     await setupFacebookSdk(
       whatsappAppId.value,
       window.chatwootConfig?.whatsappApiVersion
     );
-  } catch (error) {
-    useAlert(t('INBOX.REAUTHORIZE.FACEBOOK_LOAD_ERROR'));
+  } catch {
+    // SDK load failure will surface when the user clicks the reconnect button
   } finally {
     isLoadingFacebook.value = false;
   }
@@ -201,10 +199,39 @@ defineExpose({
 
 <template>
   <InboxReconnectionRequired
+    v-if="!showAsReconnectButton"
     class="mx-6"
     :is-loading="isRequestingAuthorization"
     :action-label="actionLabel"
     :description="description"
     @reauthorize="requestAuthorization"
   />
+  <div
+    v-else
+    class="mx-6 px-5 py-5 rounded-xl outline outline-1 -outline-offset-1 outline-n-weak bg-n-solid-2"
+  >
+    <div
+      class="flex flex-col gap-5 justify-between items-start w-full md:flex-row"
+    >
+      <div>
+        <span class="text-heading-3 text-n-slate-12">
+          {{ t('INBOX.RECONNECT.TITLE') }}
+        </span>
+        <p class="mt-1 text-body-main text-n-slate-11">
+          {{ t('INBOX.RECONNECT.DESCRIPTION') }}
+        </p>
+      </div>
+      <ButtonV4
+        sm
+        solid
+        blue
+        class="flex-shrink-0"
+        :loading="isRequestingAuthorization"
+        :disabled="isRequestingAuthorization || isLoadingFacebook"
+        @click="requestAuthorization"
+      >
+        {{ t('INBOX.RECONNECT.BUTTON_TEXT') }}
+      </ButtonV4>
+    </div>
+  </div>
 </template>

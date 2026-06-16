@@ -45,7 +45,7 @@ export default {
     'https://developers.facebook.com/docs/whatsapp/embedded-signup/custom-flows/onboarding-business-app-users#limitations',
   SMALL_SCREEN_BREAKPOINT: 768,
   LARGE_SCREEN_BREAKPOINT: 1024,
-  AVAILABILITY_STATUS_KEYS: ['online', 'busy', 'offline'],
+  AVAILABILITY_STATUS_KEYS: ['online', 'busy', 'offline', 'invisible'],
   SNOOZE_OPTIONS: {
     UNTIL_NEXT_REPLY: 'until_next_reply',
     AN_HOUR_FROM_NOW: 'an_hour_from_now',

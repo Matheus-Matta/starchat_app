@@ -14,6 +14,10 @@ export function useCosmos() {
     return isCloudFeatureEnabled(FEATURE_FLAGS.COSMOS);
   });
 
+  const cosmosTasksEnabled = computed(() => {
+    return isCloudFeatureEnabled(FEATURE_FLAGS.COSMOS_TASKS);
+  });
+
   const cosmosLimits = computed(() => {
     return currentAccount.value?.limits?.cosmos;
   });
@@ -42,6 +46,7 @@ export function useCosmos() {
 
   return {
     cosmosEnabled,
+    cosmosTasksEnabled,
     cosmosLimits,
     documentLimits,
     responseLimits,

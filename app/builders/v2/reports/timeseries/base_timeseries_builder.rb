@@ -31,7 +31,8 @@ class V2::Reports::Timeseries::BaseTimeseriesBuilder
       range: range,
       group_by: group_by,
       timezone_offset: params[:timezone_offset],
-      business_hours: params[:business_hours]
+      business_hours: params[:business_hours],
+      conversation_status: params[:status]
     )
   end
 

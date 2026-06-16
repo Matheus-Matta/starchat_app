@@ -78,8 +78,11 @@ module Monitoring
             email: user.email,
             availability_status: availability,
             active_conversations_count: agent_conversations[user.id] || 0,
+            no_first_reply_count: no_first_reply_by_agent[user.id] || 0,
+            waiting_count: waiting_by_agent[user.id] || 0,
             inboxes_count: inboxes_per_agent[user.id] || 0,
-            last_activity_at: (account_user.active_at || account_user.updated_at)&.iso8601
+            last_activity_at: (account_user.active_at || account_user.updated_at)&.iso8601,
+            team_ids: agent_team_ids[user.id] || []
           }
         end.compact.sort do |left, right|
           compare_agents(left, right)
@@ -169,6 +172,34 @@ module Monitoring
 
     def account_users
       @account_users ||= account.account_users.includes(:user)
+    end
+
+    def no_first_reply_by_agent
+      @no_first_reply_by_agent ||= conversation_scope.open
+                                                      .where(first_reply_created_at: nil)
+                                                      .where.not(assignee_id: nil)
+                                                      .group(:assignee_id)
+                                                      .count
+    end
+
+    def waiting_by_agent
+      @waiting_by_agent ||= conversation_scope.open
+                                               .where.not(waiting_since: nil)
+                                               .where.not(assignee_id: nil)
+                                               .group(:assignee_id)
+                                               .count
+    end
+
+    def agent_team_ids
+      @agent_team_ids ||= begin
+        team_ids_for_account = account.teams.pluck(:id)
+        return {} if team_ids_for_account.empty?
+
+        TeamMember.where(team_id: team_ids_for_account)
+                  .each_with_object({}) do |tm, hash|
+                    (hash[tm.user_id] ||= []) << tm.team_id
+                  end
+      end
     end
   end
 end

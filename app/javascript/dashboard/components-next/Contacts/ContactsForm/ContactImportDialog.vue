@@ -126,7 +126,7 @@ defineExpose({ dialogRef });
     <input
       ref="fileInput"
       type="file"
-      accept="text/csv"
+      accept="text/csv,.csv,.xls,.xlsx,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
       class="hidden"
       @change="handleFileChange"
     />

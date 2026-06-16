@@ -532,6 +532,14 @@ pt_BR:
       subject: 'Termine de configurar %{custom_domain}'
     ssl_status:
       custom_domain_not_configured: 'Domínio personalizado não está configurado'
+  activerecord:
+    errors:
+      messages:
+        record_invalid: "A validação falhou: %{errors}"
+        taken: já está em uso
+        blank: não pode ficar em branco
+        too_long: 'é muito longo (máximo de %{count} caracteres)'
+        invalid: é inválido
   super_admin:
     push_diagnostics:
       user_not_found: 'Usuário não encontrado.'
