@@ -21,3 +21,11 @@ json.trigger_rules resource.trigger_rules
 json.trigger_only_during_business_hours resource.trigger_only_during_business_hours
 json.created_at resource.created_at
 json.updated_at resource.updated_at
+
+if resource.one_off?
+  status_counts = resource.campaign_contacts.group(:status).count
+  json.contacts_count resource.campaign_contacts.count
+  json.sent_count status_counts['sent'] || 0
+  json.failed_count status_counts['failed'] || 0
+  json.pending_count status_counts['pending'] || 0
+end

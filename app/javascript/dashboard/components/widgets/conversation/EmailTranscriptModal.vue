@@ -5,6 +5,7 @@ import { useAlert } from 'dashboard/composables';
 import NextButton from 'dashboard/components-next/button/Button.vue';
 import { MESSAGE_TYPE } from 'shared/constants/messages';
 import { downloadTextFile } from 'dashboard/helper/downloadHelper';
+import ContactAPI from 'dashboard/api/contacts';
 
 export default {
   components: {
@@ -28,7 +29,9 @@ export default {
     return {
       email: '',
       selectedType: '',
+      scope: 'current',
       isSubmitting: false,
+      isFetchingAll: false,
     };
   },
   validations: {
@@ -46,6 +49,19 @@ export default {
       set(value) {
         this.$emit('update:show', value);
       },
+    },
+    isBulk() {
+      return this.scope === 'all';
+    },
+    modalTitle() {
+      return this.isBulk
+        ? this.$t('EMAIL_TRANSCRIPT.TITLE_ALL')
+        : this.$t('EMAIL_TRANSCRIPT.TITLE');
+    },
+    modalDesc() {
+      return this.isBulk
+        ? this.$t('EMAIL_TRANSCRIPT.DESC_ALL')
+        : this.$t('EMAIL_TRANSCRIPT.DESC');
     },
     sentToOtherEmailAddress() {
       return this.selectedType === 'other_email_address';
@@ -65,17 +81,26 @@ export default {
         case 'contact':
           return meta.sender.email;
         case 'assignee':
-          return meta.assignee.email;
+          return meta.assignee?.email;
         case 'other_email_address':
           return this.email;
         default:
           return '';
       }
     },
+    contactId() {
+      return this.currentChat?.meta?.sender?.id;
+    },
   },
   methods: {
     onCancel() {
       this.$emit('cancel');
+    },
+    onScopeChange() {
+      // Pre-fetch all conversations when switching to bulk scope
+      if (this.isBulk && this.contactId && this.contactConversations.length === 0) {
+        this.$store.dispatch('contactConversations/get', this.contactId);
+      }
     },
     formatIso(unixSeconds) {
       return new Date(unixSeconds * 1000).toISOString().replace('Z', this.tzOffset());
@@ -95,7 +120,9 @@ export default {
         return `      [${typeLabel}${ext}] ${url}`;
       });
     },
-    downloadTranscript() {
+
+    // ── Single conversation download (current behavior) ──────────────────
+    buildSingleTranscript() {
       const sep = '='.repeat(80);
       const contactName = this.currentChat.meta?.sender?.name || 'Contact';
       const agentName = this.currentChat.meta?.assignee?.name || '';
@@ -113,9 +140,7 @@ export default {
         )
         .sort((a, b) => a.created_at - b.created_at);
 
-      const firstAt = messages.length
-        ? this.formatIso(messages[0].created_at)
-        : nowIso;
+      const firstAt = messages.length ? this.formatIso(messages[0].created_at) : nowIso;
       const lastAt = messages.length
         ? this.formatIso(messages[messages.length - 1].created_at)
         : nowIso;
@@ -140,20 +165,14 @@ export default {
         .map((msg, idx) => {
           const seq = String(idx + 1).padStart(3, '0');
           const ts = this.formatIso(msg.created_at);
-          const role =
-            msg.message_type === MESSAGE_TYPE.INCOMING ? 'CLIENT' : 'AGENT';
+          const role = msg.message_type === MESSAGE_TYPE.INCOMING ? 'CLIENT' : 'AGENT';
           const senderName =
             msg.message_type === MESSAGE_TYPE.INCOMING
               ? contactName
               : msg.sender?.name || agentName || 'Agent';
-          const lines = [
-            `[${seq}] ${ts} | ${role} - ${senderName}`,
-          ];
-          if (msg.content) {
-            lines.push(`      ${msg.content}`);
-          }
-          const attLines = this.formatAttachments(msg.attachments);
-          lines.push(...attLines);
+          const lines = [`[${seq}] ${ts} | ${role} - ${senderName}`];
+          if (msg.content) lines.push(`      ${msg.content}`);
+          lines.push(...this.formatAttachments(msg.attachments));
           return lines.join('\n');
         })
         .join('\n\n');
@@ -166,19 +185,48 @@ export default {
         sep,
       ].join('\n');
 
-      downloadTextFile(
-        `transcript-${conversationId}.txt`,
-        header + body + footer
-      );
-      this.onCancel();
+      return { content: header + body + footer, filename: `transcript-${conversationId}.txt` };
     },
+
+    async downloadTranscript() {
+      if (this.isBulk) {
+        this.isFetchingAll = true;
+        try {
+          const response = await ContactAPI.downloadBulkTranscript(this.contactId);
+          const blob = new Blob([response.data], { type: 'text/plain;charset=utf-8' });
+          const url = window.URL.createObjectURL(blob);
+          const link = document.createElement('a');
+          const contactName = (this.currentChat.meta?.sender?.name || 'contact').replace(/\s+/g, '_');
+          link.href = url;
+          link.setAttribute('download', `transcript-${contactName}-todas.txt`);
+          document.body.appendChild(link);
+          link.click();
+          link.remove();
+          window.URL.revokeObjectURL(url);
+          this.onCancel();
+        } catch {
+          useAlert(this.$t('EMAIL_TRANSCRIPT.SEND_EMAIL_ERROR'));
+        } finally {
+          this.isFetchingAll = false;
+        }
+      } else {
+        const { content, filename } = this.buildSingleTranscript();
+        downloadTextFile(filename, content);
+        this.onCancel();
+      }
+    },
+
     async onSubmit() {
-      this.isSubmitting = false;
+      this.isSubmitting = true;
       try {
-        await this.$store.dispatch('sendEmailTranscript', {
-          email: this.selectedEmailAddress,
-          conversationId: this.currentChat.id,
-        });
+        if (this.isBulk) {
+          await ContactAPI.sendBulkTranscript(this.contactId, this.selectedEmailAddress);
+        } else {
+          await this.$store.dispatch('sendEmailTranscript', {
+            email: this.selectedEmailAddress,
+            conversationId: this.currentChat.id,
+          });
+        }
         useAlert(this.$t('EMAIL_TRANSCRIPT.SEND_EMAIL_SUCCESS'));
         this.onCancel();
       } catch (error) {
@@ -200,10 +248,40 @@ export default {
   <woot-modal v-model:show="localShow" :on-close="onCancel">
     <div class="flex flex-col h-auto overflow-auto">
       <woot-modal-header
-        :header-title="$t('EMAIL_TRANSCRIPT.TITLE')"
-        :header-content="$t('EMAIL_TRANSCRIPT.DESC')"
+        :header-title="modalTitle"
+        :header-content="modalDesc"
       />
       <form class="w-full" @submit.prevent="onSubmit">
+
+        <!-- Scope selector -->
+        <div class="flex gap-1 p-1 mb-4 rounded-lg bg-n-alpha-2">
+          <button
+            type="button"
+            class="flex-1 px-3 py-1.5 text-sm rounded-md transition-colors"
+            :class="
+              scope === 'current'
+                ? 'bg-white dark:bg-n-solid-3 text-n-slate-12 shadow-sm font-medium'
+                : 'text-n-slate-11 hover:text-n-slate-12'
+            "
+            @click="scope = 'current'"
+          >
+            {{ $t('EMAIL_TRANSCRIPT.SCOPE_CURRENT') }}
+          </button>
+          <button
+            type="button"
+            class="flex-1 px-3 py-1.5 text-sm rounded-md transition-colors"
+            :class="
+              scope === 'all'
+                ? 'bg-white dark:bg-n-solid-3 text-n-slate-12 shadow-sm font-medium'
+                : 'text-n-slate-11 hover:text-n-slate-12'
+            "
+            @click="scope = 'all'; onScopeChange()"
+          >
+            {{ $t('EMAIL_TRANSCRIPT.SCOPE_ALL') }}
+          </button>
+        </div>
+
+        <!-- Destination options -->
         <div class="w-full">
           <div
             v-if="currentChat.meta.sender && currentChat.meta.sender.email"
@@ -220,7 +298,7 @@ export default {
               $t('EMAIL_TRANSCRIPT.FORM.SEND_TO_CONTACT')
             }}</label>
           </div>
-          <div v-if="currentChat.meta.assignee" class="flex items-center gap-2">
+          <div v-if="!isBulk && currentChat.meta.assignee" class="flex items-center gap-2">
             <input
               id="assignee"
               v-model="selectedType"
@@ -258,12 +336,15 @@ export default {
             </label>
           </div>
         </div>
+
+        <!-- Actions -->
         <div class="flex flex-row justify-between w-full gap-2 px-0 py-2">
           <NextButton
             faded
             slate
             type="button"
             :label="$t('EMAIL_TRANSCRIPT.DOWNLOAD_TRANSCRIPT')"
+            :is-loading="isFetchingAll"
             @click.prevent="downloadTranscript"
           />
           <div class="flex gap-2">
@@ -278,6 +359,7 @@ export default {
               type="submit"
               :label="$t('EMAIL_TRANSCRIPT.SUBMIT')"
               :disabled="!isFormValid"
+              :is-loading="isSubmitting"
             />
           </div>
         </div>

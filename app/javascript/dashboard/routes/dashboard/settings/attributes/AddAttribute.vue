@@ -97,6 +97,9 @@ export default {
     isRegexEnabled() {
       return this.regexEnabled;
     },
+    isCompanyModelSelected() {
+      return this.attributeModel === 2;
+    },
   },
 
   validations: {
@@ -167,7 +170,10 @@ export default {
 
       <form class="flex w-full" @submit.prevent="addAttributes">
         <div class="w-full">
-          <label :class="{ error: v$.attributeModel.$error }">
+          <label
+            v-if="!isCompanyModelSelected"
+            :class="{ error: v$.attributeModel.$error }"
+          >
             {{ $t('ATTRIBUTES_MGMT.ADD.FORM.MODEL.LABEL') }}
             <select v-model="attributeModel">
               <option v-for="model in models" :key="model.id" :value="model.id">

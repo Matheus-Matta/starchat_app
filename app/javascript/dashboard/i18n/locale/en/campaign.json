@@ -172,7 +172,7 @@
           "TEMPLATE": {
             "LABEL": "WhatsApp Template",
             "PLACEHOLDER": "Select a template",
-            "INFO": "Select a template to use for this campaign.",
+            "INFO": "Select an approved template. Without a template, the message is sent as plain text (dev only).",
             "ERROR": "Template is required",
             "PREVIEW_TITLE": "Process {templateName}",
             "LANGUAGE": "Language",
@@ -208,6 +208,118 @@
       "API": {
         "SUCCESS_MESSAGE": "Campaign deleted successfully",
         "ERROR_MESSAGE": "There was an error. Please try again."
+      }
+    },
+    "CARD": {
+      "STATUS": {
+        "DRAFT": "Awaiting confirmation"
+      },
+      "DETAILS_BUTTON": "View Details"
+    },
+    "AUDIENCE_BUILDER": {
+      "LABEL": "Audience",
+      "PLACEHOLDER": "No segments selected",
+      "ADD": "Add",
+      "CANCEL": "Cancel",
+      "CLOSE": "Close",
+      "BUTTONS": {
+        "LABELS": "Labels",
+        "COMPANIES": "Companies",
+        "ATTRIBUTES": "Attributes",
+        "IMPORT": "Import spreadsheet"
+      },
+      "PANELS": {
+        "LABELS": {
+          "TITLE": "Select labels",
+          "SEARCH_PLACEHOLDER": "Search label..."
+        },
+        "COMPANIES": {
+          "TITLE": "Select company",
+          "SEARCH_PLACEHOLDER": "Type to search companies..."
+        },
+        "ATTRIBUTES": {
+          "TITLE": "Select custom attribute",
+          "EMPTY": "No contact attributes registered.",
+          "ATTRIBUTE_LABEL": "Attribute",
+          "ATTRIBUTE_PLACEHOLDER": "Select an attribute...",
+          "VALUE_LABEL": "Value",
+          "SELECT_PLACEHOLDER": "Select...",
+          "TEXT_PLACEHOLDER": "Enter value...",
+          "YES": "Yes",
+          "NO": "No"
+        },
+        "IMPORT": {
+          "TITLE": "Import from spreadsheet"
+        }
+      },
+      "IMPORT_MODAL": {
+        "DROPZONE_IDLE": "Click or drag a file here",
+        "DROPZONE_HINT": "Same format as contact import (CSV / XLSX)",
+        "DROPZONE_LOADED": "{count} row(s) found",
+        "PARSE_ERROR": "Could not read the file. Use CSV or XLSX.",
+        "FIELD_LABEL": "Identification field",
+        "FIELD_TYPES": {
+          "IDENTIFIER": "Identifier",
+          "ID": "ID",
+          "PHONE": "Phone",
+          "EMAIL": "Email"
+        },
+        "COLUMN_NOT_FOUND": "Column \"{type}\" not found. Available: {columns}",
+        "COLUMN_DETECTED": "Using column: {column} · {count} values",
+        "SEARCH_BUTTON": "Find contacts",
+        "MATCHED_LABEL": "Contacts found",
+        "UNMATCHED_LABEL": "Not found",
+        "ADD_BUTTON": "Add {count} contacts to audience",
+        "NEW_IMPORT": "New import",
+        "SEGMENT_LABEL": "Import ({count} contacts)"
+      }
+    },
+    "AUDIENCE_PREVIEW": {
+      "LOADING": "Searching contacts...",
+      "COUNT": "{count} contacts will be reached",
+      "NONE": "No contacts found for this audience"
+    },
+    "DETAIL": {
+      "BACK": "Back",
+      "STATUS": {
+        "DRAFT": "Draft",
+        "ACTIVE": "Scheduled",
+        "COMPLETED": "Completed"
+      },
+      "INFO": {
+        "INBOX": "Inbox",
+        "SCHEDULED_AT": "Scheduled at",
+        "MESSAGE": "Message",
+        "AUDIENCE": "Audience"
+      },
+      "DRAFT_SECTION": {
+        "TITLE": "Contacts that will receive this campaign",
+        "CONFIRM_BUTTON": "Confirm & Schedule",
+        "API": {
+          "SUCCESS_MESSAGE": "Campaign confirmed successfully",
+          "ERROR_MESSAGE": "There was an error confirming the campaign."
+        }
+      },
+      "CONTACTS": {
+        "TITLE": "Delivery report",
+        "TOTAL": "Total",
+        "SENT": "Sent",
+        "FAILED": "Failed",
+        "PENDING": "Pending",
+        "TABLE": {
+          "CONTACT": "Contact",
+          "PHONE": "Phone",
+          "STATUS": "Status",
+          "SENT_AT": "Sent at",
+          "ERROR": "Error"
+        },
+        "STATUS": {
+          "SENT": "Sent",
+          "FAILED": "Failed",
+          "PENDING": "Pending"
+        },
+        "LOAD_MORE": "Load more",
+        "EMPTY": "No contacts processed yet"
       }
     }
   }

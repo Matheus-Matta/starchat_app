@@ -5,7 +5,7 @@ import { useI18n } from 'vue-i18n';
 import Button from 'dashboard/components-next/button/Button.vue';
 import DropdownMenu from 'dashboard/components-next/dropdown-menu/DropdownMenu.vue';
 
-const emit = defineEmits(['create']);
+const emit = defineEmits(['create', 'import', 'export']);
 
 const { t } = useI18n();
 const showActionsDropdown = ref(false);
@@ -17,10 +17,24 @@ const menuItems = [
     value: 'create',
     icon: 'i-lucide-plus',
   },
+  {
+    label: t('COMPANIES.ACTIONS.IMPORT.MENU_LABEL'),
+    action: 'import',
+    value: 'import',
+    icon: 'i-lucide-upload',
+  },
+  {
+    label: t('COMPANIES.ACTIONS.EXPORT.MENU_LABEL'),
+    action: 'export',
+    value: 'export',
+    icon: 'i-lucide-download',
+  },
 ];
 
 const handleAction = ({ action }) => {
   if (action === 'create') emit('create');
+  if (action === 'import') emit('import');
+  if (action === 'export') emit('export');
   showActionsDropdown.value = false;
 };
 </script>

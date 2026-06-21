@@ -100,6 +100,40 @@ export const actions = {
       commit(types.SET_CAMPAIGN_UI_FLAG, { isDeleting: false });
     }
   },
+  confirm: async ({ commit }, id) => {
+    try {
+      const response = await CampaignsAPI.confirm(id);
+      commit(types.EDIT_CAMPAIGN, response.data);
+    } catch (error) {
+      throw new Error(error);
+    }
+  },
+  previewContacts: async (_context, payload) => {
+    try {
+      const audience = Array.isArray(payload) ? payload : payload.audience;
+      const page = Array.isArray(payload) ? 1 : (payload.page || 1);
+      const response = await CampaignsAPI.previewContacts(audience, page);
+      return response.data;
+    } catch (error) {
+      return { count: 0, contacts: [], meta: { current_page: 1, total_pages: 1 } };
+    }
+  },
+  getContacts: async (_context, { id, page }) => {
+    try {
+      const response = await CampaignsAPI.getContacts(id, page);
+      return response.data;
+    } catch (error) {
+      throw new Error(error);
+    }
+  },
+  matchContacts: async (_context, payload) => {
+    try {
+      const response = await CampaignsAPI.matchContacts(payload);
+      return response.data;
+    } catch (error) {
+      throw new Error(error);
+    }
+  },
 };
 
 export const mutations = {

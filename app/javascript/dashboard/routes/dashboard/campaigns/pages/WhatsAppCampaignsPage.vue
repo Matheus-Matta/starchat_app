@@ -58,6 +58,7 @@ const handleDelete = campaign => {
     <CampaignList
       v-else-if="!hasNoWhatsAppCampaigns"
       :campaigns="WhatsAppCampaigns"
+      detail-route-name="campaigns_whatsapp_detail"
       @delete="handleDelete"
     />
     <WhatsAppCampaignEmptyState

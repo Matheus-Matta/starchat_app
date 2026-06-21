@@ -11,6 +11,8 @@ import { useCompaniesStore } from 'dashboard/stores/companies';
 import CompaniesListLayout from 'dashboard/components-next/Companies/CompaniesListLayout.vue';
 import CompaniesCard from 'dashboard/components-next/Companies/CompaniesCard/CompaniesCard.vue';
 import CompanyCreateDialog from 'dashboard/components-next/Companies/CompanyCreateDialog.vue';
+import CompanyExportDialog from 'dashboard/components-next/Companies/CompanyExportDialog.vue';
+import CompanyImportDialog from 'dashboard/components-next/Companies/CompanyImportDialog.vue';
 
 const DEFAULT_SORT_FIELD = 'name';
 const DEBOUNCE_DELAY = 300;
@@ -31,6 +33,8 @@ const uiFlags = computed(() => companiesStore.getUIFlags);
 const searchQuery = computed(() => route.query?.search || '');
 const searchValue = ref(searchQuery.value);
 const createCompanyDialogRef = ref(null);
+const exportCompanyDialogRef = ref(null);
+const importCompanyDialogRef = ref(null);
 const pageNumber = computed(() => Number(route.query?.page) || 1);
 
 const parseSortSettings = (sortString = '') => {
@@ -142,6 +146,42 @@ const createCompany = async company => {
   }
 };
 
+const openExportCompanyDialog = () => {
+  exportCompanyDialogRef.value?.open();
+};
+
+const openImportCompanyDialog = () => {
+  importCompanyDialogRef.value?.dialogRef.open();
+};
+
+const onExportDownload = async ({ format }) => {
+  try {
+    await companiesStore.downloadExport({ search: searchValue.value, format });
+    useAlert(t('COMPANIES.ACTIONS.EXPORT.DOWNLOAD_SUCCESS_MESSAGE'));
+  } catch (error) {
+    useAlert(error?.message || t('COMPANIES.ACTIONS.EXPORT.ERROR_MESSAGE'));
+  }
+};
+
+const onExportEmail = async ({ format }) => {
+  try {
+    await companiesStore.export({ search: searchValue.value, format });
+    useAlert(t('COMPANIES.ACTIONS.EXPORT.SUCCESS_MESSAGE'));
+  } catch (error) {
+    useAlert(error?.message || t('COMPANIES.ACTIONS.EXPORT.ERROR_MESSAGE'));
+  }
+};
+
+const onImport = async file => {
+  try {
+    await companiesStore.import(file);
+    importCompanyDialogRef.value?.dialogRef.close();
+    useAlert(t('COMPANIES.ACTIONS.IMPORT.SUCCESS_MESSAGE'));
+  } catch (error) {
+    useAlert(error?.message || t('COMPANIES.ACTIONS.IMPORT.ERROR_MESSAGE'));
+  }
+};
+
 const handleSort = async ({ sort, order }) => {
   Object.assign(sortState, { activeSort: sort, activeOrdering: order });
 
@@ -177,6 +217,8 @@ onMounted(() => {
     @update:sort="handleSort"
     @search="onSearch"
     @create="openCreateCompanyDialog"
+    @import="openImportCompanyDialog"
+    @export="openExportCompanyDialog"
   >
     <div v-if="isFetchingList" class="flex items-center justify-center p-8">
       <span class="text-n-slate-11 text-base">{{
@@ -209,5 +251,11 @@ onMounted(() => {
       :is-loading="isCreatingCompany"
       @create="createCompany"
     />
+    <CompanyExportDialog
+      ref="exportCompanyDialogRef"
+      @download="onExportDownload"
+      @email="onExportEmail"
+    />
+    <CompanyImportDialog ref="importCompanyDialogRef" @import="onImport" />
   </CompaniesListLayout>
 </template>

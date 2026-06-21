@@ -332,9 +332,14 @@
         },
         "EXPORT_CONTACT": {
           "TITLE": "Exportar contatos",
-          "DESCRIPTION": "Exporte rapidamente um arquivo CSV com detalhes completos dos seus contatos",
-          "CONFIRM": "Exportar",
+          "FORMAT_CSV_LABEL": "CSV",
+          "FORMAT_CSV_DESC": "Compatível com Excel, Google Sheets e outros programas",
+          "FORMAT_XLSX_LABEL": "XLSX (Excel)",
+          "FORMAT_XLSX_DESC": "Arquivo Excel nativo com formatação",
+          "DOWNLOAD": "Baixar",
+          "SEND_EMAIL": "Enviar por e-mail",
           "SUCCESS_MESSAGE": "Exportando. Você será notificado por e-mail quando o arquivo estiver pronto para ser baixado.",
+          "DOWNLOAD_SUCCESS_MESSAGE": "Download iniciado com sucesso.",
           "ERROR_MESSAGE": "Ocorreu um erro, por favor tente novamente"
         },
         "SORT_BY": {
@@ -522,7 +527,21 @@
         "MERGE": "Mesclar"
       },
       "HISTORY": {
-        "EMPTY_STATE": "Não há conversas anteriores associadas a este contato"
+        "EMPTY_STATE": "Não há conversas anteriores associadas a este contato",
+        "BULK_TRANSCRIPT": {
+          "BUTTON": "Exportar todas",
+          "TITLE": "Exportar todas as conversas",
+          "DESC": "Exporte a transcrição de todas as {count} conversa(s) deste contato em um único arquivo.",
+          "SEND_TO_CONTACT": "Enviar para o contato",
+          "SEND_TO_OTHER": "Enviar para outro e-mail",
+          "EMAIL_PLACEHOLDER": "Digite o endereço de e-mail",
+          "EMAIL_ERROR": "Por favor, informe um e-mail válido",
+          "DOWNLOAD": "Baixar (.txt)",
+          "CANCEL": "Cancelar",
+          "SEND": "Enviar",
+          "SEND_SUCCESS": "Transcrição enviada com sucesso",
+          "SEND_ERROR": "Não foi possível enviar a transcrição. Tente novamente."
+        }
       },
       "ATTRIBUTES": {
         "SEARCH_PLACEHOLDER": "Pesquisar atributos",

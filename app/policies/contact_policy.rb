@@ -15,6 +15,10 @@ class ContactPolicy < ApplicationPolicy
     @account_user.administrator?
   end
 
+  def export_download?
+    @account_user.administrator?
+  end
+
   def search?
     true
   end
@@ -49,5 +53,9 @@ class ContactPolicy < ApplicationPolicy
 
   def destroy?
     @account_user.administrator?
+  end
+
+  def transcript?
+    true
   end
 end

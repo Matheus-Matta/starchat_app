@@ -1,0 +1,82 @@
+<% @conversations.each_with_index do |conversation, index| %>
+  <%
+    inbox = conversation.inbox
+    messages = conversation.messages.chat.select(&:conversation_transcriptable?)
+  %>
+
+  <!-- Conversation separator -->
+  <tr>
+    <td style="padding: 16px 0 8px 0; border-top: 2px solid #e5e7eb;">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td>
+            <p style="margin: 0; font-size: 13px; font-weight: 700; color: #374151;">
+              <%= index + 1 %>. #<%= conversation.display_id %> &mdash; <%= inbox.name %>
+            </p>
+            <p style="margin: 2px 0 0 0; font-size: 11px; color: #9ca3af;">
+              <%= conversation.created_at.strftime('%d/%m/%Y %H:%M') %>
+              <% if conversation.assignee %>
+                &nbsp;&bull;&nbsp;<%= conversation.assignee.available_name %>
+              <% end %>
+              &nbsp;&bull;&nbsp;<%= messages.count %> mensagem(ns)
+            </p>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <% if messages.empty? %>
+    <tr>
+      <td style="padding: 8px 0 24px 0; color: #9ca3af; font-size: 13px; font-style: italic;">
+        Nenhuma mensagem nesta conversa.
+      </td>
+    </tr>
+  <% else %>
+    <% messages.each do |message| %>
+      <tr>
+        <td>
+          <b><%= message.sender&.try(:available_name) || message.sender&.name || '' %></b>
+          <% if inbox.inbox_type == 'Email' %>
+            <div style="font-size: 90%; color: #899096; line-height: 16px">
+              <% if message.content_attributes.dig(:email, :from).present? %>
+                <div>From: <%= message.content_attributes.dig(:email, :from).join(", ") %></div>
+              <% else %>
+                <div>From: <%= message.sender&.try(:email) %></div>
+              <% end %>
+              <% if message.content_attributes.dig(:email, :subject).present? %>
+                <div>Subject: <%= message.content_attributes.dig(:email, :subject) %></div>
+              <% end %>
+              <% if message.content_attributes[:to_emails].present? %>
+                <div>To: <%= message.content_attributes[:to_emails].join(", ") %></div>
+              <% end %>
+              <% if message.content_attributes[:cc_emails].present? %>
+                <div>CC: <%= message.content_attributes[:cc_emails].join(", ") %></div>
+              <% end %>
+            </div>
+          <% end %>
+        </td>
+      </tr>
+      <tr>
+        <td style="padding-bottom: 16px;">
+          <% if message.content %>
+            <%= ChatwootMarkdownRenderer.new(message.content).render_message %>
+          <% end %>
+          <% if message.attachments.present? %>
+            <p>Attachments:</p>
+            <% message.attachments.each do |attachment| %>
+              <p><a href="<%= attachment.file_url %>" target="_blank"><%= attachment.file.filename.to_s %></a></p>
+            <% end %>
+          <% end %>
+          <p style="font-size: 90%; color: #899096; margin-top: -4px; margin-bottom: 0;">
+            <% if inbox.timezone.present? %>
+              <%= message.created_at.in_time_zone(inbox.timezone).strftime('%b %d, %I:%M %p %Z') %>
+            <% else %>
+              <%= message.created_at.strftime('%b %d, %I:%M %p %Z') %>
+            <% end %>
+          </p>
+        </td>
+      </tr>
+    <% end %>
+  <% end %>
+<% end %>

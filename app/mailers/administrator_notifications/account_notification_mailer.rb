@@ -62,6 +62,33 @@ class AdministratorNotifications::AccountNotificationMailer < AdministratorNotif
     send_notification(subject, to: email_to, action_url: file_url)
   end
 
+  def company_import_complete(resource)
+    subject = 'Company Import Completed'
+
+    action_url = if resource.failed_records.attached?
+                   Rails.application.routes.url_helpers.rails_blob_url(resource.failed_records)
+                 else
+                   "#{ENV.fetch('FRONTEND_URL', nil)}/app/accounts/#{resource.account.id}/companies"
+                 end
+
+    meta = {
+      'failed_companies' => resource.total_records - resource.processed_records,
+      'imported_companies' => resource.processed_records
+    }
+
+    send_notification(subject, action_url: action_url, meta: meta)
+  end
+
+  def company_import_failed
+    subject = 'Company Import Failed'
+    send_notification(subject)
+  end
+
+  def company_export_complete(file_url, email_to)
+    subject = "Your company's export file is available to download."
+    send_notification(subject, to: email_to, action_url: file_url)
+  end
+
   def automation_rule_disabled(rule)
     subject = 'Automation rule disabled due to validation errors.'
     action_url = settings_url('automation/list')

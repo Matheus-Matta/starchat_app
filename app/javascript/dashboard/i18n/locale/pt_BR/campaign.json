@@ -172,7 +172,7 @@
           "TEMPLATE": {
             "LABEL": "Modelo do WhatsApp",
             "PLACEHOLDER": "Selecione um modelo",
-            "INFO": "Selecione um modelo para usar para esta campanha.",
+            "INFO": "Selecione um modelo aprovado. Sem modelo, a mensagem é enviada como texto simples (somente dev).",
             "ERROR": "Modelo é obrigatório",
             "PREVIEW_TITLE": "Processar {templateName}",
             "LANGUAGE": "Idioma",
@@ -208,6 +208,118 @@
       "API": {
         "SUCCESS_MESSAGE": "Campanha excluída com sucesso",
         "ERROR_MESSAGE": "Houve um erro. Por favor, tente novamente."
+      }
+    },
+    "CARD": {
+      "STATUS": {
+        "DRAFT": "Aguardando confirmação"
+      },
+      "DETAILS_BUTTON": "Ver detalhes"
+    },
+    "AUDIENCE_BUILDER": {
+      "LABEL": "Público",
+      "PLACEHOLDER": "Nenhum segmento selecionado",
+      "ADD": "Adicionar",
+      "CANCEL": "Cancelar",
+      "CLOSE": "Fechar",
+      "BUTTONS": {
+        "LABELS": "Etiquetas",
+        "COMPANIES": "Empresas",
+        "ATTRIBUTES": "Atributos",
+        "IMPORT": "Importar planilha"
+      },
+      "PANELS": {
+        "LABELS": {
+          "TITLE": "Selecionar etiquetas",
+          "SEARCH_PLACEHOLDER": "Buscar etiqueta..."
+        },
+        "COMPANIES": {
+          "TITLE": "Selecionar empresa",
+          "SEARCH_PLACEHOLDER": "Digite para buscar empresas..."
+        },
+        "ATTRIBUTES": {
+          "TITLE": "Selecionar atributo personalizado",
+          "EMPTY": "Nenhum atributo de contato cadastrado.",
+          "ATTRIBUTE_LABEL": "Atributo",
+          "ATTRIBUTE_PLACEHOLDER": "Selecione um atributo...",
+          "VALUE_LABEL": "Valor",
+          "SELECT_PLACEHOLDER": "Selecione...",
+          "TEXT_PLACEHOLDER": "Digite o valor...",
+          "YES": "Sim",
+          "NO": "Não"
+        },
+        "IMPORT": {
+          "TITLE": "Importar de planilha"
+        }
+      },
+      "IMPORT_MODAL": {
+        "DROPZONE_IDLE": "Clique ou arraste um arquivo aqui",
+        "DROPZONE_HINT": "Mesmo formato do import de contatos (CSV / XLSX)",
+        "DROPZONE_LOADED": "{count} linha(s) encontradas",
+        "PARSE_ERROR": "Não foi possível ler o arquivo. Use CSV ou XLSX.",
+        "FIELD_LABEL": "Campo de identificação",
+        "FIELD_TYPES": {
+          "IDENTIFIER": "Identificador",
+          "ID": "ID",
+          "PHONE": "Telefone",
+          "EMAIL": "E-mail"
+        },
+        "COLUMN_NOT_FOUND": "Coluna \"{type}\" não encontrada. Disponíveis: {columns}",
+        "COLUMN_DETECTED": "Usando coluna: {column} · {count} valores",
+        "SEARCH_BUTTON": "Localizar contatos",
+        "MATCHED_LABEL": "Contatos encontrados",
+        "UNMATCHED_LABEL": "Não encontrados",
+        "ADD_BUTTON": "Adicionar {count} contatos à audiência",
+        "NEW_IMPORT": "Nova importação",
+        "SEGMENT_LABEL": "Importação ({count} contatos)"
+      }
+    },
+    "AUDIENCE_PREVIEW": {
+      "LOADING": "Buscando contatos...",
+      "COUNT": "{count} contatos serão atingidos",
+      "NONE": "Nenhum contato encontrado para este público"
+    },
+    "DETAIL": {
+      "BACK": "Voltar",
+      "STATUS": {
+        "DRAFT": "Rascunho",
+        "ACTIVE": "Agendada",
+        "COMPLETED": "Concluída"
+      },
+      "INFO": {
+        "INBOX": "Caixa de entrada",
+        "SCHEDULED_AT": "Agendado para",
+        "MESSAGE": "Mensagem",
+        "AUDIENCE": "Público"
+      },
+      "DRAFT_SECTION": {
+        "TITLE": "Contatos que receberão esta campanha",
+        "CONFIRM_BUTTON": "Confirmar e Agendar",
+        "API": {
+          "SUCCESS_MESSAGE": "Campanha confirmada com sucesso",
+          "ERROR_MESSAGE": "Houve um erro ao confirmar a campanha."
+        }
+      },
+      "CONTACTS": {
+        "TITLE": "Relatório de entrega",
+        "TOTAL": "Total",
+        "SENT": "Enviados",
+        "FAILED": "Falhas",
+        "PENDING": "Pendentes",
+        "TABLE": {
+          "CONTACT": "Contato",
+          "PHONE": "Telefone",
+          "STATUS": "Status",
+          "SENT_AT": "Enviado em",
+          "ERROR": "Erro"
+        },
+        "STATUS": {
+          "SENT": "Enviado",
+          "FAILED": "Falhou",
+          "PENDING": "Pendente"
+        },
+        "LOAD_MORE": "Carregar mais",
+        "EMPTY": "Nenhum contato processado ainda"
       }
     }
   }

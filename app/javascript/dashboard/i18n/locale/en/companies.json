@@ -123,7 +123,32 @@
     },
     "UNNAMED": "Unnamed Company",
     "ACTIONS": {
-      "CREATE": "Add company"
+      "CREATE": "Add company",
+      "IMPORT": {
+        "MENU_LABEL": "Import companies",
+        "TITLE": "Import companies",
+        "DESCRIPTION": "Import companies through a CSV or Excel file (XLS/XLSX).",
+        "DOWNLOAD_LABEL": "Download a sample CSV.",
+        "LABEL": "File (CSV or Excel):",
+        "IMPORT": "Import",
+        "CHOOSE_FILE": "Choose file",
+        "CHANGE": "Change",
+        "SUCCESS_MESSAGE": "You will be notified via email when the import is complete.",
+        "ERROR_MESSAGE": "There was an error, please try again"
+      },
+      "EXPORT": {
+        "MENU_LABEL": "Export companies",
+        "TITLE": "Export companies",
+        "FORMAT_CSV_LABEL": "CSV",
+        "FORMAT_CSV_DESC": "Compatible with Excel, Google Sheets, and other programs",
+        "FORMAT_XLSX_LABEL": "XLSX (Excel)",
+        "FORMAT_XLSX_DESC": "Native Excel file with formatting",
+        "DOWNLOAD": "Download",
+        "SEND_EMAIL": "Send by email",
+        "SUCCESS_MESSAGE": "Export is in progress. You will be notified on email when the export file is ready to download.",
+        "DOWNLOAD_SUCCESS_MESSAGE": "Download started successfully.",
+        "ERROR_MESSAGE": "There was an error, please try again"
+      }
     },
     "SORT_BY": {
       "LABEL": "Sort by",

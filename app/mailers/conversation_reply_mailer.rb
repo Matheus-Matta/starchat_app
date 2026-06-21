@@ -43,6 +43,26 @@ class ConversationReplyMailer < ApplicationMailer
     prepare_mail(true)
   end
 
+  def contact_bulk_transcript(contact, conversations, to_email)
+    return unless smtp_config_set_or_development?
+
+    first_conv = conversations.first
+    @contact      = contact
+    @account      = contact.account
+    @conversations = conversations
+    @conversation = first_conv
+    @inbox        = first_conv.inbox
+    @channel      = @inbox.channel
+    @agent        = first_conv.assignee
+
+    Rails.logger.info("Bulk transcript sent to #{to_email} for contact #{contact.id} (#{conversations.count} conversations)")
+    mail({
+           to: to_email,
+           from: from_email_with_name,
+           subject: I18n.t('conversations.reply.bulk_transcript_subject', contact_name: contact.name)
+         })
+  end
+
   def conversation_transcript(conversation, to_email)
     return unless smtp_config_set_or_development?
 
@@ -202,4 +222,5 @@ class ConversationReplyMailer < ApplicationMailer
 
     'mailer/base'
   end
+
 end

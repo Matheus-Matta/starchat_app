@@ -46,10 +46,10 @@ class Campaign < ApplicationRecord
   belongs_to :sender, class_name: 'User', optional: true
 
   enum campaign_type: { ongoing: 0, one_off: 1 }
-  # TODO : enabled attribute is unneccessary . lets move that to the campaign status with additional statuses like draft, disabled etc.
-  enum campaign_status: { active: 0, completed: 1 }
+  enum campaign_status: { active: 0, completed: 1, draft: 2 }
 
   has_many :conversations, dependent: :nullify, autosave: true
+  has_many :campaign_contacts, dependent: :destroy
 
   before_validation :ensure_correct_campaign_attributes
   after_commit :set_display_id, unless: :display_id?
@@ -57,6 +57,7 @@ class Campaign < ApplicationRecord
   def trigger!
     return unless one_off?
     return if completed?
+    return if draft?
 
     execute_campaign
   end
@@ -121,7 +122,9 @@ class Campaign < ApplicationRecord
   end
 
   def prevent_completed_campaign_from_update
-    errors.add :status, 'The campaign is already completed' if !campaign_status_changed? && completed?
+    return if campaign_status_changed?
+
+    errors.add :status, 'The campaign is already completed' if completed?
   end
 
   # creating db triggers

@@ -18,4 +18,16 @@ class CampaignPolicy < ApplicationPolicy
   def destroy?
     @account_user.administrator?
   end
+
+  def confirm?
+    @account_user.administrator?
+  end
+
+  def preview_contacts?
+    @account_user.administrator?
+  end
+
+  def match_contacts?
+    @account_user.administrator?
+  end
 end

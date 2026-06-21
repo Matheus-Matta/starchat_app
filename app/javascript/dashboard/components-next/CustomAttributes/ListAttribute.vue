@@ -42,14 +42,12 @@ const handleAttributeAction = async action => {
 <template>
   <div
     class="flex items-center w-full min-w-0 gap-2"
-    :class="{
-      'justify-start': isEditingView,
-      'justify-end': !isEditingView,
-    }"
+    :class="{ 'justify-end': !isEditingView }"
   >
     <div
       v-on-clickaway="() => toggleAttributeListDropdown(false)"
       class="relative flex items-center"
+      :class="{ 'flex-1 min-w-0': isEditingView }"
     >
       <span
         class="min-w-0 text-sm"

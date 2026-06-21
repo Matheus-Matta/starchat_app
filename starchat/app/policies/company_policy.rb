@@ -30,4 +30,16 @@ class CompanyPolicy < ApplicationPolicy
   def destroy?
     @account_user.administrator?
   end
+
+  def import?
+    @account_user.administrator?
+  end
+
+  def export?
+    @account_user.administrator?
+  end
+
+  def export_download?
+    @account_user.administrator?
+  end
 end

@@ -101,6 +101,10 @@ en:
         invalid: must be a valid domain name
       search:
         query_missing: Specify search string with parameter q
+      import:
+        failed: File is blank
+      export:
+        success: We will notify you once companies export file is ready to view.
     messages:
       search:
         time_range_limit_exceeded: 'Search is limited to the last %{days} days'
@@ -335,6 +339,7 @@ en:
           reply_with_inbox_name: '%{inbox_name} <%{from_email}>'
       email_subject: 'New messages on this conversation'
       transcript_subject: 'Conversation Transcript'
+      bulk_transcript_subject: 'All Conversations Transcript — %{contact_name}'
     survey:
       response: 'Please rate this conversation, %{link}'
   contacts:

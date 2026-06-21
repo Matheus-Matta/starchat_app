@@ -310,6 +310,10 @@
   "EMAIL_TRANSCRIPT": {
     "TITLE": "Enviar transcrição de conversa",
     "DESC": "Enviar uma cópia da transcrição da conversa para o endereço de e-mail especificado",
+    "TITLE_ALL": "Enviar transcrição de todas as conversas",
+    "DESC_ALL": "Enviar todas as conversas deste contato como uma única transcrição para o endereço de e-mail especificado",
+    "SCOPE_CURRENT": "Esta conversa",
+    "SCOPE_ALL": "Todas as conversas",
     "SUBMIT": "Enviar",
     "CANCEL": "Cancelar",
     "SEND_EMAIL_SUCCESS": "A transcrição do chat foi enviada com sucesso",

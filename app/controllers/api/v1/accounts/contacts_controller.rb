@@ -13,7 +13,7 @@ class Api::V1::Accounts::ContactsController < Api::V1::Accounts::BaseController
 
   before_action :check_authorization
   before_action :set_current_page, only: [:index, :active, :search, :filter]
-  before_action :fetch_contact, only: [:show, :update, :destroy, :avatar, :contactable_inboxes, :destroy_custom_attributes]
+  before_action :fetch_contact, only: [:show, :update, :destroy, :avatar, :contactable_inboxes, :destroy_custom_attributes, :transcript]
   before_action :set_include_contact_inboxes, only: [:index, :active, :search, :filter, :show, :update]
 
   def index
@@ -43,10 +43,29 @@ class Api::V1::Accounts::ContactsController < Api::V1::Accounts::BaseController
   end
 
   def export
-    column_names = params['column_names']
-    filter_params = { :payload => params.permit!['payload'], :label => params.permit!['label'] }
-    Account::ContactsExportJob.perform_later(Current.account.id, Current.user.id, column_names, filter_params)
+    format = params['format'].presence_in(%w[csv xlsx]) || 'csv'
+    filter_params = { payload: params.permit!['payload'], label: params.permit!['label'] }
+    Account::ContactsExportJob.perform_later(Current.account.id, Current.user.id, filter_params, format)
     head :ok, message: I18n.t('errors.contacts.export.success')
+  end
+
+  def export_download
+    format = params['format'].presence_in(%w[csv xlsx]) || 'csv'
+    filter_params = { payload: params.permit!['payload'], label: params.permit!['label'] }
+
+    if format == 'xlsx'
+      data = Contacts::ExportXlsxService.new(Current.account, Current.user, filter_params).generate
+      send_data data,
+                filename: "#{Current.account.name}_#{Current.account.id}_contacts.xlsx",
+                type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                disposition: 'attachment'
+    else
+      data = Contacts::ExportCsvService.new(Current.account, Current.user, filter_params).generate
+      send_data data,
+                filename: "#{Current.account.name}_#{Current.account.id}_contacts.csv",
+                type: 'text/csv',
+                disposition: 'attachment'
+    end
   end
 
   # returns online contacts
@@ -127,6 +146,31 @@ class Api::V1::Accounts::ContactsController < Api::V1::Accounts::BaseController
   def avatar
     @contact.avatar.purge if @contact.avatar.attached?
     @contact
+  end
+
+  def transcript
+    conversations = @contact.conversations
+                            .includes(messages: [:sender, { attachments: [{ file_attachment: [:blob] }] }])
+                            .order(created_at: :asc)
+                            .to_a
+    return render json: { error: 'No conversations found' }, status: :unprocessable_entity if conversations.empty?
+
+    if request.get?
+      contact_name = @contact.name.parameterize(separator: '_')
+      content = build_text_transcript(@contact, conversations)
+      send_data content,
+                filename: "transcript-#{contact_name}-todas.txt",
+                type: 'text/plain; charset=utf-8',
+                disposition: 'attachment'
+    else
+      email = params[:email]
+      return render json: { error: 'Email is required' }, status: :unprocessable_entity if email.blank?
+
+      ConversationReplyMailer.with(account: Current.account)
+                             .contact_bulk_transcript(@contact, conversations, email)
+                             &.deliver_later
+      head :ok
+    end
   end
 
   private
@@ -240,6 +284,58 @@ class Api::V1::Accounts::ContactsController < Api::V1::Accounts::BaseController
 
   def process_avatar_from_url
     ::Avatar::AvatarFromUrlJob.perform_later(@contact, params[:avatar_url]) if params[:avatar_url].present?
+  end
+
+  def build_text_transcript(contact, conversations)
+    sep  = '=' * 80
+    dash = '-' * 80
+    now  = Time.current.strftime('%d/%m/%Y %H:%M:%S %Z')
+
+    lines = [
+      sep,
+      'TRANSCRIPT COMPLETO DE CONVERSAS',
+      sep,
+      "Contato     :  #{contact.name}",
+      "Total       :  #{conversations.size} conversa(s)",
+      "Exportado   :  #{now}",
+      sep,
+      ''
+    ]
+
+    conversations.each_with_index do |conv, idx|
+      msgs = conv.messages.chat.select(&:conversation_transcriptable?).sort_by(&:created_at)
+      inbox_name = conv.inbox&.name || ''
+      first_at = msgs.first&.created_at&.strftime('%d/%m/%Y %H:%M:%S') || now
+      last_at  = msgs.last&.created_at&.strftime('%d/%m/%Y %H:%M:%S') || now
+
+      lines << dash
+      lines << "CONVERSA #{idx + 1} de #{conversations.size}  |  ##{conv.display_id}  |  #{inbox_name}"
+      lines << "Período     :  #{first_at}  →  #{last_at}"
+      lines << "Mensagens   :  #{msgs.size}"
+      lines << dash
+      lines << ''
+
+      if msgs.empty?
+        lines << '      (sem mensagens)'
+      else
+        msgs.each_with_index do |msg, midx|
+          seq    = (midx + 1).to_s.rjust(3, '0')
+          ts     = msg.created_at.strftime('%d/%m/%Y %H:%M:%S')
+          role   = msg.incoming? ? 'CLIENTE' : 'AGENTE'
+          sender = msg.sender&.try(:available_name) || msg.sender&.name || role
+          lines << "[#{seq}] #{ts} | #{role} - #{sender}"
+          lines << "      #{msg.content}" if msg.content.present?
+          msg.attachments.each do |att|
+            type_label = (att.file_type || 'file').upcase
+            lines << "      [#{type_label}] #{att.file_url}"
+          end
+        end
+      end
+      lines << ''
+    end
+
+    lines.concat([sep, "Total de conversas : #{conversations.size}", "Exportado em       : #{now}", sep])
+    lines.join("\n")
   end
 
   def render_error(error, error_status)

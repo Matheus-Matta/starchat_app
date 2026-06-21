@@ -17,6 +17,8 @@ const emit = defineEmits([
   'update:sort',
   'search',
   'create',
+  'import',
+  'export',
 ]);
 
 const updateCurrentPage = page => {
@@ -37,6 +39,8 @@ const updateCurrentPage = page => {
         @search="emit('search', $event)"
         @update:sort="emit('update:sort', $event)"
         @create="emit('create')"
+        @import="emit('import')"
+        @export="emit('export')"
       />
       <main class="flex-1 px-6 overflow-y-auto">
         <div class="w-full mx-auto max-w-5xl py-4">

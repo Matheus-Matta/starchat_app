@@ -10,6 +10,7 @@ import CompaniesDetailsLayout from 'dashboard/components-next/Companies/Companie
 import Spinner from 'dashboard/components-next/spinner/Spinner.vue';
 import TabBar from 'dashboard/components-next/tabbar/TabBar.vue';
 import CompanyContactsSidebar from 'dashboard/components-next/Companies/CompanyDetail/CompanyContactsSidebar.vue';
+import CompanyCustomAttributes from 'dashboard/components-next/Companies/CompanyDetail/CompanyCustomAttributes.vue';
 import CompanyHistorySidebar from 'dashboard/components-next/Companies/CompanyDetail/CompanyHistorySidebar.vue';
 import CompanyNotesSidebar from 'dashboard/components-next/Companies/CompanyDetail/CompanyNotesSidebar.vue';
 import CompanyProfileCard from 'dashboard/components-next/Companies/CompanyDetail/CompanyProfileCard.vue';
@@ -63,6 +64,7 @@ const breadcrumbItems = computed(() => [
 ]);
 
 const SIDEBAR_TABS_OPTIONS = [
+  { key: 'ATTRIBUTES', value: 'attributes' },
   { key: 'HISTORY', value: 'history' },
   { key: 'NOTES', value: 'notes' },
   { key: 'CONTACTS', value: 'contacts' },
@@ -74,6 +76,7 @@ const sidebarTabs = computed(() =>
       notes: t('COMPANIES.DETAIL.SIDEBAR.TABS.NOTES'),
       history: t('COMPANIES.DETAIL.SIDEBAR.TABS.HISTORY'),
       contacts: `${t('COMPANIES.DETAIL.SIDEBAR.TABS.CONTACTS')} (${Number(companyContactsMeta.value.totalCount || 0)})`,
+      attributes: t('COMPANIES.DETAIL.SIDEBAR.TABS.ATTRIBUTES'),
     }[tab.value],
     value: tab.value,
   }))
@@ -292,6 +295,10 @@ onBeforeUnmount(() => {
         @select-contact="contact => (selectedCandidate = contact)"
         @remove-contact="handleRemoveContact"
         @update:current-page="loadCompanyContactsPage"
+      />
+      <CompanyCustomAttributes
+        v-if="activeSidebarTab === 'attributes'"
+        :company="company"
       />
     </template>
 

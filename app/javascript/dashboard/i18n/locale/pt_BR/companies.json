@@ -26,7 +26,32 @@
       "TITLE": "Nenhuma empresa encontrada"
     },
     "ACTIONS": {
-      "CREATE": "Adicionar empresa"
+      "CREATE": "Adicionar empresa",
+      "IMPORT": {
+        "MENU_LABEL": "Importar empresas",
+        "TITLE": "Importar empresas",
+        "DESCRIPTION": "Importe empresas através de um arquivo CSV ou Excel (XLS/XLSX).",
+        "DOWNLOAD_LABEL": "Baixar um CSV de exemplo.",
+        "LABEL": "Arquivo (CSV ou Excel):",
+        "IMPORT": "Importar",
+        "CHOOSE_FILE": "Escolher arquivo",
+        "CHANGE": "Alterar",
+        "SUCCESS_MESSAGE": "Você será notificado por e-mail quando a importação for concluída.",
+        "ERROR_MESSAGE": "Ocorreu um erro, tente novamente"
+      },
+      "EXPORT": {
+        "MENU_LABEL": "Exportar empresas",
+        "TITLE": "Exportar empresas",
+        "FORMAT_CSV_LABEL": "CSV",
+        "FORMAT_CSV_DESC": "Compatível com Excel, Google Sheets e outros programas",
+        "FORMAT_XLSX_LABEL": "XLSX (Excel)",
+        "FORMAT_XLSX_DESC": "Arquivo Excel nativo com formatação",
+        "DOWNLOAD": "Baixar",
+        "SEND_EMAIL": "Enviar por e-mail",
+        "SUCCESS_MESSAGE": "A exportação está em andamento. Você será notificado por e-mail quando o arquivo estiver pronto para download.",
+        "DOWNLOAD_SUCCESS_MESSAGE": "Download iniciado com sucesso.",
+        "ERROR_MESSAGE": "Ocorreu um erro, tente novamente"
+      }
     },
     "CREATE": {
       "TITLE": "Adicionar detalhes da empresa",

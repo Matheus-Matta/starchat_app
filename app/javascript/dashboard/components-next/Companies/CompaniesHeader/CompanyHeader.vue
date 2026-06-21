@@ -12,7 +12,13 @@ defineProps({
   activeOrdering: { type: String, default: '' },
 });
 
-const emit = defineEmits(['search', 'update:sort', 'create']);
+const emit = defineEmits([
+  'search',
+  'update:sort',
+  'create',
+  'import',
+  'export',
+]);
 </script>
 
 <template>
@@ -49,7 +55,11 @@ const emit = defineEmits(['search', 'update:sort', 'create']);
             :active-ordering="activeOrdering"
             @update:sort="emit('update:sort', $event)"
           />
-          <CompanyMoreActions @create="emit('create')" />
+          <CompanyMoreActions
+            @create="emit('create')"
+            @import="emit('import')"
+            @export="emit('export')"
+          />
         </div>
       </div>
     </div>

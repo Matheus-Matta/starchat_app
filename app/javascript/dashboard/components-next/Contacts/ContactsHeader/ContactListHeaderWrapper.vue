@@ -74,7 +74,7 @@ const openCreateNewContactDialog = () => {
 const openContactImportDialog = () =>
   contactImportDialogRef.value?.dialogRef.open();
 const openContactExportDialog = () =>
-  contactExportDialogRef.value?.dialogRef.open();
+  contactExportDialogRef.value?.open();
 const openCreateSegmentDialog = () =>
   createSegmentDialogRef.value?.dialogRef.open();
 const openDeleteSegmentDialog = () =>
@@ -120,7 +120,21 @@ const onImport = async file => {
   }
 };
 
-const onExport = async query => {
+const onExportDownload = async query => {
+  try {
+    await store.dispatch('contacts/downloadExport', query);
+    useAlert(
+      t('CONTACTS_LAYOUT.HEADER.ACTIONS.EXPORT_CONTACT.DOWNLOAD_SUCCESS_MESSAGE')
+    );
+  } catch (error) {
+    useAlert(
+      error.message ||
+        t('CONTACTS_LAYOUT.HEADER.ACTIONS.EXPORT_CONTACT.ERROR_MESSAGE')
+    );
+  }
+};
+
+const onExportEmail = async query => {
   try {
     await store.dispatch('contacts/export', query);
     useAlert(
@@ -307,7 +321,11 @@ defineExpose({
   </ContactsHeader>
 
   <CreateNewContactDialog ref="createNewContactDialogRef" @create="onCreate" />
-  <ContactExportDialog ref="contactExportDialogRef" @export="onExport" />
+  <ContactExportDialog
+    ref="contactExportDialogRef"
+    @download="onExportDownload"
+    @email="onExportEmail"
+  />
   <ContactImportDialog ref="contactImportDialogRef" @import="onImport" />
   <CreateSegmentDialog ref="createSegmentDialogRef" @create="onCreateSegment" />
   <DeleteSegmentDialog ref="deleteSegmentDialogRef" @delete="onDeleteSegment" />

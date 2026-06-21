@@ -172,11 +172,40 @@ export const actions = {
     }
   },
 
-  export: async ({ commit }, { payload, label }) => {
+  export: async ({ commit }, { payload, label, format = 'csv' }) => {
     commit(types.SET_CONTACT_UI_FLAG, { isExporting: true });
     try {
-      await ContactAPI.exportContacts({ payload, label });
+      await ContactAPI.exportContacts({ payload, label }, format);
+      commit(types.SET_CONTACT_UI_FLAG, { isExporting: false });
+    } catch (error) {
+      commit(types.SET_CONTACT_UI_FLAG, { isExporting: false });
+      if (error.response?.data?.message) {
+        throw new Error(error.response.data.message);
+      } else {
+        throw new Error(error);
+      }
+    }
+  },
 
+  downloadExport: async ({ commit }, { payload, label, format = 'csv' }) => {
+    commit(types.SET_CONTACT_UI_FLAG, { isExporting: true });
+    try {
+      const response = await ContactAPI.downloadExportContacts({ payload, label }, format);
+      const extension = format === 'xlsx' ? 'xlsx' : 'csv';
+      const mimeType =
+        format === 'xlsx'
+          ? 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+          : 'text/csv';
+      const url = window.URL.createObjectURL(
+        new Blob([response.data], { type: mimeType })
+      );
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', `contacts.${extension}`);
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      window.URL.revokeObjectURL(url);
       commit(types.SET_CONTACT_UI_FLAG, { isExporting: false });
     } catch (error) {
       commit(types.SET_CONTACT_UI_FLAG, { isExporting: false });

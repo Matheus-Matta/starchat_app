@@ -120,10 +120,7 @@ const handleInputUpdate = async () => {
 <template>
   <div
     class="flex items-center w-full min-w-0 gap-2"
-    :class="{
-      'justify-start': isEditingView,
-      'justify-end': !isEditingView,
-    }"
+    :class="{ 'justify-end': !isEditingView }"
   >
     <span
       v-if="!isEditingValue"
@@ -131,8 +128,9 @@ const handleInputUpdate = async () => {
       :class="{
         'cursor-pointer text-n-slate-11 hover:text-n-slate-12 py-2 select-none font-medium':
           !isEditingView,
-        'text-n-slate-12 truncate': isEditingView && !isAttributeTypeLink,
-        'truncate hover:text-n-brand text-n-blue-11':
+        'flex-1 text-n-slate-12 truncate':
+          isEditingView && !isAttributeTypeLink,
+        'flex-1 truncate hover:text-n-brand text-n-blue-11':
           isEditingView && isAttributeTypeLink,
       }"
       @click="toggleEditValue(!isEditingView)"

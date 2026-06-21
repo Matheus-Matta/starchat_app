@@ -134,7 +134,16 @@ Rails.application.routes.draw do
               resources :inbox_limits, only: [:create, :update, :destroy]
             end
           end
-          resources :campaigns, only: [:index, :create, :show, :update, :destroy]
+          resources :campaigns, only: [:index, :create, :show, :update, :destroy] do
+            collection do
+              get :preview_contacts
+              post :match_contacts
+            end
+            member do
+              post :confirm
+            end
+            resources :campaign_contacts, only: [:index], path: 'contacts'
+          end
           resources :dashboard_apps, only: [:index, :show, :create, :update, :destroy]
           namespace :channels do
             resource :twilio_channel, only: [:create]
@@ -196,6 +205,9 @@ Rails.application.routes.draw do
           resources :companies, only: [:index, :show, :create, :update, :destroy] do
             collection do
               get :search
+              post :import
+              post :export
+              get :export_download
             end
             member do
               post :destroy_custom_attributes
@@ -218,11 +230,14 @@ Rails.application.routes.draw do
               post :filter
               post :import
               post :export
+              get :export_download
             end
             member do
               get :contactable_inboxes
               post :destroy_custom_attributes
               delete :avatar
+              post :transcript
+              get :transcript
             end
             scope module: :contacts do
               resources :conversations, only: [:index]

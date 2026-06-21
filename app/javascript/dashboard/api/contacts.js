@@ -100,8 +100,23 @@ class ContactAPI extends ApiClient {
     return axios.delete(`${this.url}/${contactId}/avatar`);
   }
 
-  exportContacts(queryPayload) {
-    return axios.post(`${this.url}/export`, queryPayload);
+  exportContacts(queryPayload, format = 'csv') {
+    return axios.post(`${this.url}/export`, { ...queryPayload, format });
+  }
+
+  downloadExportContacts(queryPayload, format = 'csv') {
+    return axios.get(`${this.url}/export_download`, {
+      params: { ...queryPayload, format },
+      responseType: 'blob',
+    });
+  }
+
+  sendBulkTranscript(contactId, email) {
+    return axios.post(`${this.url}/${contactId}/transcript`, { email });
+  }
+
+  downloadBulkTranscript(contactId) {
+    return axios.get(`${this.url}/${contactId}/transcript`, { responseType: 'blob' });
   }
 }
 

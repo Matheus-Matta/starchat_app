@@ -10,6 +10,10 @@ defineProps({
     type: Boolean,
     default: false,
   },
+  detailRouteName: {
+    type: String,
+    default: null,
+  },
 });
 
 const emit = defineEmits(['edit', 'delete']);
@@ -23,6 +27,7 @@ const handleDelete = campaign => emit('delete', campaign);
     <CampaignCard
       v-for="campaign in campaigns"
       :key="campaign.id"
+      :campaign-id="campaign.id"
       :title="campaign.title"
       :message="campaign.message"
       :is-enabled="campaign.enabled"
@@ -31,6 +36,7 @@ const handleDelete = campaign => emit('delete', campaign);
       :inbox="campaign.inbox"
       :scheduled-at="campaign.scheduled_at"
       :is-live-chat-type="isLiveChatType"
+      :detail-route-name="detailRouteName"
       @edit="handleEdit(campaign)"
       @delete="handleDelete(campaign)"
     />

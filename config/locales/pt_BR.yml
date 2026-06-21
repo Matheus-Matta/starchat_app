@@ -84,6 +84,10 @@ pt_BR:
         invalid: deve ser um nome de domínio válido
       search:
         query_missing: Especifique a string de busca com o parâmetro q
+      import:
+        failed: O arquivo está em branco
+      export:
+        success: Você será notificado quando o arquivo de exportação de empresas estiver pronto para visualização.
     messages:
       search:
         time_range_limit_exceeded: 'A pesquisa está limitada aos últimos %{days} dias'
@@ -317,6 +321,7 @@ pt_BR:
           reply_with_inbox_name: '%{inbox_name} <%{from_email}>'
       email_subject: 'Novas mensagens nesta conversa'
       transcript_subject: 'Transcrição da conversa'
+      bulk_transcript_subject: 'Transcrição de todas as conversas — %{contact_name}'
     survey:
       response: 'Por favor, classifique esta conversa, %{link}'
   contacts:

@@ -3,21 +3,21 @@ import { reactive, computed, watch, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useVuelidate } from '@vuelidate/core';
 import { required, minLength } from '@vuelidate/validators';
-import { useMapGetter } from 'dashboard/composables/store';
+import { useMapGetter, useStore } from 'dashboard/composables/store';
 
 import Input from 'dashboard/components-next/input/Input.vue';
 import Button from 'dashboard/components-next/button/Button.vue';
 import ComboBox from 'dashboard/components-next/combobox/ComboBox.vue';
-import TagMultiSelectComboBox from 'dashboard/components-next/combobox/TagMultiSelectComboBox.vue';
 import WhatsAppTemplateParser from 'dashboard/components-next/whatsapp/WhatsAppTemplateParser.vue';
+import AudienceBuilder from 'dashboard/components-next/Campaigns/AudienceBuilder/AudienceBuilder.vue';
 
 const emit = defineEmits(['submit', 'cancel']);
 
 const { t } = useI18n();
+const store = useStore();
 
 const formState = {
   uiFlags: useMapGetter('campaigns/getUIFlags'),
-  labels: useMapGetter('labels/getLabels'),
   inboxes: useMapGetter('inboxes/getWhatsAppInboxes'),
   getFilteredWhatsAppTemplates: useMapGetter(
     'inboxes/getFilteredWhatsAppTemplates'
@@ -28,17 +28,19 @@ const initialState = {
   title: '',
   inboxId: null,
   templateId: null,
+  message: '',
   scheduledAt: null,
   selectedAudience: [],
 };
 
 const state = reactive({ ...initialState });
 const templateParserRef = ref(null);
+const contactsPreview = ref({ count: null, isLoading: false });
+let previewDebounceTimer = null;
 
 const rules = {
   title: { required, minLength: minLength(1) },
   inboxId: { required },
-  templateId: { required },
   scheduledAt: { required },
   selectedAudience: { required },
 };
@@ -59,10 +61,6 @@ const mapToOptions = (items, valueKey, labelKey) =>
     value: item[valueKey],
     label: item[labelKey],
   })) ?? [];
-
-const audienceList = computed(() =>
-  mapToOptions(formState.labels.value, 'id', 'title')
-);
 
 const inboxOptions = computed(() =>
   mapToOptions(formState.inboxes.value, 'id', 'name')
@@ -99,12 +97,12 @@ const getErrorMessage = (field, errorKey) => {
 const formErrors = computed(() => ({
   title: getErrorMessage('title', 'TITLE'),
   inbox: getErrorMessage('inboxId', 'INBOX'),
-  template: getErrorMessage('templateId', 'TEMPLATE'),
   scheduledAt: getErrorMessage('scheduledAt', 'SCHEDULED_AT'),
   audience: getErrorMessage('selectedAudience', 'AUDIENCE'),
 }));
 
 const hasRequiredTemplateParams = computed(() => {
+  if (!selectedTemplate.value) return state.message.trim().length > 0;
   return templateParserRef.value?.v$?.$invalid === false || true;
 });
 
@@ -112,44 +110,63 @@ const isSubmitDisabled = computed(
   () => v$.value.$invalid || !hasRequiredTemplateParams.value
 );
 
+const audiencePreviewText = computed(() => {
+  if (contactsPreview.value.isLoading)
+    return t('CAMPAIGN.AUDIENCE_PREVIEW.LOADING');
+  if (contactsPreview.value.count === null) return null;
+  if (contactsPreview.value.count === 0)
+    return t('CAMPAIGN.AUDIENCE_PREVIEW.NONE');
+  return t('CAMPAIGN.AUDIENCE_PREVIEW.COUNT', {
+    count: contactsPreview.value.count,
+  });
+});
+
+const fetchContactsPreview = async audience => {
+  if (!audience.length) {
+    contactsPreview.value = { count: null, isLoading: false };
+    return;
+  }
+  contactsPreview.value.isLoading = true;
+  const data = await store.dispatch('campaigns/previewContacts', { audience });
+  contactsPreview.value = { count: data.count ?? 0, isLoading: false };
+};
+
 const formatToUTCString = localDateTime =>
   localDateTime ? new Date(localDateTime).toISOString() : null;
 
 const resetState = () => {
   Object.assign(state, initialState);
   v$.value.$reset();
+  contactsPreview.value = { count: null, isLoading: false };
 };
 
 const handleCancel = () => emit('cancel');
 
 const prepareCampaignDetails = () => {
-  // Find the selected template to get its content
   const currentTemplate = selectedTemplate.value;
   const parserData = templateParserRef.value;
 
-  // Extract template content - this should be the template message body
-  const templateContent = parserData?.renderedTemplate || '';
-
-  // Prepare template_params object with the same structure as used in contacts
-  const templateParams = {
-    name: currentTemplate?.name || '',
-    namespace: currentTemplate?.namespace || '',
-    category: currentTemplate?.category || 'UTILITY',
-    language: currentTemplate?.language || 'en_US',
-    processed_params: parserData?.processedParams || {},
-  };
-
-  return {
+  const payload = {
     title: state.title,
-    message: templateContent,
-    template_params: templateParams,
     inbox_id: state.inboxId,
     scheduled_at: formatToUTCString(state.scheduledAt),
-    audience: state.selectedAudience?.map(id => ({
-      id,
-      type: 'Label',
-    })),
+    audience: state.selectedAudience,
   };
+
+  if (currentTemplate) {
+    payload.message = parserData?.renderedTemplate || '';
+    payload.template_params = {
+      name: currentTemplate.name || '',
+      namespace: currentTemplate.namespace || '',
+      category: currentTemplate.category || 'UTILITY',
+      language: currentTemplate.language || 'en_US',
+      processed_params: parserData?.processedParams || {},
+    };
+  } else {
+    payload.message = state.message;
+  }
+
+  return payload;
 };
 
 const handleSubmit = async () => {
@@ -166,6 +183,17 @@ watch(
   () => state.inboxId,
   () => {
     state.templateId = null;
+  }
+);
+
+watch(
+  () => state.selectedAudience,
+  newAudience => {
+    clearTimeout(previewDebounceTimer);
+    previewDebounceTimer = setTimeout(
+      () => fetchContactsPreview(newAudience),
+      500
+    );
   }
 );
 </script>
@@ -198,14 +226,17 @@ watch(
     <div class="flex flex-col gap-1">
       <label for="template" class="mb-0.5 text-sm font-medium text-n-slate-12">
         {{ t('CAMPAIGN.WHATSAPP.CREATE.FORM.TEMPLATE.LABEL') }}
+        <span class="text-n-slate-10 font-normal">(opcional)</span>
       </label>
       <ComboBox
         id="template"
         v-model="state.templateId"
         :options="templateOptions"
-        :has-error="!!formErrors.template"
-        :placeholder="t('CAMPAIGN.WHATSAPP.CREATE.FORM.TEMPLATE.PLACEHOLDER')"
-        :message="formErrors.template"
+        :placeholder="
+          templateOptions.length
+            ? t('CAMPAIGN.WHATSAPP.CREATE.FORM.TEMPLATE.PLACEHOLDER')
+            : 'Nenhum template disponível'
+        "
         class="[&>div>button]:bg-n-alpha-black2 [&>div>button:not(.focused)]:dark:outline-n-weak [&>div>button:not(.focused)]:hover:!outline-n-slate-6"
       />
       <p class="mt-1 text-xs text-n-slate-11">
@@ -213,27 +244,38 @@ watch(
       </p>
     </div>
 
-    <!-- Template Parser -->
+    <!-- Template Parser (when template is selected) -->
     <WhatsAppTemplateParser
       v-if="selectedTemplate"
       ref="templateParserRef"
       :template="selectedTemplate"
     />
 
-    <div class="flex flex-col gap-1">
-      <label for="audience" class="mb-0.5 text-sm font-medium text-n-slate-12">
-        {{ t('CAMPAIGN.WHATSAPP.CREATE.FORM.AUDIENCE.LABEL') }}
+    <!-- Fallback message textarea (when no template is selected) -->
+    <div v-if="!selectedTemplate" class="flex flex-col gap-1">
+      <label class="mb-0.5 text-sm font-medium text-n-slate-12">
+        Mensagem
       </label>
-      <TagMultiSelectComboBox
-        v-model="state.selectedAudience"
-        :options="audienceList"
-        :label="t('CAMPAIGN.WHATSAPP.CREATE.FORM.AUDIENCE.LABEL')"
-        :placeholder="t('CAMPAIGN.WHATSAPP.CREATE.FORM.AUDIENCE.PLACEHOLDER')"
-        :has-error="!!formErrors.audience"
-        :message="formErrors.audience"
-        class="[&>div>button]:bg-n-alpha-black2"
+      <textarea
+        v-model="state.message"
+        rows="4"
+        placeholder="Digite a mensagem da campanha..."
+        class="w-full rounded-lg border border-n-weak bg-n-alpha-black2 px-3 py-2 text-sm text-n-slate-12 placeholder:text-n-slate-9 outline-none focus:border-n-brand resize-none"
       />
     </div>
+
+    <AudienceBuilder
+      v-model="state.selectedAudience"
+      :has-error="!!formErrors.audience"
+      :message="formErrors.audience"
+    />
+    <p
+      v-if="audiencePreviewText"
+      class="text-xs -mt-1"
+      :class="contactsPreview.count === 0 ? 'text-n-ruby-11' : 'text-n-teal-11'"
+    >
+      {{ audiencePreviewText }}
+    </p>
 
     <Input
       v-model="state.scheduledAt"

@@ -52,6 +52,8 @@ gem 'csv-safe'
 # Import contacts from XLS/XLSX (Excel) files
 gem 'roo'
 gem 'roo-xls'
+# Export contacts to XLSX
+gem 'caxlsx'
 
 ##-- for active storage --##
 gem 'aws-sdk-s3', require: false

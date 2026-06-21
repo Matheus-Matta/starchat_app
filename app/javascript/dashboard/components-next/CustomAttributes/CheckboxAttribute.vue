@@ -28,7 +28,7 @@ const handleChange = value => {
   <div
     class="flex items-center w-full gap-2"
     :class="{
-      'justify-start': isEditingView,
+      'justify-between': isEditingView,
       'justify-end': !isEditingView,
     }"
   >

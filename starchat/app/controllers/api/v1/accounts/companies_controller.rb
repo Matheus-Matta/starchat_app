@@ -60,6 +60,41 @@ class Api::V1::Accounts::CompaniesController < Api::V1::Accounts::StarchatAccoun
     head :ok
   end
 
+  def import
+    render json: { error: I18n.t('errors.companies.import.failed') }, status: :unprocessable_entity and return if params[:import_file].blank?
+
+    ActiveRecord::Base.transaction do
+      import = Current.account.data_imports.create!(data_type: 'companies')
+      import.import_file.attach(params[:import_file])
+    end
+
+    head :ok
+  end
+
+  def export
+    format = params['format'].presence_in(%w[csv xlsx]) || 'csv'
+    Account::CompaniesExportJob.perform_later(Current.account.id, Current.user.id, export_filter_params, format)
+    head :ok, message: I18n.t('errors.companies.export.success')
+  end
+
+  def export_download
+    format = params['format'].presence_in(%w[csv xlsx]) || 'csv'
+
+    if format == 'xlsx'
+      data = Companies::ExportXlsxService.new(Current.account, export_filter_params).generate
+      send_data data,
+                filename: "#{Current.account.name}_#{Current.account.id}_companies.xlsx",
+                type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                disposition: 'attachment'
+    else
+      data = Companies::ExportCsvService.new(Current.account, export_filter_params).generate
+      send_data data,
+                filename: "#{Current.account.name}_#{Current.account.id}_companies.csv",
+                type: 'text/csv',
+                disposition: 'attachment'
+    end
+  end
+
   def avatar
     @company.avatar.purge if @company.avatar.attached?
   end
@@ -118,5 +153,9 @@ class Api::V1::Accounts::CompaniesController < Api::V1::Accounts::StarchatAccoun
     return custom_attributes if custom_attributes.present? || params[:custom_attributes].is_a?(Array)
 
     render json: { error: 'custom_attributes must be an array' }, status: :unprocessable_entity
+  end
+
+  def export_filter_params
+    { search: params[:search] }
   end
 end

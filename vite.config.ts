@@ -45,6 +45,12 @@ if (isLibraryMode) {
 
 export default defineConfig({
   plugins: plugins,
+  server: {
+    hmr: {
+      host: 'localhost',
+      clientPort: 3036,
+    },
+  },
   css: {
     preprocessorOptions: {
       scss: {

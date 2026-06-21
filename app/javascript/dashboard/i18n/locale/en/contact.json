@@ -340,7 +340,21 @@
         "PRIMARY_REQUIRED_ERROR": "Please select a contact to merge with before proceeding"
       },
       "HISTORY": {
-        "EMPTY_STATE": "There are no previous conversations associated to this contact"
+        "EMPTY_STATE": "There are no previous conversations associated to this contact",
+        "BULK_TRANSCRIPT": {
+          "BUTTON": "Export all",
+          "TITLE": "Export all conversations",
+          "DESC": "Export the transcript of all {count} conversation(s) for this contact as a single file.",
+          "SEND_TO_CONTACT": "Send to contact",
+          "SEND_TO_OTHER": "Send to another email address",
+          "EMAIL_PLACEHOLDER": "Enter email address",
+          "EMAIL_ERROR": "Please enter a valid email address",
+          "DOWNLOAD": "Download (.txt)",
+          "CANCEL": "Cancel",
+          "SEND": "Send",
+          "SEND_SUCCESS": "Transcript sent successfully",
+          "SEND_ERROR": "Unable to send transcript. Please try again."
+        }
       },
       "ATTRIBUTES": {
         "VALIDATIONS": {
@@ -423,11 +437,16 @@
         "UNBLOCK_ERROR_MESSAGE": "Unable to unblock contact. Please try again later.",
         "BLOCK_ERROR_MESSAGE": "Unable to block contact. Please try again later.",
         "EXPORT_CONTACT": {
-          "DESCRIPTION": "Quickly export a csv file with comprehensive details of your contacts",
-          "CONFIRM": "Export",
           "TITLE": "Export contacts",
-          "ERROR_MESSAGE": "There was an error, please try again",
-          "SUCCESS_MESSAGE": "Export is in progress. You will be notified on email when the export file is ready to download."
+          "FORMAT_CSV_LABEL": "CSV",
+          "FORMAT_CSV_DESC": "Compatible with Excel, Google Sheets, and other programs",
+          "FORMAT_XLSX_LABEL": "XLSX (Excel)",
+          "FORMAT_XLSX_DESC": "Native Excel file with formatting",
+          "DOWNLOAD": "Download",
+          "SEND_EMAIL": "Send by email",
+          "SUCCESS_MESSAGE": "Export is in progress. You will be notified on email when the export file is ready to download.",
+          "DOWNLOAD_SUCCESS_MESSAGE": "Download started successfully.",
+          "ERROR_MESSAGE": "There was an error, please try again"
         },
         "ORDER": {
           "LABEL": "Ordering",

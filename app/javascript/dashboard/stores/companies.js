@@ -18,12 +18,16 @@ const createInitialUIFlags = () => ({
   searchingContacts: false,
   creatingContact: false,
   removingContact: false,
+  isImporting: false,
+  isExporting: false,
 });
 
 const camelizeCompany = data => {
   if (!data) return [];
   return Array.isArray(data)
-    ? data.map(item => camelcaseKeys(item, { deep: true, stopPaths: ['custom_attributes'] }))
+    ? data.map(item =>
+        camelcaseKeys(item, { deep: true, stopPaths: ['custom_attributes'] })
+      )
     : camelcaseKeys(data, { deep: true, stopPaths: ['custom_attributes'] });
 };
 
@@ -455,6 +459,60 @@ export const useCompaniesStore = createStore({
         return throwErrorMessage(error);
       } finally {
         this.setUIFlag({ deletingCustomAttributes: false });
+      }
+    },
+
+    async import(file) {
+      this.setUIFlag({ isImporting: true });
+      try {
+        await CompanyAPI.importCompanies(file);
+        return undefined;
+      } catch (error) {
+        return throwErrorMessage(error);
+      } finally {
+        this.setUIFlag({ isImporting: false });
+      }
+    },
+
+    async export({ search, format = 'csv' } = {}) {
+      this.setUIFlag({ isExporting: true });
+      try {
+        await CompanyAPI.exportCompanies({ search }, format);
+        return undefined;
+      } catch (error) {
+        return throwErrorMessage(error);
+      } finally {
+        this.setUIFlag({ isExporting: false });
+      }
+    },
+
+    async downloadExport({ search, format = 'csv' } = {}) {
+      this.setUIFlag({ isExporting: true });
+      try {
+        const response = await CompanyAPI.downloadExportCompanies(
+          { search },
+          format
+        );
+        const extension = format === 'xlsx' ? 'xlsx' : 'csv';
+        const mimeType =
+          format === 'xlsx'
+            ? 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+            : 'text/csv';
+        const url = window.URL.createObjectURL(
+          new Blob([response.data], { type: mimeType })
+        );
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', `companies.${extension}`);
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        window.URL.revokeObjectURL(url);
+        return undefined;
+      } catch (error) {
+        return throwErrorMessage(error);
+      } finally {
+        this.setUIFlag({ isExporting: false });
       }
     },
 
