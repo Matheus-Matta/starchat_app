@@ -114,7 +114,7 @@ export const DEFAULT_BAR_CHART = {
   backgroundColor: 'rgb(31, 147, 255)',
 };
 
-const createChartConfig = yAxisTickCallback => ({
+const createChartConfig = (yAxisTickCallback, yAxisTicksOverride = {}) => ({
   datasets: [DEFAULT_BAR_CHART],
   scales: {
     x: {
@@ -133,6 +133,7 @@ const createChartConfig = yAxisTickCallback => ({
         beginAtZero: true,
         stepSize: 1,
         callback: yAxisTickCallback,
+        ...yAxisTicksOverride,
       },
       grid: {
         drawOnChartArea: false,
@@ -148,12 +149,19 @@ export const DEFAULT_CHART = createChartConfig((value, index, ticks) => {
   return '';
 });
 
-export const TIME_CHART_CONFIG = createChartConfig((value, index, values) => {
-  if (!index || index === values.length - 1) {
-    return formatTime(value);
-  }
-  return '';
-});
+// Time metrics are stored in seconds and can reach values in the hundreds
+// of thousands (e.g. a multi-day outlier conversation). Forcing stepSize: 1
+// here made Chart.js build up to ~1000 one-second ticks per chart, which
+// froze the reports page. Let Chart.js pick a sensible step instead.
+export const TIME_CHART_CONFIG = createChartConfig(
+  (value, index, values) => {
+    if (!index || index === values.length - 1) {
+      return formatTime(value);
+    }
+    return '';
+  },
+  { stepSize: undefined, maxTicksLimit: 8 }
+);
 
 export const METRIC_CHART = {
   conversations_count: DEFAULT_CHART,

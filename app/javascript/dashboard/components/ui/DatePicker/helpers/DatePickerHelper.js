@@ -19,6 +19,9 @@ import {
   isWithinInterval,
 } from 'date-fns';
 
+// Week start used for "this week" / "last week" range calculations (0 = Sunday)
+export const WEEK_START = 0;
+
 // Constants for calendar and date ranges
 export const calendarWeeks = [
   { id: 1, label: 'M' },
@@ -31,26 +34,42 @@ export const calendarWeeks = [
 ];
 
 export const dateRanges = [
+  { label: 'DATE_PICKER.DATE_RANGE_OPTIONS.YESTERDAY', value: 'yesterday' },
   { label: 'DATE_PICKER.DATE_RANGE_OPTIONS.LAST_7_DAYS', value: 'last7days' },
-  { label: 'DATE_PICKER.DATE_RANGE_OPTIONS.LAST_30_DAYS', value: 'last30days' },
+  {
+    label: 'DATE_PICKER.DATE_RANGE_OPTIONS.LAST_30_DAYS',
+    value: 'last30days',
+    separator: true,
+  },
   {
     label: 'DATE_PICKER.DATE_RANGE_OPTIONS.LAST_3_MONTHS',
     value: 'last3months',
-    separator: true,
   },
   {
     label: 'DATE_PICKER.DATE_RANGE_OPTIONS.LAST_6_MONTHS',
     value: 'last6months',
   },
-  { label: 'DATE_PICKER.DATE_RANGE_OPTIONS.LAST_YEAR', value: 'lastYear' },
+  {
+    label: 'DATE_PICKER.DATE_RANGE_OPTIONS.LAST_YEAR',
+    value: 'lastYear',
+    separator: true,
+  },
   {
     label: 'DATE_PICKER.DATE_RANGE_OPTIONS.THIS_WEEK',
     value: 'thisWeek',
-    separator: true,
+  },
+  {
+    label: 'DATE_PICKER.DATE_RANGE_OPTIONS.LAST_WEEK',
+    value: 'lastWeek',
   },
   {
     label: 'DATE_PICKER.DATE_RANGE_OPTIONS.MONTH_TO_DATE',
     value: 'monthToDate',
+  },
+  {
+    label: 'DATE_PICKER.DATE_RANGE_OPTIONS.LAST_MONTH',
+    value: 'lastMonth',
+    separator: true,
   },
   {
     label: 'DATE_PICKER.DATE_RANGE_OPTIONS.CUSTOM_RANGE',
@@ -60,13 +79,16 @@ export const dateRanges = [
 ];
 
 export const DATE_RANGE_TYPES = {
+  YESTERDAY: 'yesterday',
   LAST_7_DAYS: 'last7days',
   LAST_30_DAYS: 'last30days',
   LAST_3_MONTHS: 'last3months',
   LAST_6_MONTHS: 'last6months',
   LAST_YEAR: 'lastYear',
   THIS_WEEK: 'thisWeek',
+  LAST_WEEK: 'lastWeek',
   MONTH_TO_DATE: 'monthToDate',
+  LAST_MONTH: 'lastMonth',
   CUSTOM_RANGE: 'custom',
 };
 
@@ -208,6 +230,10 @@ export const isHoveringNextDayInRange = (
 // Helper func to determine active date ranges based on user selection
 export const getActiveDateRange = (range, currentDate) => {
   const ranges = {
+    yesterday: () => ({
+      start: startOfDay(subDays(currentDate, 1)),
+      end: endOfDay(subDays(currentDate, 1)),
+    }),
     last7days: () => ({
       start: startOfDay(subDays(currentDate, 6)),
       end: endOfDay(currentDate),
@@ -229,13 +255,15 @@ export const getActiveDateRange = (range, currentDate) => {
       end: endOfDay(currentDate),
     }),
     thisWeek: () => ({
-      start: startOfDay(startOfWeek(currentDate, { weekStartsOn: 1 })),
+      start: startOfDay(startOfWeek(currentDate, { weekStartsOn: WEEK_START })),
       end: endOfDay(currentDate),
     }),
+    lastWeek: () => getWeekRangeAtOffset(-1, currentDate),
     monthToDate: () => ({
       start: startOfDay(startOfMonth(currentDate)),
       end: endOfDay(currentDate),
     }),
+    lastMonth: () => getMonthRangeAtOffset(-1, currentDate),
     custom: () => ({ start: currentDate, end: currentDate }),
   };
 
@@ -247,8 +275,6 @@ export const getActiveDateRange = (range, currentDate) => {
 export const isNavigableRange = rangeType =>
   rangeType === DATE_RANGE_TYPES.MONTH_TO_DATE ||
   rangeType === DATE_RANGE_TYPES.THIS_WEEK;
-
-const WEEK_START = 1; // Monday
 
 const getWeekRangeAtOffset = (offset, currentDate) => {
   if (offset === 0) {

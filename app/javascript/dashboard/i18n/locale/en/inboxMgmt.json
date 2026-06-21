@@ -240,6 +240,10 @@
           "WHATSAPP": {
             "TITLE": "WhatsApp",
             "DESCRIPTION": "Support your customers on WhatsApp"
+          },
+          "WHATSAPP_CALL": {
+            "TITLE": "WhatsApp Calling",
+            "DESCRIPTION": "Receive and make voice calls on WhatsApp"
           }
         },
         "TITLE_FINISH": "Voilà!",

@@ -21,19 +21,19 @@
         "DESC": "( Total )"
       },
       "STATUS_OPEN": {
-        "NAME": "Transições para Aberta",
+        "NAME": "Contagem de Abertas",
         "DESC": "( Total )"
       },
       "STATUS_RESOLVED": {
-        "NAME": "Transições para Resolvida",
+        "NAME": "Contagem de Resolvidas",
         "DESC": "( Total )"
       },
       "STATUS_SNOOZED": {
-        "NAME": "Transições para Adiada",
+        "NAME": "Contagem de Adiadas",
         "DESC": "( Total )"
       },
       "STATUS_PENDING": {
-        "NAME": "Transições para Pendente",
+        "NAME": "Contagem de Pendentes",
         "DESC": "( Total )"
       },
       "ATTENDANCES": {
@@ -107,6 +107,8 @@
     },
     "GROUP_BY_FILTER_DROPDOWN_LABEL": "Agrupar por",
     "DURATION_FILTER_LABEL": "Duração",
+    "DATE_RANGE": "Período",
+    "GROUP_BY": "Agrupar por",
     "GROUPING_OPTIONS": {
       "DAY": "Dia",
       "WEEK": "Semana",

@@ -69,6 +69,8 @@ class Reports::RawDataSource < Reports::DataSource
       base = scope.conversations.where(account_id: account.id, created_at: range)
       base = base.where(status: conversation_status) if conversation_status.present?
       base
+    when 'unique_contacts_count'
+      scope.conversations.where(account_id: account.id, created_at: range).select(:contact_id).distinct
     when 'incoming_messages_count'
       base = scope.messages.where(account_id: account.id, created_at: range).incoming.unscope(:order)
       base = base.joins(:conversation).where(conversations: { status: conversation_status }) if conversation_status.present?

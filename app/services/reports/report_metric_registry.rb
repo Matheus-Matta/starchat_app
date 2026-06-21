@@ -40,6 +40,35 @@ module Reports::ReportMetricRegistry
       name: :conversations_count,
       aggregate: :count
     ),
+    unique_contacts_count: Metric.new(
+      name: :unique_contacts_count,
+      aggregate: :count
+    ),
+    status_open_count: Metric.new(
+      name: :status_open_count,
+      aggregate: :count,
+      raw_event_name: :conversation_opened
+    ),
+    status_resolved_count: Metric.new(
+      name: :status_resolved_count,
+      aggregate: :count,
+      raw_event_name: :conversation_resolved
+    ),
+    status_snoozed_count: Metric.new(
+      name: :status_snoozed_count,
+      aggregate: :count,
+      raw_event_name: :conversation_snoozed
+    ),
+    status_pending_count: Metric.new(
+      name: :status_pending_count,
+      aggregate: :count,
+      raw_event_name: :conversation_pending
+    ),
+    attendances_count: Metric.new(
+      name: :attendances_count,
+      aggregate: :count,
+      raw_event_name: :conversation_opened
+    ),
     incoming_messages_count: Metric.new(
       name: :incoming_messages_count,
       aggregate: :count

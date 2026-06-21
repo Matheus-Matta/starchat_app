@@ -21,19 +21,19 @@
         "DESC": "( Total )"
       },
       "STATUS_OPEN": {
-        "NAME": "Transition to Open",
+        "NAME": "Open Count",
         "DESC": "( Total )"
       },
       "STATUS_RESOLVED": {
-        "NAME": "Transition to Resolved",
+        "NAME": "Resolved Count",
         "DESC": "( Total )"
       },
       "STATUS_SNOOZED": {
-        "NAME": "Transition to Snoozed",
+        "NAME": "Snoozed Count",
         "DESC": "( Total )"
       },
       "STATUS_PENDING": {
-        "NAME": "Transition to Pending",
+        "NAME": "Pending Count",
         "DESC": "( Total )"
       },
       "ATTENDANCES": {
@@ -107,6 +107,8 @@
     },
     "GROUP_BY_FILTER_DROPDOWN_LABEL": "Group By",
     "DURATION_FILTER_LABEL": "Duration",
+    "DATE_RANGE": "Date Range",
+    "GROUP_BY": "Group By",
     "GROUPING_OPTIONS": {
       "DAY": "Day",
       "WEEK": "Week",

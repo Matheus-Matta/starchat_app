@@ -9,6 +9,7 @@ import {
   CALENDAR_PERIODS,
   isNavigableRange,
   getRangeAtOffset,
+  WEEK_START,
 } from './helpers/DatePickerHelper';
 import {
   isValid,
@@ -103,7 +104,7 @@ const navigationLabel = computed(() => {
     const isCurrentWeek =
       selectedStartDate.value.getTime() === currentWeekRange.start.getTime();
     if (isCurrentWeek) return null;
-    const weekNumber = getWeek(selectedStartDate.value, { weekStartsOn: 1 });
+    const weekNumber = getWeek(selectedStartDate.value, { weekStartsOn: WEEK_START });
     return t('DATE_PICKER.WEEK_NUMBER', { weekNumber });
   }
   return null;
@@ -157,7 +158,7 @@ watch(
           monthOffset.value = differenceInCalendarWeeks(
             newDateRange[0],
             current.start,
-            { weekStartsOn: 1 }
+            { weekStartsOn: WEEK_START }
           );
         } else {
           monthOffset.value = differenceInCalendarMonths(

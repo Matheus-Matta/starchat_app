@@ -581,6 +581,10 @@
           "TIKTOK": {
             "TITLE": "TikTok",
             "DESCRIPTION": "Conecte sua conta do TikTok"
+          },
+          "WHATSAPP_CALL": {
+            "TITLE": "Chamadas no WhatsApp",
+            "DESCRIPTION": "Receba e faça chamadas de voz pelo WhatsApp"
           }
         }
       },

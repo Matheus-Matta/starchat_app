@@ -8,6 +8,7 @@
     },
     "DATE_RANGE_OPTIONS": {
       "TITLE": "Intervalo de data",
+      "YESTERDAY": "Ontem",
       "LAST_7_DAYS": "Últimos 7 dias",
       "LAST_14_DAYS": "Últimos 14 dias",
       "LAST_30_DAYS": "Últimos 30 dias",
@@ -17,7 +18,9 @@
       "LAST_YEAR": "Ano passado",
       "CUSTOM_RANGE": "Intervalo de tempo personalizado",
       "THIS_WEEK": "Esta semana",
-      "MONTH_TO_DATE": "Este mês"
+      "LAST_WEEK": "Semana passada",
+      "MONTH_TO_DATE": "Este mês",
+      "LAST_MONTH": "Mês passado"
     },
     "PREVIOUS_PERIOD": "Período anterior",
     "NEXT_PERIOD": "Próximo período",

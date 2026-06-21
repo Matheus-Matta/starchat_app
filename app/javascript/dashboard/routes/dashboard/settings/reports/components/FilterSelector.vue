@@ -1,16 +1,22 @@
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, computed, onMounted } from 'vue';
+import { useI18n } from 'vue-i18n';
 import { useRoute, useRouter } from 'vue-router';
 import { getUnixStartOfDay, getUnixEndOfDay } from 'helpers/DateHelper';
 import subDays from 'date-fns/subDays';
 import WootDatePicker from 'dashboard/components/ui/DatePicker/DatePicker.vue';
 import ToggleSwitch from 'dashboard/components-next/switch/Switch.vue';
 import { GROUP_BY_FILTER } from '../constants';
-import { DATE_RANGE_TYPES } from 'dashboard/components/ui/DatePicker/helpers/DatePickerHelper';
+import {
+  DATE_RANGE_TYPES,
+  dateRanges,
+} from 'dashboard/components/ui/DatePicker/helpers/DatePickerHelper';
 import {
   generateReportURLParams,
   parseReportURLParams,
 } from '../helpers/reportFilterHelper';
+
+const { t } = useI18n();
 
 defineProps({
   showAgentsFilter: {
@@ -32,6 +38,13 @@ const customDateRange = ref([subDays(new Date(), 6), new Date()]);
 const selectedDateRange = ref(DATE_RANGE_TYPES.LAST_7_DAYS);
 const businessHoursSelected = ref(false);
 const selectedGroupBy = ref(GROUP_BY_FILTER[1]);
+
+const selectedDateRangeLabel = computed(() => {
+  const range = dateRanges.find(item => item.value === selectedDateRange.value);
+  return range ? t(range.label) : selectedDateRange.value;
+});
+
+const groupByLabel = period => t(`REPORT.GROUPING_OPTIONS.${period.toUpperCase()}`);
 
 const updateURLParams = () => {
   const params = generateReportURLParams({
@@ -144,7 +157,7 @@ onMounted(() => {
             ]"
             @click="handleGroupByChange(groupBy)"
           >
-            {{ groupBy.label }}
+            {{ groupByLabel(groupBy.period) }}
           </button>
         </div>
       </div>
@@ -153,7 +166,7 @@ onMounted(() => {
         <span class="rounded-md bg-n-alpha-2 px-2 py-1">
           {{ $t('REPORT.DATE_RANGE') }}
           <span class="font-medium text-n-slate-12">
-            {{ selectedDateRange }}
+            {{ selectedDateRangeLabel }}
           </span>
         </span>
         <span
@@ -162,7 +175,7 @@ onMounted(() => {
         >
           {{ $t('REPORT.GROUP_BY') }}
           <span class="font-medium text-n-slate-12">{{
-            selectedGroupBy.label
+            groupByLabel(selectedGroupBy.period)
           }}</span>
         </span>
         <span
