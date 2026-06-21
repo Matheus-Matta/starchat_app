@@ -1,4 +1,4 @@
-class Api::V1::Profile::MfaController < Api::BaseController
+class Api::V1::Profile::MFAController < Api::BaseController
   before_action :check_mfa_feature_available
   before_action :check_mfa_enabled, only: [:destroy, :backup_codes]
   before_action :check_mfa_disabled, only: [:create, :verify]
