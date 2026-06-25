@@ -37,8 +37,6 @@ jobs:
       - name: pnpm
         run: pnpm install
 
-        run: |
-
       - name: setup env
         run: |
           cp .env.example .env

@@ -83,10 +83,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
         with:
           ref: ${{ github.event.pull_request.head.ref }}
           repository: ${{ github.event.pull_request.head.repo.full_name }}
+      - uses: pnpm/action-setup@v4
 
       - uses: ruby/setup-ruby@v1
         with:
@@ -99,8 +99,6 @@ jobs:
 
       - name: Install pnpm dependencies
         run: pnpm i
-
-        run: |
 
       - name: Create database
         run: bundle exec rake db:create
