@@ -117,6 +117,16 @@ module Reports::ReportMetricRegistry
       raw_event_name: :conversation_bot_handoff,
       rollup_metric: :bot_handoffs_count,
       raw_count_strategy: :distinct_conversation
+    ),
+    # Snapshot metrics (not bound to the date range) - open conversations
+    # currently missing a first reply, or currently waiting on a response.
+    no_first_reply_count: Metric.new(
+      name: :no_first_reply_count,
+      aggregate: :count
+    ),
+    waiting_count: Metric.new(
+      name: :waiting_count,
+      aggregate: :count
     )
   }.freeze
 

@@ -49,6 +49,7 @@ export default {
       from: 0,
       to: 0,
       selectedFilter: this.selectedItem,
+      selectedIds: this.selectedItem ? [this.selectedItem.id] : [],
       groupBy: GROUP_BY_FILTER[1],
       businessHours: false,
     };
@@ -95,7 +96,7 @@ export default {
           from,
           to,
           type: this.type,
-          id: this.selectedFilter.id,
+          id: this.selectedIds,
           groupBy: groupBy.period,
           businessHours,
         });
@@ -111,7 +112,7 @@ export default {
             from,
             to,
             type: this.type,
-            id: this.selectedFilter.id,
+            id: this.selectedIds,
             groupBy: groupBy.period,
             businessHours,
           });
@@ -146,14 +147,16 @@ export default {
         this.groupBy = GROUP_BY_FILTER[1];
       }
 
-      // Get filter value directly from filterType key
+      // Get filter value directly from filterType key (anchor entity + any
+      // entities selected for comparison, combined into a single series)
       const filterValue = payload[this.filterType];
       if (filterValue) {
-        this.selectedFilter = Array.isArray(filterValue)
-          ? filterValue[0]
-          : filterValue;
+        const items = Array.isArray(filterValue) ? filterValue : [filterValue];
+        this.selectedFilter = items[0];
+        this.selectedIds = items.map(item => item.id);
       } else {
         this.selectedFilter = null;
+        this.selectedIds = [];
       }
 
       this.fetchAllData();

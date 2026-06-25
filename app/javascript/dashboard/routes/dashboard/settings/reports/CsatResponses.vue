@@ -25,8 +25,8 @@ export default {
       from: 0,
       to: 0,
       userIds: [],
-      inbox: null,
-      team: null,
+      inboxIds: [],
+      teamIds: [],
       rating: null,
     };
   },
@@ -40,8 +40,8 @@ export default {
         from: this.from,
         to: this.to,
         user_ids: this.userIds,
-        inbox_id: this.inbox,
-        team_id: this.team,
+        inbox_id: this.inboxIds,
+        team_id: this.teamIds,
         rating: this.rating,
       };
     },
@@ -90,8 +90,8 @@ export default {
       from,
       to,
       selectedAgents,
-      selectedInbox,
-      selectedTeam,
+      selectedInboxes,
+      selectedTeams,
       selectedRating,
     }) {
       // do not track filter change on initial load
@@ -105,8 +105,8 @@ export default {
       this.from = from;
       this.to = to;
       this.userIds = selectedAgents.map(el => el.id);
-      this.inbox = selectedInbox?.id;
-      this.team = selectedTeam?.id;
+      this.inboxIds = selectedInboxes.map(el => el.id);
+      this.teamIds = selectedTeams.map(el => el.id);
       this.rating = selectedRating?.value;
 
       this.getAllData();

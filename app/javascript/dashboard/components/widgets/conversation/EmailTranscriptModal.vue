@@ -98,12 +98,18 @@ export default {
     },
     onScopeChange() {
       // Pre-fetch all conversations when switching to bulk scope
-      if (this.isBulk && this.contactId && this.contactConversations.length === 0) {
+      if (
+        this.isBulk &&
+        this.contactId &&
+        this.contactConversations.length === 0
+      ) {
         this.$store.dispatch('contactConversations/get', this.contactId);
       }
     },
     formatIso(unixSeconds) {
-      return new Date(unixSeconds * 1000).toISOString().replace('Z', this.tzOffset());
+      return new Date(unixSeconds * 1000)
+        .toISOString()
+        .replace('Z', this.tzOffset());
     },
     tzOffset() {
       const pad = n => String(Math.abs(n)).padStart(2, '0');
@@ -119,6 +125,38 @@ export default {
         const ext = att.extension ? `.${att.extension}` : '';
         return `      [${typeLabel}${ext}] ${url}`;
       });
+    },
+
+    // Pulls the full contact record (loaded for the contact panel) instead of the
+    // lightweight conversation.meta.sender, since that's the only place city/country/
+    // company/bio/created_at/last_activity_at are available on the frontend.
+    contactDetailsLines() {
+      const senderSummary = this.currentChat.meta?.sender || {};
+      const contact =
+        this.$store.getters['contacts/getContact'](senderSummary.id) ||
+        senderSummary;
+      const attrs = contact.additional_attributes || {};
+      const cityCountry = [attrs.city, attrs.country]
+        .filter(Boolean)
+        .join(', ');
+      const labels = this.$store.getters['contactLabels/getContactLabels'](
+        senderSummary.id
+      ).join(', ');
+
+      return [
+        contact.email ? `Email     :  ${contact.email}` : null,
+        contact.phone_number ? `Phone     :  ${contact.phone_number}` : null,
+        attrs.company_name ? `Company   :  ${attrs.company_name}` : null,
+        cityCountry ? `Location  :  ${cityCountry}` : null,
+        attrs.description ? `Bio       :  ${attrs.description}` : null,
+        labels ? `Labels    :  ${labels}` : null,
+        contact.created_at
+          ? `Created   :  ${this.formatIso(contact.created_at)}`
+          : null,
+        contact.last_activity_at
+          ? `Last seen :  ${this.formatIso(contact.last_activity_at)}`
+          : null,
+      ].filter(line => line !== null);
     },
 
     // ── Single conversation download (current behavior) ──────────────────
@@ -140,7 +178,9 @@ export default {
         )
         .sort((a, b) => a.created_at - b.created_at);
 
-      const firstAt = messages.length ? this.formatIso(messages[0].created_at) : nowIso;
+      const firstAt = messages.length
+        ? this.formatIso(messages[0].created_at)
+        : nowIso;
       const lastAt = messages.length
         ? this.formatIso(messages[messages.length - 1].created_at)
         : nowIso;
@@ -151,6 +191,7 @@ export default {
         sep,
         `Reference :  #${conversationId}`,
         `Contact   :  ${contactName}`,
+        ...this.contactDetailsLines(),
         agentName ? `Agent     :  ${agentName}` : null,
         inboxName ? `Inbox ID  :  ${inboxName}` : null,
         `Period    :  ${firstAt}  →  ${lastAt}`,
@@ -165,7 +206,8 @@ export default {
         .map((msg, idx) => {
           const seq = String(idx + 1).padStart(3, '0');
           const ts = this.formatIso(msg.created_at);
-          const role = msg.message_type === MESSAGE_TYPE.INCOMING ? 'CLIENT' : 'AGENT';
+          const role =
+            msg.message_type === MESSAGE_TYPE.INCOMING ? 'CLIENT' : 'AGENT';
           const senderName =
             msg.message_type === MESSAGE_TYPE.INCOMING
               ? contactName
@@ -185,18 +227,27 @@ export default {
         sep,
       ].join('\n');
 
-      return { content: header + body + footer, filename: `transcript-${conversationId}.txt` };
+      return {
+        content: header + body + footer,
+        filename: `transcript-${conversationId}.txt`,
+      };
     },
 
     async downloadTranscript() {
       if (this.isBulk) {
         this.isFetchingAll = true;
         try {
-          const response = await ContactAPI.downloadBulkTranscript(this.contactId);
-          const blob = new Blob([response.data], { type: 'text/plain;charset=utf-8' });
+          const response = await ContactAPI.downloadBulkTranscript(
+            this.contactId
+          );
+          const blob = new Blob([response.data], {
+            type: 'text/plain;charset=utf-8',
+          });
           const url = window.URL.createObjectURL(blob);
           const link = document.createElement('a');
-          const contactName = (this.currentChat.meta?.sender?.name || 'contact').replace(/\s+/g, '_');
+          const contactName = (
+            this.currentChat.meta?.sender?.name || 'contact'
+          ).replace(/\s+/g, '_');
           link.href = url;
           link.setAttribute('download', `transcript-${contactName}-todas.txt`);
           document.body.appendChild(link);
@@ -210,6 +261,9 @@ export default {
           this.isFetchingAll = false;
         }
       } else {
+        if (this.contactId) {
+          await this.$store.dispatch('contactLabels/get', this.contactId);
+        }
         const { content, filename } = this.buildSingleTranscript();
         downloadTextFile(filename, content);
         this.onCancel();
@@ -220,7 +274,10 @@ export default {
       this.isSubmitting = true;
       try {
         if (this.isBulk) {
-          await ContactAPI.sendBulkTranscript(this.contactId, this.selectedEmailAddress);
+          await ContactAPI.sendBulkTranscript(
+            this.contactId,
+            this.selectedEmailAddress
+          );
         } else {
           await this.$store.dispatch('sendEmailTranscript', {
             email: this.selectedEmailAddress,
@@ -252,7 +309,6 @@ export default {
         :header-content="modalDesc"
       />
       <form class="w-full" @submit.prevent="onSubmit">
-
         <!-- Scope selector -->
         <div class="flex gap-1 p-1 mb-4 rounded-lg bg-n-alpha-2">
           <button
@@ -275,7 +331,10 @@ export default {
                 ? 'bg-white dark:bg-n-solid-3 text-n-slate-12 shadow-sm font-medium'
                 : 'text-n-slate-11 hover:text-n-slate-12'
             "
-            @click="scope = 'all'; onScopeChange()"
+            @click="
+              scope = 'all';
+              onScopeChange();
+            "
           >
             {{ $t('EMAIL_TRANSCRIPT.SCOPE_ALL') }}
           </button>
@@ -298,7 +357,10 @@ export default {
               $t('EMAIL_TRANSCRIPT.FORM.SEND_TO_CONTACT')
             }}</label>
           </div>
-          <div v-if="!isBulk && currentChat.meta.assignee" class="flex items-center gap-2">
+          <div
+            v-if="!isBulk && currentChat.meta.assignee"
+            class="flex items-center gap-2"
+          >
             <input
               id="assignee"
               v-model="selectedType"

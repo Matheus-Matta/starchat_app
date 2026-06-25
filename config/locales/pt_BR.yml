@@ -75,6 +75,7 @@ pt_BR:
         failed: Arquivo vazio
       export:
         success: Avisaremos você assim que a exportação de arquivos estiver pronta para ser exibida.
+        failed: Filtro de exportação inválido
       email:
         invalid: E-mail inválido
       phone_number:
@@ -164,6 +165,8 @@ pt_BR:
   reports:
     period: Reportando o período %{since} a %{until}
     utc_warning: O relatório gerado está em fuso horário UTC
+    date_column: Data
+    total_row_label: Total do período
     agent_csv:
       agent_name: Nome do Agente
       conversations_count: Conversas atribuídas
@@ -177,6 +180,8 @@ pt_BR:
       conversations_count: Nº de Conversas
       avg_first_response_time: Tempo médio de primeira resposta
       avg_resolution_time: Tempo médio de resolução
+      avg_customer_waiting_time: Tempo médio de espera do cliente
+      resolution_count: Contagem de Resolução
     label_csv:
       label_title: Etiqueta
       conversations_count: Nº de Conversas

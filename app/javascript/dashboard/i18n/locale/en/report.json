@@ -240,7 +240,8 @@
     "FILTERS": {
       "INPUT_PLACEHOLDER": {
         "AGENTS": "Search agents"
-      }
+      },
+      "COMPARE_PLACEHOLDER": "Compare with other agents"
     }
   },
   "LABEL_REPORTS": {
@@ -313,7 +314,8 @@
     "FILTERS": {
       "INPUT_PLACEHOLDER": {
         "LABELS": "Search labels"
-      }
+      },
+      "COMPARE_PLACEHOLDER": "Compare with other labels"
     }
   },
   "INBOX_REPORTS": {
@@ -388,7 +390,8 @@
     "FILTERS": {
       "INPUT_PLACEHOLDER": {
         "INBOXES": "Search inboxes"
-      }
+      },
+      "COMPARE_PLACEHOLDER": "Compare with other inboxes"
     }
   },
   "TEAM_REPORTS": {
@@ -464,7 +467,8 @@
       "NO_FILTER": "No filters available",
       "INPUT_PLACEHOLDER": {
         "TEAMS": "Search teams"
-      }
+      },
+      "COMPARE_PLACEHOLDER": "Compare with other teams"
     }
   },
   "CSAT_REPORTS": {
@@ -692,7 +696,16 @@
     "RESOLUTION_COUNT": "Resolutions",
     "CONVERSATIONS": "Conversations",
     "NO_FIRST_REPLY": "No Reply",
-    "WAITING": "Waiting"
+    "WAITING": "Waiting",
+    "TOOLTIPS": {
+      "CONVERSATIONS": "Total conversations matching the current filters",
+      "AVG_FIRST_RESPONSE_TIME": "Average time to the first reply",
+      "AVG_RESOLUTION_TIME": "Average time to resolve a conversation",
+      "AVG_REPLY_TIME": "Average time between replies",
+      "RESOLUTION_COUNT": "Conversations resolved in the selected period",
+      "NO_FIRST_REPLY": "Open, assigned conversations with no reply yet",
+      "WAITING": "Open, assigned conversations currently waiting on a response"
+    }
   },
   "MONITORING_REPORTS": {
     "HEADER": "Live Operations Monitor",

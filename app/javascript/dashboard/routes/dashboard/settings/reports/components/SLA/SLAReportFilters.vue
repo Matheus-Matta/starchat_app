@@ -9,6 +9,7 @@ import {
   generateReportURLParams,
   parseReportURLParams,
   parseFilterURLParams,
+  generateFilterURLParams,
 } from '../../helpers/reportFilterHelper';
 
 const emit = defineEmits(['filterChange']);
@@ -37,17 +38,13 @@ const updateURLParams = () => {
     range: selectedDateRange.value,
   });
 
-  const filterParams = parseFilterURLParams(route.query);
-  const params = { ...dateParams };
+  // Re-serialize the filters already in the URL so changing dates doesn't
+  // wipe out an active agent/inbox/team/label selection.
+  const filterParams = generateFilterURLParams(
+    parseFilterURLParams(route.query)
+  );
 
-  if (filterParams.agent_id) params.agent_id = filterParams.agent_id;
-  if (filterParams.inbox_id) params.inbox_id = filterParams.inbox_id;
-  if (filterParams.team_id) params.team_id = filterParams.team_id;
-  if (filterParams.sla_policy_id)
-    params.sla_policy_id = filterParams.sla_policy_id;
-  if (filterParams.label) params.label = filterParams.label;
-
-  router.replace({ query: params });
+  router.replace({ query: { ...dateParams, ...filterParams } });
 };
 
 const emitChange = () => {

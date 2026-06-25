@@ -311,6 +311,169 @@ describe V2::Reports::Timeseries::ReportBuilder do
     end
   end
 
+  describe 'multiple ids (combined entities)' do
+    subject { described_class.new(account, params) }
+
+    let(:account) { create(:account) }
+    let(:inbox) { create(:inbox, account: account) }
+    let(:agent1) { create(:user, account: account) }
+    let(:agent2) { create(:user, account: account) }
+    let(:current_time) { Time.current }
+
+    let(:params) do
+      {
+        type: 'agent',
+        metric: 'resolutions_count',
+        since: (current_time - 1.day).beginning_of_day.to_i.to_s,
+        until: current_time.end_of_day.to_i.to_s,
+        timezone_offset: nil,
+        group_by: 'day',
+        id: [agent1.id, agent2.id]
+      }
+    end
+
+    before do
+      travel_to current_time
+
+      conversation1 = create(:conversation, account: account, inbox: inbox, assignee: agent1)
+      conversation2 = create(:conversation, account: account, inbox: inbox, assignee: agent2)
+      conversation3 = create(:conversation, account: account, inbox: inbox, assignee: create(:user, account: account))
+
+      create(:reporting_event, name: 'conversation_resolved', account: account, user: agent1, conversation: conversation1,
+                               created_at: current_time - 6.hours)
+      create(:reporting_event, name: 'conversation_resolved', account: account, user: agent2, conversation: conversation2,
+                               created_at: current_time - 4.hours)
+      create(:reporting_event, name: 'conversation_resolved', account: account, conversation: conversation3,
+                               created_at: current_time - 2.hours)
+    end
+
+    it 'sums resolutions across all selected agents' do
+      expect(subject.aggregate_value).to eq(2)
+    end
+
+    context 'when filtering by team ids' do
+      let(:team1) { create(:team, account: account) }
+      let(:team2) { create(:team, account: account) }
+      let(:params) do
+        {
+          type: 'team',
+          metric: 'conversations_count',
+          since: (current_time - 1.day).beginning_of_day.to_i.to_s,
+          until: current_time.end_of_day.to_i.to_s,
+          timezone_offset: nil,
+          group_by: 'day',
+          id: [team1.id, team2.id]
+        }
+      end
+
+      before do
+        create(:conversation, account: account, inbox: inbox, team: team1, created_at: current_time - 3.hours)
+        create(:conversation, account: account, inbox: inbox, team: team2, created_at: current_time - 1.hour)
+        create(:conversation, account: account, inbox: inbox, created_at: current_time - 1.hour)
+      end
+
+      it 'combines conversations across all selected teams' do
+        expect(subject.aggregate_value).to eq(2)
+      end
+    end
+  end
+
+  describe 'combined dimensions (agent OR team OR inbox)' do
+    subject { described_class.new(account, params) }
+
+    let(:account) { create(:account) }
+    let(:inbox1) { create(:inbox, account: account) }
+    let(:inbox2) { create(:inbox, account: account) }
+    let(:agent) { create(:user, account: account) }
+    let(:team) { create(:team, account: account) }
+    let(:current_time) { Time.current }
+
+    let(:params) do
+      {
+        type: 'account',
+        metric: 'conversations_count',
+        since: (current_time - 1.day).beginning_of_day.to_i.to_s,
+        until: current_time.end_of_day.to_i.to_s,
+        timezone_offset: nil,
+        group_by: 'day',
+        agent_ids: [agent.id],
+        team_ids: [team.id],
+        inbox_ids: []
+      }
+    end
+
+    before do
+      travel_to current_time
+      # AssignmentHandler clears the assignee on save unless they're a team member
+      team.add_members([agent.id])
+
+      create(:conversation, account: account, inbox: inbox1, assignee: agent)
+      create(:conversation, account: account, inbox: inbox1, team: team)
+      # matches both agent and team filters - must be counted once, not twice
+      create(:conversation, account: account, inbox: inbox1, assignee: agent, team: team)
+      create(:conversation, account: account, inbox: inbox2)
+    end
+
+    it 'sums conversations matching agent OR team without double-counting overlap' do
+      expect(subject.aggregate_value).to eq(3)
+    end
+
+    context 'when only one dimension type has ids' do
+      let(:params) { super().merge(team_ids: []) }
+
+      it 'behaves like a plain agent filter' do
+        expect(subject.aggregate_value).to eq(2)
+      end
+    end
+  end
+
+  describe 'snapshot metrics (no_first_reply_count and waiting_count)' do
+    subject { described_class.new(account, params) }
+
+    let(:account) { create(:account) }
+    let(:inbox) { create(:inbox, account: account) }
+    let(:agent) { create(:user, account: account) }
+    let(:current_time) { Time.current }
+
+    let(:params) do
+      {
+        type: 'account',
+        metric: metric,
+        since: (current_time - 1.day).beginning_of_day.to_i.to_s,
+        until: current_time.end_of_day.to_i.to_s,
+        timezone_offset: nil,
+        group_by: 'day'
+      }
+    end
+
+    let!(:unanswered_conversation) { create(:conversation, account: account, inbox: inbox, assignee: agent, status: 'open') }
+    let!(:replied_conversation) do
+      conversation = create(:conversation, account: account, inbox: inbox, assignee: agent, status: 'open', first_reply_created_at: current_time)
+      conversation.update_column(:waiting_since, nil)
+      conversation
+    end
+    let!(:unassigned_conversation) { create(:conversation, account: account, inbox: inbox, assignee: nil, status: 'open') }
+    let!(:resolved_conversation) { create(:conversation, account: account, inbox: inbox, assignee: agent, status: 'resolved') }
+
+    before { travel_to current_time }
+
+    context 'no_first_reply_count' do
+      let(:metric) { 'no_first_reply_count' }
+
+      it 'counts only open, assigned conversations with no first reply yet' do
+        expect(subject.aggregate_value).to eq(1)
+      end
+    end
+
+    context 'waiting_count' do
+      let(:metric) { 'waiting_count' }
+
+      it 'counts only open, assigned conversations currently waiting on a response' do
+        expect(subject.aggregate_value).to eq(1)
+      end
+    end
+  end
+
   describe 'bot resolution counts' do
     subject(:builder) { described_class.new(account, params) }
 

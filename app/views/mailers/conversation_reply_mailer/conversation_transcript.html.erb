@@ -1,3 +1,34 @@
+<%
+  contact_attrs = @contact.additional_attributes || {}
+  contact_company = @contact.company&.name || contact_attrs['company_name']
+  contact_city_country = [contact_attrs['city'], contact_attrs['country']].compact_blank.join(', ')
+  contact_labels = @contact.label_list.join(', ')
+%>
+
+<!-- Contact details -->
+<tr>
+  <td style="padding: 0 0 16px 0;">
+    <table width="100%" cellpadding="0" cellspacing="0" border="0">
+      <tr>
+        <td>
+          <p style="margin: 0 0 8px 0; font-size: 14px; font-weight: 700; color: #374151;">Dados do contato</p>
+          <p style="margin: 0; font-size: 12px; color: #4b5563; line-height: 18px;">
+            <b>Nome:</b> <%= @contact.name %><br>
+            <% if @contact.email.present? %><b>E-mail:</b> <%= @contact.email %><br><% end %>
+            <% if @contact.phone_number.present? %><b>Telefone:</b> <%= @contact.phone_number %><br><% end %>
+            <% if contact_company.present? %><b>Empresa:</b> <%= contact_company %><br><% end %>
+            <% if contact_city_country.present? %><b>Cidade/País:</b> <%= contact_city_country %><br><% end %>
+            <% if contact_attrs['description'].present? %><b>Descrição:</b> <%= contact_attrs['description'] %><br><% end %>
+            <% if contact_labels.present? %><b>Etiquetas:</b> <%= contact_labels %><br><% end %>
+            <% if @contact.created_at.present? %><b>Criado em:</b> <%= @contact.created_at.strftime('%d/%m/%Y %H:%M') %><br><% end %>
+            <% if @contact.last_activity_at.present? %><b>Última atividade:</b> <%= @contact.last_activity_at.strftime('%d/%m/%Y %H:%M') %><% end %>
+          </p>
+        </td>
+      </tr>
+    </table>
+  </td>
+</tr>
+
 <% @messages.each do |message| %>
   <tr>
     <td>

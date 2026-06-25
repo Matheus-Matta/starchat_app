@@ -197,6 +197,79 @@ RSpec.describe Api::V2::Accounts::ReportsController, type: :request do
     end
   end
 
+  describe 'CSV report exports with a date range filter' do
+    let!(:label) { create(:label, account: account, title: 'sales') }
+
+    before do
+      [Time.utc(2026, 6, 8, 10, 0), Time.utc(2026, 6, 9, 10, 0)].each do |time|
+        conversation = create(:conversation, account: account, inbox: inbox, assignee: agent, created_at: time)
+        conversation.update!(label_list: [label.title])
+      end
+    end
+
+    let(:date_range_params) do
+      {
+        since: Time.utc(2026, 6, 8).beginning_of_day.to_i.to_s,
+        until: Time.utc(2026, 6, 9).end_of_day.to_i.to_s,
+        timezone_offset: 0
+      }
+    end
+
+    it 'lists a total row followed by one row per day, dates formatted for the en locale' do
+      get "/api/v2/accounts/#{account.id}/reports/agents",
+          params: date_range_params, headers: admin.create_new_auth_token
+
+      rows = CSV.parse(response.body).reject(&:blank?)
+      agent_rows = rows.select { |row| row[1] == agent.name }
+
+      expect(agent_rows.map(&:first)).to eq(
+        [I18n.t('reports.total_row_label'), '06/08/2026', '06/09/2026']
+      )
+      expect(agent_rows.first[2].to_i).to eq(2)
+      expect(agent_rows[1][2].to_i + agent_rows[2][2].to_i).to eq(2)
+    end
+
+    it 'formats dates as DD/MM/YYYY when the agent uses the pt_BR locale' do
+      admin.update!(ui_settings: { 'locale' => 'pt_BR' })
+
+      get "/api/v2/accounts/#{account.id}/reports/agents",
+          params: date_range_params, headers: admin.create_new_auth_token
+
+      rows = CSV.parse(response.body).reject(&:blank?)
+      agent_rows = rows.select { |row| row[1] == agent.name }
+
+      expect(agent_rows.map(&:first)).to eq(
+        [I18n.t('reports.total_row_label', locale: :pt_BR), '08/06/2026', '09/06/2026']
+      )
+    end
+
+    it 'lists a total row followed by one row per day for the labels report' do
+      get "/api/v2/accounts/#{account.id}/reports/labels",
+          params: date_range_params, headers: admin.create_new_auth_token
+
+      rows = CSV.parse(response.body).reject(&:blank?)
+      label_rows = rows.select { |row| row[1] == label.title }
+
+      expect(label_rows.map(&:first)).to eq(
+        [I18n.t('reports.total_row_label'), '06/08/2026', '06/09/2026']
+      )
+    end
+
+    it 'lists a total row followed by one row per day for the conversations summary report' do
+      get "/api/v2/accounts/#{account.id}/reports/conversations_summary",
+          params: date_range_params, headers: admin.create_new_auth_token
+
+      rows = CSV.parse(response.body).reject(&:blank?)
+      data_rows = rows.drop(2)
+
+      expect(data_rows.map(&:first)).to eq(
+        [I18n.t('reports.total_row_label'), '06/08/2026', '06/09/2026']
+      )
+      expect(data_rows.first[1].to_i).to eq(2)
+      expect(data_rows[1][1].to_i + data_rows[2][1].to_i).to eq(2)
+    end
+  end
+
   describe 'GET /api/v2/accounts/{account.id}/reports/inbox_label_matrix' do
     let!(:inbox_one) { create(:inbox, account: account, name: 'Email Support') }
     let!(:label_one) { create(:label, account: account, title: 'bug') }

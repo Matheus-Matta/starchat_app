@@ -43,15 +43,18 @@ class Api::V1::Accounts::ContactsController < Api::V1::Accounts::BaseController
   end
 
   def export
-    format = params['format'].presence_in(%w[csv xlsx]) || 'csv'
+    format = export_file_format
     filter_params = { payload: params.permit!['payload'], label: params.permit!['label'] }
     Account::ContactsExportJob.perform_later(Current.account.id, Current.user.id, filter_params, format)
     head :ok, message: I18n.t('errors.contacts.export.success')
   end
 
   def export_download
-    format = params['format'].presence_in(%w[csv xlsx]) || 'csv'
-    filter_params = { payload: params.permit!['payload'], label: params.permit!['label'] }
+    format = export_file_format
+    payload = export_download_payload
+    return if performed?
+
+    filter_params = { payload: payload, label: params['label'] }
 
     if format == 'xlsx'
       data = Contacts::ExportXlsxService.new(Current.account, Current.user, filter_params).generate
@@ -175,6 +178,26 @@ class Api::V1::Accounts::ContactsController < Api::V1::Accounts::BaseController
 
   private
 
+  # `format` is a reserved Rails routing/content-negotiation key - Api::BaseController
+  # declares `respond_to :json`, so an unrecognized params[:format] (e.g. "xlsx") gets
+  # silently rewritten to "json" before the action runs. Using a differently-named param
+  # avoids that collision so the requested export file format actually reaches us.
+  def export_file_format
+    params['export_format'].presence_in(%w[csv xlsx]) || 'csv'
+  end
+
+  # GET query strings flatten array indices (payload[0][values][0]=x) into nested
+  # hashes instead of arrays, breaking FilterService. The filter payload is sent
+  # JSON-encoded in a single param here so it parses identically to the POST /export body.
+  def export_download_payload
+    return [] if params[:payload].blank?
+
+    JSON.parse(params[:payload]).map(&:with_indifferent_access)
+  rescue JSON::ParserError
+    render_error({ error: I18n.t('errors.contacts.export.failed') }, :unprocessable_entity)
+    nil
+  end
+
   # Only adds new inboxes. Existing associations are immutable through this endpoint
   # to prevent accidental removal of conversation history.
   def add_new_contact_inboxes(inbox_ids)
@@ -286,6 +309,25 @@ class Api::V1::Accounts::ContactsController < Api::V1::Accounts::BaseController
     ::Avatar::AvatarFromUrlJob.perform_later(@contact, params[:avatar_url]) if params[:avatar_url].present?
   end
 
+  def contact_details_lines(contact)
+    attrs = contact.additional_attributes || {}
+    company_name = contact.company&.name || attrs['company_name']
+    city_country = [attrs['city'], attrs['country']].compact_blank.join(', ')
+
+    [
+      ['Nome', contact.name],
+      ['E-mail', contact.email],
+      ['Telefone', contact.phone_number],
+      ['Empresa', company_name],
+      ['Cidade/País', city_country],
+      ['Descrição', attrs['description']],
+      ['Etiquetas', contact.label_list.join(', ')],
+      ['Criado em', contact.created_at&.strftime('%d/%m/%Y %H:%M:%S')],
+      ['Última atividade', contact.last_activity_at&.strftime('%d/%m/%Y %H:%M:%S')]
+    ].select { |_label, value| value.present? }
+     .map { |label, value| "#{label.ljust(18)}:  #{value}" }
+  end
+
   def build_text_transcript(contact, conversations)
     sep  = '=' * 80
     dash = '-' * 80
@@ -295,7 +337,10 @@ class Api::V1::Accounts::ContactsController < Api::V1::Accounts::BaseController
       sep,
       'TRANSCRIPT COMPLETO DE CONVERSAS',
       sep,
-      "Contato     :  #{contact.name}",
+      'DADOS DO CONTATO',
+      dash,
+      *contact_details_lines(contact),
+      dash,
       "Total       :  #{conversations.size} conversa(s)",
       "Exportado   :  #{now}",
       sep,

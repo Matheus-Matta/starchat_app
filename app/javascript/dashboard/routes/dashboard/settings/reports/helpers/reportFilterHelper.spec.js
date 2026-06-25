@@ -4,6 +4,8 @@ import {
   parseFilterURLParams,
   generateFilterURLParams,
   generateCompleteURLParams,
+  parseCompareIdsParam,
+  generateCompareIdsParam,
 } from './reportFilterHelper';
 
 describe('reportFilterHelper', () => {
@@ -215,7 +217,7 @@ describe('reportFilterHelper', () => {
   });
 
   describe('parseFilterURLParams', () => {
-    it('parses all filter params as numbers', () => {
+    it('parses a single value into a one-item array', () => {
       const result = parseFilterURLParams({
         agent_id: '123',
         inbox_id: '456',
@@ -225,67 +227,77 @@ describe('reportFilterHelper', () => {
       });
 
       expect(result).toEqual({
-        agent_id: 123,
-        inbox_id: 456,
-        team_id: 789,
+        agent_id: [123],
+        inbox_id: [456],
+        team_id: [789],
         sla_policy_id: 101,
-        label: null,
+        label: [],
         rating: 4,
       });
     });
 
-    it('parses label as string', () => {
+    it('parses multiple comma-separated values into an array', () => {
       const result = parseFilterURLParams({
-        label: 'bug',
+        agent_id: '123,456',
+        team_id: '7',
       });
 
-      expect(result.label).toBe('bug');
+      expect(result.agent_id).toEqual([123, 456]);
+      expect(result.team_id).toEqual([7]);
     });
 
-    it('returns null for missing parameters', () => {
+    it('parses label as an array of strings', () => {
+      const result = parseFilterURLParams({
+        label: 'bug,billing',
+      });
+
+      expect(result.label).toEqual(['bug', 'billing']);
+    });
+
+    it('returns empty arrays and null for missing parameters', () => {
       const result = parseFilterURLParams({});
 
       expect(result).toEqual({
-        agent_id: null,
-        inbox_id: null,
-        team_id: null,
+        agent_id: [],
+        inbox_id: [],
+        team_id: [],
         sla_policy_id: null,
-        label: null,
+        label: [],
         rating: null,
       });
     });
   });
 
   describe('generateFilterURLParams', () => {
-    it('includes only non-null filter values', () => {
+    it('joins multiple ids with a comma', () => {
       const params = generateFilterURLParams({
-        agent_id: 123,
-        inbox_id: null,
-        team_id: 456,
+        agent_id: [123, 456],
+        inbox_id: [],
+        team_id: [789],
         rating: null,
       });
 
       expect(params).toEqual({
-        agent_id: 123,
-        team_id: 456,
+        agent_id: '123,456',
+        team_id: '789',
       });
     });
 
     it('includes label when present', () => {
       const params = generateFilterURLParams({
-        label: 'bug',
+        label: ['bug', 'billing'],
       });
 
       expect(params).toEqual({
-        label: 'bug',
+        label: 'bug,billing',
       });
     });
 
-    it('returns empty object when all values are null', () => {
+    it('returns empty object when all values are empty', () => {
       const params = generateFilterURLParams({
-        agent_id: null,
-        inbox_id: null,
-        team_id: null,
+        agent_id: [],
+        inbox_id: [],
+        team_id: [],
       });
 
       expect(params).toEqual({});
@@ -299,8 +311,8 @@ describe('reportFilterHelper', () => {
         to: 1770229799,
         range: 'last7days',
         filters: {
-          agent_id: 123,
-          inbox_id: 456,
+          agent_id: [123],
+          inbox_id: [456],
         },
       });
 
@@ -308,8 +320,8 @@ describe('reportFilterHelper', () => {
         from: 1738607400,
         to: 1770229799,
         range: 'last7days',
-        agent_id: 123,
-        inbox_id: 456,
+        agent_id: '123',
+        inbox_id: '456',
       });
     });
 
@@ -328,23 +340,55 @@ describe('reportFilterHelper', () => {
       });
     });
 
-    it('excludes null filter values', () => {
+    it('excludes empty filter values', () => {
       const params = generateCompleteURLParams({
         from: 1738607400,
         to: 1770229799,
         filters: {
-          agent_id: 123,
-          inbox_id: null,
-          team_id: 456,
+          agent_id: [123],
+          inbox_id: [],
+          team_id: [456],
         },
       });
 
       expect(params).toEqual({
         from: 1738607400,
         to: 1770229799,
-        agent_id: 123,
-        team_id: 456,
+        agent_id: '123',
+        team_id: '456',
       });
+    });
+  });
+
+  describe('parseCompareIdsParam', () => {
+    it('parses a comma-separated list of ids as numbers', () => {
+      expect(parseCompareIdsParam({ compare_ids: '4,7,12' })).toEqual([
+        4, 7, 12,
+      ]);
+    });
+
+    it('returns an empty array when missing', () => {
+      expect(parseCompareIdsParam({})).toEqual([]);
+    });
+
+    it('ignores non-numeric entries', () => {
+      expect(parseCompareIdsParam({ compare_ids: '4,abc,7' })).toEqual([4, 7]);
+    });
+  });
+
+  describe('generateCompareIdsParam', () => {
+    it('joins ids into a comma-separated param', () => {
+      expect(generateCompareIdsParam([4, 7, 12])).toEqual({
+        compare_ids: '4,7,12',
+      });
+    });
+
+    it('returns an empty object when ids are empty', () => {
+      expect(generateCompareIdsParam([])).toEqual({});
+    });
+
+    it('returns an empty object when ids are not provided', () => {
+      expect(generateCompareIdsParam(undefined)).toEqual({});
     });
   });
 });

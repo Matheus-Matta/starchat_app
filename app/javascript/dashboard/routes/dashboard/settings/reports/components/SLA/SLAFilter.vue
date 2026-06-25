@@ -15,6 +15,7 @@ import {
 import FilterButton from 'dashboard/components/ui/Dropdown/DropdownButton.vue';
 import ActiveFilterChip from '../Filters/v3/ActiveFilterChip.vue';
 import AddFilterChip from '../Filters/v3/AddFilterChip.vue';
+import ComboBox from 'dashboard/components-next/combobox/ComboBox.vue';
 
 const emit = defineEmits(['filterChange']);
 
@@ -23,22 +24,48 @@ const store = useStore();
 const route = useRoute();
 const router = useRouter();
 
+// Filter types that support selecting more than one value at once.
+// sla_policy_id stays single-select (it's a single policy configuration, not
+// an entity to combine/compare).
+const MULTI_KEYS = ['assigned_agent_id', 'inbox_id', 'team_id', 'label_list'];
+
 const showDropdownMenu = ref(false);
 const showSubDropdownMenu = ref(false);
 const activeFilterType = ref('');
 const appliedFilters = ref({
-  assigned_agent_id: null,
-  inbox_id: null,
-  team_id: null,
+  assigned_agent_id: [],
+  inbox_id: [],
+  team_id: [],
   sla_policy_id: null,
-  label_list: null,
+  label_list: [],
 });
+
+const isFilterActive = value =>
+  Array.isArray(value) ? value.length > 0 : !!value;
 
 const agents = computed(() => store.getters['agents/getAgents']);
 const inboxes = computed(() => store.getters['inboxes/getInboxes']);
 const teams = computed(() => store.getters['teams/getTeams']);
 const labels = computed(() => store.getters['labels/getLabels']);
 const sla = computed(() => store.getters['sla/getSLA']);
+
+const filterSources = computed(() => ({
+  agents: agents.value,
+  inboxes: inboxes.value,
+  teams: teams.value,
+  labels: labels.value,
+  sla: sla.value,
+}));
+
+// Labels are stored/matched by title rather than numeric id (cached_label_list
+// is a text match), so the option's "id" is normalized to its title here to
+// keep the generic multi-select logic (matching by `id`) consistent.
+const getFilterOptions = type => {
+  const list = buildFilterList(filterSources.value[type], type);
+  return type === 'labels'
+    ? list.map(item => ({ ...item, id: item.name }))
+    : list;
+};
 
 const filterListMenuItems = computed(() => {
   const filterTypes = [
@@ -49,20 +76,12 @@ const filterListMenuItems = computed(() => {
     { id: '5', name: t('SLA_REPORTS.DROPDOWN.LABELS'), type: 'labels' },
   ];
 
-  const activeFilterKeys = Object.keys(appliedFilters.value).filter(
-    key => appliedFilters.value[key]
+  const activeFilterKeys = Object.keys(appliedFilters.value).filter(key =>
+    isFilterActive(appliedFilters.value[key])
   );
   const activeFilterTypes = activeFilterKeys.map(key =>
     getFilterType(key, 'keyToType')
   );
-
-  const sources = {
-    agents: agents.value,
-    inboxes: inboxes.value,
-    teams: teams.value,
-    labels: labels.value,
-    sla: sla.value,
-  };
 
   return filterTypes
     .filter(({ type }) => !activeFilterTypes.includes(type))
@@ -70,41 +89,48 @@ const filterListMenuItems = computed(() => {
       id,
       name,
       type,
-      options: buildFilterList(sources[type], type),
+      options: getFilterOptions(type),
     }));
 });
 
+// One chip per active filter type. Agents/inboxes/teams/labels render as a
+// multi-select combobox (isMulti: true) so several values can be combined;
+// the SLA policy filter stays single-select.
 const activeFilters = computed(() => {
-  const activeKeys = Object.keys(appliedFilters.value).filter(
-    key => appliedFilters.value[key]
+  const activeKeys = Object.keys(appliedFilters.value).filter(key =>
+    isFilterActive(appliedFilters.value[key])
   );
-
-  const sources = {
-    agents: agents.value,
-    inboxes: inboxes.value,
-    teams: teams.value,
-    labels: labels.value,
-    sla: sla.value,
-  };
 
   return activeKeys.map(key => {
     const filterType = getFilterType(key, 'keyToType');
+    const options = getFilterOptions(filterType);
+
+    if (MULTI_KEYS.includes(key)) {
+      return {
+        type: filterType,
+        isMulti: true,
+        selectedIds: appliedFilters.value[key],
+        options: options.map(item => ({ value: item.id, label: item.name })),
+      };
+    }
+
     const item = getActiveFilter(
-      sources[filterType],
+      filterSources.value[filterType],
       filterType,
       appliedFilters.value[key]
     );
     return {
       id: item.id,
-      name: filterType === 'labels' ? item.title : item.name,
+      name: item.name,
       type: filterType,
-      options: buildFilterList(sources[filterType], filterType),
+      isMulti: false,
+      options,
     };
   });
 });
 
 const hasActiveFilters = computed(() =>
-  Object.values(appliedFilters.value).some(value => value !== null)
+  Object.values(appliedFilters.value).some(isFilterActive)
 );
 
 const isAllFilterSelected = computed(() => !filterListMenuItems.value.length);
@@ -156,26 +182,32 @@ const resetDropdown = () => {
 };
 
 const addFilter = item => {
-  const { type, id, name } = item;
+  const { type, id } = item;
   const filterKey = getFilterType(type, 'typeToKey');
-  appliedFilters.value[filterKey] = type === 'labels' ? name : id;
+  appliedFilters.value[filterKey] = MULTI_KEYS.includes(filterKey) ? [id] : id;
   emitChange();
   resetDropdown();
 };
 
+const updateMultiFilter = (type, ids) => {
+  const filterKey = getFilterType(type, 'typeToKey');
+  appliedFilters.value[filterKey] = ids;
+  emitChange();
+};
+
 const removeFilter = type => {
   const filterKey = getFilterType(type, 'typeToKey');
-  appliedFilters.value[filterKey] = null;
+  appliedFilters.value[filterKey] = MULTI_KEYS.includes(filterKey) ? [] : null;
   emitChange();
 };
 
 const clearAllFilters = () => {
   appliedFilters.value = {
-    assigned_agent_id: null,
-    inbox_id: null,
-    team_id: null,
+    assigned_agent_id: [],
+    inbox_id: [],
+    team_id: [],
     sla_policy_id: null,
-    label_list: null,
+    label_list: [],
   };
   emitChange();
   resetDropdown();
@@ -204,23 +236,40 @@ onMounted(() => {
   >
     <!-- Active filters section -->
     <div v-if="hasActiveFilters" class="flex flex-wrap gap-2 md:flex-nowrap">
-      <ActiveFilterChip
-        v-for="filter in activeFilters"
-        v-bind="filter"
-        :key="filter.type"
-        :placeholder="
-          $t(
-            `SLA_REPORTS.DROPDOWN.INPUT_PLACEHOLDER.${filter.type.toUpperCase()}`
-          )
-        "
-        :active-filter-type="activeFilterType"
-        :show-menu="showSubDropdownMenu"
-        enable-search
-        @toggle-dropdown="openActiveFilterDropdown"
-        @close-dropdown="closeActiveFilterDropdown"
-        @add-filter="addFilter"
-        @remove-filter="removeFilter"
-      />
+      <template v-for="filter in activeFilters" :key="filter.type">
+        <ComboBox
+          v-if="filter.isMulti"
+          :model-value="filter.selectedIds"
+          :options="filter.options"
+          class="!w-48 [&>div>button]:h-8"
+          multiple
+          :placeholder="
+            $t(
+              `SLA_REPORTS.DROPDOWN.INPUT_PLACEHOLDER.${filter.type.toUpperCase()}`
+            )
+          "
+          @update:model-value="ids => updateMultiFilter(filter.type, ids)"
+        />
+        <ActiveFilterChip
+          v-else
+          :id="filter.id"
+          :name="filter.name"
+          :type="filter.type"
+          :options="filter.options"
+          :placeholder="
+            $t(
+              `SLA_REPORTS.DROPDOWN.INPUT_PLACEHOLDER.${filter.type.toUpperCase()}`
+            )
+          "
+          :active-filter-type="activeFilterType"
+          :show-menu="showSubDropdownMenu"
+          enable-search
+          @toggle-dropdown="openActiveFilterDropdown"
+          @close-dropdown="closeActiveFilterDropdown"
+          @add-filter="addFilter"
+          @remove-filter="removeFilter"
+        />
+      </template>
     </div>
     <!-- Dividing line between Active filters and Add filter button -->
     <div

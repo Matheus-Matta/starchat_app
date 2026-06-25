@@ -34,4 +34,35 @@ RSpec.describe AppliedSla, type: :model do
       expect(applied_sla.sla_status).to eq 'active'
     end
   end
+
+  describe '.filter_by_label_list' do
+    let(:account) { create(:account) }
+    let(:billing_conversation) { create(:conversation, account: account) }
+    let(:urgent_conversation) { create(:conversation, account: account) }
+    let(:other_conversation) { create(:conversation, account: account) }
+    let!(:billing_sla) { create(:applied_sla, account: account, conversation: billing_conversation) }
+    let!(:urgent_sla) { create(:applied_sla, account: account, conversation: urgent_conversation) }
+    let!(:other_sla) { create(:applied_sla, account: account, conversation: other_conversation) }
+
+    before do
+      billing_conversation.label_list.add('billing')
+      billing_conversation.save!
+      urgent_conversation.label_list.add('urgent')
+      urgent_conversation.save!
+      other_conversation.label_list.add('spam')
+      other_conversation.save!
+    end
+
+    it 'filters by a single label' do
+      expect(AppliedSla.filter_by_label_list('billing')).to contain_exactly(billing_sla)
+    end
+
+    it 'filters by multiple labels combined with OR' do
+      expect(AppliedSla.filter_by_label_list(%w[billing urgent])).to contain_exactly(billing_sla, urgent_sla)
+    end
+
+    it 'returns all records when blank' do
+      expect(AppliedSla.filter_by_label_list(nil).to_a).to contain_exactly(billing_sla, urgent_sla, other_sla)
+    end
+  end
 end

@@ -7,6 +7,7 @@ import { getUnixStartOfDay, getUnixEndOfDay } from 'helpers/DateHelper';
 import subDays from 'date-fns/subDays';
 import differenceInDays from 'date-fns/differenceInDays';
 import ActiveFilterChip from './Filters/v3/ActiveFilterChip.vue';
+import ComboBox from 'dashboard/components-next/combobox/ComboBox.vue';
 import WootDatePicker from 'dashboard/components/ui/DatePicker/DatePicker.vue';
 import ToggleSwitch from 'dashboard/components-next/switch/Switch.vue';
 import { GROUP_BY_FILTER } from '../constants';
@@ -14,6 +15,8 @@ import { DATE_RANGE_TYPES } from 'dashboard/components/ui/DatePicker/helpers/Dat
 import {
   generateReportURLParams,
   parseReportURLParams,
+  parseCompareIdsParam,
+  generateCompareIdsParam,
 } from '../helpers/reportFilterHelper';
 
 const props = defineProps({
@@ -59,32 +62,16 @@ const buildReportFilterList = (items, type) => {
   }));
 };
 
-const getReportFilterKey = filterType => {
-  const keyMap = {
-    teams: 'team_id',
-    inboxes: 'inbox_id',
-    labels: 'label_id',
-    agents: 'agent_id',
-  };
-  return keyMap[filterType] || '';
-};
-
-const getFilterKey = () => getReportFilterKey(props.filterType);
-
-const showSubDropdownMenu = ref(false);
 const showGroupByDropdown = ref(false);
-const activeFilterType = ref('');
 const customDateRange = ref([subDays(new Date(), 6), new Date()]);
 const selectedDateRange = ref(DATE_RANGE_TYPES.LAST_7_DAYS);
 const businessHoursSelected = ref(false);
 const groupBy = ref(GROUP_BY_FILTER[1]);
 const groupByfilterItemsList = ref([{ id: 1, name: 'Day' }]);
 
-const appliedFilters = ref(
-  props.showEntityFilter
-    ? { [getFilterKey()]: props.selectedItem?.id || null }
-    : {}
-);
+// Extra entities (besides `selectedItem`, the page's anchor entity) selected to
+// combine/sum metrics for, e.g. comparing Agent X's page with Agent Y's data too.
+const compareIds = ref([]);
 
 const filterSource = computed(() => {
   const sources = {
@@ -133,39 +120,37 @@ const fetchFilterItems = () => {
 };
 
 const filterOptions = computed(() =>
-  buildReportFilterList(filterSource.value, props.filterType)
+  buildReportFilterList(filterSource.value, props.filterType).map(item => ({
+    value: item.id,
+    label: item.name,
+  }))
 );
 
-const filterPlaceholder = computed(() => {
+// The anchor entity (whose page we're on) is always included and locked
+// (via :disabled-values) so it can't be unchecked from this combobox.
+const anchorIds = computed(() =>
+  props.selectedItem?.id ? [props.selectedItem.id] : []
+);
+
+const comparePlaceholder = computed(() => {
   const placeholders = {
-    teams: 'TEAM_REPORTS.FILTERS.INPUT_PLACEHOLDER.TEAMS',
-    inboxes: 'INBOX_REPORTS.FILTERS.INPUT_PLACEHOLDER.INBOXES',
-    labels: 'LABEL_REPORTS.FILTERS.INPUT_PLACEHOLDER.LABELS',
-    agents: 'AGENT_REPORTS.FILTERS.INPUT_PLACEHOLDER.AGENTS',
+    teams: 'TEAM_REPORTS.FILTERS.COMPARE_PLACEHOLDER',
+    inboxes: 'INBOX_REPORTS.FILTERS.COMPARE_PLACEHOLDER',
+    labels: 'LABEL_REPORTS.FILTERS.COMPARE_PLACEHOLDER',
+    agents: 'AGENT_REPORTS.FILTERS.COMPARE_PLACEHOLDER',
   };
   return t(placeholders[props.filterType] || '');
 });
 
-const defaultFilterLabel = computed(() => {
-  const labelKeys = {
-    teams: 'TEAM_REPORTS.FILTER_DROPDOWN_LABEL',
-    inboxes: 'INBOX_REPORTS.FILTER_DROPDOWN_LABEL',
-    labels: 'LABEL_REPORTS.FILTER_DROPDOWN_LABEL',
-    agents: 'AGENT_REPORTS.FILTER_DROPDOWN_LABEL',
-  };
-  return t(labelKeys[props.filterType] || 'FORMS.MULTISELECT.SELECT_ONE');
-});
-
-const selectedFilterName = computed(() => {
-  const filterKey = getFilterKey();
-  const selectedId = appliedFilters.value[filterKey];
-
-  if (!selectedId) {
-    return defaultFilterLabel.value;
-  }
-
-  const selectedItem = filterOptions.value.find(item => item.id === selectedId);
-  return selectedItem?.name || defaultFilterLabel.value;
+// v-model bridge between ComboBox's flat id array (anchor + compares) and the
+// `compareIds` ref that's persisted to the URL and sent to the API.
+const comboModel = computed({
+  get: () => [...anchorIds.value, ...compareIds.value],
+  set: values => {
+    compareIds.value = values.filter(id => !anchorIds.value.includes(id));
+    updateURLParams();
+    emitChange();
+  },
 });
 
 const updateURLParams = () => {
@@ -177,7 +162,9 @@ const updateURLParams = () => {
     range: selectedDateRange.value,
   });
 
-  router.replace({ query: { ...params } });
+  router.replace({
+    query: { ...params, ...generateCompareIdsParam(compareIds.value) },
+  });
 };
 
 const emitChange = () => {
@@ -195,54 +182,15 @@ const emitChange = () => {
   }
 
   if (props.showEntityFilter) {
-    const filterKey = getFilterKey();
-    const selectedValue = appliedFilters.value[filterKey];
+    const ids = [props.selectedItem?.id, ...compareIds.value].filter(Boolean);
 
-    if (selectedValue) {
-      payload[props.filterType] =
-        props.filterType === 'agents'
-          ? [{ id: selectedValue }]
-          : { id: selectedValue };
+    if (ids.length) {
+      payload[props.filterType] = ids.map(id => ({ id }));
     }
   }
 
   updateURLParams();
   emit('filterChange', payload);
-};
-
-const closeActiveFilterDropdown = () => {
-  showSubDropdownMenu.value = false;
-  activeFilterType.value = '';
-};
-
-const openActiveFilterDropdown = filterType => {
-  showGroupByDropdown.value = false;
-  activeFilterType.value = filterType;
-  showSubDropdownMenu.value = !showSubDropdownMenu.value;
-};
-
-const addFilter = item => {
-  const filterKey = getFilterKey();
-  appliedFilters.value[filterKey] = item.id;
-  closeActiveFilterDropdown();
-  emitChange();
-
-  // Navigate to the new entity's route
-  const routeNameMap = {
-    teams: 'team_reports_show',
-    inboxes: 'inbox_reports_show',
-    labels: 'label_reports_show',
-    agents: 'agent_reports_show',
-  };
-
-  const routeName = routeNameMap[props.filterType];
-  if (routeName) {
-    router.push({
-      name: routeName,
-      params: { ...route.params, id: item.id },
-      query: route.query,
-    });
-  }
 };
 
 const onDateRangeChange = value => {
@@ -304,10 +252,12 @@ const initializeFromURL = () => {
     }
   }
 
-  // Initialize entity filter from route params (not URL query)
-  if (props.showEntityFilter && route.params.id) {
-    const filterKey = getFilterKey();
-    appliedFilters.value[filterKey] = Number(route.params.id);
+  // Restore the extra compared entities (the anchor entity itself comes from
+  // `selectedItem`, driven by the route param)
+  if (props.showEntityFilter) {
+    compareIds.value = parseCompareIdsParam(route.query).filter(
+      id => id !== props.selectedItem?.id
+    );
   }
 };
 
@@ -327,20 +277,14 @@ onMounted(() => {
     />
 
     <div class="flex gap-2 items-center w-full">
-      <ActiveFilterChip
-        v-if="showEntityFilter"
-        :id="appliedFilters[getFilterKey()]"
-        :name="selectedFilterName"
-        :type="filterType"
+      <ComboBox
+        v-if="showEntityFilter && filterOptions.length"
+        v-model="comboModel"
+        class="!w-48 [&>div>button]:h-8"
         :options="filterOptions"
-        :active-filter-type="activeFilterType"
-        :show-menu="showSubDropdownMenu"
-        :placeholder="filterPlaceholder"
-        :show-clear-filter="false"
-        enable-search
-        @toggle-dropdown="openActiveFilterDropdown"
-        @close-dropdown="closeActiveFilterDropdown"
-        @add-filter="addFilter"
+        :disabled-values="anchorIds"
+        :placeholder="comparePlaceholder"
+        multiple
       />
 
       <ActiveFilterChip

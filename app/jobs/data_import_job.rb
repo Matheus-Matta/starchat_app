@@ -8,6 +8,7 @@ class DataImportJob < ApplicationJob
   LABELS_DELIMITER = ','.freeze
   LABELS_CONTEXT = 'labels'.freeze
   CONTACT_TAGGABLE_TYPE = 'Contact'.freeze
+  INBOXES_DELIMITER = ','.freeze
 
   def perform(data_import)
     @data_import = data_import
@@ -71,23 +72,39 @@ class DataImportJob < ApplicationJob
   def build_contact_from_row(row, contacts, rejected_contacts)
     row_hash = row.to_h.with_indifferent_access
     labels = extract_labels(row_hash)
-    invalid_labels = labels.map(&:downcase) - approved_labels
+    inbox_names = extract_inbox_names(row_hash)
 
-    if invalid_labels.present?
-      append_label_error(row, invalid_labels, rejected_contacts)
+    errors = label_and_inbox_errors(labels, inbox_names)
+    if errors.present?
+      append_row_error(row, errors, rejected_contacts)
       return
     end
 
-    current_contact = @contact_manager.build_contact(row_hash.except(:labels))
+    current_contact = @contact_manager.build_contact(row_hash.except(:labels, :inboxes))
     if current_contact.valid?
-      contacts << { contact: current_contact, labels: labels }
+      contacts << { contact: current_contact, labels: labels, inbox_names: inbox_names }
     else
       append_rejected_contact(row, current_contact, rejected_contacts)
     end
   end
 
+  def label_and_inbox_errors(labels, inbox_names)
+    errors = []
+    invalid_labels = labels.map(&:downcase) - approved_labels
+    errors << "Unknown labels: #{invalid_labels.join(', ')}" if invalid_labels.present?
+
+    invalid_inboxes = inbox_names.reject { |name| inboxes_by_downcased_name.key?(name.downcase) }
+    errors << "Unknown inboxes: #{invalid_inboxes.join(', ')}" if invalid_inboxes.present?
+
+    errors
+  end
+
   def extract_labels(row_hash)
     row_hash[:labels].to_s.split(LABELS_DELIMITER).map(&:strip).reject(&:blank?)
+  end
+
+  def extract_inbox_names(row_hash)
+    row_hash[:inboxes].to_s.split(INBOXES_DELIMITER).map(&:strip).reject(&:blank?)
   end
 
   def append_rejected_contact(row, contact, rejected_contacts)
@@ -100,6 +117,7 @@ class DataImportJob < ApplicationJob
     # <struct ActiveRecord::Import::Result failed_instances=[], num_inserts=1, ids=[444, 445], results=[]>
     Contact.import(contacts, synchronize: contacts, on_duplicate_key_ignore: true, track_validation_failures: true, validate: true, batch_size: 1000)
     apply_labels_to_contacts(contacts_with_labels)
+    apply_inboxes_to_contacts(contacts_with_labels)
   end
 
   def apply_labels_to_contacts(contacts_with_labels)
@@ -113,7 +131,7 @@ class DataImportJob < ApplicationJob
   def taggings_for_contacts(contacts_with_labels)
     tag_lookup = tags_by_label_name(contacts_with_labels)
     taggings = contacts_with_labels.flat_map do |item|
-      contact = contact_for_label_import(item[:contact])
+      contact = persisted_contact_for(item[:contact])
       labels = item[:labels].map(&:downcase).uniq
       next [] if contact&.id.blank?
 
@@ -139,7 +157,7 @@ class DataImportJob < ApplicationJob
     end
   end
 
-  def contact_for_label_import(contact)
+  def persisted_contact_for(contact)
     return contact if contact.id.present?
 
     key = contact_identity_key(contact)
@@ -169,9 +187,38 @@ class DataImportJob < ApplicationJob
     @approved_labels ||= @data_import.account.labels.pluck(:title)
   end
 
-  def append_label_error(row, labels, rejected_contacts)
-    row['errors'] = "Unknown labels: #{labels.join(', ')}"
+  def inboxes_by_downcased_name
+    @inboxes_by_downcased_name ||= @data_import.account.inboxes.index_by { |inbox| inbox.name.downcase }
+  end
+
+  def append_row_error(row, errors, rejected_contacts)
+    row['errors'] = errors.join('; ')
     rejected_contacts << row
+  end
+
+  # Links contacts to the inboxes named in their "inboxes" column. Unlike labels, this can't be
+  # bulk-imported: each channel type generates its own source_id (e.g. WhatsApp needs the contact's
+  # phone), so we go through ContactInboxBuilder per (contact, inbox) pair and skip links it can't
+  # build (e.g. missing phone/email, or a channel that requires an external source_id) instead of
+  # failing the whole row.
+  def apply_inboxes_to_contacts(contacts_with_labels)
+    contacts_with_labels.each do |item|
+      next if item[:inbox_names].blank?
+
+      contact = persisted_contact_for(item[:contact])
+      next if contact&.id.blank?
+
+      item[:inbox_names].uniq.each { |name| link_contact_to_inbox(contact, name) }
+    end
+  end
+
+  def link_contact_to_inbox(contact, inbox_name)
+    inbox = inboxes_by_downcased_name[inbox_name.downcase]
+    return unless inbox
+
+    ContactInboxBuilder.new(contact: contact, inbox: inbox).perform
+  rescue ActionController::ParameterMissing, RuntimeError => e
+    Rails.logger.info("[DataImportJob] Could not link contact #{contact.id} to inbox #{inbox.id}: #{e.message}")
   end
 
   def update_data_import_status(processed_records, rejected_records)

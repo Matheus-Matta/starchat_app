@@ -101,12 +101,24 @@ class ContactAPI extends ApiClient {
   }
 
   exportContacts(queryPayload, format = 'csv') {
-    return axios.post(`${this.url}/export`, { ...queryPayload, format });
+    // Sent as `export_format`, not `format` - the latter is a reserved Rails
+    // param that the API layer's `respond_to :json` silently coerces away.
+    return axios.post(`${this.url}/export`, {
+      ...queryPayload,
+      export_format: format,
+    });
   }
 
   downloadExportContacts(queryPayload, format = 'csv') {
+    const { payload, ...rest } = queryPayload;
     return axios.get(`${this.url}/export_download`, {
-      params: { ...queryPayload, format },
+      // payload is JSON-encoded because GET query strings flatten array
+      // indices into nested objects, which breaks the backend filter parser.
+      params: {
+        ...rest,
+        payload: JSON.stringify(payload || []),
+        export_format: format,
+      },
       responseType: 'blob',
     });
   }
@@ -116,7 +128,9 @@ class ContactAPI extends ApiClient {
   }
 
   downloadBulkTranscript(contactId) {
-    return axios.get(`${this.url}/${contactId}/transcript`, { responseType: 'blob' });
+    return axios.get(`${this.url}/${contactId}/transcript`, {
+      responseType: 'blob',
+    });
   }
 }
 

@@ -7,18 +7,66 @@ import { useMapGetter } from 'dashboard/composables/store';
 import DownloadReportButton from './components/DownloadReportButton.vue';
 import ReportHeader from './components/ReportHeader.vue';
 import ReportContainer from './ReportContainer.vue';
+import CsatMetricCard from './components/CsatMetricCard.vue';
 import SelectMenu from 'dashboard/components-next/selectmenu/SelectMenu.vue';
+import ComboBox from 'dashboard/components-next/combobox/ComboBox.vue';
 import WootDatePicker from 'dashboard/components/ui/DatePicker/DatePicker.vue';
 import ToggleSwitch from 'dashboard/components-next/switch/Switch.vue';
 import { GROUP_BY_FILTER } from './constants';
 import { DATE_RANGE_TYPES } from 'dashboard/components/ui/DatePicker/helpers/DatePickerHelper';
 import { generateFileName } from 'dashboard/helper/downloadHelper';
 import { getUnixStartOfDay, getUnixEndOfDay } from 'helpers/DateHelper';
+import { useReportMetrics } from 'dashboard/composables/useReportMetrics';
+import { STATUS } from 'dashboard/store/constants';
 import subDays from 'date-fns/subDays';
 import differenceInDays from 'date-fns/differenceInDays';
 
 const store = useStore();
 const { t } = useI18n();
+
+// Headline numbers for the conversations matching the current filters,
+// complementing the historical charts below with an at-a-glance summary.
+const { displayMetric, fetchingStatus } = useReportMetrics();
+const isSummaryLoading = computed(
+  () => fetchingStatus.value === STATUS.FETCHING
+);
+const summaryMetrics = computed(() => [
+  {
+    key: 'conversations_count',
+    label: t('SUMMARY_REPORTS.CONVERSATIONS'),
+    tooltip: t('SUMMARY_REPORTS.TOOLTIPS.CONVERSATIONS'),
+  },
+  {
+    key: 'avg_first_response_time',
+    label: t('SUMMARY_REPORTS.AVG_FIRST_RESPONSE_TIME'),
+    tooltip: t('SUMMARY_REPORTS.TOOLTIPS.AVG_FIRST_RESPONSE_TIME'),
+  },
+  {
+    key: 'avg_resolution_time',
+    label: t('SUMMARY_REPORTS.AVG_RESOLUTION_TIME'),
+    tooltip: t('SUMMARY_REPORTS.TOOLTIPS.AVG_RESOLUTION_TIME'),
+  },
+  {
+    key: 'reply_time',
+    label: t('SUMMARY_REPORTS.AVG_REPLY_TIME'),
+    tooltip: t('SUMMARY_REPORTS.TOOLTIPS.AVG_REPLY_TIME'),
+  },
+  {
+    key: 'resolutions_count',
+    label: t('SUMMARY_REPORTS.RESOLUTION_COUNT'),
+    tooltip: t('SUMMARY_REPORTS.TOOLTIPS.RESOLUTION_COUNT'),
+  },
+  {
+    key: 'no_first_reply_count',
+    label: t('SUMMARY_REPORTS.NO_FIRST_REPLY'),
+    tooltip: t('SUMMARY_REPORTS.TOOLTIPS.NO_FIRST_REPLY'),
+  },
+  {
+    key: 'waiting_count',
+    label: t('SUMMARY_REPORTS.WAITING'),
+    tooltip: t('SUMMARY_REPORTS.TOOLTIPS.WAITING'),
+  },
+]);
 
 // Date range
 const customDateRange = ref([subDays(new Date(), 6), new Date()]);
@@ -26,10 +74,12 @@ const selectedDateRange = ref(DATE_RANGE_TYPES.LAST_7_DAYS);
 const groupBy = ref(GROUP_BY_FILTER[1]);
 const businessHours = ref(false);
 
-// Dimension filters (mutually exclusive)
-const selectedTeamId = ref(null);
-const selectedAgentId = ref(null);
-const selectedInboxId = ref(null);
+// Dimension filters - teams, agents and inboxes can be combined together
+// (e.g. Agent A + Team B): their conversations/metrics are combined with OR
+// into a single series, not summed as if they were the same type.
+const selectedTeamIds = ref([]);
+const selectedAgentIds = ref([]);
+const selectedInboxIds = ref([]);
 const selectedStatus = ref(null);
 
 const from = computed(() => getUnixStartOfDay(customDateRange.value[0]));
@@ -46,35 +96,16 @@ const allTeams = useMapGetter('teams/getTeams');
 const allAgents = useMapGetter('agents/getAgents');
 const allInboxes = useMapGetter('inboxes/getInboxes');
 
-// Compute active dimension type + id
-const dimensionType = computed(() => {
-  if (selectedAgentId.value) return 'agent';
-  if (selectedTeamId.value) return 'team';
-  if (selectedInboxId.value) return 'inbox';
-  return 'account';
-});
-
-const dimensionId = computed(
-  () =>
-    selectedAgentId.value ||
-    selectedTeamId.value ||
-    selectedInboxId.value ||
-    null
-);
-
 // Select options
-const teamOptions = computed(() => [
-  { value: null, label: t('REPORT.FILTERS.ALL_TEAMS') },
-  ...(allTeams.value || []).map(team => ({ value: team.id, label: team.name })),
-]);
-const agentOptions = computed(() => [
-  { value: null, label: t('REPORT.FILTERS.ALL_AGENTS') },
-  ...(allAgents.value || []).map(a => ({ value: a.id, label: a.name })),
-]);
-const inboxOptions = computed(() => [
-  { value: null, label: t('REPORT.FILTERS.ALL_INBOXES') },
-  ...(allInboxes.value || []).map(i => ({ value: i.id, label: i.name })),
-]);
+const teamOptions = computed(() =>
+  (allTeams.value || []).map(team => ({ value: team.id, label: team.name }))
+);
+const agentOptions = computed(() =>
+  (allAgents.value || []).map(a => ({ value: a.id, label: a.name }))
+);
+const inboxOptions = computed(() =>
+  (allInboxes.value || []).map(i => ({ value: i.id, label: i.name }))
+);
 const statusOptions = computed(() => [
   { value: null, label: t('REPORT.FILTERS.ALL_STATUSES') },
   { value: 'open', label: t('REPORT.FILTERS.STATUS_OPEN') },
@@ -83,60 +114,22 @@ const statusOptions = computed(() => [
   { value: 'snoozed', label: t('REPORT.FILTERS.STATUS_SNOOZED') },
 ]);
 
-const getLabel = (options, value, fallback) =>
-  options.find(o => o.value === value)?.label || fallback;
-
-const teamLabel = computed(() =>
-  getLabel(
-    teamOptions.value,
-    selectedTeamId.value,
-    t('REPORT.FILTERS.ALL_TEAMS')
-  )
-);
-const agentLabel = computed(() =>
-  getLabel(
-    agentOptions.value,
-    selectedAgentId.value,
-    t('REPORT.FILTERS.ALL_AGENTS')
-  )
-);
-const inboxLabel = computed(() =>
-  getLabel(
-    inboxOptions.value,
-    selectedInboxId.value,
-    t('REPORT.FILTERS.ALL_INBOXES')
-  )
-);
-const statusLabel = computed(() =>
-  getLabel(
-    statusOptions.value,
-    selectedStatus.value,
+const statusLabel = computed(
+  () =>
+    statusOptions.value.find(o => o.value === selectedStatus.value)?.label ||
     t('REPORT.FILTERS.ALL_STATUSES')
-  )
 );
 
-const onTeamChange = v => {
-  selectedTeamId.value = v;
-  if (v) {
-    selectedAgentId.value = null;
-    selectedInboxId.value = null;
-  }
+const onTeamChange = ids => {
+  selectedTeamIds.value = ids;
   fetchAllData();
 };
-const onAgentChange = v => {
-  selectedAgentId.value = v;
-  if (v) {
-    selectedTeamId.value = null;
-    selectedInboxId.value = null;
-  }
+const onAgentChange = ids => {
+  selectedAgentIds.value = ids;
   fetchAllData();
 };
-const onInboxChange = v => {
-  selectedInboxId.value = v;
-  if (v) {
-    selectedTeamId.value = null;
-    selectedAgentId.value = null;
-  }
+const onInboxChange = ids => {
+  selectedInboxIds.value = ids;
   fetchAllData();
 };
 const onStatusChange = v => {
@@ -151,8 +144,10 @@ const getRequestPayload = () => ({
     ? groupBy.value?.period
     : GROUP_BY_FILTER[1].period,
   businessHours: businessHours.value,
-  type: dimensionType.value,
-  id: dimensionId.value,
+  type: 'account',
+  agentIds: selectedAgentIds.value,
+  teamIds: selectedTeamIds.value,
+  inboxIds: selectedInboxIds.value,
   status: selectedStatus.value,
 });
 
@@ -253,25 +248,28 @@ onMounted(() => {
             {{ $t('REPORT.FILTERS.DIMENSION_LABEL') }}
           </span>
           <div class="flex flex-wrap gap-2">
-            <SelectMenu
-              sub-menu-position="bottom"
+            <ComboBox
+              :model-value="selectedTeamIds"
               :options="teamOptions"
-              :label="teamLabel"
-              :model-value="selectedTeamId"
+              class="!w-48 [&>div>button]:h-8"
+              multiple
+              :placeholder="$t('REPORT.FILTERS.ALL_TEAMS')"
               @update:model-value="onTeamChange"
             />
-            <SelectMenu
-              sub-menu-position="bottom"
+            <ComboBox
+              :model-value="selectedAgentIds"
               :options="agentOptions"
-              :label="agentLabel"
-              :model-value="selectedAgentId"
+              class="!w-48 [&>div>button]:h-8"
+              multiple
+              :placeholder="$t('REPORT.FILTERS.ALL_AGENTS')"
               @update:model-value="onAgentChange"
             />
-            <SelectMenu
-              sub-menu-position="bottom"
+            <ComboBox
+              :model-value="selectedInboxIds"
               :options="inboxOptions"
-              :label="inboxLabel"
-              :model-value="selectedInboxId"
+              class="!w-48 [&>div>button]:h-8"
+              multiple
+              :placeholder="$t('REPORT.FILTERS.ALL_INBOXES')"
               @update:model-value="onInboxChange"
             />
           </div>
@@ -305,6 +303,20 @@ onMounted(() => {
         </div>
       </div>
     </div>
+  </div>
+
+  <div
+    class="flex flex-wrap gap-x-6 gap-y-4 shadow outline-1 outline outline-n-container rounded-xl bg-n-solid-2 px-6 py-5 mt-4"
+  >
+    <template v-for="(metric, index) in summaryMetrics" :key="metric.key">
+      <div v-if="index > 0" class="hidden sm:block w-px bg-n-strong" />
+      <CsatMetricCard
+        :label="metric.label"
+        :tooltip="metric.tooltip"
+        :value="displayMetric(metric.key)"
+        :is-loading="isSummaryLoading"
+      />
+    </template>
   </div>
 
   <ReportContainer :group-by="groupBy" />

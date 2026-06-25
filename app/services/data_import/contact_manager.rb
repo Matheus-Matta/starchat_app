@@ -75,7 +75,7 @@ class DataImport::ContactManager
 
     params.each do |key, value|
       next if READONLY_COLUMNS.include?(key.to_s)
-      next if %w[identifier email phone_number labels].include?(key.to_s)
+      next if %w[identifier email phone_number labels inboxes].include?(key.to_s)
       next if value.to_s.strip.blank?
 
       case key.to_s

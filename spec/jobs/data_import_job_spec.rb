@@ -15,7 +15,7 @@ RSpec.describe DataImportJob do
 
   describe 'retrying the job' do
     context 'when ActiveStorage::FileNotFoundError is raised' do
-      let(:import_file_double) { instance_double(ActiveStorage::Blob) }
+      let(:import_file_double) { instance_double(ActiveStorage::Blob, filename: ActiveStorage::Filename.new('contacts.csv')) }
 
       before do
         allow(data_import).to receive(:import_file).and_return(import_file_double)
@@ -177,7 +177,7 @@ RSpec.describe DataImportJob do
       end
 
       before do
-        import_file_double = instance_double(ActiveStorage::Blob)
+        import_file_double = instance_double(ActiveStorage::Blob, filename: ActiveStorage::Filename.new('contacts.csv'))
         allow(data_import).to receive(:import_file).and_return(import_file_double)
         allow(import_file_double).to receive(:open).and_yield(StringIO.new(invalid_csv_content))
       end
@@ -281,6 +281,46 @@ RSpec.describe DataImportJob do
         expect(existing_contact.phone_number).to eq('+918080808085')
         expect(unknown_label_import.reload.failed_records).to be_attached
         expect(unknown_label_import.failed_records.download).to include('Unknown labels: unknown_label')
+      end
+    end
+
+    context 'when the data contains an inboxes column' do
+      let(:account) { create(:account) }
+      let!(:support_inbox) { create(:inbox, account: account, name: 'Support') }
+      let!(:sales_inbox) { create(:inbox, account: account, name: 'Sales') }
+
+      let(:data_with_inboxes) do
+        [
+          %w[id name email phone_number inboxes],
+          ['1', 'John Doe', 'john-inbox@example.com', '+918080808093', ' support , Sales '],
+          ['2', 'Jane Smith', 'jane-inbox@example.com', '+918080808094', '']
+        ]
+      end
+      let(:inboxes_data_import) { create(:data_import, account: account, import_file: generate_csv_file(data_with_inboxes)) }
+
+      it 'links the contact to every inbox named in the column, case-insensitively' do
+        described_class.perform_now(inboxes_data_import)
+
+        john = Contact.from_email('john-inbox@example.com')
+        expect(john.inboxes).to contain_exactly(support_inbox, sales_inbox)
+
+        jane = Contact.from_email('jane-inbox@example.com')
+        expect(jane.inboxes).to be_empty
+      end
+
+      it 'rejects rows with inbox names that do not exist in the account' do
+        data_with_unknown_inbox = [
+          %w[id name email phone_number inboxes],
+          ['1', 'John Doe', 'john-unknown-inbox@example.com', '+918080808095', 'Support,Unknown Inbox']
+        ]
+        unknown_inbox_import = create(:data_import, account: account,
+                                                     import_file: generate_csv_file(data_with_unknown_inbox))
+
+        described_class.perform_now(unknown_inbox_import)
+
+        expect(Contact.from_email('john-unknown-inbox@example.com')).to be_nil
+        expect(unknown_inbox_import.reload.failed_records).to be_attached
+        expect(unknown_inbox_import.failed_records.download).to include('Unknown inboxes: Unknown Inbox')
       end
     end
   end

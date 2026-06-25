@@ -92,6 +92,7 @@ en:
         failed: File is blank
       export:
         success: We will notify you once contacts export file is ready to view.
+        failed: Invalid export filter payload
       email:
         invalid: Invalid email
       phone_number:
@@ -181,6 +182,8 @@ en:
   reports:
     period: Reporting period %{since} to %{until}
     utc_warning: The report generated is in UTC timezone
+    date_column: Date
+    total_row_label: Total for the period
     agent_csv:
       agent_name: Agent name
       conversations_count: Assigned conversations
@@ -194,6 +197,8 @@ en:
       conversations_count: No. of conversations
       avg_first_response_time: Avg first response time
       avg_resolution_time: Avg resolution time
+      avg_customer_waiting_time: Avg customer waiting time
+      resolution_count: Resolution Count
     label_csv:
       label_title: Label
       conversations_count: No. of conversations

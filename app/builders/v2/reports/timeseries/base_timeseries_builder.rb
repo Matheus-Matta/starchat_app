@@ -7,6 +7,9 @@ class V2::Reports::Timeseries::BaseTimeseriesBuilder
   pattr_initialize :account, :params
 
   def scope
+    return combined_entity_scope if combined_dimensions?
+    return multi_entity_scope if multiple_ids?
+
     case dimension_type.to_sym
     when :account
       account
@@ -64,5 +67,31 @@ class V2::Reports::Timeseries::BaseTimeseriesBuilder
 
   def dimension_type
     (params[:type].presence || 'account').to_s
+  end
+
+  # Multiple ids means several agents/teams/inboxes/labels were selected at once
+  # (Reports overview multi-select); their metrics are combined into a single series.
+  def multiple_ids?
+    params[:id].is_a?(Array) && dimension_type.to_sym != :account
+  end
+
+  def multi_entity_scope
+    @multi_entity_scope ||= Reports::MultiEntityScope.new(account, dimension_type, params[:id])
+  end
+
+  # Combining several dimension types at once (e.g. Agent A + Team B) - used by the
+  # Conversation report's filter, where types aren't mutually exclusive - combines
+  # their conversations/messages/reporting_events with OR instead of summing one type.
+  def combined_dimensions?
+    [params[:agent_ids], params[:team_ids], params[:inbox_ids]].any?(&:present?)
+  end
+
+  def combined_entity_scope
+    @combined_entity_scope ||= Reports::CombinedEntityScope.new(
+      account,
+      Array(params[:agent_ids]),
+      Array(params[:team_ids]),
+      Array(params[:inbox_ids])
+    )
   end
 end

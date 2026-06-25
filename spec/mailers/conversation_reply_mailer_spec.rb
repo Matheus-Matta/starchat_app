@@ -719,4 +719,52 @@ RSpec.describe ConversationReplyMailer do
       end
     end
   end
+
+  describe 'transcript' do
+    let!(:account) { create(:account) }
+    let(:class_instance) { described_class.new }
+    let(:contact) do
+      create(:contact, account: account, name: 'Jane Doe', email: 'jane@example.com', phone_number: '+15551234567',
+                       additional_attributes: { city: 'Austin', country: 'USA', description: 'VIP customer', company_name: 'Acme Inc' })
+    end
+    let(:conversation) { create(:conversation, account: account, contact: contact) }
+
+    before do
+      contact.add_labels(['vip'])
+      allow(described_class).to receive(:new).and_return(class_instance)
+      allow(class_instance).to receive(:smtp_config_set_or_development?).and_return(true)
+    end
+
+    describe '#conversation_transcript' do
+      let(:mail) { described_class.conversation_transcript(conversation, 'someone@example.com').deliver_now }
+
+      it 'includes the contact details at the top of the email' do
+        body = mail.body.encoded
+
+        expect(body).to include('Jane Doe')
+        expect(body).to include('jane@example.com')
+        expect(body).to include('+15551234567')
+        expect(body).to include('Acme Inc')
+        expect(body).to include('Austin, USA')
+        expect(body).to include('VIP customer')
+        expect(body).to include('vip')
+      end
+    end
+
+    describe '#contact_bulk_transcript' do
+      let(:mail) { described_class.contact_bulk_transcript(contact, [conversation], 'someone@example.com').deliver_now }
+
+      it 'includes the contact details at the top of the email' do
+        body = mail.body.encoded
+
+        expect(body).to include('Jane Doe')
+        expect(body).to include('jane@example.com')
+        expect(body).to include('+15551234567')
+        expect(body).to include('Acme Inc')
+        expect(body).to include('Austin, USA')
+        expect(body).to include('VIP customer')
+        expect(body).to include('vip')
+      end
+    end
+  end
 end

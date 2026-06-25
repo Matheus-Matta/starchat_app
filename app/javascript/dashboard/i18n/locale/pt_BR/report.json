@@ -240,7 +240,8 @@
     "FILTERS": {
       "INPUT_PLACEHOLDER": {
         "AGENTS": "Pesquisar agentes"
-      }
+      },
+      "COMPARE_PLACEHOLDER": "Comparar com outros agentes"
     }
   },
   "LABEL_REPORTS": {
@@ -313,7 +314,8 @@
     "FILTERS": {
       "INPUT_PLACEHOLDER": {
         "LABELS": "Pesquisar etiquetas"
-      }
+      },
+      "COMPARE_PLACEHOLDER": "Comparar com outras etiquetas"
     }
   },
   "INBOX_REPORTS": {
@@ -388,7 +390,8 @@
     "FILTERS": {
       "INPUT_PLACEHOLDER": {
         "INBOXES": "Pesquisar caixas de entrada"
-      }
+      },
+      "COMPARE_PLACEHOLDER": "Comparar com outras caixas de entrada"
     }
   },
   "TEAM_REPORTS": {
@@ -464,7 +467,8 @@
       "NO_FILTER": "Não há filtros disponíveis",
       "INPUT_PLACEHOLDER": {
         "TEAMS": "Pesquisar times"
-      }
+      },
+      "COMPARE_PLACEHOLDER": "Comparar com outros times"
     }
   },
   "CSAT_REPORTS": {
@@ -692,7 +696,16 @@
     "RESOLUTION_COUNT": "Resoluções",
     "CONVERSATIONS": "Conversas",
     "NO_FIRST_REPLY": "Sem Resp.",
-    "WAITING": "Aguardando"
+    "WAITING": "Aguardando",
+    "TOOLTIPS": {
+      "CONVERSATIONS": "Total de conversas que correspondem aos filtros atuais",
+      "AVG_FIRST_RESPONSE_TIME": "Tempo médio até a primeira resposta",
+      "AVG_RESOLUTION_TIME": "Tempo médio para resolver uma conversa",
+      "AVG_REPLY_TIME": "Tempo médio entre respostas",
+      "RESOLUTION_COUNT": "Conversas resolvidas no período selecionado",
+      "NO_FIRST_REPLY": "Conversas abertas e atribuídas a um agente que ainda não tiveram resposta",
+      "WAITING": "Conversas abertas aguardando resposta no momento"
+    }
   },
   "MONITORING_REPORTS": {
     "HEADER": "Monitoramento ao vivo das operações",

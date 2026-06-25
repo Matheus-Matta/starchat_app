@@ -12,6 +12,7 @@ class Contacts::BaseExportService
   SOCIAL_PROFILE_KEYS = %w[facebook github instagram linkedin twitter].freeze
 
   LABELS_COLUMN = 'labels'.freeze
+  INBOXES_COLUMN = 'inboxes'.freeze
 
   def initialize(account, user, params)
     @account = account
@@ -28,6 +29,7 @@ class Contacts::BaseExportService
       cols += ADDITIONAL_ATTR_COLUMNS
       cols += SOCIAL_PROFILE_KEYS
       cols << LABELS_COLUMN
+      cols << INBOXES_COLUMN
       cols += custom_attr_definitions.map { |d| d[:display_name] }
       cols
     end
@@ -73,6 +75,21 @@ class Contacts::BaseExportService
     end
   end
 
+  def preload_inbox_names
+    @inbox_names_by_contact_id ||= begin
+      contact_ids = contacts.map(&:id)
+      result = Hash.new { |h, k| h[k] = [] }
+      return result if contact_ids.blank?
+
+      ContactInbox
+        .joins(:inbox)
+        .where(contact_id: contact_ids)
+        .pluck(:contact_id, 'inboxes.name')
+        .each { |id, name| result[id] << name }
+      result
+    end
+  end
+
   def value_for(contact, header)
     case header
     when 'company_id'
@@ -89,6 +106,8 @@ class Contacts::BaseExportService
       contact.additional_attributes.dig('social_profiles', header)
     when LABELS_COLUMN
       preload_labels.fetch(contact.id, []).join(', ')
+    when INBOXES_COLUMN
+      preload_inbox_names.fetch(contact.id, []).uniq.join(', ')
     else
       custom_def = custom_attr_definitions.find { |d| d[:display_name] == header }
       if custom_def

@@ -106,6 +106,9 @@
     --solid-amber: 252 232 193;
     --solid-blue: 233 217 252;
     --solid-iris: 230 231 255;
+    --surface-1: var(--solid-1);
+    --surface-2: var(--solid-2);
+    --surface-active: var(--solid-active);
 
     --alpha-1: 67, 67, 67, 0.06;
     --alpha-2: 201, 202, 207, 0.15;
@@ -220,6 +223,9 @@
     --solid-amber: 42 37 30;
     --solid-blue: 38 42 101;
     --solid-iris: 38 42 101;
+    --surface-1: var(--solid-1);
+    --surface-2: var(--solid-2);
+    --surface-active: var(--solid-active);
     --text-blue: 81 56 238;
 
     --alpha-1: 36, 36, 36, 0.8;

@@ -14,6 +14,9 @@ class ReportsAPI extends ApiClient {
     to,
     type = 'account',
     id,
+    agentIds,
+    teamIds,
+    inboxIds,
     groupBy,
     businessHours,
     status,
@@ -25,6 +28,9 @@ class ReportsAPI extends ApiClient {
         until: to,
         type,
         id,
+        agent_ids: agentIds,
+        team_ids: teamIds,
+        inbox_ids: inboxIds,
         group_by: groupBy,
         business_hours: businessHours,
         status: status || undefined,
@@ -33,14 +39,28 @@ class ReportsAPI extends ApiClient {
     });
   }
 
-  // eslint-disable-next-line default-param-last
-  getSummary(since, until, type = 'account', id, groupBy, businessHours, status) {
+  getSummary(
+    since,
+    until,
+    // eslint-disable-next-line default-param-last
+    type = 'account',
+    id,
+    groupBy,
+    businessHours,
+    status,
+    // combined dimensions (e.g. Conversation report filter) - omitted by callers
+    // that still use the single `type`/`id` dimension (e.g. Overview/CSAT/SLA)
+    { agentIds, teamIds, inboxIds } = {}
+  ) {
     return axios.get(`${this.url}/summary`, {
       params: {
         since,
         until,
         type,
         id,
+        agent_ids: agentIds,
+        team_ids: teamIds,
+        inbox_ids: inboxIds,
         group_by: groupBy,
         business_hours: businessHours,
         status: status || undefined,

@@ -37,6 +37,18 @@ useKeyboardEvents({
 <template>
   <transition
     enter-active-class="transition duration-200 ease-out"
+    enter-from-class="opacity-0"
+    leave-active-class="transition duration-150 ease-in"
+    leave-to-class="opacity-0"
+  >
+    <div
+      v-if="show"
+      class="fixed inset-0 z-40 bg-n-alpha-black2 backdrop-blur-[4px]"
+      @click="onCancel"
+    />
+  </transition>
+  <transition
+    enter-active-class="transition duration-200 ease-out"
     enter-from-class="ltr:translate-x-full rtl:-translate-x-full opacity-0"
     leave-active-class="transition duration-150 ease-in"
     leave-to-class="ltr:translate-x-[30%] rtl:-translate-x-[30%] opacity-0"

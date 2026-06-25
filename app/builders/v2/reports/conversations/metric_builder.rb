@@ -13,7 +13,9 @@ class V2::Reports::Conversations::MetricBuilder < V2::Reports::Conversations::Ba
       avg_first_response_time: count('avg_first_response_time'),
       avg_resolution_time: count('avg_resolution_time'),
       resolutions_count: count('resolutions_count'),
-      reply_time: count('reply_time')
+      reply_time: count('reply_time'),
+      no_first_reply_count: count('no_first_reply_count'),
+      waiting_count: count('waiting_count')
     }
   end
 

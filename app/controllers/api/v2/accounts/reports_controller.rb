@@ -140,6 +140,9 @@ class Api::V2::Accounts::ReportsController < Api::V1::Accounts::BaseController
     {
       type: params[:type].to_sym,
       id: params[:id],
+      agent_ids: params[:agent_ids],
+      team_ids: params[:team_ids],
+      inbox_ids: params[:inbox_ids],
       group_by: params[:group_by],
       business_hours: ActiveModel::Type::Boolean.new.cast(params[:business_hours]),
       status: params[:status].presence

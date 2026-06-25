@@ -14,6 +14,7 @@ import {
 import FilterButton from 'dashboard/components/ui/Dropdown/DropdownButton.vue';
 import ActiveFilterChip from '../Filters/v3/ActiveFilterChip.vue';
 import AddFilterChip from '../Filters/v3/AddFilterChip.vue';
+import ComboBox from 'dashboard/components-next/combobox/ComboBox.vue';
 import WootDatePicker from 'dashboard/components/ui/DatePicker/DatePicker.vue';
 import {
   parseReportURLParams,
@@ -36,6 +37,9 @@ const store = useStore();
 const route = useRoute();
 const router = useRouter();
 
+// Filter types that support selecting more than one value at once
+const MULTI_KEYS = ['user_ids', 'inbox_id', 'team_id'];
+
 // Initialize from URL params immediately
 const urlParams = parseReportURLParams(route.query);
 const urlFilters = parseFilterURLParams(route.query);
@@ -57,6 +61,9 @@ const appliedFilters = ref({
   team_id: urlFilters.team_id,
   rating: urlFilters.rating,
 });
+
+const isFilterActive = value =>
+  Array.isArray(value) ? value.length > 0 : !!value;
 
 const agents = computed(() => store.getters['agents/getAgents']);
 const inboxes = computed(() => store.getters['inboxes/getInboxes']);
@@ -111,8 +118,8 @@ const filterListMenuItems = computed(() => {
     });
   }
 
-  const activeFilterKeys = Object.keys(appliedFilters.value).filter(
-    key => appliedFilters.value[key]
+  const activeFilterKeys = Object.keys(appliedFilters.value).filter(key =>
+    isFilterActive(appliedFilters.value[key])
   );
   const activeFilterTypes = activeFilterKeys.map(key =>
     getFilterType(key, 'keyToType')
@@ -128,29 +135,40 @@ const filterListMenuItems = computed(() => {
     }));
 });
 
+// One chip per active filter type. Agents/inboxes/teams render as a multi-select
+// combobox (isMulti: true) so several values can be combined; ratings stay single-select.
 const activeFilters = computed(() => {
-  const activeKeys = Object.keys(appliedFilters.value).filter(
-    key => appliedFilters.value[key]
+  const activeKeys = Object.keys(appliedFilters.value).filter(key =>
+    isFilterActive(appliedFilters.value[key])
   );
 
   return activeKeys.map(key => {
     const filterType = getFilterType(key, 'keyToType');
+    const options = getFilterOptions(filterType);
+
+    if (MULTI_KEYS.includes(key)) {
+      return {
+        type: filterType,
+        isMulti: true,
+        selectedIds: appliedFilters.value[key],
+        options: options.map(item => ({ value: item.id, label: item.name })),
+      };
+    }
+
     const items = getFilterSource(filterType);
     const item = getActiveFilter(items, filterType, appliedFilters.value[key]);
-    const displayName =
-      item?.name || item?.title || `ID: ${appliedFilters.value[key]}`;
-
     return {
       id: item?.id || appliedFilters.value[key],
-      name: displayName,
+      name: item?.name || item?.title || `ID: ${appliedFilters.value[key]}`,
       type: filterType,
-      options: getFilterOptions(filterType),
+      isMulti: false,
+      options,
     };
   });
 });
 
 const hasActiveFilters = computed(() =>
-  Object.values(appliedFilters.value).some(value => value !== null)
+  Object.values(appliedFilters.value).some(isFilterActive)
 );
 
 const isAllFilterSelected = computed(() => !filterListMenuItems.value.length);
@@ -170,20 +188,16 @@ const updateURLParams = () => {
   router.replace({ query: params });
 };
 
+const toIdObjects = ids => (ids || []).map(id => ({ id }));
+
 const emitChange = () => {
   updateURLParams();
   emit('filterChange', {
     from: from.value,
     to: to.value,
-    selectedAgents: appliedFilters.value.user_ids
-      ? [{ id: appliedFilters.value.user_ids }]
-      : [],
-    selectedInbox: appliedFilters.value.inbox_id
-      ? { id: appliedFilters.value.inbox_id }
-      : null,
-    selectedTeam: appliedFilters.value.team_id
-      ? { id: appliedFilters.value.team_id }
-      : null,
+    selectedAgents: toIdObjects(appliedFilters.value.user_ids),
+    selectedInboxes: toIdObjects(appliedFilters.value.inbox_id),
+    selectedTeams: toIdObjects(appliedFilters.value.team_id),
     selectedRating: appliedFilters.value.rating
       ? { value: appliedFilters.value.rating }
       : null,
@@ -207,22 +221,28 @@ const resetDropdown = () => {
 const addFilter = item => {
   const { type, id } = item;
   const filterKey = getFilterType(type, 'typeToKey');
-  appliedFilters.value[filterKey] = id;
+  appliedFilters.value[filterKey] = MULTI_KEYS.includes(filterKey) ? [id] : id;
   emitChange();
   resetDropdown();
 };
 
+const updateMultiFilter = (type, ids) => {
+  const filterKey = getFilterType(type, 'typeToKey');
+  appliedFilters.value[filterKey] = ids;
+  emitChange();
+};
+
 const removeFilter = type => {
   const filterKey = getFilterType(type, 'typeToKey');
-  appliedFilters.value[filterKey] = null;
+  appliedFilters.value[filterKey] = MULTI_KEYS.includes(filterKey) ? [] : null;
   emitChange();
 };
 
 const clearAllFilters = () => {
   appliedFilters.value = {
-    user_ids: null,
-    inbox_id: null,
-    team_id: null,
+    user_ids: [],
+    inbox_id: [],
+    team_id: [],
     rating: null,
   };
   emitChange();
@@ -264,23 +284,40 @@ onMounted(() => {
       class="flex flex-col flex-wrap items-start gap-2 md:items-center md:flex-nowrap md:flex-row"
     >
       <div v-if="hasActiveFilters" class="flex flex-wrap gap-2 md:flex-nowrap">
-        <ActiveFilterChip
-          v-for="filter in activeFilters"
-          v-bind="filter"
-          :key="filter.type"
-          :placeholder="
-            $t(
-              `CSAT_REPORTS.FILTERS.INPUT_PLACEHOLDER.${filter.type.toUpperCase()}`
-            )
-          "
-          :active-filter-type="activeFilterType"
-          :show-menu="showSubDropdownMenu"
-          enable-search
-          @toggle-dropdown="openActiveFilterDropdown"
-          @close-dropdown="closeActiveFilterDropdown"
-          @add-filter="addFilter"
-          @remove-filter="removeFilter"
-        />
+        <template v-for="filter in activeFilters" :key="filter.type">
+          <ComboBox
+            v-if="filter.isMulti"
+            :model-value="filter.selectedIds"
+            :options="filter.options"
+            class="!w-48 [&>div>button]:h-8"
+            multiple
+            :placeholder="
+              $t(
+                `CSAT_REPORTS.FILTERS.INPUT_PLACEHOLDER.${filter.type.toUpperCase()}`
+              )
+            "
+            @update:model-value="ids => updateMultiFilter(filter.type, ids)"
+          />
+          <ActiveFilterChip
+            v-else
+            :id="filter.id"
+            :name="filter.name"
+            :type="filter.type"
+            :options="filter.options"
+            :placeholder="
+              $t(
+                `CSAT_REPORTS.FILTERS.INPUT_PLACEHOLDER.${filter.type.toUpperCase()}`
+              )
+            "
+            :active-filter-type="activeFilterType"
+            :show-menu="showSubDropdownMenu"
+            enable-search
+            @toggle-dropdown="openActiveFilterDropdown"
+            @close-dropdown="closeActiveFilterDropdown"
+            @add-filter="addFilter"
+            @remove-filter="removeFilter"
+          />
+        </template>
       </div>
 
       <div

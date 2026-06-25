@@ -273,6 +273,78 @@ RSpec.describe 'Contacts API', type: :request do
 
         expect(response).to have_http_status(:success)
       end
+
+      it 'passes the export_format through to the job (not the reserved `format` param)' do
+        expect(Account::ContactsExportJob).to receive(:perform_later)
+          .with(account.id, admin.id, anything, 'xlsx').once
+
+        post "/api/v1/accounts/#{account.id}/contacts/export",
+             headers: admin.create_new_auth_token,
+             params: { export_format: 'xlsx' }
+
+        expect(response).to have_http_status(:success)
+      end
+    end
+  end
+
+  describe 'GET /api/v1/accounts/{account.id}/contacts/export_download' do
+    let(:admin) { create(:user, account: account, role: :administrator) }
+    let!(:contact_in) { create(:contact, :with_email, account: account, additional_attributes: { country_code: 'IN' }) }
+    let!(:contact_ca) { create(:contact, :with_email, account: account, additional_attributes: { country_code: 'CA' }) }
+
+    # GET query strings can't carry the filter payload as a real array (payload[0][values][0]=x
+    # parses back into nested hashes, not arrays), so it travels JSON-encoded in a single param.
+    let(:filter_payload) do
+      [
+        {
+          attribute_key: 'country_code',
+          filter_operator: 'equal_to',
+          values: ['IN'],
+          query_operator: nil,
+          attribute_model: 'standard',
+          custom_attribute_type: ''
+        }
+      ]
+    end
+
+    it 'applies an equal_to filter using the full value, not just its first character' do
+      get "/api/v1/accounts/#{account.id}/contacts/export_download",
+          headers: admin.create_new_auth_token,
+          params: { payload: filter_payload.to_json }
+
+      expect(response).to have_http_status(:success)
+      csv = CSV.parse(response.body, headers: true)
+      emails = csv['email']
+      expect(emails).to include(contact_in.email)
+      expect(emails).not_to include(contact_ca.email)
+    end
+
+    it 'returns unprocessable_entity when the payload param is not valid JSON' do
+      get "/api/v1/accounts/#{account.id}/contacts/export_download",
+          headers: admin.create_new_auth_token,
+          params: { payload: '{not-json' }
+
+      expect(response).to have_http_status(:unprocessable_entity)
+    end
+
+    it 'returns a real xlsx file when export_format=xlsx is requested' do
+      # `format` is a reserved Rails param that Api::BaseController's `respond_to :json`
+      # silently rewrites to "json", so the export format travels as `export_format` instead.
+      get "/api/v1/accounts/#{account.id}/contacts/export_download",
+          headers: admin.create_new_auth_token,
+          params: { export_format: 'xlsx' }
+
+      expect(response).to have_http_status(:success)
+      expect(response.headers['Content-Type']).to eq('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+      expect(response.headers['Content-Disposition']).to include('.xlsx')
+      expect(response.body[0..1]).to eq('PK') # zip/xlsx signature, not plain CSV text
+    end
+
+    it 'defaults to csv when export_format is absent' do
+      get "/api/v1/accounts/#{account.id}/contacts/export_download",
+          headers: admin.create_new_auth_token
+
+      expect(response.headers['Content-Type']).to eq('text/csv')
     end
   end
 
@@ -901,6 +973,34 @@ RSpec.describe 'Contacts API', type: :request do
         expect { contact.avatar.attachment.reload }.to raise_error(ActiveRecord::RecordNotFound)
         expect(response).to have_http_status(:success)
       end
+    end
+  end
+
+  describe 'GET /api/v1/accounts/{account.id}/contacts/:id/transcript' do
+    let(:admin) { create(:user, account: account, role: :administrator) }
+    let(:contact) do
+      create(:contact, account: account, name: 'Jane Doe', email: 'jane@example.com', phone_number: '+15551234567',
+                       additional_attributes: { city: 'Austin', country: 'USA', description: 'VIP customer', company_name: 'Acme Inc' })
+    end
+
+    before do
+      contact.add_labels(['vip'])
+      create(:conversation, account: account, contact: contact)
+    end
+
+    it 'includes the contact details at the top of the downloaded transcript' do
+      get "/api/v1/accounts/#{account.id}/contacts/#{contact.id}/transcript",
+          headers: admin.create_new_auth_token
+
+      expect(response).to have_http_status(:success)
+      expect(response.body).to include('DADOS DO CONTATO')
+      expect(response.body).to include('Jane Doe')
+      expect(response.body).to include('jane@example.com')
+      expect(response.body).to include('+15551234567')
+      expect(response.body).to include('Acme Inc')
+      expect(response.body).to include('Austin, USA')
+      expect(response.body).to include('VIP customer')
+      expect(response.body).to include('vip')
     end
   end
 end

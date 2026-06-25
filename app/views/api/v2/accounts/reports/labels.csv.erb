@@ -1,6 +1,7 @@
-<%= CSVSafe.generate_line [I18n.t('reports.period', since: Date.strptime(params[:since], '%s'), until: Date.strptime(params[:until], '%s'))] %>
+<%= CSVSafe.generate_line [I18n.t('reports.period', since: format_report_date(Date.strptime(params[:since], '%s')), until: format_report_date(Date.strptime(params[:until], '%s')))] %>
 
 <% headers = [
+    I18n.t('reports.date_column'),
     I18n.t('reports.label_csv.label_title'),
     I18n.t('reports.label_csv.conversations_count'),
     I18n.t('reports.label_csv.avg_first_response_time'),

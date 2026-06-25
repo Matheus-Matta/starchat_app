@@ -176,7 +176,12 @@ export const actions = {
       reportObj.id,
       reportObj.groupBy,
       reportObj.businessHours,
-      reportObj.status
+      reportObj.status,
+      {
+        agentIds: reportObj.agentIds,
+        teamIds: reportObj.teamIds,
+        inboxIds: reportObj.inboxIds,
+      }
     )
       .then(accountSummary => {
         commit(types.default.SET_ACCOUNT_SUMMARY, accountSummary.data);
