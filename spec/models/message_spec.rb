@@ -487,6 +487,22 @@ RSpec.describe Message do
         message.save!
         expect(SendReplyJob).to have_received(:perform_later).with(message.id)
       end
+
+      it 'does not enqueue SendReplyJob when skip_external_send is true' do
+        allow(SendReplyJob).to receive(:perform_later).and_return(true)
+        message.message_type = 'outgoing'
+        message.skip_external_send = true
+        message.save!
+        expect(SendReplyJob).not_to have_received(:perform_later)
+      end
+
+      it 'enqueues SendReplyJob when skip_external_send is false (default)' do
+        allow(SendReplyJob).to receive(:perform_later).and_return(true)
+        message.message_type = 'outgoing'
+        message.skip_external_send = false
+        message.save!
+        expect(SendReplyJob).to have_received(:perform_later).with(message.id)
+      end
     end
   end
 

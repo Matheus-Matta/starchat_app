@@ -116,12 +116,57 @@ class Whatsapp::OneoffCampaignService
 
     return if name.blank?
 
-    channel.send_template(to, { name: name, namespace: namespace, lang_code: lang_code, parameters: processed_parameters }, nil)
+    source_id = channel.send_template(to, { name: name, namespace: namespace, lang_code: lang_code, parameters: processed_parameters }, nil)
     campaign_contact.update!(status: :sent, sent_at: Time.current)
+
+    register_campaign_message(campaign_contact.contact, source_id, template_params)
   rescue StandardError => e
     Rails.logger.error "Failed to send WhatsApp template message to #{to}: #{e.message}"
     Rails.logger.error "Backtrace: #{e.backtrace.first(5).join('\n')}"
     campaign_contact.update!(status: :failed, error_message: e.message)
     nil
+  end
+
+  def find_or_open_conversation(contact)
+    wa_source_id = contact.phone_number.to_s.delete('+')
+    contact_inbox = contact.contact_inboxes.find_or_create_by!(inbox: inbox) do |ci|
+      ci.source_id = wa_source_id
+    end
+
+    existing = if inbox.lock_to_single_conversation?
+                 contact_inbox.conversations.last
+               else
+                 contact_inbox.conversations.where.not(status: :resolved).last
+               end
+
+    return existing if existing
+
+    contact_inbox.conversations.create!(
+      account: campaign.account,
+      inbox: inbox,
+      contact: contact,
+      status: :open,
+      additional_attributes: { campaign_id: campaign.display_id }
+    )
+  end
+
+  def register_campaign_message(contact, source_id, template_params)
+    conversation = find_or_open_conversation(contact)
+    return unless conversation
+
+    Messages::MessageBuilder.new(
+      campaign.sender,
+      conversation,
+      {
+        message_type: 'template',
+        content: campaign.message,
+        template_params: template_params,
+        source_id: source_id,
+        campaign_id: campaign.display_id,
+        skip_external_send: true
+      }
+    ).perform
+  rescue StandardError => e
+    Rails.logger.error "Failed to register campaign message for contact #{contact.name}: #{e.message}"
   end
 end

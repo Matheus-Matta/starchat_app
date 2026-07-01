@@ -83,6 +83,8 @@ class Message < ApplicationRecord
   attr_accessor :echo_id
   # Transient flag used to skip waiting_since clearing for specific bot/system messages.
   attr_accessor :preserve_waiting_since
+  # Transient flag: message already dispatched externally (e.g. campaign), skip SendReplyJob.
+  attr_accessor :skip_external_send
 
   enum message_type: { incoming: 0, outgoing: 1, activity: 2, template: 3 }
   enum content_type: {
@@ -409,6 +411,9 @@ class Message < ApplicationRecord
     # WA Web) chegam com evolution_dispatched=true já definido em additional_attributes.
     # Enviar novamente causaria duplicata no lado do cliente — portanto abortamos.
     return if additional_attributes.to_h['evolution_dispatched']
+
+    # Mensagem já despachada externamente (ex: campanha WhatsApp). Só registra no DB.
+    return if skip_external_send
 
     # FIXME: Giving it few seconds for the attachment to be uploaded to the service
     # active storage attaches the file only after commit

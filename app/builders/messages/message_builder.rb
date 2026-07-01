@@ -14,6 +14,7 @@ class Messages::MessageBuilder
     @message_type = params[:message_type] || 'outgoing'
     @attachments = params[:attachments]
     @automation_rule = content_attributes&.dig(:automation_rule_id)
+    @skip_external_send = params[:skip_external_send] || false
     return unless params.instance_of?(ActionController::Parameters)
 
     @in_reply_to = content_attributes&.dig(:in_reply_to)
@@ -23,6 +24,7 @@ class Messages::MessageBuilder
   def perform
     is_spam = check_anti_spam
     @message = @conversation.messages.build(message_params)
+    @message.skip_external_send = @skip_external_send
     if is_spam
       @message.status = :failed
       @message.content_attributes[:external_error] =
@@ -44,6 +46,7 @@ class Messages::MessageBuilder
     return unless @account.require_contact_inbox_messaging
     return if @private
     return if @message_type == 'incoming'
+    return if @skip_external_send
 
     # Permitimos se já existe alguma conversa anterior ou se a conversa atual já tem mensagens inbound
     # Ou se o contato foi explicitamente vinculado (mas aqui a regra pede "real")

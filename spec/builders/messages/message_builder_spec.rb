@@ -284,4 +284,40 @@ describe Messages::MessageBuilder do
       end
     end
   end
+
+  describe 'skip_external_send parameter' do
+    before { allow(SendReplyJob).to receive(:perform_later).and_return(true) }
+
+    context 'when skip_external_send is true' do
+      let(:params) { { content: 'hello', message_type: 'outgoing', skip_external_send: true } }
+
+      it 'creates the message in the database' do
+        message = described_class.new(user, conversation, params).perform
+        expect(message).to be_persisted
+      end
+
+      it 'does not enqueue SendReplyJob' do
+        described_class.new(user, conversation, params).perform
+        expect(SendReplyJob).not_to have_received(:perform_later)
+      end
+    end
+
+    context 'when skip_external_send is false' do
+      let(:params) { { content: 'hello', message_type: 'outgoing', skip_external_send: false } }
+
+      it 'enqueues SendReplyJob' do
+        message = described_class.new(user, conversation, params).perform
+        expect(SendReplyJob).to have_received(:perform_later).with(message.id)
+      end
+    end
+
+    context 'when skip_external_send is omitted (default)' do
+      let(:params) { { content: 'hello', message_type: 'outgoing' } }
+
+      it 'enqueues SendReplyJob' do
+        message = described_class.new(user, conversation, params).perform
+        expect(SendReplyJob).to have_received(:perform_later).with(message.id)
+      end
+    end
+  end
 end

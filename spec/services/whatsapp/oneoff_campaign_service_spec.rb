@@ -243,5 +243,127 @@ describe Whatsapp::OneoffCampaignService do
         expect(campaign.reload.completed?).to be true
       end
     end
+
+    context 'when registering campaign conversations' do
+      let(:contact) { create(:contact, :with_phone_number, account: account) }
+
+      before do
+        account.enable_features!(:whatsapp_campaign)
+        contact.update_labels([label1.title])
+      end
+
+      it 'creates a conversation for the contact after sending' do
+        expect { described_class.new(campaign: campaign).perform }
+          .to change { contact.conversations.count }.by(1)
+      end
+
+      it 'registers the template message in the new conversation' do
+        described_class.new(campaign: campaign).perform
+        conversation = contact.conversations.last
+        expect(conversation.messages.where(message_type: :template)).to exist
+      end
+
+      it 'stores the source_id returned by the Meta API on the registered message' do
+        described_class.new(campaign: campaign).perform
+        message = contact.conversations.last.messages.where(message_type: :template).last
+        expect(message.source_id).to eq('message_id_123')
+      end
+
+      it 'does not call send_template a second time when registering the message' do
+        allow(whatsapp_channel).to receive(:send_template).and_call_original
+        described_class.new(campaign: campaign).perform
+        expect(whatsapp_channel).to have_received(:send_template).exactly(:once)
+      end
+
+      context 'when the contact already has an open conversation on the inbox' do
+        let!(:contact_inbox) do
+          contact.contact_inboxes.find_or_create_by!(inbox: whatsapp_inbox) do |ci|
+            ci.source_id = contact.phone_number.to_s.delete('+')
+          end
+        end
+        let!(:existing_conversation) do
+          create(:conversation, contact: contact, inbox: whatsapp_inbox,
+                                contact_inbox: contact_inbox, status: :open, account: account)
+        end
+
+        it 'does not create a new conversation' do
+          expect { described_class.new(campaign: campaign).perform }
+            .not_to change { contact.conversations.count }
+        end
+
+        it 'registers the message in the existing conversation' do
+          described_class.new(campaign: campaign).perform
+          expect(existing_conversation.messages.reload.where(message_type: :template)).to exist
+        end
+      end
+
+      context 'when lock_to_single_conversation is enabled' do
+        before { whatsapp_inbox.update!(lock_to_single_conversation: true) }
+
+        let!(:contact_inbox) do
+          contact.contact_inboxes.find_or_create_by!(inbox: whatsapp_inbox) do |ci|
+            ci.source_id = contact.phone_number.to_s.delete('+')
+          end
+        end
+        let!(:resolved_conversation) do
+          create(:conversation, contact: contact, inbox: whatsapp_inbox,
+                                contact_inbox: contact_inbox, status: :resolved, account: account)
+        end
+
+        it 'reuses the existing resolved conversation instead of creating a new one' do
+          expect { described_class.new(campaign: campaign).perform }
+            .not_to change { contact.conversations.count }
+        end
+
+        it 'registers the message in the resolved conversation' do
+          described_class.new(campaign: campaign).perform
+          expect(resolved_conversation.messages.reload.where(message_type: :template)).to exist
+        end
+      end
+
+      context 'when lock_to_single_conversation is disabled and contact only has a resolved conversation' do
+        before { whatsapp_inbox.update!(lock_to_single_conversation: false) }
+
+        let!(:contact_inbox) do
+          contact.contact_inboxes.find_or_create_by!(inbox: whatsapp_inbox) do |ci|
+            ci.source_id = contact.phone_number.to_s.delete('+')
+          end
+        end
+
+        before do
+          create(:conversation, contact: contact, inbox: whatsapp_inbox,
+                                contact_inbox: contact_inbox, status: :resolved, account: account)
+        end
+
+        it 'creates a new open conversation' do
+          expect { described_class.new(campaign: campaign).perform }
+            .to change { contact.conversations.count }.by(1)
+        end
+
+        it 'sets the new conversation status to open' do
+          described_class.new(campaign: campaign).perform
+          expect(contact.conversations.order(:created_at).last.status).to eq('open')
+        end
+      end
+
+      context 'when register_campaign_message raises an error' do
+        before do
+          allow_any_instance_of(described_class).to receive(:find_or_open_conversation).and_raise(StandardError, 'DB error')
+        end
+
+        it 'logs the error without affecting campaign_contact status' do
+          expect(Rails.logger).to receive(:error)
+            .with("Failed to register campaign message for contact #{contact.name}: DB error")
+          described_class.new(campaign: campaign).perform
+        end
+
+        it 'still marks the campaign_contact as sent' do
+          allow(Rails.logger).to receive(:error)
+          described_class.new(campaign: campaign).perform
+          campaign_contact = campaign.campaign_contacts.find_by(contact: contact)
+          expect(campaign_contact.status).to eq('sent')
+        end
+      end
+    end
   end
 end
