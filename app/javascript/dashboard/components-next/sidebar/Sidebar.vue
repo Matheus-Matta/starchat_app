@@ -560,6 +560,11 @@ const menuItems = computed(() => {
           label: t('SIDEBAR.REPORTS_BOT'),
           to: accountScopedRoute('bot_reports'),
         },
+        {
+          name: 'Reports WhatsApp Templates',
+          label: t('SIDEBAR.REPORTS_WHATSAPP_TEMPLATES'),
+          to: accountScopedRoute('whatsapp_template_reports'),
+        },
       ],
     },
     {

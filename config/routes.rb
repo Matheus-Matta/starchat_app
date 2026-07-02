@@ -538,6 +538,7 @@ Rails.application.routes.draw do
               get :inbox_label_matrix
               get :first_response_time_distribution
               get :outgoing_messages_count
+              get :whatsapp_templates
             end
           end
           resource :year_in_review, only: [:show]

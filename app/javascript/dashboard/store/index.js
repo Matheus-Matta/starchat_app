@@ -66,6 +66,7 @@ import cosmosTools from './cosmos/tools';
 import cosmosCustomTools from './cosmos/customTools';
 
 import evolution from './modules/channels/evolution';
+import whatsappTemplateReports from './modules/whatsappTemplateReports';
 
 const plugins = [];
 
@@ -136,6 +137,7 @@ export default createStore({
     cosmosTools,
     cosmosCustomTools,
     evolution,
+    whatsappTemplateReports,
   },
   plugins,
 });

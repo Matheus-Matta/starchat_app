@@ -22,6 +22,7 @@ import TeamReports from './TeamReports.vue';
 
 import CsatResponses from './CsatResponses.vue';
 import BotReports from './BotReports.vue';
+import WhatsappTemplateReports from './WhatsappTemplateReports.vue';
 import LiveReports from './LiveReports.vue';
 import Monitoring from './Monitoring.vue';
 import SLAReports from './SLAReports.vue';
@@ -181,6 +182,12 @@ export default {
           name: 'bot_reports',
           meta,
           component: BotReports,
+        },
+        {
+          path: 'whatsapp_templates',
+          name: 'whatsapp_template_reports',
+          meta,
+          component: WhatsappTemplateReports,
         },
       ],
     },

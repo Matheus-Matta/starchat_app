@@ -805,5 +805,30 @@
     },
     "LAST_UPDATED": "Last updated {time}",
     "NEVER_SYNCED": "Waiting for first sync"
+  },
+  "WHATSAPP_TEMPLATE_REPORTS": {
+    "HEADER": "WhatsApp Templates",
+    "FILTERS": {
+      "INBOX": "WhatsApp Inbox",
+      "INBOX_PLACEHOLDER": "Select inbox",
+      "TEMPLATE": "Template",
+      "TEMPLATE_PLACEHOLDER": "All templates"
+    },
+    "TABLE": {
+      "TEMPLATE": "Template",
+      "LANGUAGE": "Language",
+      "TOTAL": "Total",
+      "SENT": "Sent",
+      "DELIVERED": "Delivered",
+      "READ": "Read",
+      "FAILED": "Failed",
+      "DELIVERY_RATE": "Delivery %",
+      "READ_RATE": "Read %",
+      "TOTAL_ROW": "Grand total"
+    },
+    "SELECT_INBOX_PROMPT": "Select a WhatsApp inbox to view data.",
+    "NO_DATA": "No data found for the selected period.",
+    "NO_DATA_DESCRIPTION": "Adjust the date range or pick another template.",
+    "LOADING": "Loading data..."
   }
 }

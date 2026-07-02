@@ -62,6 +62,21 @@ class Api::V2::Accounts::ReportsController < Api::V1::Accounts::BaseController
     render json: bot_metrics
   end
 
+  def whatsapp_templates
+    inbox = Current.account.inboxes.find_by(id: params[:inbox_id])
+    return render json: { error: 'Inbox not found' }, status: :unprocessable_entity if inbox.nil?
+    return render json: { error: 'Not a WhatsApp inbox' }, status: :unprocessable_entity unless inbox.channel_type == 'Channel::Whatsapp'
+
+    data = Whatsapp::TemplateAnalyticsService.new(
+      account:    Current.account,
+      inbox_id:   inbox.id,
+      since:      params[:since],
+      until_date: params[:until]
+    ).perform
+
+    render json: { data: data }
+  end
+
   def first_response_time_distribution
     since_time = Time.zone.at(params[:since].to_i)
     until_time = Time.zone.at(params[:until].to_i)
