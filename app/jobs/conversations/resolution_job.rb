@@ -2,6 +2,9 @@ class Conversations::ResolutionJob < ApplicationJob
   queue_as :low
 
   def perform(account:, inbox: nil)
+    # Cap the number of conversations resolved per execution to avoid performance
+    # issues. The budget is shared across every pass (per-inbox and global).
+    @remaining = Limits::BULK_ACTIONS_LIMIT
     inbox ? resolve_for_inbox(inbox) : resolve_all_for_account(account)
   end
 
@@ -83,9 +86,14 @@ class Conversations::ResolutionJob < ApplicationJob
   end
 
   def process_conversations(scope, tag:, &block)
-    scope.find_in_batches(batch_size: 100) do |batch|
-      batch.each do |conversation|
+    return if @remaining <= 0
+
+    scope.limit(@remaining).each do |conversation|
+      break if @remaining <= 0
+
+      begin
         block.call(conversation)
+        @remaining -= 1
       rescue StandardError => e
         Rails.logger.error "ResolutionJob[#{tag}] conv=#{conversation.id}: #{e.message}"
       end
