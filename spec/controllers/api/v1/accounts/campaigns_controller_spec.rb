@@ -227,4 +227,105 @@ RSpec.describe 'Campaigns API', type: :request do
       end
     end
   end
+
+  describe 'POST /api/v1/accounts/{account.id}/campaigns/match_contacts' do
+    let(:administrator) { create(:user, account: account, role: :administrator) }
+    let(:agent) { create(:user, account: account, role: :agent) }
+
+    context 'when it is an unauthenticated user' do
+      it 'returns unauthorized' do
+        post "/api/v1/accounts/#{account.id}/campaigns/match_contacts", as: :json
+        expect(response).to have_http_status(:unauthorized)
+      end
+    end
+
+    context 'when it is an agent' do
+      it 'returns unauthorized' do
+        post "/api/v1/accounts/#{account.id}/campaigns/match_contacts",
+             params: { phones: ['+5511999998888'] }, headers: agent.create_new_auth_token, as: :json
+        expect(response).to have_http_status(:unauthorized)
+      end
+    end
+
+    context 'when matching existing contacts by phone' do
+      let!(:contact) { create(:contact, account: account, phone_number: '+5511999998888') }
+
+      it 'returns the matched contact' do
+        post "/api/v1/accounts/#{account.id}/campaigns/match_contacts",
+             params: { phones: ['+5511999998888'] }, headers: administrator.create_new_auth_token, as: :json
+
+        body = response.parsed_body
+        expect(body['matched']).to eq(1)
+        expect(body['contacts'].first['id']).to eq(contact.id)
+      end
+
+      it 'normalizes phones without a plus sign before matching' do
+        post "/api/v1/accounts/#{account.id}/campaigns/match_contacts",
+             params: { phones: ['5511999998888'] }, headers: administrator.create_new_auth_token, as: :json
+
+        expect(response.parsed_body['matched']).to eq(1)
+      end
+    end
+
+    context 'when create_missing is enabled' do
+      it 'creates a contact for an unmatched phone using the number as name' do
+        expect do
+          post "/api/v1/accounts/#{account.id}/campaigns/match_contacts",
+               params: { phones: ['+5511977776666'], create_missing: true },
+               headers: administrator.create_new_auth_token, as: :json
+        end.to change { account.contacts.count }.by(1)
+
+        body = response.parsed_body
+        expect(body['created']).to eq(1)
+        expect(body['unmatched']).to eq(0)
+        created = account.contacts.find_by(phone_number: '+5511977776666')
+        expect(created.name).to eq('+5511977776666')
+        expect(body['contacts'].map { |c| c['id'] }).to include(created.id)
+      end
+
+      it 'uses the name from phone_names when provided' do
+        post "/api/v1/accounts/#{account.id}/campaigns/match_contacts",
+             params: {
+               phones: ['+5511977776666'],
+               create_missing: true,
+               phone_names: { '+5511977776666' => 'João' }
+             },
+             headers: administrator.create_new_auth_token, as: :json
+
+        expect(account.contacts.find_by(phone_number: '+5511977776666').name).to eq('João')
+      end
+
+      it 'normalizes a phone without plus and creates it in E.164 format' do
+        post "/api/v1/accounts/#{account.id}/campaigns/match_contacts",
+             params: { phones: ['5511977776666'], create_missing: true },
+             headers: administrator.create_new_auth_token, as: :json
+
+        expect(account.contacts.find_by(phone_number: '+5511977776666')).to be_present
+      end
+
+      it 'does not create a contact when it already exists' do
+        create(:contact, account: account, phone_number: '+5511977776666')
+
+        expect do
+          post "/api/v1/accounts/#{account.id}/campaigns/match_contacts",
+               params: { phones: ['+5511977776666'], create_missing: true },
+               headers: administrator.create_new_auth_token, as: :json
+        end.not_to(change { account.contacts.count })
+
+        body = response.parsed_body
+        expect(body['matched']).to eq(1)
+        expect(body['created']).to eq(0)
+      end
+
+      it 'does not create contacts when create_missing is absent' do
+        expect do
+          post "/api/v1/accounts/#{account.id}/campaigns/match_contacts",
+               params: { phones: ['+5511977776666'] },
+               headers: administrator.create_new_auth_token, as: :json
+        end.not_to(change { account.contacts.count })
+
+        expect(response.parsed_body['created']).to eq(0)
+      end
+    end
+  end
 end

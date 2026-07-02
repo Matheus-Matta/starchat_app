@@ -19,6 +19,7 @@ const columnType = ref('identifier');
 const isMatching = ref(false);
 const matchResult = ref(null);
 const parseError = ref('');
+const createMissing = ref(false);
 
 const COLUMN_TYPES = [
   { value: 'identifier', pattern: /^identifier$/i },
@@ -26,6 +27,8 @@ const COLUMN_TYPES = [
   { value: 'phone', pattern: /phone|telefone|celular|whatsapp|fone/i },
   { value: 'email', pattern: /email|e-mail|mail/i },
 ];
+
+const NAME_COLUMN_PATTERN = /^(name|nome|contato|contact)$/i;
 
 const hasFile = computed(() => rows.value.length > 0);
 
@@ -40,6 +43,25 @@ const selectedValues = computed(() => {
   return rows.value
     .map(row => String(row[detectedColumn.value] ?? '').trim())
     .filter(Boolean);
+});
+
+// Optional name column, used to name auto-created contacts on phone imports
+const nameColumn = computed(
+  () => columns.value.find(c => NAME_COLUMN_PATTERN.test(c.trim())) ?? null
+);
+
+const isPhoneImport = computed(() => columnType.value === 'phone');
+
+// Map of raw phone value => name from the spreadsheet (when a name column exists)
+const phoneNames = computed(() => {
+  if (!isPhoneImport.value || !detectedColumn.value || !nameColumn.value)
+    return {};
+  return rows.value.reduce((acc, row) => {
+    const phone = String(row[detectedColumn.value] ?? '').trim();
+    const name = String(row[nameColumn.value] ?? '').trim();
+    if (phone && name) acc[phone] = name;
+    return acc;
+  }, {});
 });
 
 const columnNotFound = computed(() => hasFile.value && !detectedColumn.value);
@@ -89,14 +111,20 @@ const matchContacts = async () => {
   isMatching.value = true;
   matchResult.value = null;
   const values = selectedValues.value;
-  const payload =
-    columnType.value === 'id'
-      ? { ids: values }
-      : columnType.value === 'identifier'
-        ? { identifiers: values }
-        : columnType.value === 'phone'
-          ? { phones: values }
-          : { emails: values };
+  let payload;
+  if (columnType.value === 'id') {
+    payload = { ids: values };
+  } else if (columnType.value === 'identifier') {
+    payload = { identifiers: values };
+  } else if (columnType.value === 'phone') {
+    payload = {
+      phones: values,
+      create_missing: createMissing.value,
+      phone_names: phoneNames.value,
+    };
+  } else {
+    payload = { emails: values };
+  }
   const data = await store.dispatch('campaigns/matchContacts', payload);
   matchResult.value = data;
   isMatching.value = false;
@@ -112,6 +140,7 @@ const addToAudience = () => {
     }),
   });
   reset();
+  emit('close');
 };
 
 const reset = () => {
@@ -122,6 +151,7 @@ const reset = () => {
   columnType.value = 'identifier';
   matchResult.value = null;
   parseError.value = '';
+  createMissing.value = false;
 };
 </script>
 
@@ -198,6 +228,30 @@ const reset = () => {
         </p>
       </div>
 
+      <!-- Criar contatos não encontrados (somente importação por telefone) -->
+      <label
+        v-if="isPhoneImport"
+        class="flex items-start gap-2 cursor-pointer select-none"
+      >
+        <input
+          v-model="createMissing"
+          type="checkbox"
+          class="mt-0.5 accent-n-brand"
+        />
+        <span class="flex flex-col gap-0.5">
+          <span class="text-sm text-n-slate-12">
+            {{ i18n('CREATE_MISSING_LABEL') }}
+          </span>
+          <span class="text-xs text-n-slate-10">
+            {{
+              nameColumn
+                ? i18n('CREATE_MISSING_WITH_NAME', { column: nameColumn })
+                : i18n('CREATE_MISSING_HINT')
+            }}
+          </span>
+        </span>
+      </label>
+
       <Button
         :label="i18n('SEARCH_BUTTON')"
         icon="i-lucide-search"
@@ -219,6 +273,17 @@ const reset = () => {
           }}</span>
           <span class="text-xs text-n-teal-10">
             {{ i18n('MATCHED_LABEL') }}
+          </span>
+        </div>
+        <div
+          v-if="matchResult.created"
+          class="flex-1 bg-n-teal-2 rounded-lg px-4 py-3 flex flex-col gap-0.5"
+        >
+          <span class="text-lg font-bold text-n-teal-11">{{
+            matchResult.created
+          }}</span>
+          <span class="text-xs text-n-teal-10">
+            {{ i18n('CREATED_LABEL') }}
           </span>
         </div>
         <div

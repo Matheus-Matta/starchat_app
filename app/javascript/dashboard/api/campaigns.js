@@ -1,3 +1,4 @@
+/* global axios */
 import ApiClient from './ApiClient';
 
 class CampaignsAPI extends ApiClient {
@@ -21,8 +22,10 @@ class CampaignsAPI extends ApiClient {
     });
   }
 
-  matchContacts({ phones = [], emails = [] }) {
-    return axios.post(`${this.url}/match_contacts`, { phones, emails });
+  matchContacts(payload = {}) {
+    // Forwards the full payload: ids / identifiers / phones / emails,
+    // plus optional create_missing and phone_names for phone imports.
+    return axios.post(`${this.url}/match_contacts`, payload);
   }
 }
 

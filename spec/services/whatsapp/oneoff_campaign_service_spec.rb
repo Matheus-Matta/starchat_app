@@ -208,20 +208,25 @@ describe Whatsapp::OneoffCampaignService do
       end
     end
 
-    context 'when template_params is missing' do
+    context 'when template_params is missing but campaign has a message' do
       let(:template_params) { nil }
 
-      it 'skips contacts and logs error' do
+      it 'falls back to sending a plain text message' do
         contact = create(:contact, :with_phone_number, account: account)
         contact.update_labels([label1.title])
 
-        expect(Rails.logger).to receive(:error)
-          .with("Skipping contact #{contact.name} - no template_params found for WhatsApp campaign")
+        provider_service = instance_double(Whatsapp::Providers::WhatsappCloudService)
+        allow(whatsapp_channel).to receive(:provider_service).and_return(provider_service)
+        expect(provider_service).to receive(:send_plain_text).with(contact.phone_number, campaign.message).and_return(true)
         expect(whatsapp_channel).not_to receive(:send_template)
 
         described_class.new(campaign: campaign).perform
+
+        campaign_contact = campaign.campaign_contacts.find_by(contact: contact)
+        expect(campaign_contact.status).to eq('sent')
       end
     end
+
 
     context 'when send_template raises an error' do
       it 'logs error and continues processing remaining contacts' do
