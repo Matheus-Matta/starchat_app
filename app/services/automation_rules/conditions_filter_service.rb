@@ -114,6 +114,7 @@ class AutomationRules::ConditionsFilterService < FilterService
     attribute_key = 'private' if attribute_key == 'private_note'
 
     filter_operator_value = filter_operation(query_hash, current_index)
+    include_campaign_template_in_outgoing_filter(current_index) if attribute_key == 'message_type'
 
     case current_filter['attribute_type']
     when 'standard'
@@ -181,6 +182,16 @@ class AutomationRules::ConditionsFilterService < FilterService
   end
 
   private
+
+  def include_campaign_template_in_outgoing_filter(current_index)
+    message = @options[:message]
+    return unless message&.template? && message.additional_attributes['campaign_id'].present?
+
+    filter_values = @filter_values["value_#{current_index}"]
+    return unless filter_values.include?(Message.message_types[:outgoing])
+
+    filter_values << Message.message_types[:template]
+  end
 
   def base_relation
     records = Conversation.where(id: @conversation.id).joins(

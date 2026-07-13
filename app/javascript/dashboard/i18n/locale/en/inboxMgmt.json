@@ -459,6 +459,10 @@
             "LABEL": "Inbox Name",
             "PLACEHOLDER": "e.g. Support WhatsApp",
             "ERROR": "Please enter a valid inbox name"
+          },
+          "INSTANCE_NAME": {
+            "LABEL": "Evolution instance name",
+            "HELP_TEXT": "Name used to identify this connection in Evolution."
           }
         },
         "STATES": {

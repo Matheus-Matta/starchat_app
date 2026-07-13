@@ -112,6 +112,11 @@ export default {
       healthError: null,
       isRegisteringWebhook: false,
       sendAgentName: false,
+      antiSpamConfig: {
+        active: false,
+        max_messages: 5,
+        time_window: 1,
+      },
       widgetBubblePosition: 'right',
       widgetBubbleType: 'standard',
       widgetBubbleLauncherTitle: '',
@@ -498,6 +503,12 @@ export default {
       this.channelWelcomeTitle = this.inbox.welcome_title;
       this.channelWelcomeTagline = this.inbox.welcome_tagline || '';
       this.sendAgentName = this.inbox.sender_config?.send_agent_name || false;
+      this.antiSpamConfig = {
+        active: false,
+        max_messages: 5,
+        time_window: 1,
+        ...this.inbox.anti_spam_config,
+      };
       this.selectedFeatureFlags = this.inbox.selected_feature_flags || [];
       this.replyTime = this.inbox.reply_time;
       this.locktoSingleConversation = this.inbox.lock_to_single_conversation;
@@ -617,6 +628,7 @@ export default {
           lock_to_single_conversation: this.locktoSingleConversation,
           sender_name_type: this.senderNameType,
           business_name: this.businessName || null,
+          anti_spam_config: this.antiSpamConfig,
           ...(this.isAWhatsAppChannel && {
             sender_config: { send_agent_name: this.sendAgentName },
           }),
@@ -1254,6 +1266,34 @@ export default {
                   $t('INBOX_MGMT.SENDER_CONFIG.SEND_AGENT_NAME_HELP')
                 "
               />
+
+              <SettingsToggleSection
+                v-model="antiSpamConfig.active"
+                :header="$t('INBOX_MGMT.ANTI_SPAM.TITLE')"
+                :description="$t('INBOX_MGMT.ANTI_SPAM.DESCRIPTION')"
+              >
+                <template v-if="antiSpamConfig.active" #editor>
+                  <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                    <woot-input
+                      v-model.number="antiSpamConfig.max_messages"
+                      type="number"
+                      min="1"
+                      class="[&>input]:!mb-0"
+                      :label="$t('INBOX_MGMT.ANTI_SPAM.MAX_MESSAGES')"
+                    />
+                    <woot-input
+                      v-model.number="antiSpamConfig.time_window"
+                      type="number"
+                      min="1"
+                      class="[&>input]:!mb-0"
+                      :label="$t('INBOX_MGMT.ANTI_SPAM.TIME_WINDOW')"
+                    />
+                  </div>
+                  <p class="mt-2 text-label-small text-n-slate-11">
+                    {{ $t('INBOX_MGMT.ANTI_SPAM.HELP_TEXT') }}
+                  </p>
+                </template>
+              </SettingsToggleSection>
             </SettingsAccordion>
 
             <div class="w-full flex justify-end items-center py-4 mt-2">

@@ -22,6 +22,7 @@ export default {
       showQRPanel: false,
 
       // channel
+      channel: null,
       channelLoading: false,
       channelError: '',
 
@@ -371,6 +372,25 @@ export default {
             />
           </template>
         </div>
+      </div>
+
+      <div>
+        <label
+          for="evolution-instance-name"
+          class="mb-1 block text-sm font-medium text-n-slate-12"
+        >
+          {{ $t('INBOX_MGMT.ADD.EVOLUTION.FIELDS.INSTANCE_NAME.LABEL') }}
+        </label>
+        <input
+          id="evolution-instance-name"
+          :value="channel?.instance_name || ''"
+          type="text"
+          readonly
+          class="w-full cursor-default rounded-lg border border-n-weak bg-n-alpha-1 px-3 py-2 text-sm text-n-slate-12 outline-none"
+        />
+        <p class="mt-1 text-xs text-n-slate-11">
+          {{ $t('INBOX_MGMT.ADD.EVOLUTION.FIELDS.INSTANCE_NAME.HELP_TEXT') }}
+        </p>
       </div>
 
       <!-- Content Area -->
