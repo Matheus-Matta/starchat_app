@@ -562,6 +562,9 @@ en:
     ssl_status:
       custom_domain_not_configured: 'Custom domain is not configured'
   super_admin:
+    accounts:
+      features:
+        select_all: 'Select all features'
     push_diagnostics:
       user_not_found: 'User not found.'
       no_subscriptions_to_test: 'Select at least one subscription to test.'

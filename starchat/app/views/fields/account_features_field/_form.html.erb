@@ -1,8 +1,14 @@
 <div class="field-unit__label">
   <%= f.label field.attribute %>
 </div>
-<div class="field-unit__field feature-container">
+<div class="field-unit__field feature-container" data-account-features>
   <% regular_features, premium_features = SuperAdmin::AccountFeaturesHelper.filtered_features(field.data).partition { |key_array, _val| !SuperAdmin::AccountFeaturesHelper.account_premium_features.include?(key_array.first) } %>
+
+  <div class="flex justify-end mb-4">
+    <button type="button" class="px-3 py-2 text-sm font-medium text-white bg-violet-600 rounded-md hover:bg-violet-700" data-select-all-account-features>
+      <%= t('super_admin.accounts.features.select_all') %>
+    </button>
+  </div>
 
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
     <% regular_features.each do |key_array, val| %>
