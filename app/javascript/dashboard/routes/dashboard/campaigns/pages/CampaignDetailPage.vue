@@ -53,7 +53,15 @@ const statusClass = computed(() => {
 const audienceLabels = computed(() => {
   if (!campaign.value?.audience?.length) return '—';
   const labelsMap = Object.fromEntries((allLabels.value || []).map(l => [l.id, l.title]));
-  return campaign.value.audience.map(a => labelsMap[a.id] || `Label #${a.id}`).join(', ');
+  return campaign.value.audience
+    .map(a => {
+      if (a.type === 'ContactList') {
+        return a.label || `Importação (${a.contact_ids?.length ?? 0})`;
+      }
+      if (a.type === 'Attribute') return a.name || `${a.key}: ${a.value}`;
+      return a.name || labelsMap[a.id] || `Label #${a.id}`;
+    })
+    .join(', ');
 });
 
 const scheduledAtFormatted = computed(() => {

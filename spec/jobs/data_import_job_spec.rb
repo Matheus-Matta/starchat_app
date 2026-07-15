@@ -62,7 +62,7 @@ RSpec.describe DataImportJob do
         described_class.perform_now(invalid_data_import)
         expect(invalid_data_import.account.contacts.count).to eq(csv_length - 1)
         expect(invalid_data_import.reload.total_records).to eq(csv_length)
-        expect(invalid_data_import.reload.processed_records).to eq(csv_length)
+        expect(invalid_data_import.reload.processed_records).to eq(csv_length - 1)
       end
 
       it 'will preserve emojis' do

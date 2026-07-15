@@ -25,10 +25,11 @@ class DataImportJob < ApplicationJob
 
   def process_import_file
     @data_import.update!(status: :processing)
-    contacts, rejected_contacts = parse_csv_and_build_contacts
+    built_contacts, rejected_contacts = parse_csv_and_build_contacts
+    contacts_to_import = merge_duplicate_new_contacts(built_contacts)
 
-    import_contacts(contacts)
-    update_data_import_status(contacts.length, rejected_contacts.length)
+    processed_records = import_contacts(contacts_to_import)
+    update_data_import_status(processed_records, built_contacts.length + rejected_contacts.length)
     save_failed_records_csv(rejected_contacts)
   end
 
@@ -41,6 +42,41 @@ class DataImportJob < ApplicationJob
     end
 
     [contacts, rejected_contacts]
+  end
+
+  # Rows referring to the same not-yet-persisted contact (matching email/identifier/phone)
+  # would otherwise all pass individual validation (none exist in the DB yet) and then silently
+  # collide against each other during the bulk insert below, with on_duplicate_key_ignore
+  # dropping every row but one. Merging them here keeps their labels/inboxes and avoids losing
+  # rows without the caller ever finding out.
+  def merge_duplicate_new_contacts(contacts_with_labels)
+    merged = {}
+    order = []
+
+    contacts_with_labels.each do |item|
+      key = merge_key_for(item)
+      if merged.key?(key)
+        merge_duplicate_item!(merged[key], item)
+      else
+        order << key
+        merged[key] = item
+      end
+    end
+
+    order.map { |key| merged[key] }
+  end
+
+  def merge_key_for(item)
+    contact = item[:contact]
+    return item.object_id if contact.id.present?
+
+    contact.identifier.presence || contact.email.presence&.downcase || contact.phone_number.presence || item.object_id
+  end
+
+  def merge_duplicate_item!(target, item)
+    target[:contact] = item[:contact]
+    target[:labels] = (target[:labels] + item[:labels]).uniq
+    target[:inbox_names] = (target[:inbox_names] + item[:inbox_names]).uniq
   end
 
   def each_import_row(&block)
@@ -114,10 +150,12 @@ class DataImportJob < ApplicationJob
 
   def import_contacts(contacts_with_labels)
     contacts = contacts_with_labels.pluck(:contact)
+    already_persisted = contacts.count { |contact| contact.id.present? }
     # <struct ActiveRecord::Import::Result failed_instances=[], num_inserts=1, ids=[444, 445], results=[]>
-    Contact.import(contacts, synchronize: contacts, on_duplicate_key_ignore: true, track_validation_failures: true, validate: true, batch_size: 1000)
+    result = Contact.import(contacts, synchronize: contacts, on_duplicate_key_ignore: true, track_validation_failures: true, validate: true, batch_size: 1000)
     apply_labels_to_contacts(contacts_with_labels)
     apply_inboxes_to_contacts(contacts_with_labels)
+    already_persisted + result.ids.length
   end
 
   def apply_labels_to_contacts(contacts_with_labels)
@@ -221,8 +259,8 @@ class DataImportJob < ApplicationJob
     Rails.logger.info("[DataImportJob] Could not link contact #{contact.id} to inbox #{inbox.id}: #{e.message}")
   end
 
-  def update_data_import_status(processed_records, rejected_records)
-    @data_import.update!(status: :completed, processed_records: processed_records, total_records: processed_records + rejected_records)
+  def update_data_import_status(processed_records, total_records)
+    @data_import.update!(status: :completed, processed_records: processed_records, total_records: total_records)
   end
 
   def save_failed_records_csv(rejected_contacts)

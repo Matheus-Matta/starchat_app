@@ -122,7 +122,7 @@ class Api::V1::Accounts::CampaignsController < Api::V1::Accounts::BaseController
   def parse_audience_param
     return [] if params[:audience].blank?
 
-    permitted = params.permit(audience: [:type, :id, :key, :value, { contact_ids: [] }])[:audience] || []
+    permitted = params.permit(audience: [:type, :id, :key, :value, :name, :label, { contact_ids: [] }])[:audience] || []
     permitted.map { |item| item.to_h.with_indifferent_access }
   end
 
@@ -134,7 +134,7 @@ class Api::V1::Accounts::CampaignsController < Api::V1::Accounts::BaseController
     params.require(:campaign).permit(
       :title, :description, :message, :enabled, :trigger_only_during_business_hours,
       :inbox_id, :sender_id, :scheduled_at,
-      audience: [:type, :id, :key, :value, { contact_ids: [] }],
+      audience: [:type, :id, :key, :value, :name, :label, { contact_ids: [] }],
       trigger_rules: {}, template_params: {}
     )
   end

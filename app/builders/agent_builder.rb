@@ -9,7 +9,7 @@ class AgentBuilder
   # @param inviter [User] the user who is inviting the agent (Current.user in most cases).
   # @param availability [String] the availability status of the user, defaults to 'offline' if not provided.
   # @param auto_offline [Boolean] the auto offline status of the user.
-  pattr_initialize [:email, { name: '' }, :inviter, :account, { role: :agent }, { availability: :offline }, { auto_offline: false }]
+  pattr_initialize [:email, { name: '' }, :inviter, :account, { role: :agent }, { availability: :offline }, { auto_offline: false }, { password: nil }]
 
   # Creates a user and account user in a transaction.
   # @return [User] the created user.
@@ -23,21 +23,20 @@ class AgentBuilder
 
   private
 
-  # Finds a user by email or creates a new one with a temporary password.
+  # Finds a user by email or creates a new one with the given password, or a temporary one.
   # @return [User] the found or created user.
   def find_or_create_user
     user = User.from_email(email)
     return user if user
 
     @name = email.split('@').first if @name.blank?
-    temp_password = "1!aA#{SecureRandom.alphanumeric(12)}"
-    User.create!(email: email, name: @name, password: temp_password, password_confirmation: temp_password)
-  end
-
-  # Checks if the user needs confirmation.
-  # @return [Boolean] true if the user is persisted and not confirmed, false otherwise.
-  def user_needs_confirmation?
-    @user.persisted? && !@user.confirmed?
+    user_password = password.presence || "1!aA#{SecureRandom.alphanumeric(12)}"
+    new_user = User.new(email: email, name: @name, password: user_password, password_confirmation: user_password)
+    # When an admin sets the password manually, confirm the account immediately
+    # instead of waiting on the confirmation email.
+    new_user.skip_confirmation! if password.present?
+    new_user.save!
+    new_user
   end
 
   # Creates an account user linking the user to the current account.
