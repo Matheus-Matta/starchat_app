@@ -325,8 +325,8 @@ const reset = () => {
 
       <div class="flex gap-2 pt-1">
         <Button
-          v-if="matchResult.matched > 0"
-          :label="i18n('ADD_BUTTON', { count: matchResult.matched })"
+          v-if="matchResult.contacts.length > 0"
+          :label="i18n('ADD_BUTTON', { count: matchResult.contacts.length })"
           icon="i-lucide-plus"
           size="sm"
           @click="addToAudience"

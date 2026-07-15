@@ -120,14 +120,10 @@ class Api::V1::Accounts::CampaignsController < Api::V1::Accounts::BaseController
   end
 
   def parse_audience_param
-    raw = params[:audience]
-    return [] if raw.blank?
+    return [] if params[:audience].blank?
 
-    array = raw.respond_to?(:values) ? raw.values : Array(raw)
-    array.map do |item|
-      h = item.respond_to?(:to_unsafe_h) ? item.to_unsafe_h : item.to_h
-      h.with_indifferent_access
-    end
+    permitted = params.permit(audience: [:type, :id, :key, :value, { contact_ids: [] }])[:audience] || []
+    permitted.map { |item| item.to_h.with_indifferent_access }
   end
 
   def campaign
