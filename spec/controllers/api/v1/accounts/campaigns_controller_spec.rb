@@ -228,6 +228,23 @@ RSpec.describe 'Campaigns API', type: :request do
     end
   end
 
+  describe 'POST /api/v1/accounts/{account.id}/campaigns/preview_contacts' do
+    let(:administrator) { create(:user, account: account, role: :administrator) }
+
+    it 'returns the count and contacts for a ContactList audience with multiple contact_ids' do
+      contacts = create_list(:contact, 3, account: account)
+
+      post "/api/v1/accounts/#{account.id}/campaigns/preview_contacts",
+           params: { audience: [{ type: 'ContactList', contact_ids: contacts.map(&:id), label: 'Importação (3 contatos)' }], page: 1 },
+           headers: administrator.create_new_auth_token, as: :json
+
+      expect(response).to have_http_status(:success)
+      body = response.parsed_body
+      expect(body['count']).to eq(3)
+      expect(body['contacts'].pluck('id')).to match_array(contacts.map(&:id))
+    end
+  end
+
   describe 'POST /api/v1/accounts/{account.id}/campaigns/match_contacts' do
     let(:administrator) { create(:user, account: account, role: :administrator) }
     let(:agent) { create(:user, account: account, role: :agent) }

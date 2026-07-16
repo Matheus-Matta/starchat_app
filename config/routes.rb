@@ -136,7 +136,7 @@ Rails.application.routes.draw do
           end
           resources :campaigns, only: [:index, :create, :show, :update, :destroy] do
             collection do
-              get :preview_contacts
+              post :preview_contacts
               post :match_contacts
             end
             member do

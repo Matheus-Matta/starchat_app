@@ -21,7 +21,10 @@ class DataImport::ContactManager
 
   def find_or_initialize_contact(params)
     contact = find_existing_contact(params)
-    contact_params = params.slice(:email, :identifier, :phone_number)
+    # Blank identifier/email must become nil, not "" — an empty string is a real value under
+    # the account-scoped uniqueness index, so multiple blank rows (or a row and a pre-existing
+    # contact with a legacy blank string) would collide with each other on insert.
+    contact_params = params.slice(:email, :identifier, :phone_number).transform_values(&:presence)
     contact_params[:phone_number] = format_phone_number(contact_params[:phone_number]) if contact_params[:phone_number].present?
     contact ||= @account.contacts.new(contact_params)
     contact
@@ -37,19 +40,19 @@ class DataImport::ContactManager
   end
 
   def find_contact_by_identifier(params)
-    return unless params[:identifier]
+    return if params[:identifier].blank?
 
     @account.contacts.find_by(identifier: params[:identifier])
   end
 
   def find_contact_by_email(params)
-    return unless params[:email]
+    return if params[:email].blank?
 
     @account.contacts.from_email(params[:email])
   end
 
   def find_contact_by_phone_number(params)
-    return unless params[:phone_number]
+    return if params[:phone_number].blank?
 
     @account.contacts.find_by(phone_number: format_phone_number(params[:phone_number]))
   end
@@ -77,6 +80,9 @@ class DataImport::ContactManager
       next if READONLY_COLUMNS.include?(key.to_s)
       next if %w[identifier email phone_number labels inboxes].include?(key.to_s)
       next if value.to_s.strip.blank?
+      # A contact that already has a name keeps it as-is on import — only its
+      # additional/custom attributes get refreshed. Blank names still get filled in.
+      next if key.to_s == 'name' && contact.persisted? && contact.name.present?
 
       case key.to_s
       when *DIRECT_COLUMNS

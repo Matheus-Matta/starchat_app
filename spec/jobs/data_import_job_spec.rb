@@ -167,6 +167,46 @@ RSpec.describe DataImportJob do
           expect(existing_data_import.processed_records).to eq(csv_length - 1)
         end
       end
+
+      context 'when rows have blank identifier and email but a phone that matches an existing contact' do
+        let(:account) { create(:account) }
+        let(:custom_attribute_definition) do
+          create(:custom_attribute_definition, account: account, attribute_model: 'contact_attribute', attribute_display_name: 'cpf', attribute_key: 'cpf')
+        end
+        let(:blank_fields_data) do
+          [
+            %w[name email phone_number identifier cpf],
+            ['Other Blank Contact', '', '+5521900000000', '', '00000000000'],
+            ['GESSICA PEREIRA DA SILVA MADUREIRA', '', '+5521995618005', '', '13625676710']
+          ]
+        end
+        let(:blank_fields_import) { create(:data_import, account: account, import_file: generate_csv_file(blank_fields_data)) }
+
+        it 'matches the contact by phone number instead of the first blank-identifier contact found' do
+          custom_attribute_definition
+          existing_contact = create(:contact, account: account, name: 'GESSICA PEREIRA DA SILVA MADUREIRA', phone_number: '+5521995618005')
+          # Simulates a contact left over from an earlier import with a literal blank identifier
+          # (not NULL) — this is what the old code incorrectly matched against by identifier/email.
+          other_blank_contact = create(:contact, account: account, name: 'Other Blank Contact', identifier: '', phone_number: '+5521900000001')
+
+          described_class.perform_now(blank_fields_import)
+
+          expect(blank_fields_import.reload.processed_records).to eq(2)
+          expect(existing_contact.reload.custom_attributes['cpf']).to eq('13625676710')
+          expect(existing_contact.phone_number).to eq('+5521995618005')
+          expect(other_blank_contact.reload.phone_number).to eq('+5521900000001')
+        end
+
+        it 'keeps the existing name and only refreshes custom attributes' do
+          custom_attribute_definition
+          existing_contact = create(:contact, account: account, name: 'GESSICA PEREIRA DA SILVA MADUREIRA', phone_number: '+5521995618005')
+
+          described_class.perform_now(blank_fields_import)
+
+          expect(existing_contact.reload.name).to eq('GESSICA PEREIRA DA SILVA MADUREIRA')
+          expect(existing_contact.custom_attributes['cpf']).to eq('13625676710')
+        end
+      end
     end
 
     context 'when the CSV file is invalid' do

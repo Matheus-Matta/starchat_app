@@ -66,6 +66,33 @@ RSpec.describe AgentBuilder, type: :model do
         user = agent_builder.perform
         expect(user.encrypted_password).not_to be_empty
       end
+
+      it 'does not confirm the account automatically' do
+        user = agent_builder.perform
+        expect(user.confirmed?).to be false
+      end
+    end
+
+    context 'when a password is set manually' do
+      let(:params) do
+        {
+          email: email,
+          name: name,
+          inviter: current_user,
+          account: account,
+          password: 'aA1!supersecret'
+        }
+      end
+
+      it 'sets the given password for the user' do
+        user = agent_builder.perform
+        expect(user.valid_password?('aA1!supersecret')).to be true
+      end
+
+      it 'confirms the account automatically' do
+        user = agent_builder.perform
+        expect(user.confirmed?).to be true
+      end
     end
   end
 end

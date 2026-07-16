@@ -11,9 +11,10 @@ class CampaignsAPI extends ApiClient {
   }
 
   previewContacts(audience, page = 1) {
-    return axios.get(`${this.url}/preview_contacts`, {
-      params: { audience, page },
-    });
+    // POST (not GET) because axios's default query-string serializer encodes
+    // nested arrays as audience[0][contact_ids][0]=... which Rails parses back
+    // as a Hash keyed "0" instead of an Array, crashing the controller.
+    return axios.post(`${this.url}/preview_contacts`, { audience, page });
   }
 
   getContacts(campaignId, page = 1) {
