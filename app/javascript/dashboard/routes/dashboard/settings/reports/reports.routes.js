@@ -65,6 +65,7 @@ const revisedReportRoutes = [
     name: 'agent_reports_index',
     meta: {
       permissions: ['administrator', 'report_manage'],
+      wide: true,
     },
     component: AgentReportsIndex,
   },

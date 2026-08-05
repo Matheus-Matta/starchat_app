@@ -191,6 +191,17 @@ en:
       avg_resolution_time: Avg resolution time
       resolution_count: Resolution Count
       avg_customer_waiting_time: Avg customer waiting time
+    agent_conversations_csv:
+      conversation_id: Conversation
+      contact_name: Contact
+      status: Status
+      created_at: Created at
+      incoming_messages_count: Incoming messages
+      outgoing_messages_count: Outgoing messages
+      first_response_time: First response time
+      reply_time: Reply time
+      resolution_time: Resolution time
+      conversation_link: Conversation link
     inbox_csv:
       inbox_name: Inbox name
       inbox_type: Inbox type

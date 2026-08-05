@@ -23,6 +23,14 @@ class Api::V2::Accounts::ReportsController < Api::V1::Accounts::BaseController
     generate_csv('agents_report', 'api/v2/accounts/reports/agents')
   end
 
+  def agent_conversations
+    @agent = Current.account.users.find(params[:agent_id])
+    report = V2::Reports::AgentConversationDetailBuilder.new(account: Current.account, agent: @agent, params: build_params(type: :agent)).build
+    @rows = report[:rows]
+    @totals = report[:totals]
+    generate_csv('agent_conversations_report', 'api/v2/accounts/reports/agent_conversations')
+  end
+
   def inboxes
     @report_data = generate_inboxes_report
     generate_csv('inboxes_report', 'api/v2/accounts/reports/inboxes')

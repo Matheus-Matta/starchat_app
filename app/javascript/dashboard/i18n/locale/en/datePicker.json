@@ -8,6 +8,7 @@
     },
     "DATE_RANGE_OPTIONS": {
       "TITLE": "DATE RANGE",
+      "TODAY": "Today",
       "YESTERDAY": "Yesterday",
       "LAST_7_DAYS": "Last 7 days",
       "LAST_14_DAYS": "Last 14 days",

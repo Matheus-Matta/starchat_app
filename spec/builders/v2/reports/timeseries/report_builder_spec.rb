@@ -472,6 +472,28 @@ describe V2::Reports::Timeseries::ReportBuilder do
         expect(subject.aggregate_value).to eq(1)
       end
     end
+
+    context 'when a matching conversation was created outside since/until' do
+      let!(:old_unanswered_conversation) do
+        create(:conversation, account: account, inbox: inbox, assignee: agent, status: 'open', created_at: 2.years.ago)
+      end
+
+      context 'no_first_reply_count' do
+        let(:metric) { 'no_first_reply_count' }
+
+        it 'excludes the out-of-range conversation, like conversations_count does' do
+          expect(subject.aggregate_value).to eq(1)
+        end
+      end
+
+      context 'waiting_count' do
+        let(:metric) { 'waiting_count' }
+
+        it 'excludes the out-of-range conversation, like conversations_count does' do
+          expect(subject.aggregate_value).to eq(1)
+        end
+      end
+    end
   end
 
   describe 'bot resolution counts' do

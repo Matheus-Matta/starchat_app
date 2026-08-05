@@ -263,6 +263,20 @@ export const actions = {
         console.error(error);
       });
   },
+  downloadAgentConversationsReport(_, reportObj) {
+    const dl = reportObj.format === 'xls' ? downloadXlsFile : downloadCsvFile;
+    return Report.getAgentConversationsReport(reportObj)
+      .then(response => {
+        dl(reportObj.fileName, response.data);
+        AnalyticsHelper.track(REPORTS_EVENTS.DOWNLOAD_REPORT, {
+          reportType: 'agent_conversations',
+          businessHours: reportObj?.businessHours,
+        });
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  },
   downloadConversationsSummaryReports(_, reportObj) {
     const dl = reportObj.format === 'xls' ? downloadXlsFile : downloadCsvFile;
     return Report.getConversationsSummaryReports(reportObj)

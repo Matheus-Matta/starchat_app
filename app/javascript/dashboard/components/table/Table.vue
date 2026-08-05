@@ -27,7 +27,7 @@ const headerClass = computed(() =>
 </script>
 
 <template>
-  <table :class="{ 'table-fixed': fixed }">
+  <table :class="{ 'table-fixed w-full': fixed }">
     <thead class="sticky top-0 z-10 bg-n-slate-1">
       <tr
         v-for="headerGroup in table.getHeaderGroups()"

@@ -34,6 +34,7 @@ export const calendarWeeks = [
 ];
 
 export const dateRanges = [
+  { label: 'DATE_PICKER.DATE_RANGE_OPTIONS.TODAY', value: 'today' },
   { label: 'DATE_PICKER.DATE_RANGE_OPTIONS.YESTERDAY', value: 'yesterday' },
   { label: 'DATE_PICKER.DATE_RANGE_OPTIONS.LAST_7_DAYS', value: 'last7days' },
   {
@@ -79,6 +80,7 @@ export const dateRanges = [
 ];
 
 export const DATE_RANGE_TYPES = {
+  TODAY: 'today',
   YESTERDAY: 'yesterday',
   LAST_7_DAYS: 'last7days',
   LAST_30_DAYS: 'last30days',
@@ -230,6 +232,10 @@ export const isHoveringNextDayInRange = (
 // Helper func to determine active date ranges based on user selection
 export const getActiveDateRange = (range, currentDate) => {
   const ranges = {
+    today: () => ({
+      start: startOfDay(currentDate),
+      end: endOfDay(currentDate),
+    }),
     yesterday: () => ({
       start: startOfDay(subDays(currentDate, 1)),
       end: endOfDay(subDays(currentDate, 1)),

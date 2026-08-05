@@ -1,0 +1,43 @@
+<%= CSVSafe.generate_line [I18n.t('reports.period', since: format_report_date(Date.strptime(params[:since], '%s')), until: format_report_date(Date.strptime(params[:until], '%s')))] %>
+<%= CSVSafe.generate_line [I18n.t('reports.agent_csv.agent_name'), @agent.name] %>
+
+<% headers = [
+    I18n.t('reports.agent_conversations_csv.conversation_id'),
+    I18n.t('reports.agent_conversations_csv.contact_name'),
+    I18n.t('reports.agent_conversations_csv.status'),
+    I18n.t('reports.agent_conversations_csv.created_at'),
+    I18n.t('reports.agent_conversations_csv.incoming_messages_count'),
+    I18n.t('reports.agent_conversations_csv.outgoing_messages_count'),
+    I18n.t('reports.agent_conversations_csv.first_response_time'),
+    I18n.t('reports.agent_conversations_csv.reply_time'),
+    I18n.t('reports.agent_conversations_csv.resolution_time'),
+    I18n.t('reports.agent_conversations_csv.conversation_link')
+  ]
+%>
+<%= CSVSafe.generate_line headers -%>
+<% @rows.each do |row| %>
+<%= CSVSafe.generate_line [
+    row[:display_id],
+    row[:contact_name],
+    row[:status],
+    format_report_date(row[:created_at]),
+    row[:incoming_messages_count],
+    row[:outgoing_messages_count],
+    Reports::TimeFormatPresenter.new(row[:first_response_time]).format,
+    Reports::TimeFormatPresenter.new(row[:reply_time]).format,
+    Reports::TimeFormatPresenter.new(row[:resolution_time]).format,
+    row[:conversation_url]
+  ] -%>
+<% end %>
+<%= CSVSafe.generate_line [
+    I18n.t('reports.total_row_label'),
+    '',
+    '',
+    '',
+    @totals[:incoming_messages_count],
+    @totals[:outgoing_messages_count],
+    Reports::TimeFormatPresenter.new(@totals[:avg_first_response_time]).format,
+    Reports::TimeFormatPresenter.new(@totals[:avg_reply_time]).format,
+    Reports::TimeFormatPresenter.new(@totals[:avg_resolution_time]).format,
+    ''
+  ] -%>

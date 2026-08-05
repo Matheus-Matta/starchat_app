@@ -528,6 +528,7 @@ Rails.application.routes.draw do
               get :summary
               get :bot_summary
               get :agents
+              get 'agents/:agent_id/conversations', action: :agent_conversations
               get :inboxes
               get :labels
               get :teams

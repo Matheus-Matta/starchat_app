@@ -118,7 +118,7 @@ module Reports::ReportMetricRegistry
       rollup_metric: :bot_handoffs_count,
       raw_count_strategy: :distinct_conversation
     ),
-    # Snapshot metrics (not bound to the date range) - open conversations
+    # Open conversations, created within the requested date range, that are
     # currently missing a first reply, or currently waiting on a response.
     no_first_reply_count: Metric.new(
       name: :no_first_reply_count,

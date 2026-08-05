@@ -8,6 +8,7 @@
     },
     "DATE_RANGE_OPTIONS": {
       "TITLE": "Intervalo de data",
+      "TODAY": "Hoje",
       "YESTERDAY": "Ontem",
       "LAST_7_DAYS": "Últimos 7 dias",
       "LAST_14_DAYS": "Últimos 14 dias",

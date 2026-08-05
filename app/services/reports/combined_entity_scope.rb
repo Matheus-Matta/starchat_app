@@ -25,7 +25,7 @@ class Reports::CombinedEntityScope
 
   def message_scopes
     scopes = []
-    scopes << account.messages.where(sender_type: 'User', sender_id: agent_ids) if agent_ids.present?
+    scopes << account.messages.where(conversation_id: agent_conversation_ids) if agent_ids.present?
     scopes << account.messages.where(conversation_id: team_conversation_ids) if team_ids.present?
     scopes << account.messages.where(inbox_id: inbox_ids) if inbox_ids.present?
     scopes
@@ -37,6 +37,10 @@ class Reports::CombinedEntityScope
     scopes << account.reporting_events.where(conversation_id: team_conversation_ids) if team_ids.present?
     scopes << account.reporting_events.where(inbox_id: inbox_ids) if inbox_ids.present?
     scopes
+  end
+
+  def agent_conversation_ids
+    account.conversations.where(assignee_id: agent_ids).select(:id)
   end
 
   def team_conversation_ids

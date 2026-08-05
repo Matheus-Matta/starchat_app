@@ -697,6 +697,8 @@
     "CONVERSATIONS": "Conversas",
     "NO_FIRST_REPLY": "Sem Resp.",
     "WAITING": "Aguardando",
+    "CSAT": "CSAT",
+    "SLA_HIT_RATE": "SLA",
     "TOOLTIPS": {
       "CONVERSATIONS": "Total de conversas que correspondem aos filtros atuais",
       "AVG_FIRST_RESPONSE_TIME": "Tempo médio até a primeira resposta",
@@ -704,7 +706,9 @@
       "AVG_REPLY_TIME": "Tempo médio entre respostas",
       "RESOLUTION_COUNT": "Conversas resolvidas no período selecionado",
       "NO_FIRST_REPLY": "Conversas abertas e atribuídas a um agente que ainda não tiveram resposta",
-      "WAITING": "Conversas abertas aguardando resposta no momento"
+      "WAITING": "Conversas abertas aguardando resposta no momento",
+      "CSAT": "Percentual de respostas de CSAT positivas (4-5 estrelas) no período selecionado",
+      "SLA_HIT_RATE": "Percentual de SLAs aplicados que foram cumpridos no período selecionado"
     }
   },
   "MONITORING_REPORTS": {
@@ -745,7 +749,9 @@
       "AVG_REPLY": "Espera",
       "RESOLUTIONS": "Resoluções",
       "NO_FIRST_REPLY": "Sem Resposta",
-      "WAITING": "Aguardando"
+      "WAITING": "Aguardando",
+      "CSAT": "CSAT",
+      "SLA_HIT_RATE": "SLA"
     },
     "STATUS_FILTER": {
       "ALL": "Todos os status",

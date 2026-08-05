@@ -240,6 +240,17 @@ describe('getActiveDateRange', () => {
     vi.useRealTimers();
   });
 
+  it('returns the correct range for "today"', () => {
+    const range = getActiveDateRange('today', new Date());
+    const expectedStart = new Date(2020, 5, 15);
+    expectedStart.setHours(0, 0, 0, 0);
+    const expectedEnd = new Date();
+    expectedEnd.setHours(23, 59, 59, 999);
+
+    expect(range.start).toEqual(expectedStart);
+    expect(range.end).toEqual(expectedEnd);
+  });
+
   it('returns the correct range for "last7days"', () => {
     const range = getActiveDateRange('last7days', new Date());
     const expectedStart = new Date(2020, 5, 9);

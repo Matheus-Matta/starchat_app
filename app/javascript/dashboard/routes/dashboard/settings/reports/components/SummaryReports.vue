@@ -75,10 +75,9 @@ const noFirstReplyRender = cellProps =>
   h(
     'span',
     {
-      class:
-        cellProps.row.original.noFirstReplyCount
-          ? 'font-semibold text-n-ruby-11'
-          : 'text-n-slate-11',
+      class: cellProps.row.original.noFirstReplyCount
+        ? 'font-semibold text-n-ruby-11'
+        : 'text-n-slate-11',
     },
     cellProps.getValue()
   );
@@ -87,10 +86,9 @@ const waitingRender = cellProps =>
   h(
     'span',
     {
-      class:
-        cellProps.row.original.waitingCount
-          ? 'font-semibold text-n-amber-11'
-          : 'text-n-slate-11',
+      class: cellProps.row.original.waitingCount
+        ? 'font-semibold text-n-amber-11'
+        : 'text-n-slate-11',
     },
     cellProps.getValue()
   );
@@ -98,45 +96,55 @@ const waitingRender = cellProps =>
 const columns = computed(() => [
   columnHelper.accessor('name', {
     header: t(`SUMMARY_REPORTS.${props.type.toUpperCase()}`),
-    width: 300,
+    size: 220,
     cell: cellProps => h(SummaryReportLink, cellProps),
   }),
   columnHelper.accessor('conversationsCount', {
     header: t('SUMMARY_REPORTS.CONVERSATIONS'),
-    width: 200,
+    size: 110,
     cell: defaulSpanRender,
   }),
   columnHelper.accessor('avgFirstResponseTime', {
     header: t('SUMMARY_REPORTS.AVG_FIRST_RESPONSE_TIME'),
-    width: 200,
+    size: 120,
     cell: defaulSpanRender,
   }),
   columnHelper.accessor('avgResolutionTime', {
     header: t('SUMMARY_REPORTS.AVG_RESOLUTION_TIME'),
-    width: 200,
+    size: 120,
     cell: defaulSpanRender,
   }),
   columnHelper.accessor('avgReplyTime', {
     header: t('SUMMARY_REPORTS.AVG_REPLY_TIME'),
-    width: 200,
+    size: 110,
     cell: defaulSpanRender,
   }),
   columnHelper.accessor('resolutionsCount', {
     header: t('SUMMARY_REPORTS.RESOLUTION_COUNT'),
-    width: 200,
+    size: 110,
     cell: defaulSpanRender,
   }),
   ...(props.type === 'agent'
     ? [
         columnHelper.accessor('noFirstReplyCountLabel', {
           header: t('SUMMARY_REPORTS.NO_FIRST_REPLY'),
-          width: 150,
+          size: 90,
           cell: noFirstReplyRender,
         }),
         columnHelper.accessor('waitingCountLabel', {
           header: t('SUMMARY_REPORTS.WAITING'),
-          width: 150,
+          size: 90,
           cell: waitingRender,
+        }),
+        columnHelper.accessor('csatScoreLabel', {
+          header: t('SUMMARY_REPORTS.CSAT'),
+          size: 80,
+          cell: defaulSpanRender,
+        }),
+        columnHelper.accessor('slaHitRateLabel', {
+          header: t('SUMMARY_REPORTS.SLA_HIT_RATE'),
+          size: 70,
+          cell: defaulSpanRender,
         }),
       ]
     : []),
@@ -145,6 +153,8 @@ const columns = computed(() => [
 const renderAvgTime = value => (value ? formatTime(value) : '--');
 
 const renderCount = value => (value ? value.toLocaleString() : '--');
+
+const renderPercent = value => (value != null ? `${value}%` : '--');
 
 const tableData = computed(() =>
   rowItems.value.map(row => {
@@ -156,7 +166,8 @@ const tableData = computed(() =>
       avgReplyTime,
       resolvedConversationsCount,
     } = rowMetrics;
-    const { noFirstReplyCount, waitingCount } = rowMetrics;
+    const { noFirstReplyCount, waitingCount, csatScore, slaHitRate } =
+      rowMetrics;
     return {
       id: row.id,
       // we fallback on title, label for instance does not have a name property
@@ -171,6 +182,8 @@ const tableData = computed(() =>
       noFirstReplyCountLabel: String(noFirstReplyCount ?? 0),
       waitingCount: waitingCount ?? 0,
       waitingCountLabel: String(waitingCount ?? 0),
+      csatScoreLabel: renderPercent(csatScore),
+      slaHitRateLabel: renderPercent(slaHitRate),
     };
   })
 );
@@ -254,7 +267,7 @@ defineExpose({ downloadReports });
   <div
     class="relative flex-1 overflow-auto px-2 py-2 mt-5 shadow outline-1 outline outline-n-container rounded-xl bg-n-solid-2"
   >
-    <Table :table="table" />
+    <Table :table="table" fixed />
     <Transition
       enter-active-class="transition-opacity duration-300 ease-out"
       leave-active-class="transition-opacity duration-200 ease-in"

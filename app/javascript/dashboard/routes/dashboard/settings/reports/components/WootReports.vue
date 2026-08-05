@@ -1,8 +1,8 @@
 <script>
-import V4Button from 'dashboard/components-next/button/Button.vue';
 import { useAlert } from 'dashboard/composables';
 import ReportFilters from './ReportFilters.vue';
 import ReportContainer from '../ReportContainer.vue';
+import DownloadReportButton from './DownloadReportButton.vue';
 import { GROUP_BY_FILTER } from '../constants';
 import { generateFileName } from '../../../../../helper/downloadHelper';
 import ReportHeader from './ReportHeader.vue';
@@ -10,7 +10,7 @@ import ReportHeader from './ReportHeader.vue';
 export default {
   components: {
     ReportHeader,
-    V4Button,
+    DownloadReportButton,
     ReportFilters,
     ReportContainer,
   },
@@ -121,17 +121,37 @@ export default {
         }
       });
     },
-    downloadReports() {
-      const { from, to, type, businessHours } = this;
+    downloadReports(format = 'csv') {
+      const { from, to, type, businessHours, selectedItem } = this;
+
+      // The agent detail page downloads one row per conversation handled by this
+      // agent (not the account-wide per-day summary used by the agents list page),
+      // so it needs its own action/endpoint.
+      if (type === 'agent' && selectedItem?.id) {
+        const fileName = generateFileName({
+          type: 'agent_conversations',
+          to,
+          businessHours,
+        });
+        this.$store.dispatch('downloadAgentConversationsReport', {
+          agentId: selectedItem.id,
+          from,
+          to,
+          fileName,
+          businessHours,
+          format,
+        });
+        return;
+      }
+
       const dispatchMethods = {
-        agent: 'downloadAgentReports',
         label: 'downloadLabelReports',
         inbox: 'downloadInboxReports',
         team: 'downloadTeamReports',
       };
       if (dispatchMethods[type]) {
         const fileName = generateFileName({ type, to, businessHours });
-        const params = { from, to, fileName, businessHours };
+        const params = { from, to, fileName, businessHours, format };
         this.$store.dispatch(dispatchMethods[type], params);
       }
     },
@@ -167,11 +187,9 @@ export default {
 
 <template>
   <ReportHeader :header-title="reportTitle" :has-back-button="hasBackButton">
-    <V4Button
+    <DownloadReportButton
       :label="downloadButtonLabel"
-      icon="i-ph-download-simple"
-      size="sm"
-      @click="downloadReports"
+      @download="downloadReports"
     />
   </ReportHeader>
 

@@ -80,9 +80,11 @@ class Reports::RawDataSource < Reports::DataSource
       base = base.joins(:conversation).where(conversations: { status: conversation_status }) if conversation_status.present?
       base
     when 'no_first_reply_count'
-      scope.conversations.where(account_id: account.id).open.where(first_reply_created_at: nil).where.not(assignee_id: nil)
+      scope.conversations.where(account_id: account.id, created_at: range).open
+           .where(first_reply_created_at: nil).where.not(assignee_id: nil)
     when 'waiting_count'
-      scope.conversations.where(account_id: account.id).open.where.not(waiting_since: nil).where.not(assignee_id: nil)
+      scope.conversations.where(account_id: account.id, created_at: range).open
+           .where.not(waiting_since: nil).where.not(assignee_id: nil)
     else
       reporting_event_count_scope
     end

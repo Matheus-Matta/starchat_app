@@ -113,5 +113,32 @@ RSpec.describe Monitoring::OperationalSnapshotBuilder do
       email_card = snapshot[:inboxes].find { |inbox| inbox[:id] == inbox_offline.id }
       expect(email_card[:status]).to eq('offline')
     end
+
+    # Regression check: "Aguardando" (waiting_count) and "Sem Resposta" (no_first_reply_count)
+    # must stay scoped to OPEN conversations only, at both the per-inbox and per-agent level.
+    # A resolved conversation can still carry waiting_since: non-nil / first_reply_created_at:
+    # nil in the DB, so without the `.open` scope it would keep inflating these columns after
+    # it's been closed.
+    context 'when conversations are not open' do
+      it 'excludes resolved/pending/snoozed conversations from waiting and no-first-reply counts' do
+        create(:conversation, account: account, inbox: inbox_online, assignee: online_agent,
+                               status: :resolved, waiting_since: 1.minute.ago, last_activity_at: 1.minute.ago)
+        create(:conversation, account: account, inbox: inbox_online, assignee: online_agent,
+                               status: :pending, waiting_since: 1.minute.ago, last_activity_at: 1.minute.ago)
+        create(:conversation, account: account, inbox: inbox_online, assignee: online_agent,
+                               status: :snoozed, last_activity_at: 1.minute.ago)
+
+        snapshot = described_class.new(account: account,
+                                       warning_threshold: 5.minutes,
+                                       offline_threshold: 20.minutes).build
+
+        whatsapp_card = snapshot[:inboxes].find { |inbox| inbox[:id] == inbox_online.id }
+        expect(whatsapp_card[:waiting_conversations_count]).to eq(3)
+
+        agent_entry = snapshot[:agents].find { |agent| agent[:id] == online_agent.id }
+        expect(agent_entry[:waiting_count]).to eq(2)
+        expect(agent_entry[:no_first_reply_count]).to eq(2)
+      end
+    end
   end
 end

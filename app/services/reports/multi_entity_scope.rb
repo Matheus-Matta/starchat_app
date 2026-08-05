@@ -16,8 +16,6 @@ class Reports::MultiEntityScope
 
   def messages
     case dimension_type.to_sym
-    when :agent
-      account.messages.where(sender_type: 'User', sender_id: ids)
     when :inbox
       account.messages.where(inbox_id: ids)
     else

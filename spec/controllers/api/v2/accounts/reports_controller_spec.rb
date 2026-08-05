@@ -270,6 +270,61 @@ RSpec.describe Api::V2::Accounts::ReportsController, type: :request do
     end
   end
 
+  describe 'GET /api/v2/accounts/{account.id}/reports/agents/{agent.id}/conversations' do
+    let!(:conversation) do
+      create(:conversation, account: account, inbox: inbox, assignee: agent, created_at: Time.utc(2026, 6, 8, 10, 0))
+    end
+    let!(:other_agent_conversation) do
+      create(:conversation, account: account, inbox: inbox, assignee: create(:user, account: account, role: :agent),
+                            created_at: Time.utc(2026, 6, 8, 10, 0))
+    end
+
+    let(:date_range_params) do
+      {
+        since: Time.utc(2026, 6, 8).beginning_of_day.to_i.to_s,
+        until: Time.utc(2026, 6, 9).end_of_day.to_i.to_s
+      }
+    end
+
+    before do
+      allow(ENV).to receive(:fetch).and_call_original
+      allow(ENV).to receive(:fetch).with('FRONTEND_URL', nil).and_return('https://app.example.com')
+      create(:message, account: account, conversation: conversation, message_type: :outgoing)
+    end
+
+    it 'lists one row per conversation for the given agent, with a total row at the end' do
+      get "/api/v2/accounts/#{account.id}/reports/agents/#{agent.id}/conversations",
+          params: date_range_params, headers: admin.create_new_auth_token
+
+      rows = CSV.parse(response.body).reject(&:blank?)
+      data_rows = rows.drop(2)
+
+      expect(data_rows.first).to eq(
+        [
+          I18n.t('reports.agent_conversations_csv.conversation_id'),
+          I18n.t('reports.agent_conversations_csv.contact_name'),
+          I18n.t('reports.agent_conversations_csv.status'),
+          I18n.t('reports.agent_conversations_csv.created_at'),
+          I18n.t('reports.agent_conversations_csv.incoming_messages_count'),
+          I18n.t('reports.agent_conversations_csv.outgoing_messages_count'),
+          I18n.t('reports.agent_conversations_csv.first_response_time'),
+          I18n.t('reports.agent_conversations_csv.reply_time'),
+          I18n.t('reports.agent_conversations_csv.resolution_time'),
+          I18n.t('reports.agent_conversations_csv.conversation_link')
+        ]
+      )
+
+      conversation_row = data_rows.find { |row| row.first == conversation.display_id.to_s }
+      expect(conversation_row[5]).to eq('1')
+      expect(conversation_row[9]).to eq(
+        "https://app.example.com/app/accounts/#{account.id}/conversations/#{conversation.display_id}"
+      )
+
+      expect(data_rows.last.first).to eq(I18n.t('reports.total_row_label'))
+      expect(data_rows.map(&:first)).not_to include(other_agent_conversation.display_id.to_s)
+    end
+  end
+
   describe 'GET /api/v2/accounts/{account.id}/reports/inbox_label_matrix' do
     let!(:inbox_one) { create(:inbox, account: account, name: 'Email Support') }
     let!(:label_one) { create(:label, account: account, title: 'bug') }

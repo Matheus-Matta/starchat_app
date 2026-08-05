@@ -19,6 +19,7 @@ const { t } = useI18n();
 const agentList = computed(() => props.agents || []);
 
 const fmt = v => (v != null ? formatTime(v) : '--');
+const fmtPercent = v => (v != null ? `${v}%` : '--');
 
 const agentStatusMap = computed(() => ({
   online: {
@@ -117,15 +118,25 @@ const agentStatus = s =>
               {{ t('MONITORING_REPORTS.TABLE.NO_FIRST_REPLY') }}
             </th>
             <th
-              class="ltr:last:rounded-tr-xl rtl:last:rounded-tl-xl py-3 px-5 text-right font-medium text-sm text-n-slate-12"
+              class="py-3 px-5 text-right font-medium text-sm text-n-slate-12"
             >
               {{ t('MONITORING_REPORTS.TABLE.WAITING') }}
+            </th>
+            <th
+              class="py-3 px-5 text-right font-medium text-sm text-n-slate-12"
+            >
+              {{ t('MONITORING_REPORTS.TABLE.CSAT') }}
+            </th>
+            <th
+              class="ltr:last:rounded-tr-xl rtl:last:rounded-tl-xl py-3 px-5 text-right font-medium text-sm text-n-slate-12"
+            >
+              {{ t('MONITORING_REPORTS.TABLE.SLA_HIT_RATE') }}
             </th>
           </tr>
         </thead>
         <tbody class="divide-y divide-n-weak">
           <tr v-if="isLoading && !agentList.length" class="text-center">
-            <td colspan="9" class="py-8 text-sm text-n-slate-11">
+            <td colspan="11" class="py-8 text-sm text-n-slate-11">
               {{ t('REPORT.LOADING_CHART') }}
             </td>
           </tr>
@@ -202,6 +213,16 @@ const agentStatus = s =>
               >
                 {{ agent.waiting_count ?? 0 }}
               </span>
+            </td>
+            <td
+              class="py-3 px-5 text-right text-sm tabular-nums text-n-slate-11"
+            >
+              {{ fmtPercent(agent.csat_score) }}
+            </td>
+            <td
+              class="py-3 px-5 text-right text-sm tabular-nums text-n-slate-11"
+            >
+              {{ fmtPercent(agent.sla_hit_rate) }}
             </td>
           </tr>
         </tbody>

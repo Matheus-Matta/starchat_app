@@ -84,6 +84,17 @@ class ReportsAPI extends ApiClient {
     });
   }
 
+  getAgentConversationsReport({
+    agentId,
+    from: since,
+    to: until,
+    businessHours,
+  }) {
+    return axios.get(`${this.url}/agents/${agentId}/conversations`, {
+      params: { since, until, business_hours: businessHours },
+    });
+  }
+
   getConversationsSummaryReports({ from: since, to: until, businessHours }) {
     return axios.get(`${this.url}/conversations_summary`, {
       params: { since, until, business_hours: businessHours },

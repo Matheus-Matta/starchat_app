@@ -4,9 +4,12 @@ import { useRoute } from 'vue-router';
 
 const route = useRoute();
 const isFullBleed = computed(() => Boolean(route.meta.fullBleed));
-const containerClass = computed(() =>
-  isFullBleed.value ? 'max-w-[110rem] w-full pb-12' : 'max-w-[60rem] w-full pb-12'
-);
+const isWide = computed(() => Boolean(route.meta.wide));
+const containerClass = computed(() => {
+  if (isFullBleed.value) return 'max-w-[110rem] w-full pb-12';
+  if (isWide.value) return 'max-w-[80rem] w-full pb-12';
+  return 'max-w-[60rem] w-full pb-12';
+});
 const innerPaddingClass = computed(() => (isFullBleed.value ? 'px-0' : ''));
 </script>
 

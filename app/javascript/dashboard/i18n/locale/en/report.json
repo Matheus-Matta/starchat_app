@@ -697,6 +697,8 @@
     "CONVERSATIONS": "Conversations",
     "NO_FIRST_REPLY": "No Reply",
     "WAITING": "Waiting",
+    "CSAT": "CSAT",
+    "SLA_HIT_RATE": "SLA",
     "TOOLTIPS": {
       "CONVERSATIONS": "Total conversations matching the current filters",
       "AVG_FIRST_RESPONSE_TIME": "Average time to the first reply",
@@ -704,7 +706,9 @@
       "AVG_REPLY_TIME": "Average time between replies",
       "RESOLUTION_COUNT": "Conversations resolved in the selected period",
       "NO_FIRST_REPLY": "Open, assigned conversations with no reply yet",
-      "WAITING": "Open, assigned conversations currently waiting on a response"
+      "WAITING": "Open, assigned conversations currently waiting on a response",
+      "CSAT": "Percentage of positive (4-5 star) CSAT responses in the selected period",
+      "SLA_HIT_RATE": "Percentage of applied SLAs that were met in the selected period"
     }
   },
   "MONITORING_REPORTS": {
@@ -745,7 +749,9 @@
       "AVG_REPLY": "Reply Time",
       "RESOLUTIONS": "Resolutions",
       "NO_FIRST_REPLY": "No Reply",
-      "WAITING": "Waiting"
+      "WAITING": "Waiting",
+      "CSAT": "CSAT",
+      "SLA_HIT_RATE": "SLA"
     },
     "STATUS_FILTER": {
       "ALL": "All statuses",
