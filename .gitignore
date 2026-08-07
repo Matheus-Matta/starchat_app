@@ -27,6 +27,8 @@ node_modules
 master.key
 *.rdb
 
+backlogs.txt
+
 # Ignore env files
 .env
 .env.teste

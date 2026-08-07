@@ -73,9 +73,12 @@ export default {
       );
     },
     showAudioTranscriptionConfig() {
-      return this.isFeatureEnabledonAccount(
-        this.accountId,
-        FEATURE_FLAGS.COSMOS
+      return (
+        this.isFeatureEnabledonAccount(
+          this.accountId,
+          FEATURE_FLAGS.AUDIO_TRANSCRIPTION
+        ) ||
+        this.isFeatureEnabledonAccount(this.accountId, FEATURE_FLAGS.COSMOS)
       );
     },
     languagesSortedByCode() {

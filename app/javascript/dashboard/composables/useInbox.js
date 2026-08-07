@@ -123,6 +123,13 @@ export const useInbox = (inboxId = null) => {
     );
   });
 
+  const isYcloudWhatsAppChannel = computed(() => {
+    return (
+      channelType.value === INBOX_TYPES.WHATSAPP &&
+      whatsAppAPIProvider.value === 'ycloud'
+    );
+  });
+
   const isAWhatsAppChannel = computed(() => {
     return (
       channelType.value === INBOX_TYPES.WHATSAPP ||
@@ -162,6 +169,7 @@ export const useInbox = (inboxId = null) => {
     isATwilioWhatsAppChannel,
     isAWhatsAppCloudChannel,
     is360DialogWhatsAppChannel,
+    isYcloudWhatsAppChannel,
     isAnEmailChannel,
     isAnInstagramChannel,
     isATiktokChannel,

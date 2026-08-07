@@ -1,9 +1,11 @@
 <script>
+import { mapGetters } from 'vuex';
 import { useAlert } from 'dashboard/composables';
 import inboxMixin from 'shared/mixins/inboxMixin';
 import SettingsFieldSection from 'dashboard/components-next/Settings/SettingsFieldSection.vue';
 import SettingsToggleSection from 'dashboard/components-next/Settings/SettingsToggleSection.vue';
 import SettingsAccordion from 'dashboard/components-next/Settings/SettingsAccordion.vue';
+import SettingsSection from 'dashboard/components/SettingsSection.vue';
 import ImapSettings from '../ImapSettings.vue';
 import SmtpSettings from '../SmtpSettings.vue';
 import { useVuelidate } from '@vuelidate/core';
@@ -12,12 +14,14 @@ import NextButton from 'dashboard/components-next/button/Button.vue';
 import TextArea from 'next/textarea/TextArea.vue';
 import WhatsappReauthorize from '../channels/whatsapp/Reauthorize.vue';
 import { sanitizeAllowedDomains } from 'dashboard/helper/URLHelper';
+import { FEATURE_FLAGS } from 'dashboard/featureFlags';
 
 export default {
   components: {
     SettingsFieldSection,
     SettingsToggleSection,
     SettingsAccordion,
+    SettingsSection,
     ImapSettings,
     SmtpSettings,
     NextButton,
@@ -50,6 +54,16 @@ export default {
     whatsAppInboxAPIKey: { required },
   },
   computed: {
+    ...mapGetters({
+      accountId: 'getCurrentAccountId',
+      isFeatureEnabledonAccount: 'accounts/isFeatureEnabledonAccount',
+    }),
+    isYcloudEnabled() {
+      return this.isFeatureEnabledonAccount(
+        this.accountId,
+        FEATURE_FLAGS.CHANNEL_YCLOUD
+      );
+    },
     isEmbeddedSignupWhatsApp() {
       return this.inbox.provider_config?.source === 'embedded_signup';
     },
@@ -373,7 +387,13 @@ export default {
     <ImapSettings :inbox="inbox" />
     <SmtpSettings v-if="inbox.imap_enabled" :inbox="inbox" />
   </div>
-  <div v-else-if="isAWhatsAppChannel && !isATwilioChannel">
+  <div
+    v-else-if="
+      isAWhatsAppChannel &&
+      !isATwilioChannel &&
+      (!isYcloudWhatsAppChannel || isYcloudEnabled)
+    "
+  >
     <div v-if="inbox.provider_config">
       <!-- Embedded Signup Section -->
       <template v-if="isEmbeddedSignupWhatsApp">
@@ -395,12 +415,29 @@ export default {
       <!-- Manual Setup Section -->
       <template v-else>
         <SettingsFieldSection
-          :label="$t('INBOX_MGMT.SETTINGS_POPUP.WHATSAPP_WEBHOOK_TITLE')"
+          v-if="isYcloudWhatsAppChannel"
+          :label="$t('INBOX_MGMT.ADD.WHATSAPP.YCLOUD.WEBHOOK_URL')"
+          :help-text="$t('INBOX_MGMT.ADD.WHATSAPP.YCLOUD.WEBHOOK_INSTRUCTION')"
+        >
+          <woot-code :script="inbox.callback_webhook_url" />
+        </SettingsFieldSection>
+        <SettingsFieldSection
+          :label="
+            isYcloudWhatsAppChannel
+              ? $t('INBOX_MGMT.ADD.WHATSAPP.YCLOUD.WEBHOOK_SECRET')
+              : $t('INBOX_MGMT.SETTINGS_POPUP.WHATSAPP_WEBHOOK_TITLE')
+          "
           :help-text="
             $t('INBOX_MGMT.SETTINGS_POPUP.WHATSAPP_WEBHOOK_SUBHEADER')
           "
         >
-          <woot-code :script="inbox.provider_config.webhook_verify_token" />
+          <woot-code
+            :script="
+              isYcloudWhatsAppChannel
+                ? inbox.provider_config.webhook_secret
+                : inbox.provider_config.webhook_verify_token
+            "
+          />
         </SettingsFieldSection>
         <SettingsFieldSection
           :label="$t('INBOX_MGMT.SETTINGS_POPUP.WHATSAPP_SECTION_TITLE')"

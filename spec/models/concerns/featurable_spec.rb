@@ -54,4 +54,22 @@ RSpec.describe Featurable do
       end
     end
   end
+
+  describe 'YCloud channel feature' do
+    it 'is disabled by default' do
+      expect(account.feature_enabled?('channel_ycloud')).to be(false)
+      expect(account.all_features).to include('channel_ycloud' => false)
+    end
+
+    it 'can be enabled and disabled as an overflow feature' do
+      account.enable_features!(:channel_ycloud)
+
+      expect(account.reload.feature_enabled?('channel_ycloud')).to be(true)
+      expect(account.internal_attributes['overflow_feature_flags']).to include('channel_ycloud')
+
+      account.disable_features!(:channel_ycloud)
+
+      expect(account.reload.feature_enabled?('channel_ycloud')).to be(false)
+    end
+  end
 end

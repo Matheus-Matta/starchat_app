@@ -97,6 +97,12 @@ export default {
         this.whatsAppAPIProvider === 'default'
       );
     },
+    isYcloudWhatsAppChannel() {
+      return (
+        this.channelType === INBOX_TYPES.WHATSAPP &&
+        this.whatsAppAPIProvider === 'ycloud'
+      );
+    },
     chatAdditionalAttributes() {
       const { additional_attributes: additionalAttributes } = this.chat || {};
       return additionalAttributes || {};

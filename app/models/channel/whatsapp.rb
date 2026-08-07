@@ -25,11 +25,12 @@ class Channel::Whatsapp < ApplicationRecord
   EDITABLE_ATTRS = [:phone_number, :provider, { provider_config: {} }].freeze
 
   # default at the moment is 360dialog lets change later.
-  PROVIDERS = %w[default whatsapp_cloud].freeze
+  PROVIDERS = %w[default whatsapp_cloud ycloud].freeze
   before_validation :ensure_webhook_verify_token
 
   validates :provider, inclusion: { in: PROVIDERS }
   validates :phone_number, presence: true, uniqueness: true
+  validate :validate_ycloud_feature
   validate :validate_provider_config
 
   before_destroy :teardown_webhooks
@@ -61,9 +62,17 @@ class Channel::Whatsapp < ApplicationRecord
   def provider_service
     if provider == 'whatsapp_cloud'
       Whatsapp::Providers::WhatsappCloudService.new(whatsapp_channel: self)
+    elsif provider == 'ycloud'
+      raise CustomExceptions::YcloudFeatureDisabled, 'YCloud is not enabled for this account' unless ycloud_feature_enabled?
+
+      Whatsapp::Providers::YcloudService.new(whatsapp_channel: self)
     else
       Whatsapp::Providers::Whatsapp360DialogService.new(whatsapp_channel: self)
     end
+  end
+
+  def ycloud_feature_enabled?
+    account&.feature_enabled?('channel_ycloud') || false
   end
 
   # Enables voice: turns calling on at Meta (idempotent), subscribes the `calls`
@@ -120,7 +129,15 @@ class Channel::Whatsapp < ApplicationRecord
   end
 
   def validate_provider_config
+    return if provider == 'ycloud' && !ycloud_feature_enabled?
+
     errors.add(:provider_config, 'Invalid Credentials') unless provider_service.validate_provider_config?
+  end
+
+  def validate_ycloud_feature
+    return unless provider == 'ycloud' && !ycloud_feature_enabled?
+
+    errors.add(:provider, 'YCloud is not enabled for this account')
   end
 
   def perform_webhook_setup

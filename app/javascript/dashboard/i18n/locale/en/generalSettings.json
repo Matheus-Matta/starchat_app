@@ -99,6 +99,11 @@
       "AUDIO_TRANSCRIPTION": {
         "TITLE": "Transcribe Audio Messages",
         "NOTE": "Automatically transcribe audio messages in conversations. Generate a text transcript whenever an audio message is sent or received, and display it alongside the message.",
+        "PROVIDER": {
+          "LABEL": "Transcription engine",
+          "OPENAI": "OpenAI (cloud, uses AI credits)",
+          "WHISPER": "Whisper (local, free)"
+        },
         "API": {
           "SUCCESS": "Audio transcription setting updated successfully",
           "ERROR": "Failed to update audio transcription setting"

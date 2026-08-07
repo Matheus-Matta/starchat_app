@@ -46,6 +46,36 @@ RSpec.describe Channel::Whatsapp do
     end
   end
 
+  describe 'YCloud account feature' do
+    let(:account) { create(:account) }
+    let(:channel) do
+      build(
+        :channel_whatsapp,
+        account: account,
+        provider: 'ycloud',
+        provider_config: {
+          'api_key' => 'ycloud-key',
+          'waba_id' => 'waba-123',
+          'webhook_secret' => 'webhook-secret'
+        }
+      )
+    end
+
+    it 'rejects the provider while the feature is disabled' do
+      expect(channel).not_to be_valid
+      expect(channel.errors[:provider]).to include('YCloud is not enabled for this account')
+      expect { channel.provider_service }.to raise_error(CustomExceptions::YcloudFeatureDisabled)
+    end
+
+    it 'allows the provider when the feature is enabled' do
+      account.enable_features!(:channel_ycloud)
+      allow(channel).to receive(:validate_provider_config)
+
+      expect(channel).to be_valid
+      expect(channel.provider_service).to be_a(Whatsapp::Providers::YcloudService)
+    end
+  end
+
   describe 'webhook_verify_token' do
     before do
       # Stub webhook setup to prevent HTTP calls during channel creation
@@ -115,6 +145,7 @@ RSpec.describe Channel::Whatsapp do
 
     context 'when channel is created through manual setup' do
       it 'setups webhooks via after_commit callback' do
+        allow(Rails.env).to receive(:test?).and_return(false)
         expect(Whatsapp::WebhookSetupService).to receive(:new).and_return(webhook_service)
         expect(webhook_service).to receive(:perform)
 

@@ -159,12 +159,21 @@ export default {
     shouldShowWhatsAppConfiguration() {
       return this.isAWhatsAppCloudChannel;
     },
+    isYcloudEnabled() {
+      return this.isFeatureEnabledonAccount(
+        this.accountId,
+        FEATURE_FLAGS.CHANNEL_YCLOUD
+      );
+    },
     whatsAppAPIProviderName() {
       if (this.isAWhatsAppCloudChannel) {
         return this.$t('INBOX_MGMT.ADD.WHATSAPP.PROVIDERS.WHATSAPP_CLOUD');
       }
       if (this.is360DialogWhatsAppChannel) {
         return this.$t('INBOX_MGMT.ADD.WHATSAPP.PROVIDERS.360_DIALOG');
+      }
+      if (this.isYcloudWhatsAppChannel && this.isYcloudEnabled) {
+        return this.$t('INBOX_MGMT.ADD.WHATSAPP.PROVIDERS.YCLOUD');
       }
       if (this.isATwilioWhatsAppChannel) {
         return this.$t('INBOX_MGMT.ADD.WHATSAPP.PROVIDERS.TWILIO');
@@ -874,7 +883,10 @@ export default {
             </SettingsFieldSection>
 
             <SettingsFieldSection
-              v-if="isAWhatsAppChannel"
+              v-if="
+                isAWhatsAppChannel &&
+                (!isYcloudWhatsAppChannel || isYcloudEnabled)
+              "
               :label="$t('INBOX_MGMT.ADD.WHATSAPP.PROVIDERS.LABEL')"
             >
               <input
@@ -1376,10 +1388,14 @@ export default {
         </div>
         <div v-if="selectedTabKey === 'whatsapp-health'">
           <WhatsappReauthorize
-            v-if="isEmbeddedSignupWhatsApp && !whatsappUnauthorized && !whatsappRegistrationIncomplete"
+            v-if="
+              isEmbeddedSignupWhatsApp &&
+              !whatsappUnauthorized &&
+              !whatsappRegistrationIncomplete
+            "
             :inbox="inbox"
             :whatsapp-registration-incomplete="false"
-            :show-as-reconnect-button="true"
+            show-as-reconnect-button
             class="mb-4"
           />
           <AccountHealth

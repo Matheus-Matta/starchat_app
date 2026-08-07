@@ -356,4 +356,45 @@ RSpec.describe 'Conversation Messages API', type: :request do
       end
     end
   end
+
+  describe 'POST /api/v1/accounts/{account.id}/conversations/<id>/messages/<id>/transcribe_audio' do
+    let!(:inbox) { create(:inbox, account: account) }
+    let!(:conversation) { create(:conversation, inbox: inbox, account: account) }
+    let(:agent) { create(:user, account: account, role: :agent) }
+
+    before do
+      create(:inbox_member, inbox: conversation.inbox, user: agent)
+    end
+
+    context 'when the message has an audio attachment' do
+      let(:message) { create(:message, account: account, conversation: conversation) }
+      let!(:attachment) { message.attachments.create!(account: account, file_type: :audio) }
+
+      it 'enqueues the transcription job' do
+        expect(Messages::AudioTranscriptionJob).to receive(:perform_later).with(attachment.id)
+
+        post transcribe_audio_api_v1_account_conversation_message_url(
+          account_id: account.id,
+          conversation_id: conversation.display_id,
+          id: message.id
+        ), headers: agent.create_new_auth_token, as: :json
+
+        expect(response).to have_http_status(:success)
+      end
+    end
+
+    context 'when the message has no audio attachment' do
+      let(:message) { create(:message, account: account, conversation: conversation) }
+
+      it 'returns unprocessable_entity' do
+        post transcribe_audio_api_v1_account_conversation_message_url(
+          account_id: account.id,
+          conversation_id: conversation.display_id,
+          id: message.id
+        ), headers: agent.create_new_auth_token, as: :json
+
+        expect(response).to have_http_status(:unprocessable_entity)
+      end
+    end
+  end
 end

@@ -62,10 +62,10 @@ describe Whatsapp::OneoffCampaignService do
         expect { described_class.new(campaign: campaign).perform }.to raise_error "Invalid campaign #{campaign.id}"
       end
 
-      it 'raises error when channel provider is not whatsapp_cloud' do
+      it 'raises error when the WhatsApp provider does not support campaigns' do
         whatsapp_channel.update!(provider: 'default')
 
-        expect { described_class.new(campaign: campaign).perform }.to raise_error 'WhatsApp Cloud provider required'
+        expect { described_class.new(campaign: campaign).perform }.to raise_error 'Unsupported WhatsApp provider'
       end
 
       it 'raises error when WhatsApp campaigns feature is not enabled' do
@@ -227,7 +227,6 @@ describe Whatsapp::OneoffCampaignService do
       end
     end
 
-
     context 'when send_template raises an error' do
       it 'logs error and continues processing remaining contacts' do
         contact_error, contact_success = create_list(:contact, 2, :with_phone_number, account: account)
@@ -293,7 +292,7 @@ describe Whatsapp::OneoffCampaignService do
 
         it 'does not create a new conversation' do
           expect { described_class.new(campaign: campaign).perform }
-            .not_to change { contact.conversations.count }
+            .not_to change(contact.conversations, :count)
         end
 
         it 'registers the message in the existing conversation' do
@@ -317,7 +316,7 @@ describe Whatsapp::OneoffCampaignService do
 
         it 'reuses the existing resolved conversation instead of creating a new one' do
           expect { described_class.new(campaign: campaign).perform }
-            .not_to change { contact.conversations.count }
+            .not_to change(contact.conversations, :count)
         end
 
         it 'registers the message in the resolved conversation' do
@@ -327,8 +326,6 @@ describe Whatsapp::OneoffCampaignService do
       end
 
       context 'when lock_to_single_conversation is disabled and contact only has a resolved conversation' do
-        before { whatsapp_inbox.update!(lock_to_single_conversation: false) }
-
         let!(:contact_inbox) do
           contact.contact_inboxes.find_or_create_by!(inbox: whatsapp_inbox) do |ci|
             ci.source_id = contact.phone_number.to_s.delete('+')
@@ -336,6 +333,7 @@ describe Whatsapp::OneoffCampaignService do
         end
 
         before do
+          whatsapp_inbox.update!(lock_to_single_conversation: false)
           create(:conversation, contact: contact, inbox: whatsapp_inbox,
                                 contact_inbox: contact_inbox, status: :resolved, account: account)
         end
@@ -367,6 +365,87 @@ describe Whatsapp::OneoffCampaignService do
           described_class.new(campaign: campaign).perform
           campaign_contact = campaign.campaign_contacts.find_by(contact: contact)
           expect(campaign_contact.status).to eq('sent')
+        end
+      end
+    end
+
+    context 'with the YCloud provider' do
+      before do
+        account.enable_features!(:channel_ycloud)
+        whatsapp_channel.update_columns(
+          provider: 'ycloud',
+          provider_config: {
+            'api_key' => 'ycloud-key',
+            'waba_id' => 'waba-123',
+            'webhook_secret' => 'webhook-secret'
+          }
+        )
+      end
+
+      it 'registers a template message before sending and keeps the campaign contact pending for the webhook' do
+        contact = create(:contact, :with_phone_number, account: account)
+        contact.update_labels([label1.title])
+        stub_request(:post, 'https://api.ycloud.com/v2/whatsapp/messages')
+          .to_return(
+            status: 200,
+            body: { id: 'yc-campaign-template', status: 'accepted' }.to_json,
+            headers: { 'Content-Type' => 'application/json' }
+          )
+
+        described_class.new(campaign: campaign).perform
+
+        campaign_contact = campaign.campaign_contacts.find_by!(contact: contact)
+        message = contact.conversations.last.messages.template.last
+        expect(campaign_contact).to be_pending
+        expect(message.source_id).to eq('yc-campaign-template')
+        expect(message.additional_attributes['campaign_contact_id']).to eq(campaign_contact.id)
+        expect(
+          a_request(:post, 'https://api.ycloud.com/v2/whatsapp/messages')
+            .with(body: hash_including(externalId: message.id.to_s))
+        ).to have_been_made.once
+      end
+
+      context 'when sending plain text' do
+        let(:template_params) { nil }
+
+        it 'creates a correlated outgoing message and waits for a status webhook' do
+          contact = create(:contact, :with_phone_number, account: account)
+          contact.update_labels([label1.title])
+          stub_request(:post, 'https://api.ycloud.com/v2/whatsapp/messages')
+            .to_return(
+              status: 200,
+              body: { id: 'yc-campaign-text', status: 'accepted' }.to_json,
+              headers: { 'Content-Type' => 'application/json' }
+            )
+
+          described_class.new(campaign: campaign).perform
+
+          campaign_contact = campaign.campaign_contacts.find_by!(contact: contact)
+          message = contact.conversations.last.messages.outgoing.last
+          expect(campaign_contact).to be_pending
+          expect(message.source_id).to eq('yc-campaign-text')
+          expect(message.additional_attributes['campaign_contact_id']).to eq(campaign_contact.id)
+          expect(
+            a_request(:post, 'https://api.ycloud.com/v2/whatsapp/messages')
+              .with(body: hash_including(externalId: message.id.to_s, type: 'text'))
+          ).to have_been_made.once
+        end
+
+        it 'marks the campaign contact failed when YCloud rejects the message' do
+          contact = create(:contact, :with_phone_number, account: account)
+          contact.update_labels([label1.title])
+          stub_request(:post, 'https://api.ycloud.com/v2/whatsapp/messages')
+            .to_return(
+              status: 400,
+              body: { error: { message: 'Invalid recipient' } }.to_json,
+              headers: { 'Content-Type' => 'application/json' }
+            )
+
+          described_class.new(campaign: campaign).perform
+
+          campaign_contact = campaign.campaign_contacts.find_by!(contact: contact)
+          expect(campaign_contact).to be_failed
+          expect(campaign_contact.error_message).to eq('Invalid recipient')
         end
       end
     end

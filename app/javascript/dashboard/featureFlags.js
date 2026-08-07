@@ -37,6 +37,7 @@ export const FEATURE_FLAGS = {
   CHANNEL_INSTAGRAM: 'channel_instagram',
   CHANNEL_TIKTOK: 'channel_tiktok',
   CHANNEL_VOICE: 'channel_voice',
+  CHANNEL_YCLOUD: 'channel_ycloud',
   CONTACT_CHATWOOT_SUPPORT_TEAM: 'contact_chatwoot_support_team',
   COSMOS_CUSTOM_TOOLS: 'custom_tools',
   COSMOS_V2: 'cosmos_integration_v2',
@@ -47,6 +48,7 @@ export const FEATURE_FLAGS = {
   ADVANCED_SEARCH: 'advanced_search',
   CONVERSATION_REQUIRED_ATTRIBUTES: 'conversation_required_attributes',
   CONVERSATION_UNREAD_COUNTS: 'conversation_unread_counts',
+  AUDIO_TRANSCRIPTION: 'audio_transcription',
 };
 
 export const PREMIUM_FEATURES = [

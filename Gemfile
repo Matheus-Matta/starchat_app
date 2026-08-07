@@ -88,7 +88,10 @@ gem 'barnes'
 
 ##--- gems for authentication & authorization ---##
 gem 'devise', '>= 4.9.4'
-gem 'devise-secure_password', git: 'https://github.com/chatwoot/devise-secure_password', branch: 'chatwoot'
+gem 'devise-secure_password',
+    git: 'https://github.com/chatwoot/devise-secure_password',
+    branch: 'chatwoot',
+    require: 'devise/secure_password'
 gem 'devise_token_auth', '>= 1.2.3'
 gem 'rails-i18n', '~> 7.0'
 # two-factor authentication
@@ -204,6 +207,12 @@ gem 'ruby_llm', '>= 1.14.1'
 gem 'ruby_llm-schema'
 
 gem 'cld3', '~> 3.7'
+
+# whispercpp (local audio transcription) removed for now — audio_transcription is
+# disabled (config/features.yml) while accuracy is tuned further, and this gem needs
+# cmake + a slow native (whisper.cpp) compile at bundle-install time for no benefit
+# while it's off. Re-add `gem 'whispercpp', '~> 1.3', require: false` when re-enabling —
+# see starchat/app/services/messages/audio_transcription_whisper_service.rb.
 
 # OpenTelemetry for LLM observability
 gem 'opentelemetry-sdk'

@@ -14,6 +14,10 @@ module Starchat::Concerns::Attachment
 
   def enqueue_audio_transcription
     return unless file_type.to_sym == :audio
+    # Outgoing audio (agent recordings) is only transcribed on demand, via the
+    # "Transcribe audio" option in the message context menu — see
+    # Api::V1::Accounts::Conversations::MessagesController#transcribe_audio.
+    return unless message&.incoming?
 
     # No file.attached? guard: the social-media ingest path saves the
     # Attachment before attaching the blob. AudioTranscriptionJob retries

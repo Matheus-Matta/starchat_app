@@ -112,6 +112,11 @@
       "AUDIO_TRANSCRIPTION": {
         "TITLE": "Transcrever Mensagens de Áudio",
         "NOTE": "Transcreve automaticamente mensagens de áudio nas conversas. Gera uma transcrição de texto sempre que uma mensagem de áudio é enviada ou recebida, e a exibe junto da mensagem.",
+        "PROVIDER": {
+          "LABEL": "Motor de transcrição",
+          "OPENAI": "OpenAI (nuvem, consome créditos de IA)",
+          "WHISPER": "Whisper (local, gratuito)"
+        },
         "API": {
           "SUCCESS": "Configuração de transcrição de áudio atualizada com sucesso",
           "ERROR": "Falha ao atualizar configuração de transcrição de áudio"

@@ -54,6 +54,17 @@ class Api::V1::Accounts::Conversations::MessagesController < Api::V1::Accounts::
     render json: { content: translated_content }
   end
 
+  # Manual fallback: automatic transcription only runs for incoming audio (see
+  # Starchat::Concerns::Attachment#enqueue_audio_transcription). Outgoing audio, and
+  # any incoming audio where the automatic run failed, can be (re)triggered from here.
+  def transcribe_audio
+    attachment = message.attachments.audio.first
+    return render json: { error: 'No audio attachment found on this message' }, status: :unprocessable_entity if attachment.blank?
+
+    Messages::AudioTranscriptionJob.perform_later(attachment.id)
+    head :ok
+  end
+
   private
 
   def message

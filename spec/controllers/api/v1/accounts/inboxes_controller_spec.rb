@@ -434,6 +434,70 @@ RSpec.describe 'Inboxes API', type: :request do
         expect(response.body).to include('+123456789')
       end
 
+      it 'creates a YCloud WhatsApp inbox and synchronizes its templates' do
+        account.enable_features!(:channel_ycloud)
+        phone_number = '+15551234567'
+        stub_request(
+          :get,
+          "https://api.ycloud.com/v2/whatsapp/phoneNumbers/waba-123/#{CGI.escape(phone_number)}"
+        ).to_return(status: 200)
+        stub_request(:get, 'https://api.ycloud.com/v2/whatsapp/templates')
+          .with(query: hash_including('filter.wabaId' => 'waba-123'))
+          .to_return(
+            status: 200,
+            body: { items: [] }.to_json,
+            headers: { 'Content-Type' => 'application/json' }
+          )
+
+        expect do
+          post "/api/v1/accounts/#{account.id}/inboxes",
+               headers: admin.create_new_auth_token,
+               params: {
+                 name: 'YCloud Inbox',
+                 channel: {
+                   type: 'whatsapp',
+                   provider: 'ycloud',
+                   phone_number: phone_number,
+                   provider_config: {
+                     api_key: 'ycloud-key',
+                     waba_id: 'waba-123',
+                     webhook_secret: 'webhook-secret'
+                   }
+                 }
+               },
+               as: :json
+        end.to change { Channel::Whatsapp.where(provider: 'ycloud').count }.by(1)
+
+        expect(response).to have_http_status(:success)
+        channel = Channel::Whatsapp.find_by!(phone_number: phone_number)
+        expect(channel.message_templates).to eq([])
+        expect(response.parsed_body['callback_webhook_url']).to end_with('/webhooks/ycloud')
+      end
+
+      it 'rejects a YCloud WhatsApp inbox when the account feature is disabled' do
+        expect do
+          post "/api/v1/accounts/#{account.id}/inboxes",
+               headers: admin.create_new_auth_token,
+               params: {
+                 name: 'Disabled YCloud Inbox',
+                 channel: {
+                   type: 'whatsapp',
+                   provider: 'ycloud',
+                   phone_number: '+15559876543',
+                   provider_config: {
+                     api_key: 'ycloud-key',
+                     waba_id: 'waba-123',
+                     webhook_secret: 'webhook-secret'
+                   }
+                 }
+               },
+               as: :json
+        end.not_to change(Channel::Whatsapp.where(provider: 'ycloud'), :count)
+
+        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response.parsed_body['message']).to include('YCloud is not enabled')
+      end
+
       it 'creates the webwidget inbox that allow messages after conversation is resolved' do
         post "/api/v1/accounts/#{account.id}/inboxes",
              headers: admin.create_new_auth_token,

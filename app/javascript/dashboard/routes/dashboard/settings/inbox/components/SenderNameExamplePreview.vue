@@ -1,6 +1,9 @@
 <script setup>
+import { computed, toRefs } from 'vue';
+import { useI18n } from 'vue-i18n';
 import PreviewCard from 'dashboard/components/ui/PreviewCard.vue';
 import Thumbnail from 'dashboard/components/widgets/Thumbnail.vue';
+import RadioCard from 'dashboard/components-next/radioCard/RadioCard.vue';
 
 const props = defineProps({
   senderNameType: {

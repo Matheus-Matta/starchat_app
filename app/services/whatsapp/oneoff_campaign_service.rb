@@ -26,7 +26,8 @@ class Whatsapp::OneoffCampaignService
   end
 
   def validate_provider!
-    raise 'WhatsApp Cloud provider required' if channel.provider != 'whatsapp_cloud'
+    raise 'Unsupported WhatsApp provider' unless %w[whatsapp_cloud ycloud].include?(channel.provider)
+    raise 'YCloud feature not enabled' if channel.provider == 'ycloud' && !campaign.account.feature_enabled?('channel_ycloud')
   end
 
   def validate_feature_flag!
@@ -79,7 +80,7 @@ class Whatsapp::OneoffCampaignService
 
     contacts.each do |contact|
       campaign_contact = campaign.campaign_contacts.find_or_create_by!(contact: contact)
-      campaign_contact.update!(status: :pending)
+      campaign_contact.update!(status: :pending, sent_at: nil, error_message: nil)
       process_contact(contact, campaign_contact)
     end
 
@@ -99,6 +100,8 @@ class Whatsapp::OneoffCampaignService
   end
 
   def send_plain_text_message(to:, text:, campaign_contact:)
+    return send_ycloud_plain_text_message(to: to, text: text, campaign_contact: campaign_contact) if ycloud?
+
     success = channel.provider_service.send_plain_text(to, text)
     if success
       campaign_contact.update!(status: :sent, sent_at: Time.current)
@@ -116,10 +119,13 @@ class Whatsapp::OneoffCampaignService
 
     return if name.blank?
 
-    source_id = channel.send_template(to, { name: name, namespace: namespace, lang_code: lang_code, parameters: processed_parameters }, nil)
+    template_info = { name: name, namespace: namespace, lang_code: lang_code, parameters: processed_parameters }
+    return send_ycloud_template_message(to, template_info, template_params, campaign_contact) if ycloud?
+
+    source_id = channel.send_template(to, template_info, nil)
     campaign_contact.update!(status: :sent, sent_at: Time.current)
 
-    register_campaign_message(campaign_contact.contact, source_id, template_params)
+    register_campaign_message(campaign_contact.contact, source_id, template_params, campaign_contact: campaign_contact)
   rescue StandardError => e
     Rails.logger.error "Failed to send WhatsApp template message to #{to}: #{e.message}"
     Rails.logger.error "Backtrace: #{e.backtrace.first(5).join('\n')}"
@@ -150,23 +156,72 @@ class Whatsapp::OneoffCampaignService
     )
   end
 
-  def register_campaign_message(contact, source_id, template_params)
+  def register_campaign_message(contact, source_id, template_params, campaign_contact:, message_type: 'template', content: campaign.message)
     conversation = find_or_open_conversation(contact)
     return unless conversation
 
-    Messages::MessageBuilder.new(
+    message = Messages::MessageBuilder.new(
       campaign.sender,
       conversation,
       {
-        message_type: 'template',
-        content: campaign.message,
+        message_type: message_type,
+        content: content,
         template_params: template_params,
         source_id: source_id,
         campaign_id: campaign.display_id,
         skip_external_send: true
       }
     ).perform
+    message.update!(
+      additional_attributes: message.additional_attributes.to_h.merge('campaign_contact_id' => campaign_contact.id)
+    )
+    message
   rescue StandardError => e
     Rails.logger.error "Failed to register campaign message for contact #{contact.name}: #{e.message}"
+  end
+
+  def send_ycloud_plain_text_message(to:, text:, campaign_contact:)
+    message = register_campaign_message(
+      campaign_contact.contact,
+      nil,
+      nil,
+      campaign_contact: campaign_contact,
+      message_type: 'outgoing',
+      content: text
+    )
+    raise 'Could not register YCloud campaign message' if message.blank?
+
+    source_id = channel.send_message(to, message)
+    finalize_ycloud_campaign_send(message, source_id, campaign_contact)
+  rescue StandardError => e
+    Rails.logger.error "Failed to send plain text WhatsApp message to #{to}: #{e.message}"
+    campaign_contact.update!(status: :failed, error_message: e.message)
+  end
+
+  def send_ycloud_template_message(to, template_info, template_params, campaign_contact)
+    message = register_campaign_message(
+      campaign_contact.contact,
+      nil,
+      template_params,
+      campaign_contact: campaign_contact
+    )
+    raise 'Could not register YCloud campaign message' if message.blank?
+
+    source_id = channel.send_template(to, template_info, message)
+    finalize_ycloud_campaign_send(message, source_id, campaign_contact)
+  end
+
+  def finalize_ycloud_campaign_send(message, source_id, campaign_contact)
+    if source_id.present?
+      message.update!(source_id: source_id)
+      return
+    end
+
+    error = message.reload.external_error.presence || 'YCloud API did not accept the message'
+    campaign_contact.update!(status: :failed, error_message: error)
+  end
+
+  def ycloud?
+    channel.provider == 'ycloud'
   end
 end

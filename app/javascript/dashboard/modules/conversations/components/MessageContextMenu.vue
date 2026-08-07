@@ -133,6 +133,18 @@ export default {
       this.$emit('replyTo', this.message);
       this.handleClose();
     },
+    async handleTranscribeAudio() {
+      this.handleClose();
+      try {
+        await this.$store.dispatch('transcribeAudioMessage', {
+          conversationId: this.conversationId,
+          messageId: this.messageId,
+        });
+        useAlert(this.$t('CONVERSATION.CONTEXT_MENU.TRANSCRIBE_AUDIO_STARTED'));
+      } catch (error) {
+        useAlert(this.$t('CONVERSATION.CONTEXT_MENU.TRANSCRIBE_AUDIO_ERROR'));
+      }
+    },
     openDeleteModal() {
       this.handleClose();
       this.showDeleteModal = true;
@@ -223,6 +235,15 @@ export default {
           }"
           variant="icon"
           @click.stop="handleTranslate"
+        />
+        <MenuItem
+          v-if="enabledOptions['transcribeAudio']"
+          :option="{
+            icon: 'microphone-outline',
+            label: $t('CONVERSATION.CONTEXT_MENU.TRANSCRIBE_AUDIO'),
+          }"
+          variant="icon"
+          @click.stop="handleTranscribeAudio"
         />
         <hr />
         <MenuItem

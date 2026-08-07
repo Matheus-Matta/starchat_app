@@ -212,3 +212,12 @@
 - name: advanced_assignment
   display_name: Advanced Assignment
   enabled: true
+- name: channel_ycloud
+  display_name: YCloud WhatsApp Channel
+  enabled: false
+# DISABLED for now: local whisper.cpp transcription quality wasn't reliable enough on
+# short/real audio yet — off by default (dev and prod) until further tuned. Flip back to
+# `enabled: true` to bring it back; nothing else needs to change.
+- name: audio_transcription
+  display_name: Audio Transcription
+  enabled: false

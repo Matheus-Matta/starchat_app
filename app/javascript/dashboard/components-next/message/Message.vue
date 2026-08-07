@@ -12,6 +12,7 @@ import { ACCOUNT_EVENTS } from 'dashboard/helper/AnalyticsHelper/events';
 import { LOCAL_STORAGE_KEYS } from 'dashboard/constants/localStorage';
 import { getInboxIconByType } from 'dashboard/helper/inbox';
 import { BUS_EVENTS } from 'shared/constants/busEvents';
+import { FEATURE_FLAGS } from 'dashboard/featureFlags';
 import {
   MESSAGE_TYPES,
   ATTACHMENT_TYPES,
@@ -148,6 +149,19 @@ const route = useRoute();
 const inboxGetter = useMapGetter('inboxes/getInbox');
 const inbox = computed(() => inboxGetter.value(props.inboxId) || {});
 const { replaceInstallationName } = useBranding();
+
+const isFeatureEnabledonAccount = useMapGetter(
+  'accounts/isFeatureEnabledonAccount'
+);
+const isAudioTranscriptionAvailable = computed(() => {
+  const accountId = Number(route.params.accountId);
+  return (
+    isFeatureEnabledonAccount.value(
+      accountId,
+      FEATURE_FLAGS.AUDIO_TRANSCRIPTION
+    ) || isFeatureEnabledonAccount.value(accountId, FEATURE_FLAGS.COSMOS)
+  );
+});
 
 /**
  * Computes the message variant based on props
@@ -368,6 +382,13 @@ const payloadForContextMenu = computed(() => {
   };
 });
 
+const hasAudioAttachment = computed(
+  () =>
+    !!props.attachments?.some(
+      attachment => attachment.fileType === ATTACHMENT_TYPES.AUDIO
+    )
+);
+
 const contextMenuEnabledOptions = computed(() => {
   const hasText = !!props.content;
   const hasAttachments = !!(props.attachments && props.attachments.length > 0);
@@ -386,6 +407,12 @@ const contextMenuEnabledOptions = computed(() => {
     cannedResponse: isOutgoing && hasText && !isMessageDeleted.value,
     copyLink: !isFailedOrProcessing,
     translate: !isFailedOrProcessing && !isMessageDeleted.value && hasText,
+    // Manual fallback: automatic transcription only runs for incoming audio, so
+    // outgoing audio (agent recordings) can only ever be transcribed from here.
+    transcribeAudio:
+      !isFailedOrProcessing &&
+      hasAudioAttachment.value &&
+      isAudioTranscriptionAvailable.value,
     replyTo:
       !props.private &&
       props.inboxSupportsReplyTo.outgoing &&

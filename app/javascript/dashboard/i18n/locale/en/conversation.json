@@ -208,7 +208,30 @@
       "CALL_ENDED": "Call ended",
       "AGENT_ANSWERED": "{agentName} answered",
       "THEY_ANSWERED": "They answered",
-      "JOIN_CALL": "Join call"
+      "JOIN_CALL": "Join call",
+      "CALLING": "Calling…",
+      "CALL_BACK": "Call back",
+      "HANDLED_BY": "Handled by {agentName}",
+      "MISSED_CALL_DECLINED_BY": "Declined by {agentName}",
+      "MISSED_CALL_INBOUND_SUBTEXT": "The call was not answered",
+      "NO_ANSWER_OUTBOUND_LABEL": "No answer",
+      "NO_ANSWER_OUTBOUND_SUBTEXT": "The contact did not answer",
+      "TRANSCRIPT_SHOW_MORE": "Show transcript",
+      "TRANSCRIPT_SHOW_LESS": "Hide transcript"
+    },
+    "VOICE_WIDGET": {
+      "INCOMING_CALL": "Incoming call",
+      "OUTGOING_CALL": "Outgoing call",
+      "CALL_IN_PROGRESS": "Call in progress",
+      "REJECT_CALL": "Reject call",
+      "JOIN_CALL": "Answer call",
+      "END_CALL": "End call",
+      "DISMISS_CALL": "Dismiss notification",
+      "GO_TO_CONVERSATION": "Go to conversation",
+      "MUTE": "Mute microphone",
+      "UNMUTE": "Unmute microphone",
+      "UNKNOWN_CALLER": "Unknown caller",
+      "CUSTOMER_SUPPORT": "Customer support"
     },
     "MESSAGE_ERROR": "Unable to send this message, please try again later",
     "UNSUPPORTED_MESSAGE": "This message is unsupported. You can view this message on the Facebook / Instagram app.",
@@ -248,7 +271,11 @@
       "SNOOZED_UNTIL_NEXT_WEEK": "Snoozed until next week",
       "OPEN": "More",
       "COPY_PROTOCOL": "Copy Protocol",
-      "SNOOZED_UNTIL": "Snoozed until"
+      "SNOOZED_UNTIL": "Snoozed until",
+      "WHATSAPP_CALL": "WhatsApp call",
+      "WHATSAPP_CALL_FAILED": "Could not start the WhatsApp call. Try again.",
+      "WHATSAPP_CALL_PERMISSION_PENDING": "A call permission request was already sent. Wait for the contact to accept it.",
+      "WHATSAPP_CALL_PERMISSION_REQUESTED": "Permission request sent. You can call after the contact accepts it."
     },
     "REPLIED_TO_STORY": "Replied to your story",
     "CONTEXT_MENU": {
@@ -264,7 +291,10 @@
       },
       "DELETE": "Delete",
       "COPY_PERMALINK": "Copy link to the message",
-      "TRANSLATE": "Translate"
+      "TRANSLATE": "Translate",
+      "TRANSCRIBE_AUDIO": "Transcribe audio",
+      "TRANSCRIBE_AUDIO_STARTED": "Transcribing audio…",
+      "TRANSCRIBE_AUDIO_ERROR": "Couldn't start audio transcription. Please try again."
     },
     "RESPONSE": "Response",
     "NO_INBOX_2": " to get started",

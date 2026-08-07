@@ -2,6 +2,8 @@
 import { computed } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useI18n, I18nT } from 'vue-i18n';
+import { useStore } from 'dashboard/composables/store';
+import { FEATURE_FLAGS } from 'dashboard/featureFlags';
 
 import Twilio from './Twilio.vue';
 import ThreeSixtyDialogWhatsapp from './360DialogWhatsapp.vue';
@@ -9,9 +11,11 @@ import CloudWhatsapp from './CloudWhatsapp.vue';
 import WhatsappEmbeddedSignup from './WhatsappEmbeddedSignup.vue';
 import ChannelSelector from 'dashboard/components/ChannelSelector.vue';
 import EvolutionChannel from './Evolution.vue';
+import YcloudWhatsapp from './YcloudWhatsapp.vue';
 
 const route = useRoute();
 const router = useRouter();
+const store = useStore();
 const { t } = useI18n();
 
 const PROVIDER_TYPES = {
@@ -22,6 +26,7 @@ const PROVIDER_TYPES = {
   WHATSAPP_EMBEDDED: 'whatsapp_embedded',
   WHATSAPP_MANUAL: 'whatsapp_manual',
   THREE_SIXTY_DIALOG: '360dialog',
+  YCLOUD: 'ycloud',
 };
 
 const hasWhatsappAppId = computed(() => {
@@ -33,32 +38,59 @@ const hasWhatsappAppId = computed(() => {
 
 const selectedProvider = computed(() => route.query.provider);
 
-const showProviderSelection = computed(() => !selectedProvider.value);
+const isYcloudEnabled = computed(() =>
+  store.getters['accounts/isFeatureEnabledonAccount'](
+    route.params.accountId,
+    FEATURE_FLAGS.CHANNEL_YCLOUD
+  )
+);
 
-const showConfiguration = computed(() => Boolean(selectedProvider.value));
+const isDisabledYcloudRoute = computed(
+  () =>
+    selectedProvider.value === PROVIDER_TYPES.YCLOUD && !isYcloudEnabled.value
+);
 
-const availableProviders = computed(() => [
-  {
-    key: PROVIDER_TYPES.WHATSAPP,
-    title: t('INBOX_MGMT.ADD.WHATSAPP.PROVIDERS.WHATSAPP_CLOUD'),
-    description: t('INBOX_MGMT.ADD.WHATSAPP.PROVIDERS.WHATSAPP_CLOUD_DESC'),
-    icon: 'i-woot-whatsapp',
-  },
-  {
-    key: PROVIDER_TYPES.TWILIO,
-    title: t('INBOX_MGMT.ADD.WHATSAPP.PROVIDERS.TWILIO'),
-    description: t('INBOX_MGMT.ADD.WHATSAPP.PROVIDERS.TWILIO_DESC'),
-    icon: 'i-woot-twilio',
-  },
-  {
-    key: PROVIDER_TYPES.EVOLUTION,
-    title: t('INBOX_MGMT.ADD.WHATSAPP.PROVIDERS.EVOLUTION'),
-    description: t('INBOX_MGMT.ADD.WHATSAPP.PROVIDERS.EVOLUTION_DESC'),
-    // se o ChannelSelector aceitar apenas ícones (tipo i-woot-*)
-    // você pode trocar por um ícone customizado depois
-    icon: 'i-woot-whatsapp',
-  },
-]);
+const showProviderSelection = computed(
+  () => !selectedProvider.value || isDisabledYcloudRoute.value
+);
+
+const showConfiguration = computed(
+  () => Boolean(selectedProvider.value) && !isDisabledYcloudRoute.value
+);
+
+const availableProviders = computed(() => {
+  const providers = [
+    {
+      key: PROVIDER_TYPES.WHATSAPP,
+      title: t('INBOX_MGMT.ADD.WHATSAPP.PROVIDERS.WHATSAPP_CLOUD'),
+      description: t('INBOX_MGMT.ADD.WHATSAPP.PROVIDERS.WHATSAPP_CLOUD_DESC'),
+      icon: 'i-woot-whatsapp',
+    },
+    {
+      key: PROVIDER_TYPES.TWILIO,
+      title: t('INBOX_MGMT.ADD.WHATSAPP.PROVIDERS.TWILIO'),
+      description: t('INBOX_MGMT.ADD.WHATSAPP.PROVIDERS.TWILIO_DESC'),
+      icon: 'i-woot-twilio',
+    },
+    {
+      key: PROVIDER_TYPES.EVOLUTION,
+      title: t('INBOX_MGMT.ADD.WHATSAPP.PROVIDERS.EVOLUTION'),
+      description: t('INBOX_MGMT.ADD.WHATSAPP.PROVIDERS.EVOLUTION_DESC'),
+      icon: 'i-woot-whatsapp',
+    },
+  ];
+
+  if (isYcloudEnabled.value) {
+    providers.push({
+      key: PROVIDER_TYPES.YCLOUD,
+      title: t('INBOX_MGMT.ADD.WHATSAPP.PROVIDERS.YCLOUD'),
+      description: t('INBOX_MGMT.ADD.WHATSAPP.PROVIDERS.YCLOUD_DESC'),
+      icon: 'i-woot-whatsapp',
+    });
+  }
+
+  return providers;
+});
 
 const selectProvider = providerValue => {
   router.push({
@@ -153,6 +185,11 @@ const handleManualLinkClick = () => {
         />
         <EvolutionChannel
           v-else-if="selectedProvider === PROVIDER_TYPES.EVOLUTION"
+        />
+        <YcloudWhatsapp
+          v-else-if="
+            isYcloudEnabled && selectedProvider === PROVIDER_TYPES.YCLOUD
+          "
         />
 
         <CloudWhatsapp v-else />

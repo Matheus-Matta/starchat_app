@@ -5,9 +5,10 @@ import { useI18n } from 'vue-i18n';
 import { ref, onMounted } from 'vue';
 import globalConfigMixin from 'shared/mixins/globalConfigMixin';
 import instagramClient from 'dashboard/api/channel/instagramClient';
-import Button from 'dashboard/components-next/button/Button.vue';
+import NextButton from 'dashboard/components-next/button/Button.vue';
 
 export default {
+  components: { NextButton },
   mixins: [globalConfigMixin],
   setup() {
     const { accountId } = useAccount();
@@ -86,7 +87,7 @@ export default {
         <p class="py-6 text-sm text-n-slate-11">
           {{ $t('INBOX_MGMT.ADD.INSTAGRAM.HELP') }}
         </p>
-        <Button
+        <NextButton
           class="text-white !rounded-full !px-6 bg-gradient-to-r from-[#833AB4] via-[#FD1D1D] to-[#FCAF45]"
           lg
           icon="i-ri-instagram-line"

@@ -51,6 +51,7 @@ class ActionCableConnector extends BaseActionCableConnector {
       'account.enrichment_completed': this.onEnrichmentCompleted,
       'copilot.message.created': this.onCopilotMessageCreated,
       'voice_call.incoming': this.onVoiceCallIncoming,
+      'voice_call.accepted': this.onVoiceCallAccepted,
       'voice_call.outbound_connected': this.onVoiceCallOutboundConnected,
       'voice_call.outbound_accepted': this.onVoiceCallOutboundAccepted,
       'voice_call.ended': this.onVoiceCallEnded,
@@ -299,6 +300,20 @@ class ActionCableConnector extends BaseActionCableConnector {
     });
   };
 
+  // Inbound accept is broadcast to the account after Meta confirms pickup.
+  // Keep the call only in the tab that owns its WebRTC session; all other
+  // tabs and agents should immediately close their ringing notification.
+  // eslint-disable-next-line class-methods-use-this
+  onVoiceCallAccepted = data => {
+    if (data?.provider !== VOICE_CALL_PROVIDERS.WHATSAPP) return;
+    const store = useCallsStore();
+    if (!store.calls.some(c => c.callSid === data.call_id)) return;
+
+    if (!isLocalWhatsappCall(data.id)) {
+      store.dismissCall(data.call_id);
+    }
+  };
+
   // `connect` is the WebRTC tunnel-ready signal (fires ~20s before pickup
   // for outbound). Apply the SDP answer so the handshake completes during
   // ringing, but stay non-active until `outbound_accepted` arrives.
@@ -323,6 +338,15 @@ class ActionCableConnector extends BaseActionCableConnector {
     if (data?.provider !== VOICE_CALL_PROVIDERS.WHATSAPP) return;
     const store = useCallsStore();
     if (!store.calls.some(c => c.callSid === data.call_id)) return;
+
+    // This event is account-wide. Only the browser tab that owns the WebRTC
+    // session should promote the call to active; every other tab/agent must
+    // stop showing the ringing dialog once the call has been answered.
+    if (!isLocalWhatsappCall(data.id)) {
+      store.dismissCall(data.call_id);
+      return;
+    }
+
     store.setCallActive(data.call_id);
     armOutboundRecorder();
   };

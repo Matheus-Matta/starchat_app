@@ -6,74 +6,28 @@ import WidgetHead from './WidgetHead.vue';
 import WidgetBody from './WidgetBody.vue';
 import WidgetFooter from './WidgetFooter.vue';
 import InputRadioGroup from 'dashboard/routes/dashboard/settings/inbox/components/InputRadioGroup.vue';
-import globalConfigMixin from 'shared/mixins/globalConfigMixin';
-import { mapGetters } from 'vuex';
+import TabBar from 'dashboard/components-next/tabbar/TabBar.vue';
+import Code from 'dashboard/components/Code.vue';
+import { useInstallationName } from 'shared/mixins/globalConfigMixin';
+import { useBranding } from 'shared/composables/useBranding';
+import { useMapGetter } from 'dashboard/composables/store';
 
 const props = defineProps({
   welcomeHeading: {
     type: String,
     default: '',
   },
-  mixins: [globalConfigMixin],
-  props: {
-    welcomeHeading: {
-      type: String,
-      default: '',
-    },
-    welcomeTagline: {
-      type: String,
-      default: '',
-    },
-    websiteName: {
-      type: String,
-      required: true,
-    },
-    logo: {
-      type: String,
-      default: '',
-    },
-    isOnline: {
-      type: Boolean,
-      default: true,
-    },
-    replyTime: {
-      type: String,
-      default: '',
-    },
-    color: {
-      type: String,
-      default: '',
-    },
-    widgetBubblePosition: {
-      type: String,
-      default: '',
-    },
-    widgetBubbleLauncherTitle: {
-      type: String,
-      default: '',
-    },
-    widgetBubbleType: {
-      type: String,
-      default: '',
-    },
+  welcomeTagline: {
+    type: String,
+    default: '',
   },
-  data() {
-    return {
-      widgetScreens: [
-        {
-          id: 'default',
-          title: this.$t('INBOX_MGMT.WIDGET_BUILDER.WIDGET_SCREEN.DEFAULT'),
-          checked: true,
-        },
-        {
-          id: 'chat',
-          title: this.$t('INBOX_MGMT.WIDGET_BUILDER.WIDGET_SCREEN.CHAT'),
-          checked: false,
-        },
-      ],
-      isDefaultScreen: true,
-      isWidgetVisible: true,
-    };
+  websiteName: {
+    type: String,
+    required: true,
+  },
+  logo: {
+    type: String,
+    default: '',
   },
   isOnline: {
     type: Boolean,

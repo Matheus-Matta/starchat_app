@@ -1,5 +1,6 @@
 <script setup>
 import { computed, onBeforeUnmount, ref, watch } from 'vue';
+import { useI18n } from 'vue-i18n';
 import { useRoute, useRouter } from 'vue-router';
 import { useStore } from 'vuex';
 import { useCallSession } from 'dashboard/composables/useCallSession';
@@ -16,6 +17,7 @@ const RINGTONE_URL = '/audio/dashboard/bell.mp3';
 const route = useRoute();
 const router = useRouter();
 const store = useStore();
+const { t } = useI18n();
 
 const {
   activeCall,
@@ -36,27 +38,11 @@ const isWhatsappActive = computed(
   () => activeCall.value?.provider === VOICE_CALL_PROVIDERS.WHATSAPP
 );
 
-const primaryIncomingCall = computed(() =>
-  hasActiveCall.value ? null : incomingCalls.value[0] || null
-);
-
-const stackedIncomingCalls = computed(() =>
-  hasActiveCall.value ? incomingCalls.value : incomingCalls.value.slice(1)
-);
-
-const mainCardState = computed(() => {
-  if (hasActiveCall.value) return VOICE_CALL_DIRECTION.ONGOING;
-  const direction = primaryIncomingCall.value?.callDirection;
-  return direction === VOICE_CALL_DIRECTION.OUTBOUND
-    ? VOICE_CALL_DIRECTION.OUTGOING
-    : VOICE_CALL_DIRECTION.INCOMING;
-});
-
-// Stacked cards are always non-active (ringing) calls, so reflect each call's
+// Pending cards are always non-active (ringing) calls, so reflect each call's
 // real direction. An outbound call must render as OUTGOING — otherwise it shows
 // the incoming-only dismiss (✕) control and the agent could drop it locally
 // without terminating, leaving the customer ringing with no widget to end it.
-const stackedCardState = call =>
+const pendingCardState = call =>
   call?.callDirection === VOICE_CALL_DIRECTION.OUTBOUND
     ? VOICE_CALL_DIRECTION.OUTGOING
     : VOICE_CALL_DIRECTION.INCOMING;
@@ -109,7 +95,9 @@ const getCallInfo = call => {
   // there's always something to show.
   const locationParts = [city, country].filter(Boolean);
   const location =
-    locationParts.join(', ') || inbox?.name || 'Customer support';
+    locationParts.join(', ') ||
+    inbox?.name ||
+    t('CONVERSATION.VOICE_WIDGET.CUSTOMER_SUPPORT');
   return {
     conversation,
     inbox,
@@ -118,9 +106,9 @@ const getCallInfo = call => {
       sender?.name ||
       caller?.phone ||
       sender?.phone_number ||
-      'Unknown caller',
+      t('CONVERSATION.VOICE_WIDGET.UNKNOWN_CALLER'),
     phoneNumber: caller?.phone || sender?.phone_number || '',
-    inboxName: inbox?.name || 'Customer support',
+    inboxName: inbox?.name || t('CONVERSATION.VOICE_WIDGET.CUSTOMER_SUPPORT'),
     location,
     countryFlag: countryCodeToFlag(countryCode),
     hasLocation: locationParts.length > 0,
@@ -232,37 +220,40 @@ onBeforeUnmount(stopRingtone);
 
 <template>
   <div
-    v-if="incomingCalls.length || hasActiveCall"
-    class="fixed ltr:right-4 rtl:left-4 bottom-4 z-50 flex flex-col gap-3 w-[400px]"
+    v-show="incomingCalls.length || hasActiveCall"
+    class="fixed inset-x-2 bottom-2 z-50 flex max-h-[calc(100dvh-1rem)] flex-col gap-3 sm:inset-x-auto sm:bottom-4 sm:w-[400px] sm:max-w-[calc(100vw-2rem)] ltr:sm:right-4 rtl:sm:left-4"
   >
-    <!-- Stacked incoming calls (shown above the primary card) -->
+    <!-- Keep the active call visible while pending calls scroll independently. -->
     <CallCard
-      v-for="call in stackedIncomingCalls"
-      :key="call.callSid"
-      :call="call"
-      :state="stackedCardState(call)"
-      :call-info="getCallInfo(call)"
-      @accept="handleJoinCall(call)"
-      @reject="rejectIncomingCall(call.callSid)"
-      @dismiss="dismissCall(call.callSid)"
-      @go-to-conversation="goToConversation(call)"
-    />
-
-    <!-- Main Call Widget -->
-    <CallCard
-      v-if="hasActiveCall || primaryIncomingCall"
-      :call="activeCall || primaryIncomingCall"
-      :state="mainCardState"
-      :call-info="getCallInfo(activeCall || primaryIncomingCall)"
-      :duration="hasActiveCall ? formattedCallDuration : ''"
+      v-if="activeCall"
+      class="shrink-0"
+      :call="activeCall"
+      :state="VOICE_CALL_DIRECTION.ONGOING"
+      :call-info="getCallInfo(activeCall)"
+      :duration="formattedCallDuration"
       :is-muted="isMuted"
-      :show-mute="hasActiveCall && isWhatsappActive"
-      @accept="handleJoinCall(primaryIncomingCall)"
-      @reject="rejectIncomingCall(primaryIncomingCall?.callSid)"
-      @dismiss="dismissCall(primaryIncomingCall?.callSid)"
+      :show-mute="isWhatsappActive"
       @end="handleEndCall"
       @toggle-mute="toggleMute"
-      @go-to-conversation="goToConversation(activeCall || primaryIncomingCall)"
+      @go-to-conversation="goToConversation(activeCall)"
     />
+
+    <div
+      v-if="incomingCalls.length"
+      class="flex min-h-0 flex-col gap-3 overflow-y-auto overscroll-contain pe-1"
+    >
+      <CallCard
+        v-for="call in incomingCalls"
+        :key="call.callSid"
+        class="shrink-0"
+        :call="call"
+        :state="pendingCardState(call)"
+        :call-info="getCallInfo(call)"
+        @accept="handleJoinCall(call)"
+        @reject="rejectIncomingCall(call.callSid)"
+        @dismiss="dismissCall(call.callSid)"
+        @go-to-conversation="goToConversation(call)"
+      />
+    </div>
   </div>
 </template>

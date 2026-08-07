@@ -10,6 +10,7 @@ import DuplicateInboxBanner from './channels/instagram/DuplicateInboxBanner.vue'
 import EmailInboxFinish from './channels/emailChannels/EmailInboxFinish.vue';
 import { useInbox } from 'dashboard/composables/useInbox';
 import { INBOX_TYPES } from 'dashboard/helper/inbox';
+import { FEATURE_FLAGS } from 'dashboard/featureFlags';
 
 const { t } = useI18n();
 const route = useRoute();
@@ -25,6 +26,13 @@ const currentInbox = computed(() =>
   store.getters['inboxes/getInbox'](route.params.inbox_id)
 );
 
+const isYcloudEnabled = computed(() =>
+  store.getters['accounts/isFeatureEnabledonAccount'](
+    route.params.accountId,
+    FEATURE_FLAGS.CHANNEL_YCLOUD
+  )
+);
+
 // Use useInbox composable with the inbox ID
 const {
   isAWhatsAppCloudChannel,
@@ -36,7 +44,12 @@ const {
   isAFacebookInbox,
   isATelegramChannel,
   isATwilioWhatsAppChannel,
+  isYcloudWhatsAppChannel,
 } = useInbox(route.params.inbox_id);
+
+const shouldShowYcloudDetails = computed(
+  () => isYcloudWhatsAppChannel.value && isYcloudEnabled.value
+);
 
 const hasDuplicateInstagramInbox = computed(() => {
   const instagramId = currentInbox.value.instagram_id;
@@ -84,6 +97,12 @@ const message = computed(() => {
   if (isAWhatsAppCloudChannel.value && shouldShowWhatsAppWebhookDetails.value) {
     return `${t('INBOX_MGMT.FINISH.MESSAGE')}. ${t(
       'INBOX_MGMT.ADD.WHATSAPP.API_CALLBACK.SUBTITLE'
+    )}`;
+  }
+
+  if (shouldShowYcloudDetails.value) {
+    return `${t('INBOX_MGMT.FINISH.MESSAGE')}. ${t(
+      'INBOX_MGMT.ADD.WHATSAPP.YCLOUD.WEBHOOK_INSTRUCTION'
     )}`;
   }
 
@@ -208,6 +227,22 @@ onMounted(() => {
           <woot-code
             lang="html"
             :script="currentInbox.provider_config.webhook_verify_token"
+          />
+        </div>
+        <div
+          v-if="shouldShowYcloudDetails"
+          class="w-[50%] max-w-[50%] ml-[25%]"
+        >
+          <p class="mt-8 font-medium text-n-slate-11">
+            {{ $t('INBOX_MGMT.ADD.WHATSAPP.YCLOUD.WEBHOOK_URL') }}
+          </p>
+          <woot-code lang="html" :script="currentInbox.callback_webhook_url" />
+          <p class="mt-8 font-medium text-n-slate-11">
+            {{ $t('INBOX_MGMT.ADD.WHATSAPP.YCLOUD.WEBHOOK_SECRET') }}
+          </p>
+          <woot-code
+            lang="html"
+            :script="currentInbox.provider_config.webhook_secret"
           />
         </div>
         <div class="w-[50%] max-w-[50%] ml-[25%]">

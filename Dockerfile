@@ -13,7 +13,6 @@ ENV BUNDLE_WITHOUT=${BUNDLE_WITHOUT}
 ENV BUNDLE_PATH=/gems
 ENV RAILS_SERVE_STATIC_FILES=true
 ENV NODE_OPTIONS="--max-old-space-size=4096 --openssl-legacy-provider"
-
 RUN set -eux; \
   for i in 1 2 3 4 5; do \
   apk update && \
@@ -56,6 +55,20 @@ RUN bundle config set --local force_ruby_platform true \
   && bundle config set --global timeout 30 \
   && if [ "$RAILS_ENV" = "production" ]; then bundle config set without "development test"; fi \
   && bundle install -j 4 -r 5
+
+# DISABLED for now: local whisper transcription is off (see config/features.yml), and the
+# whispercpp gem was removed from the Gemfile — no cmake/native compile, no model
+# download here anymore. To re-enable:
+#   1. Add back `gem 'whispercpp', '~> 1.3', require: false` to the Gemfile.
+#   2. Add `cmake` back to the apk packages above, and `libstdc++`/`libgomp` to the
+#      final stage's apk packages below.
+#   3. Add back, right after `bundle install` above:
+#      && bundle config set --local build.whispercpp "--enable-ggml-avx --enable-ggml-avx2 --enable-ggml-fma --enable-ggml-f16c --enable-ggml-bmi2 --enable-ggml-sse42"
+#      (ggml's GGML_NATIVE auto-detect silently misses AVX2 under virtualized CPUs —
+#      confirmed via objdump: falls back to scalar codegen, ~9x slower, without this.
+#      Haswell-era (2013+) extensions, present on effectively every modern x86_64 server.)
+#   4. Add back the model pre-bake:
+#      RUN bundle exec ruby -r whisper -e "Whisper::Context.new(ENV.fetch('AUDIO_TRANSCRIPTION_MODEL', 'base'))"
 
 COPY package.json pnpm-lock.yaml ./
 RUN pnpm install --frozen-lockfile

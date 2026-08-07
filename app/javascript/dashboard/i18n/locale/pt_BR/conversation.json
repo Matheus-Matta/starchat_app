@@ -73,17 +73,26 @@
       "LABELS_COUNT": "{count} etiquetas"
     },
     "VOICE_CALL": {
-      "INCOMING_CALL": "Incoming call",
-      "OUTGOING_CALL": "Outgoing call",
-      "CALL_IN_PROGRESS": "Call in progress",
-      "NO_ANSWER": "No answer",
-      "MISSED_CALL": "Missed call",
-      "CALL_ENDED": "Call ended",
-      "NOT_ANSWERED_YET": "Not answered yet",
-      "THEY_ANSWERED": "They answered",
-      "YOU_ANSWERED": "You answered",
+      "INCOMING_CALL": "Chamada recebida",
+      "OUTGOING_CALL": "Chamada realizada",
+      "CALL_IN_PROGRESS": "Chamada em andamento",
+      "NO_ANSWER": "Não atendida",
+      "MISSED_CALL": "Chamada perdida",
+      "CALL_ENDED": "Chamada encerrada",
+      "NOT_ANSWERED_YET": "Ainda não atendida",
+      "THEY_ANSWERED": "Contato atendeu",
+      "YOU_ANSWERED": "Você atendeu",
       "AGENT_ANSWERED": "{agentName} respondeu",
-      "JOIN_CALL": "Entrar na chamada"
+      "JOIN_CALL": "Entrar na chamada",
+      "CALLING": "Chamando…",
+      "CALL_BACK": "Ligar novamente",
+      "HANDLED_BY": "Atendida por {agentName}",
+      "MISSED_CALL_DECLINED_BY": "Recusada por {agentName}",
+      "MISSED_CALL_INBOUND_SUBTEXT": "A chamada não foi atendida",
+      "NO_ANSWER_OUTBOUND_LABEL": "Não atendida",
+      "NO_ANSWER_OUTBOUND_SUBTEXT": "O contato não atendeu",
+      "TRANSCRIPT_SHOW_MORE": "Exibir transcrição",
+      "TRANSCRIPT_SHOW_LESS": "Ocultar transcrição"
     },
     "HEADER": {
       "RESOLVE_ACTION": "Resolver",
@@ -106,7 +115,11 @@
       },
       "PROTOCOL_COPIED": "Protocolo copiado",
       "COPY_PROTOCOL": "Copiar Protocolo",
-      "COPY_ID_SUCCESS": "ID da conversa copiado para área de transferência"
+      "COPY_ID_SUCCESS": "ID da conversa copiado para área de transferência",
+      "WHATSAPP_CALL": "Ligação pelo WhatsApp",
+      "WHATSAPP_CALL_FAILED": "Não foi possível iniciar a ligação pelo WhatsApp. Tente novamente.",
+      "WHATSAPP_CALL_PERMISSION_PENDING": "Uma solicitação de permissão já foi enviada. Aguarde o contato aceitar.",
+      "WHATSAPP_CALL_PERMISSION_REQUESTED": "Solicitação de permissão enviada. Você poderá ligar após o contato aceitar."
     },
     "RESOLVE_DROPDOWN": {
       "MARK_PENDING": "Deixar pendente",
@@ -278,6 +291,9 @@
       "DELETE": "Excluir",
       "CREATE_A_CANNED_RESPONSE": "Adicionar às respostas prontas",
       "TRANSLATE": "Traduzir",
+      "TRANSCRIBE_AUDIO": "Transcrever áudio",
+      "TRANSCRIBE_AUDIO_STARTED": "Transcrevendo áudio…",
+      "TRANSCRIBE_AUDIO_ERROR": "Não foi possível iniciar a transcrição do áudio. Tente novamente.",
       "COPY_PERMALINK": "Copiar link para a mensagem",
       "LINK_COPIED": "URL da mensagem copiada para a área de transferência",
       "DELETE_CONFIRMATION": {
@@ -304,7 +320,13 @@
       "HANDLED_IN_ANOTHER_TAB": "Sendo atendida em outra aba",
       "REJECT_CALL": "Recusar",
       "JOIN_CALL": "Entrar na chamada",
-      "END_CALL": "Encerrar chamada"
+      "END_CALL": "Encerrar chamada",
+      "DISMISS_CALL": "Dispensar notificação",
+      "GO_TO_CONVERSATION": "Ir para a conversa",
+      "MUTE": "Desativar microfone",
+      "UNMUTE": "Ativar microfone",
+      "UNKNOWN_CALLER": "Contato desconhecido",
+      "CUSTOMER_SUPPORT": "Atendimento ao cliente"
     }
   },
   "EMAIL_TRANSCRIPT": {

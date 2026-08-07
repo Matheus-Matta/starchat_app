@@ -38,6 +38,7 @@ class Account < ApplicationRecord
         'auto_resolve_message': { 'type': %w[string null] },
         'auto_resolve_ignore_waiting': { 'type': %w[boolean null] },
         'audio_transcriptions': { 'type': %w[boolean null] },
+        'audio_transcription_provider': { 'type': %w[string null], 'enum': ['openai', 'whisper', nil] },
         'auto_resolve_label': { 'type': %w[string null] },
         'require_contact_inbox_messaging': { 'type': %w[boolean null] },
         'prioritize_responsible_agent': { 'type': %w[boolean null] }
@@ -63,8 +64,9 @@ class Account < ApplicationRecord
   validate :validate_support_email_format, if: :will_save_change_to_support_email?
 
   store_accessor :settings, :auto_resolve_after, :auto_resolve_message, :auto_resolve_ignore_waiting
-  store_accessor :settings, :audio_transcriptions, :auto_resolve_label, :require_contact_inbox_messaging,
-                 :prioritize_responsible_agent, :reporting_timezone, :keep_pending_on_bot_failure
+  store_accessor :settings, :audio_transcriptions, :audio_transcription_provider, :auto_resolve_label,
+                 :require_contact_inbox_messaging, :prioritize_responsible_agent, :reporting_timezone,
+                 :keep_pending_on_bot_failure
 
   has_many :account_users, dependent: :destroy_async
   has_many :agent_bot_inboxes, dependent: :destroy_async

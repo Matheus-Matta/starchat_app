@@ -1,6 +1,28 @@
 import { describe, it, beforeEach, afterEach, expect, vi } from 'vitest';
 import ActionCableConnector from '../actionCable';
 
+const whatsappCallMocks = vi.hoisted(() => ({
+  isLocal: vi.fn(() => false),
+  dismissCall: vi.fn(),
+  setCallActive: vi.fn(),
+  calls: [{ callSid: 'provider-call-1' }],
+}));
+
+vi.mock('dashboard/stores/calls', () => ({
+  useCallsStore: () => ({
+    calls: whatsappCallMocks.calls,
+    dismissCall: whatsappCallMocks.dismissCall,
+    setCallActive: whatsappCallMocks.setCallActive,
+  }),
+}));
+
+vi.mock('dashboard/composables/useWhatsappCallSession', () => ({
+  applyOutboundAnswer: vi.fn(),
+  armOutboundRecorder: vi.fn(),
+  handleWhatsappRemoteEnd: vi.fn(),
+  isLocalWhatsappCall: whatsappCallMocks.isLocal,
+}));
+
 vi.mock('shared/helpers/mitt', () => ({
   emitter: {
     emit: vi.fn(),
@@ -24,6 +46,7 @@ describe('ActionCableConnector - Copilot Tests', () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
+    whatsappCallMocks.isLocal.mockReturnValue(false);
     mockDispatch = vi.fn();
     store = {
       $store: {
@@ -158,6 +181,43 @@ describe('ActionCableConnector - Copilot Tests', () => {
 
       vi.advanceTimersByTime(4000);
       expect(mockDispatch).toHaveBeenCalledTimes(2);
+    });
+  });
+
+  describe('WhatsApp call event handlers', () => {
+    const callData = {
+      id: 42,
+      call_id: 'provider-call-1',
+      provider: 'whatsapp',
+      account_id: 1,
+    };
+
+    it('removes an accepted inbound call from tabs that do not own its WebRTC session', () => {
+      actionCable.onReceived({ event: 'voice_call.accepted', data: callData });
+
+      expect(whatsappCallMocks.dismissCall).toHaveBeenCalledWith(
+        'provider-call-1'
+      );
+    });
+
+    it('keeps an accepted inbound call in the tab that owns its WebRTC session', () => {
+      whatsappCallMocks.isLocal.mockReturnValue(true);
+
+      actionCable.onReceived({ event: 'voice_call.accepted', data: callData });
+
+      expect(whatsappCallMocks.dismissCall).not.toHaveBeenCalled();
+    });
+
+    it('removes an accepted outbound call from tabs that do not own its WebRTC session', () => {
+      actionCable.onReceived({
+        event: 'voice_call.outbound_accepted',
+        data: callData,
+      });
+
+      expect(whatsappCallMocks.dismissCall).toHaveBeenCalledWith(
+        'provider-call-1'
+      );
+      expect(whatsappCallMocks.setCallActive).not.toHaveBeenCalled();
     });
   });
 });

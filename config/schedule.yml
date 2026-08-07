@@ -68,9 +68,14 @@ remove_old_notification_job:
   class: 'Notification::RemoveOldNotificationJob'
   queue: purgable
 
+# DISABLED locally: this job has no dev-mode gate (only production is opt-in via
+# ENABLE_ORPHAN_CONVERSATION_CLEANUP) and was deleting freshly-created dev/demo
+# conversations — same "orphan conversations" suspicion as process_stale_contacts_job
+# above. Re-enable once the root cause of conversations losing their contact/inbox
+# link is found; production is unaffected either way since it's opt-in there.
 # executed every 12 hours
 # to remove orphan conversations without contact
-remove_orphan_conversations_job:
-  cron: '0 */12 * * *'
-  class: 'Internal::RemoveOrphanConversationsJob'
-  queue: housekeeping
+# remove_orphan_conversations_job:
+#   cron: '0 */12 * * *'
+#   class: 'Internal::RemoveOrphanConversationsJob'
+#   queue: housekeeping

@@ -95,4 +95,18 @@ RSpec.describe 'Super Admin accounts API', type: :request do
       end
     end
   end
+
+  describe 'PATCH /super_admin/accounts/{account_id}' do
+    it 'allows a super admin to enable the YCloud account feature' do
+      sign_in(super_admin, scope: :super_admin)
+
+      patch "/super_admin/accounts/#{account.id}", params: {
+        account: { name: account.name, locale: account.locale, status: account.status },
+        enabled_features: { feature_channel_ycloud: 'true' }
+      }
+
+      expect(response).to have_http_status(:redirect)
+      expect(account.reload.feature_enabled?('channel_ycloud')).to be(true)
+    end
+  end
 end
