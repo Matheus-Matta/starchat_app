@@ -13,7 +13,6 @@ class Whatsapp::EmbeddedSignupService
 
     access_token = exchange_code_for_token
     phone_info = fetch_phone_info(access_token)
-    validate_token_access(access_token)
 
     channel = create_or_reauthorize_channel(access_token, phone_info)
     # Reauthorization updates an existing channel, so the on: :create callback won't fire.
@@ -40,10 +39,6 @@ class Whatsapp::EmbeddedSignupService
 
   def fetch_phone_info(access_token)
     Whatsapp::PhoneInfoService.new(@waba_id, @phone_number_id, access_token).perform
-  end
-
-  def validate_token_access(access_token)
-    Whatsapp::TokenValidationService.new(access_token, @waba_id).perform
   end
 
   def create_or_reauthorize_channel(access_token, phone_info)

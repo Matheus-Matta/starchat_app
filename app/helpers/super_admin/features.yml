@@ -48,6 +48,12 @@ disable_branding:
   enabled: true
   icon: 'icon-sailbot-fill'
   premium: true
+voice_calls:
+  name: 'Voice Calls'
+  description: 'Enable voice calling capabilities for your agents and customers.'
+  enabled: true
+  icon: 'icon-voice-line'
+  premium: true
 
 # ------- Product Features ------- #
 help_center:

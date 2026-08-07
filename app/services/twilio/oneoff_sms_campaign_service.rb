@@ -6,8 +6,8 @@ class Twilio::OneoffSmsCampaignService
     raise "Invalid campaign #{campaign.id}" if campaign.inbox.inbox_type != 'Twilio SMS' || !campaign.one_off?
     raise 'Completed Campaign' if campaign.completed?
 
-    campaign.completed!
     process_audience(contacts_for_audience(campaign.account, campaign.audience))
+    campaign.completed!
   end
 
   private

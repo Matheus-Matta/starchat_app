@@ -46,7 +46,9 @@ class Campaign < ApplicationRecord
   belongs_to :sender, class_name: 'User', optional: true
 
   enum campaign_type: { ongoing: 0, one_off: 1 }
-  enum campaign_status: { active: 0, completed: 1, draft: 2 }
+  # `draft` keeps value 2: existing rows already store it and upstream's own
+  # `processing` (also 2 upstream) is mapped to 3 here so neither meaning shifts.
+  enum campaign_status: { active: 0, completed: 1, draft: 2, processing: 3 }
 
   has_many :conversations, dependent: :nullify, autosave: true
   has_many :campaign_contacts, dependent: :destroy
@@ -58,11 +60,26 @@ class Campaign < ApplicationRecord
     return unless one_off?
     return if completed?
     return if draft?
+    return unless feature_enabled?
+    return unless mark_processing!
 
     execute_campaign
   end
 
   private
+
+  def feature_enabled?
+    inbox.inbox_type != 'Whatsapp' || account.feature_enabled?(:whatsapp_campaign)
+  end
+
+  def mark_processing!
+    # Multiple scheduler jobs can pick the same active campaign; lock before flipping status to avoid duplicate sends.
+    with_lock do
+      next if completed? || processing? || draft?
+
+      processing!
+    end
+  end
 
   def execute_campaign
     case inbox.inbox_type
@@ -71,7 +88,7 @@ class Campaign < ApplicationRecord
     when 'Sms'
       Sms::OneoffSmsCampaignService.new(campaign: self).perform
     when 'Whatsapp'
-      Whatsapp::OneoffCampaignService.new(campaign: self).perform if account.feature_enabled?(:whatsapp_campaign)
+      Whatsapp::OneoffCampaignService.new(campaign: self).perform
     end
   end
 

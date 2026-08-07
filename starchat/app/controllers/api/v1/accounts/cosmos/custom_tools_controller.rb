@@ -26,8 +26,8 @@ class Api::V1::Accounts::Cosmos::CustomToolsController < Api::V1::Accounts::Base
 
   def test
     tool = account_custom_tools.new(custom_tool_params)
-    result = execute_test_request(tool)
-    render json: { status: result.code.to_i, body: result.body.to_s.truncate(500) }
+    body = execute_test_request(tool)
+    render json: { status: 200, body: body.to_s.truncate(500) }
   rescue StandardError => e
     render json: { error: e.message }, status: :unprocessable_content
   end
