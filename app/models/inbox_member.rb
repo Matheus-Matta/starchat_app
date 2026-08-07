@@ -23,12 +23,10 @@ class InboxMember < ApplicationRecord
   belongs_to :inbox
 
   after_create :add_agent_to_round_robin
-  before_destroy :cache_unread_filter_notification_context
   after_destroy :remove_agent_from_round_robin
   after_commit :update_inbox_cache
   after_commit :dispatch_member_added_event, on: :create
   after_commit :dispatch_member_removed_event, on: :destroy
-  after_commit :notify_unread_filter_counts_changed, on: [:create, :destroy]
 
   private
 
@@ -54,16 +52,6 @@ class InboxMember < ApplicationRecord
     return unless inbox.present? && user.present?
 
     Rails.configuration.dispatcher.dispatch(INBOX_MEMBER_REMOVED, Time.zone.now, inbox: inbox, user: user)
-  end
-
-  def cache_unread_filter_notification_context
-    @unread_filter_account = inbox&.account
-    @unread_filter_user = user
-  end
-
-  def notify_unread_filter_counts_changed
-    account = @unread_filter_account || inbox&.account
-    ::Conversations::UnreadCounts::UserFilterNotifier.new(account: account, user: @unread_filter_user || user).perform
   end
 end
 
