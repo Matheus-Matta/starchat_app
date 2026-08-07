@@ -1,5 +1,12 @@
-*.json merge=keepBoth
-*.js merge=keepBoth
-*.yml merge=keepBoth
-*.yaml merge=keepBoth
-app/javascript/dashboard/i18n/** merge=union
+# Normalize every text file to LF in both the repository and the working tree.
+# A previous WSL/Windows checkout committed CRLF into ~1900 files, which made each
+# of them diff as fully rewritten against upstream (which is LF) and produced phantom
+# conflicts on every merge. Keep this line so it cannot happen again.
+* text=auto eol=lf
+
+# Shell scripts and hooks must be LF even where a tool would guess otherwise.
+*.sh text eol=lf
+
+# Windows-only scripts genuinely need CRLF.
+*.bat text eol=crlf
+*.cmd text eol=crlf
