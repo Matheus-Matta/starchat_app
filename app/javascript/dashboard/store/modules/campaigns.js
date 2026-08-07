@@ -34,7 +34,9 @@ export const getters = {
         });
       }
 
-      return filteredRecords.sort((a1, a2) => a1.id - a2.id);
+      return filteredRecords.sort(
+        (a1, a2) => new Date(a2.created_at) - new Date(a1.created_at)
+      );
     },
   getSMSCampaigns: (_state, _getters) => {
     const smsChannelTypes = [INBOX_TYPES.SMS, INBOX_TYPES.TWILIO];

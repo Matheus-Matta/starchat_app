@@ -1,6 +1,6 @@
 require 'timeout'
 class Api::V1::Accounts::Channels::EvolutionChannelController < Api::V1::Accounts::BaseController
-  before_action :load_channel, only: %i[show connect restart disconnect settings update_settings]
+  before_action :load_channel, only: %i[show connect restart disconnect settings update_settings migrate_to_whatsapp]
 
   # GET /api/v1/accounts/:account_id/channels/evolution_channel/:id
   def show
@@ -235,9 +235,35 @@ class Api::V1::Accounts::Channels::EvolutionChannelController < Api::V1::Account
     render_error(e)
   end
 
+  # POST /api/v1/accounts/:account_id/channels/evolution_channel/:id/migrate_to_whatsapp
+  def migrate_to_whatsapp
+    result = Evolution::MigrateToWhatsappService.new(
+      evolution_channel: @channel,
+      whatsapp_params: migrate_whatsapp_params
+    ).perform
+
+    broadcast(@channel.account_id, 'evolution.migrated_to_whatsapp', {
+                account_id: @channel.account_id,
+                inbox_id: result.inbox.id,
+                needs_reauthorization: result.needs_reauthorization
+              })
+
+    render json: {
+      inbox: result.inbox,
+      channel: result.whatsapp_channel.as_json(methods: :phone_number),
+      needs_reauthorization: result.needs_reauthorization
+    }
+  rescue ActiveRecord::RecordInvalid, ActiveRecord::RecordNotFound => e
+    render_error(e)
+  end
+
   include Evolution::CommonHelpers
 
   private
+
+  def migrate_whatsapp_params
+    params.require(:whatsapp_channel).permit(:phone_number, :api_key, :phone_number_id, :business_account_id)
+  end
 
   def handle_qr_and_render(channel, qr)
     if qr.present?

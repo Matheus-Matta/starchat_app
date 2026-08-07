@@ -3,10 +3,11 @@ import { emitter } from 'shared/helpers/mitt';
 import { useAlert } from 'dashboard/composables';
 import NextButton from 'dashboard/components-next/button/Button.vue';
 import WootSwitch from 'dashboard/components-next/switch/Switch.vue';
+import MigrateToWhatsappModal from './MigrateToWhatsappModal.vue';
 
 export default {
   name: 'EvolutionControls',
-  components: { NextButton, WootSwitch },
+  components: { NextButton, WootSwitch, MigrateToWhatsappModal },
   props: {
     inbox: { type: Object, default: () => ({}) },
   },
@@ -305,6 +306,16 @@ export default {
         this.isBusy = false;
       }
     },
+
+    onMigrateToWhatsappClick() {
+      this.$refs.migrateToWhatsappModal?.open();
+    },
+
+    async onMigrated() {
+      // Refreshes channel_type on the store so this inbox's settings tabs
+      // switch from Evolution to WhatsApp reactively.
+      await this.$store.dispatch('inboxes/get');
+    },
   },
 };
 </script>
@@ -371,6 +382,16 @@ export default {
               @click="onDisconnect"
             />
           </template>
+
+          <NextButton
+            v-if="channel?.id"
+            sm
+            faded
+            slate
+            :disabled="isBusy"
+            :label="$t('INBOX_MGMT.ADD.EVOLUTION.MIGRATE.BUTTON')"
+            @click="onMigrateToWhatsappClick"
+          />
         </div>
       </div>
 
@@ -504,7 +525,6 @@ export default {
               }}
             </p>
           </div>
-
         </div>
 
         <!-- Message for Reject Call -->
@@ -552,6 +572,13 @@ export default {
         </div>
       </div>
     </div>
+
+    <MigrateToWhatsappModal
+      v-if="channel?.id"
+      ref="migrateToWhatsappModal"
+      :channel-id="channel.id"
+      @migrated="onMigrated"
+    />
   </div>
 </template>
 

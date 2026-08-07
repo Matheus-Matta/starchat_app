@@ -154,6 +154,7 @@ Rails.application.routes.draw do
                 post :disconnect
                 get :settings
                 patch :settings, action: :update_settings
+                post :migrate_to_whatsapp
               end
             end
           end
@@ -169,6 +170,7 @@ Rails.application.routes.draw do
                 member do
                   post :translate
                   post :retry
+                  post :transcribe_audio
                 end
               end
               resources :assignments, only: [:create]
@@ -637,6 +639,7 @@ Rails.application.routes.draw do
   post 'webhooks/sms/:phone_number', to: 'webhooks/sms#process_payload'
   get 'webhooks/whatsapp/:phone_number', to: 'webhooks/whatsapp#verify'
   post 'webhooks/whatsapp/:phone_number', to: 'webhooks/whatsapp#process_payload'
+  post 'webhooks/ycloud', to: 'webhooks/ycloud#process_payload'
   get 'webhooks/instagram', to: 'webhooks/instagram#verify'
   post 'webhooks/instagram', to: 'webhooks/instagram#events'
   post 'webhooks/evolution/:inbox_id', to: 'webhooks/evolution#process_payload'

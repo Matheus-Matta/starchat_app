@@ -30,6 +30,13 @@ export default {
       const resp = await EvolutionChannel.updateSettings(id, settings);
       return resp?.data || resp;
     },
+    async migrateToWhatsapp(_ctx, { id, whatsappChannel }) {
+      const resp = await EvolutionChannel.migrateToWhatsapp(
+        id,
+        whatsappChannel
+      );
+      return resp?.data || resp;
+    },
   },
   mutations: {},
 };

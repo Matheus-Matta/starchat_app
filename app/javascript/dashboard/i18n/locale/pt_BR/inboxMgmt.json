@@ -192,6 +192,15 @@
         "API": {
           "ERROR_MESSAGE": "Não foi possível criar a caixa de entrada Evolution. Verifique suas credenciais e tente novamente."
         },
+        "MIGRATE": {
+          "BUTTON": "Migrar para WhatsApp oficial",
+          "TITLE": "Migrar para WhatsApp oficial",
+          "WARNING": "Isso vai desconectar a sessão atual do Evolution/WhatsApp Web e mudar essa caixa de entrada para a WhatsApp Business Platform oficial (Meta Cloud API). Conversas, contatos e mensagens serão mantidos. Informe suas credenciais oficiais da WhatsApp Cloud API para continuar.",
+          "CONFIRM_BUTTON": "Migrar caixa de entrada",
+          "SUCCESS": "Caixa de entrada migrada para o WhatsApp oficial com sucesso.",
+          "NEEDS_REAUTH": "Migração concluída, mas o canal WhatsApp oficial precisa de reautorização. A sessão Evolution anterior foi mantida como contingência até isso ser resolvido.",
+          "ERROR": "Não foi possível migrar essa caixa de entrada para o WhatsApp oficial. Verifique as credenciais e tente novamente."
+        },
         "SETTINGS": {
           "TITLE": "Configurações da Instância",
           "REJECT_CALL": "Rejeitar Chamadas",
@@ -1322,6 +1331,26 @@
       "CONFIRM_DELETE": "Excluir",
       "DELETE_SUCCESS": "Política de atribuição removida com sucesso",
       "DELETE_ERROR": "Falha ao remover a política de atribuição"
+    },
+    "WHATSAPP_CALLING": {
+      "ENABLE": {
+        "LABEL": "Ativar ligações pelo WhatsApp",
+        "DESCRIPTION": "Permita que os agentes façam e recebam ligações de voz por esta caixa de entrada do WhatsApp Cloud."
+      },
+      "ENABLE_FAILED": "Não foi possível ativar as ligações pelo WhatsApp. Verifique a configuração da Meta e tente novamente.",
+      "PHONE_NUMBER": {
+        "LABEL": "Número das ligações",
+        "HELP_TEXT": "As ligações usam este número do WhatsApp Business."
+      },
+      "PERMISSION_REQUEST_BODY": {
+        "LABEL": "Mensagem de permissão para ligar",
+        "HELP_TEXT": "Mensagem enviada quando o contato precisa autorizar uma ligação realizada.",
+        "PLACEHOLDER": "Você permite que a gente ligue para você pelo WhatsApp?"
+      },
+      "HOW_IT_WORKS": {
+        "LABEL": "Como funcionam as ligações",
+        "DESCRIPTION": "As ligações recebidas aparecem na lista de chamadas. Para realizar uma ligação, talvez o contato precise conceder permissão antes."
+      }
     }
   },
   "ADD": {

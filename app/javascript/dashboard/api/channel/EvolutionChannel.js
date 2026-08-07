@@ -35,6 +35,12 @@ class EvolutionChannel extends ApiClient {
   updateSettings(id, settings) {
     return axios.patch(`${this.url}/${id}/settings`, { settings });
   }
+
+  migrateToWhatsapp(id, whatsappChannel) {
+    return axios.post(`${this.url}/${id}/migrate_to_whatsapp`, {
+      whatsapp_channel: whatsappChannel,
+    });
+  }
 }
 
 export default new EvolutionChannel();

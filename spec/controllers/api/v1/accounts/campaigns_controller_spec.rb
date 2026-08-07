@@ -35,6 +35,19 @@ RSpec.describe 'Campaigns API', type: :request do
         body = JSON.parse(response.body, symbolize_names: true)
         expect(body.first[:id]).to eq(campaign.display_id)
       end
+
+      it 'returns campaigns ordered by most recently created first' do
+        older_campaign = campaign
+        newer_campaign = create(:campaign, account: account, inbox: inbox, created_at: 1.day.from_now,
+                                            trigger_rules: { url: 'https://test.com' })
+
+        get "/api/v1/accounts/#{account.id}/campaigns",
+            headers: administrator.create_new_auth_token,
+            as: :json
+
+        body = JSON.parse(response.body, symbolize_names: true)
+        expect(body.map { |c| c[:id] }).to eq([newer_campaign.display_id, older_campaign.display_id])
+      end
     end
   end
 

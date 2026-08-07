@@ -140,5 +140,61 @@ RSpec.describe Api::V1::Accounts::Channels::EvolutionChannelController, type: :c
         expect(channel.reload.state).to eq('disconnected')
       end
     end
+
+    describe 'POST #migrate_to_whatsapp' do
+      let!(:channel) { Channel::Evolution.create!(account: account, instance_name: 'test_inst', api_key: 'key') }
+      let!(:inbox) { create(:inbox, channel: channel, account: account) }
+
+      let(:migrate_params) do
+        {
+          account_id: account.id,
+          id: channel.id,
+          whatsapp_channel: {
+            phone_number: '+1234567890',
+            api_key: 'cloud_key',
+            phone_number_id: '111',
+            business_account_id: '222'
+          }
+        }
+      end
+
+      context 'when the credentials are valid' do
+        before do
+          stub_request(:get, 'https://graph.facebook.com/v14.0/222/message_templates?access_token=cloud_key')
+            .to_return(status: 200, body: { data: [] }.to_json)
+
+          setup_service = instance_double(Whatsapp::WebhookSetupService)
+          allow(Whatsapp::WebhookSetupService).to receive(:new).and_return(setup_service)
+          allow(setup_service).to receive(:perform)
+
+          allow(evolution_client).to receive(:logout_instance)
+          allow(evolution_client).to receive(:delete_instance)
+        end
+
+        it 'repoints the inbox to a new Channel::Whatsapp' do
+          post :migrate_to_whatsapp, params: migrate_params
+
+          expect(response).to have_http_status(:ok)
+          json_response = response.parsed_body
+          expect(json_response['inbox']['id']).to eq(inbox.id)
+          expect(json_response['needs_reauthorization']).to be(false)
+          expect(inbox.reload.channel_type).to eq('Channel::Whatsapp')
+        end
+      end
+
+      context 'when the credentials are invalid' do
+        before do
+          stub_request(:get, 'https://graph.facebook.com/v14.0/222/message_templates?access_token=cloud_key')
+            .to_return(status: 401)
+        end
+
+        it 'returns unprocessable_entity and leaves the inbox untouched' do
+          post :migrate_to_whatsapp, params: migrate_params
+
+          expect(response).to have_http_status(:unprocessable_entity)
+          expect(inbox.reload.channel_type).to eq('Channel::Evolution')
+        end
+      end
+    end
   end
 end

@@ -4,17 +4,13 @@ module Evolution
 
     def ensure!(inbox:, contact_inbox:)
       ActiveRecord::Base.transaction(requires_new: true) do
-        conversation = find_existing_conversation(inbox, contact_inbox) ||
-                       reopen_recent_resolved_conversation(inbox, contact_inbox) ||
-                       create_new_conversation(inbox, contact_inbox)
-
-        conversation
+        find_existing_conversation(inbox, contact_inbox) || create_new_conversation(inbox, contact_inbox)
       end
     end
 
     private_class_method def find_existing_conversation(inbox, contact_inbox)
       if inbox.lock_to_single_conversation?
-        find_latest_conversation(contact_inbox)
+        find_and_reopen_latest_conversation(contact_inbox)
       else
         find_active_conversation(contact_inbox)
       end
@@ -33,21 +29,22 @@ module Evolution
                     .first
     end
 
-    private_class_method def reopen_recent_resolved_conversation(inbox, contact_inbox)
-      return unless inbox.lock_to_single_conversation?
+    # Reuses the contact's last conversation when the inbox is locked to a single
+    # thread. If that conversation was resolved recently, it's reopened instead of
+    # being handed back stuck in `resolved`.
+    private_class_method def find_and_reopen_latest_conversation(contact_inbox)
+      conversation = find_latest_conversation(contact_inbox)
+      return unless conversation
 
-      last_conversation = find_latest_conversation(contact_inbox)
-      return unless last_conversation&.resolved?
-      return unless last_conversation.updated_at >= 48.hours.ago
-
-      last_conversation.open!
-      last_conversation
+      conversation.open! if conversation.resolved? && conversation.updated_at >= 48.hours.ago
+      conversation
     end
 
     private_class_method def create_new_conversation(inbox, contact_inbox)
       params = ActionController::Parameters.new(
         account_id: inbox.account_id,
         inbox_id: inbox.id,
+        status: 'open',
         additional_attributes: {}
       ).permit!
 

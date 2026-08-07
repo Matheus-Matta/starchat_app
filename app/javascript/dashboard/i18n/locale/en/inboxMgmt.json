@@ -489,6 +489,15 @@
         "API": {
           "ERROR_MESSAGE": "We couldn't create the Evolution inbox. Please check your credentials and try again."
         },
+        "MIGRATE": {
+          "BUTTON": "Migrate to official WhatsApp",
+          "TITLE": "Migrate to official WhatsApp",
+          "WARNING": "This will disconnect the current Evolution/WhatsApp Web session and switch this inbox to the official WhatsApp Business Platform (Meta Cloud API). Conversations, contacts and messages will be kept. Enter your official WhatsApp Cloud API credentials to continue.",
+          "CONFIRM_BUTTON": "Migrate inbox",
+          "SUCCESS": "Inbox migrated to official WhatsApp successfully.",
+          "NEEDS_REAUTH": "Migration completed, but the official WhatsApp channel needs reauthorization. The previous Evolution session was kept as a fallback until this is resolved.",
+          "ERROR": "We couldn't migrate this inbox to official WhatsApp. Please check the credentials and try again."
+        },
         "SETTINGS": {
           "TITLE": "Instance Settings",
           "REJECT_CALL": "Reject Calls",
@@ -658,6 +667,8 @@
         },
         "PROVIDERS": {
           "EVOLUTION": "Evolution",
+          "YCLOUD": "YCloud",
+          "YCLOUD_DESC": "Connect your own YCloud account and WhatsApp number",
           "360_DIALOG": "360Dialog",
           "LABEL": "API Provider",
           "TWILIO_DESC": "Connect via Twilio credentials",
@@ -666,6 +677,20 @@
           "WHATSAPP_CLOUD_DESC": "Quick setup through Meta",
           "WHATSAPP_CLOUD": "WhatsApp Cloud",
           "WHATSAPP_EMBEDDED": "WhatsApp Business"
+        },
+        "YCLOUD": {
+          "TITLE": "Connect YCloud",
+          "DESCRIPTION": "Use the API key and WhatsApp identifiers from your YCloud account. Configure the webhook URL below in YCloud and paste its signing secret here.",
+          "INBOX_NAME": "Inbox name",
+          "PHONE_NUMBER": "WhatsApp phone number (E.164)",
+          "WABA_ID": "WhatsApp Business Account ID",
+          "API_KEY": "YCloud API key",
+          "WEBHOOK_SECRET": "Webhook signing secret",
+          "WEBHOOK_URL": "YCloud webhook URL",
+          "WEBHOOK_INSTRUCTION": "Subscribe this URL to whatsapp.inbound_message.received, whatsapp.message.updated, and whatsapp.smb.message.echoes.",
+          "SUBMIT": "Create YCloud channel",
+          "REQUIRED_FIELDS": "Fill in all YCloud connection fields.",
+          "ERROR_MESSAGE": "We were not able to connect the YCloud channel."
         },
         "SUBMIT_BUTTON": "Create WhatsApp Channel",
         "BUSINESS_ACCOUNT_ID": {
@@ -1184,6 +1209,26 @@
         "DISCONNECTED": "disconnected",
         "UNAVAILABLE": "WebSocket unavailable",
         "ERROR": "WebSocket failed"
+      }
+    },
+    "WHATSAPP_CALLING": {
+      "ENABLE": {
+        "LABEL": "Enable WhatsApp calling",
+        "DESCRIPTION": "Allow agents to make and receive voice calls through this WhatsApp Cloud inbox."
+      },
+      "ENABLE_FAILED": "Could not enable WhatsApp calling. Check the Meta configuration and try again.",
+      "PHONE_NUMBER": {
+        "LABEL": "Calling number",
+        "HELP_TEXT": "Calls use this WhatsApp Business phone number."
+      },
+      "PERMISSION_REQUEST_BODY": {
+        "LABEL": "Call permission message",
+        "HELP_TEXT": "Message sent when the contact must grant permission before an outbound call.",
+        "PLACEHOLDER": "Allow us to call you on WhatsApp?"
+      },
+      "HOW_IT_WORKS": {
+        "LABEL": "How calling works",
+        "DESCRIPTION": "Incoming calls appear in the call list. For outbound calls, the contact may need to grant permission before agents can call."
       }
     }
   },
