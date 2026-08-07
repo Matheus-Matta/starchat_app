@@ -1,4 +1,4 @@
-module Enterprise::Api::V1::Accounts::OnboardingsController
+module Starchat::Api::V1::Accounts::OnboardingsController
   def help_center_generation
     @account = Current.account
     render json: help_center_generation_status

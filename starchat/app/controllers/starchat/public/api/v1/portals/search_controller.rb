@@ -1,4 +1,4 @@
-module Enterprise::Public::Api::V1::Portals::SearchController
+module Starchat::Public::Api::V1::Portals::SearchController
   private
 
   def search_articles

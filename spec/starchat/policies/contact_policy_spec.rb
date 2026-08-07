@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Enterprise::ContactPolicy', type: :policy do
+RSpec.describe 'Starchat::ContactPolicy', type: :policy do
   subject(:contact_policy) { ContactPolicy }
 
   let(:account) { create(:account) }

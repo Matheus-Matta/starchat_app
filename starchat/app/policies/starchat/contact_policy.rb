@@ -1,4 +1,4 @@
-module Enterprise::ContactPolicy
+module Starchat::ContactPolicy
   def export?
     @account_user.custom_role&.permissions&.include?('contact_manage') || super
   end

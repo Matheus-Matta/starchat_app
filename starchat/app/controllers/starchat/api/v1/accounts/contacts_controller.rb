@@ -1,4 +1,4 @@
-module Enterprise::Api::V1::Accounts::ContactsController
+module Starchat::Api::V1::Accounts::ContactsController
   private
 
   def permitted_params
