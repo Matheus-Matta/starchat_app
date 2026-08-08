@@ -55,13 +55,13 @@ RSpec.describe Evolution::MediaAttach do
         result = test_class.attach_from_payload!(message, payload)
 
         expect(result).to be true
-        expect(message.attachments.count).to eq(1)
+        expect(message.attachments.size).to eq(1)
       end
 
       it 'loga que está processando via URL' do
         message # force lazy let to create account/inbox/conversation/message before logger expectation
         allow(Rails.logger).to receive(:info)
-        expect(Rails.logger).to receive(:info).with(/Processing via URL \(\.enc\)/)
+        expect(Rails.logger).to receive(:info).with(/Trying \.enc download/)
 
         test_class.attach_from_payload!(message, payload)
       end
@@ -90,13 +90,13 @@ RSpec.describe Evolution::MediaAttach do
         result = test_class.attach_from_payload!(message, payload)
 
         expect(result).to be true
-        expect(message.attachments.count).to eq(1)
+        expect(message.attachments.size).to eq(1)
       end
 
       it 'loga que está fazendo fallback para base64' do
         message # force lazy let to create account/inbox/conversation/message before logger expectation
         allow(Rails.logger).to receive(:info)
-        expect(Rails.logger).to receive(:info).with(/Fallback to Base64 processing/)
+        expect(Rails.logger).to receive(:info).with(/Found Base64\. Processing/)
 
         test_class.attach_from_payload!(message, payload)
       end
@@ -137,7 +137,7 @@ RSpec.describe Evolution::MediaAttach do
       it 'retorna false' do
         result = test_class.attach_from_payload!(message, payload)
         expect(result).to be false
-        expect(message.attachments.count).to eq(0)
+        expect(message.attachments.size).to eq(0)
       end
     end
 

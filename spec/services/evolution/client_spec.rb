@@ -97,14 +97,14 @@ RSpec.describe Evolution::Client do
 
   describe '#send_media' do
     it 'POST /message/sendMedia/:instance envia mídia com caption' do
+      # Evolution v2 takes these flat, the same shape send_text uses; the nested
+      # mediaMessage wrapper was the v1 format.
       body = {
         number: '5521991996687',
-        mediaMessage: {
-          mediaType: 'image',
-          media: 'https://cdn.example.com/file.png',
-          caption: 'veja isso',
-          mimetype: 'image/png'
-        }
+        mediatype: 'image',
+        media: 'https://cdn.example.com/file.png',
+        mimetype: 'image/png',
+        caption: 'veja isso'
       }
 
       stub_request(:post, "#{base_url}/message/sendMedia/starchats_support")
@@ -118,7 +118,7 @@ RSpec.describe Evolution::Client do
       resp = client.send_media(
         'starchats_support',
         number: '5521991996687',
-        mediaType: 'image',
+        mediatype: 'image',
         media: 'https://cdn.example.com/file.png',
         caption: 'veja isso',
         mimetype: 'image/png'

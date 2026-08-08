@@ -16,6 +16,18 @@ module Starchat::Inbox
     cosmos_assistant.present? && more_responses?
   end
 
+  # The incoming_call and inbox_connection_update notifications use the inbox as
+  # their primary_actor, and Notification#primary_actor_data calls push_event_data
+  # on it. Without this the dispatch raised NoMethodError, which the caller's
+  # rescue swallowed into a log line — so those notifications never reached agents.
+  def push_event_data
+    {
+      id: id,
+      name: name,
+      channel_type: channel_type
+    }
+  end
+
   private
 
   def more_responses?

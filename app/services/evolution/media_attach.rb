@@ -37,14 +37,10 @@ module Evolution
       mimetype = media['mimetype'].to_s
       filename = suggested_filename_from_payload_like_wa(type, mimetype)
 
-      # 1) Preferência: base64 (no payload OU dentro de media)
-      if (b64 = extract_b64(payload, media)).present?
-        Rails.logger.info '[MediaAttach] Found Base64. Processing...'
-        blob = download_for_base64(b64, filename: filename, content_type: mimetype.presence, identify: false)
-        return attach_blob!(message, blob)
-      end
-
-      # 2) Fallback: fluxo .enc (url + media_key)
+      # 1) Preferência: fluxo .enc (url + media_key).
+      # O base64 do payload costuma ser o jpegThumbnail — ver extract_any_base64 —,
+      # então tentá-lo primeiro anexava a miniatura no lugar da mídia em tamanho real
+      # sempre que a URL também vinha no payload.
       if url.present? && media_key.present?
         Rails.logger.info "[MediaAttach] Trying .enc download from #{url}..."
         blob = download_for_whatsapp_enc(
@@ -59,8 +55,21 @@ module Evolution
         return attach_blob!(message, blob)
       end
 
+      # 2) Fallback: base64 (no payload OU dentro de media)
+      if (b64 = extract_b64(payload, media)).present?
+        Rails.logger.info '[MediaAttach] Found Base64. Processing...'
+        blob = download_for_base64(b64, filename: filename, content_type: mimetype.presence, identify: false)
+        return attach_blob!(message, blob)
+      end
+
       # 3) Fallback: URL simples
       try_simple_download(message, url, filename, mimetype)
+    rescue StandardError => e
+      # O chamador (IncomingMessageService) usa o retorno como booleano para decidir
+      # se aborta a mensagem. Sem este rescue, uma falha de download derrubava o
+      # processamento inteiro em vez de seguir com o texto.
+      Rails.logger.warn "[MediaAttach] erro: #{e.class} #{e.message}"
+      false
     end
 
     private
