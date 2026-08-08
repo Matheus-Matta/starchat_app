@@ -1,6 +1,8 @@
 class SearchService
   pattr_initialize [:current_user!, :current_account!, :params!, :search_type!]
 
+  MAX_SEARCH_TERMS = 6
+
   def account_user
     @account_user ||= current_account.account_users.find_by(user: current_user)
   end
@@ -69,29 +71,39 @@ class SearchService
 
   def advanced_search; end
 
+  # Matches every term anywhere in the message, in any order.
+  #
+  # This used to run `content @@ to_tsquery(terms joined by <->)`, which had two
+  # problems. The index on messages.content is `gin_trgm_ops`, a trigram index: it
+  # serves LIKE/ILIKE and similarity, and cannot serve `@@` at all, so the query
+  # that was named "GIN search" never touched the GIN index. And `<->` demands
+  # adjacent whole lexemes, so "pedid" did not find "pedido" and "pedido compra"
+  # did not find "pedido de compra".
+  #
+  # ILIKE with %term% is what the trigram index actually accelerates, and it gives
+  # substring matching for free. Terms are ANDed, so extra words narrow the result
+  # instead of requiring an exact phrase.
   def filter_messages_with_gin
     base_query = message_base_query
     base_query = apply_message_filters(base_query)
+    base_query = apply_term_matches(base_query) if search_query.present?
 
-    if search_query.present?
-      # Use the @@ operator with to_tsquery for better GIN index utilization
-      # Convert search query to tsquery format with prefix matching
+    base_query.reorder('created_at DESC')
+              .page(params[:page])
+              .per(15)
+  end
 
-      # Use this if we wanna match splitting the words
-      # split_query = search_query.split.map { |term| "#{term} | #{term}:*" }.join(' & ')
+  def apply_term_matches(scope)
+    search_terms.reduce(scope) do |query, term|
+      query.where('messages.content ILIKE :term', term: "%#{term}%")
+    end
+  end
 
-      # This will do entire sentence matching using phrase distance operator
-      tsquery = search_query.split.join(' <-> ')
-
-      # Apply the text search using the GIN index
-      base_query.where('content @@ to_tsquery(?)', tsquery)
-                .reorder('created_at DESC')
-                .page(params[:page])
-                .per(15)
-    else
-      base_query.reorder('created_at DESC')
-                .page(params[:page])
-                .per(15)
+  # Escapes the LIKE wildcards so a query containing % or _ is matched literally,
+  # and caps the term count to keep the number of ANDed index lookups bounded.
+  def search_terms
+    search_query.to_s.split.first(MAX_SEARCH_TERMS).map do |term|
+      term.gsub(/[\\%_]/) { |char| "\\#{char}" }
     end
   end
 

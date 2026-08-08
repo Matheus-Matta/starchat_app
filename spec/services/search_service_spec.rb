@@ -140,6 +140,43 @@ describe SearchService do
           expect(gin_results).to match_array(like_results)
           expect(gin_results).to include(message.id, message2.id, message3.id)
         end
+
+        context 'with partial words and out-of-order terms' do
+          let!(:order_message) do
+            create(:message, account: account, inbox: inbox, conversation: conversation,
+                             content: 'pedido de compra numero 42')
+          end
+
+          before do
+            allow(account).to receive(:feature_enabled?).with('advanced_search').and_return(false)
+            allow(account).to receive(:feature_enabled?).with('search_with_gin').and_return(true)
+          end
+
+          def gin_message_ids(query)
+            described_class.new(current_user: user, current_account: account,
+                                params: { q: query }, search_type: 'Message').perform[:messages].map(&:id)
+          end
+
+          it 'matches a prefix of a word' do
+            expect(gin_message_ids('pedid')).to include(order_message.id)
+          end
+
+          it 'matches a fragment from the middle of a word' do
+            expect(gin_message_ids('ompra')).to include(order_message.id)
+          end
+
+          it 'matches terms that are not adjacent' do
+            expect(gin_message_ids('pedido compra')).to include(order_message.id)
+          end
+
+          it 'requires every term to be present' do
+            expect(gin_message_ids('pedido orcamento')).not_to include(order_message.id)
+          end
+
+          it 'treats LIKE wildcards in the query literally' do
+            expect(gin_message_ids('%')).not_to include(order_message.id)
+          end
+        end
       end
     end
 

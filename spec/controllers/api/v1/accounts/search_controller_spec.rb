@@ -5,11 +5,6 @@ RSpec.describe 'Search', type: :request do
   let(:agent) { create(:user, account: account, role: :agent) }
 
   before do
-    # search_with_gin ships enabled and matches whole words via to_tsquery, so
-    # querying 'test' never matches the 'test1'/'test2' fixtures below. The GIN
-    # path has its own coverage in spec/services/search_service_spec.rb.
-    account.disable_features!(:search_with_gin)
-
     contact = create(:contact, email: 'test@example.com', account: account)
     conversation = create(:conversation, account: account, contact_id: contact.id)
     create(:message, conversation: conversation, account: account, content: 'test1')
