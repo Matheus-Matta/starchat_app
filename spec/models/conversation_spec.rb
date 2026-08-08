@@ -601,6 +601,12 @@ RSpec.describe Conversation do
     subject(:push_event_data) { conversation.push_event_data }
 
     let(:conversation) { create(:conversation) }
+
+    # The sla feature ships enabled here (upstream defaults it off), and
+    # Starchat::Conversations::EventDataPresenter then merges applied_sla,
+    # sla_events and sla_policy_id into the payload. Turn it off so this example
+    # keeps asserting the base payload; the SLA variant has its own spec.
+    before { conversation.account.disable_features!('sla') }
     let(:expected_data) do
       {
         additional_attributes: {},

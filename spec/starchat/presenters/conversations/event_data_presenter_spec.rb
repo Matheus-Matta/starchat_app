@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe Conversations::EventDataPresenter do
-  let!(:presenter) { described_class.new(conversation) }
+  let(:presenter) { described_class.new(conversation) }
   let!(:conversation) { create(:conversation) }
   let!(:applied_sla) { create(:applied_sla, conversation: conversation) }
   let!(:sla_event) { create(:sla_event, conversation: conversation, applied_sla: applied_sla) }
@@ -11,6 +11,9 @@ RSpec.describe Conversations::EventDataPresenter do
   describe '#push_data' do
     it 'returns push event payload with applied sla & sla events if the feature is enabled' do
       conversation.account.enable_features!('sla')
+      # The SLA records are created after the conversation, so its associations
+      # are stale by the time the presenter reads them.
+      conversation.reload
 
       expect(presenter.push_data).to include(
         {

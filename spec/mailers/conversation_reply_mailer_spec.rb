@@ -264,7 +264,12 @@ RSpec.describe ConversationReplyMailer do
         it 'uses outgoing_content for CSAT message body' do
           with_modified_env 'FRONTEND_URL' => 'https://app.starchats.com.br' do
             mail = described_class.email_reply(csat_message).deliver_now
-            expect(mail.decoded).to include csat_message.outgoing_content
+
+            # The body is rendered from markdown, and the renderer autolinks bare
+            # URLs, so it never matches outgoing_content byte for byte. Compare the
+            # visible text instead.
+            expect(ActionView::Base.full_sanitizer.sanitize(mail.decoded).squish)
+              .to include(ActionView::Base.full_sanitizer.sanitize(csat_message.outgoing_content).squish)
           end
         end
       end
