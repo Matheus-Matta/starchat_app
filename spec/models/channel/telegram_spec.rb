@@ -74,7 +74,8 @@ RSpec.describe Channel::Telegram do
     end
 
     it 'send message with markdown converted to telegram HTML' do
-      message = create(:message, message_type: :outgoing, content: '**test** *test* ~test~',
+      # The renderer runs with STRIKETHROUGH_DOUBLE_TILDE, so strikethrough needs ~~.
+      message = create(:message, message_type: :outgoing, content: '**test** *test* ~~test~~',
                                  conversation: create(:conversation, inbox: telegram_channel.inbox, additional_attributes: { 'chat_id' => '123' }))
 
       stub_request(:post, "https://api.telegram.org/bot#{telegram_channel.bot_token}/sendMessage")

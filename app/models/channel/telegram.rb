@@ -102,10 +102,13 @@ class Channel::Telegram < ApplicationRecord
   end
 
   def send_message(message)
-    text = convert_markdown_to_telegram_html(message.outgoing_content)
+    # outgoing_content already comes rendered as Telegram HTML: MarkdownRendererService
+    # routes Channel::Telegram through TelegramRenderer. Running
+    # convert_markdown_to_telegram_html over it again escaped those tags, so bold and
+    # italic reached the customer as literal &lt;strong&gt; text.
     response = message_request(
       chat_id(message),
-      text,
+      message.outgoing_content,
       reply_markup(message),
       reply_to_message_id(message),
       business_connection_id: business_connection_id(message)

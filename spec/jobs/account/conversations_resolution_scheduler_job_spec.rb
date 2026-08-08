@@ -24,16 +24,16 @@ RSpec.describe Account::ConversationsResolutionSchedulerJob do
       described_class.perform_now
     end
 
-    it 'enqueues Conversations::ResolutionJob individually for inboxes with custom auto resolve' do
+    it 'enqueues a single Conversations::ResolutionJob per account, inboxes included' do
       account
-      inbox_custom = create(:inbox, account: account, auto_resolve_duration: 1440)
-      inbox_default = create(:inbox, account: account, auto_resolve_duration: nil)
+      create(:inbox, account: account, auto_resolve_duration: 1440)
+      create(:inbox, account: account, auto_resolve_duration: nil)
 
-      # Expect global first
+      # The scheduler enqueues one job per account. ResolutionJob#resolve_all_for_account
+      # then walks the inboxes that carry their own auto_resolve_duration or a
+      # conversation flow, so no separate per-inbox job is scheduled.
       expect(Conversations::ResolutionJob).to receive(:perform_later).with(account: account).once
-      
-      # Expect inbox specifically
-      expect(Conversations::ResolutionJob).to receive(:perform_later).with(account: account, inbox: inbox_custom).once
+      expect(Conversations::ResolutionJob).not_to receive(:perform_later).with(hash_including(:inbox))
 
       described_class.perform_now
     end

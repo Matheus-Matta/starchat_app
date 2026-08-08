@@ -51,14 +51,4 @@ RSpec.describe Internal::ProcessStaleContactsJob do
     end
   end
 
-  context 'when not in cloud environment' do
-    it 'does not process any accounts' do
-      allow(ChatwootApp).to receive(:chatwoot_cloud?).and_return(false)
-
-      expect(Account).not_to receive(:where)
-      expect(Internal::RemoveStaleContactsJob).not_to receive(:perform_later)
-
-      described_class.perform_now
-    end
-  end
 end

@@ -26,15 +26,24 @@ class Conversations::PermissionFilterService
     perms = account_user&.permissions || []
 
     if perms.include?('conversation_unassigned_manage') || perms.include?('conversation_manage')
-      # Fix: Ensure unassigned conversations are also scoped to accessible inboxes/teams
-      return scope.or(
+      # Unassigned conversations are still scoped to accessible inboxes/teams.
+      scope = scope.or(
         conversations.where(inbox_id: inbox_ids, assignee_id: nil)
       ).or(
         conversations.where(team_id: team_ids, assignee_id: nil)
-      ).distinct
+      )
     end
 
-    scope.distinct
+    deduplicate(scope)
+  end
+
+  # Deduplicating with an id subquery rather than DISTINCT: Postgres rejects
+  # SELECT DISTINCT when ORDER BY references an expression that is not in the select
+  # list, which is exactly what sorting by unread count does (it orders by a
+  # correlated COUNT subquery). DISTINCT here made `sort_by: 'unread'` raise
+  # PG::InvalidColumnReference.
+  def deduplicate(scope)
+    conversations.where(id: scope.select(:id))
   end
 
   def account_user

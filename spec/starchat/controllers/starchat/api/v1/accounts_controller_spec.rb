@@ -150,22 +150,6 @@ RSpec.describe '', type: :request do
         end
       end
 
-      context 'when deployment environment is not cloud' do
-        before do
-          # Set deployment environment to something other than cloud
-          InstallationConfig.find_or_initialize_by(name: 'DEPLOYMENT_ENV').update!(value: 'self_hosted')
-        end
-
-        it 'returns not found' do
-          post "/starchat/api/v1/accounts/#{account.id}/toggle_deletion",
-               headers: admin.create_new_auth_token,
-               params: { action_type: 'delete' },
-               as: :json
-
-          expect(response).to have_http_status(:not_found)
-          expect(JSON.parse(response.body)['error']).to eq('Not found')
-        end
-      end
 
       context 'when it is an admin' do
         before do

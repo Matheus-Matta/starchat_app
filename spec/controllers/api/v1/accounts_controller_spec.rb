@@ -121,10 +121,13 @@ RSpec.describe 'Accounts API', type: :request do
       end
     end
 
-    context 'when ENABLE_ACCOUNT_SIGNUP env variable is set to api_only' do
+    context 'when the ENABLE_ACCOUNT_SIGNUP installation config is api_only' do
       before do
         GlobalConfig.clear_cache
-        InstallationConfig.where(name: 'ENABLE_ACCOUNT_SIGNUP').delete_all
+        # api_only_signup? reads this key straight from InstallationConfig, because
+        # GlobalConfig typecasts it and would coerce 'api_only' to true. The env var
+        # path is CW_API_ONLY_SERVER, covered by its own context below.
+        InstallationConfig.find_or_initialize_by(name: 'ENABLE_ACCOUNT_SIGNUP').update!(value: 'api_only')
       end
 
       after do
@@ -134,14 +137,13 @@ RSpec.describe 'Accounts API', type: :request do
 
       it 'returns auth headers and full response for api_only signup' do
         params = { account_name: 'test', email: email, user_full_name: user_full_name, password: 'Password1!' }
-        with_modified_env ENABLE_ACCOUNT_SIGNUP: 'api_only' do
-          post api_v1_accounts_url,
-               params: params,
-               as: :json
 
-          expect(response).to have_http_status(:success)
-          expect(response.headers.keys).to include('access-token', 'token-type', 'client', 'expiry', 'uid')
-        end
+        post api_v1_accounts_url,
+             params: params,
+             as: :json
+
+        expect(response).to have_http_status(:success)
+        expect(response.headers.keys).to include('access-token', 'token-type', 'client', 'expiry', 'uid')
       end
     end
 

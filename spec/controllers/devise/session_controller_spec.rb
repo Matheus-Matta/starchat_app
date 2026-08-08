@@ -66,7 +66,10 @@ RSpec.describe 'Session', type: :request do
              as: :json
 
         expect(response).to have_http_status(:success)
-        expect(response.parsed_body['data']['accounts'].first['permissions']).to eq(['agent'])
+        # Agents here also get create_macro and create_canned_response by default;
+        # upstream returns just ['agent'].
+        expect(response.parsed_body['data']['accounts'].first['permissions'])
+          .to eq(%w[agent create_macro create_canned_response])
       end
     end
 

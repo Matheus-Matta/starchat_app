@@ -277,6 +277,12 @@ RSpec.describe 'Api::V1::Accounts::Cosmos::Assistants', type: :request do
     end
 
     context 'when it is an agent' do
+      before do
+        # cosmos_integration_v2 ships enabled and routes playground through
+        # AgentRunnerService; these examples cover the v1 AssistantChatService path.
+        account.disable_features!(:cosmos_integration_v2)
+      end
+
       it 'generates a response' do
         chat_service = instance_double(Cosmos::Llm::AssistantChatService)
         allow(Cosmos::Llm::AssistantChatService).to receive(:new).with(assistant: assistant).and_return(chat_service)
