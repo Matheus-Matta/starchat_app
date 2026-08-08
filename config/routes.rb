@@ -78,6 +78,10 @@ Rails.application.routes.draw do
             end
             resources :agent_sessions, only: [:show]
             resources :assistant_responses
+            resources :faq_suggestions, only: [:index, :show, :update] do
+              post :approve, on: :member
+              post :dismiss, on: :member
+            end
             resources :message_reports, only: [:create]
             resources :bulk_actions, only: [:create]
             resources :copilot_threads, only: [:index, :create] do
@@ -266,6 +270,7 @@ Rails.application.routes.draw do
             end
             member do
               post :start
+              post :retry, action: :retry_import
               post :abandon
               get :error_logs
               get :skip_logs

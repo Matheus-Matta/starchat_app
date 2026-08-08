@@ -408,6 +408,14 @@ RSpec.describe Conversation do
       expect(conversation.reload.status).to eq('open')
     end
 
+    it 'clears agent bot ownership' do
+      conversation.update!(assignee_agent_bot: create(:agent_bot, account: conversation.account))
+
+      conversation.bot_handoff!
+
+      expect(conversation.reload.assignee_agent_bot).to be_nil
+    end
+
     it 'dispatches CONVERSATION_BOT_HANDOFF event' do
       expect(Rails.configuration.dispatcher).to receive(:dispatch)
         .with(described_class::CONVERSATION_BOT_HANDOFF, anything, hash_including(conversation: conversation))
@@ -732,6 +740,55 @@ RSpec.describe Conversation do
       campaign = create(:campaign, account: bot_inbox.inbox.account, inbox: bot_inbox.inbox, sender: sender)
       conversation = create(:conversation, inbox: bot_inbox.inbox, campaign: campaign)
       expect(conversation.status).to eq('open')
+end
+
+    it 'sets connected agent bot as the conversation owner' do
+      expect(conversation.assignee_agent_bot).to eq(bot_inbox.agent_bot)
+      expect(conversation.assignee).to be_nil
+    end
+
+    it 'preserves explicit human assignee' do
+      agent = create(:user, account: bot_inbox.inbox.account)
+      conversation = create(:conversation, inbox: bot_inbox.inbox, assignee: agent)
+
+      expect(conversation.assignee).to eq(agent)
+      expect(conversation.assignee_agent_bot).to be_nil
+    end
+
+    context 'with campaigns' do
+      let(:user) { create(:user, account: bot_inbox.inbox.account) }
+
+      it 'returns conversation as open if campaign has a sender' do
+        campaign = create(:campaign, inbox: bot_inbox.inbox, account: bot_inbox.inbox.account, sender: user)
+        conversation = create(:conversation, inbox: bot_inbox.inbox, campaign: campaign)
+        expect(conversation.status).to eq('open')
+        expect(conversation.assignee_agent_bot).to be_nil
+      end
+
+      it 'returns conversation as pending if campaign has no sender (bot-initiated) and bot is active' do
+        campaign = create(:campaign, inbox: bot_inbox.inbox, account: bot_inbox.inbox.account, sender: nil)
+        conversation = create(:conversation, inbox: bot_inbox.inbox, campaign: campaign)
+        expect(conversation.status).to eq('pending')
+        expect(conversation.assignee_agent_bot).to eq(bot_inbox.agent_bot)
+      end
+    end
+
+    context 'with campaigns in inbox without bot' do
+      let(:account) { create(:account) }
+      let(:inbox) { create(:inbox, account: account) }
+      let(:user) { create(:user, account: account) }
+
+      it 'returns conversation as open if campaign has no sender but no bot is active' do
+        campaign = create(:campaign, inbox: inbox, account: account, sender: nil)
+        conversation = create(:conversation, inbox: inbox, campaign: campaign)
+        expect(conversation.status).to eq('open')
+      end
+
+      it 'returns conversation as open if campaign has a sender' do
+        campaign = create(:campaign, inbox: inbox, account: account, sender: user)
+        conversation = create(:conversation, inbox: inbox, campaign: campaign)
+        expect(conversation.status).to eq('open')
+      end
     end
   end
 
@@ -742,6 +799,10 @@ RSpec.describe Conversation do
 
     it 'returns conversation status as pending' do
       expect(conversation.status).to eq('pending')
+    end
+
+    it 'does not set agent bot ownership' do
+      expect(conversation.assignee_agent_bot).to be_nil
     end
   end
 

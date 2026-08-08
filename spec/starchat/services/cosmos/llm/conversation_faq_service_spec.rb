@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Cosmos::Llm::ConversationFaqService do
   let(:cosmos_assistant) { create(:cosmos_assistant) }
-  let(:conversation) { create(:conversation, first_reply_created_at: Time.zone.now) }
+  let(:conversation) { create(:conversation, account: cosmos_assistant.account, first_reply_created_at: Time.zone.now) }
   let(:service) { described_class.new(cosmos_assistant, conversation) }
   let(:client) { instance_double(OpenAI::Client) }
   let(:embedding_service) { instance_double(Cosmos::Llm::EmbeddingService) }
@@ -48,7 +48,7 @@ end
           model: Llm::Models.default_model_for('conversation_faq_generation')
         ).and_return(mock_chat)
 
-        described_class.new(cosmos_assistant, conversation).generate_and_deduplicate
+        described_class.new(cosmos_assistant, conversation).generate_suggestions
       end
 
       it 'uses the conversation FAQ default ahead of the legacy global installation model' do
@@ -58,7 +58,7 @@ end
           model: Llm::Models.default_model_for('conversation_faq_generation')
         ).and_return(mock_chat)
 
-        described_class.new(cosmos_assistant, conversation).generate_and_deduplicate
+        described_class.new(cosmos_assistant, conversation).generate_suggestions
       end
 
       it 'keeps account conversation FAQ model overrides ahead of the feature default' do
@@ -67,7 +67,7 @@ end
 
         expect(RubyLLM).to receive(:chat).with(model: 'gpt-4.1-mini').and_return(mock_chat)
 
-        described_class.new(cosmos_assistant, conversation).generate_and_deduplicate
+        described_class.new(cosmos_assistant, conversation).generate_suggestions
       end
 
       it 'resolves the feature model from the conversation account' do
@@ -76,7 +76,7 @@ end
           account: conversation.account
         ).and_call_original
 
-        described_class.new(cosmos_assistant, conversation).generate_and_deduplicate
+        described_class.new(cosmos_assistant, conversation).generate_suggestions
       end
 
       it 'sends only customer and human support agent messages to the LLM' do
@@ -94,7 +94,7 @@ end
         create(:message, conversation: conversation, account: conversation.account, inbox: conversation.inbox,
                          message_type: :activity, content: 'Activity message')
 
-        service.generate_and_deduplicate
+        service.generate_suggestions
 
         expected_content = satisfy do |content|
           content.include?('User: Customer question') &&
@@ -114,7 +114,7 @@ end
                          sender: nil, message_type: :outgoing, content: 'Human replied from the native app',
                          content_attributes: { external_echo: true })
 
-        service.generate_and_deduplicate
+        service.generate_suggestions
 
         expected_content = satisfy do |content|
           content.include?('User: Customer asks in a native channel') &&
@@ -143,22 +143,27 @@ end
           block.call
         end
 
-        service.generate_and_deduplicate
+        service.generate_suggestions
       end
 
-      it 'creates new FAQs for valid conversation content' do
+      it 'creates suggestions instead of trusted FAQs for valid conversation content' do
         expect do
-          service.generate_and_deduplicate
-        end.to change(cosmos_assistant.responses, :count).by(2)
+          service.generate_suggestions
+        end.to change(cosmos_assistant.faq_suggestions, :count).by(2)
+        expect(Cosmos::FaqObservation.count).to eq(2)
+        expect(cosmos_assistant.responses.count).to be_zero
       end
 
       it 'saves the correct FAQ content' do
         service.generate_and_deduplicate
         expect(
-          cosmos_assistant.responses.pluck(:question, :answer, :status, :documentable_id)
+          cosmos_assistant.faq_suggestions.pluck(:question, :answer, :status, :source_count, :language)
         ).to contain_exactly(
-          ['What is the purpose?', 'To help users.', 'pending', conversation.id],
-          ['How does it work?', 'Through AI.', 'pending', conversation.id]
+          ['What is the purpose?', 'To help users.', 'open', 1, 'en'],
+          ['How does it work?', 'Through AI.', 'open', 1, 'en']
+        )
+        expect(Cosmos::FaqObservation.attached.pluck(:conversation_id, :language)).to contain_exactly(
+          [conversation.id, 'en'], [conversation.id, 'en']
         )
       end
     end
@@ -167,13 +172,14 @@ end
       let(:conversation) { create(:conversation) }
 
       it 'returns an empty array without generating FAQs' do
-        expect(service.generate_and_deduplicate).to eq([])
+        expect(service.generate_suggestions).to eq([])
       end
     end
 
     context 'when finding duplicates' do
       let(:existing_response) do
-        create(:cosmos_assistant_response, assistant: cosmos_assistant, question: 'Similar question', answer: 'Similar answer')
+        create(:cosmos_assistant_response, assistant: cosmos_assistant, account: cosmos_assistant.account,
+                                            question: 'Similar question', answer: 'Similar answer', embedding: embedding_one)
       end
       let(:similar_neighbor) do
         # Using OpenStruct here to mock as the  :AssistantResponse does not implement
@@ -195,8 +201,99 @@ end
 
       it 'filters out duplicate FAQs' do
         expect do
-          service.generate_and_deduplicate
-        end.not_to change(cosmos_assistant.responses, :count)
+          service.generate_suggestions
+        end.to change(cosmos_assistant.faq_suggestions, :count).by(1)
+
+        expect(cosmos_assistant.faq_suggestions.pluck(:language)).to contain_exactly('en', 'pt')
+        expect(existing_suggestion.reload.source_count).to eq(1)
+      end
+    end
+
+    context 'when an open suggestion uses another locale variant of the same language' do
+      let(:account) { create(:account, locale: 'pt_BR') }
+      let(:cosmos_assistant) { create(:cosmos_assistant, account: account) }
+      let(:conversation) { create(:conversation, account: account, first_reply_created_at: Time.zone.now) }
+      let(:sample_faqs) { [{ 'question' => 'Como ativo o recurso?', 'answer' => 'Ative nas configuracoes.' }] }
+      let(:existing_suggestion) do
+        cosmos_assistant.faq_suggestions.create!(
+          question: 'Como habilito o recurso?',
+          answer: 'Ative nas configuracoes.',
+          embedding: embedding_one,
+          language: 'pt',
+          source_count: 1
+        )
+      end
+      let(:match_response) { instance_double(RubyLLM::Message, content: { same_faq: true }.to_json) }
+
+      before do
+        existing_suggestion
+        allow(embedding_service).to receive(:get_embedding).and_return(embedding_one)
+        allow(mock_chat).to receive(:ask) do |input|
+          input.start_with?('{') ? match_response : mock_response
+        end
+      end
+
+      it 'attaches the observation to the existing base-language suggestion' do
+        expect do
+          service.generate_suggestions
+        end.to change(existing_suggestion.observations, :count).by(1)
+
+        expect(existing_suggestion.reload.source_count).to eq(2)
+        expect(cosmos_assistant.faq_suggestions.count).to eq(1)
+        expect(existing_suggestion.observations.last.language).to eq('pt')
+      end
+    end
+
+    context 'when a similar approved FAQ uses another language' do
+      let(:sample_faqs) { [{ 'question' => 'Como ativo o recurso?', 'answer' => 'Ative nas configuracoes.' }] }
+      let(:match_response) { instance_double(RubyLLM::Message, content: { same_faq: true }.to_json) }
+
+      before do
+        create(:cosmos_assistant_response, assistant: cosmos_assistant, account: cosmos_assistant.account,
+                                            question: 'How do I enable the feature?', answer: 'Turn it on in settings.',
+                                            embedding: embedding_one)
+        conversation.update!(additional_attributes: { conversation_language: 'pt-BR' })
+        allow(embedding_service).to receive(:get_embedding).and_return(embedding_one)
+        allow(mock_chat).to receive(:ask) do |input|
+          input.start_with?('{') ? match_response : mock_response
+        end
+      end
+
+      it 'deduplicates against the approved FAQ' do
+        expect do
+          service.generate_suggestions
+        end.to change(Cosmos::FaqObservation.discarded, :count).by(1)
+        expect(cosmos_assistant.faq_suggestions.count).to be_zero
+      end
+    end
+
+    context 'when conversation and account locales share a base language' do
+      let(:account) { create(:account, locale: 'pt_BR') }
+      let(:cosmos_assistant) { create(:cosmos_assistant, account: account) }
+      let(:conversation) do
+        create(:conversation, account: account, first_reply_created_at: Time.zone.now,
+                              additional_attributes: { conversation_language: 'pt' })
+      end
+      let!(:existing_response) do
+        create(:cosmos_assistant_response, assistant: cosmos_assistant, account: account,
+                                            question: 'Como ativo o recurso?', answer: 'Ative nas configuracoes.',
+                                            embedding: embedding_one)
+      end
+      let(:match_response) { instance_double(RubyLLM::Message, content: { same_faq: true }.to_json) }
+
+      before do
+        existing_response
+        allow(embedding_service).to receive(:get_embedding).and_return(embedding_one)
+        allow(mock_chat).to receive(:ask) do |input|
+          input.start_with?('{') ? match_response : mock_response
+        end
+      end
+
+      it 'deduplicates against approved FAQs in the same base language' do
+        expect do
+          service.generate_suggestions
+        end.to change(Cosmos::FaqObservation.discarded, :count).by(2)
+        expect(cosmos_assistant.faq_suggestions.count).to be_zero
       end
     end
 
@@ -230,7 +327,7 @@ end
 
       it 'handles JSON parsing errors' do
         expect(Rails.logger).to receive(:error).with(/Error in parsing GPT processed response:/)
-        expect(service.generate_and_deduplicate).to eq([])
+        expect(service.generate_suggestions).to eq([])
       end
     end
   end
@@ -254,6 +351,7 @@ end
 
     context 'when conversation has different language' do
       let(:account) { create(:account, locale: 'fr') }
+      let(:cosmos_assistant) { create(:cosmos_assistant, account: account) }
       let(:conversation) do
         create(:conversation, account: account,
                               first_reply_created_at: Time.zone.now)

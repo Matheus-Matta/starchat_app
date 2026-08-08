@@ -50,7 +50,12 @@ class Api::V1::Accounts::Cosmos::AssistantsController < Api::V1::Accounts::BaseC
   end
 
   def faq_stats
-    render json: Cosmos::AssistantStatsBuilder.new(@assistant).faq_stats
+    builder = Cosmos::AssistantStatsBuilder.new(
+      @assistant,
+      suggestions_scope: Cosmos::FaqSuggestionFinder.new(Current.user, Current.account).perform
+    )
+
+    render json: builder.faq_stats
   end
 
   def summary

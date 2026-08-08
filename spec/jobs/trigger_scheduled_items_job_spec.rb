@@ -32,6 +32,11 @@ RSpec.describe TriggerScheduledItemsJob do
 
   it 'triggers Notification::RemoveOldNotificationJob' do
     expect(Notification::RemoveOldNotificationJob).to receive(:perform_later).once
+end
+
+  it 'does not trigger the hourly WhatsApp health scheduler' do
+    expect(Channels::Whatsapp::HealthSyncSchedulerJob).not_to receive(:perform_later)
+
     described_class.perform_now
   end
 
