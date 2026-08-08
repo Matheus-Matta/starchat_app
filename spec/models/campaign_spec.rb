@@ -147,6 +147,8 @@ RSpec.describe Campaign do
       let(:campaign) { create(:campaign, account: account, inbox: whatsapp_channel.inbox) }
 
       it 'does not mark the campaign as processing' do
+        # whatsapp_campaign ships enabled here (upstream defaults it off).
+        account.disable_features!(:whatsapp_campaign)
         expect(Whatsapp::OneoffCampaignService).not_to receive(:new)
 
         campaign.trigger!

@@ -107,6 +107,9 @@ RSpec.describe Inbox do
       before do
         account.enable_features('assignment_v2')
         account.save!
+        # advanced_assignment ships enabled, so it has to be turned off explicitly
+        # for this context to exercise the stale-policy path.
+        account.disable_features!(:advanced_assignment)
 
         create(:inbox_capacity_limit, agent_capacity_policy: agent_capacity_policy, inbox: v2_inbox, conversation_limit: 1)
         agent1.account_users.find_by(account: account).update!(agent_capacity_policy: agent_capacity_policy)

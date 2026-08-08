@@ -162,6 +162,9 @@ RSpec.describe 'Conversations API', type: :request do
       end
 
       it 'returns forbidden when conversation unread counts feature is disabled' do
+        # conversation_unread_counts ships enabled here (upstream defaults it off).
+        account.disable_features!(:conversation_unread_counts)
+
         get "/api/v1/accounts/#{account.id}/conversations/unread_counts",
             headers: agent.create_new_auth_token,
             as: :json

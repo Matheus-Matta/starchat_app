@@ -80,6 +80,10 @@ RSpec.describe Contact, type: :model do
     end
 
     it 'does not include company_id when companies feature is disabled' do
+      # companies ships enabled here (upstream defaults it off), so it has to be
+      # turned off explicitly to exercise the disabled branch.
+      account.disable_features!(:companies)
+
       expect(contact.push_event_data).not_to have_key(:company_id)
     end
   end

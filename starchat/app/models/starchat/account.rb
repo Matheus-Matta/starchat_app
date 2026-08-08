@@ -65,16 +65,11 @@ module Starchat::Account
 
   def sync_assignment_features
     if feature_enabled?('assignment_v2')
-      # Enable advanced_assignment for Business/Enterprise plans
-      send('feature_advanced_assignment=', true) if business_or_enterprise_plan?
+      # Every account is enterprise here, so this is no longer plan-gated.
+      send('feature_advanced_assignment=', true)
     else
       # Disable advanced_assignment when assignment_v2 is disabled
       send('feature_advanced_assignment=', false)
     end
-  end
-
-  def business_or_enterprise_plan?
-    plan_name = custom_attributes['plan_name']
-    %w[Business Enterprise].include?(plan_name)
   end
 end

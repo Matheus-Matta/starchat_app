@@ -61,6 +61,9 @@ RSpec.describe Account do
     end
 
     it 'clears unread count cache when the feature is enabled' do
+      # The feature ships enabled here (upstream defaults it off), so enabling it
+      # again would be a no-op and never trip the cache-clearing callback.
+      account.disable_features!(:conversation_unread_counts)
       build_unread_count_cache
 
       account.enable_features!(:conversation_unread_counts)

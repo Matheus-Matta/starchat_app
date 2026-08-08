@@ -31,6 +31,8 @@ RSpec.describe Conversations::UnreadCounts::Listener do
   end
 
   it 'ignores incoming message creation when conversation unread counts are disabled' do
+    # conversation_unread_counts ships enabled here (upstream defaults it off).
+    account.disable_features!(:conversation_unread_counts)
     message = create(:message, account: account, inbox: conversation.inbox, conversation: conversation, message_type: :incoming)
     event = Events::Base.new('message.created', Time.zone.now, message: message)
 
