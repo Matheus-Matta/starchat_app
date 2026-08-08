@@ -28,7 +28,9 @@ RSpec.describe Integrations::App do
       let(:app_name) { 'dialogflow' }
 
       it 'returns the configured property names as strings' do
-        expect(app.visible_properties).to contain_exactly('project_id', 'region', 'language_code')
+        # No language_code here: this fork dropped the Dialogflow language selector
+        # from config/integration/apps.yml, upstream still ships it.
+        expect(app.visible_properties).to contain_exactly('project_id', 'region')
       end
     end
 
@@ -82,6 +84,9 @@ RSpec.describe Integrations::App do
       end
 
       it 'returns false if the shopify integration feature is disabled' do
+        # shopify_integration ships enabled here (upstream defaults it off), so the
+        # account has it on already and it has to be turned off explicitly.
+        account.disable_features('shopify_integration')
         allow(GlobalConfigService).to receive(:load).with('SHOPIFY_CLIENT_ID', nil).and_return('client_id')
         expect(app.active?(account)).to be false
       end

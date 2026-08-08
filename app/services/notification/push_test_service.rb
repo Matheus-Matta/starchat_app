@@ -50,13 +50,9 @@ class Notification::PushTestService
   end
 
   def test_fcm(subscription)
-    if firebase_credentials_present?
-      test_fcm_direct(subscription)
-    elsif chatwoot_hub_enabled?
-      test_fcm_via_hub(subscription)
-    else
-      result(subscription, 'fcm', :skipped, 'No Firebase credentials and push relay disabled')
-    end
+    return result(subscription, 'fcm', :skipped, 'Firebase credentials not configured') unless firebase_credentials_present?
+
+    test_fcm_direct(subscription)
   end
 
   def test_fcm_direct(subscription)
@@ -72,21 +68,8 @@ class Notification::PushTestService
     result(subscription, 'fcm', :failure, "#{e.class.name}: #{e.message}")
   end
 
-  def test_fcm_via_hub(subscription)
-    response = ChatwootHub.send_push_with_response(fcm_options(subscription))
-    result(subscription, 'fcm_via_hub', :success, "HTTP #{response.code} — #{response.body}")
-  rescue RestClient::ExceptionWithResponse => e
-    result(subscription, 'fcm_via_hub', :failure, "HTTP #{e.response&.code} — #{e.response&.body}")
-  rescue StandardError => e
-    result(subscription, 'fcm_via_hub', :failure, "#{e.class.name}: #{e.message}")
-  end
-
   def firebase_credentials_present?
     GlobalConfigService.load('FIREBASE_PROJECT_ID', nil) && GlobalConfigService.load('FIREBASE_CREDENTIALS', nil)
-  end
-
-  def chatwoot_hub_enabled?
-    ActiveModel::Type::Boolean.new.cast(ENV.fetch('ENABLE_PUSH_RELAY_SERVER', true))
   end
 
   def browser_push_payload(subscription)

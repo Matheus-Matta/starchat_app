@@ -8,12 +8,11 @@ class Cosmos::Documents::ScheduleSyncsJob < ApplicationJob
   WEEKLY_SYNC_JITTER = 1.day
   MONTHLY_SYNC_JITTER = 4.days
 
-  def perform(plan_name = nil)
+  def perform
     @per_account_batch_limit = configured_sync_limit('COSMOS_DOCUMENT_AUTO_SYNC_PER_ACCOUNT_BATCH_LIMIT', DEFAULT_PER_ACCOUNT_BATCH_LIMIT)
     @global_batch_limit = configured_sync_limit('COSMOS_DOCUMENT_AUTO_SYNC_GLOBAL_BATCH_LIMIT', DEFAULT_GLOBAL_BATCH_LIMIT)
     @remaining_global_capacity = @global_batch_limit
-    @plan_name = plan_name.to_s.downcase.presence
-    sync_intervals = Starchat::Account.cosmos_document_sync_intervals
+    sync_interval = Starchat::Account.cosmos_document_sync_intervals
     stats = { accounts_scanned: 0, accounts_enabled: 0, accounts_scheduled: 0, documents_enqueued: 0 }
 
     Account.joins(:cosmos_documents).distinct.find_each(batch_size: 100) do |account|
@@ -21,10 +20,9 @@ class Cosmos::Documents::ScheduleSyncsJob < ApplicationJob
 
       stats[:accounts_scanned] += 1
       next unless account.feature_enabled?('cosmos_document_auto_sync')
-      next unless account_in_selected_plan?(account)
 
       stats[:accounts_enabled] += 1
-      interval = account.cosmos_document_sync_interval(sync_intervals)
+      interval = account.cosmos_document_sync_interval(sync_interval)
       next unless interval
 
       stats[:accounts_scheduled] += 1
@@ -61,7 +59,7 @@ class Cosmos::Documents::ScheduleSyncsJob < ApplicationJob
     synced = Cosmos::Document.sync_statuses[:synced]
     failed = Cosmos::Document.sync_statuses[:failed]
     stale_cutoff = SYNC_STALE_TIMEOUT.ago
-    # The scheduler runs at predictable plan windows. Use a wider due window so
+    # The scheduler runs at predictable windows. Use a wider due window so
     # jittered executions do not miss the next window just because they finished later.
     sync_due_before = due_window(interval).ago
 
@@ -77,18 +75,6 @@ class Cosmos::Documents::ScheduleSyncsJob < ApplicationJob
     configured_value = InstallationConfig.find_by(name: config_key)&.value
     limit = configured_value.to_s.to_i
     limit.positive? ? limit : default
-  end
-
-  def account_in_selected_plan?(account)
-    return true if @plan_name.blank?
-
-    account_sync_plan(account) == @plan_name
-  end
-
-  def account_sync_plan(account)
-    plan = account.custom_attributes['plan_name']
-    plan = 'enterprise' if plan.blank? && ChatwootApp.self_hosted_enterprise?
-    plan.to_s.downcase.presence
   end
 
   def sync_jitter(interval)
@@ -110,7 +96,6 @@ class Cosmos::Documents::ScheduleSyncsJob < ApplicationJob
   def log_scheduler_summary(stats)
     payload = {
       event: 'completed',
-      plan_name: @plan_name,
       global_cap_hit: @remaining_global_capacity <= 0,
       per_account_batch_limit: @per_account_batch_limit,
       global_batch_limit: @global_batch_limit,

@@ -65,28 +65,8 @@ module Starchat::Account::PlanUsageAndLimits
     }
   end
 
-  def plan_email_limit
-    base_limit = plan_base_email_limit
-    return nil if base_limit.nil?
-    return base_limit if free_plan?
 
-    base_limit * [agent_limits.to_i, 1].max
-  end
 
-  def plan_base_email_limit
-    config = InstallationConfig.find_by(name: 'ACCOUNT_EMAILS_PLAN_LIMITS')&.value
-    return nil if config.blank? || plan_name.blank?
-
-    parsed = config.is_a?(String) ? JSON.parse(config) : config
-    parsed[plan_name.downcase]&.to_i
-  rescue StandardError
-    nil
-  end
-
-  def free_plan?
-    default_plan = InstallationConfig.find_by(name: 'CHATWOOT_CLOUD_PLANS')&.value&.first
-    default_plan.present? && plan_name&.downcase == default_plan['name']&.downcase
-  end
 
   def default_cosmos_limits
     max_limits = { documents: ChatwootApp.max_limit, responses: ChatwootApp.max_limit }.with_indifferent_access

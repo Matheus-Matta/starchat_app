@@ -112,11 +112,6 @@
   description: 'Maximum number of non-channel emails an account can send per day'
   value: 100
   locked: false
-- name: ACCOUNT_EMAILS_PLAN_LIMITS
-  display_title: 'Account Email Plan Limits (Daily)'
-  description: 'Per-plan daily email sending limits as JSON'
-  value:
-  type: code
 # ------- End of Email Related Config ------- #
 
 # ------- Facebook Channel Related Config ------- #
@@ -204,14 +199,9 @@
   description: 'The FireCrawl API key for the Cosmos AI service'
   locked: false
   type: secret
-- name: COSMOS_CLOUD_PLAN_LIMITS
-  display_title: 'Cosmos Cloud Plan Limits'
-  description: 'The limits for the Cosmos AI service for different plans'
-  value:
-  type: code
 - name: COSMOS_DOCUMENT_AUTO_SYNC_INTERVALS
-  display_title: 'Cosmos Document Auto Sync Intervals'
-  description: 'JSON map of plan-wise Cosmos document auto-sync intervals in hours. Use null to disable auto-sync for a plan.'
+  display_title: 'Cosmos Document Auto Sync Interval (hours)'
+  description: 'Cosmos document auto-sync interval in hours, applied to every account. Leave blank to disable auto-sync.'
   value:
   locked: false
   type: code
@@ -249,14 +239,6 @@
   description: 'The Chatwoot Inbox HMAC Key for Contact Support in Cloud'
   locked: false
   type: secret
-- name: CHATWOOT_CLOUD_PLANS
-  display_title: 'Cloud Plans'
-  value:
-  description: 'Config to store stripe plans for cloud'
-- name: CHATWOOT_CLOUD_PLAN_FEATURES
-  display_title: 'Planwise Features List'
-  value:
-  description: 'Config to features and their associated plans'
 - name: DEPLOYMENT_ENV
   value: self-hosted
   description: 'The deployment environment of the installation, to differentiate between Chatwoot cloud and self-hosted'
@@ -292,23 +274,6 @@
 # ------- End of Chatwoot Internal Config for Cloud ----#
 
 # ------- Chatwoot Internal Config for Self Hosted ----#
-- name: INSTALLATION_PRICING_PLAN
-  value: 'community'
-  description: 'The pricing plan for the installation, retrieved from the billing API'
-- name: INSTALLATION_PRICING_PLAN_QUANTITY
-  value: 0
-  description: 'The number of licenses purchased for the installation, retrieved from the billing API'
-- name: CHATWOOT_SUPPORT_WEBSITE_TOKEN
-  value:
-  description: 'The Chatwoot website token, used to identify the Chatwoot inbox and display the "Contact Support" option on the billing page'
-  type: secret
-- name: CHATWOOT_SUPPORT_SCRIPT_URL
-  value:
-  description: 'The Chatwoot script base URL, to display the "Contact Support" option on the billing page'
-- name: CHATWOOT_SUPPORT_IDENTIFIER_HASH
-  value:
-  description: 'The Chatwoot identifier hash, to validate the contact in the live chat window.'
-  type: secret
 - name: ACCOUNT_SECURITY_NOTIFICATION_WEBHOOK_URL
   display_title: Webhook URL to post security analysis
   value:

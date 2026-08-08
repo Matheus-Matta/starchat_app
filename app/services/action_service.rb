@@ -66,6 +66,10 @@ class ActionService
     @conversation.update!(team_id: team_ids[0])
   end
 
+  def remove_assigned_agent(_params)
+    @conversation.update!(assignee_id: nil)
+  end
+
   def remove_assigned_team(_params)
     @conversation.update!(team_id: nil)
   end

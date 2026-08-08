@@ -1,6 +1,5 @@
 class Inboxes::FetchImapEmailInboxesJob < ApplicationJob
   queue_as :scheduled_jobs
-  include BillingHelper
 
   def perform
     email_inboxes = Inbox.where(channel_type: 'Channel::Email')
@@ -15,9 +14,6 @@ class Inboxes::FetchImapEmailInboxesJob < ApplicationJob
     return false if inbox.account.suspended?
     return false unless inbox.channel.imap_enabled
     return false if inbox.channel.reauthorization_required?
-
-    return true unless ChatwootApp.chatwoot_cloud?
-    return false if default_plan?(inbox.account)
 
     true
   end

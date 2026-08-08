@@ -1,20 +1,25 @@
 module Starchat::Account
   class << self
+    # A single interval for every account. This used to be a plan-keyed map, which
+    # meant accounts with no plan_name never auto-synced at all.
     def cosmos_document_sync_intervals
-      parse_cosmos_document_sync_intervals(InstallationConfig.find_by(name: 'COSMOS_DOCUMENT_AUTO_SYNC_INTERVALS')&.value)
+      parse_cosmos_document_sync_interval(InstallationConfig.find_by(name: 'COSMOS_DOCUMENT_AUTO_SYNC_INTERVALS')&.value)
     end
 
     private
 
-    def parse_cosmos_document_sync_intervals(configured_intervals)
-      return {} if configured_intervals.blank?
+    def parse_cosmos_document_sync_interval(configured_interval)
+      return nil if configured_interval.blank?
 
-      parsed_intervals = configured_intervals.is_a?(String) ? JSON.parse(configured_intervals) : configured_intervals
-      return {} unless parsed_intervals.is_a?(Hash)
+      # Still accepts the old plan-keyed hash so an existing installation config
+      # keeps working; any configured value is applied to every account now.
+      configured_interval = JSON.parse(configured_interval) if configured_interval.is_a?(String) && configured_interval.strip.start_with?('{')
+      configured_interval = configured_interval.values.compact.first if configured_interval.is_a?(Hash)
 
-      parsed_intervals.transform_keys { |plan| plan.to_s.downcase }
+      interval_hours = Integer(configured_interval, exception: false)
+      interval_hours if interval_hours&.positive?
     rescue JSON::ParserError
-      {}
+      nil
     end
   end
 
@@ -46,15 +51,10 @@ module Starchat::Account
     custom_attributes.delete('marked_for_deletion_at') && custom_attributes.delete('marked_for_deletion_reason') && save
   end
 
-  def cosmos_document_sync_interval(sync_intervals = Starchat::Account.cosmos_document_sync_intervals)
-    plan = custom_attributes['plan_name']
-    plan = 'enterprise' if plan.blank? && ChatwootApp.self_hosted_enterprise?
-    return nil if plan.blank?
+  def cosmos_document_sync_interval(sync_interval = Starchat::Account.cosmos_document_sync_intervals)
+    return nil unless sync_interval.is_a?(Integer) && sync_interval.positive?
 
-    interval_hours = sync_intervals[plan.downcase]
-    return nil unless interval_hours.is_a?(Integer) && interval_hours.positive?
-
-    interval_hours.hours
+    sync_interval.hours
   end
 
   def saml_enabled?

@@ -33,3 +33,5 @@ class MacroPolicy < ApplicationPolicy
     @record.created_by == @account_user.user
   end
 end
+
+MacroPolicy.prepend_mod_with('MacroPolicy')

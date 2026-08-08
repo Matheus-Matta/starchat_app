@@ -1,0 +1,427 @@
+================================================================================
+FAILURE.LOG  --  validacao da release/v2.5.1-star
+Gerado em: 2026-08-07
+Branch: release/v2.5.1-star
+HEAD: 2460aaa9a2 (fix: rename Enterprise:: to Starchat::)
+Estado do port: v4.14.2, v4.15.0, v4.15.1 aplicados (backend). Faltam v4.16.0,
+                v4.16.1, v4.16.2.
+================================================================================
+
+COMO RODAR AS SUITES (os dois overrides sao obrigatorios -- ver secao BLOQUEIOS)
+
+  # backend
+  POSTGRES_DATABASE=chatwoot_test VITE_RUBY_SKIP_COMPATIBILITY_CHECK=true \
+    RAILS_ENV=test bundle exec rspec
+
+  # frontend
+  pnpm test
+
+
+================================================================================
+1. BLOQUEIOS -- impedem a app de subir / podem destruir dados
+================================================================================
+
+--------------------------------------------------------------------------------
+[B1] RESOLVIDO -- eager load quebrado: a app NAO subiria em producao
+--------------------------------------------------------------------------------
+Severidade : CRITICA
+Origem     : regressao introduzida pelo port (v4.14.2 / v4.15.0)
+Status     : CORRIGIDO no commit 2460aaa9a2
+
+Erro:
+    NameError: uninitialized constant Enterprise
+    module Enterprise::Api::V1::Accounts::ContactsController
+           ^^^^^^^^^^
+    starchat/app/controllers/starchat/api/v1/accounts/contacts_controller.rb:1
+
+Causa: 4 arquivos entraram do upstream declarando `module Enterprise::` mas
+moram sob starchat/. O Zeitwerk deriva a constante esperada a partir do caminho,
+entao o eager load abortava. A regra Enterprise:: -> Starchat:: so foi adicionada
+ao script de traducao no v4.15.1, depois desses dois ports.
+
+Arquivos corrigidos:
+    starchat/app/policies/starchat/contact_policy.rb
+    starchat/app/controllers/starchat/api/v1/accounts/contacts_controller.rb
+    starchat/app/controllers/starchat/api/v1/accounts/onboardings_controller.rb
+    starchat/app/controllers/starchat/public/api/v1/portals/search_controller.rb
+    spec/starchat/policies/contact_policy_spec.rb
+
+POR QUE ISSO ERA PERIGOSO: em desenvolvimento o Rails carrega sob demanda, entao
+o erro ficava invisivel. Producao faz eager load no boot. Um deploy dessa branch
+como estava teria falhado ao iniciar. Quem pegou foi o `rails zeitwerk:check`,
+nao a suite de testes.
+
+Verificacao: `rails zeitwerk:check` -> "All is good!"
+
+
+--------------------------------------------------------------------------------
+[B2] ABERTO -- a app nao sobe: vite_ruby incompativel com vite-plugin-ruby
+--------------------------------------------------------------------------------
+Severidade : CRITICA (bloqueia boot e o rspec sem override)
+Origem     : descasamento backend/frontend causado pelo freeze do frontend
+Status     : NAO CORRIGIDO -- aguardando a suite de frontend terminar
+
+Erro:
+    ArgumentError: vite-plugin-ruby@^5.0.0 might not be compatible with
+    vite_ruby-3.10.2
+    config/environment.rb:5
+
+Situacao:
+    gem  vite_ruby         3.8.0  -> 3.10.2   (subiu com o port; upstream quer)
+    npm  vite-plugin-ruby  ^5.0.0 -> congelado (freeze do frontend)
+    upstream v4.16.2 pareia    vite_ruby 3.10.2  com  vite-plugin-ruby ^5.2.1
+
+Correcao: subir "vite-plugin-ruby" para "^5.2.1" no package.json + pnpm install.
+E excecao justificada ao freeze do frontend: e versao de build-tool acoplada a um
+gem de backend, nao codigo de UI.
+
+Contorno temporario em uso: VITE_RUBY_SKIP_COMPATIBILITY_CHECK=true
+
+
+--------------------------------------------------------------------------------
+[B3] ABERTO -- rodar os testes pode APAGAR o banco de desenvolvimento
+--------------------------------------------------------------------------------
+Severidade : CRITICA (perda de dados)
+Origem     : pre-existente (padrao do upstream + .env do fork)
+Status     : NAO CORRIGIDO -- aguardando decisao (mexe em config sua)
+
+O .env define:
+    POSTGRES_DATABASE=chatwoot_dev
+
+E o config/database.yml linha 23 resolve o banco de TESTE assim:
+    test:
+      database: "<%= ENV.fetch('POSTGRES_DATABASE', 'chatwoot_test') %>"
+
+Resultado: test e development apontam para chatwoot_dev. Um
+`rails db:test:prepare` faz DROP e CREATE -- destruiria o banco de dev.
+
+O que impediu: o guard EnvironmentMismatchError do Rails.
+
+    ATENCAO: a mensagem de erro sugere rodar
+        bin/rails db:environment:set RAILS_ENV=test
+    NAO RODE ISSO. E exatamente o comando que remove o guard e destroi os dados.
+
+Correcao proposta (a CI nao usa POSTGRES_DATABASE, entao e segura):
+    test:
+      database: "<%= ENV.fetch('POSTGRES_TEST_DATABASE', 'chatwoot_test') %>"
+
+Contorno em uso: POSTGRES_DATABASE=chatwoot_test na linha de comando.
+
+
+================================================================================
+2. FRONTEND -- vitest
+================================================================================
+
+RESULTADO: 20 falhas | 3620 passaram | 1 pulado  (3641 testes, 360 arquivos)
+           7 arquivos de teste com falha
+           exit code 1
+           confirmado em 2 execucoes independentes (mesmo resultado)
+
+VEREDITO: ESSAS FALHAS NAO SAO DO PORT. Ja existiam no fork.
+
+VEREDITO 2 (apos investigar os 5 grupos um a um): TODAS AS 20 SAO TESTES
+DESATUALIZADOS. Nenhuma e bug de producao. Em cada caso o codigo esta como voce
+quis e o teste ficou para tras -- icones trocados, ordenacao mudada, mocks
+incompletos. Nada aqui bloqueia deploy.
+
+Prova:
+    git diff --name-only 3a3982c8e8..HEAD -- app/javascript          -> 0 arquivos
+    git diff --name-only 3a3982c8e8..HEAD -- package.json pnpm-lock.yaml
+                                             vitest.config.ts vite.*  -> 0 arquivos
+    Os dois arquivos-fonte que falham estao intocados.
+    Testes de vitest rodam em jsdom e nao tocam no Rails.
+
+--- AS 20 FALHAS, AGRUPADAS POR CAUSA (5 grupos) ---
+
+................................................................................
+[F1] ICONES TROCADOS SEM ATUALIZAR OS TESTES  --  7 falhas
+................................................................................
+Causa raiz: voce trocou o mapa INBOX_ICON_MAP_LINE para o set de marca proprio
+(i-woot-*), mas os testes continuaram esperando os icones Remix originais
+(i-ri-*-line).
+
+    app/javascript/dashboard/helper/inbox.js:63-73
+        [INBOX_TYPES.WEB]:      'i-woot-website'     <- codigo
+        [INBOX_TYPES.FB]:       'i-woot-messenger'
+        [INBOX_TYPES.WHATSAPP]: 'i-woot-whatsapp'
+        [INBOX_TYPES.TIKTOK]:   'i-woot-tiktok'
+
+Testes que falham:
+  helper/specs/inbox.spec.js  (4)
+    > getInboxIconByType > line variant > returns correct line icon for web widget
+        expected 'i-woot-website'   to be 'i-ri-global-line'
+    > getInboxIconByType > line variant > returns correct line icon for Facebook
+        expected 'i-woot-messenger' to be 'i-ri-messenger-line'
+    > getInboxIconByType > line variant > returns correct line icon for TikTok
+        expected 'i-woot-tiktok'    to be 'i-ri-tiktok-fill'
+    > getInboxIconByType > Twilio cases > line variant > returns WhatsApp line icon
+        expected 'i-woot-whatsapp'  to be 'i-ri-whatsapp-line'
+
+  components-next/icon/specs/provider.spec.js  (2)
+    > useChannelIcon > returns correct icon for TikTok channel
+        expected 'i-woot-tiktok'    to be 'i-ri-chat-1-line'
+    > useChannelIcon > returns correct icon for voice-enabled Twilio channel
+        expected 'i-woot-voice'     to be 'i-ri-phone-fill'
+
+  components-next/NewConversation/helpers/specs/composeConversationHelper.spec.js (1)
+    > buildContactableInboxesList > builds list of contactable inboxes with correct format
+        expected { icon: 'i-woot-mail', ... } to match { icon: 'i-ri-mail-line', ... }
+
+CORRECAO: atualizar os valores esperados nos testes para os icones i-woot-*.
+O codigo esta como voce quis; sao os testes que ficaram para tras.
+
+................................................................................
+[F2] ORDENACAO DE CAMPANHAS  --  5 falhas
+................................................................................
+Causa raiz: seu commit "fix campaign ordering" mudou a ordem devolvida pelos
+getters, e os testes continuaram esperando a ordem antiga.
+
+    app/javascript/dashboard/store/modules/specs/campaigns/getters.spec.js
+      > get ongoing campaigns
+      > get one_off campaigns
+      > get SMS campaigns
+      > get Live Chat campaigns
+      > get campaigns by multiple channel types
+
+    expected [ {id:5}, {id:2} ] to deeply equal [ {id:2}, {id:5} ]
+
+Diagnostico: SO TESTE. (investigado e confirmado)
+
+    store/modules/campaigns.js:36
+        return filteredRecords.sort(
+          (a1, a2) => new Date(a2.created_at) - new Date(a1.created_at)
+        );
+
+O getter ordena por created_at DECRESCENTE (mais recente primeiro). As fixtures
+tem created_at distintos e crescentes junto com o id:
+
+    id 1 -> 04:53   id 2 -> 08:15   id 3 -> 10:22   id 4 -> 12:15   id 5 -> 14:15
+
+Logo o retorno correto e [5,4,3,2,1]. Os testes esperam ordem por id crescente,
+que era o comportamento antigo.
+
+A ordenacao E deterministica: os timestamps sao distintos, e mesmo em empate o
+sort de array em JS e estavel desde ES2019. O `.sort()` tambem nao muta o state,
+porque `filteredRecords` ja e um array novo vindo do `.filter()`.
+
+CORRECAO: atualizar a ordem esperada nos testes para created_at desc.
+
+NOTA: eu havia levantado a hipotese de a ordenacao ter ficado nao-deterministica.
+Depois de checar o comparador e as fixtures, essa hipotese esta descartada.
+
+................................................................................
+[F3] SidebarGroupLeaf -- funcao ausente no setup  --  4 falhas
+................................................................................
+    app/javascript/dashboard/components-next/sidebar/specs/SidebarGroupLeaf.spec.js
+      > renders unread badge when count is present
+      > does not render unread badge when count is zero
+      > caps large unread counts
+      > passes unread count to custom leaf components
+
+    TypeError: $setup.resolveInstallationType is not a function
+
+Diagnostico: SO TESTE. (investigado e confirmado)
+
+O spec mocka o modulo inteiro do provider e esquece um dos metodos:
+
+    specs/SidebarGroupLeaf.spec.js:5
+        vi.mock('../provider', () => ({
+          useSidebarContext: () => ({
+            resolvePermissions: () => [],
+            resolveFeatureFlag:  () => '',
+            //  <-- falta resolveInstallationType
+          }),
+        }));
+
+Mas o componente destrutura os tres:
+
+    SidebarGroupLeaf.vue:17
+        const { resolvePermissions, resolveFeatureFlag, resolveInstallationType }
+          = useSidebarContext();
+
+O provider real EXPORTA o metodo normalmente (provider.js:183) e ele ainda tem
+fallback proprio (`if (!to) return []` e try/catch retornando []). Em runtime nao
+quebra.
+
+CORRECAO: adicionar `resolveInstallationType: () => []` ao mock do spec.
+
+................................................................................
+[F4] Monitoring.vue -- allTeams undefined  --  2 falhas
+................................................................................
+    app/javascript/dashboard/routes/dashboard/settings/reports/specs/Monitoring.spec.js
+      > fetches the monitoring snapshot on mount
+      > refreshes when websocket monitoring events are emitted
+
+    TypeError: Cannot read properties of undefined (reading 'map')
+      Monitoring.vue:172
+        ...allTeams.value.map(team => ({ value: team.id, label: team.name }))
+
+Diagnostico: SO TESTE. (investigado e confirmado)
+
+    Monitoring.vue:37   const allTeams = useMapGetter('teams/getTeams');
+
+    store/modules/teams/getters.js
+        getTeams($state) {
+          return Object.values($state.records).sort((a, b) => a.id - b.id);
+        }
+
+    store/modules/teams/index.js   state = { records: {}, ... }
+
+O getter sempre devolve array (Object.values({}) === []), entao allTeams.value
+nunca e undefined na aplicacao real. O undefined so acontece porque o teste monta
+o componente sem registrar o modulo 'teams' no store, e useMapGetter nao resolve.
+
+CORRECAO: registrar o modulo teams (ou stubbar useMapGetter) no spec.
+
+NOTA: numa primeira leitura eu registrei isso aqui como possivel bug de producao
+por falta de fallback. Depois de checar o getter e o estado inicial, esta errado
+-- nao ha risco em runtime.
+
+................................................................................
+[F5] markMessagesRead -- rootGetters ausente no mock  --  2 falhas
+................................................................................
+    app/javascript/dashboard/store/modules/specs/conversations/actions.spec.js
+      > #markMessagesRead > sends correct mutations if api is successful
+      > #markMessagesRead > sends correct mutations if api is unsuccessful
+
+    TypeError: Cannot read properties of undefined (reading 'getCurrentUserAvailability')
+      messageReadActions.js:7
+        if (rootGetters.getCurrentUserAvailability === 'invisible') return;
+
+Diagnostico: o teste invoca a action passando so { commit }, sem rootGetters.
+O codigo esta correto; a guarda de 'invisible' foi adicionada depois do teste.
+CORRECAO: passar rootGetters no contexto mockado do teste.
+
+--- RUIDO (nao sao falhas) ---
+    Error: An error occurred while trying to read the map file at index.es.js.map
+    ENOENT: .../@chatwoot/prosemirror-schema/dist/index.es.js.map
+      -> sourcemap ausente num pacote de terceiros. Cosmetico.
+
+    [Vue warn]: onMounted is called when there is no active component instance
+      -> em useExpandableContent.spec.js; o teste passa mesmo assim.
+
+
+================================================================================
+3. BACKEND -- rspec
+================================================================================
+
+RESULTADO: 101 falhas | 7127 passaram | 70 pending  (7298 exemplos)
+           39 arquivos de spec com falha
+           exit code 1
+           duracao 66min18s (+1min13s carregando)
+
+ATRIBUICAO (regressao do port x pre-existente): EM APURACAO.
+Rodando os mesmos 39 arquivos no commit pre-port (3a3982c8e8) como controle.
+Sem esse controle nao da para afirmar o que e meu -- diferente do frontend, o
+backend FOI alterado pelo port (323 arquivos).
+
+--- AS 39 SPECS COM FALHA, POR VOLUME ---
+
+     14  spec/lib/integrations/openai/processor_service_spec.rb
+      8  spec/controllers/api/v1/accounts/macros_controller_spec.rb
+      7  spec/lib/custom_markdown_renderer_spec.rb
+      6  spec/lib/chatwoot_hub_spec.rb
+      6  spec/services/evolution/media_attach_spec.rb
+      5  spec/controllers/public/api/v1/portals/articles_controller_spec.rb
+      5  spec/mailers/agent_notifications/conversation_notifications_mailer_spec.rb
+      4  spec/controllers/api/v1/accounts/contacts_controller_spec.rb
+      3  spec/controllers/api/v1/accounts/integrations/shopify_controller_spec.rb
+      3  spec/mailers/confirmation_instructions_spec.rb
+      3  spec/policies/macro_policy_spec.rb
+      2  spec/controllers/api/v1/accounts/search_controller_spec.rb
+      2  spec/controllers/platform/api/v1/agent_bots_controller_spec.rb
+      2  spec/finders/conversation_finder_spec.rb
+      2  spec/lib/chatwoot_markdown_renderer_spec.rb
+      2  spec/listeners/agent_bot_listener_spec.rb
+      2  spec/listeners/webhook_listener_spec.rb
+      2  spec/models/integrations/app_spec.rb
+      2  spec/starchat/controllers/api/v1/accounts/audit_logs_controller_spec.rb
+      2  spec/starchat/controllers/api/v1/accounts/cosmos/assistants_controller_spec.rb
+      1  spec/controllers/api/v1/accounts/conversations_controller_spec.rb
+      1  spec/controllers/api/v1/accounts_controller_spec.rb
+      1  spec/controllers/concerns/evolution/common_helpers_spec.rb
+      1  spec/controllers/devise/session_controller_spec.rb
+      1  spec/controllers/platform/api/v1/accounts_controller_spec.rb
+      1  spec/jobs/account/conversations_resolution_scheduler_job_spec.rb
+      1  spec/jobs/internal/process_stale_contacts_job_spec.rb
+      1  spec/mailers/conversation_reply_mailer_spec.rb
+      1  spec/models/account_spec.rb
+      1  spec/models/campaign_spec.rb
+      1  spec/models/channel/telegram_spec.rb
+      1  spec/models/conversation_spec.rb
+      1  spec/services/conversations/unread_counts/listener_spec.rb
+      1  spec/services/evolution/client_spec.rb
+      1  spec/services/search_service_spec.rb
+      1  spec/starchat/models/contact_company_association_spec.rb
+      1  spec/starchat/models/inbox_spec.rb
+      1  spec/starchat/presenters/conversations/event_data_presenter_spec.rb
+      1  spec/controllers/api/v1/accounts/conversations_controller_spec.rb
+
+--- AMOSTRA DE MENSAGENS (as que mais preocupam) ---
+
+  Contacts API POST .../contacts/export  -> 500 (esperado 2xx)   [3 testes]
+  Contacts API GET  .../contacts/filter  -> 422 (esperado 2xx)
+  Conversations API GET .../unread_counts -> 200 (esperado 403 forbidden)
+  ConversationFinder #perform with unread sort -> erro ao mapear result[:conversations]
+  Platform Accounts PATCH -> enabled_features nao bate com o esperado
+  Accounts API POST /api/v1/accounts (api_only) -> faltam headers de auth
+
+  As de unread_counts / ConversationFinder merecem atencao especial: o v4.15.1
+  reverteu parte dessa feature (UserFilterNotifier) e o v4.16.0 a retraz
+  redesenhada. Pode ser inconsistencia deixada pelo revert parcial.
+
+Pre-checagens que ja PASSARAM:
+    [OK] rails runner boot                -> BOOT OK
+    [OK] rails zeitwerk:check             -> "All is good!" (apos [B1])
+    [OK] rails db:test:prepare            -> 100 tabelas criadas
+    [OK] db/schema.rb mergeado a mao      -> carregou, version 20260618120026
+    [OK] ruby -c em todos os .rb alterados nos 3 ports
+    [OK] bundle check                     -> dependencias satisfeitas
+
+
+================================================================================
+4. PENDENCIAS QUE PRECISAM DE DECISAO SUA
+================================================================================
+
+[P1] Facebook / politica da Meta
+     app/services/facebook/send_on_facebook_service.rb manda MESSAGE_TAG +
+     ACCOUNT_UPDATE hardcoded em TODA mensagem. Essa tag e restrita a avisos de
+     conta (cobranca, entrega). Para atendimento humano fora da janela de 24h a
+     tag suportada e HUMAN_AGENT. Usar ACCOUNT_UPDATE fora do escopo pode gerar
+     restricao do app pela Meta.
+     O upstream tem merge_human_agent_tag (configuravel via
+     ENABLE_MESSENGER_CHANNEL_HUMAN_AGENT); foi deixado de fora para preservar o
+     comportamento atual.
+
+[P2] Feature flags -- capturar estado ANTES de aplicar o v4.16.x
+     O v4.16.0 adota feature_flags_ext_1 do upstream e sua implementacao propria
+     de overflow em JSONB deixa de existir. Combinado: reativar manualmente (sao
+     so 2 contas). Rode em producao e guarde a saida:
+
+       bundle exec rails runner 'Account.find_each { |a| puts "#{a.id} #{a.name}: #{a.selected_feature_flags.sort.join(",")}" }'
+
+[P3] Eventos do SDK do widget
+     Quando o blanket rename chatwoot->starchats rodar, 'chatwoot:ready',
+     'chatwoot:on-message' etc viram 'starchats:...'. Sites de clientes com
+     integracao customizada param de funcionar SEM erro visivel (o listener
+     simplesmente nunca dispara). Avise antes do deploy.
+
+[P4] filter_service.rb ficou na versao do fork
+     O upstream refatorou lt/gt e adicionou normalize_params; seu fork tem um
+     subsistema de atributos customizados que o upstream nao tem. Nada mergeado
+     usa os metodos novos, entao ficou como estava. Revisar junto com o port do
+     dashboard.
+
+[P5] db/schema.rb foi mergeado a mao
+     Versao mantida na sua (20260618120026, mais alta) e foreign keys unidas.
+     Carrega sem erro, mas o ideal e regenerar rodando as migrations num banco
+     limpo antes do deploy.
+
+
+================================================================================
+5. LIXO NO WORKING TREE (untracked, nao removi -- seria irreversivel)
+================================================================================
+    !('audio_transcription')   955 bytes, saida de console Rails que vazou por
+                               erro de glob no shell
+    whispercpp-1.3.8.gem       3.7 MB, o gem nao esta no Gemfile
+================================================================================

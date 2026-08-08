@@ -1,14 +1,8 @@
 class Inboxes::BulkAutoAssignmentJob < ApplicationJob
   queue_as :scheduled_jobs
-  include BillingHelper
 
   def perform
     Account.feature_assignment_v2.find_each do |account|
-      if should_skip_auto_assignment?(account)
-        Rails.logger.info("Skipping auto assignment for account #{account.id}")
-        next
-      end
-
       account.inboxes.where(enable_auto_assignment: true).find_each do |inbox|
         process_assignment(inbox)
       end
@@ -43,11 +37,5 @@ class Inboxes::BulkAutoAssignmentJob < ApplicationJob
       ).perform
       Rails.logger.info("Assigned conversation #{conversation.id} to agent #{allowed_agent_ids.first}")
     end
-  end
-
-  def should_skip_auto_assignment?(account)
-    return false unless ChatwootApp.chatwoot_cloud?
-
-    default_plan?(account)
   end
 end
