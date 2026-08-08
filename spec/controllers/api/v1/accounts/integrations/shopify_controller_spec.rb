@@ -59,13 +59,6 @@ RSpec.describe 'Shopify Integration API', type: :request do
     context 'when it is an authenticated user' do
       let(:shopify_client) { instance_double(ShopifyAPI::Clients::Rest::Admin) }
 
-      let(:customers_response) do
-        instance_double(
-          ShopifyAPIResponse,
-          body: { 'customers' => [{ 'id' => '123' }] }
-        )
-      end
-
       let(:orders_response) do
         instance_double(
           ShopifyAPIResponse,
@@ -89,14 +82,12 @@ RSpec.describe 'Shopify Integration API', type: :request do
         allow_any_instance_of(Api::V1::Accounts::Integrations::ShopifyController).to receive(:client_id).and_return('test_client_id')
         allow_any_instance_of(Api::V1::Accounts::Integrations::ShopifyController).to receive(:client_secret).and_return('test_client_secret')
 
-        allow(shopify_client).to receive(:get).with(
-          path: 'customers/search.json',
-          query: { query: "email:#{contact.email} OR phone:#{contact.phone_number}", fields: 'id,email,phone' }
-        ).and_return(customers_response)
-
+        # This controller queries orders by contact email in a single call; the
+        # customers/search step upstream does is not part of it.
         allow(shopify_client).to receive(:get).with(
           path: 'orders.json',
-          query: { customer_id: '123', status: 'any', fields: 'id,email,created_at,total_price,currency,fulfillment_status,financial_status' }
+          query: { email: contact.email, status: 'any',
+                   fields: 'id,email,created_at,total_price,currency,fulfillment_status,financial_status' }
         ).and_return(orders_response)
       end
 
@@ -121,19 +112,17 @@ RSpec.describe 'Shopify Integration API', type: :request do
             as: :json
 
         expect(response).to have_http_status(:unprocessable_entity)
-        expect(response.parsed_body['error']).to eq('Contact information missing')
+        expect(response.parsed_body['error']).to eq('Contact email is required to search Shopify orders')
       end
 
-      it 'returns empty array when no customers found' do
-        empty_customers_response = instance_double(
-          ShopifyAPIResponse,
-          body: { 'customers' => [] }
-        )
+      it 'returns empty array when no orders found' do
+        empty_orders_response = instance_double(ShopifyAPIResponse, body: { 'orders' => [] })
 
         allow(shopify_client).to receive(:get).with(
-          path: 'customers/search.json',
-          query: { query: "email:#{contact.email} OR phone:#{contact.phone_number}", fields: 'id,email,phone' }
-        ).and_return(empty_customers_response)
+          path: 'orders.json',
+          query: { email: contact.email, status: 'any',
+                   fields: 'id,email,created_at,total_price,currency,fulfillment_status,financial_status' }
+        ).and_return(empty_orders_response)
 
         get "/api/v1/accounts/#{account.id}/integrations/shopify/orders",
             params: { contact_id: contact.id },

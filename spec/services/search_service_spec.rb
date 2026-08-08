@@ -71,6 +71,11 @@ describe SearchService do
         harry3 = create(:contact, identifier: 'Potter123', account_id: account.id, last_activity_at: 1.day.ago)
         harry4 = create(:contact, identifier: 'Potter1235', account_id: account.id, last_activity_at: 2.minutes.ago)
 
+        # crm_v2 ships enabled here (upstream defaults it off) and switches
+        # resolved_contacts to a contact_type: 'lead' filter. This example covers the
+        # identifying-info behaviour, so it runs with the flag off.
+        account.disable_features!(:crm_v2)
+
         params = { q: 'Potter ' }
         search = described_class.new(current_user: user, current_account: account, params: params, search_type: 'Contact')
         expect(search.perform[:contacts].map(&:id)).to eq([harry4.id, harry3.id, harry2.id, harry.id])
