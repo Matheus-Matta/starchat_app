@@ -34,13 +34,12 @@
 class DataImport < ApplicationRecord
   ACTIVE_INTERCOM_IMPORT_RUN_ID_KEY = 'active_intercom_import_run_id'.freeze
   INTERCOM_STALLED_AFTER = 15.minutes
-  LEGACY_DATA_TYPES = ['contacts'].freeze
+  # 'companies' is this fork's own import type; upstream only ships 'contacts'.
+  LEGACY_DATA_TYPES = %w[contacts companies].freeze
   INTEGRATION_DATA_TYPES = ['intercom'].freeze
   IMPORT_TYPES = %w[contacts conversations].freeze
 
   belongs_to :account
-  validates :data_type, inclusion: { in: %w[contacts companies], message: I18n.t('errors.data_import.data_type.invalid') }
-  enum status: { pending: 0, processing: 1, completed: 2, failed: 3 }
   belongs_to :initiated_by, class_name: 'User', optional: true
 
   encrypts :access_token if Chatwoot.encryption_configured?
