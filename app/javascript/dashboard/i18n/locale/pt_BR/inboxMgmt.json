@@ -199,7 +199,11 @@
           "CONFIRM_BUTTON": "Migrar caixa de entrada",
           "SUCCESS": "Caixa de entrada migrada para o WhatsApp oficial com sucesso.",
           "NEEDS_REAUTH": "Migração concluída, mas o canal WhatsApp oficial precisa de reautorização. A sessão Evolution anterior foi mantida como contingência até isso ser resolvido.",
-          "ERROR": "Não foi possível migrar essa caixa de entrada para o WhatsApp oficial. Verifique as credenciais e tente novamente."
+          "ERROR": "Não foi possível migrar essa caixa de entrada para o WhatsApp oficial. Verifique as credenciais e tente novamente.",
+          "WARNING_EMBEDDED": "Isso vai desconectar a sessão atual do Evolution/WhatsApp Web e mudar essa caixa de entrada para a WhatsApp Business Platform oficial (Meta Cloud API). Conversas, contatos e mensagens serão mantidos. Entre com o Facebook para conectar seu número — sem precisar de tokens.",
+          "EMBEDDED_BUTTON": "Continuar com o Facebook",
+          "MANUAL_LINK": "Prefiro informar as credenciais da API manualmente",
+          "EMBEDDED_LINK": "Usar login incorporado do Facebook (sem tokens)"
         },
         "SETTINGS": {
           "TITLE": "Configurações da Instância",

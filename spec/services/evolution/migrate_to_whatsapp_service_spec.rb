@@ -127,6 +127,86 @@ RSpec.describe Evolution::MigrateToWhatsappService do
     end
   end
 
+  context 'when migrating through embedded signup' do
+    let(:whatsapp_params) do
+      {
+        code: 'auth-code-123',
+        business_id: 'business-1',
+        waba_id: '222',
+        phone_number_id: '111'
+      }
+    end
+
+    let(:webhook_setup_service) { instance_double(Whatsapp::WebhookSetupService) }
+
+    before do
+      stub_request(:get, 'https://graph.facebook.com/v14.0/222/message_templates?access_token=exchanged-token')
+        .to_return(status: 200, body: { data: [] }.to_json)
+
+      token_exchange = instance_double(Whatsapp::TokenExchangeService, perform: 'exchanged-token')
+      phone_info = instance_double(
+        Whatsapp::PhoneInfoService,
+        perform: { phone_number_id: '111', phone_number: '+1234567890', business_name: 'Acme' }
+      )
+      token_validation = instance_double(Whatsapp::TokenValidationService, perform: true)
+
+      allow(Whatsapp::TokenExchangeService).to receive(:new).with('auth-code-123').and_return(token_exchange)
+      allow(Whatsapp::PhoneInfoService).to receive(:new).with('222', '111', 'exchanged-token').and_return(phone_info)
+      allow(Whatsapp::TokenValidationService).to receive(:new).with('exchanged-token', '222').and_return(token_validation)
+
+      allow(Whatsapp::WebhookSetupService).to receive(:new).and_return(webhook_setup_service)
+      allow(webhook_setup_service).to receive(:perform)
+    end
+
+    it 'trades the authorization code for a token instead of requiring manual credentials' do
+      result = service.perform
+
+      expect(result.inbox.id).to eq(inbox.id)
+      expect(result.whatsapp_channel.phone_number).to eq('+1234567890')
+      expect(result.whatsapp_channel.provider_config).to include(
+        'api_key' => 'exchanged-token',
+        'phone_number_id' => '111',
+        'business_account_id' => '222',
+        'source' => 'embedded_signup'
+      )
+      expect(result.needs_reauthorization).to be(false)
+    end
+
+    it 'registers the webhooks explicitly, since the create callback skips embedded_signup channels' do
+      service.perform
+
+      expect(webhook_setup_service).to have_received(:perform)
+    end
+
+    it 'disconnects the old Evolution instance once the migration succeeds' do
+      expect(evolution_client).to receive(:logout_instance).with(evolution_channel.instance_name)
+
+      service.perform
+
+      expect(Channel::Evolution.exists?(evolution_channel.id)).to be(false)
+    end
+
+    it 'keeps the Evolution channel alive when webhook registration fails' do
+      allow(webhook_setup_service).to receive(:perform).and_raise(StandardError.new('boom'))
+
+      result = service.perform
+
+      expect(result.needs_reauthorization).to be(true)
+      expect(Channel::Evolution.exists?(evolution_channel.id)).to be(true)
+      expect(evolution_client).not_to have_received(:logout_instance)
+    end
+
+    context 'when the waba_id is missing' do
+      let(:whatsapp_params) { { code: 'auth-code-123', business_id: 'business-1' } }
+
+      it 'raises before touching the inbox' do
+        expect { service.perform }.to raise_error(ArgumentError, /waba_id/)
+
+        expect(inbox.reload.channel).to eq(evolution_channel)
+      end
+    end
+  end
+
   context 'when the new whatsapp channel ends up needing reauthorization' do
     before do
       stub_request(:get, 'https://graph.facebook.com/v14.0/222/message_templates?access_token=test_key')

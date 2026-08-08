@@ -253,7 +253,12 @@ class Api::V1::Accounts::Channels::EvolutionChannelController < Api::V1::Account
       channel: result.whatsapp_channel.as_json(methods: :phone_number),
       needs_reauthorization: result.needs_reauthorization
     }
-  rescue ActiveRecord::RecordInvalid, ActiveRecord::RecordNotFound => e
+  rescue ActiveRecord::RecordNotFound => e
+    render_error(e)
+  rescue StandardError => e
+    # The embedded signup path talks to Meta, so failures arrive as plain
+    # StandardError (token exchange, WABA validation) rather than as validations.
+    Rails.logger.error("[Evolution] migrate_to_whatsapp error: #{e.class} #{e.message}")
     render_error(e)
   end
 
@@ -261,8 +266,13 @@ class Api::V1::Accounts::Channels::EvolutionChannelController < Api::V1::Account
 
   private
 
+  # Accepts either manual Cloud API credentials or an Embedded Signup
+  # authorization code (code/business_id/waba_id), which needs no tokens.
   def migrate_whatsapp_params
-    params.require(:whatsapp_channel).permit(:phone_number, :api_key, :phone_number_id, :business_account_id)
+    params.require(:whatsapp_channel).permit(
+      :phone_number, :api_key, :phone_number_id, :business_account_id,
+      :code, :business_id, :waba_id
+    )
   end
 
   def handle_qr_and_render(channel, qr)

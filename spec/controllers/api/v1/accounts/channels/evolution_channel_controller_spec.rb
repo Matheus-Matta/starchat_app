@@ -182,6 +182,66 @@ RSpec.describe Api::V1::Accounts::Channels::EvolutionChannelController, type: :c
         end
       end
 
+      context 'when migrating through embedded signup' do
+        let(:migrate_params) do
+          {
+            account_id: account.id,
+            id: channel.id,
+            whatsapp_channel: {
+              code: 'auth-code-123',
+              business_id: 'business-1',
+              waba_id: '222',
+              phone_number_id: '111'
+            }
+          }
+        end
+
+        before do
+          stub_request(:get, 'https://graph.facebook.com/v14.0/222/message_templates?access_token=exchanged-token')
+            .to_return(status: 200, body: { data: [] }.to_json)
+
+          allow(Whatsapp::TokenExchangeService).to receive(:new)
+            .and_return(instance_double(Whatsapp::TokenExchangeService, perform: 'exchanged-token'))
+          allow(Whatsapp::PhoneInfoService).to receive(:new)
+            .and_return(
+              instance_double(
+                Whatsapp::PhoneInfoService,
+                perform: { phone_number_id: '111', phone_number: '+1234567890', business_name: 'Acme' }
+              )
+            )
+          allow(Whatsapp::TokenValidationService).to receive(:new)
+            .and_return(instance_double(Whatsapp::TokenValidationService, perform: true))
+
+          setup_service = instance_double(Whatsapp::WebhookSetupService)
+          allow(Whatsapp::WebhookSetupService).to receive(:new).and_return(setup_service)
+          allow(setup_service).to receive(:perform)
+
+          allow(evolution_client).to receive(:logout_instance)
+          allow(evolution_client).to receive(:delete_instance)
+        end
+
+        it 'migrates without any manually supplied token' do
+          post :migrate_to_whatsapp, params: migrate_params
+
+          expect(response).to have_http_status(:ok)
+          expect(inbox.reload.channel_type).to eq('Channel::Whatsapp')
+          expect(inbox.channel.provider_config).to include('source' => 'embedded_signup')
+        end
+
+        it 'returns unprocessable_entity when Meta rejects the code' do
+          allow(Whatsapp::TokenExchangeService).to receive(:new)
+            .and_return(instance_double(Whatsapp::TokenExchangeService).tap do |token_service|
+              allow(token_service).to receive(:perform).and_raise(StandardError.new('No access token in response'))
+            end)
+
+          post :migrate_to_whatsapp, params: migrate_params
+
+          expect(response).to have_http_status(:unprocessable_entity)
+          expect(response.parsed_body['message']).to eq('No access token in response')
+          expect(inbox.reload.channel_type).to eq('Channel::Evolution')
+        end
+      end
+
       context 'when the credentials are invalid' do
         before do
           stub_request(:get, 'https://graph.facebook.com/v14.0/222/message_templates?access_token=cloud_key')

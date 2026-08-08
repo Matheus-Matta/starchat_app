@@ -496,7 +496,11 @@
           "CONFIRM_BUTTON": "Migrate inbox",
           "SUCCESS": "Inbox migrated to official WhatsApp successfully.",
           "NEEDS_REAUTH": "Migration completed, but the official WhatsApp channel needs reauthorization. The previous Evolution session was kept as a fallback until this is resolved.",
-          "ERROR": "We couldn't migrate this inbox to official WhatsApp. Please check the credentials and try again."
+          "ERROR": "We couldn't migrate this inbox to official WhatsApp. Please check the credentials and try again.",
+          "WARNING_EMBEDDED": "This will disconnect the current Evolution/WhatsApp Web session and switch this inbox to the official WhatsApp Business Platform (Meta Cloud API). Conversations, contacts and messages will be kept. Sign in with Facebook to connect your number — no API tokens needed.",
+          "EMBEDDED_BUTTON": "Continue with Facebook",
+          "MANUAL_LINK": "Enter API credentials manually instead",
+          "EMBEDDED_LINK": "Use Facebook login instead (no tokens needed)"
         },
         "SETTINGS": {
           "TITLE": "Instance Settings",
