@@ -7,7 +7,11 @@ class Cosmos::AssistantPolicy < ApplicationPolicy
     true
   end
 
-  def stats?
+  def metrics?
+    true
+  end
+
+  def faq_stats?
     true
   end
 

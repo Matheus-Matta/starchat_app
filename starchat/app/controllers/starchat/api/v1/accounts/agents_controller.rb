@@ -1,6 +1,8 @@
 module Starchat::Api::V1::Accounts::AgentsController
   def create
     super
+    return if @agent.blank?
+
     associate_agent_with_custom_role
   end
 
