@@ -209,6 +209,17 @@ contacts:
     filter_operators:
       - "equal_to"
       - "not_equal_to"
+  # Resolved through contact_inboxes by contact_inbox_filter_query, since contacts
+  # have no inbox_id column. Without this entry the key fell through to the custom
+  # attribute path and the request 422'd.
+  inbox_id:
+    attribute_type: "standard"
+    data_type: "number"
+    filter_operators:
+      - "equal_to"
+      - "not_equal_to"
+      - "is_present"
+      - "is_not_present"
 
 ### ----- End of Contact Filters ----- ###
 

@@ -268,6 +268,13 @@ en:
       sla_missed_first_response: 'SLA target first response missed for conversation (#%{display_id})'
       sla_missed_next_response: 'SLA target next response missed for conversation (#%{display_id})'
       sla_missed_resolution: 'SLA target resolution missed for conversation (#%{display_id})'
+    email_subject:
+      conversation_creation: '%{agent_name}, A new conversation [ID - %{display_id}] has been created in %{inbox_name}.'
+      conversation_assignment: '%{agent_name}, A new conversation [ID - %{display_id}] has been assigned to you.'
+      conversation_mention: '%{agent_name}, You have been mentioned in conversation [ID - %{display_id}]'
+      assigned_conversation_new_message: '%{agent_name}, New message in your assigned conversation [ID - %{display_id}].'
+      participating_conversation_new_message: '%{agent_name}, New message in your participating conversation [ID - %{display_id}].'
+      inbox_connection_update: '%{agent_name}, the connection status of inbox %{inbox_name} has changed.'
     attachment: 'Attachment'
     no_content: 'No content'
   conversations:

@@ -240,8 +240,13 @@ RSpec.describe 'Contacts API', type: :request do
     context 'when it is an authenticated user' do
       let(:admin) { create(:user, account: account, role: :administrator) }
 
+      # ContactsExportJob#perform takes (account_id, user_id, filter_params, format).
+      # The older signature these specs assumed, with column names as the third
+      # argument, is gone: nothing in the controller, the job or the export services
+      # reads column_names any more.
       it 'enqueues a contact export job' do
-        expect(Account::ContactsExportJob).to receive(:perform_later).with(account.id, admin.id, nil, { :payload => nil, :label => nil }).once
+        expect(Account::ContactsExportJob).to receive(:perform_later).with(account.id, admin.id, { :payload => nil, :label => nil },
+                                                                           'csv').once
 
         post "/api/v1/accounts/#{account.id}/contacts/export",
              headers: admin.create_new_auth_token
@@ -249,9 +254,9 @@ RSpec.describe 'Contacts API', type: :request do
         expect(response).to have_http_status(:success)
       end
 
-      it 'enqueues a contact export job with sent_columns' do
-        expect(Account::ContactsExportJob).to receive(:perform_later).with(account.id, admin.id, %w[phone_number email],
-                                                                           { :payload => nil, :label => nil }).once
+      it 'ignores column_names, which the export no longer supports' do
+        expect(Account::ContactsExportJob).to receive(:perform_later).with(account.id, admin.id, { :payload => nil, :label => nil },
+                                                                           'csv').once
 
         post "/api/v1/accounts/#{account.id}/contacts/export",
              headers: admin.create_new_auth_token,
@@ -261,11 +266,14 @@ RSpec.describe 'Contacts API', type: :request do
       end
 
       it 'enqueues a contact export job with payload' do
-        expect(Account::ContactsExportJob).to receive(:perform_later).with(account.id, admin.id, nil,
-                                                                           {
-                                                                             :payload => [ActionController::Parameters.new(email_filter).permit!],
-                                                                             :label => nil
-                                                                           }).once
+        expect(Account::ContactsExportJob).to receive(:perform_later).with(
+          account.id, admin.id,
+          {
+            :payload => [ActionController::Parameters.new(email_filter).permit!],
+            :label => nil
+          },
+          'csv'
+        ).once
 
         post "/api/v1/accounts/#{account.id}/contacts/export",
              headers: admin.create_new_auth_token,

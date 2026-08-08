@@ -1,11 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe Cosmos::Documents::ScheduleSyncsJob, type: :job do
-  let(:account) { create(:account, custom_attributes: { plan_name: 'business' }) }
+  let(:account) { create(:account) }
   let(:assistant) { create(:cosmos_assistant, account: account) }
 
   before do
-    set_installation_config('COSMOS_DOCUMENT_AUTO_SYNC_INTERVALS', { business: 168, enterprise: 24, startups: 720, hacker: nil }.to_json)
+    set_installation_config('COSMOS_DOCUMENT_AUTO_SYNC_INTERVALS', 168)
     set_installation_config('COSMOS_DOCUMENT_AUTO_SYNC_PER_ACCOUNT_BATCH_LIMIT', 50)
     set_installation_config('COSMOS_DOCUMENT_AUTO_SYNC_GLOBAL_BATCH_LIMIT', 1000)
     account.enable_features!('cosmos_document_auto_sync')
@@ -38,8 +38,8 @@ RSpec.describe Cosmos::Documents::ScheduleSyncsJob, type: :job do
     end
   end
 
-  context 'when the account plan has no sync cadence' do
-    let(:account) { create(:account, custom_attributes: { plan_name: 'hacker' }) }
+  context 'when no sync interval is configured' do
+    before { set_installation_config('COSMOS_DOCUMENT_AUTO_SYNC_INTERVALS', nil) }
 
     it 'leaves available documents alone' do
       create(:cosmos_document, assistant: assistant, account: account, status: :available)
@@ -49,27 +49,9 @@ RSpec.describe Cosmos::Documents::ScheduleSyncsJob, type: :job do
     end
   end
 
-  context 'when a plan name is passed' do
-    it 'queues due documents only for that plan' do
-      enterprise_account = create(:account, custom_attributes: { plan_name: 'Enterprise' })
-      enterprise_account.enable_features!('cosmos_document_auto_sync')
-      enterprise_assistant = create(:cosmos_assistant, account: enterprise_account)
-      business_document = create(:cosmos_document, assistant: assistant, account: account, status: :available)
-      enterprise_document = create(:cosmos_document, assistant: enterprise_assistant, account: enterprise_account, status: :available)
-
-      business_document.update!(sync_status: :synced, last_synced_at: 3.days.ago, last_sync_attempted_at: 3.days.ago)
-      enterprise_document.update!(sync_status: :synced, last_synced_at: 3.days.ago, last_sync_attempted_at: 3.days.ago)
-      clear_enqueued_jobs
-
-      described_class.new.perform('enterprise')
-
-      expect(Cosmos::Documents::PerformSyncJob).to have_been_enqueued.with(enterprise_document)
-      expect(Cosmos::Documents::PerformSyncJob).not_to have_been_enqueued.with(business_document)
-    end
-  end
 
   context 'when an available document has backfilled sync metadata' do
-    it 'leaves it alone when last synced within the plan cadence' do
+    it 'leaves it alone when last synced within the configured cadence' do
       create(
         :cosmos_document,
         assistant: assistant,
