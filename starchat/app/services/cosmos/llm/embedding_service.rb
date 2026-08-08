@@ -1,6 +1,12 @@
 class Cosmos::Llm::EmbeddingService < Llm::BaseOpenAiService
   class EmbeddingsError < StandardError; end
 
+  def initialize(account_id: nil)
+    Llm::Config.initialize!
+    @account_id = account_id
+    @embedding_model = self.class.embedding_model
+  end
+
   def self.embedding_model
     @embedding_model = InstallationConfig.find_by(name: 'COSMOS_EMBEDDING_MODEL')&.value.presence || OpenAiConstants::DEFAULT_EMBEDDING_MODEL
   end

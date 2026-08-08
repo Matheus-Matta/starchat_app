@@ -1,6 +1,6 @@
 class Cosmos::Llm::ContactNotesService < Llm::BaseOpenAiService
   def initialize(assistant, conversation)
-    super()
+    super(feature: 'assistant', account: conversation.account)
     @assistant = assistant
     @conversation = conversation
     @contact = conversation.contact

@@ -2,7 +2,7 @@ class Api::V1::Accounts::Cosmos::AssistantsController < Api::V1::Accounts::BaseC
   before_action :current_account
   before_action -> { check_authorization(Cosmos::Assistant) }
 
-  before_action :set_assistant, only: [:show, :update, :destroy, :playground]
+  before_action :set_assistant, only: [:show, :update, :destroy, :playground, :stats, :summary, :drilldown]
 
   def index
     @assistants = account_assistants.ordered
@@ -46,7 +46,52 @@ class Api::V1::Accounts::Cosmos::AssistantsController < Api::V1::Accounts::BaseC
     @tools = assistant.available_agent_tools
   end
 
+  def stats
+    render json: Cosmos::AssistantStatsBuilder.new(@assistant, params[:range], params[:timezone_offset]).metrics
+  end
+
+  def summary
+    result = cached_or_generated_summary(Cosmos::AssistantStatsBuilder.new(@assistant, params[:range], params[:timezone_offset]))
+
+    if result[:error]
+      render json: { error: result[:error] }, status: :unprocessable_content
+    else
+      render json: { message: result[:message] }
+    end
+  end
+
+  def drilldown
+    return head :unprocessable_entity unless Cosmos::AssistantDrilldownBuilder.supported_metric?(params[:metric])
+
+    render json: Cosmos::AssistantDrilldownBuilder.new(@assistant, drilldown_params).build
+  end
+
   private
+
+  def drilldown_params
+    params.permit(:metric, :range, :timezone_offset, :page, :per_page)
+  end
+
+  def cached_or_generated_summary(builder)
+    cache_key = summary_cache_key(builder.range)
+    cached = Rails.cache.read(cache_key)
+    return cached if cached
+
+    result = Cosmos::OverviewSummaryService.new(
+      account: Current.account,
+      assistant: @assistant,
+      first_name: Current.user.name.to_s.split.first,
+      stats: builder.metrics,
+      period: builder.period
+    ).perform
+    # Don't cache transient LLM/config failures, otherwise every reload returns 422 for the next hour.
+    Rails.cache.write(cache_key, result, expires_in: 1.hour) unless result[:error]
+    result
+  end
+
+  def summary_cache_key(range)
+    "cosmos_overview_summary/#{@assistant.id}/#{Current.user.id}/#{range}/#{Date.current}"
+  end
 
   def set_assistant
     @assistant = account_assistants.find(params[:id])

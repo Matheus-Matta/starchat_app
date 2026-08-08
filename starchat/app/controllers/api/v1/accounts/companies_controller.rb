@@ -57,6 +57,7 @@ class Api::V1::Accounts::CompaniesController < Api::V1::Accounts::StarchatAccoun
   def destroy
     Rails.logger.info "[Companies] account=#{Current.account.id} action=destroy company_id=#{@company.id} name=#{@company.name}"
     @company.destroy!
+    Companies::DeleteJob.perform_later(company_id: @company.id)
     head :ok
   end
 

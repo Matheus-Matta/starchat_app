@@ -1,4 +1,9 @@
 module Starchat::Account
+  # Transitional marker for the Cosmos V1 to V2 rollout. New cloud accounts get
+  # this marker so plan reconciliation can enable V2 for them without upgrading
+  # existing paid accounts. Remove once every account is migrated to V2.
+  COSMOS_V2_DEFAULT_ELIGIBLE = 'cosmos_v2_default_eligible'.freeze
+
   class << self
     # A single interval for every account. This used to be a plan-keyed map, which
     # meant accounts with no plan_name never auto-synced at all.
@@ -61,7 +66,46 @@ module Starchat::Account
     saml_settings&.saml_enabled? || false
   end
 
+  def api_and_webhooks_enabled?
+    return true unless ChatwootApp.chatwoot_cloud?
+
+    feature_enabled?('api_and_webhooks')
+  end
+
+  def billing_currency
+    # Feature off => everyone is billed in USD (legacy behaviour).
+    return Starchat::Billing::Currencies::DEFAULT unless Starchat::Billing::Currencies.enabled?
+
+    stored = custom_attributes&.dig('billing_currency')
+    return Starchat::Billing::Currencies.normalize(stored) if Starchat::Billing::Currencies.supported?(stored)
+
+    # Existing Stripe customers stay on USD (webhook backfills the real currency);
+    # only brand-new accounts infer from locale, so existing pt_BR users aren't charged BRL.
+    return Starchat::Billing::Currencies::DEFAULT if custom_attributes&.dig('stripe_customer_id').present?
+
+    Starchat::Billing::Currencies.for_locale(locale)
+  end
+
+  # New accounts whose locale maps to a non-USD currency get to pick USD or that
+  # currency before the Stripe customer is created; everyone else proceeds in USD.
+  def billing_currency_selection_required?
+    return false unless Starchat::Billing::Currencies.enabled?
+    return false if custom_attributes&.dig('stripe_customer_id').present?
+    return false if Starchat::Billing::Currencies.supported?(custom_attributes&.dig('billing_currency'))
+
+    Starchat::Billing::Currencies.for_locale(locale) != Starchat::Billing::Currencies::DEFAULT
+  end
+
   private
+
+  def enable_default_features
+    super
+    if ChatwootApp.self_hosted_enterprise?
+      enable_features('cosmos_integration', 'cosmos_integration_v2')
+    elsif ChatwootApp.chatwoot_cloud?
+      internal_attributes[COSMOS_V2_DEFAULT_ELIGIBLE] = true
+    end
+  end
 
   def sync_assignment_features
     if feature_enabled?('assignment_v2')

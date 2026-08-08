@@ -14,6 +14,9 @@ class SuperAdmin::AccountsController < SuperAdmin::ApplicationController
       permitted_params[:selected_feature_flags] = checked + preserved
     end
 
+    permitted_params[:limits] = permitted_params[:limits].to_h.compact if permitted_params.key?(:limits)
+    permitted_params[:cosmos_models] = permitted_params[:cosmos_models].to_h.compact_blank.presence if permitted_params.key?(:cosmos_models)
+    permitted_params[:selected_feature_flags] = params[:enabled_features].keys.map(&:to_sym) if params[:enabled_features].present?
     permitted_params
   end
 

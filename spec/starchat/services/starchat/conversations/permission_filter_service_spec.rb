@@ -164,6 +164,10 @@ RSpec.describe Starchat::Conversations::PermissionFilterService do
     # -------------------------------------------------------------------------
     context 'when user has conversation_participating_manage permission' do
       it 'returns only conversations assigned to the agent' do
+end
+
+      it 'returns conversations assigned to the agent or where the agent is a participant' do
+        # Create a new isolated test environment
         test_account = create(:account)
         test_inbox   = create(:inbox, account: test_account)
         test_inbox2  = create(:inbox, account: test_account)
@@ -177,6 +181,15 @@ RSpec.describe Starchat::Conversations::PermissionFilterService do
         other_conversation  = create(:conversation, account: test_account, inbox: test_inbox)
         assigned_conv       = create(:conversation, account: test_account, inbox: test_inbox, assignee: test_agent)
         other_inbox_conv    = create(:conversation, account: test_account, inbox: test_inbox2, assignee: nil)
+        account_user = AccountUser.find_by(user: test_agent, account: test_account)
+        account_user.update(role: :agent, custom_role: test_custom_role)
+
+        # Create some conversations
+        other_conversation = create(:conversation, account: test_account, inbox: test_inbox)
+        assigned_conversation = create(:conversation, account: test_account, inbox: test_inbox, assignee: test_agent)
+        participating_conversation = create(:conversation, account: test_account, inbox: test_inbox, assignee: create(:user, account: test_account))
+        other_inbox_conversation = create(:conversation, account: test_account, inbox: test_inbox2, assignee: nil)
+        create(:conversation_participant, account: test_account, conversation: participating_conversation, user: test_agent)
 
         result = Conversations::PermissionFilterService.new(
           test_account.conversations, test_agent, test_account
@@ -185,6 +198,10 @@ RSpec.describe Starchat::Conversations::PermissionFilterService do
         expect(result.count).to eq(1)
         expect(result.first.assignee).to eq(test_agent)
         expect(result).to include(assigned_conv)
+        # Should only see conversations assigned to this agent or where the agent participates
+        expect(result.count).to eq(2)
+        expect(result).to include(assigned_conversation)
+        expect(result).to include(participating_conversation)
         expect(result).not_to include(other_conversation)
         expect(result).not_to include(other_inbox_conv)
       end

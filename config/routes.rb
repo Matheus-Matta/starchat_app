@@ -65,6 +65,9 @@ Rails.application.routes.draw do
             resources :assistants do
               member do
                 post :playground
+                get :stats
+                get :summary
+                get :drilldown
               end
               collection do
                 get :tools
@@ -73,6 +76,7 @@ Rails.application.routes.draw do
               resources :scenarios
             end
             resources :assistant_responses
+            resources :message_reports, only: [:create]
             resources :bulk_actions, only: [:create]
             resources :copilot_threads, only: [:index, :create] do
               resources :copilot_messages, only: [:index, :create]
@@ -254,6 +258,17 @@ Rails.application.routes.draw do
               post :call, on: :member, to: 'calls#create' if ChatwootApp.enterprise?
             end
           end
+          resources :data_imports, only: [:index, :show, :create] do
+            collection do
+              post :validate_source
+            end
+            member do
+              post :start
+              post :abandon
+              get :error_logs
+              get :skip_logs
+            end
+          end
           resources :csat_survey_responses, only: [:index] do
             collection do
               get :metrics
@@ -272,6 +287,7 @@ Rails.application.routes.draw do
           resources :reporting_events, only: [:index] if ChatwootApp.enterprise?
 
           if ChatwootApp.enterprise?
+            resources :calls, only: [:index]
             resources :whatsapp_calls, only: [:show] do
               member do
                 post :accept
@@ -287,6 +303,7 @@ Rails.application.routes.draw do
 
           resources :custom_attribute_definitions, only: [:index, :show, :create, :update, :destroy]
           resources :custom_filters, only: [:index, :show, :create, :update, :destroy]
+          resource :branded_email_layout, only: [:show, :update]
           resources :inboxes, only: [:index, :show, :create, :update, :destroy] do
             get :assignable_agents, on: :member
             get :campaigns, on: :member
@@ -543,6 +560,7 @@ Rails.application.routes.draw do
               get :conversations
               get :conversations_summary
               get :conversation_traffic
+              get :drilldown
               get :bot_metrics
               get :inbox_label_matrix
               get :first_response_time_distribution
@@ -563,30 +581,7 @@ Rails.application.routes.draw do
     end
   end
 
-  # ----------------------------------------------------------------------
-  # Routes for platform APIs
-  namespace :platform, defaults: { format: 'json' } do
-    namespace :api do
-      namespace :v1 do
-        resources :users, only: [:create, :show, :update, :destroy] do
-          member do
-            get :login
-            post :token
-          end
-        end
-        resources :agent_bots, only: [:index, :create, :show, :update, :destroy] do
-          delete :avatar, on: :member
-        end
-        resources :accounts, only: [:index, :create, :show, :update, :destroy] do
-          resources :account_users, only: [:index, :create] do
-            collection do
-              delete :destroy
-            end
-          end
-          resources :email_channel_migrations, only: [:create]
-        end
-      end
-    end
+  if ChatwootApp.enterprise?
   end
 
   # ----------------------------------------------------------------------

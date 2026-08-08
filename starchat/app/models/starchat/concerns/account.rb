@@ -46,8 +46,11 @@ module Starchat::Concerns::Account
 
     has_many :cosmos_assistants, dependent: :destroy_async, class_name: 'Cosmos::Assistant'
     has_many :cosmos_assistant_responses, dependent: :destroy_async, class_name: 'Cosmos::AssistantResponse'
+    has_many :cosmos_faq_observations, dependent: :destroy_async, class_name: 'Cosmos::FaqObservation'
+    has_many :cosmos_faq_suggestions, dependent: :destroy_async, class_name: 'Cosmos::FaqSuggestion'
     has_many :cosmos_documents, dependent: :destroy_async, class_name: 'Cosmos::Document'
     has_many :cosmos_custom_tools, dependent: :destroy_async, class_name: 'Cosmos::CustomTool'
+    has_many :cosmos_agent_sessions, dependent: :destroy_async, class_name: 'Cosmos::AgentSession'
 
     has_many :copilot_threads, dependent: :destroy_async
     has_many :companies, dependent: :destroy_async

@@ -17,6 +17,7 @@ class AccountDashboard < Administrate::BaseDashboard
 
                                  # Add all_features last so it appears after manually_managed_features
                                  attributes[:all_features] = AccountFeaturesField
+                                 attributes[:cosmos_models] = CosmosModelOverridesField
 
                                  attributes
                                else
@@ -56,6 +57,7 @@ class AccountDashboard < Administrate::BaseDashboard
                                       attrs = %i[custom_attributes limits]
                                       attrs << :manually_managed_features
                                       attrs << :all_features
+                                      attrs << :cosmos_models
                                       attrs
                                     else
                                       []
@@ -78,6 +80,7 @@ class AccountDashboard < Administrate::BaseDashboard
                                  attrs = %i[limits]
                                  attrs << :manually_managed_features
                                  attrs << :all_features
+                                 attrs << :cosmos_models
                                  attrs
                                else
                                  []
@@ -116,7 +119,7 @@ class AccountDashboard < Administrate::BaseDashboard
   # to prevent an error from being raised (wrong number of arguments)
   # Reference: https://github.com/thoughtbot/administrate/pull/2356/files#diff-4e220b661b88f9a19ac527c50d6f1577ef6ab7b0bed2bfdf048e22e6bfa74a05R204
   def permitted_attributes(action)
-    attrs = super + [limits: {}]
+    attrs = super + [limits: {}, cosmos_models: {}]
 
     attrs << { manually_managed_features: [] }
 
