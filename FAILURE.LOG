@@ -96,3 +96,23 @@ starchat/app/services/cosmos/llm/conversation_faq_service.rb. Nenhuma era
 RESTAM 12 nesse diretorio. Sintoma: um `it 'creates new FAQs' do` com corpo
 VAZIO (linhas 50-51) — o corpo do exemplo tambem se perdeu na uniao. Precisa ser
 reescrito a partir da versao pre-port, nao adivinhado.
+
+--------------------------------------------------------------------------------
+DESCOBERTA (spec original fornecido pelo usuario)
+--------------------------------------------------------------------------------
+O spec original do upstream revelou que conversation_faq_service.rb esta com DUAS
+implementacoes misturadas:
+  - geracao ANTIGA: OpenAI::Client + chat_parameters + parse_response (HTTP cru)
+  - dedup NOVA:     route_candidate / faq_suggestions / observations
+O upstream migrou a geracao para RubyLLM (chat(model:).with_instructions.ask) e o
+prompt para Cosmos::Llm::ConversationFaqPromptsService.generator(language).
+Por isso 24 dos 29 testes batem em api.openai.com de verdade e morrem no WebMock.
+
+Correcao anterior a REVER: restaurei SystemPromptsService.conversation_faq_generator,
+mas o caminho correto e ConversationFaqPromptsService.generator. Manter o metodo
+restaurado nao quebra nada, mas ele deixa de ser usado apos alinhar generate.
+
+Tambem falta a constante SuggestionChangedError na classe.
+
+Spec substituido pelo original traduzido (Captain->Cosmos, CAPTAIN_->COSMOS_):
+31 exemplos. Falta alinhar o SERVICO ao spec.

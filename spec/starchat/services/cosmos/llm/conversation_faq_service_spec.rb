@@ -4,66 +4,35 @@ RSpec.describe Cosmos::Llm::ConversationFaqService do
   let(:cosmos_assistant) { create(:cosmos_assistant) }
   let(:conversation) { create(:conversation, account: cosmos_assistant.account, first_reply_created_at: Time.zone.now) }
   let(:service) { described_class.new(cosmos_assistant, conversation) }
-  let(:client) { instance_double(OpenAI::Client) }
   let(:embedding_service) { instance_double(Cosmos::Llm::EmbeddingService) }
-  # cosmos_faq_suggestions.embedding is vector(1536); anything shorter is rejected by pgvector.
-  let(:embedding_one) { Array.new(1536) { 0.1 } }
   let(:mock_chat) { instance_double(RubyLLM::Chat) }
-
-  before do
-    create(:installation_config) { create(:installation_config, name: 'COSMOS_OPEN_AI_API_KEY', value: 'test-key') }
-    allow(OpenAI::Client).to receive(:new).and_return(client)
-    allow(Cosmos::Llm::EmbeddingService).to receive(:new).and_return(embedding_service)
-    allow(RubyLLM).to receive(:chat).and_return(mock_chat)
-    allow(mock_chat).to receive(:with_temperature).and_return(mock_chat)
-    allow(mock_chat).to receive(:with_params).and_return(mock_chat)
-    allow(mock_chat).to receive(:with_instructions).and_return(mock_chat)
-
-    # The service makes two kinds of LLM call through the same chat object: generation,
-    # which returns FAQs, and the dedup comparison, which answers same_faq. Route on the
-    # payload so both are answered without each example restubbing.
-    allow(mock_chat).to receive(:ask) do |payload|
-      body = payload.to_s.include?('"candidate"') ? { same_faq: false } : { faqs: sample_faqs }
-      instance_double(RubyLLM::Message, content: body.to_json)
-    end
-  end
-
   let(:sample_faqs) do
     [
       { 'question' => 'What is the purpose?', 'answer' => 'To help users.' },
       { 'question' => 'How does it work?', 'answer' => 'Through AI.' }
     ]
   end
+  let(:mock_response) do
+    instance_double(RubyLLM::Message, content: { faqs: sample_faqs }.to_json)
+  end
+  let(:embedding_one) { [1.0] + Array.new(1535, 0.0) }
+  let(:embedding_two) { [0.0, 1.0] + Array.new(1534, 0.0) }
 
-  describe '#generate_and_deduplicate' do
-    let(:sample_faqs) do
-      [
-        { 'question' => 'What is the purpose?', 'answer' => 'To help users.' },
-        { 'question' => 'How does it work?', 'answer' => 'Through AI.' }
-      ]
-    end
+  before do
+    create(:installation_config, name: 'COSMOS_OPEN_AI_API_KEY', value: 'test-key')
+    allow(Cosmos::Llm::EmbeddingService).to receive(:new).and_return(embedding_service)
+    allow(RubyLLM).to receive(:chat).and_return(mock_chat)
+    allow(mock_chat).to receive(:with_temperature).and_return(mock_chat)
+    allow(mock_chat).to receive(:with_params).and_return(mock_chat)
+    allow(mock_chat).to receive(:with_instructions).and_return(mock_chat)
+    allow(mock_chat).to receive(:ask).and_return(mock_response)
+  end
 
-    let(:openai_response) do
-      {
-        'choices' => [
-          {
-            'message' => {
-              'content' => { faqs: sample_faqs }.to_json
-            }
-          }
-        ]
-      }
-    end
-
+  describe '#generate_suggestions' do
     context 'when successful' do
       before do
-        allow(client).to receive(:chat).and_return(openai_response)
-        allow(embedding_service).to receive(:get_embedding).and_return(embedding_one)
-        allow(cosmos_assistant.responses).to receive(:nearest_neighbors).and_return([])
+        allow(embedding_service).to receive(:get_embedding).and_return(embedding_one, embedding_two)
       end
-
-      it 'creates new FAQs' do
-end
 
       it 'uses the conversation FAQ generation feature model' do
         expect(RubyLLM).to receive(:chat).with(
@@ -176,7 +145,7 @@ end
         expect(cosmos_assistant.responses.count).to be_zero
       end
 
-      it 'saves the correct FAQ content' do
+      it 'saves open suggestions with one attached source each' do
         service.generate_suggestions
         expect(
           cosmos_assistant.faq_suggestions.pluck(:question, :answer, :status, :source_count, :language)
@@ -196,6 +165,11 @@ end
       it 'returns an empty array without generating FAQs' do
         expect(service.generate_suggestions).to eq([])
       end
+
+      it 'does not call the LLM API' do
+        expect(RubyLLM).not_to receive(:chat)
+        service.generate_suggestions
+      end
     end
 
     context 'when finding duplicates' do
@@ -203,25 +177,201 @@ end
         create(:cosmos_assistant_response, assistant: cosmos_assistant, account: cosmos_assistant.account,
                                             question: 'Similar question', answer: 'Similar answer', embedding: embedding_one)
       end
-      let(:similar_neighbor) do
-        # Using OpenStruct here to mock as the  :AssistantResponse does not implement
-        # neighbor_distance as a method or attribute rather it is returned directly
-        # from SQL query in neighbor gem
-        OpenStruct.new(
-          id: 1,
-          question: existing_response.question,
-          answer: existing_response.answer,
-          neighbor_distance: 0.1
-        )
+      let(:match_response) { instance_double(RubyLLM::Message, content: { same_faq: true }.to_json) }
+
+      before do
+        existing_response
+        allow(embedding_service).to receive(:get_embedding).and_return(embedding_one)
+        allow(mock_chat).to receive(:ask) do |input|
+          input.start_with?('{') ? match_response : mock_response
+        end
+      end
+
+      it 'discards candidates the LLM confirms are covered by an approved FAQ' do
+        expect do
+          service.generate_suggestions
+        end.to change(Cosmos::FaqObservation.discarded, :count).by(2)
+        expect(cosmos_assistant.faq_suggestions.count).to be_zero
+      end
+
+      it 'uses the conversation FAQ matching feature model' do
+        expect(RubyLLM).to receive(:chat).with(
+          model: Llm::Models.default_model_for('conversation_faq_matching')
+        ).at_least(:once).and_return(mock_chat)
+
+        service.generate_suggestions
+      end
+
+      it 'uses the account model override for conversation FAQ matching' do
+        conversation.account.update!(cosmos_models: { 'conversation_faq_matching' => 'gpt-5-mini' })
+
+        expect(RubyLLM).to receive(:chat).with(model: 'gpt-5-mini').at_least(:once).and_return(mock_chat)
+
+        service.generate_suggestions
+      end
+
+      it 'resolves the matching feature model from the conversation account' do
+        allow(Llm::FeatureRouter).to receive(:resolve).and_call_original
+        expect(Llm::FeatureRouter).to receive(:resolve).with(
+          feature: 'conversation_faq_matching',
+          account: conversation.account
+        ).and_call_original
+
+        service.generate_suggestions
+      end
+    end
+
+    context 'when FAQ comparison cannot be completed' do
+      let(:existing_response) do
+        create(:cosmos_assistant_response, assistant: cosmos_assistant, account: cosmos_assistant.account,
+                                            question: 'Similar question', answer: 'Similar answer', embedding: embedding_one)
+      end
+      let(:comparison_response) { instance_double(RubyLLM::Message, content: comparison_response_content) }
+      let(:comparison_response_content) { 'invalid json' }
+
+      before do
+        existing_response
+        allow(embedding_service).to receive(:get_embedding).and_return(embedding_one)
+        allow(mock_chat).to receive(:ask) do |input|
+          input.start_with?('{') ? comparison_response : mock_response
+        end
+        allow(Rails.logger).to receive(:error)
+      end
+
+      it 'raises when the comparison response is malformed' do
+        expect do
+          service.generate_suggestions
+        end.to raise_error(JSON::ParserError)
+        expect(cosmos_assistant.faq_suggestions.count).to be_zero
+      end
+
+      context 'when the response omits the comparison result' do
+        let(:comparison_response_content) { {}.to_json }
+
+        it 'raises instead of treating the response as a non-match' do
+          expect do
+            service.generate_suggestions
+          end.to raise_error(KeyError)
+          expect(cosmos_assistant.faq_suggestions.count).to be_zero
+        end
+      end
+
+      context 'when the comparison result is not a boolean' do
+        let(:comparison_response_content) { { same_faq: 'false' }.to_json }
+
+        it 'raises instead of treating the response as a non-match' do
+          expect do
+            service.generate_suggestions
+          end.to raise_error(TypeError, 'same_faq must be a boolean')
+          expect(cosmos_assistant.faq_suggestions.count).to be_zero
+        end
+      end
+
+      context 'when the comparison provider fails' do
+        before do
+          allow(mock_chat).to receive(:ask) do |input|
+            raise RubyLLM::Error.new(nil, 'API Error') if input.start_with?('{')
+
+            mock_response
+          end
+        end
+
+        it 'raises instead of treating the failure as a non-match' do
+          expect do
+            service.generate_suggestions
+          end.to raise_error(RubyLLM::Error)
+          expect(cosmos_assistant.faq_suggestions.count).to be_zero
+        end
+      end
+    end
+
+    context 'when the classifier confirms a non-match' do
+      let(:sample_faqs) { [{ 'question' => 'How can I use the feature?', 'answer' => 'Enable it in settings.' }] }
+      let(:match_response) { instance_double(RubyLLM::Message, content: { same_faq: false }.to_json) }
+
+      before do
+        create(:cosmos_assistant_response, assistant: cosmos_assistant, account: cosmos_assistant.account,
+                                            question: 'How do I enable the feature?', answer: 'Turn it on in settings.',
+                                            embedding: embedding_one)
+        allow(embedding_service).to receive(:get_embedding).and_return(embedding_one)
+        allow(mock_chat).to receive(:ask) do |input|
+          input.start_with?('{') ? match_response : mock_response
+        end
+      end
+
+      it 'creates a new suggestion' do
+        expect do
+          service.generate_suggestions
+        end.to change(cosmos_assistant.faq_suggestions, :count).by(1)
+      end
+    end
+
+    context 'when an open suggestion is the same FAQ' do
+      let(:sample_faqs) { [{ 'question' => 'How can I use the feature?', 'answer' => 'Enable it in settings.' }] }
+      let(:existing_suggestion) do
+        cosmos_assistant.faq_suggestions.create!(
+          question: 'How do I enable the feature?',
+          answer: 'Turn it on in settings.',
+          embedding: embedding_one
+        ).tap do |suggestion|
+          suggestion.observations.create!(
+            conversation: create(:conversation, account: cosmos_assistant.account),
+            generated_question: suggestion.question,
+            generated_answer: suggestion.answer,
+            language: suggestion.language
+          )
+          suggestion.update!(source_count: suggestion.observations.attached.count)
+        end
+      end
+      let(:match_response) { instance_double(RubyLLM::Message, content: { same_faq: true }.to_json) }
+
+      before do
+        existing_suggestion
+        allow(embedding_service).to receive(:get_embedding).and_return(embedding_one)
+        allow(mock_chat).to receive(:ask) do |input|
+          input.start_with?('{') ? match_response : mock_response
+        end
+      end
+
+      it 'attaches the observation and increments the source count' do
+        expect do
+          service.generate_suggestions
+        end.to change(existing_suggestion.observations, :count).by(1)
+        expect(existing_suggestion.reload.source_count).to eq(2)
+        expect(cosmos_assistant.faq_suggestions.count).to eq(1)
+      end
+
+      it 'does not attach the observation when the suggestion changes after classification' do
+        allow(mock_chat).to receive(:ask) do |input|
+          if input.start_with?('{')
+            existing_suggestion.update!(question: 'Edited after classification started')
+            match_response
+          else
+            mock_response
+          end
+        end
+
+        expect do
+          service.generate_suggestions
+        end.to raise_error(described_class::SuggestionChangedError)
+        expect(existing_suggestion.observations.count).to eq(1)
+        expect(existing_suggestion.reload.source_count).to eq(1)
+      end
+    end
+
+    context 'when a similar open suggestion uses another language' do
+      let(:sample_faqs) { [{ 'question' => 'Como ativo o recurso?', 'answer' => 'Ative nas configuracoes.' }] }
+      let!(:existing_suggestion) do
+        cosmos_assistant.faq_suggestions.create!(question: 'How do I enable the feature?', answer: 'Turn it on in settings.',
+                                                  embedding: embedding_one, language: 'en', source_count: 1)
       end
 
       before do
-        allow(client).to receive(:chat).and_return(openai_response)
+        conversation.update!(additional_attributes: { conversation_language: 'pt-BR' })
         allow(embedding_service).to receive(:get_embedding).and_return(embedding_one)
-        allow(cosmos_assistant.responses).to receive(:nearest_neighbors).and_return([similar_neighbor])
       end
 
-      it 'filters out duplicate FAQs' do
+      it 'creates a separate suggestion in the conversation language' do
         expect do
           service.generate_suggestions
         end.to change(cosmos_assistant.faq_suggestions, :count).by(1)
@@ -319,78 +469,89 @@ end
       end
     end
 
-    context 'when OpenAI API fails' do
+    context 'when LLM API fails' do
       before do
-        allow(client).to receive(:chat).and_raise(OpenAI::Error.new('API Error'))
+        allow(mock_chat).to receive(:ask).and_raise(RubyLLM::Error.new(nil, 'API Error'))
+        allow(Rails.logger).to receive(:error)
       end
 
-      it 'handles the error and returns empty array' do
-        expect(Rails.logger).to receive(:error).with('OpenAI API Error: API Error')
+      it 'returns empty array and logs the error' do
+        expect(Rails.logger).to receive(:error).with('LLM API Error: API Error')
         expect(service.generate_suggestions).to eq([])
       end
     end
 
     context 'when JSON parsing fails' do
       let(:invalid_response) do
-        {
-          'choices' => [
-            {
-              'message' => {
-                'content' => 'invalid json'
-              }
-            }
-          ]
-        }
+        instance_double(RubyLLM::Message, content: 'invalid json')
       end
 
       before do
-        allow(client).to receive(:chat).and_return(invalid_response)
+        allow(mock_chat).to receive(:ask).and_return(invalid_response)
       end
 
-      it 'handles JSON parsing errors' do
+      it 'handles JSON parsing errors gracefully' do
         expect(Rails.logger).to receive(:error).with(/Error in parsing GPT processed response:/)
+        expect(service.generate_suggestions).to eq([])
+      end
+    end
+
+    context 'when response content is nil' do
+      let(:nil_response) do
+        instance_double(RubyLLM::Message, content: nil)
+      end
+
+      before do
+        allow(mock_chat).to receive(:ask).and_return(nil_response)
+      end
+
+      it 'returns empty array' do
         expect(service.generate_suggestions).to eq([])
       end
     end
   end
 
-  describe '#chat_parameters' do
-    it 'includes correct model and response format' do
-      params = service.send(:chat_parameters)
-      expect(params[:model]).to eq('gpt-4o-mini')
-      expect(params[:response_format]).to eq({ type: 'json_object' })
-    end
-
-    it 'includes system prompt and conversation content' do
-      allow(Cosmos::Llm::SystemPromptsService).to receive(:conversation_faq_generator).and_return('system prompt')
-      params = service.send(:chat_parameters)
-
-      expect(params[:messages]).to include({ role: 'system', content: 'system prompt' })
-
-      # The user turn prefixes the assistant's business context before the transcript.
-      user_message = params[:messages].find { |message| message[:role] == 'user' }
-      expect(user_message[:content]).to include('Business Context:')
-      expect(user_message[:content]).to end_with(conversation.to_llm_text)
-    end
-
+  describe 'language handling' do
     context 'when conversation has different language' do
       let(:account) { create(:account, locale: 'fr') }
       let(:cosmos_assistant) { create(:cosmos_assistant, account: account) }
       let(:conversation) do
-        create(:conversation, account: account,
-                              first_reply_created_at: Time.zone.now)
+        create(:conversation, account: account, first_reply_created_at: Time.zone.now)
       end
 
-      it 'includes system prompt with correct language' do
-        allow(Cosmos::Llm::SystemPromptsService).to receive(:conversation_faq_generator)
+      before do
+        allow(embedding_service).to receive(:get_embedding).and_return(embedding_one, embedding_two)
+      end
+
+      it 'uses account language for system prompt' do
+        expect(Cosmos::Llm::ConversationFaqPromptsService).to receive(:generator)
           .with('french')
-          .and_return('system prompt in french')
+          .at_least(:once)
+          .and_call_original
 
-        params = service.send(:chat_parameters)
+        service.generate_suggestions
+      end
+    end
 
-        expect(params[:messages]).to include(
-          { role: 'system', content: 'system prompt in french' }
-        )
+    context 'when conversation language differs from account language' do
+      let(:account) { create(:account, locale: 'en') }
+      let(:cosmos_assistant) { create(:cosmos_assistant, account: account) }
+      let(:conversation) do
+        create(:conversation, account: account, first_reply_created_at: Time.zone.now,
+                              additional_attributes: { conversation_language: 'pt-BR' })
+      end
+
+      before do
+        allow(embedding_service).to receive(:get_embedding).and_return(embedding_one, embedding_two)
+      end
+
+      it 'uses the conversation language for the system prompt' do
+        expect(Cosmos::Llm::ConversationFaqPromptsService).to receive(:generator)
+          .with('portuguese')
+          .at_least(:once)
+          .and_call_original
+
+        service.generate_suggestions
       end
     end
   end
