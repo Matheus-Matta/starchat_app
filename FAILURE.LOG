@@ -65,3 +65,34 @@ Fazer grep de Stripe/topup/billing antes de mergear.
   isso porque config/vite.json agora tem autoBuild: false em test.
 - resquicio 'enterprise' em app/controllers/dashboard_controller.rb:82
 - blanket rename chatwoot -> starchats
+
+================================================================================
+RODADA ATUAL — spec/starchat/services/cosmos/llm/  (18 -> 12 falhas)
+================================================================================
+Todas as causas abaixo sao dano do MESMO merge por uniao cega, no arquivo
+starchat/app/services/cosmos/llm/conversation_faq_service.rb. Nenhuma era
+"so teste" — as quatro primeiras quebravam producao:
+
+1. [PROD] Fragmento orfao `faqs.each do |faq|` sobrou da versao antiga dentro de
+   route_candidate e nunca fechou. Consequencia: generate, chat_parameters,
+   parse_response, matching_record e todo o resto ficaram aninhados DENTRO de
+   route_candidate em vez do corpo da classe — ou seja, nao existiam. Geracao de
+   FAQ estava quebrada. `ruby -c` passava; so o teste pegou.
+2. [PROD] SystemPromptsService.conversation_faq_generator foi APAGADO pelo port,
+   mas chat_parameters ainda o chama -> NoMethodError. Restaurado de 8404cc76df.
+3. [PROD] EmbeddingService.embedding_model referenciava OpenAiConstants, que nao
+   existe em lugar nenhum do repo. Upstream renomeou para LlmConstants e o port
+   aplicou o rename so em lib/. Toda instalacao sem COSMOS_EMBEDDING_MODEL
+   configurado levantava NameError em qualquer embedding.
+4. [PROD] faq_language era chamado em 5 lugares e nunca definido.
+   match_instrumentation_params idem (1 chamada, 0 definicoes).
+5. [SPEC] lets perdidos no mesmo merge: mock_chat, embedding_one. embedding_one
+   voltou com 1536 dims (a coluna e vector(1536); 3 dims -> Neighbor::Error).
+6. [SPEC] Chamadas a generate_and_deduplicate (API pre-port) trocadas por
+   generate_suggestions.
+7. [SPEC] chat_parameters hoje prefixa "Business Context:" na mensagem do usuario
+   (comportamento intencional); a expectativa do teste era anterior a isso.
+
+RESTAM 12 nesse diretorio. Sintoma: um `it 'creates new FAQs' do` com corpo
+VAZIO (linhas 50-51) — o corpo do exemplo tambem se perdeu na uniao. Precisa ser
+reescrito a partir da versao pre-port, nao adivinhado.

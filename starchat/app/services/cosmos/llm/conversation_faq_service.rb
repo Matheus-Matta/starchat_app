@@ -69,6 +69,19 @@ class Cosmos::Llm::ConversationFaqService < Llm::BaseOpenAiService
     end
   end
 
+  # Mirrors chat_parameters, but for the dedup comparison call, so both LLM round trips
+  # are instrumented in the same shape.
+  def match_instrumentation_params(prompt, comparison, model)
+    {
+      model: model,
+      response_format: { type: 'json_object' },
+      messages: [
+        { role: 'system', content: prompt },
+        { role: 'user', content: comparison.to_json }
+      ]
+    }
+  end
+
   def same_faq?(candidate, existing_record)
     comparison = {
       candidate: candidate.slice('question', 'answer'),

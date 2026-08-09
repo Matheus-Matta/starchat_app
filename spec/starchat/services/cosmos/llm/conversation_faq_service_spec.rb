@@ -18,6 +18,21 @@ RSpec.describe Cosmos::Llm::ConversationFaqService do
     allow(mock_chat).to receive(:with_temperature).and_return(mock_chat)
     allow(mock_chat).to receive(:with_params).and_return(mock_chat)
     allow(mock_chat).to receive(:with_instructions).and_return(mock_chat)
+
+    # The service makes two kinds of LLM call through the same chat object: generation,
+    # which returns FAQs, and the dedup comparison, which answers same_faq. Route on the
+    # payload so both are answered without each example restubbing.
+    allow(mock_chat).to receive(:ask) do |payload|
+      body = payload.to_s.include?('"candidate"') ? { same_faq: false } : { faqs: sample_faqs }
+      instance_double(RubyLLM::Message, content: body.to_json)
+    end
+  end
+
+  let(:sample_faqs) do
+    [
+      { 'question' => 'What is the purpose?', 'answer' => 'To help users.' },
+      { 'question' => 'How does it work?', 'answer' => 'Through AI.' }
+    ]
   end
 
   describe '#generate_and_deduplicate' do
@@ -162,7 +177,7 @@ end
       end
 
       it 'saves the correct FAQ content' do
-        service.generate_and_deduplicate
+        service.generate_suggestions
         expect(
           cosmos_assistant.faq_suggestions.pluck(:question, :answer, :status, :source_count, :language)
         ).to contain_exactly(
@@ -311,7 +326,7 @@ end
 
       it 'handles the error and returns empty array' do
         expect(Rails.logger).to receive(:error).with('OpenAI API Error: API Error')
-        expect(service.generate_and_deduplicate).to eq([])
+        expect(service.generate_suggestions).to eq([])
       end
     end
 
