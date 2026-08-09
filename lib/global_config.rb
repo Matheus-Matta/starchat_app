@@ -44,7 +44,7 @@ class GlobalConfig
       if cached_value.blank?
         value_from_db = db_fallback(config_key)
         cached_value = { value: value_from_db }.to_json
-        $alfred.with { |conn| conn.set(cache_key, cached_value, { ex: DEFAULT_EXPIRY }) }
+        $alfred.with { |conn| conn.set(cache_key, cached_value, ex: DEFAULT_EXPIRY) }
       end
 
       JSON.parse(cached_value)['value']

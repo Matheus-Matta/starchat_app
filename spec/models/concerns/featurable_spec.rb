@@ -49,6 +49,8 @@ RSpec.describe Featurable do
   end
 
   describe 'WhatsApp embedded signup feature' do
+    let(:account) { create(:account) }
+
     it 'is disabled by default' do
       expect(account.feature_whatsapp_embedded_signup?).to be false
       expect(account.feature_enabled?('whatsapp_embedded_signup')).to be false

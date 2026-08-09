@@ -765,4 +765,30 @@ Rails.application.routes.draw do
   # ----------------------------------------------------------------------
   # Routes for testing
   resources :widget_tests, only: [:index] unless Rails.env.production?
+  # ----------------------------------------------------------------------
+  # Routes for platform APIs
+  namespace :platform, defaults: { format: 'json' } do
+    namespace :api do
+      namespace :v1 do
+        resources :users, only: [:create, :show, :update, :destroy] do
+          member do
+            get :login
+            post :token
+          end
+        end
+        resources :agent_bots, only: [:index, :create, :show, :update, :destroy] do
+          delete :avatar, on: :member
+        end
+        resources :accounts, only: [:index, :create, :show, :update, :destroy] do
+          resources :account_users, only: [:index, :create] do
+            collection do
+              delete :destroy
+            end
+          end
+          resources :email_channel_migrations, only: [:create]
+        end
+      end
+    end
+  end
+
 end
