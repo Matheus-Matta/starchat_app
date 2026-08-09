@@ -32,7 +32,7 @@ class Voice::InboundCallBuilder
           call_sid: call.provider_call_id,
           status: call.status,
           provider: call.provider,
-          from_number: from_number,
+          from_number: caller_phone,
           to_number: inbox.channel&.phone_number,
           id: call.id
         },
@@ -47,6 +47,13 @@ class Voice::InboundCallBuilder
   end
 
   private
+
+  # The class now takes `caller: { source_ids: }` instead of a single from_number.
+  # This fork's CallMessageBuilder payload still wants the caller's phone, so pick the
+  # phone-shaped source id and fall back to the identity the ContactInbox was keyed on.
+  def caller_phone
+    source_ids.find { |id| id.to_s.match?(/\A\+?\d{6,}\z/) } || source_ids.first
+  end
 
   def account
     inbox.account
