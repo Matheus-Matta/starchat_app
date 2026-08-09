@@ -1,5 +1,4 @@
 class Api::V1::Accounts::Cosmos::MessageReportsController < Api::V1::Accounts::BaseController
-  before_action :ensure_cloud_installation
   before_action :set_message
   before_action :authorize_conversation
   before_action :ensure_cosmos_message
@@ -14,9 +13,6 @@ class Api::V1::Accounts::Cosmos::MessageReportsController < Api::V1::Accounts::B
 
   private
 
-  def ensure_cloud_installation
-    render json: { error: 'Not available' }, status: :not_found unless ChatwootApp.chatwoot_cloud?
-  end
 
   def set_message
     @message = Current.account.messages.find(permitted_params[:message_id])

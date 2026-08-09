@@ -33,24 +33,6 @@ RSpec.describe 'Api::V1::Accounts::Cosmos::MessageReports', type: :request do
       end
     end
 
-    context 'when the installation is not on Chatwoot cloud' do
-      before { InstallationConfig.where(name: 'DEPLOYMENT_ENV').first_or_initialize.update!(value: 'self_hosted') }
-
-      it 'returns not found' do
-        post "/api/v1/accounts/#{account.id}/cosmos/message_reports",
-             params: valid_params, headers: agent.create_new_auth_token, as: :json
-
-        expect(response).to have_http_status(:not_found)
-      end
-
-      it 'does not create a report' do
-        expect do
-          post "/api/v1/accounts/#{account.id}/cosmos/message_reports",
-               params: valid_params, headers: agent.create_new_auth_token, as: :json
-        end.not_to change(Cosmos::MessageReport, :count)
-      end
-    end
-
     context 'when on Chatwoot cloud' do
       before { InstallationConfig.where(name: 'DEPLOYMENT_ENV').first_or_initialize.update!(value: 'cloud') }
 

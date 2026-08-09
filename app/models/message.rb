@@ -136,6 +136,7 @@ class Message < ApplicationRecord
   has_one :csat_survey_response, dependent: :destroy_async
   has_many :notifications, as: :primary_actor, dependent: :destroy_async
   has_one :call, dependent: :nullify, inverse_of: :message
+  has_many :message_reports, class_name: 'Cosmos::MessageReport', dependent: :destroy_async
 
   after_create_commit :execute_after_create_commit_callbacks
 
