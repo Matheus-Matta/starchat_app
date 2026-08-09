@@ -3,6 +3,9 @@ require 'rails_helper'
 RSpec.describe 'WhatsApp Authorization API', type: :request do
   let(:account) { create(:account) }
 
+  # v4.16.0 put embedded signup behind this flag, and it ships disabled.
+  before { account.enable_features!(:whatsapp_embedded_signup_inbox_creation) }
+
   describe 'POST /api/v1/accounts/{account.id}/whatsapp/authorization' do
     context 'when it is an unauthenticated user' do
       it 'returns unauthorized' do
@@ -14,6 +17,7 @@ RSpec.describe 'WhatsApp Authorization API', type: :request do
 
     context 'when it is an authenticated user' do
       let(:agent) { create(:user, account: account, role: :agent) }
+
       let(:administrator) { create(:user, account: account, role: :administrator) }
 
       context 'when authenticated user makes request' do
