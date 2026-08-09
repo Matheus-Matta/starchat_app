@@ -39,11 +39,6 @@ class Cosmos::Llm::ConversationFaqService < Llm::BaseOpenAiService
   def route_candidate(faq)
     embedding = embedding_service.get_embedding(candidate_text(faq))
 
-    faqs.each do |faq|
-      combined_text = "#{faq['question']}: #{faq['answer']}"
-      embedding = Cosmos::Llm::EmbeddingService.new.get_embedding(combined_text)
-      similar_faqs = find_similar_faqs(embedding)
-
     suggestion = matching_record(open_suggestions_for_language, faq, embedding)
     matched_content = suggestion&.slice('question', 'answer')
     suggestion ||= assistant.faq_suggestions.create!(
@@ -180,5 +175,4 @@ class Cosmos::Llm::ConversationFaqService < Llm::BaseOpenAiService
     Rails.logger.error "Error in parsing GPT processed response: #{e.message}"
     []
   end
-end
 end

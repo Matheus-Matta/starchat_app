@@ -6,11 +6,16 @@ RSpec.describe Cosmos::Llm::ConversationFaqService do
   let(:service) { described_class.new(cosmos_assistant, conversation) }
   let(:client) { instance_double(OpenAI::Client) }
   let(:embedding_service) { instance_double(Cosmos::Llm::EmbeddingService) }
+  let(:mock_chat) { instance_double(RubyLLM::Chat) }
 
   before do
     create(:installation_config) { create(:installation_config, name: 'COSMOS_OPEN_AI_API_KEY', value: 'test-key') }
     allow(OpenAI::Client).to receive(:new).and_return(client)
     allow(Cosmos::Llm::EmbeddingService).to receive(:new).and_return(embedding_service)
+    allow(RubyLLM).to receive(:chat).and_return(mock_chat)
+    allow(mock_chat).to receive(:with_temperature).and_return(mock_chat)
+    allow(mock_chat).to receive(:with_params).and_return(mock_chat)
+    allow(mock_chat).to receive(:with_instructions).and_return(mock_chat)
   end
 
   describe '#generate_and_deduplicate' do
