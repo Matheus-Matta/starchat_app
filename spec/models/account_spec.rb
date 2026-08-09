@@ -118,23 +118,35 @@ RSpec.describe Account do
   describe 'feature flag columns' do
     let(:account) { described_class.new(name: 'Test Account') }
 
+    # This fork's ext_1 layout differs from upstream on purpose. Upstream had room for
+    # advanced_assignment at bit 62 of feature_flags; here bits 1-63 of that column were
+    # already spoken for, so advanced_assignment, channel_ycloud and audio_transcription
+    # lived in the internal_attributes JSONB overflow and now take the first three bits
+    # of ext_1, pushing upstream's five flags up by three.
+    # Every pre-existing bit on feature_flags is unchanged, which is what protects the
+    # bitmask already stored in production. See
+    # db/migrate/20260719000000_backfill_overflow_feature_flags_to_ext_column.rb.
     it 'configures the account feature flag extension column' do
       expect(described_class.flag_columns).to include('feature_flags', 'feature_flags_ext_1')
       expect(described_class.flag_mapping['feature_flags_ext_1']).to eq(
-        feature_whatsapp_manual_transfer: 1,
-        feature_data_import: 1 << 1,
-        feature_api_and_webhooks: 1 << 2,
-        feature_whatsapp_reconfigure: 1 << 3,
-        feature_whatsapp_embedded_signup_inbox_creation: 1 << 4
+        feature_advanced_assignment: 1,
+        feature_channel_ycloud: 1 << 1,
+        feature_audio_transcription: 1 << 2,
+        feature_whatsapp_manual_transfer: 1 << 3,
+        feature_data_import: 1 << 4,
+        feature_api_and_webhooks: 1 << 5,
+        feature_whatsapp_reconfigure: 1 << 6,
+        feature_whatsapp_embedded_signup_inbox_creation: 1 << 7
       )
-      expect(described_class.flag_mapping['feature_flags_ext_1'][:feature_whatsapp_manual_transfer]).to eq(1)
-      expect(described_class.flag_mapping['feature_flags_ext_1'][:feature_data_import]).to eq(2)
-      expect(described_class.flag_mapping['feature_flags_ext_1'][:feature_whatsapp_embedded_signup_inbox_creation]).to eq(16)
+      expect(described_class.flag_mapping['feature_flags_ext_1'][:feature_whatsapp_manual_transfer]).to eq(8)
+      expect(described_class.flag_mapping['feature_flags_ext_1'][:feature_data_import]).to eq(16)
+      expect(described_class.flag_mapping['feature_flags_ext_1'][:feature_whatsapp_embedded_signup_inbox_creation]).to eq(128)
     end
 
     it 'keeps existing feature flags on the original column' do
       expect(described_class.flag_mapping['feature_flags'][:feature_inbound_emails]).to eq(1)
-      expect(described_class.flag_mapping['feature_flags'][:feature_advanced_assignment]).to eq(1 << 62)
+      expect(described_class.flag_mapping['feature_flags'][:feature_conversation_required_attributes]).to eq(1 << 62)
+      expect(described_class.flag_mapping['feature_flags']).not_to have_key(:feature_advanced_assignment)
     end
 
     it 'keeps bulk selected feature assignment compatible with existing feature names' do

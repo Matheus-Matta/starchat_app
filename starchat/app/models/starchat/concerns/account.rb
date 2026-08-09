@@ -22,8 +22,11 @@ module Starchat::Concerns::Account
     saved_models    = (settings['cosmos_models'] || {}).stringify_keys
     saved_features  = (settings['cosmos_features'] || {}).stringify_keys
 
+    # Route through the FeatureRouter rather than the raw default so the preferences
+    # match the model a service would actually pick — it is what applies the Cosmos V2
+    # assistant default.
     models = Llm::Models.feature_keys.each_with_object({}) do |feature, h|
-      h[feature] = saved_models[feature].presence || Llm::Models.default_model_for(feature)
+      h[feature] = saved_models[feature].presence || Llm::FeatureRouter.resolve(feature: feature, account: self)[:model]
     end
 
     features = Llm::Models.feature_keys.each_with_object({}) do |feature, h|
@@ -37,6 +40,7 @@ module Starchat::Concerns::Account
     store_accessor :settings, :conversation_required_attributes
     store_accessor :settings, :cosmos_models, :cosmos_features
 
+    before_validation :compact_cosmos_models
     validate :validate_cosmos_models
 
     has_many :sla_policies, dependent: :destroy_async
@@ -61,11 +65,23 @@ module Starchat::Concerns::Account
 
   private
 
+  # A blank value means "no override", so drop it instead of persisting an empty string
+  # that later reads as a configured-but-invalid model.
+  def compact_cosmos_models
+    return if cosmos_models.blank?
+
+    self.cosmos_models = cosmos_models.reject { |_feature, model| model.blank? }
+  end
+
   def validate_cosmos_models
     return if cosmos_models.blank?
 
     (cosmos_models || {}).each do |feature, model|
       next if model.blank?
+
+      # Check the key first: an unknown feature is a different mistake from a bad model,
+      # and reporting it as the latter sends people looking at the wrong thing.
+      next errors.add(:cosmos_models, "'#{feature}' is not a known feature") unless Llm::Models.feature?(feature)
       next if Llm::Models.valid_model_for?(feature, model)
 
       errors.add(:cosmos_models, "#{model} is not a valid model for #{feature}")

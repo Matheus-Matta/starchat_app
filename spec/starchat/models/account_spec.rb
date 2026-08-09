@@ -35,22 +35,15 @@ RSpec.describe Account, type: :model do
   describe '#api_and_webhooks_enabled?' do
     let(:account) { create(:account) }
 
-    it 'is always enabled for self-hosted enterprise accounts' do
-      allow(ChatwootApp).to receive(:chatwoot_cloud?).and_return(false)
-      account.disable_features!('api_and_webhooks')
+    # Every account in this fork is enterprise, so there is no cloud plan gate left to
+    # honour here: the API and webhooks are on regardless of the stored flag.
+    it 'is always enabled, on cloud or self-hosted' do
+      [true, false].each do |on_cloud|
+        allow(ChatwootApp).to receive(:chatwoot_cloud?).and_return(on_cloud)
+        account.disable_features!('api_and_webhooks')
 
-      expect(account.api_and_webhooks_enabled?).to be true
-    end
-
-    it 'uses the account feature flag on Chatwoot Cloud' do
-      allow(ChatwootApp).to receive(:chatwoot_cloud?).and_return(true)
-      account.disable_features!('api_and_webhooks')
-
-      expect(account.api_and_webhooks_enabled?).to be false
-
-      account.enable_features!('api_and_webhooks')
-
-      expect(account.api_and_webhooks_enabled?).to be true
+        expect(account.api_and_webhooks_enabled?).to be true
+      end
     end
   end
 
