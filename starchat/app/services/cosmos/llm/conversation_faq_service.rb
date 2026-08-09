@@ -1,4 +1,8 @@
-class Cosmos::Llm::ConversationFaqService < Llm::BaseOpenAiService
+class Cosmos::Llm::ConversationFaqService < Llm::BaseAiService
+  include Integrations::LlmInstrumentation
+
+  class SuggestionChangedError < StandardError; end
+
   DISTANCE_THRESHOLD = 0.3
   MATCH_LIMIT = 5
   LLM_FEATURE = 'conversation_faq_generation'.freeze
@@ -15,7 +19,7 @@ class Cosmos::Llm::ConversationFaqService < Llm::BaseOpenAiService
   private_class_method :normalize_language
 
   def initialize(assistant, conversation)
-    super()
+    super(feature: LLM_FEATURE, account: conversation.account, fallback_model: Llm::Models.default_model_for(LLM_FEATURE))
     @assistant = assistant
     @conversation = conversation
     @content = Cosmos::Llm::ConversationFaqContentService.new(assistant, conversation).generate
@@ -38,6 +42,9 @@ class Cosmos::Llm::ConversationFaqService < Llm::BaseOpenAiService
 
   def route_candidate(faq)
     embedding = embedding_service.get_embedding(candidate_text(faq))
+
+    return discard_observation(faq) if matching_record(approved_faqs, faq, embedding)
+    return discard_observation(faq) if matching_record(dismissed_suggestions_for_language, faq, embedding)
 
     suggestion = matching_record(open_suggestions_for_language, faq, embedding)
     matched_content = suggestion&.slice('question', 'answer')
@@ -67,19 +74,6 @@ class Cosmos::Llm::ConversationFaqService < Llm::BaseOpenAiService
         .limit(MATCH_LIMIT)
         .select { |record| record.neighbor_distance < DISTANCE_THRESHOLD }
     end
-  end
-
-  # Mirrors chat_parameters, but for the dedup comparison call, so both LLM round trips
-  # are instrumented in the same shape.
-  def match_instrumentation_params(prompt, comparison, model)
-    {
-      model: model,
-      response_format: { type: 'json_object' },
-      messages: [
-        { role: 'system', content: prompt },
-        { role: 'user', content: comparison.to_json }
-      ]
-    }
   end
 
   def same_faq?(candidate, existing_record)
@@ -135,11 +129,6 @@ class Cosmos::Llm::ConversationFaqService < Llm::BaseOpenAiService
     )
   end
 
-  # Base language of the conversation, so 'pt-BR' and 'pt' dedupe against each other.
-  def faq_language
-    @faq_language ||= self.class.language_for(conversation)
-  end
-
   def open_suggestions_for_language
     assistant.faq_suggestions.where(account_id: conversation.account_id).open.by_language(faq_language)
   end
@@ -157,38 +146,66 @@ class Cosmos::Llm::ConversationFaqService < Llm::BaseOpenAiService
   end
 
   def generate
-    response = @client.chat(parameters: chat_parameters)
-    parse_response(response)
-  rescue OpenAI::Error => e
-    Rails.logger.error "OpenAI API Error: #{e.message}"
+    response = instrument_llm_call(generation_instrumentation_params) do
+      chat
+        .with_params(response_format: { type: 'json_object' })
+        .with_instructions(system_prompt)
+        .ask(content)
+    end
+    parse_generation_response(response.content)
+  rescue RubyLLM::Error => e
+    Rails.logger.error "LLM API Error: #{e.message}"
     []
   end
 
-  def chat_parameters
-    account_language = @conversation.account.locale_english_name
-    prompt = Cosmos::Llm::SystemPromptsService.conversation_faq_generator(account_language)
-
+  def generation_instrumentation_params
     {
-      model: @model,
-      response_format: { type: 'json_object' },
+      span_name: 'llm.cosmos.conversation_faq',
+      model: model,
+      temperature: temperature,
+      account_id: conversation.account_id,
+      conversation_id: conversation.display_id,
+      feature_name: 'conversation_faq',
       messages: [
-        {
-          role: 'system',
-          content: prompt
-        },
-        {
-          role: 'user',
-          content: content
-        }
-      ]
+        { role: 'system', content: system_prompt },
+        { role: 'user', content: content }
+      ],
+      metadata: { assistant_id: assistant.id, language: faq_language }
     }
   end
 
-  def parse_response(response)
-    content = response.dig('choices', 0, 'message', 'content')
-    return [] if content.nil?
+  def match_instrumentation_params(prompt, comparison, faq_match_model)
+    {
+      span_name: 'llm.cosmos.faq_match',
+      model: faq_match_model,
+      temperature: temperature,
+      account_id: conversation.account_id,
+      conversation_id: conversation.display_id,
+      feature_name: 'conversation_faq_match',
+      messages: [
+        { role: 'system', content: prompt },
+        { role: 'user', content: comparison.to_json }
+      ],
+      metadata: { assistant_id: assistant.id, language: faq_language }
+    }
+  end
 
-    JSON.parse(content.strip).fetch('faqs', [])
+  def system_prompt
+    Cosmos::Llm::ConversationFaqPromptsService.generator(language_name(faq_language))
+  end
+
+  def faq_language
+    @faq_language ||= self.class.language_for(conversation)
+  end
+
+  def language_name(language)
+    ISO_639.find(language)&.english_name&.downcase || 'english'
+  end
+
+  def parse_generation_response(response)
+    return [] if response.nil?
+
+    JSON.parse(sanitize_json_response(response)).fetch('faqs', [])
   rescue JSON::ParserError => e
     Rails.logger.error "Error in parsing GPT processed response: #{e.message}"
     []
