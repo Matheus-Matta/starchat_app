@@ -201,13 +201,6 @@ RSpec.describe Starchat::Conversations::PermissionFilterService do
         AccountUser.find_by(user: test_agent, account: test_account)
                    .update!(role: :agent, custom_role: test_custom_role)
 
-        other_conversation  = create(:conversation, account: test_account, inbox: test_inbox)
-        assigned_conv       = create(:conversation, account: test_account, inbox: test_inbox, assignee: test_agent)
-        other_inbox_conv    = create(:conversation, account: test_account, inbox: test_inbox2, assignee: nil)
-        account_user = AccountUser.find_by(user: test_agent, account: test_account)
-        account_user.update(role: :agent, custom_role: test_custom_role)
-
-        # Create some conversations
         other_conversation = create(:conversation, account: test_account, inbox: test_inbox)
         assigned_conversation = create(:conversation, account: test_account, inbox: test_inbox, assignee: test_agent)
         participating_conversation = create(:conversation, account: test_account, inbox: test_inbox, assignee: create(:user, account: test_account))
@@ -218,15 +211,12 @@ RSpec.describe Starchat::Conversations::PermissionFilterService do
           test_account.conversations, test_agent, test_account
         ).perform
 
-        expect(result.count).to eq(1)
-        expect(result.first.assignee).to eq(test_agent)
-        expect(result).to include(assigned_conv)
         # Should only see conversations assigned to this agent or where the agent participates
         expect(result.count).to eq(2)
         expect(result).to include(assigned_conversation)
         expect(result).to include(participating_conversation)
         expect(result).not_to include(other_conversation)
-        expect(result).not_to include(other_inbox_conv)
+        expect(result).not_to include(other_inbox_conversation)
       end
     end
 
