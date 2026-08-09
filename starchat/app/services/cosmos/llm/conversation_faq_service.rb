@@ -122,6 +122,11 @@ class Cosmos::Llm::ConversationFaqService < Llm::BaseOpenAiService
     )
   end
 
+  # Base language of the conversation, so 'pt-BR' and 'pt' dedupe against each other.
+  def faq_language
+    @faq_language ||= self.class.language_for(conversation)
+  end
+
   def open_suggestions_for_language
     assistant.faq_suggestions.where(account_id: conversation.account_id).open.by_language(faq_language)
   end

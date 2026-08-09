@@ -6,6 +6,8 @@ RSpec.describe Cosmos::Llm::ConversationFaqService do
   let(:service) { described_class.new(cosmos_assistant, conversation) }
   let(:client) { instance_double(OpenAI::Client) }
   let(:embedding_service) { instance_double(Cosmos::Llm::EmbeddingService) }
+  # cosmos_faq_suggestions.embedding is vector(1536); anything shorter is rejected by pgvector.
+  let(:embedding_one) { Array.new(1536) { 0.1 } }
   let(:mock_chat) { instance_double(RubyLLM::Chat) }
 
   before do
@@ -41,7 +43,7 @@ RSpec.describe Cosmos::Llm::ConversationFaqService do
     context 'when successful' do
       before do
         allow(client).to receive(:chat).and_return(openai_response)
-        allow(embedding_service).to receive(:get_embedding).and_return([0.1, 0.2, 0.3])
+        allow(embedding_service).to receive(:get_embedding).and_return(embedding_one)
         allow(cosmos_assistant.responses).to receive(:nearest_neighbors).and_return([])
       end
 
@@ -200,7 +202,7 @@ end
 
       before do
         allow(client).to receive(:chat).and_return(openai_response)
-        allow(embedding_service).to receive(:get_embedding).and_return([0.1, 0.2, 0.3])
+        allow(embedding_service).to receive(:get_embedding).and_return(embedding_one)
         allow(cosmos_assistant.responses).to receive(:nearest_neighbors).and_return([similar_neighbor])
       end
 
@@ -348,10 +350,12 @@ end
       allow(Cosmos::Llm::SystemPromptsService).to receive(:conversation_faq_generator).and_return('system prompt')
       params = service.send(:chat_parameters)
 
-      expect(params[:messages]).to include(
-        { role: 'system', content: 'system prompt' },
-        { role: 'user', content: conversation.to_llm_text }
-      )
+      expect(params[:messages]).to include({ role: 'system', content: 'system prompt' })
+
+      # The user turn prefixes the assistant's business context before the transcript.
+      user_message = params[:messages].find { |message| message[:role] == 'user' }
+      expect(user_message[:content]).to include('Business Context:')
+      expect(user_message[:content]).to end_with(conversation.to_llm_text)
     end
 
     context 'when conversation has different language' do

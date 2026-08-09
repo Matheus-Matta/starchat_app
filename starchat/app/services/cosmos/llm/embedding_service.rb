@@ -8,7 +8,7 @@ class Cosmos::Llm::EmbeddingService < Llm::BaseOpenAiService
   end
 
   def self.embedding_model
-    @embedding_model = InstallationConfig.find_by(name: 'COSMOS_EMBEDDING_MODEL')&.value.presence || OpenAiConstants::DEFAULT_EMBEDDING_MODEL
+    @embedding_model = InstallationConfig.find_by(name: 'COSMOS_EMBEDDING_MODEL')&.value.presence || LlmConstants::DEFAULT_EMBEDDING_MODEL
   end
 
   def get_embedding(content, model: @embedding_model)
