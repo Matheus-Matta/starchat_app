@@ -116,3 +116,36 @@ Tambem falta a constante SuggestionChangedError na classe.
 
 Spec substituido pelo original traduzido (Captain->Cosmos, CAPTAIN_->COSMOS_):
 31 exemplos. Falta alinhar o SERVICO ao spec.
+
+--------------------------------------------------------------------------------
+RESOLVIDO — conversation_faq_service.rb e vizinhos (com os originais do upstream)
+--------------------------------------------------------------------------------
+O usuario forneceu o spec E o servico originais. Substitui os dois pelos originais
+traduzidos (Captain->Cosmos, CAPTAIN_->COSMOS_, span llm.captain.*->llm.cosmos.*).
+Resultado: spec/starchat/services/cosmos/llm/ = 64/64 verde.
+
+O que a uniao tinha destruido nesse arquivo, alem do que ja estava registrado:
+  - classe herdava Llm::BaseOpenAiService (HTTP cru) em vez de Llm::BaseAiService;
+    generate nunca passava pelo RubyLLM
+  - faltavam: SuggestionChangedError, system_prompt, language_name,
+    generation_instrumentation_params, parse_generation_response
+  - sobravam: chat_parameters e parse_response (implementacao antiga)
+  - initialize nao passava feature/account ao super, entao o modelo por conta
+    (cosmos_models) era ignorado
+  - @content nao vinha do ConversationFaqContentService
+
+REVERTIDO: a restauracao de SystemPromptsService.conversation_faq_generator que eu
+tinha feito. Era remendo em cima do codigo corrompido; o prompt correto vem de
+ConversationFaqPromptsService.generator(language_name(faq_language)).
+
+Outros dois consertos da mesma rodada:
+  - [PROD] AssistantActionClassifierService chamava super() sem feature/account,
+    entao ficava preso ao modelo default global e ignorava cosmos_models da conta.
+    Passou a herdar BaseAiService com feature 'assistant'.
+  - [SPEC] permission_filter_service_spec: o exemplo de conversation_participating_manage
+    tinha DOIS corpos empilhados (setup do exemplo anterior + o proprio) e terminava
+    com as assercoes do exemplo anterior (esperava 1, criava 2 visiveis). Desempilhado.
+    9/9 verde.
+
+VARREDURA: procurei em todo o spec/ por exemplos com corpo vazio (`it ... do` seguido
+de `end`). Eram exatamente DOIS, ambos ja restaurados.
