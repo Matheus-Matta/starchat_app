@@ -37,7 +37,6 @@ class Channel::Whatsapp < ApplicationRecord
   validate :validate_ycloud_feature
   validate :validate_provider_config
 
-  after_create :sync_templates
   after_update_commit :log_credentials_transfer, if: :saved_change_to_provider_config?
   before_destroy :teardown_webhooks
   # rubocop:disable Rails/ActiveRecordCallbacksOrder
