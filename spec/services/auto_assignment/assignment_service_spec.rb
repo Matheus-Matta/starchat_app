@@ -219,6 +219,8 @@ RSpec.describe AutoAssignment::AssignmentService do
         round_robin_selector = instance_double(AutoAssignment::RoundRobinSelector)
         allow(AutoAssignment::RoundRobinSelector).to receive(:new).and_return(round_robin_selector)
         allow(round_robin_selector).to receive(:select_agent).and_return(agent)
+        # find_available_agent snapshots the queue on both sides of the selection.
+        allow(round_robin_selector).to receive(:queue_snapshot).and_return([])
 
         allow(AutoAssignment::RateLimiter).to receive(:new).and_return(rate_limiter)
         allow(rate_limiter).to receive(:within_limit?).and_return(true)

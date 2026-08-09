@@ -21,52 +21,25 @@ class Api::V1::Accounts::Conversations::ParticipantsController < Api::V1::Accoun
         user: participant.user
       )
     end
-  end
-
-  def update
-    added_ids   = participants_to_be_added_ids
-    removed_ids = participants_to_be_removed_ids
-    removed_users = User.where(id: removed_ids).index_by(&:id)
-    ActiveRecord::Base.transaction do
-      added_ids.each   { |user_id| @conversation.conversation_participants.find_or_create_by(user_id: user_id) }
-      removed_ids.each { |user_id| @conversation.conversation_participants.find_by(user_id: user_id)&.destroy }
-    end
-    added_ids.each do |user_id|
-      user = User.find_by(id: user_id)
-      next unless user
-
-      Rails.configuration.dispatcher.dispatch(
-        Events::Types::CONVERSATION_PARTICIPANT_ADDED,
-        Time.zone.now,
-        conversation: @conversation,
-        user: user
-      )
-    end
-    removed_ids.each do |user_id|
-      user = removed_users[user_id]
-      next unless user
-
-      Rails.configuration.dispatcher.dispatch(
-        Events::Types::CONVERSATION_PARTICIPANT_REMOVED,
-        Time.zone.now,
-        conversation: @conversation,
-        user: user
-      )
-  end
-
     notify_unread_count_change if participant_ids_to_add.any?
   end
 
   def update
     participant_ids_to_add = participants_to_be_added_ids
     participant_ids_to_remove = participants_to_be_removed_ids
-    changed_participant_ids = participant_ids_to_add + participant_ids_to_remove
+    # Look the users up before the transaction; after it the removed rows are gone.
+    removed_users = User.where(id: participant_ids_to_remove).index_by(&:id)
+    added_users = User.where(id: participant_ids_to_add).index_by(&:id)
 
     ActiveRecord::Base.transaction do
       participant_ids_to_add.each { |user_id| @conversation.conversation_participants.find_or_create_by!(user_id: user_id) }
       participant_ids_to_remove.each { |user_id| @conversation.conversation_participants.find_by(user_id: user_id)&.destroy }
     end
-    notify_unread_count_change if changed_participant_ids.any?
+
+    dispatch_participant_events(CONVERSATION_PARTICIPANT_ADDED, participant_ids_to_add, added_users)
+    dispatch_participant_events(CONVERSATION_PARTICIPANT_REMOVED, participant_ids_to_remove, removed_users)
+
+    notify_unread_count_change if (participant_ids_to_add + participant_ids_to_remove).any?
     @participants = @conversation.conversation_participants.reload
     render action: 'show'
   end
@@ -116,6 +89,15 @@ class Api::V1::Accounts::Conversations::ParticipantsController < Api::V1::Accoun
     return if invalid_ids.empty?
 
     render json: { error: 'Invalid participant IDs' }, status: :unprocessable_entity
+  end
+
+  def dispatch_participant_events(event_name, user_ids, users_by_id)
+    user_ids.each do |user_id|
+      user = users_by_id[user_id]
+      next if user.blank?
+
+      Rails.configuration.dispatcher.dispatch(event_name, Time.zone.now, conversation: @conversation, user: user)
+    end
   end
 
   def notify_unread_count_change
