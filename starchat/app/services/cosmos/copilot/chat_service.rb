@@ -7,7 +7,7 @@ class Cosmos::Copilot::ChatService < Llm::BaseOpenAiService
   attr_reader :assistant, :account, :user, :copilot_thread, :previous_history, :messages
 
   def initialize(assistant, config)
-    super(feature: 'copilot', account: assistant.account)
+    super()
 
     @assistant = assistant
     @account = assistant.account

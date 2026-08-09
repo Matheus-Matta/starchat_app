@@ -4,7 +4,7 @@ class Cosmos::Onboarding::WebsiteAnalyzerService < Llm::BaseOpenAiService
   MAX_CONTENT_LENGTH = 8000
 
   def initialize(website_url)
-    super(feature: 'onboarding_content_generation')
+    super()
     @website_url = normalize_url(website_url)
     @website_content = nil
     @favicon_url = nil

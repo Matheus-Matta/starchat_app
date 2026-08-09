@@ -15,7 +15,7 @@ class Cosmos::Llm::ConversationFaqService < Llm::BaseOpenAiService
   private_class_method :normalize_language
 
   def initialize(assistant, conversation)
-    super(feature: LLM_FEATURE, account: conversation.account, fallback_model: Llm::Models.default_model_for(LLM_FEATURE))
+    super()
     @assistant = assistant
     @conversation = conversation
     @content = Cosmos::Llm::ConversationFaqContentService.new(assistant, conversation).generate

@@ -3,7 +3,7 @@ class Cosmos::Llm::AssistantActionClassifierService < Llm::BaseOpenAiService
   include Cosmos::Llm::AssistantResponseInspectionHelpers
 
   def initialize(assistant:, conversation:)
-    super(feature: 'assistant', account: conversation.account)
+    super()
     @assistant = assistant
     @conversation = conversation
     @temperature = 0.0

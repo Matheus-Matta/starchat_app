@@ -23,8 +23,8 @@ class Llm::BaseAiService
   def sanitize_json_response(content)
     return nil if content.nil?
 
-    content.gsub(/\A```(?:json)?\s*/m, '').gsub(/\s*```\z/m, '').strip
-    response.strip.sub(/\A```(?:\w*)\s*\n?/, '').sub(/\n?\s*```\s*\z/, '').strip
+    # Upstream's form: handles any ```lang fence, not just ```json.
+    content.strip.sub(/\A```(?:\w*)\s*\n?/, '').sub(/\n?\s*```\s*\z/, '').strip
   end
 
   def setup_model

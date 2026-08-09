@@ -8,7 +8,7 @@ class Cosmos::Llm::AssistantChatService < Llm::BaseOpenAiService
   end
 
   def initialize(assistant: nil, conversation: nil, source: nil)
-    super(feature: 'assistant', account: assistant&.account || conversation&.account)
+    super()
 
     @assistant = assistant
     @messages = [system_message]
