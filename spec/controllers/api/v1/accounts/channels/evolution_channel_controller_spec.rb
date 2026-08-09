@@ -163,6 +163,11 @@ RSpec.describe Api::V1::Accounts::Channels::EvolutionChannelController, type: :c
           stub_request(:get, 'https://graph.facebook.com/v14.0/222/message_templates?access_token=cloud_key')
             .to_return(status: 200, body: { data: [] }.to_json)
 
+          # Validation also checks that phone_number_id belongs to the WABA.
+          stub_request(:get, %r{graph\.facebook\.com/.+/222/phone_numbers})
+            .to_return(status: 200, body: { data: [{ id: '111' }] }.to_json,
+                       headers: { 'Content-Type' => 'application/json' })
+
           setup_service = instance_double(Whatsapp::WebhookSetupService)
           allow(Whatsapp::WebhookSetupService).to receive(:new).and_return(setup_service)
           allow(setup_service).to receive(:perform)
