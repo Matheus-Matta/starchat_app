@@ -1,0 +1,67 @@
+
+================================================================================
+ESTADO EM 2026-08-09 -- port v4.14.1 -> v4.16.2 na branch port-v4160
+================================================================================
+
+SUITE: 8128 exemplos, 70 falhas, 70 pending  (base pre-port: 7282, 0 falhas)
+Trajetoria: 250 -> 145 -> 70
+
+Rodar com:  POSTGRES_DATABASE=chatwoot_test RAILS_ENV=test bundle exec rspec
+(o VITE_RUBY_SKIP_COMPATIBILITY_CHECK nao e mais necessario)
+
+--- AS 70 FALHAS: 6 CAUSAS JA DIAGNOSTICADAS ---
+
+[1] 18x spec/starchat/services/cosmos/llm/conversation_faq_service_spec.rb
+    NameError: undefined 'mock_chat'
+    -> a uniao automatica quebrou o escopo do let/before no spec. Mesmo padrao dos
+       outros specs que ja consertei: o bloco do fork ficou fora do escopo onde o
+       mock e definido.
+
+[2] 9x spec/services/evolution/migrate_to_whatsapp_service_spec.rb (+ controller)
+    422 em vez de 200 ao migrar Evolution -> WhatsApp
+    -> o stub de phone_numbers resolveu o WebMock, mas a migracao ainda falha.
+       Investigar o que valida e retorna unprocessable.
+
+[3] 6x spec/starchat/services/messages/audio_transcription_openai_service_spec.rb
+    ArgumentError: comparison of Integer with nil em
+    starchat/app/models/starchat/concerns/inbox.rb:16 (ensure_create_permitted)
+    -> account.usage_limits[:inboxes] vem nil NESTE contexto. Fora dele funciona
+       (verificado: retorna 100000). Provavelmente o spec stuba usage_limits ou usa
+       uma account construida sem o prepend. NAO e quebra geral de criacao de inbox.
+
+[4] 6x spec/models/account_spec.rb
+    api_and_webhooks_enabled? esperado true para self-hosted, veio false
+    -> v4.16.0 introduziu a flag api_and_webhooks; Account#api_and_webhooks_enabled?
+       retorna true fixo no fork, mas algo no port passou a consultar a flag.
+
+[5] 4x spec/services/auto_assignment/assignment_service_spec.rb
+    RoundRobinSelector recebeu :queue_snapshot inesperado
+    -> Starchat::AutoAssignment::AssignmentService#find_available_agent passou a
+       chamar queue_snapshot(limit:); o spec mocka a interface antiga.
+
+[6] 4x spec/starchat/services/internal/reconcile_plan_config_service_spec.rb
+    -> spec de billing/planos que sobreviveu a remocao. Provavelmente deve ser
+       excluido junto com o resto do billing.
+
+Demais: 4x participants_controller, 3x message_reports_controller e ~15 avulsas.
+
+--- LICOES DESTE PORT ---
+
+A esmagadora maioria das falhas veio da UNIAO AUTOMATICA de conflitos, que empilha
+os dois lados sem checar coerencia:
+  - super() com a assinatura do outro lado
+  - duas implementacoes do mesmo metodo, uma referenciando variavel inexistente
+  - callbacks declarados duas vezes (sync_templates rodava 2x por inbox)
+  - blocos de spec fora do escopo de seus let/before
+`ruby -c` passa em todos esses casos. So o teste pega. Preferir resolucao manual em
+arquivo com logica, e reservar a uniao para listas/config.
+
+O port reintroduziu BILLING TRES VEZES (jbuilder, routes.rb, accounts_controller).
+Fazer grep de Stripe/topup/billing antes de mergear.
+
+--- PENDENTE ALEM DAS FALHAS ---
+- vite ^5.4.21 -> ^6.4.2 (decidido) e validar `pnpm build` E `pnpm test`.
+  vite-plugin-ruby 5.2.2 e ESM-only: com vite 5 o build QUEBRA. Os testes nao veem
+  isso porque config/vite.json agora tem autoBuild: false em test.
+- resquicio 'enterprise' em app/controllers/dashboard_controller.rb:82
+- blanket rename chatwoot -> starchats
