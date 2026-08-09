@@ -1,9 +1,13 @@
-class Cosmos::Llm::AssistantActionClassifierService < Llm::BaseOpenAiService
+class Cosmos::Llm::AssistantActionClassifierService < Llm::BaseAiService
   include Integrations::LlmInstrumentation
   include Cosmos::Llm::AssistantResponseInspectionHelpers
 
+  LLM_FEATURE = 'assistant'.freeze
+
   def initialize(assistant:, conversation:)
-    super()
+    # Routed through the assistant feature so account-level cosmos_models overrides apply;
+    # super() alone pinned every account to the global default model.
+    super(feature: LLM_FEATURE, account: conversation.account)
     @assistant = assistant
     @conversation = conversation
     @temperature = 0.0
