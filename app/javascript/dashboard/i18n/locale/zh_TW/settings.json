@@ -37,7 +37,7 @@
       },
       "INTERFACE_SECTION": {
         "TITLE": "Interface",
-        "NOTE": "Customize the look and feel of your Chatwoot dashboard.",
+        "NOTE": "Customize the look and feel of your Starchats dashboard.",
         "FONT_SIZE": {
           "TITLE": "Font size",
           "NOTE": "Adjust the text size across the dashboard based on your preference.",
@@ -451,7 +451,7 @@
     }
   },
   "CREATE_ACCOUNT": {
-    "NO_ACCOUNT_WARNING": "Uh oh! We could not find any Chatwoot accounts. Please create a new account to continue.",
+    "NO_ACCOUNT_WARNING": "Uh oh! We could not find any Starchats accounts. Please create a new account to continue.",
     "NEW_ACCOUNT": "新帳戶",
     "SELECTOR_SUBTITLE": "建立新帳戶",
     "API": {
@@ -838,7 +838,7 @@
       "SP_ENTITY_ID": {
         "LABEL": "SP Entity ID",
         "HELP": "此應用程式作為服務提供者的唯一識別碼（自動產生）。",
-        "TOOLTIP": "Chatwoot 作為服務提供者的唯一識別碼 - 請在您的 IdP 設定中進行配置"
+        "TOOLTIP": "Starchats 作為服務提供者的唯一識別碼 - 請在您的 IdP 設定中進行配置"
       },
       "IDP_ENTITY_ID": {
         "LABEL": "身份提供者 Entity ID",

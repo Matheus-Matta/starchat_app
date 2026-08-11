@@ -217,16 +217,16 @@ ne:
       description: 'Dashboard Apps allow you to create and embed applications that display user information, orders, or payment history, providing more context to your customer support agents.'
     dyte:
       name: 'Dyte'
-      short_description: 'Start video/voice calls with customers directly from Chatwoot.'
-      description: 'Dyte is a product that integrates audio and video functionalities into your application. With this integration, your agents can start video/voice calls with your customers directly from Chatwoot.'
+      short_description: 'Start video/voice calls with customers directly from Starchats.'
+      description: 'Dyte is a product that integrates audio and video functionalities into your application. With this integration, your agents can start video/voice calls with your customers directly from Starchats.'
       meeting_name: '%{agent_name} has started a meeting'
     slack:
       name: 'Slack'
       short_description: 'Receive notifications and respond to conversations directly in Slack.'
-      description: "Integrate Chatwoot with Slack to keep your team in sync. This integration allows you to receive notifications for new conversations and respond to them directly within Slack's interface."
+      description: "Integrate Starchats with Slack to keep your team in sync. This integration allows you to receive notifications for new conversations and respond to them directly within Slack's interface."
     webhooks:
       name: 'Webhooks'
-      description: 'Webhook events provide real-time updates about activities in your Chatwoot account. You can subscribe to your preferred events, and Chatwoot will send you HTTP callbacks with the updates.'
+      description: 'Webhook events provide real-time updates about activities in your Starchats account. You can subscribe to your preferred events, and Starchats will send you HTTP callbacks with the updates.'
     dialogflow:
       name: 'Dialogflow'
       short_description: 'Build chatbots to handle initial queries before transferring to agents.'
@@ -717,16 +717,16 @@ ne:
       description: 'ड्यासबोर्ड एप्सले तपाईंलाई प्रयोगकर्ता जानकारी, अर्डर, वा भुक्तानी इतिहास देखाउने एपहरू बनाउन र राख्न मद्दत गर्छ, जसले ग्राहक समर्थन टोलीलाई थप सन्दर्भ दिन्छ।.'
     dyte:
       name: 'Dyte'
-      short_description: 'Chatwoot बाट ग्राहकसँग सिधै भिडियो वा आवाज कल सुरु गर्नुहोस्।.'
-      description: 'Dyte एउटा उत्पादन हो जसले तपाईंको एपमा अडियो र भिडियो सुविधा थप्छ। यस एकीकरणबाट, तपाईंका एजेन्टहरूले Chatwoot बाटै ग्राहकहरूसँग भिडियो/भ्वाइस कल सुरु गर्न सक्छन्।.'
+      short_description: 'Starchats बाट ग्राहकसँग सिधै भिडियो वा आवाज कल सुरु गर्नुहोस्।.'
+      description: 'Dyte एउटा उत्पादन हो जसले तपाईंको एपमा अडियो र भिडियो सुविधा थप्छ। यस एकीकरणबाट, तपाईंका एजेन्टहरूले Starchats बाटै ग्राहकहरूसँग भिडियो/भ्वाइस कल सुरु गर्न सक्छन्।.'
       meeting_name: '%{agent_name} ले बैठक सुरु गरेका छन्'
     slack:
       name: 'Slack'
       short_description: 'Slack मा सिधै सूचना प्राप्त गर्नुहोस् र कुराकानीमा जवाफ दिनुहोस्।.'
-      description: "Chatwoot लाई Slack सँग जोड्नुहोस् ताकि तपाईंको टोली सँगसँगै रहोस्। यस एकीकरणले नयाँ कुराकानीको सूचना Slack मा प्राप्त गर्न र जवाफ दिन सकिन्छ।."
+      description: "Starchats लाई Slack सँग जोड्नुहोस् ताकि तपाईंको टोली सँगसँगै रहोस्। यस एकीकरणले नयाँ कुराकानीको सूचना Slack मा प्राप्त गर्न र जवाफ दिन सकिन्छ।."
     webhooks:
       name: 'Webhooks'
-      description: 'Webhook घटनाले तपाईंको Chatwoot खातामा गतिविधिको वास्तविक समय अपडेट दिन्छ। तपाईं रोजेका घटनामा सदस्यता लिन सक्नुहुन्छ, अनि Chatwoot ले HTTP कलब्याकमार्फत अपडेट पठाउनेछ।.'
+      description: 'Webhook घटनाले तपाईंको Starchats खातामा गतिविधिको वास्तविक समय अपडेट दिन्छ। तपाईं रोजेका घटनामा सदस्यता लिन सक्नुहुन्छ, अनि Starchats ले HTTP कलब्याकमार्फत अपडेट पठाउनेछ।.'
     dialogflow:
       name: 'Dialogflow'
       short_description: 'एजेन्टलाई पठाउनु अघि प्रारम्भिक प्रश्नहरू समाधान गर्न च्याटबोट बनाउनुहोस्।.'

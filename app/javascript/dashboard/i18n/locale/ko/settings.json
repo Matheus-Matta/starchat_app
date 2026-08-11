@@ -37,7 +37,7 @@
       },
       "INTERFACE_SECTION": {
         "TITLE": "Interface",
-        "NOTE": "Customize the look and feel of your Chatwoot dashboard.",
+        "NOTE": "Customize the look and feel of your Starchats dashboard.",
         "FONT_SIZE": {
           "TITLE": "Font size",
           "NOTE": "Adjust the text size across the dashboard based on your preference.",
@@ -451,7 +451,7 @@
     }
   },
   "CREATE_ACCOUNT": {
-    "NO_ACCOUNT_WARNING": "Uh oh! We could not find any Chatwoot accounts. Please create a new account to continue.",
+    "NO_ACCOUNT_WARNING": "Uh oh! We could not find any Starchats accounts. Please create a new account to continue.",
     "NEW_ACCOUNT": "새 계정",
     "SELECTOR_SUBTITLE": "새 계정 만들기",
     "API": {
@@ -838,7 +838,7 @@
       "SP_ENTITY_ID": {
         "LABEL": "SP 엔터티 ID",
         "HELP": "서비스 제공자로서 이 애플리케이션의 고유 식별자 (자동 생성).",
-        "TOOLTIP": "서비스 제공자로서의 Chatwoot 고유 식별자 - IdP 설정에서 이를 구성하십시오"
+        "TOOLTIP": "서비스 제공자로서의 Starchats 고유 식별자 - IdP 설정에서 이를 구성하십시오"
       },
       "IDP_ENTITY_ID": {
         "LABEL": "ID 공급자 엔터티 ID",

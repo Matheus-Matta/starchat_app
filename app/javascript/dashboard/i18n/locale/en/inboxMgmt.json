@@ -199,7 +199,7 @@
       },
       "AUTH": {
         "TITLE_NEXT": "Complete the setup",
-        "DESC": "Chatwoot supports live-chat widgets, Facebook Messenger, WhatsApp, Emails, etc., as channels. If you want to build a custom channel, you can create it using the API channel. To get started, choose one of the channels below.",
+        "DESC": "Starchats supports live-chat widgets, Facebook Messenger, WhatsApp, Emails, etc., as channels. If you want to build a custom channel, you can create it using the API channel. To get started, choose one of the channels below.",
         "CHANNEL": {
           "EMAIL": {
             "TITLE": "Email",
@@ -294,7 +294,7 @@
         "CHOOSE_PLACEHOLDER": "Select a page from the list",
         "CHOOSE_PAGE": "Choose Page",
         "INBOX_NAME": "Inbox Name",
-        "HELP": "PS: By signing in, we only get access to your Page's messages. Your private messages can never be accessed by Chatwoot.",
+        "HELP": "PS: By signing in, we only get access to your Page's messages. Your private messages can never be accessed by Starchats.",
         "CREATE_INBOX": "Create Inbox",
         "PICK_NAME": "Pick a Name for your Inbox",
         "ADD_NAME": "Add a name for your inbox",
@@ -342,7 +342,7 @@
       },
       "DETAILS": {
         "TITLE": "Inbox Details",
-        "DESC": "From the dropdown below, select the Facebook Page you want to connect to Chatwoot. You can also give a custom name to your inbox for better identification."
+        "DESC": "From the dropdown below, select the Facebook Page you want to connect to Starchats. You can also give a custom name to your inbox for better identification."
       },
       "WEBSITE_CHANNEL": {
         "CHANNEL_GREETING_TOGGLE": {
@@ -402,7 +402,7 @@
       },
       "FINISH": {
         "TITLE": "Nailed It!",
-        "DESC": "You have successfully finished integrating your Facebook Page with Chatwoot. Next time a customer messages your Page, the conversation will automatically appear on your inbox.<br>We are also providing you with a widget script that you can easily add to your website. Once this is live on your website, customers can message you right from your website without the help of any external tool and the conversation will appear right here, on Chatwoot.<br>Cool, huh? Well, we sure try to be :)"
+        "DESC": "You have successfully finished integrating your Facebook Page with Starchats. Next time a customer messages your Page, the conversation will automatically appear on your inbox.<br>We are also providing you with a widget script that you can easily add to your website. Once this is live on your website, customers can message you right from your website without the help of any external tool and the conversation will appear right here, on Starchats.<br>Cool, huh? Well, we sure try to be :)"
       },
       "EVOLUTION_QR": {
         "PAIRING_CODE": "Pairing Code",
@@ -1017,7 +1017,7 @@
       },
       "CHANNEL": {
         "TITLE": "Choose Channel",
-        "BODY": "Choose the provider you want to integrate with Chatwoot."
+        "BODY": "Choose the provider you want to integrate with Starchats."
       },
       "QRCODE": {
         "TITLE": "Scan the QR Code",

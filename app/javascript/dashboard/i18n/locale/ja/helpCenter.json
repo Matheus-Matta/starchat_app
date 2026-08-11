@@ -753,7 +753,7 @@
       "CONFIRM_BUTTON_LABEL": "作成",
       "NAME": {
         "LABEL": "名前",
-        "PLACEHOLDER": "ユーザーガイド | Chatwoot",
+        "PLACEHOLDER": "ユーザーガイド | Starchats",
         "MESSAGE": "ポータルの名前を選択してください。",
         "ERROR": "名前が必須です"
       },
@@ -827,7 +827,7 @@
           },
           "DNS_CONFIGURATION_DIALOG": {
             "HEADER": "DNS設定",
-            "DESCRIPTION": "DNSプロバイダーのアカウントにログインし、サブドメインのCNAMEレコードをchatwoot.helpにポイントするように追加してください。",
+            "DESCRIPTION": "DNSプロバイダーのアカウントにログインし、サブドメインのCNAMEレコードをstarchats.helpにポイントするように追加してください。",
             "HELP_TEXT": "これが完了したら、自動生成されたSSL証明書のリクエストのためにサポートに連絡できます。",
             "CONFIRM_BUTTON_LABEL": "了解しました！",
             "COPY": "Successfully copied CNAME",

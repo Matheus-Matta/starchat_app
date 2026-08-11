@@ -753,7 +753,7 @@
       "CONFIRM_BUTTON_LABEL": "Create",
       "NAME": {
         "LABEL": "Name",
-        "PLACEHOLDER": "User Guide | Chatwoot",
+        "PLACEHOLDER": "User Guide | Starchats",
         "MESSAGE": "Choose an name for your portal.",
         "ERROR": "Name is required"
       },
@@ -833,7 +833,7 @@
           },
           "DNS_CONFIGURATION_DIALOG": {
             "HEADER": "DNS configuration",
-            "DESCRIPTION": "Log in to the account you have with your DNS provider, and add a CNAME record for subdomain pointing to chatwoot.help",
+            "DESCRIPTION": "Log in to the account you have with your DNS provider, and add a CNAME record for subdomain pointing to starchats.help",
             "COPY": "CNAME u kopjua me sukses",
             "SEND_INSTRUCTIONS": {
               "HEADER": "Dërgo udhëzimet",

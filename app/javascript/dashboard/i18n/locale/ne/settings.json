@@ -37,7 +37,7 @@
       },
       "INTERFACE_SECTION": {
         "TITLE": "Interface",
-        "NOTE": "Customize the look and feel of your Chatwoot dashboard.",
+        "NOTE": "Customize the look and feel of your Starchats dashboard.",
         "FONT_SIZE": {
           "TITLE": "Font size",
           "NOTE": "Adjust the text size across the dashboard based on your preference.",
@@ -451,7 +451,7 @@
     }
   },
   "CREATE_ACCOUNT": {
-    "NO_ACCOUNT_WARNING": "Uh oh! We could not find any Chatwoot accounts. Please create a new account to continue.",
+    "NO_ACCOUNT_WARNING": "Uh oh! We could not find any Starchats accounts. Please create a new account to continue.",
     "NEW_ACCOUNT": "New Account",
     "SELECTOR_SUBTITLE": "Create a new account",
     "API": {
@@ -838,7 +838,7 @@
       "SP_ENTITY_ID": {
         "LABEL": "SP Entity ID",
         "HELP": "यो एप्लिकेसनको सेवा प्रदायकको रूपमा अद्वितीय परिचायक (स्वतः-उत्पन्न)।",
-        "TOOLTIP": "Chatwoot लाई सेवा प्रदायकको रूपमा अद्वितीय परिचायक - IdP सेटिङमा यो कन्फिगर गर्नुहोस्"
+        "TOOLTIP": "Starchats लाई सेवा प्रदायकको रूपमा अद्वितीय परिचायक - IdP सेटिङमा यो कन्फिगर गर्नुहोस्"
       },
       "IDP_ENTITY_ID": {
         "LABEL": "आइडेन्टिटी प्रोभाइडर Entity ID",

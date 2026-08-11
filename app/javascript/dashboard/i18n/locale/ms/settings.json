@@ -37,7 +37,7 @@
       },
       "INTERFACE_SECTION": {
         "TITLE": "Interface",
-        "NOTE": "Customize the look and feel of your Chatwoot dashboard.",
+        "NOTE": "Customize the look and feel of your Starchats dashboard.",
         "FONT_SIZE": {
           "TITLE": "Font size",
           "NOTE": "Adjust the text size across the dashboard based on your preference.",
@@ -451,7 +451,7 @@
     }
   },
   "CREATE_ACCOUNT": {
-    "NO_ACCOUNT_WARNING": "Uh oh! We could not find any Chatwoot accounts. Please create a new account to continue.",
+    "NO_ACCOUNT_WARNING": "Uh oh! We could not find any Starchats accounts. Please create a new account to continue.",
     "NEW_ACCOUNT": "New Account",
     "SELECTOR_SUBTITLE": "Create a new account",
     "API": {
@@ -838,7 +838,7 @@
       "SP_ENTITY_ID": {
         "LABEL": "SP Entity ID",
         "HELP": "Pengecam unik untuk aplikasi ini sebagai penyedia perkhidmatan (auto-dihasilkan).",
-        "TOOLTIP": "Pengecam unik untuk Chatwoot sebagai Penyedia Perkhidmatan - Konfigurasikan ini dalam tetapan IdP anda"
+        "TOOLTIP": "Pengecam unik untuk Starchats sebagai Penyedia Perkhidmatan - Konfigurasikan ini dalam tetapan IdP anda"
       },
       "IDP_ENTITY_ID": {
         "LABEL": "ID Entiti Penyedia Identiti",

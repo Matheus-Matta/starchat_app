@@ -37,7 +37,7 @@
       },
       "INTERFACE_SECTION": {
         "TITLE": "Interface",
-        "NOTE": "Customize the look and feel of your Chatwoot dashboard.",
+        "NOTE": "Customize the look and feel of your Starchats dashboard.",
         "FONT_SIZE": {
           "TITLE": "Font size",
           "NOTE": "Adjust the text size across the dashboard based on your preference.",
@@ -451,7 +451,7 @@
     }
   },
   "CREATE_ACCOUNT": {
-    "NO_ACCOUNT_WARNING": "Uh oh! We could not find any Chatwoot accounts. Please create a new account to continue.",
+    "NO_ACCOUNT_WARNING": "Uh oh! We could not find any Starchats accounts. Please create a new account to continue.",
     "NEW_ACCOUNT": "പുതിയ അക്കൗണ്ട്",
     "SELECTOR_SUBTITLE": "അക്കൗണ്ട് ഒരു പുതിയ അക്കൗണ്ട് വിജയകരമായി സൃഷ്ടിക്കുക",
     "API": {
@@ -838,7 +838,7 @@
       "SP_ENTITY_ID": {
         "LABEL": "SP എന്റിറ്റി ഐഡി",
         "HELP": "സേവനദാതാവായി ഈ ആപ്ലിക്കേഷനു വേണ്ടി യുണീക്ക് ഐഡന്റിഫയർ (സ്വയം സൃഷ്ടിച്ചത്).",
-        "TOOLTIP": "സേവനദാതാവായി Chatwoot ന്റെ യുണീക്ക് ഐഡന്റിഫയർ - നിങ്ങളുടെ IdP ക്രമീകരണങ്ങളിൽ ഇത് ക്രമീകരിക്കുക"
+        "TOOLTIP": "സേവനദാതാവായി Starchats ന്റെ യുണീക്ക് ഐഡന്റിഫയർ - നിങ്ങളുടെ IdP ക്രമീകരണങ്ങളിൽ ഇത് ക്രമീകരിക്കുക"
       },
       "IDP_ENTITY_ID": {
         "LABEL": "ഐഡന്റിറ്റി പ്രൊവൈഡർ എന്റിറ്റി ഐഡി",

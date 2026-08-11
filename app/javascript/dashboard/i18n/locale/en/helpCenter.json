@@ -93,7 +93,7 @@
         "ERROR": "Name is required",
         "MESSAGE": "Choose an name for your portal.",
         "LABEL": "Name",
-        "PLACEHOLDER": "User Guide | Chatwoot"
+        "PLACEHOLDER": "User Guide | Starchats"
       }
     },
     "EDIT_HEADER": {
@@ -552,7 +552,7 @@
           },
           "EDIT_BUTTON": "Edit",
           "DNS_CONFIGURATION_DIALOG": {
-            "DESCRIPTION": "Log in to the account you have with your DNS provider, and add a CNAME record for subdomain pointing to chatwoot.help",
+            "DESCRIPTION": "Log in to the account you have with your DNS provider, and add a CNAME record for subdomain pointing to starchats.help",
             "COPY": "Successfully copied CNAME",
             "HEADER": "DNS configuration",
             "SEND_INSTRUCTIONS": {

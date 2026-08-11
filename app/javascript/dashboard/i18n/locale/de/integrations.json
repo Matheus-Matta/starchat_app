@@ -31,7 +31,7 @@
       "LEARN_MORE": "Mehr über Webhooks erfahren",
       "FORM": {
         "CANCEL": "Stornieren",
-        "DESC": "Webhook-Ereignisse bieten Ihnen Echtzeitinformationen darüber, was in Ihrem Chatwoot-Konto passiert. Bitte geben Sie eine gültige URL ein, um einen Rückruf zu konfigurieren.",
+        "DESC": "Webhook-Ereignisse bieten Ihnen Echtzeitinformationen darüber, was in Ihrem Starchats-Konto passiert. Bitte geben Sie eine gültige URL ein, um einen Rückruf zu konfigurieren.",
         "SUBSCRIPTIONS": {
           "LABEL": "Events",
           "EVENTS": {
@@ -130,7 +130,7 @@
         "OPTION_LABEL": "Einen Kanal auswählen",
         "UPDATE": "Aktualisieren",
         "BUTTON_TEXT": "Kanal verbinden",
-        "DESCRIPTION": "Ihr Slack-Arbeitsbereich ist jetzt mit Chatwoot verbunden. Die Integration ist jedoch derzeit inaktiv. Um die Integration zu aktivieren und einen Kanal mit Chatwoot zu verbinden, klicken Sie bitte auf den untenstehenden Button.\n\n**Hinweis:** Wenn Sie versuchen, einen privaten Kanal zu verbinden, fügen Sie die Chatwoot-App dem Slack-Kanal hinzu, bevor Sie diesen Schritt fortsetzen.",
+        "DESCRIPTION": "Ihr Slack-Arbeitsbereich ist jetzt mit Starchats verbunden. Die Integration ist jedoch derzeit inaktiv. Um die Integration zu aktivieren und einen Kanal mit Starchats zu verbinden, klicken Sie bitte auf den untenstehenden Button.\n\n**Hinweis:** Wenn Sie versuchen, einen privaten Kanal zu verbinden, fügen Sie die Starchats-App dem Slack-Kanal hinzu, bevor Sie diesen Schritt fortsetzen.",
         "ATTENTION_REQUIRED": "Achtung",
         "EXPIRED": "Ihre Slack-Integration ist abgelaufen. Um weiterhin Nachrichten auf Slack zu erhalten, löschen Sie bitte die Integration und verbinden Sie Ihren Arbeitsbereich erneut."
       },
@@ -233,7 +233,7 @@
     "DASHBOARD_APPS": {
       "TITLE": "Dashboard-Apps",
       "HEADER_BTN_TXT": "Eine neue Dashboard-App hinzufügen",
-      "SIDEBAR_TXT": "<p><b>Dashboard Apps</b></p><p>Dashboard-Apps ermöglichen es Unternehmen, eine Anwendung in das Chatwoot-Dashboard einzubetten, um den Kontext für Kundendienstmitarbeiter bereitzustellen. Mit dieser Funktion können Sie eine Anwendung unabhängig erstellen und diese in das Dashboard einbetten, um Benutzerinformationen, ihre Bestellungen oder ihren bisherigen Zahlungsverlauf bereitzustellen.</p><p>Wenn Sie Ihre Anwendung über das Dashboard in Chatwoot einbetten, erhält Ihre Anwendung den Kontext der Unterhaltung und des Kontakts als Fensterereignis. Implementieren Sie einen Listener für das Nachrichtenereignis auf Ihrer Seite, um den Kontext zu erhalten. </p><p>Um eine neue Dashboard-App hinzuzufügen, klicken Sie auf die Schaltfläche „Neue Dashboard-App hinzufügen“.</p>",
+      "SIDEBAR_TXT": "<p><b>Dashboard Apps</b></p><p>Dashboard-Apps ermöglichen es Unternehmen, eine Anwendung in das Starchats-Dashboard einzubetten, um den Kontext für Kundendienstmitarbeiter bereitzustellen. Mit dieser Funktion können Sie eine Anwendung unabhängig erstellen und diese in das Dashboard einbetten, um Benutzerinformationen, ihre Bestellungen oder ihren bisherigen Zahlungsverlauf bereitzustellen.</p><p>Wenn Sie Ihre Anwendung über das Dashboard in Starchats einbetten, erhält Ihre Anwendung den Kontext der Unterhaltung und des Kontakts als Fensterereignis. Implementieren Sie einen Listener für das Nachrichtenereignis auf Ihrer Seite, um den Kontext zu erhalten. </p><p>Um eine neue Dashboard-App hinzuzufügen, klicken Sie auf die Schaltfläche „Neue Dashboard-App hinzufügen“.</p>",
       "DESCRIPTION": "Dashboard-Apps ermöglichen es Unternehmen, eine Anwendung in das Dashboard einzubetten, um den Kontext für Kundendienstmitarbeiter bereitzustellen. Mit dieser Funktion können Sie eine Anwendung unabhängig erstellen und diese einbetten, um Benutzerinformationen, ihre Bestellungen oder ihren bisherigen Zahlungsverlauf bereitzustellen.",
       "LEARN_MORE": "Mehr über Dashboard-Apps erfahren",
       "LIST": {
