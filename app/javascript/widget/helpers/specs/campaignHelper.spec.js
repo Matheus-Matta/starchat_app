@@ -5,7 +5,7 @@ import {
 } from '../campaignHelper';
 import campaigns from './campaignFixtures';
 
-global.chatwootWebChannel = {
+global.starchatsWebChannel = {
   workingHoursEnabled: false,
 };
 describe('#Campaigns Helper', () => {

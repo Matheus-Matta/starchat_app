@@ -7,20 +7,20 @@ import {
 describe('PortalHelper', () => {
   describe('buildPortalURL', () => {
     it('returns the correct url', () => {
-      window.chatwootConfig = {
+      window.starchatsConfig = {
         hostURL: 'https://app.starchats.com.br',
         helpCenterURL: 'https://help.starchats.com.br',
       };
       expect(buildPortalURL('handbook')).toEqual(
         'https://help.starchats.com.br/hc/handbook'
       );
-      window.chatwootConfig = {};
+      window.starchatsConfig = {};
     });
   });
 
   describe('buildPortalArticleURL', () => {
     it('returns the correct url', () => {
-      window.chatwootConfig = {
+      window.starchatsConfig = {
         hostURL: 'https://app.starchats.com.br',
         helpCenterURL: 'https://help.starchats.com.br',
       };
@@ -29,11 +29,11 @@ describe('PortalHelper', () => {
       ).toEqual(
         'https://help.starchats.com.br/hc/handbook/articles/article-slug'
       );
-      window.chatwootConfig = {};
+      window.starchatsConfig = {};
     });
 
     it('returns the correct url with custom domain', () => {
-      window.chatwootConfig = {
+      window.starchatsConfig = {
         hostURL: 'https://app.starchats.com.br',
         helpCenterURL: 'https://help.starchats.com.br',
       };
@@ -49,7 +49,7 @@ describe('PortalHelper', () => {
     });
 
     it('handles https in custom domain correctly', () => {
-      window.chatwootConfig = {
+      window.starchatsConfig = {
         hostURL: 'https://app.starchats.com.br',
         helpCenterURL: 'https://help.starchats.com.br',
       };
@@ -65,7 +65,7 @@ describe('PortalHelper', () => {
     });
 
     it('uses hostURL when helpCenterURL is not available', () => {
-      window.chatwootConfig = {
+      window.starchatsConfig = {
         hostURL: 'https://app.starchats.com.br',
         helpCenterURL: '',
       };

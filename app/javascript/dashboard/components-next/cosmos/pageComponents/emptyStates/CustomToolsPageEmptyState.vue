@@ -5,7 +5,7 @@ import FeatureSpotlight from 'dashboard/components-next/feature-spotlight/Featur
 import Button from 'dashboard/components-next/button/Button.vue';
 
 const emit = defineEmits(['click']);
-const { isOnChatwootCloud } = useAccount();
+const { isOnStarchatsCloud } = useAccount();
 
 const onClick = () => {
   emit('click');
@@ -20,7 +20,7 @@ const onClick = () => {
     fallback-thumbnail-dark="/assets/images/dashboard/cosmos/assistant-dark.svg"
     learn-more-url="https://chwt.app/hc/cosmos-tools"
     class="mb-8"
-    :hide-actions="!isOnChatwootCloud"
+    :hide-actions="!isOnStarchatsCloud"
   />
   <EmptyStateLayout
     :title="$t('COSMOS.CUSTOM_TOOLS.EMPTY_STATE.TITLE')"

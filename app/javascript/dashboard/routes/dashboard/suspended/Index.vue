@@ -1,11 +1,10 @@
 <script setup>
 import EmptyState from 'dashboard/components/widgets/EmptyState.vue';
 import { onMounted } from 'vue';
+import { getSupportWidget } from 'dashboard/helper/supportWidget';
 
 const toggleSupportWidgetVisibility = () => {
-  if (window.$chatwoot) {
-    window.$chatwoot.toggleBubbleVisibility('show');
-  }
+  getSupportWidget()?.toggleBubbleVisibility('show');
 };
 
 const setupListenerForWidgetEvent = () => {

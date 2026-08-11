@@ -134,5 +134,5 @@ never synced at all. It is now a single interval applied to every account
 (`COSMOS_DOCUMENT_AUTO_SYNC_INTERVALS`, still accepts the old plan-keyed hash).
 
 The frontend billing screen and `PaymentPendingBanner` were left in place: both are gated on
-`isOnChatwootCloud` / `installationTypes: [CLOUD]`, and `DEPLOYMENT_ENV` is `self-hosted`,
+`isOnStarchatsCloud` / `installationTypes: [CLOUD]`, and `DEPLOYMENT_ENV` is `self-hosted`,
 so they are already unreachable. Remove them during the dashboard port.

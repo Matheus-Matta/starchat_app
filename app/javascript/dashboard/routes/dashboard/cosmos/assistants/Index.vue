@@ -10,7 +10,7 @@ import CreateAssistantDialog from 'dashboard/components-next/cosmos/pageComponen
 import AssistantPageEmptyState from 'dashboard/components-next/cosmos/pageComponents/emptyStates/AssistantPageEmptyState.vue';
 import FeatureSpotlightPopover from 'dashboard/components-next/feature-spotlight/FeatureSpotlightPopover.vue';
 
-const { isOnChatwootCloud } = useAccount();
+const { isOnStarchatsCloud } = useAccount();
 
 const dialogType = ref('');
 const uiFlags = useMapGetter('cosmosAssistants/getUIFlags');
@@ -58,7 +58,7 @@ const handleAfterCreate = newAssistant => {
         :button-label="$t('COSMOS.HEADER_KNOW_MORE')"
         :title="$t('COSMOS.ASSISTANTS.EMPTY_STATE.FEATURE_SPOTLIGHT.TITLE')"
         :note="$t('COSMOS.ASSISTANTS.EMPTY_STATE.FEATURE_SPOTLIGHT.NOTE')"
-        :hide-actions="!isOnChatwootCloud"
+        :hide-actions="!isOnStarchatsCloud"
         fallback-thumbnail="/assets/images/dashboard/cosmos/assistant-popover-light.svg"
         fallback-thumbnail-dark="/assets/images/dashboard/cosmos/assistant-popover-dark.svg"
         learn-more-url="https://chwt.app/cosmos-assistant"

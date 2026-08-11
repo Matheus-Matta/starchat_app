@@ -21,7 +21,7 @@ import FeatureSpotlightPopover from 'dashboard/components-next/feature-spotlight
 const router = useRouter();
 const route = useRoute();
 const store = useStore();
-const { isOnChatwootCloud } = useAccount();
+const { isOnStarchatsCloud } = useAccount();
 const uiFlags = useMapGetter('cosmosResponses/getUIFlags');
 const responseMeta = useMapGetter('cosmosResponses/getMeta');
 const responses = useMapGetter('cosmosResponses/getRecords');
@@ -219,7 +219,7 @@ onMounted(() => {
         :button-label="$t('COSMOS.HEADER_KNOW_MORE')"
         :title="$t('COSMOS.RESPONSES.EMPTY_STATE.FEATURE_SPOTLIGHT.TITLE')"
         :note="$t('COSMOS.RESPONSES.EMPTY_STATE.FEATURE_SPOTLIGHT.NOTE')"
-        :hide-actions="!isOnChatwootCloud"
+        :hide-actions="!isOnStarchatsCloud"
         fallback-thumbnail="/assets/images/dashboard/cosmos/faqs-popover-light.svg"
         fallback-thumbnail-dark="/assets/images/dashboard/cosmos/faqs-popover-dark.svg"
         learn-more-url="https://chwt.app/cosmos-faq"

@@ -21,7 +21,7 @@ const props = defineProps({
 const emit = defineEmits(['click']);
 const router = useRouter();
 const { t } = useI18n();
-const { currentAccount, accountId, isOnChatwootCloud, updateAccount } =
+const { currentAccount, accountId, isOnStarchatsCloud, updateAccount } =
   useAccount();
 const [showDropdown, toggleDropdown] = useToggle(false);
 const [isSaving, toggleSaving] = useToggle(false);
@@ -31,9 +31,11 @@ const conversationAttributes = useMapGetter(
 const currentUser = useMapGetter('getCurrentUser');
 
 const isSuperAdmin = computed(() => currentUser.value.type === 'SuperAdmin');
-const showPaywall = computed(() => !props.isEnabled && isOnChatwootCloud.value);
+const showPaywall = computed(
+  () => !props.isEnabled && isOnStarchatsCloud.value
+);
 const i18nKey = computed(() =>
-  isOnChatwootCloud.value ? 'PAYWALL' : 'STARCHAT_PAYWALL'
+  isOnStarchatsCloud.value ? 'PAYWALL' : 'STARCHAT_PAYWALL'
 );
 
 const handleClick = () => {

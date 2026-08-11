@@ -72,11 +72,11 @@ export const IFrameHelper = {
     iframe.id = 'chatwoot_live_chat_widget';
     iframe.style.visibility = 'hidden';
 
-    let holderClassName = `woot-widget-holder woot--hide woot-elements--${window.$chatwoot.position}`;
-    if (window.$chatwoot.hideMessageBubble) {
+    let holderClassName = `woot-widget-holder woot--hide woot-elements--${window.$starchats.position}`;
+    if (window.$starchats.hideMessageBubble) {
       holderClassName += ` woot-widget--without-bubble`;
     }
-    if (isFlatWidgetStyle(window.$chatwoot.widgetStyle)) {
+    if (isFlatWidgetStyle(window.$starchats.widgetStyle)) {
       holderClassName += ` woot-widget-holder--flat`;
     }
 
@@ -140,7 +140,7 @@ export const IFrameHelper = {
   },
 
   setupAudioListeners: () => {
-    const { baseUrl = '' } = window.$chatwoot;
+    const { baseUrl = '' } = window.$starchats;
     getAlertAudio(baseUrl, { type: 'widget', alertTone: 'ding' }).then(() =>
       initOnEvents.forEach(event => {
         document.removeEventListener(
@@ -154,33 +154,33 @@ export const IFrameHelper = {
 
   events: {
     loaded: message => {
-      updateAuthCookie(message.config.authToken, window.$chatwoot.baseDomain);
-      window.$chatwoot.hasLoaded = true;
+      updateAuthCookie(message.config.authToken, window.$starchats.baseDomain);
+      window.$starchats.hasLoaded = true;
       const campaignsSnoozedTill = Cookies.get('cw_snooze_campaigns_till');
       IFrameHelper.sendMessage('config-set', {
-        locale: window.$chatwoot.locale,
-        position: window.$chatwoot.position,
-        hideMessageBubble: window.$chatwoot.hideMessageBubble,
-        showPopoutButton: window.$chatwoot.showPopoutButton,
-        widgetStyle: window.$chatwoot.widgetStyle,
-        darkMode: window.$chatwoot.darkMode,
-        showUnreadMessagesDialog: window.$chatwoot.showUnreadMessagesDialog,
+        locale: window.$starchats.locale,
+        position: window.$starchats.position,
+        hideMessageBubble: window.$starchats.hideMessageBubble,
+        showPopoutButton: window.$starchats.showPopoutButton,
+        widgetStyle: window.$starchats.widgetStyle,
+        darkMode: window.$starchats.darkMode,
+        showUnreadMessagesDialog: window.$starchats.showUnreadMessagesDialog,
         campaignsSnoozedTill,
-        welcomeTitle: window.$chatwoot.welcomeTitle,
-        welcomeDescription: window.$chatwoot.welcomeDescription,
-        availableMessage: window.$chatwoot.availableMessage,
-        unavailableMessage: window.$chatwoot.unavailableMessage,
-        enableFileUpload: window.$chatwoot.enableFileUpload,
-        enableEmojiPicker: window.$chatwoot.enableEmojiPicker,
-        enableEndConversation: window.$chatwoot.enableEndConversation,
+        welcomeTitle: window.$starchats.welcomeTitle,
+        welcomeDescription: window.$starchats.welcomeDescription,
+        availableMessage: window.$starchats.availableMessage,
+        unavailableMessage: window.$starchats.unavailableMessage,
+        enableFileUpload: window.$starchats.enableFileUpload,
+        enableEmojiPicker: window.$starchats.enableEmojiPicker,
+        enableEndConversation: window.$starchats.enableEndConversation,
       });
       IFrameHelper.onLoad({
         widgetColor: message.config.channelConfig.widgetColor,
       });
       IFrameHelper.toggleCloseButton();
 
-      if (window.$chatwoot.user) {
-        IFrameHelper.sendMessage('set-user', window.$chatwoot.user);
+      if (window.$starchats.user) {
+        IFrameHelper.sendMessage('set-user', window.$starchats.user);
       }
 
       window.playAudioAlert = () => {};
@@ -189,7 +189,7 @@ export const IFrameHelper = {
         document.addEventListener(e, IFrameHelper.setupAudioListeners, false);
       });
 
-      if (!window.$chatwoot.resetTriggered) {
+      if (!window.$starchats.resetTriggered) {
         dispatchWindowEvent({ eventName: CHATWOOT_READY });
       }
     },
@@ -204,15 +204,15 @@ export const IFrameHelper = {
       dispatchWindowEvent({ eventName, data });
     },
     setBubbleLabel(message) {
-      setBubbleText(window.$chatwoot.launcherTitle || message.label);
+      setBubbleText(window.$starchats.launcherTitle || message.label);
     },
 
     setAuthCookie({ data: { widgetAuthToken } }) {
-      updateAuthCookie(widgetAuthToken, window.$chatwoot.baseDomain);
+      updateAuthCookie(widgetAuthToken, window.$starchats.baseDomain);
     },
 
     setCampaignReadOn() {
-      updateCampaignReadStatus(window.$chatwoot.baseDomain);
+      updateCampaignReadStatus(window.$starchats.baseDomain);
     },
 
     postback(data) {
@@ -235,7 +235,7 @@ export const IFrameHelper = {
 
     popoutChatWindow: ({ baseUrl, websiteToken, locale }) => {
       const cwCookie = Cookies.get('cw_conversation');
-      window.$chatwoot.toggle('close');
+      window.$starchats.toggle('close');
       popoutChatWindow(baseUrl, websiteToken, locale, cwCookie);
     },
 
@@ -269,7 +269,7 @@ export const IFrameHelper = {
 
     resetUnreadMode: () => removeUnreadClass(),
     handleNotificationDot: event => {
-      if (window.$chatwoot.hideMessageBubble) {
+      if (window.$starchats.hideMessageBubble) {
         return;
       }
 
@@ -304,13 +304,13 @@ export const IFrameHelper = {
     if (IFrameHelper.getBubbleHolder().length) {
       return;
     }
-    createBubbleHolder(window.$chatwoot.hideMessageBubble);
+    createBubbleHolder(window.$starchats.hideMessageBubble);
     onLocationChangeListener();
 
     let className = 'woot-widget-bubble';
-    let closeBtnClassName = `woot-elements--${window.$chatwoot.position} woot-widget-bubble woot--close woot--hide`;
+    let closeBtnClassName = `woot-elements--${window.$starchats.position} woot-widget-bubble woot--close woot--hide`;
 
-    if (isFlatWidgetStyle(window.$chatwoot.widgetStyle)) {
+    if (isFlatWidgetStyle(window.$starchats.widgetStyle)) {
       className += ' woot-widget-bubble--flat';
       closeBtnClassName += ' woot-widget-bubble--flat';
     }

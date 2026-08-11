@@ -5,7 +5,7 @@ import i18nMessages from 'dashboard/i18n';
 import * as Sentry from '@sentry/vue';
 import {
   initializeAnalyticsEvents,
-  initializeChatwootEvents,
+  initializeStarchatsEvents,
 } from 'dashboard/helper/scriptHelpers';
 import App from '../v3/App.vue';
 import router, { initalizeRouter } from '../v3/views/index';
@@ -57,7 +57,7 @@ if (window.errorLoggingConfig) {
   });
 }
 
-initializeChatwootEvents();
+initializeStarchatsEvents();
 initializeAnalyticsEvents();
 initalizeRouter();
 

@@ -14,6 +14,7 @@ import {
   DropdownItem,
 } from 'next/dropdown-menu/base';
 import CustomBrandPolicyWrapper from '../../components/CustomBrandPolicyWrapper.vue';
+import { getSupportWidget } from 'dashboard/helper/supportWidget';
 
 defineProps({
   isCollapsed: { type: Boolean, default: false },
@@ -52,7 +53,7 @@ const menuItems = computed(() => {
       label: t('SIDEBAR_ITEMS.CONTACT_SUPPORT'),
       icon: 'i-lucide-life-buoy',
       click: () => {
-        window.$chatwoot.toggle();
+        getSupportWidget()?.toggle();
       },
     },
     {

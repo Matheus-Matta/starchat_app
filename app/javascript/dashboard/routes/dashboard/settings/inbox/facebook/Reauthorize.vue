@@ -27,9 +27,9 @@ export default {
   methods: {
     runFBInit() {
       FB.init({
-        appId: window.chatwootConfig.fbAppId,
+        appId: window.starchatsConfig.fbAppId,
         xfbml: true,
-        version: window.chatwootConfig.fbApiVersion,
+        version: window.starchatsConfig.fbApiVersion,
         status: true,
       });
       window.fbSDKLoaded = true;

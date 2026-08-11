@@ -26,7 +26,7 @@ const emit = defineEmits(['click', 'clearFilters']);
 const isApproved = computed(() => props.variant === 'approved');
 const isPending = computed(() => props.variant === 'pending');
 
-const { isOnChatwootCloud } = useAccount();
+const { isOnStarchatsCloud } = useAccount();
 const { replaceInstallationName } = useBranding();
 
 const onClick = () => {
@@ -46,7 +46,7 @@ const onClearFilters = () => {
     fallback-thumbnail="/assets/images/dashboard/cosmos/faqs-light.svg"
     fallback-thumbnail-dark="/assets/images/dashboard/cosmos/faqs-dark.svg"
     learn-more-url="https://starchats.com.br/cosmos-faq"
-    :hide-actions="!isOnChatwootCloud"
+    :hide-actions="!isOnStarchatsCloud"
     class="mb-8"
   />
   <EmptyStateLayout

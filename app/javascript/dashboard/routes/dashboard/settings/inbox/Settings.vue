@@ -126,7 +126,7 @@ export default {
     ...mapGetters({
       accountId: 'getCurrentAccountId',
       isFeatureEnabledonAccount: 'accounts/isFeatureEnabledonAccount',
-      isOnChatwootCloud: 'globalConfig/isOnChatwootCloud',
+      isOnStarchatsCloud: 'globalConfig/isOnStarchatsCloud',
       uiFlags: 'inboxes/getUIFlags',
       portals: 'portals/allPortals',
     }),
@@ -138,10 +138,10 @@ export default {
     },
     showContinuityToggle() {
       if (this.isInboundEmailEnabled) return true;
-      return this.isOnChatwootCloud;
+      return this.isOnStarchatsCloud;
     },
     isContinuityDisabled() {
-      return this.isOnChatwootCloud && !this.isInboundEmailEnabled;
+      return this.isOnStarchatsCloud && !this.isInboundEmailEnabled;
     },
     continuityDescription() {
       if (this.isContinuityDisabled) {

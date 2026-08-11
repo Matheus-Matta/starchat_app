@@ -9,7 +9,7 @@ export default {
   mounted() {
     this.setColorTheme();
     this.listenToThemeChanges();
-    this.setLocale(window.chatwootConfig.selectedLocale);
+    this.setLocale(window.starchatsConfig.selectedLocale);
   },
   methods: {
     setColorTheme() {

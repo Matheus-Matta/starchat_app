@@ -74,7 +74,7 @@ const onCardClick = e => {
 
   if (e.metaKey || e.ctrlKey) {
     window.open(
-      window.chatwootConfig.hostURL + path,
+      window.starchatsConfig.hostURL + path,
       '_blank',
       'noopener noreferrer nofollow'
     );

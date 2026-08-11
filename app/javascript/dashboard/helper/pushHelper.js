@@ -54,7 +54,7 @@ export const sendRegistrationToServer = subscription => {
 };
 
 export const registerSubscription = (onSuccess = () => {}) => {
-  if (!window.chatwootConfig.vapidPublicKey) {
+  if (!window.starchatsConfig.vapidPublicKey) {
     return;
   }
   navigator.serviceWorker.ready
@@ -62,7 +62,7 @@ export const registerSubscription = (onSuccess = () => {}) => {
       return serviceWorkerRegistration.pushManager
         .subscribe({
           userVisibleOnly: true,
-          applicationServerKey: window.chatwootConfig.vapidPublicKey,
+          applicationServerKey: window.starchatsConfig.vapidPublicKey,
         })
         .catch(error => {
           if (error.name === 'InvalidStateError') {
@@ -74,7 +74,7 @@ export const registerSubscription = (onSuccess = () => {}) => {
                     return serviceWorkerRegistration.pushManager.subscribe({
                       userVisibleOnly: true,
                       applicationServerKey:
-                        window.chatwootConfig.vapidPublicKey,
+                        window.starchatsConfig.vapidPublicKey,
                     });
                   });
                 }

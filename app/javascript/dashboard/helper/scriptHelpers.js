@@ -6,6 +6,7 @@ import {
 import AnalyticsHelper from './AnalyticsHelper';
 import DashboardAudioNotificationHelper from './AudioAlerts/DashboardAudioNotificationHelper';
 import { emitter } from 'shared/helpers/mitt';
+import { getSupportWidget } from './supportWidget';
 
 export const initializeAnalyticsEvents = () => {
   AnalyticsHelper.init();
@@ -34,21 +35,20 @@ export const initializeAudioAlerts = user => {
   });
 };
 
-export const initializeChatwootEvents = () => {
+export const initializeStarchatsEvents = () => {
   emitter.on(CHATWOOT_RESET, () => {
-    if (window.$chatwoot) {
-      window.$chatwoot.reset();
-    }
+    getSupportWidget()?.reset();
   });
   emitter.on(CHATWOOT_SET_USER, ({ user }) => {
-    if (window.$chatwoot) {
-      window.$chatwoot.setUser(user.email, {
+    const supportWidget = getSupportWidget();
+    if (supportWidget) {
+      supportWidget.setUser(user.email, {
         avatar_url: user.avatar_url,
         email: user.email,
         identifier_hash: user.hmac_identifier,
         name: user.name,
       });
-      window.$chatwoot.setCustomAttributes({
+      supportWidget.setCustomAttributes({
         signedUpAt: user.created_at,
         cloudCustomer: 'true',
         account_id: user.account_id,

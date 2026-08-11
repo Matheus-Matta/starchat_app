@@ -38,7 +38,7 @@ describe('#actions', () => {
       );
 
       expect(getFromCache).toHaveBeenCalledWith(
-        'chatwoot_campaigns_XDsafmADasd',
+        'starchats_campaigns_XDsafmADasd',
         60 * 60 * 1000
       );
       expect(API.get).not.toHaveBeenCalled();
@@ -76,12 +76,12 @@ describe('#actions', () => {
       );
 
       expect(getFromCache).toHaveBeenCalledWith(
-        'chatwoot_campaigns_XDsafmADasd',
+        'starchats_campaigns_XDsafmADasd',
         60 * 60 * 1000
       );
       expect(API.get).toHaveBeenCalled();
       expect(setCache).toHaveBeenCalledWith(
-        'chatwoot_campaigns_XDsafmADasd',
+        'starchats_campaigns_XDsafmADasd',
         campaigns
       );
       expect(commit.mock.calls).toEqual([

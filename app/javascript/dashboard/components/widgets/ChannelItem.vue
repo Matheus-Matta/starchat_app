@@ -16,15 +16,15 @@ const props = defineProps({
 const emit = defineEmits(['channelItemClick']);
 
 const hasFbConfigured = computed(() => {
-  return window.chatwootConfig?.fbAppId;
+  return window.starchatsConfig?.fbAppId;
 });
 
 const hasInstagramConfigured = computed(() => {
-  return window.chatwootConfig?.instagramAppId;
+  return window.starchatsConfig?.instagramAppId;
 });
 
 const hasTiktokConfigured = computed(() => {
-  return window.chatwootConfig?.tiktokAppId;
+  return window.starchatsConfig?.tiktokAppId;
 });
 
 const isActive = computed(() => {
@@ -59,8 +59,8 @@ const isActive = computed(() => {
   if (key === 'whatsapp_call') {
     return (
       props.enabledFeatures.channel_voice &&
-      !!window.chatwootConfig?.whatsappAppId &&
-      window.chatwootConfig.whatsappAppId !== 'none'
+      !!window.starchatsConfig?.whatsappAppId &&
+      window.starchatsConfig.whatsappAppId !== 'none'
     );
   }
 

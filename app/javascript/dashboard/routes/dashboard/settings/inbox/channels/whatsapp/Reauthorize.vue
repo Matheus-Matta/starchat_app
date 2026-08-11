@@ -32,9 +32,9 @@ const { t } = useI18n();
 const isRequestingAuthorization = ref(false);
 const isLoadingFacebook = ref(true);
 
-const whatsappAppId = computed(() => window.chatwootConfig.whatsappAppId);
+const whatsappAppId = computed(() => window.starchatsConfig.whatsappAppId);
 const whatsappConfigurationId = computed(
-  () => window.chatwootConfig.whatsappConfigurationId
+  () => window.starchatsConfig.whatsappConfigurationId
 );
 
 const actionLabel = computed(() => {
@@ -182,7 +182,7 @@ onMounted(async () => {
 
     await setupFacebookSdk(
       whatsappAppId.value,
-      window.chatwootConfig?.whatsappApiVersion
+      window.starchatsConfig?.whatsappApiVersion
     );
   } catch {
     // SDK load failure will surface when the user clicks the reconnect button

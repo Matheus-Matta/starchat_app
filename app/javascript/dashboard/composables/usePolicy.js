@@ -13,7 +13,7 @@ import { INSTALLATION_TYPES } from 'dashboard/constants/installationTypes';
 export function usePolicy() {
   const user = useMapGetter('getCurrentUser');
   const isFeatureEnabled = useMapGetter('accounts/isFeatureEnabledonAccount');
-  const isOnChatwootCloud = useMapGetter('globalConfig/isOnChatwootCloud');
+  const isOnStarchatsCloud = useMapGetter('globalConfig/isOnStarchatsCloud');
   const isACustomBrandedInstance = useMapGetter(
     'globalConfig/isACustomBrandedInstance'
   );
@@ -40,7 +40,7 @@ export function usePolicy() {
       const installationCheck = {
         // This build is always the enterprise installation.
         [INSTALLATION_TYPES.ENTERPRISE]: true,
-        [INSTALLATION_TYPES.CLOUD]: isOnChatwootCloud.value,
+        [INSTALLATION_TYPES.CLOUD]: isOnStarchatsCloud.value,
       };
 
       return config.some(type => installationCheck[type]);
@@ -75,7 +75,7 @@ export function usePolicy() {
     // if on cloud, we should if the feature is allowed
     // or if the feature is a premium one like SLA to show a paywall
     // the paywall should be managed by the individual component
-    if (isOnChatwootCloud.value) {
+    if (isOnStarchatsCloud.value) {
       return isFeatureFlagEnabled(flag) || isPremiumFeature(flag);
     }
 

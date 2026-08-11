@@ -16,7 +16,7 @@ export const getters = {
     $state.records.filter(agent => agent.availability_status === 'online'),
 };
 
-const CACHE_KEY_PREFIX = 'chatwoot_available_agents_';
+const CACHE_KEY_PREFIX = 'starchats_available_agents_';
 
 export const actions = {
   fetchAvailableAgents: async ({ commit }, websiteToken) => {

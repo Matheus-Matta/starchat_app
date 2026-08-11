@@ -35,7 +35,7 @@ vi.mock('dashboard/composables/useImpersonation', () => ({
   }),
 }));
 
-global.chatwootConfig = {
+global.starchatsConfig = {
   websocketURL: 'wss://test.chatwoot.com',
 };
 

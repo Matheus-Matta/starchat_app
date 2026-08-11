@@ -8,7 +8,7 @@ import FeatureSpotlight from 'dashboard/components-next/feature-spotlight/Featur
 import { documentsList } from 'dashboard/components-next/cosmos/pageComponents/emptyStates/cosmosEmptyStateContent.js';
 
 const emit = defineEmits(['click']);
-const { isOnChatwootCloud } = useAccount();
+const { isOnStarchatsCloud } = useAccount();
 
 const { replaceInstallationName } = useBranding();
 
@@ -24,7 +24,7 @@ const onClick = () => {
     fallback-thumbnail="/assets/images/dashboard/cosmos/document-light.svg"
     fallback-thumbnail-dark="/assets/images/dashboard/cosmos/document-dark.svg"
     learn-more-url="https://starchats.com.br/cosmos-document"
-    :hide-actions="!isOnChatwootCloud"
+    :hide-actions="!isOnStarchatsCloud"
     class="mb-8"
   />
   <EmptyStateLayout

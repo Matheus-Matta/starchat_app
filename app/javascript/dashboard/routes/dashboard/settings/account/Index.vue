@@ -64,7 +64,7 @@ export default {
       getAccount: 'accounts/getAccount',
       uiFlags: 'accounts/getUIFlags',
       isFeatureEnabledonAccount: 'accounts/isFeatureEnabledonAccount',
-      isOnChatwootCloud: 'globalConfig/isOnChatwootCloud',
+      isOnStarchatsCloud: 'globalConfig/isOnStarchatsCloud',
     }),
     showAutoResolutionConfig() {
       return this.isFeatureEnabledonAccount(
@@ -254,7 +254,7 @@ export default {
     <MessagingPreferences />
     <AudioTranscription v-if="showAudioTranscriptionConfig" />
     <AccountId />
-    <div v-if="!uiFlags.isFetchingItem && isOnChatwootCloud">
+    <div v-if="!uiFlags.isFetchingItem && isOnStarchatsCloud">
       <AccountDelete />
     </div>
     <BuildInfo />

@@ -93,21 +93,21 @@ const runSDK = ({ baseUrl, websiteToken }) => {
       if (visibility === 'hide') {
         addClasses(widgetHolder, 'woot-widget--without-bubble');
         addClasses(widgetElm, 'woot-hidden');
-        window.$chatwoot.hideMessageBubble = true;
+        window.$starchats.hideMessageBubble = true;
       } else if (visibility === 'show') {
         removeClasses(widgetElm, 'woot-hidden');
         removeClasses(widgetHolder, 'woot-widget--without-bubble');
-        window.$chatwoot.hideMessageBubble = false;
+        window.$starchats.hideMessageBubble = false;
       }
       IFrameHelper.sendMessage(SDK_SET_BUBBLE_VISIBILITY, {
-        hideMessageBubble: window.$chatwoot.hideMessageBubble,
+        hideMessageBubble: window.$starchats.hideMessageBubble,
       });
     },
 
     popoutChatWindow() {
       IFrameHelper.events.popoutChatWindow({
-        baseUrl: window.$chatwoot.baseUrl,
-        websiteToken: window.$chatwoot.websiteToken,
+        baseUrl: window.$starchats.baseUrl,
+        websiteToken: window.$starchats.websiteToken,
         locale,
       });
     },
@@ -130,8 +130,8 @@ const runSDK = ({ baseUrl, websiteToken }) => {
         return;
       }
 
-      window.$chatwoot.identifier = identifier;
-      window.$chatwoot.user = user;
+      window.$starchats.identifier = identifier;
+      window.$starchats.user = user;
       IFrameHelper.sendMessage('set-user', { identifier, user });
 
       setCookieWithDomain(userCookieName, hashToBeStored, {
@@ -196,7 +196,7 @@ const runSDK = ({ baseUrl, websiteToken }) => {
     },
 
     reset() {
-      if (window.$chatwoot.isOpen) {
+      if (window.$starchats.isOpen) {
         IFrameHelper.events.toggleBubble();
       }
 
@@ -205,16 +205,16 @@ const runSDK = ({ baseUrl, websiteToken }) => {
 
       const iframe = IFrameHelper.getAppFrame();
       iframe.src = IFrameHelper.getUrl({
-        baseUrl: window.$chatwoot.baseUrl,
-        websiteToken: window.$chatwoot.websiteToken,
+        baseUrl: window.$starchats.baseUrl,
+        websiteToken: window.$starchats.websiteToken,
       });
 
-      window.$chatwoot.resetTriggered = true;
+      window.$starchats.resetTriggered = true;
     },
   };
 
   // One object under both names — not a copy — so state written through either global
-  // is visible to the other. Existing embeds call window.$chatwoot directly.
+  // is visible to the other. Existing embeds call window.$starchats directly.
   window.$chatwoot = window.$starchats;
 
   IFrameHelper.createFrame({

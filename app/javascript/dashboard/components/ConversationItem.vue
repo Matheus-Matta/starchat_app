@@ -100,7 +100,7 @@ const onCardClick = e => {
   if (e.metaKey || e.ctrlKey) {
     e.preventDefault();
     window.open(
-      `${window.chatwootConfig.hostURL}${path}`,
+      `${window.starchatsConfig.hostURL}${path}`,
       '_blank',
       'noopener,noreferrer'
     );

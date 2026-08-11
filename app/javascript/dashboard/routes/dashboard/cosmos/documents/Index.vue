@@ -31,7 +31,7 @@ const { checkPermissions } = usePolicy();
 const SYNC_POLL_INTERVAL_MS = 5000;
 const SYNC_POLL_MAX_DURATION_MS = 15 * 60 * 1000;
 
-const { isOnChatwootCloud } = useAccount();
+const { isOnStarchatsCloud } = useAccount();
 const uiFlags = useMapGetter('cosmosDocuments/getUIFlags');
 const documents = useMapGetter('cosmosDocuments/getRecords');
 const isFetching = computed(() => uiFlags.value.fetchingList);
@@ -368,7 +368,7 @@ onUnmounted(() => {
         :button-label="$t('COSMOS.HEADER_KNOW_MORE')"
         :title="$t('COSMOS.DOCUMENTS.EMPTY_STATE.FEATURE_SPOTLIGHT.TITLE')"
         :note="$t('COSMOS.DOCUMENTS.EMPTY_STATE.FEATURE_SPOTLIGHT.NOTE')"
-        :hide-actions="!isOnChatwootCloud"
+        :hide-actions="!isOnStarchatsCloud"
         fallback-thumbnail="/assets/images/dashboard/cosmos/document-popover-light.svg"
         fallback-thumbnail-dark="/assets/images/dashboard/cosmos/document-popover-dark.svg"
         learn-more-url="https://chwt.app/cosmos-document"
@@ -380,7 +380,6 @@ onUnmounted(() => {
     </template>
 
     <template #body>
-
       <div
         v-if="!documents.length && hasActiveDocumentFilters"
         class="flex flex-col items-center justify-center min-h-80 gap-2 text-center"
