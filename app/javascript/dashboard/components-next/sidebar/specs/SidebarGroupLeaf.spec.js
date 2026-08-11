@@ -6,6 +6,7 @@ vi.mock('../provider', () => ({
   useSidebarContext: () => ({
     resolvePermissions: () => [],
     resolveFeatureFlag: () => '',
+    resolveInstallationType: () => [],
   }),
 }));
 

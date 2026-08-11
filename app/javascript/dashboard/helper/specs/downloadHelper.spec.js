@@ -1,6 +1,13 @@
 import * as XLSX from 'xlsx';
 import { generateFileName, downloadXlsFile } from '../downloadHelper';
 
+// writeFile has to be replaced at the module boundary: spyOn cannot redefine a
+// read-only ESM export.
+vi.mock('xlsx', async importOriginal => {
+  const actual = await importOriginal();
+  return { ...actual, writeFile: vi.fn() };
+});
+
 describe('#generateFileName', () => {
   it('should generate the correct file name', () => {
     expect(generateFileName({ type: 'csat', to: 1652812199 })).toEqual(
@@ -15,7 +22,7 @@ describe('#generateFileName', () => {
 
 describe('#downloadXlsFile', () => {
   beforeEach(() => {
-    vi.spyOn(XLSX, 'writeFile').mockImplementation(() => {});
+    XLSX.writeFile.mockClear();
   });
 
   it('keeps date-like CSV cells as plain text instead of corrupting them into Excel serial numbers', () => {
