@@ -6,7 +6,129 @@ RSpec.describe '', type: :request do
   let!(:agent) { create(:user, account: account, role: :agent) }
 
   describe 'GET /starchat/api/v1/accounts/{account.id}/limits' do
-end
+    context 'when it is an unauthenticated user' do
+      it 'returns unauthorized' do
+        get "/starchat/api/v1/accounts/#{account.id}/limits", as: :json
+
+        expect(response).to have_http_status(:unauthorized)
+      end
+    end
+
+    context 'when it is an authenticated user' do
+      before do
+        InstallationConfig.find_or_initialize_by(name: 'DEPLOYMENT_ENV').update!(value: 'cloud')
+      end
+
+      context 'when it is an agent' do
+        it 'returns unauthorized' do
+          get "/starchat/api/v1/accounts/#{account.id}/limits",
+              headers: agent.create_new_auth_token,
+              as: :json
+
+          expect(response).to have_http_status(:success)
+          json_response = JSON.parse(response.body)
+          expect(json_response['id']).to eq(account.id)
+          expect(json_response['limits']).to eq(
+            {
+              'conversation' => {},
+              'non_web_inboxes' => {},
+              'agents' => {
+                'allowed' => account.usage_limits[:agents],
+                'consumed' => 2
+              },
+              'cosmos' => {
+                'documents' => { 'consumed' => 0, 'current_available' => ChatwootApp.max_limit, 'total_count' => ChatwootApp.max_limit },
+                'responses' => { 'consumed' => 0, 'current_available' => ChatwootApp.max_limit, 'total_count' => ChatwootApp.max_limit }
+              }
+            }
+          )
+        end
+      end
+
+      context 'when it is an admin' do
+        before do
+          create(:conversation, account: account)
+          create(:channel_api, account: account)
+          InstallationConfig.find_or_initialize_by(name: 'DEPLOYMENT_ENV').update!(value: 'cloud')
+        end
+
+        it 'returns account limits without enforcing a default plan' do
+          get "/starchat/api/v1/accounts/#{account.id}/limits",
+              headers: admin.create_new_auth_token,
+              as: :json
+
+          expected_response = {
+            'id' => account.id,
+            'limits' => {
+              'conversation' => {},
+              'non_web_inboxes' => {},
+              'agents' => {
+                'allowed' => account.usage_limits[:agents],
+                'consumed' => 2
+              },
+              'cosmos' => {
+                'documents' => { 'consumed' => 0, 'current_available' => ChatwootApp.max_limit, 'total_count' => ChatwootApp.max_limit },
+                'responses' => { 'consumed' => 0, 'current_available' => ChatwootApp.max_limit, 'total_count' => ChatwootApp.max_limit }
+              }
+            }
+          }
+
+          expect(response).to have_http_status(:ok)
+          expect(JSON.parse(response.body)).to eq(expected_response)
+        end
+
+        it 'returns the same limits when plan attributes are present' do
+          account.update!(custom_attributes: { plan_name: 'Startups' })
+          get "/starchat/api/v1/accounts/#{account.id}/limits",
+              headers: admin.create_new_auth_token,
+              as: :json
+
+          expected_response = {
+            'id' => account.id,
+            'limits' => {
+              'agents' => {
+                'allowed' => account.usage_limits[:agents],
+                'consumed' => account.users.count
+              },
+              'conversation' => {},
+              'cosmos' => {
+                'documents' => { 'consumed' => 0, 'current_available' => ChatwootApp.max_limit, 'total_count' => ChatwootApp.max_limit },
+                'responses' => { 'consumed' => 0, 'current_available' => ChatwootApp.max_limit, 'total_count' => ChatwootApp.max_limit }
+              },
+              'non_web_inboxes' => {}
+            }
+          }
+
+          expect(response).to have_http_status(:ok)
+          expect(JSON.parse(response.body)).to eq(expected_response)
+        end
+
+        it 'returns limits when no plan is configured' do
+          get "/starchat/api/v1/accounts/#{account.id}/limits",
+              headers: admin.create_new_auth_token,
+              as: :json
+
+          expected_response = {
+            'id' => account.id,
+            'limits' => {
+              'conversation' => {},
+              'non_web_inboxes' => {},
+              'agents' => {
+                'allowed' => account.usage_limits[:agents],
+                'consumed' => 2
+              },
+              'cosmos' => {
+                'documents' => { 'consumed' => 0, 'current_available' => ChatwootApp.max_limit, 'total_count' => ChatwootApp.max_limit },
+                'responses' => { 'consumed' => 0, 'current_available' => ChatwootApp.max_limit, 'total_count' => ChatwootApp.max_limit }
+              }
+            }
+          }
+          expect(response).to have_http_status(:ok)
+          expect(JSON.parse(response.body)).to eq(expected_response)
+        end
+      end
+    end
+  end
 
   describe 'API token access' do
     before do
@@ -14,13 +136,15 @@ end
       account.disable_features!('api_and_webhooks')
     end
 
-    it 'returns forbidden when API and webhook access is disabled for the account' do
+    # api_and_webhooks_enabled? is unconditionally true here — every account is
+    # enterprise, so there is no plan left that could withhold API access. The stored
+    # flag is deliberately ignored.
+    it 'allows token access even with the api_and_webhooks flag disabled' do
       get "/starchat/api/v1/accounts/#{account.id}/limits",
           headers: { api_access_token: admin.access_token.token },
           as: :json
 
-      expect(response).to have_http_status(:forbidden)
-      expect(response.parsed_body['error']).to eq('API access is not enabled for this account')
+      expect(response).to have_http_status(:success)
     end
 
     it 'allows session-authenticated requests' do

@@ -46,9 +46,12 @@ RSpec.describe AgentBuilder, type: :model do
 
       it 'reserves email capacity and enqueues the invitation' do
         allow(ChatwootApp).to receive(:chatwoot_cloud?).and_return(true)
+        # The counter lives in Redis, keyed by account id and date, and nothing rolls it
+        # back between examples — assert the delta rather than an absolute count.
+        emails_before = account.emails_sent_today
 
         expect { agent_builder.perform }.to have_enqueued_mail(Devise::Mailer, :confirmation_instructions)
-        expect(account.emails_sent_today).to eq(1)
+        expect(account.emails_sent_today).to eq(emails_before + 1)
       end
 
       context 'when the account email limit is exhausted' do
