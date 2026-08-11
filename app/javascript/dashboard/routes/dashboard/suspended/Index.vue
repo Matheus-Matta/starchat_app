@@ -9,7 +9,7 @@ const toggleSupportWidgetVisibility = () => {
 };
 
 const setupListenerForWidgetEvent = () => {
-  window.addEventListener('chatwoot:on-message', () => {
+  window.addEventListener('starchats:on-message', () => {
     toggleSupportWidgetVisibility();
   });
 };

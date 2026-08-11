@@ -19,7 +19,7 @@ import { setCookieWithDomain } from '../sdk/cookieHelpers';
 import { SDK_SET_BUBBLE_VISIBILITY } from 'shared/constants/sharedFrameEvents';
 
 const runSDK = ({ baseUrl, websiteToken }) => {
-  if (window.$chatwoot) {
+  if (window.$starchats) {
     return;
   }
 
@@ -47,7 +47,10 @@ const runSDK = ({ baseUrl, websiteToken }) => {
     restoreWidgetInDOM(event.newDocument.body)
   );
 
-  const chatwootSettings = window.chatwootSettings || {};
+  // Settings come from the host page, so accept the former name too: embeds installed
+  // before the rename still declare window.chatwootSettings.
+  const chatwootSettings =
+    window.starchatsSettings || window.chatwootSettings || {};
   let locale = chatwootSettings.locale;
   let baseDomain = chatwootSettings.baseDomain;
 
@@ -55,7 +58,7 @@ const runSDK = ({ baseUrl, websiteToken }) => {
     locale = window.navigator.language.replace('-', '_');
   }
 
-  window.$chatwoot = {
+  window.$starchats = {
     baseUrl,
     baseDomain,
     hasLoaded: false,
@@ -210,12 +213,19 @@ const runSDK = ({ baseUrl, websiteToken }) => {
     },
   };
 
+  // One object under both names — not a copy — so state written through either global
+  // is visible to the other. Existing embeds call window.$chatwoot directly.
+  window.$chatwoot = window.$starchats;
+
   IFrameHelper.createFrame({
     baseUrl,
     websiteToken,
   });
 };
 
-window.chatwootSDK = {
+window.starchatsSDK = {
   run: runSDK,
 };
+
+// The install snippet on pages set up before the rename calls window.chatwootSDK.run.
+window.chatwootSDK = window.starchatsSDK;
