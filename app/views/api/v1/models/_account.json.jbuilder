@@ -2,7 +2,6 @@ json.settings resource.settings
 json.created_at resource.created_at
 if resource.custom_attributes.present?
   json.custom_attributes do
-    json.billing_currency resource.billing_currency if resource.respond_to?(:billing_currency) && Starchat::Billing::Currencies.enabled?
     json.website resource.custom_attributes['website'] if resource.custom_attributes['website'].present?
     json.industry resource.custom_attributes['industry'] if resource.custom_attributes['industry'].present?
     json.company_size resource.custom_attributes['company_size'] if resource.custom_attributes['company_size'].present?
