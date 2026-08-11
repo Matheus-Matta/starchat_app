@@ -149,3 +149,55 @@ Outros dois consertos da mesma rodada:
 
 VARREDURA: procurei em todo o spec/ por exemplos com corpo vazio (`it ... do` seguido
 de `end`). Eram exatamente DOIS, ambos ja restaurados.
+
+================================================================================
+RODADA 3 — das 50 falhas restantes ate zero (pendente confirmacao da suite cheia)
+================================================================================
+Padrao dominante confirmado de novo: a UNIAO CEGA. Nesta rodada ela apareceu em
+tres formas novas, todas invisiveis ao `ruby -c`:
+
+  (a) METODO DUPLICADO — participants_controller tinha DOIS `def update`. O segundo
+      sobrescrevia o primeiro, entao o PUT nunca disparava participant_added/removed
+      e o frontend parava de saber de mudancas de participante. Um dos dois
+      disparava sem renderizar; o outro renderizava sem disparar.
+  (b) CHAMADA DUPLICADA — Agents::DestroyJob rodava update_all DUAS vezes; a segunda
+      nao achava mais nada, entao unassigned_count era sempre 0 e o invalidador de
+      contagem filtrada nunca disparava (snapshots de filtro velhos em producao).
+  (c) LINHA PERDIDA DENTRO DO EXEMPLO — trigger_scheduled_items_job_spec perdeu o
+      `described_class.perform_now`. A varredura anterior (corpo 100% vazio) nao
+      pegava esse caso. Heuristica melhor: `end` na coluna 0 no meio do arquivo.
+      18 ocorrencias no spec/, a maioria falso-positivo (multiplos describe no topo).
+
+BUGS DE PRODUCAO CORRIGIDOS NESTA RODADA
+  1. Featurable de duas colunas apagou o overflow JSONB e NADA migrava os valores.
+     Contas com advanced_assignment / channel_ycloud / audio_transcription ligados
+     perderiam a feature no deploy. Criada migration idempotente
+     20260719000000_backfill_overflow_feature_flags_to_ext_column (up e down testados).
+  2. BaseOpenAiService#setup_model sobrescrevia o pai e lia so o COSMOS_OPEN_AI_MODEL
+     global => TODO servico derivado ignorava o modelo por conta (cosmos_models).
+  3. Toolable: o nome da tool usava `tool_slug`, inexistente => toda custom tool
+     quebrada. E api_key com location 'query' ia junto no header.
+  4. Message#message_reports nao existia => reportar mensagem dava 500.
+  5. Cosmos::Document#display_url devolvia o placeholder "PDF: <arquivo>" em vez da
+     URL do blob => nenhuma citacao de PDF virava link.
+  6. O modulo Starchat::Api::V1::AccountsSettings, nomeado no prepend_mod_with do
+     controller base, NUNCA foi criado — o port trouxe o spec da atribuicao de
+     marketing sem a implementacao. Nada registrava atribuicao no signup.
+  7. participants_controller e destroy_job, itens (a) e (b) acima.
+
+NAO ERA DANO DO PORT (bug pre-existente do fork, deixado como estava):
+  Cosmos::InboxPendingConversationsResolutionJob tem perform_with_evaluation e
+  perform_time_based que NUNCA sao chamados, e as constantes
+  COSMOS_INFERENCE_{RESOLVE,HANDOFF}_ACTIVITY_REASON nao existem em lugar nenhum.
+  A versao pre-port (8404cc76df) e identica. Cheguei a ligar o despacho e isso so
+  ativou codigo morto quebrado (7 falhas novas) — revertido. Se o auto-resolve
+  avaliado for para ser usado, esse caminho precisa ser escrito do zero.
+
+DECISOES DE PRODUTO APLICADAS (regra "tudo enterprise"):
+  - api_and_webhooks_enabled? perdeu o gate de cloud (sempre true).
+  - message_reports perdeu o gate de cloud (ChatwootApp.chatwoot_cloud? e fixo em
+    true no fork, entao o gate nunca negava nada de qualquer forma).
+  - Internal::ReconcilePlanConfigService e seu spec apagados (perform ja era `true`).
+
+LICAO REFORCADA: pedir o arquivo ORIGINAL do upstream resolveu 29 falhas de uma vez
+sem chute. Reconstruir servico a partir do spec e adivinhacao — nao fazer.
