@@ -1147,8 +1147,6 @@
         "ROUND_ROBIN": "Növbə ilə",
         "BALANCED": "Tarazlı təyinat"
       },
-      "UPGRADE_PROMPT": "Fərdi təyinat siyasətləri Biznes planında mövcuddur",
-      "UPGRADE_TO_BUSINESS": "Biznes planına yüksəlt",
       "DEFAULT_POLICY_LINKED": "Əsas siyasət qoşulub",
       "DEFAULT_POLICY_DESCRIPTION": "Bu inboxdakı söhbətlərin agentlərə necə təyin olunacağını fərdiləşdirmək üçün fərdi təyinat siyasətini qoşun.",
       "LINK_EXISTING_POLICY": "Mövcud siyasəti qoşun",

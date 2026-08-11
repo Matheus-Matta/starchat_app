@@ -309,10 +309,10 @@
     "SETTINGS": "Settings",
     "CONTACTS": "Contacts",
     "ACTIVE": "Active",
-    "COSMOS": "Cosmos",
-    "COSMOS_ASSISTANTS": "Assistants",
-    "COSMOS_DOCUMENTS": "Documents",
-    "COSMOS_RESPONSES": "FAQs",
+    "COSMOS": "Kapitan",
+    "COSMOS_ASSISTANTS": "Mga Katulong",
+    "COSMOS_DOCUMENTS": "Mga Dokumento",
+    "COSMOS_RESPONSES": "Mga Madalas Itanong",
     "HOME": "Home",
     "AGENTS": "Agents",
     "AGENT_BOTS": "Bots",
@@ -375,10 +375,6 @@
     "AGENT_ASSIGNMENT": "Agent Assignment",
     "COMPANIES": "Mga Kumpanya",
     "ALL_COMPANIES": "Lahat ng Kumpanya",
-    "COSMOS": "Kapitan",
-    "COSMOS_ASSISTANTS": "Mga Katulong",
-    "COSMOS_DOCUMENTS": "Mga Dokumento",
-    "COSMOS_RESPONSES": "Mga Madalas Itanong",
     "COSMOS_TOOLS": "Mga Kasangkapan",
     "COSMOS_SCENARIOS": "Mga Senaryo",
     "COSMOS_PLAYGROUND": "Palaruan",
@@ -404,20 +400,6 @@
       "BUTTON_TXT": "Go to the billing portal"
     },
     "COSMOS": {
-      "TITLE": "Cosmos",
-      "DESCRIPTION": "Manage usage and credits for Cosmos AI.",
-      "BUTTON_TXT": "Buy more credits",
-      "DOCUMENTS": "Documents",
-      "RESPONSES": "Responses",
-      "UPGRADE": "Cosmos is not available on the free plan, upgrade now to get access to assistants, copilot and more."
-    },
-    "CHAT_WITH_US": {
-      "TITLE": "Need help?",
-      "DESCRIPTION": "Do you face any issues in billing? We are here to help.",
-      "BUTTON_TXT": "Chat with us"
-    },
-    "NO_BILLING_USER": "Your billing account is being configured. Please refresh the page and try again.",
-    "COSMOS": {
       "TITLE": "Kapitan",
       "DESCRIPTION": "Pamahalaan ang paggamit at mga kredito para sa Cosmos AI.",
       "BUTTON_TXT": "Bumili ng karagdagang kredito",
@@ -426,6 +408,12 @@
       "UPGRADE": "Hindi available ang Cosmos sa libreng plano, mag-upgrade na upang magkaroon ng access sa mga assistant, copilot at iba pa.",
       "REFRESH_CREDITS": "I-refresh"
     },
+    "CHAT_WITH_US": {
+      "TITLE": "Need help?",
+      "DESCRIPTION": "Do you face any issues in billing? We are here to help.",
+      "BUTTON_TXT": "Chat with us"
+    },
+    "NO_BILLING_USER": "Your billing account is being configured. Please refresh the page and try again.",
     "TOPUP": {
       "BUY_CREDITS": "Bumili ng karagdagang kredito",
       "MODAL_TITLE": "Bumili ng AI Credits",
@@ -858,18 +846,6 @@
         "CERTIFICATE_ERROR": "Kinakailangan ang Sertipiko",
         "IDP_ENTITY_ID_ERROR": "Kinakailangan ang Identity Provider Entity ID"
       },
-      "ENTERPRISE_PAYWALL": {
-        "AVAILABLE_ON": "Ang tampok na SAML SSO ay available lamang sa mga Enterprise plan.",
-        "UPGRADE_PROMPT": "Mag-upgrade sa Enterprise plan upang ma-access ang SAML single sign-on at iba pang mga advanced na tampok sa seguridad.",
-        "ASK_ADMIN": "Mangyaring makipag-ugnayan sa iyong administrator para sa pag-upgrade."
-      },
-      "PAYWALL": {
-        "TITLE": "Mag-upgrade upang paganahin ang SAML SSO",
-        "AVAILABLE_ON": "Ang tampok na SAML SSO ay available lamang sa mga Enterprise plan.",
-        "UPGRADE_PROMPT": "I-upgrade ang iyong plano upang makuha ang access sa SAML single sign-on at iba pang mga advanced na tampok.",
-        "UPGRADE_NOW": "Mag-upgrade ngayon",
-        "CANCEL_ANYTIME": "Maaari mong baguhin o kanselahin ang iyong plano anumang oras"
-      },
       "ATTRIBUTE_MAPPING": {
         "TITLE": "Pagsasaayos ng SAML Attribute",
         "DESCRIPTION": "Ang mga sumusunod na attribute mapping ay kailangang i-configure sa iyong identity provider"
@@ -917,18 +893,6 @@
           "YES": "Oo",
           "NO": "Hindi"
         }
-      },
-      "PAYWALL": {
-        "TITLE": "Mag-upgrade upang magamit ang mga kinakailangang attribute",
-        "AVAILABLE_ON": "Ang tampok na kinakailangang mga attribute ng pag-uusap ay available sa mga Business at Enterprise na plano.",
-        "UPGRADE_PROMPT": "I-upgrade ang iyong plano upang hikayatin ang mga ahente na punan ang mga kinakailangang attribute bago matapos ang pag-uusap.",
-        "UPGRADE_NOW": "Mag-upgrade na",
-        "CANCEL_ANYTIME": "Maaari mong baguhin o kanselahin ang iyong plano anumang oras"
-      },
-      "ENTERPRISE_PAYWALL": {
-        "AVAILABLE_ON": "Ang tampok na kinakailangang mga katangian ng pag-uusap ay available sa mga bayad na plano.",
-        "UPGRADE_PROMPT": "Mag-upgrade sa isang bayad na plano upang ipatupad ang kinakailangang mga katangian bago matapos ang pag-uusap.",
-        "ASK_ADMIN": "Mangyaring makipag-ugnayan sa iyong administrador para sa pag-upgrade."
       }
     }
   }

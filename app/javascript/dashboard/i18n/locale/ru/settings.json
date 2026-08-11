@@ -375,10 +375,6 @@
     "AGENT_ASSIGNMENT": "Agent Assignment",
     "COMPANIES": "Компании",
     "ALL_COMPANIES": "Все компании",
-    "COSMOS": "Капитан",
-    "COSMOS_ASSISTANTS": "Ассистенты",
-    "COSMOS_DOCUMENTS": "Документы",
-    "COSMOS_RESPONSES": "FAQ",
     "COSMOS_TOOLS": "Инструменты",
     "COSMOS_SCENARIOS": "Сценарии",
     "COSMOS_PLAYGROUND": "Площадка",
@@ -409,7 +405,8 @@
       "BUTTON_TXT": "Купить дополнительные кредиты",
       "DOCUMENTS": "Документы",
       "RESPONSES": "Ответы",
-      "UPGRADE": "Cosmos недоступен в бесплатном тарифном плане, обновите его, чтобы получить доступ к ассистентам, copilot и другим функциям."
+      "UPGRADE": "Cosmos недоступен в бесплатном тарифном плане, обновите его, чтобы получить доступ к ассистентам, copilot и другим функциям.",
+      "REFRESH_CREDITS": "Обновить"
     },
     "CHAT_WITH_US": {
       "TITLE": "Нужна помощь?",
@@ -417,15 +414,6 @@
       "BUTTON_TXT": "Пообщайтесь с нами"
     },
     "NO_BILLING_USER": "Ваш платёжный счёт настраивается. Пожалуйста, обновите страницу и повторите попытку.",
-    "COSMOS": {
-      "TITLE": "Капитан",
-      "DESCRIPTION": "Управляйте использованием и кредитами для Cosmos AI.",
-      "BUTTON_TXT": "Купить дополнительные кредиты",
-      "DOCUMENTS": "Документы",
-      "RESPONSES": "Ответы",
-      "UPGRADE": "Cosmos недоступен в бесплатном тарифном плане, обновите его, чтобы получить доступ к ассистентам, copilot и другим функциям.",
-      "REFRESH_CREDITS": "Обновить"
-    },
     "TOPUP": {
       "BUY_CREDITS": "Купить дополнительные кредиты",
       "MODAL_TITLE": "Купить ИИ кредиты",
@@ -858,18 +846,6 @@
         "CERTIFICATE_ERROR": "Сертификат обязателен",
         "IDP_ENTITY_ID_ERROR": "ID сущности поставщика идентификации обязателен"
       },
-      "ENTERPRISE_PAYWALL": {
-        "AVAILABLE_ON": "Функция SAML SSO доступна только в Enterprise plan.",
-        "UPGRADE_PROMPT": "Обновитесь до Enterprise plan, чтобы получить доступ к единому входу SAML и другим продвинутым функциям безопасности.",
-        "ASK_ADMIN": "Пожалуйста, обратитесь к вашему администратору для обновления."
-      },
-      "PAYWALL": {
-        "TITLE": "Обновитесь, чтобы включить SAML SSO",
-        "AVAILABLE_ON": "Функция SAML SSO доступна только в Enterprise plan.",
-        "UPGRADE_PROMPT": "Обновите свой тарифный план, чтобы получить доступ к единому входу SAML и другим расширенным функциям.",
-        "UPGRADE_NOW": "Обновить сейчас",
-        "CANCEL_ANYTIME": "Вы можете изменить или отменить ваш тарифный план в любое время"
-      },
       "ATTRIBUTE_MAPPING": {
         "TITLE": "Настройки SAML Атрибута",
         "DESCRIPTION": "Следующие сопоставления атрибутов должны быть настроены в вашем поставщике идентификации"
@@ -917,18 +893,6 @@
           "YES": "Да",
           "NO": "Нет"
         }
-      },
-      "PAYWALL": {
-        "TITLE": "Upgrade to use required attributes",
-        "AVAILABLE_ON": "The required conversation attributes feature is available on the Business and Enterprise plans.",
-        "UPGRADE_PROMPT": "Upgrade your plan to prompt agents to fill required attributes before conversation resolution.",
-        "UPGRADE_NOW": "Обновить сейчас",
-        "CANCEL_ANYTIME": "Вы можете изменить или отменить ваш тарифный план в любое время"
-      },
-      "ENTERPRISE_PAYWALL": {
-        "AVAILABLE_ON": "The required conversation attributes feature is available on the paid plans.",
-        "UPGRADE_PROMPT": "Upgrade to a paid plan to enforce required attributes before conversation resolution.",
-        "ASK_ADMIN": "Пожалуйста, обратитесь к вашему администратору для обновления."
       }
     }
   }

@@ -309,10 +309,10 @@
     "SETTINGS": "הגדרות",
     "CONTACTS": "איש קשר",
     "ACTIVE": "פעיל",
-    "COSMOS": "Cosmos",
-    "COSMOS_ASSISTANTS": "Assistants",
-    "COSMOS_DOCUMENTS": "Documents",
-    "COSMOS_RESPONSES": "FAQs",
+    "COSMOS": "קפטן",
+    "COSMOS_ASSISTANTS": "עוזרים",
+    "COSMOS_DOCUMENTS": "מסמכים",
+    "COSMOS_RESPONSES": "שאלות נפוצות",
     "HOME": "בית",
     "AGENTS": "סוכנים",
     "AGENT_BOTS": "בוטים",
@@ -375,10 +375,6 @@
     "AGENT_ASSIGNMENT": "Agent Assignment",
     "COMPANIES": "Companies",
     "ALL_COMPANIES": "All Companies",
-    "COSMOS": "קפטן",
-    "COSMOS_ASSISTANTS": "עוזרים",
-    "COSMOS_DOCUMENTS": "מסמכים",
-    "COSMOS_RESPONSES": "שאלות נפוצות",
     "COSMOS_TOOLS": "כלים",
     "COSMOS_SCENARIOS": "תרחישים",
     "COSMOS_PLAYGROUND": "מגרש משחקים",
@@ -404,20 +400,6 @@
       "BUTTON_TXT": "עבור לפורטל החיובים"
     },
     "COSMOS": {
-      "TITLE": "Cosmos",
-      "DESCRIPTION": "Manage usage and credits for Cosmos AI.",
-      "BUTTON_TXT": "Buy more credits",
-      "DOCUMENTS": "Documents",
-      "RESPONSES": "Responses",
-      "UPGRADE": "Cosmos is not available on the free plan, upgrade now to get access to assistants, copilot and more."
-    },
-    "CHAT_WITH_US": {
-      "TITLE": "זקוק לעזרה?",
-      "DESCRIPTION": "האם אתה נתקל בבעיות כלשהן בחיוב? אנחנו כאן כדי לעזור.",
-      "BUTTON_TXT": "דבר איתנו"
-    },
-    "NO_BILLING_USER": "חשבון החיוב שלך מוגדר. אנא רענן את הדף ונסה שוב.",
-    "COSMOS": {
       "TITLE": "קפטן",
       "DESCRIPTION": "נהל שימוש וזיכויים עבור Cosmos AI.",
       "BUTTON_TXT": "קנה עוד זיכויים",
@@ -426,6 +408,12 @@
       "UPGRADE": "Cosmos אינו זמין בתוכנית החינמית, שדרג עכשיו כדי לקבל גישה לעוזרים, ל-Copilot ועוד.",
       "REFRESH_CREDITS": "רענן"
     },
+    "CHAT_WITH_US": {
+      "TITLE": "זקוק לעזרה?",
+      "DESCRIPTION": "האם אתה נתקל בבעיות כלשהן בחיוב? אנחנו כאן כדי לעזור.",
+      "BUTTON_TXT": "דבר איתנו"
+    },
+    "NO_BILLING_USER": "חשבון החיוב שלך מוגדר. אנא רענן את הדף ונסה שוב.",
     "TOPUP": {
       "BUY_CREDITS": "קנה עוד זיכויים",
       "MODAL_TITLE": "Buy AI Credits",
@@ -858,18 +846,6 @@
         "CERTIFICATE_ERROR": "אישור נדרש",
         "IDP_ENTITY_ID_ERROR": "מזהה ישות של ספק הזהויות נדרש"
       },
-      "ENTERPRISE_PAYWALL": {
-        "AVAILABLE_ON": "תכונת SAML SSO זמינה רק בתוכניות Enterprise.",
-        "UPGRADE_PROMPT": "Upgrade to an Enterprise plan to access SAML single sign-on and other advanced security features.",
-        "ASK_ADMIN": "אנא פנה למנהל המערכת שלך לצורך השדרוג."
-      },
-      "PAYWALL": {
-        "TITLE": "שדרג כדי להפעיל SAML SSO",
-        "AVAILABLE_ON": "תכונת SAML SSO זמינה רק בתוכניות Enterprise.",
-        "UPGRADE_PROMPT": "Upgrade your plan to get access to SAML single sign-on and other advanced features.",
-        "UPGRADE_NOW": "שדרג עכשיו",
-        "CANCEL_ANYTIME": "תוכל לשנות או לבטל את התוכנית שלך בכל עת"
-      },
       "ATTRIBUTE_MAPPING": {
         "TITLE": "הגדרת תכונת SAML",
         "DESCRIPTION": "יש להגדיר את מיפויי התכונות הבאים בספק הזהויות שלך"
@@ -917,18 +893,6 @@
           "YES": "כן",
           "NO": "לא"
         }
-      },
-      "PAYWALL": {
-        "TITLE": "Upgrade to use required attributes",
-        "AVAILABLE_ON": "The required conversation attributes feature is available on the Business and Enterprise plans.",
-        "UPGRADE_PROMPT": "Upgrade your plan to prompt agents to fill required attributes before conversation resolution.",
-        "UPGRADE_NOW": "שדרג עכשיו",
-        "CANCEL_ANYTIME": "תוכל לשנות או לבטל את התוכנית שלך בכל עת"
-      },
-      "ENTERPRISE_PAYWALL": {
-        "AVAILABLE_ON": "The required conversation attributes feature is available on the paid plans.",
-        "UPGRADE_PROMPT": "Upgrade to a paid plan to enforce required attributes before conversation resolution.",
-        "ASK_ADMIN": "אנא פנה למנהל המערכת שלך לצורך השדרוג."
       }
     }
   }

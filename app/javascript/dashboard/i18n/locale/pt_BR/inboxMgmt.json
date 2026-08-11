@@ -1312,8 +1312,6 @@
         "ROUND_ROBIN": "Rodízio",
         "BALANCED": "Atribuição equilibrada"
       },
-      "UPGRADE_PROMPT": "Políticas de atribuição personalizadas estão disponíveis no plano Business",
-      "UPGRADE_TO_BUSINESS": "Atualizar para o Business",
       "DEFAULT_POLICY_LINKED": "Política padrão vinculada",
       "DEFAULT_POLICY_DESCRIPTION": "Vincule uma política de atribuição personalizada para definir como as conversas serão atribuídas aos agentes nesta caixa de entrada.",
       "LINK_EXISTING_POLICY": "Vincular política existente",

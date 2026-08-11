@@ -1147,8 +1147,6 @@
         "ROUND_ROBIN": "Round robin",
         "BALANCED": "Assegnazione bilanciata"
       },
-      "UPGRADE_PROMPT": "Le policy di assegnazione personalizzate sono disponibili nel piano Business",
-      "UPGRADE_TO_BUSINESS": "Aggiorna a Business",
       "DEFAULT_POLICY_LINKED": "Policy predefinita collegata",
       "DEFAULT_POLICY_DESCRIPTION": "Collega una policy di assegnazione personalizzata per impostare come le conversazioni devono essere assegnate agli operatori in questa inbox.",
       "LINK_EXISTING_POLICY": "Collega policy esistente",

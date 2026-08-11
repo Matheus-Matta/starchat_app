@@ -310,9 +310,9 @@
     "CONTACTS": "聯絡人",
     "ACTIVE": "Active",
     "COSMOS": "Cosmos",
-    "COSMOS_ASSISTANTS": "Assistants",
-    "COSMOS_DOCUMENTS": "Documents",
-    "COSMOS_RESPONSES": "FAQs",
+    "COSMOS_ASSISTANTS": "助理",
+    "COSMOS_DOCUMENTS": "文件",
+    "COSMOS_RESPONSES": "常見問答",
     "HOME": "首頁",
     "AGENTS": "客服",
     "AGENT_BOTS": "機器人",
@@ -375,10 +375,6 @@
     "AGENT_ASSIGNMENT": "Agent Assignment",
     "COMPANIES": "公司",
     "ALL_COMPANIES": "所有公司",
-    "COSMOS": "Cosmos",
-    "COSMOS_ASSISTANTS": "助理",
-    "COSMOS_DOCUMENTS": "文件",
-    "COSMOS_RESPONSES": "常見問答",
     "COSMOS_TOOLS": "工具",
     "COSMOS_SCENARIOS": "情境",
     "COSMOS_PLAYGROUND": "練習場",
@@ -405,20 +401,6 @@
     },
     "COSMOS": {
       "TITLE": "Cosmos",
-      "DESCRIPTION": "Manage usage and credits for Cosmos AI.",
-      "BUTTON_TXT": "Buy more credits",
-      "DOCUMENTS": "Documents",
-      "RESPONSES": "Responses",
-      "UPGRADE": "Cosmos is not available on the free plan, upgrade now to get access to assistants, copilot and more."
-    },
-    "CHAT_WITH_US": {
-      "TITLE": "Need help?",
-      "DESCRIPTION": "Do you face any issues in billing? We are here to help.",
-      "BUTTON_TXT": "與我們對話"
-    },
-    "NO_BILLING_USER": "Your billing account is being configured. Please refresh the page and try again.",
-    "COSMOS": {
-      "TITLE": "Cosmos",
       "DESCRIPTION": "管理 Cosmos AI 的用量和點數。",
       "BUTTON_TXT": "購買更多點數",
       "DOCUMENTS": "文件",
@@ -426,6 +408,12 @@
       "UPGRADE": "Cosmos 在免費方案中不可用，立即升級以使用助理、Co-pilot 等功能。",
       "REFRESH_CREDITS": "重新整理"
     },
+    "CHAT_WITH_US": {
+      "TITLE": "Need help?",
+      "DESCRIPTION": "Do you face any issues in billing? We are here to help.",
+      "BUTTON_TXT": "與我們對話"
+    },
+    "NO_BILLING_USER": "Your billing account is being configured. Please refresh the page and try again.",
     "TOPUP": {
       "BUY_CREDITS": "購買更多點數",
       "MODAL_TITLE": "購買 AI 點數",
@@ -858,18 +846,6 @@
         "CERTIFICATE_ERROR": "憑證為必填欄位",
         "IDP_ENTITY_ID_ERROR": "身份提供者 Entity ID 為必填欄位"
       },
-      "ENTERPRISE_PAYWALL": {
-        "AVAILABLE_ON": "SAML SSO 功能僅在企業版方案中提供。",
-        "UPGRADE_PROMPT": "升級至企業版方案以使用 SAML 單一登入及其他進階安全功能。",
-        "ASK_ADMIN": "請聯繫您的管理員進行升級。"
-      },
-      "PAYWALL": {
-        "TITLE": "升級以啟用 SAML SSO",
-        "AVAILABLE_ON": "SAML SSO 功能僅在企業版方案中提供。",
-        "UPGRADE_PROMPT": "升級您的方案以使用 SAML 單一登入及其他進階功能。",
-        "UPGRADE_NOW": "立即升級",
-        "CANCEL_ANYTIME": "您可以隨時變更或取消您的方案"
-      },
       "ATTRIBUTE_MAPPING": {
         "TITLE": "SAML 屬性設定",
         "DESCRIPTION": "以下屬性對應必須在您的身份提供者中進行設定"
@@ -917,18 +893,6 @@
           "YES": "是",
           "NO": "否"
         }
-      },
-      "PAYWALL": {
-        "TITLE": "升級以使用必填屬性功能",
-        "AVAILABLE_ON": "對話必填屬性功能在商務版和企業版方案中提供。",
-        "UPGRADE_PROMPT": "升級您的方案，以在對話解決前提示客服人員填寫必填屬性。",
-        "UPGRADE_NOW": "立即升級",
-        "CANCEL_ANYTIME": "您可以隨時變更或取消您的方案"
-      },
-      "ENTERPRISE_PAYWALL": {
-        "AVAILABLE_ON": "對話必填屬性功能在付費方案中提供。",
-        "UPGRADE_PROMPT": "升級至付費方案，以在對話解決前強制要求填寫必填屬性。",
-        "ASK_ADMIN": "請聯繫您的管理員進行升級。"
       }
     }
   }

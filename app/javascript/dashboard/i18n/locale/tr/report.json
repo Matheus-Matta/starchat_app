@@ -493,14 +493,7 @@
       "SAVED": "Notlar başarıyla kaydedildi",
       "SAVE_ERROR": "Notlar kaydedilemedi",
       "UPDATED_BY": "{name} tarafından {time} tarihinde güncellendi",
-      "UPDATED_BY_LABEL": "Güncelleyen",
-      "PAYWALL": {
-        "TITLE": "İnceleme notları eklemek için yükseltin",
-        "AVAILABLE_ON": "İnceleme notları özelliği yalnızca Business ve Enterprise planlarında mevcuttur.",
-        "UPGRADE_PROMPT": "İnceleme notları ile her CSAT yanıtına dahili bağlam ekleyin. Gerçekte ne yaşandığını kayıt altına alın, kalıpları daha hızlı tespit edin ve geri bildirimlerinizden yola çıkarak daha iyi kararlar alın.",
-        "UPGRADE_NOW": "Şimdi yükselt",
-        "CANCEL_ANYTIME": "You can change or cancel your plan anytime"
-      }
+      "UPDATED_BY_LABEL": "Güncelleyen"
     }
   },
   "BOT_REPORTS": {

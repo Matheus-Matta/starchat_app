@@ -1147,8 +1147,6 @@
         "ROUND_ROBIN": "Rrotullim i barabartë",
         "BALANCED": "Caktim i balancuar"
       },
-      "UPGRADE_PROMPT": "Politikat e personalizuara të caktimit janë të disponueshme në planin Business",
-      "UPGRADE_TO_BUSINESS": "Upgrade to Business",
       "DEFAULT_POLICY_LINKED": "Politika e paracaktuar e lidhur",
       "DEFAULT_POLICY_DESCRIPTION": "Lidheni një politikë të personalizuar caktimi për të përshtatur mënyrën se si bisedat caktohen agjentëve në këtë inbox.",
       "LINK_EXISTING_POLICY": "Lidh politikën ekzistuese",

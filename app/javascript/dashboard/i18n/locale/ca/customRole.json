@@ -6,18 +6,6 @@
     "HEADER_BTN_TXT": "Add custom role",
     "LOADING": "Fetching custom roles...",
     "SEARCH_404": "No hi ha cap resposta que coincideixi amb aquesta consulta.",
-    "PAYWALL": {
-      "TITLE": "Upgrade to create custom roles",
-      "AVAILABLE_ON": "The custom role feature is only available in the Business and Enterprise plans.",
-      "UPGRADE_PROMPT": "Actualitza el teu pla per accedir a funcions avançades com ara gestió d'equips, automatitzacions, atributs personalitzats i molt més.",
-      "UPGRADE_NOW": "Actualitza ara",
-      "CANCEL_ANYTIME": "Pots canviar o cancel·lar el teu pla en qualsevol moment"
-    },
-    "STARCHAT_PAYWALL": {
-      "AVAILABLE_ON": "The custom role feature is only available in the paid plans.",
-      "UPGRADE_PROMPT": "Actualitza a un pla de pagament per accedir a funcions avançades com els registres d'auditoria, la capacitat de l'agent i molt més.",
-      "ASK_ADMIN": "Posa't en contacte amb el vostre administrador per obtenir l'actualització."
-    },
     "LIST": {
       "404": "There are no custom roles available in this account.",
       "TITLE": "Manage custom roles",
@@ -90,11 +78,6 @@
     },
     "COUNT": "{n} custom role | {n} custom roles",
     "SEARCH_PLACEHOLDER": "Search custom roles...",
-    "NO_RESULTS": "No custom roles found matching your search",
-    "ENTERPRISE_PAYWALL": {
-      "AVAILABLE_ON": "The custom role feature is only available in the paid plans.",
-      "UPGRADE_PROMPT": "Actualitza a un pla de pagament per accedir a funcions avançades com els registres d'auditoria, la capacitat de l'agent i molt més.",
-      "ASK_ADMIN": "Posa't en contacte amb el vostre administrador per obtenir l'actualització."
-    }
+    "NO_RESULTS": "No custom roles found matching your search"
   }
 }

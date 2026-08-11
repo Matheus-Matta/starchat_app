@@ -1147,8 +1147,6 @@
         "ROUND_ROBIN": "Paikot-ikot",
         "BALANCED": "Balanseng pagtatalaga"
       },
-      "UPGRADE_PROMPT": "Ang mga custom na patakaran sa pagtatalaga ay available sa Business plan",
-      "UPGRADE_TO_BUSINESS": "Mag-upgrade sa Business",
       "DEFAULT_POLICY_LINKED": "Naka-link ang default na patakaran",
       "DEFAULT_POLICY_DESCRIPTION": "I-link ang custom na patakaran sa pagtatalaga upang i-customize kung paano itatalaga ang mga pag-uusap sa mga ahente sa inbox na ito.",
       "LINK_EXISTING_POLICY": "I-link ang umiiral na patakaran",

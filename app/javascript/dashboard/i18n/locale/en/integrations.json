@@ -399,17 +399,6 @@
       "DESCRIPTION": "Use this playground to send messages to your assistant and check if it responds accurately, quickly, and in the tone you expect.",
       "CREDIT_NOTE": "Messages sent here will count toward your Cosmos credits."
     },
-    "PAYWALL": {
-      "TITLE": "Upgrade to use Cosmos AI",
-      "AVAILABLE_ON": "Cosmos is not available on the free plan.",
-      "UPGRADE_PROMPT": "Upgrade your plan to get access to our assistants, cosmos and more.",
-      "UPGRADE_NOW": "Upgrade now",
-      "CANCEL_ANYTIME": "You can change or cancel your plan anytime"
-    },
-    "ENTERPRISE_PAYWALL": {
-      "UPGRADE_PROMPT": "Upgrade your plan to get access to our assistants, cosmos and more.",
-      "ASK_ADMIN": "Please reach out to your administrator for the upgrade."
-    },
     "BANNER": {
       "RESPONSES": "You've used over 80% of your response limit. To continue using Cosmos AI, please upgrade.",
       "DOCUMENTS": "Document limit reached. Upgrade to continue using Cosmos AI."

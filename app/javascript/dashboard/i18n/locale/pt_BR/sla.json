@@ -6,18 +6,6 @@
     "DESCRIPTION": "Acordo de Nível de Serviço (SLAs em inglês) são acordos que definem expectativas claras entre seu time e os clientes. Estabelecem normas para tempos de resposta e de resolução, criando um quadro de responsabilização e garantindo uma experiência coerente e de qualidade.",
     "LEARN_MORE": "Saiba mais sobre SLA",
     "LOADING": "Buscando SLAs",
-    "PAYWALL": {
-      "TITLE": "Atualize para criar SLAs",
-      "AVAILABLE_ON": "O recurso SLA está disponível apenas nos planos Business e Starchats.",
-      "UPGRADE_PROMPT": "Atualize seu plano para obter acesso a recursos avançados como gerenciamento de time, automações, atributos personalizados e muito mais.",
-      "UPGRADE_NOW": "Atualizar agora",
-      "CANCEL_ANYTIME": "Você pode alterar ou cancelar seu plano a qualquer momento"
-    },
-    "STARCHAT_PAYWALL": {
-      "AVAILABLE_ON": "O recurso SLA está disponível apenas nos planos pagos.",
-      "UPGRADE_PROMPT": "Atualize para um plano pago para acessar recursos avançados como logs de auditoria, capacidade do agente e muito mais.",
-      "ASK_ADMIN": "Entre em contato com seu administrador para fazer a atualização."
-    },
     "LIST": {
       "404": "Não há SLAs disponíveis nesta conta.",
       "EMPTY": {
@@ -112,11 +100,6 @@
     "SEARCH_PLACEHOLDER": "Pesquisar SLA...",
     "SEARCH": {
       "NO_RESULTS": "Nenhuma SLA encontrada correspondente à sua busca"
-    },
-    "ENTERPRISE_PAYWALL": {
-      "AVAILABLE_ON": "O recurso SLA está disponível apenas nos planos pagos.",
-      "UPGRADE_PROMPT": "Atualize para um plano pago para acessar recursos avançados como logs de auditoria, capacidade do agente e muito mais.",
-      "ASK_ADMIN": "Entre em contato com seu administrador para fazer a atualização."
     }
   }
 }

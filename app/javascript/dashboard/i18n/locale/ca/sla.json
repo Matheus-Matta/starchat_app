@@ -6,18 +6,6 @@
     "DESCRIPTION": "Els acords de nivell de servei (SLA) són contractes que defineixen expectatives clares entre el vostre equip i els clients. Estableixen estàndards de temps de resposta i resolució, creen un marc de responsabilitat i garanteixen una experiència coherent i d'alta qualitat.",
     "LEARN_MORE": "Més informació sobre SLA",
     "LOADING": "S'estan obtenint SLAs",
-    "PAYWALL": {
-      "TITLE": "Actualitza per crear SLA",
-      "AVAILABLE_ON": "La funció SLA només està disponible als plans Business i Enterprise.",
-      "UPGRADE_PROMPT": "Actualitza el teu pla per accedir a funcions avançades com ara gestió d'equips, automatitzacions, atributs personalitzats i molt més.",
-      "UPGRADE_NOW": "Actualitza ara",
-      "CANCEL_ANYTIME": "Pots canviar o cancel·lar el teu pla en qualsevol moment"
-    },
-    "STARCHAT_PAYWALL": {
-      "AVAILABLE_ON": "La funció SLA només està disponible als plans de pagament.",
-      "UPGRADE_PROMPT": "Actualitza a un pla de pagament per accedir a funcions avançades com els registres d'auditoria, la capacitat de l'agent i molt més.",
-      "ASK_ADMIN": "Posa't en contacte amb el vostre administrador per obtenir l'actualització."
-    },
     "LIST": {
       "404": "No hi ha cap SLA disponible en aquest compte.",
       "EMPTY": {
@@ -112,11 +100,6 @@
     "SEARCH_PLACEHOLDER": "Search SLA...",
     "SEARCH": {
       "NO_RESULTS": "No SLA found matching your search"
-    },
-    "ENTERPRISE_PAYWALL": {
-      "AVAILABLE_ON": "La funció SLA només està disponible als plans de pagament.",
-      "UPGRADE_PROMPT": "Actualitza a un pla de pagament per accedir a funcions avançades com els registres d'auditoria, la capacitat de l'agent i molt més.",
-      "ASK_ADMIN": "Posa't en contacte amb el vostre administrador per obtenir l'actualització."
     }
   }
 }

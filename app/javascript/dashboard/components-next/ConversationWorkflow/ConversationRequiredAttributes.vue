@@ -28,15 +28,6 @@ const [isSaving, toggleSaving] = useToggle(false);
 const conversationAttributes = useMapGetter(
   'attributes/getConversationAttributes'
 );
-const currentUser = useMapGetter('getCurrentUser');
-
-const isSuperAdmin = computed(() => currentUser.value.type === 'SuperAdmin');
-const showPaywall = computed(
-  () => !props.isEnabled && isOnStarchatsCloud.value
-);
-const i18nKey = computed(() =>
-  isOnStarchatsCloud.value ? 'PAYWALL' : 'STARCHAT_PAYWALL'
-);
 
 const handleClick = () => {
   emit('click');
@@ -116,7 +107,7 @@ const handleDelete = attribute => {
 
 <template>
   <div
-    v-if="isEnabled || showPaywall"
+    v-if="isEnabled"
     class="flex flex-col w-full outline-1 outline outline-n-container rounded-xl bg-n-solid-2 divide-y divide-n-weak"
     @click="handleClick"
   >

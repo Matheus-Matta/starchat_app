@@ -310,9 +310,9 @@
     "CONTACTS": "연락처",
     "ACTIVE": "Active",
     "COSMOS": "Cosmos",
-    "COSMOS_ASSISTANTS": "Assistants",
-    "COSMOS_DOCUMENTS": "Documents",
-    "COSMOS_RESPONSES": "FAQs",
+    "COSMOS_ASSISTANTS": "어시스턴트",
+    "COSMOS_DOCUMENTS": "문서",
+    "COSMOS_RESPONSES": "FAQ",
     "HOME": "홈",
     "AGENTS": "에이전트",
     "AGENT_BOTS": "봇",
@@ -375,10 +375,6 @@
     "AGENT_ASSIGNMENT": "Agent Assignment",
     "COMPANIES": "회사",
     "ALL_COMPANIES": "모든 회사",
-    "COSMOS": "Cosmos",
-    "COSMOS_ASSISTANTS": "어시스턴트",
-    "COSMOS_DOCUMENTS": "문서",
-    "COSMOS_RESPONSES": "FAQ",
     "COSMOS_TOOLS": "도구",
     "COSMOS_SCENARIOS": "시나리오",
     "COSMOS_PLAYGROUND": "플레이그라운드",
@@ -405,20 +401,6 @@
     },
     "COSMOS": {
       "TITLE": "Cosmos",
-      "DESCRIPTION": "Manage usage and credits for Cosmos AI.",
-      "BUTTON_TXT": "Buy more credits",
-      "DOCUMENTS": "Documents",
-      "RESPONSES": "Responses",
-      "UPGRADE": "Cosmos is not available on the free plan, upgrade now to get access to assistants, copilot and more."
-    },
-    "CHAT_WITH_US": {
-      "TITLE": "Need help?",
-      "DESCRIPTION": "Do you face any issues in billing? We are here to help.",
-      "BUTTON_TXT": "채팅하기"
-    },
-    "NO_BILLING_USER": "Your billing account is being configured. Please refresh the page and try again.",
-    "COSMOS": {
-      "TITLE": "Cosmos",
       "DESCRIPTION": "Cosmos AI의 사용량과 크레딧을 관리합니다.",
       "BUTTON_TXT": "크레딧 추가 구매",
       "DOCUMENTS": "문서",
@@ -426,6 +408,12 @@
       "UPGRADE": "무료 플랜에서는 Cosmos을 사용할 수 없습니다. 지금 업그레이드하여 어시스턴트, Copilot 등에 접근하십시오.",
       "REFRESH_CREDITS": "새로고침"
     },
+    "CHAT_WITH_US": {
+      "TITLE": "Need help?",
+      "DESCRIPTION": "Do you face any issues in billing? We are here to help.",
+      "BUTTON_TXT": "채팅하기"
+    },
+    "NO_BILLING_USER": "Your billing account is being configured. Please refresh the page and try again.",
     "TOPUP": {
       "BUY_CREDITS": "크레딧 추가 구매",
       "MODAL_TITLE": "AI 크레딧 구매",
@@ -858,18 +846,6 @@
         "CERTIFICATE_ERROR": "인증서가 필요합니다",
         "IDP_ENTITY_ID_ERROR": "ID 공급자 엔터티 ID가 필요합니다"
       },
-      "ENTERPRISE_PAYWALL": {
-        "AVAILABLE_ON": "SAML SSO 기능은 Enterprise 플랜에서만 사용할 수 있습니다.",
-        "UPGRADE_PROMPT": "SAML 싱글 사인온 및 기타 고급 보안 기능에 접근하려면 Enterprise 플랜으로 업그레이드하십시오.",
-        "ASK_ADMIN": "업그레이드를 위해 관리자에게 문의하십시오."
-      },
-      "PAYWALL": {
-        "TITLE": "SAML SSO를 활성화하려면 업그레이드하십시오",
-        "AVAILABLE_ON": "SAML SSO 기능은 Enterprise 플랜에서만 사용할 수 있습니다.",
-        "UPGRADE_PROMPT": "SAML 싱글 사인온 및 기타 고급 기능에 접근하려면 플랜을 업그레이드하십시오.",
-        "UPGRADE_NOW": "지금 업그레이드",
-        "CANCEL_ANYTIME": "언제든지 플랜을 변경하거나 취소할 수 있습니다"
-      },
       "ATTRIBUTE_MAPPING": {
         "TITLE": "SAML 속성 설정",
         "DESCRIPTION": "다음 속성 매핑은 ID 공급자에서 구성해야 합니다"
@@ -917,18 +893,6 @@
           "YES": "예",
           "NO": "아니오"
         }
-      },
-      "PAYWALL": {
-        "TITLE": "필수 속성을 사용하려면 업그레이드하십시오",
-        "AVAILABLE_ON": "필수 대화 속성 기능은 Business 및 Enterprise 플랜에서 사용할 수 있습니다.",
-        "UPGRADE_PROMPT": "대화 해결 전에 에이전트에게 필수 속성 입력을 요구하려면 플랜을 업그레이드하십시오.",
-        "UPGRADE_NOW": "지금 업그레이드",
-        "CANCEL_ANYTIME": "언제든지 플랜을 변경하거나 취소할 수 있습니다"
-      },
-      "ENTERPRISE_PAYWALL": {
-        "AVAILABLE_ON": "필수 대화 속성 기능은 유료 플랜에서 사용할 수 있습니다.",
-        "UPGRADE_PROMPT": "대화 해결 전에 필수 속성을 적용하려면 유료 플랜으로 업그레이드하십시오.",
-        "ASK_ADMIN": "업그레이드를 위해 관리자에게 문의하십시오."
       }
     }
   }

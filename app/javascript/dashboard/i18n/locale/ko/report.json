@@ -493,14 +493,7 @@
       "SAVED": "메모가 성공적으로 저장되었습니다",
       "SAVE_ERROR": "메모 저장에 실패했습니다",
       "UPDATED_BY": "{name}이(가) {time}에 업데이트함",
-      "UPDATED_BY_LABEL": "업데이트한 사람",
-      "PAYWALL": {
-        "TITLE": "리뷰 메모를 추가하려면 업그레이드하십시오",
-        "AVAILABLE_ON": "리뷰 메모 기능은 Business 및 Enterprise 플랜에서만 사용할 수 있습니다.",
-        "UPGRADE_PROMPT": "리뷰 메모를 통해 모든 CSAT 응답에 내부 컨텍스트를 추가할 수 있습니다. 실제 상황을 기록하고, 패턴을 빠르게 파악하며, 피드백을 기반으로 더 나은 결정을 내리십시오.",
-        "UPGRADE_NOW": "지금 업그레이드",
-        "CANCEL_ANYTIME": "언제든지 플랜을 변경하거나 취소할 수 있습니다"
-      }
+      "UPDATED_BY_LABEL": "업데이트한 사람"
     }
   },
   "BOT_REPORTS": {

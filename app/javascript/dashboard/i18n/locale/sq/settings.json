@@ -309,10 +309,10 @@
     "SETTINGS": "Settings",
     "CONTACTS": "Contacts",
     "ACTIVE": "Active",
-    "COSMOS": "Cosmos",
-    "COSMOS_ASSISTANTS": "Assistants",
-    "COSMOS_DOCUMENTS": "Documents",
-    "COSMOS_RESPONSES": "FAQs",
+    "COSMOS": "Kapiten",
+    "COSMOS_ASSISTANTS": "Asistentët",
+    "COSMOS_DOCUMENTS": "Dokumentet",
+    "COSMOS_RESPONSES": "Pyetjet e Shpeshta",
     "HOME": "Home",
     "AGENTS": "Agents",
     "AGENT_BOTS": "Bots",
@@ -375,10 +375,6 @@
     "AGENT_ASSIGNMENT": "Agent Assignment",
     "COMPANIES": "Kompani",
     "ALL_COMPANIES": "Të gjitha kompanitë",
-    "COSMOS": "Kapiten",
-    "COSMOS_ASSISTANTS": "Asistentët",
-    "COSMOS_DOCUMENTS": "Dokumentet",
-    "COSMOS_RESPONSES": "Pyetjet e Shpeshta",
     "COSMOS_TOOLS": "Mjetet",
     "COSMOS_SCENARIOS": "Skenarë",
     "COSMOS_PLAYGROUND": "Fusha e lojës",
@@ -405,20 +401,6 @@
     },
     "COSMOS": {
       "TITLE": "Cosmos",
-      "DESCRIPTION": "Manage usage and credits for Cosmos AI.",
-      "BUTTON_TXT": "Buy more credits",
-      "DOCUMENTS": "Documents",
-      "RESPONSES": "Responses",
-      "UPGRADE": "Cosmos is not available on the free plan, upgrade now to get access to assistants, copilot and more."
-    },
-    "CHAT_WITH_US": {
-      "TITLE": "Need help?",
-      "DESCRIPTION": "Do you face any issues in billing? We are here to help.",
-      "BUTTON_TXT": "Chat with us"
-    },
-    "NO_BILLING_USER": "Your billing account is being configured. Please refresh the page and try again.",
-    "COSMOS": {
-      "TITLE": "Cosmos",
       "DESCRIPTION": "Menaxhoni përdorimin dhe kreditë për Cosmos AI.",
       "BUTTON_TXT": "Bleni më shumë kredi",
       "DOCUMENTS": "Dokumentet",
@@ -426,6 +408,12 @@
       "UPGRADE": "Cosmos nuk është i disponueshëm në planin falas, përmirësoni tani për të pasur akses në asistentë, copilot dhe më shumë.",
       "REFRESH_CREDITS": "Rifresko"
     },
+    "CHAT_WITH_US": {
+      "TITLE": "Need help?",
+      "DESCRIPTION": "Do you face any issues in billing? We are here to help.",
+      "BUTTON_TXT": "Chat with us"
+    },
+    "NO_BILLING_USER": "Your billing account is being configured. Please refresh the page and try again.",
     "TOPUP": {
       "BUY_CREDITS": "Bleni më shumë kredite",
       "MODAL_TITLE": "Bleni Kredite AI",
@@ -858,18 +846,6 @@
         "CERTIFICATE_ERROR": "Certifikata është e detyrueshme",
         "IDP_ENTITY_ID_ERROR": "ID e Entitetit të Ofruesit të Identitetit është e detyrueshme"
       },
-      "ENTERPRISE_PAYWALL": {
-        "AVAILABLE_ON": "Karakteristika SAML SSO është në dispozicion vetëm në planet Enterprise.",
-        "UPGRADE_PROMPT": "Përmirëso në një plan Enterprise për të pasur akses në hyrjen e vetme SAML dhe veçori të tjera të avancuara të sigurisë.",
-        "ASK_ADMIN": "Ju lutemi kontaktoni administratorin tuaj për përmirësimin."
-      },
-      "PAYWALL": {
-        "TITLE": "Përmirëso për të aktivizuar SAML SSO",
-        "AVAILABLE_ON": "Karakteristika SAML SSO është në dispozicion vetëm në planet Enterprise.",
-        "UPGRADE_PROMPT": "Përmirëso planin tënd për të pasur akses në hyrjen e vetme SAML dhe veçori të tjera të avancuara.",
-        "UPGRADE_NOW": "Përmirëso tani",
-        "CANCEL_ANYTIME": "Mund të ndryshoni ose anuloni planin tuaj në çdo kohë"
-      },
       "ATTRIBUTE_MAPPING": {
         "TITLE": "Konfigurimi i Atributeve SAML",
         "DESCRIPTION": "Harta e mëposhtme e atributeve duhet të konfigurohet në ofruesin tuaj të identitetit"
@@ -917,18 +893,6 @@
           "YES": "Po",
           "NO": "Jo"
         }
-      },
-      "PAYWALL": {
-        "TITLE": "Përmirëso për të përdorur atributet e kërkuara",
-        "AVAILABLE_ON": "Veçoria e atributeve të kërkuara të bisedave është në dispozicion në planet Business dhe Enterprise.",
-        "UPGRADE_PROMPT": "Përmirësoni planin tuaj për të kërkuar nga agjentët të plotësojnë atributet e kërkuara para zgjidhjes së bisedës.",
-        "UPGRADE_NOW": "Përmirëso tani",
-        "CANCEL_ANYTIME": "Mund të ndryshoni ose anuloni planin tuaj në çdo kohë"
-      },
-      "ENTERPRISE_PAYWALL": {
-        "AVAILABLE_ON": "Veçoria e atributeve të kërkuara të bisedave është në dispozicion në planet me pagesë.",
-        "UPGRADE_PROMPT": "Përmirësoni në një plan me pagesë për të zbatuar atributet e kërkuara para zgjidhjes së bisedës.",
-        "ASK_ADMIN": "Ju lutemi kontaktoni administratorin tuaj për përmirësimin."
       }
     }
   }

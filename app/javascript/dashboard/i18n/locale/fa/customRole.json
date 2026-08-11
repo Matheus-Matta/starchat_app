@@ -6,18 +6,6 @@
     "HEADER_BTN_TXT": "Add custom role",
     "LOADING": "Fetching custom roles...",
     "SEARCH_404": "هیچ گزینه‌ای با این شرایط پیدا نشد.",
-    "PAYWALL": {
-      "TITLE": "Upgrade to create custom roles",
-      "AVAILABLE_ON": "The custom role feature is only available in the Business and Enterprise plans.",
-      "UPGRADE_PROMPT": "برای دسترسی به ویژگی‌های پیشرفته مانند مدیریت تیم، اتوماسیون، ویژگی‌های سفارشی و موارد دیگر، طرح خود را ارتقا دهید.",
-      "UPGRADE_NOW": "حالا ارتقا دهید",
-      "CANCEL_ANYTIME": "You can change or cancel your plan anytime"
-    },
-    "STARCHAT_PAYWALL": {
-      "AVAILABLE_ON": "The custom role feature is only available in the paid plans.",
-      "UPGRADE_PROMPT": "برای دسترسی به ویژگی‌های پیشرفته مانند گزارش‌های حسابرسی، ظرفیت اپراتور و غیره، به یک طرح پولی ارتقا دهید.",
-      "ASK_ADMIN": "لطفاً برای ارتقا با ادمین خود تماس بگیرید."
-    },
     "LIST": {
       "404": "There are no custom roles available in this account.",
       "TITLE": "Manage custom roles",
@@ -90,11 +78,6 @@
     },
     "COUNT": "{n} custom role | {n} custom roles",
     "SEARCH_PLACEHOLDER": "Search custom roles...",
-    "NO_RESULTS": "No custom roles found matching your search",
-    "ENTERPRISE_PAYWALL": {
-      "AVAILABLE_ON": "The custom role feature is only available in the paid plans.",
-      "UPGRADE_PROMPT": "برای دسترسی به ویژگی‌های پیشرفته مانند گزارش‌های حسابرسی، ظرفیت اپراتور و غیره، به یک طرح پولی ارتقا دهید.",
-      "ASK_ADMIN": "لطفاً برای ارتقا با ادمین خود تماس بگیرید."
-    }
+    "NO_RESULTS": "No custom roles found matching your search"
   }
 }

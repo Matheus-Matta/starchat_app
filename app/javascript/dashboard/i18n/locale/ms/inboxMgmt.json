@@ -1147,8 +1147,6 @@
         "ROUND_ROBIN": "Giliran bulat",
         "BALANCED": "Penugasan seimbang"
       },
-      "UPGRADE_PROMPT": "Custom assignment policies are available on the Business plan",
-      "UPGRADE_TO_BUSINESS": "Tingkatkan ke Perniagaan",
       "DEFAULT_POLICY_LINKED": "Default policy linked",
       "DEFAULT_POLICY_DESCRIPTION": "Link a custom assignment policy to customize how conversations are assigned to agents in this inbox.",
       "LINK_EXISTING_POLICY": "Link existing policy",

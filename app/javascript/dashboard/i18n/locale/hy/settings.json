@@ -309,10 +309,10 @@
     "SETTINGS": "Settings",
     "CONTACTS": "Contacts",
     "ACTIVE": "Active",
-    "COSMOS": "Cosmos",
-    "COSMOS_ASSISTANTS": "Assistants",
-    "COSMOS_DOCUMENTS": "Documents",
-    "COSMOS_RESPONSES": "FAQs",
+    "COSMOS": "Կապիտան",
+    "COSMOS_ASSISTANTS": "Օգնակիցներ",
+    "COSMOS_DOCUMENTS": "Փաստաթղթեր",
+    "COSMOS_RESPONSES": "Հաճախ տրվող հարցեր",
     "HOME": "Home",
     "AGENTS": "Agents",
     "AGENT_BOTS": "Bots",
@@ -375,10 +375,6 @@
     "AGENT_ASSIGNMENT": "Agent Assignment",
     "COMPANIES": "Ընկերություններ",
     "ALL_COMPANIES": "Բոլոր ընկերությունները",
-    "COSMOS": "Կապիտան",
-    "COSMOS_ASSISTANTS": "Օգնակիցներ",
-    "COSMOS_DOCUMENTS": "Փաստաթղթեր",
-    "COSMOS_RESPONSES": "Հաճախ տրվող հարցեր",
     "COSMOS_TOOLS": "Գործիքներ",
     "COSMOS_SCENARIOS": "Սցենարներ",
     "COSMOS_PLAYGROUND": "Խաղահրապարակ",
@@ -404,20 +400,6 @@
       "BUTTON_TXT": "Go to the billing portal"
     },
     "COSMOS": {
-      "TITLE": "Cosmos",
-      "DESCRIPTION": "Manage usage and credits for Cosmos AI.",
-      "BUTTON_TXT": "Buy more credits",
-      "DOCUMENTS": "Documents",
-      "RESPONSES": "Responses",
-      "UPGRADE": "Cosmos is not available on the free plan, upgrade now to get access to assistants, copilot and more."
-    },
-    "CHAT_WITH_US": {
-      "TITLE": "Need help?",
-      "DESCRIPTION": "Do you face any issues in billing? We are here to help.",
-      "BUTTON_TXT": "Chat with us"
-    },
-    "NO_BILLING_USER": "Your billing account is being configured. Please refresh the page and try again.",
-    "COSMOS": {
       "TITLE": "Կապիտան",
       "DESCRIPTION": "Կառավարեք Cosmos AI-ի օգտագործումն ու կրեդիտները։",
       "BUTTON_TXT": "Գնել ավելի շատ կրեդիտներ",
@@ -426,6 +408,12 @@
       "UPGRADE": "Cosmos-ը հասանելի չէ անվճար պլանում, արդիականացրեք հիմա՝ ստանալու օգնականներ, կոպիլոտ և ավելին։",
       "REFRESH_CREDITS": "Թարմացնել"
     },
+    "CHAT_WITH_US": {
+      "TITLE": "Need help?",
+      "DESCRIPTION": "Do you face any issues in billing? We are here to help.",
+      "BUTTON_TXT": "Chat with us"
+    },
+    "NO_BILLING_USER": "Your billing account is being configured. Please refresh the page and try again.",
     "TOPUP": {
       "BUY_CREDITS": "Գնել ավելի շատ կրեդիտներ",
       "MODAL_TITLE": "Գնել AI կրեդիտներ",
@@ -858,18 +846,6 @@
         "CERTIFICATE_ERROR": "Սերտիֆիկատը պարտադիր է",
         "IDP_ENTITY_ID_ERROR": "Ինքնության մատակարարի Entity ID-ն պարտադիր է"
       },
-      "ENTERPRISE_PAYWALL": {
-        "AVAILABLE_ON": "SAML SSO ֆունկցիան հասանելի է միայն Enterprise պլաններում։",
-        "UPGRADE_PROMPT": "Թարմացեք Enterprise պլանի՝ SAML միակ մուտքի և այլ առաջադեմ անվտանգության հատկությունների հասանելիության համար։",
-        "ASK_ADMIN": "Խնդրում ենք դիմեք ձեր ադմինիստրատորին թարմացման համար։"
-      },
-      "PAYWALL": {
-        "TITLE": "Թարմացրեք՝ SAML SSO-ն ակտիվացնելու համար",
-        "AVAILABLE_ON": "SAML SSO ֆունկցիան հասանելի է միայն Enterprise պլաններում։",
-        "UPGRADE_PROMPT": "Թարմացրեք ձեր պլանը՝ SAML միակ մուտքի և այլ առաջադեմ հատկությունների հասանելիության համար։",
-        "UPGRADE_NOW": "Թարմացրեք հիմա",
-        "CANCEL_ANYTIME": "Դուք կարող եք ցանկացած պահի փոխել կամ չեղարկել ձեր պլանը"
-      },
       "ATTRIBUTE_MAPPING": {
         "TITLE": "SAML հատկանիշների կարգավորում",
         "DESCRIPTION": "Հետևյալ հատկանիշների համապատասխանությունները պետք է կարգավորվեն ձեր ինքնության մատակարարում"
@@ -917,18 +893,6 @@
           "YES": "Այո",
           "NO": "Ոչ"
         }
-      },
-      "PAYWALL": {
-        "TITLE": "Արդիականացրեք՝ օգտագործելու համար պահանջվող հատկությունները",
-        "AVAILABLE_ON": "Պահանջվող զրույցի հատկությունների ֆունկցիոնալությունը հասանելի է Business և Enterprise պլաններում։",
-        "UPGRADE_PROMPT": "Արդիականացրեք ձեր պլանը՝ գործակալներին զրույցի լուծումից առաջ պահանջվող հատկությունները լրացնելու հրահանգ տալու համար։",
-        "UPGRADE_NOW": "Upgrade now",
-        "CANCEL_ANYTIME": "You can change or cancel your plan anytime"
-      },
-      "ENTERPRISE_PAYWALL": {
-        "AVAILABLE_ON": "The required conversation attributes feature is available on the paid plans.",
-        "UPGRADE_PROMPT": "Upgrade to a paid plan to enforce required attributes before conversation resolution.",
-        "ASK_ADMIN": "Please reach out to your administrator for the upgrade."
       }
     }
   }

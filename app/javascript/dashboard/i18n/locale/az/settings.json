@@ -310,9 +310,9 @@
     "CONTACTS": "Contacts",
     "ACTIVE": "Active",
     "COSMOS": "Cosmos",
-    "COSMOS_ASSISTANTS": "Assistants",
-    "COSMOS_DOCUMENTS": "Documents",
-    "COSMOS_RESPONSES": "FAQs",
+    "COSMOS_ASSISTANTS": "Köməkçilər",
+    "COSMOS_DOCUMENTS": "Sənədlər",
+    "COSMOS_RESPONSES": "Tez-tez verilən suallar",
     "HOME": "Home",
     "AGENTS": "Agents",
     "AGENT_BOTS": "Bots",
@@ -375,10 +375,6 @@
     "AGENT_ASSIGNMENT": "Agent Assignment",
     "COMPANIES": "Şirkətlər",
     "ALL_COMPANIES": "Bütün Şirkətlər",
-    "COSMOS": "Cosmos",
-    "COSMOS_ASSISTANTS": "Köməkçilər",
-    "COSMOS_DOCUMENTS": "Sənədlər",
-    "COSMOS_RESPONSES": "Tez-tez verilən suallar",
     "COSMOS_TOOLS": "Alətlər",
     "COSMOS_SCENARIOS": "Ssenarilər",
     "COSMOS_PLAYGROUND": "Oyun meydanı",
@@ -404,20 +400,6 @@
       "BUTTON_TXT": "Go to the billing portal"
     },
     "COSMOS": {
-      "TITLE": "Cosmos",
-      "DESCRIPTION": "Manage usage and credits for Cosmos AI.",
-      "BUTTON_TXT": "Buy more credits",
-      "DOCUMENTS": "Documents",
-      "RESPONSES": "Responses",
-      "UPGRADE": "Cosmos is not available on the free plan, upgrade now to get access to assistants, copilot and more."
-    },
-    "CHAT_WITH_US": {
-      "TITLE": "Need help?",
-      "DESCRIPTION": "Do you face any issues in billing? We are here to help.",
-      "BUTTON_TXT": "Chat with us"
-    },
-    "NO_BILLING_USER": "Your billing account is being configured. Please refresh the page and try again.",
-    "COSMOS": {
       "TITLE": "Kapitan",
       "DESCRIPTION": "Kapitan AI üçün istifadə və kreditləri idarə edin.",
       "BUTTON_TXT": "Daha çox kredit alın",
@@ -426,6 +408,12 @@
       "UPGRADE": "Kapitan pulsuz planda mövcud deyil, köməkçilərə, köməkçi pilot və daha çoxuna giriş əldə etmək üçün indi yüksəldin.",
       "REFRESH_CREDITS": "Yenilə"
     },
+    "CHAT_WITH_US": {
+      "TITLE": "Need help?",
+      "DESCRIPTION": "Do you face any issues in billing? We are here to help.",
+      "BUTTON_TXT": "Chat with us"
+    },
+    "NO_BILLING_USER": "Your billing account is being configured. Please refresh the page and try again.",
     "TOPUP": {
       "BUY_CREDITS": "Daha çox kredit al",
       "MODAL_TITLE": "AI Kreditləri Al",
@@ -858,18 +846,6 @@
         "CERTIFICATE_ERROR": "Sertifikat tələb olunur",
         "IDP_ENTITY_ID_ERROR": "Şəxsiyyət Təminatçısı Varlıq ID-si tələb olunur"
       },
-      "ENTERPRISE_PAYWALL": {
-        "AVAILABLE_ON": "SAML SSO xüsusiyyəti yalnız Enterprise planlarında mövcuddur.",
-        "UPGRADE_PROMPT": "SAML tək giriş və digər qabaqcıl təhlükəsizlik xüsusiyyətlərinə daxil olmaq üçün Enterprise planına yüksəldin.",
-        "ASK_ADMIN": "Yeniləmə üçün administratorunuzla əlaqə saxlayın."
-      },
-      "PAYWALL": {
-        "TITLE": "SAML SSO-nu aktivləşdirmək üçün yüksəldin",
-        "AVAILABLE_ON": "SAML SSO xüsusiyyəti yalnız Enterprise planlarında mövcuddur.",
-        "UPGRADE_PROMPT": "SAML tək giriş və digər qabaqcıl xüsusiyyətlərə daxil olmaq üçün planınızı yüksəldin.",
-        "UPGRADE_NOW": "İndi yüksəldin",
-        "CANCEL_ANYTIME": "Planınızı istənilən vaxt dəyişə və ya ləğv edə bilərsiniz"
-      },
       "ATTRIBUTE_MAPPING": {
         "TITLE": "SAML Atributlarının Quraşdırılması",
         "DESCRIPTION": "Aşağıdakı atribut xəritələşdirmələri identifikasiya təminatçınızda qurulmalıdır"
@@ -917,18 +893,6 @@
           "YES": "Bəli",
           "NO": "Xeyr"
         }
-      },
-      "PAYWALL": {
-        "TITLE": "Tələb olunan atributlardan istifadə etmək üçün yüksəldin",
-        "AVAILABLE_ON": "Tələb olunan söhbət atributları xüsusiyyəti Biznes və Enterprise planlarında mövcuddur.",
-        "UPGRADE_PROMPT": "Söhbətin həllindən əvvəl agentlərin tələb olunan atributları doldurmasını təmin etmək üçün planınızı yüksəldin.",
-        "UPGRADE_NOW": "İndi yüksəlt",
-        "CANCEL_ANYTIME": "Planınızı istənilən vaxt dəyişə və ya ləğv edə bilərsiniz"
-      },
-      "ENTERPRISE_PAYWALL": {
-        "AVAILABLE_ON": "Lazımi söhbət atributları funksiyası ödənişli planlarda mövcuddur.",
-        "UPGRADE_PROMPT": "Söhbətin həlli öncəsi tələb olunan atributların tətbiqi üçün ödənişli plana yüksəldin.",
-        "ASK_ADMIN": "Yeniləmə üçün administratorunuzla əlaqə saxlayın."
       }
     }
   }

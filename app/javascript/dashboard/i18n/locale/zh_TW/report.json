@@ -493,14 +493,7 @@
       "SAVED": "備註已成功儲存",
       "SAVE_ERROR": "無法儲存備註",
       "UPDATED_BY": "由 {name} 於 {time} 更新",
-      "UPDATED_BY_LABEL": "更新者",
-      "PAYWALL": {
-        "TITLE": "升級以新增審閱備註",
-        "AVAILABLE_ON": "審閱備註功能僅適用於 Business 和 Enterprise 方案。",
-        "UPGRADE_PROMPT": "透過審閱備註為每則 CSAT 回覆新增內部備註。記錄實際情況、更快發現問題模式，並從回饋中做出更好的決策。",
-        "UPGRADE_NOW": "立即升級",
-        "CANCEL_ANYTIME": "您可以隨時變更或取消方案"
-      }
+      "UPDATED_BY_LABEL": "更新者"
     }
   },
   "BOT_REPORTS": {

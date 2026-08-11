@@ -540,14 +540,7 @@
       "SAVED": "Notas salvas com sucesso",
       "SAVE_ERROR": "Falha ao salvar as notas",
       "UPDATED_BY": "Atualizado por {name} {time}",
-      "UPDATED_BY_LABEL": "Atualizado por",
-      "PAYWALL": {
-        "TITLE": "Atualize para adicionar notas de avaliação",
-        "AVAILABLE_ON": "O recurso de notas de avaliação está disponível apenas nos planos Business e Enterprise.",
-        "UPGRADE_PROMPT": "Adicione contexto interno a cada resposta de CSAT com notas de avaliação. Registre o que realmente aconteceu, identifique padrões mais rapidamente e tome decisões melhores a partir do seu feedback.",
-        "UPGRADE_NOW": "Atualizar agora",
-        "CANCEL_ANYTIME": "Você pode alterar ou cancelar seu plano a qualquer momento"
-      }
+      "UPDATED_BY_LABEL": "Atualizado por"
     }
   },
   "BOT_REPORTS": {

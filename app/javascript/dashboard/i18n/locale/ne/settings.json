@@ -309,10 +309,10 @@
     "SETTINGS": "Settings",
     "CONTACTS": "Contacts",
     "ACTIVE": "Active",
-    "COSMOS": "Cosmos",
-    "COSMOS_ASSISTANTS": "Assistants",
-    "COSMOS_DOCUMENTS": "Documents",
-    "COSMOS_RESPONSES": "FAQs",
+    "COSMOS": "क्याप्टेन",
+    "COSMOS_ASSISTANTS": "सहायकहरू",
+    "COSMOS_DOCUMENTS": "कागजातहरू",
+    "COSMOS_RESPONSES": "सोधिने प्रश्नहरू",
     "HOME": "Home",
     "AGENTS": "Agents",
     "AGENT_BOTS": "Bots",
@@ -375,10 +375,6 @@
     "AGENT_ASSIGNMENT": "Agent Assignment",
     "COMPANIES": "कम्पनीहरू",
     "ALL_COMPANIES": "सबै कम्पनीहरू",
-    "COSMOS": "क्याप्टेन",
-    "COSMOS_ASSISTANTS": "सहायकहरू",
-    "COSMOS_DOCUMENTS": "कागजातहरू",
-    "COSMOS_RESPONSES": "सोधिने प्रश्नहरू",
     "COSMOS_TOOLS": "उपकरणहरू",
     "COSMOS_SCENARIOS": "परिदृश्यहरू",
     "COSMOS_PLAYGROUND": "प्लेग्राउन्ड",
@@ -404,20 +400,6 @@
       "BUTTON_TXT": "Go to the billing portal"
     },
     "COSMOS": {
-      "TITLE": "Cosmos",
-      "DESCRIPTION": "Manage usage and credits for Cosmos AI.",
-      "BUTTON_TXT": "Buy more credits",
-      "DOCUMENTS": "Documents",
-      "RESPONSES": "Responses",
-      "UPGRADE": "Cosmos is not available on the free plan, upgrade now to get access to assistants, copilot and more."
-    },
-    "CHAT_WITH_US": {
-      "TITLE": "Need help?",
-      "DESCRIPTION": "Do you face any issues in billing? We are here to help.",
-      "BUTTON_TXT": "हामीसँग कुराकानी गर्नुहोस्"
-    },
-    "NO_BILLING_USER": "Your billing account is being configured. Please refresh the page and try again.",
-    "COSMOS": {
       "TITLE": "क्याप्टेन",
       "DESCRIPTION": "क्याप्टेन AI को प्रयोग र क्रेडिटहरू व्यवस्थापन गर्नुहोस्।",
       "BUTTON_TXT": "थप क्रेडिटहरू किन्नुहोस्",
@@ -426,6 +408,12 @@
       "UPGRADE": "क्याप्टेन निःशुल्क योजनामा उपलब्ध छैन। सहायकहरू, कोपाइलट र थप पहुँचका लागि अहिले नै अपग्रेड गर्नुहोस्।",
       "REFRESH_CREDITS": "रिफ्रेश"
     },
+    "CHAT_WITH_US": {
+      "TITLE": "Need help?",
+      "DESCRIPTION": "Do you face any issues in billing? We are here to help.",
+      "BUTTON_TXT": "हामीसँग कुराकानी गर्नुहोस्"
+    },
+    "NO_BILLING_USER": "Your billing account is being configured. Please refresh the page and try again.",
     "TOPUP": {
       "BUY_CREDITS": "थप क्रेडिट किन्नुहोस्",
       "MODAL_TITLE": "AI क्रेडिट किन्नुहोस्",
@@ -858,18 +846,6 @@
         "CERTIFICATE_ERROR": "Certificate आवश्यक छ",
         "IDP_ENTITY_ID_ERROR": "Identity Provider Entity ID आवश्यक छ"
       },
-      "ENTERPRISE_PAYWALL": {
-        "AVAILABLE_ON": "SAML SSO सुविधा Enterprise योजनाहरूमा मात्र उपलब्ध छ।",
-        "UPGRADE_PROMPT": "SAML सिंगल साइन-इन र अन्य उन्नत सुरक्षा सुविधाहरू प्रयोग गर्न Enterprise योजना अपग्रेड गर्नुहोस्।",
-        "ASK_ADMIN": "अपग्रेडका लागि कृपया आफ्नो प्रशासकलाई सम्पर्क गर्नुहोस्।"
-      },
-      "PAYWALL": {
-        "TITLE": "SAML SSO सक्षम गर्न अपग्रेड गर्नुहोस्",
-        "AVAILABLE_ON": "SAML SSO सुविधा केवल Enterprise योजनामा उपलब्ध छ।",
-        "UPGRADE_PROMPT": "SAML सिंगल साइन-इन र अन्य उन्नत सुविधाहरूको पहुँचका लागि आफ्नो योजना अपग्रेड गर्नुहोस्।",
-        "UPGRADE_NOW": "अहिले नै अपग्रेड गर्नुहोस्",
-        "CANCEL_ANYTIME": "तपाईंले आफ्नो योजना जुनसुकै बेला परिवर्तन वा रद्द गर्न सक्नुहुन्छ"
-      },
       "ATTRIBUTE_MAPPING": {
         "TITLE": "SAML एट्रिब्युट सेटअप",
         "DESCRIPTION": "तपाईंको आइडेन्टिटी प्रोभाइडरमा निम्न एट्रिब्युट म्यापिङहरू कन्फिगर गर्नुपर्छ"
@@ -917,18 +893,6 @@
           "YES": "हो",
           "NO": "होइन"
         }
-      },
-      "PAYWALL": {
-        "TITLE": "आवश्यक विशेषता प्रयोग गर्न योजना स्तरोन्नति गर्नुहोस्",
-        "AVAILABLE_ON": "आवश्यक संवाद विशेषता सुविधा Business र Enterprise योजनामा उपलब्ध छ।",
-        "UPGRADE_PROMPT": "संवाद टुंग्याउनु अघि एजेन्टलाई आवश्यक विशेषता भर्न अनुरोध गर्न योजना स्तरोन्नति गर्नुहोस्।",
-        "UPGRADE_NOW": "अहिले स्तरोन्नति गर्नुहोस्",
-        "CANCEL_ANYTIME": "तपाईंले आफ्नो योजना जुनसुकै बेला परिवर्तन वा रद्द गर्न सक्नुहुन्छ"
-      },
-      "ENTERPRISE_PAYWALL": {
-        "AVAILABLE_ON": "आवश्यक संवाद विशेषता सुविधा भुक्तानी योजना मा उपलब्ध छ।",
-        "UPGRADE_PROMPT": "संवाद टुंग्याउनु अघि आवश्यक विशेषता लागू गर्न भुक्तानी योजना मा स्तरोन्नति गर्नुहोस्।",
-        "ASK_ADMIN": "अपग्रेडका लागि कृपया आफ्नो प्रशासकलाई सम्पर्क गर्नुहोस्।"
       }
     }
   }

@@ -491,14 +491,7 @@
       "SAVED": "Märkmed salvestatud edukalt",
       "SAVE_ERROR": "Märkmete salvestamine ebaõnnestus",
       "UPDATED_BY": "Uuendas {name} {time}",
-      "UPDATED_BY_LABEL": "Uuendas",
-      "PAYWALL": {
-        "TITLE": "Uuenda, et lisada ülevaate märkmeid",
-        "AVAILABLE_ON": "The review notes feature is only available in the Business and Enterprise plans.",
-        "UPGRADE_PROMPT": "Lisa igale CSAT vastusele sisekontekst arvustuste märkmetega. Kogu teavet tegeliku olukorra kohta, avasta mustreid kiiremini ja tee paremaid otsuseid oma tagasiside põhjal.",
-        "UPGRADE_NOW": "Uuenda kohe",
-        "CANCEL_ANYTIME": "Saad oma plaani igal ajal muuta või tühistada"
-      }
+      "UPDATED_BY_LABEL": "Uuendas"
     }
   },
   "BOT_REPORTS": {

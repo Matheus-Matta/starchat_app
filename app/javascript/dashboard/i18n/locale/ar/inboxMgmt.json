@@ -1147,8 +1147,6 @@
         "ROUND_ROBIN": "Round robin",
         "BALANCED": "تعيين متوازن"
       },
-      "UPGRADE_PROMPT": "سياسة التعيين المخصصة متاحى في الخطة (Business) ",
-      "UPGRADE_TO_BUSINESS": "الترقية إلى (Business)",
       "DEFAULT_POLICY_LINKED": "السياسة الافتراضية المرتبطة",
       "DEFAULT_POLICY_DESCRIPTION": "ربط سياسة تعيين مخصصة لتخصيص كيفية تعيين المحادثات إلى الوكلاء في هذه القناه",
       "LINK_EXISTING_POLICY": "ربط السياسة الحالية",

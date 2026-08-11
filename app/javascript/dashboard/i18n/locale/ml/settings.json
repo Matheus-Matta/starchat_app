@@ -309,10 +309,10 @@
     "SETTINGS": "ക്രമീകരണങ്ങൾ",
     "CONTACTS": "കോൺ‌ടാക്റ്റുകൾ",
     "ACTIVE": "സജീവമാണ്",
-    "COSMOS": "Cosmos",
-    "COSMOS_ASSISTANTS": "Assistants",
-    "COSMOS_DOCUMENTS": "Documents",
-    "COSMOS_RESPONSES": "FAQs",
+    "COSMOS": "ക്യാപ്റ്റൻ",
+    "COSMOS_ASSISTANTS": "അസിസ്റ്റന്റുകൾ",
+    "COSMOS_DOCUMENTS": "ഡോക്യുമെന്റുകൾ",
+    "COSMOS_RESPONSES": "അടിക്കുറിപ്പുകൾ",
     "HOME": "ഹോം",
     "AGENTS": "ഏജന്റുമാർ",
     "AGENT_BOTS": "Bots",
@@ -375,10 +375,6 @@
     "AGENT_ASSIGNMENT": "Agent Assignment",
     "COMPANIES": "കമ്പനികൾ",
     "ALL_COMPANIES": "എല്ലാ കമ്പനികളും",
-    "COSMOS": "ക്യാപ്റ്റൻ",
-    "COSMOS_ASSISTANTS": "അസിസ്റ്റന്റുകൾ",
-    "COSMOS_DOCUMENTS": "ഡോക്യുമെന്റുകൾ",
-    "COSMOS_RESPONSES": "അടിക്കുറിപ്പുകൾ",
     "COSMOS_TOOLS": "ഉപകരണങ്ങൾ",
     "COSMOS_SCENARIOS": "സന്നിവേശങ്ങൾ",
     "COSMOS_PLAYGROUND": "പ്ലേഗ്രൗണ്ട്",
@@ -404,20 +400,6 @@
       "BUTTON_TXT": "Go to the billing portal"
     },
     "COSMOS": {
-      "TITLE": "Cosmos",
-      "DESCRIPTION": "Manage usage and credits for Cosmos AI.",
-      "BUTTON_TXT": "Buy more credits",
-      "DOCUMENTS": "Documents",
-      "RESPONSES": "Responses",
-      "UPGRADE": "Cosmos is not available on the free plan, upgrade now to get access to assistants, copilot and more."
-    },
-    "CHAT_WITH_US": {
-      "TITLE": "Need help?",
-      "DESCRIPTION": "Do you face any issues in billing? We are here to help.",
-      "BUTTON_TXT": "ഞങ്ങളുമായി ചാറ്റുചെയ്യുക"
-    },
-    "NO_BILLING_USER": "Your billing account is being configured. Please refresh the page and try again.",
-    "COSMOS": {
       "TITLE": "ക്യാപ്റ്റൻ",
       "DESCRIPTION": "ക്യാപ്റ്റൻ AI-യുടെ ഉപയോഗവും ക്രെഡിറ്റുകളും നിയന്ത്രിക്കുക.",
       "BUTTON_TXT": "കൂടുതൽ ക്രെഡിറ്റുകൾ വാങ്ങുക",
@@ -426,6 +408,12 @@
       "UPGRADE": "Cosmos സൗജന്യ പ്ലാനിൽ ലഭ്യമല്ല, അസിസ്റ്റന്റുകൾ, കോപൈലറ്റ് എന്നിവയ്ക്ക് ആക്‌സസ് നേടാൻ ഇപ്പോൾ അപ്‌ഗ്രേഡ് ചെയ്യുക.",
       "REFRESH_CREDITS": "പുതുക്കുക"
     },
+    "CHAT_WITH_US": {
+      "TITLE": "Need help?",
+      "DESCRIPTION": "Do you face any issues in billing? We are here to help.",
+      "BUTTON_TXT": "ഞങ്ങളുമായി ചാറ്റുചെയ്യുക"
+    },
+    "NO_BILLING_USER": "Your billing account is being configured. Please refresh the page and try again.",
     "TOPUP": {
       "BUY_CREDITS": "കൂടുതൽ ക്രെഡിറ്റുകൾ വാങ്ങുക",
       "MODAL_TITLE": "AI ക്രെഡിറ്റുകൾ വാങ്ങുക",
@@ -858,18 +846,6 @@
         "CERTIFICATE_ERROR": "സർട്ടിഫിക്കറ്റ് ആവശ്യമാണ്",
         "IDP_ENTITY_ID_ERROR": "ഐഡന്റിറ്റി പ്രൊവൈഡർ എന്റിറ്റി ഐഡി ആവശ്യമാണ്"
       },
-      "ENTERPRISE_PAYWALL": {
-        "AVAILABLE_ON": "SAML SSO ഫീച്ചർ എന്റർപ്രൈസ് പ്ലാനുകളിൽ മാത്രമേ ലഭ്യമാകൂ.",
-        "UPGRADE_PROMPT": "SAML സിംഗിൾ സൈൻ-ഓൺ ഉൾപ്പെടെയുള്ള മറ്റ് ആധുനിക സുരക്ഷാ ഫീച്ചറുകൾ ഉപയോഗിക്കാൻ എന്റർപ്രൈസ് പ്ലാനിലേക്ക് അപ്ഗ്രേഡ് ചെയ്യുക.",
-        "ASK_ADMIN": "അപ്ഗ്രേഡിനായി ദയവായി നിങ്ങളുടെ അഡ്മിനിസ്ട്രേറ്ററെ സമീപിക്കുക."
-      },
-      "PAYWALL": {
-        "TITLE": "SAML SSO സജീവമാക്കാൻ അപ്ഗ്രേഡ് ചെയ്യുക",
-        "AVAILABLE_ON": "SAML SSO ഫീച്ചർ എന്റർപ്രൈസ് പ്ലാനുകളിൽ മാത്രമേ ലഭ്യമാകൂ.",
-        "UPGRADE_PROMPT": "SAML സിംഗിൾ സൈൻ-ഓൺ ഉൾപ്പെടെ മറ്റ് പുരോഗമന ഫീച്ചറുകൾ ലഭിക്കാൻ നിങ്ങളുടെ പ്ലാൻ അപ്ഗ്രേഡ് ചെയ്യുക.",
-        "UPGRADE_NOW": "ഇപ്പോൾ അപ്ഗ്രേഡ് ചെയ്യുക",
-        "CANCEL_ANYTIME": "നിങ്ങൾക്ക് എപ്പോഴും നിങ്ങളുടെ പ്ലാൻ മാറ്റാനും റദ്ദാക്കാനും കഴിയും"
-      },
       "ATTRIBUTE_MAPPING": {
         "TITLE": "SAML ഗുണലക്ഷണ ക്രമീകരണം",
         "DESCRIPTION": "താഴെപ്പറയുന്ന ഗുണലക്ഷണ മാപ്പിംഗ് നിങ്ങളുടെ ഐഡന്റിറ്റി പ്രൊവൈഡറിൽ ക്രമീകരിക്കണം"
@@ -917,18 +893,6 @@
           "YES": "അതെ",
           "NO": "ഇല്ല"
         }
-      },
-      "PAYWALL": {
-        "TITLE": "ആവശ്യമായ ഗുണങ്ങൾ ഉപയോഗിക്കാൻ അപ്ഗ്രേഡ് ചെയ്യുക",
-        "AVAILABLE_ON": "ആവശ്യമായ സംഭാഷണ ഗുണങ്ങൾ ബിസിനസ്സ്, എന്റർപ്രൈസ് പ്ലാനുകളിൽ ലഭ്യമാണ്.",
-        "UPGRADE_PROMPT": "സംഭാഷണം പരിഹരിക്കുന്നതിന് മുമ്പ് ഏജന്റുമാരെ ആവശ്യമായ ഗുണങ്ങൾ പൂരിപ്പിക്കാൻ പ്രേരിപ്പിക്കാൻ നിങ്ങളുടെ പ്ലാൻ അപ്ഗ്രേഡ് ചെയ്യുക.",
-        "UPGRADE_NOW": "ഇപ്പോൾ അപ്ഗ്രേഡ് ചെയ്യുക",
-        "CANCEL_ANYTIME": "നിങ്ങളുടെ പ്ലാൻ എപ്പോഴും മാറ്റുകയോ റദ്ദാക്കുകയോ ചെയ്യാം"
-      },
-      "ENTERPRISE_PAYWALL": {
-        "AVAILABLE_ON": "ആവശ്യമായ സംഭാഷണ ഗുണങ്ങൾ പണമടയ്ക്കുന്ന പ്ലാനുകളിൽ ലഭ്യമാണ്.",
-        "UPGRADE_PROMPT": "സംഭാഷണം തീരുന്നതിന് മുമ്പ് ആവശ്യമായ ഗുണങ്ങൾ നിർബന്ധമാക്കാൻ പണമടയ്ക്കുന്ന പ്ലാനിലേക്ക് അപ്‌ഗ്രേഡ് ചെയ്യുക.",
-        "ASK_ADMIN": "അപ്‌ഗ്രേഡിനായി ദയവായി നിങ്ങളുടെ അഡ്മിനിസ്ട്രേറ്ററെ സമീപിക്കുക."
       }
     }
   }

@@ -6,18 +6,6 @@
     "HEADER_BTN_TXT": "Add custom role",
     "LOADING": "Fetching custom roles...",
     "SEARCH_404": "No hay elementos que coincidan con esta consulta.",
-    "PAYWALL": {
-      "TITLE": "Upgrade to create custom roles",
-      "AVAILABLE_ON": "The custom role feature is only available in the Business and Enterprise plans.",
-      "UPGRADE_PROMPT": "Actualiza tu plan para tener acceso a funciones avanzadas como gestión de equipos, automatizaciones, atributos personalizados y más.",
-      "UPGRADE_NOW": "Actualizar ahora",
-      "CANCEL_ANYTIME": "Puede cambiar o cancelar su plan en cualquier momento"
-    },
-    "STARCHAT_PAYWALL": {
-      "AVAILABLE_ON": "The custom role feature is only available in the paid plans.",
-      "UPGRADE_PROMPT": "Actualice a un plan pago para acceder a funciones avanzadas como registros de auditoría, capacidad de agente y más.",
-      "ASK_ADMIN": "Por favor, comuníquese con su administrador para la actualización."
-    },
     "LIST": {
       "404": "There are no custom roles available in this account.",
       "TITLE": "Manage custom roles",
@@ -90,11 +78,6 @@
     },
     "COUNT": "{n} custom role | {n} custom roles",
     "SEARCH_PLACEHOLDER": "Search custom roles...",
-    "NO_RESULTS": "No custom roles found matching your search",
-    "ENTERPRISE_PAYWALL": {
-      "AVAILABLE_ON": "The custom role feature is only available in the paid plans.",
-      "UPGRADE_PROMPT": "Actualice a un plan pago para acceder a funciones avanzadas como registros de auditoría, capacidad de agente y más.",
-      "ASK_ADMIN": "Por favor, comuníquese con su administrador para la actualización."
-    }
+    "NO_RESULTS": "No custom roles found matching your search"
   }
 }

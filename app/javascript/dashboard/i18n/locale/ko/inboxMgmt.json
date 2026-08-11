@@ -1147,8 +1147,6 @@
         "ROUND_ROBIN": "라운드 로빈",
         "BALANCED": "균형 할당"
       },
-      "UPGRADE_PROMPT": "사용자 정의 할당 정책은 Business 플랜에서 사용할 수 있습니다.",
-      "UPGRADE_TO_BUSINESS": "Business로 업그레이드",
       "DEFAULT_POLICY_LINKED": "기본 정책이 연결됨",
       "DEFAULT_POLICY_DESCRIPTION": "이 받은 메시지함에서 대화가 에이전트에게 할당되는 방식을 사용자 정의하려면 사용자 정의 할당 정책을 연결하십시오.",
       "LINK_EXISTING_POLICY": "기존 정책 연결",

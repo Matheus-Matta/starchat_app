@@ -310,9 +310,9 @@
     "CONTACTS": "Contacts",
     "ACTIVE": "Active",
     "COSMOS": "Cosmos",
-    "COSMOS_ASSISTANTS": "Assistants",
-    "COSMOS_DOCUMENTS": "Documents",
-    "COSMOS_RESPONSES": "FAQs",
+    "COSMOS_ASSISTANTS": "Pembantu",
+    "COSMOS_DOCUMENTS": "Dokumen",
+    "COSMOS_RESPONSES": "Soalan Lazim",
     "HOME": "Home",
     "AGENTS": "Ejen",
     "AGENT_BOTS": "Bots",
@@ -375,10 +375,6 @@
     "AGENT_ASSIGNMENT": "Agent Assignment",
     "COMPANIES": "Syarikat",
     "ALL_COMPANIES": "Semua Syarikat",
-    "COSMOS": "Cosmos",
-    "COSMOS_ASSISTANTS": "Pembantu",
-    "COSMOS_DOCUMENTS": "Dokumen",
-    "COSMOS_RESPONSES": "Soalan Lazim",
     "COSMOS_TOOLS": "Alat",
     "COSMOS_SCENARIOS": "Senario",
     "COSMOS_PLAYGROUND": "Padang Permainan",
@@ -405,20 +401,6 @@
     },
     "COSMOS": {
       "TITLE": "Cosmos",
-      "DESCRIPTION": "Manage usage and credits for Cosmos AI.",
-      "BUTTON_TXT": "Buy more credits",
-      "DOCUMENTS": "Documents",
-      "RESPONSES": "Responses",
-      "UPGRADE": "Cosmos is not available on the free plan, upgrade now to get access to assistants, copilot and more."
-    },
-    "CHAT_WITH_US": {
-      "TITLE": "Need help?",
-      "DESCRIPTION": "Do you face any issues in billing? We are here to help.",
-      "BUTTON_TXT": "Chat with us"
-    },
-    "NO_BILLING_USER": "Your billing account is being configured. Please refresh the page and try again.",
-    "COSMOS": {
-      "TITLE": "Cosmos",
       "DESCRIPTION": "Urus penggunaan dan kredit untuk Cosmos AI.",
       "BUTTON_TXT": "Beli lebih banyak kredit",
       "DOCUMENTS": "Dokumen",
@@ -426,6 +408,12 @@
       "UPGRADE": "Cosmos tidak tersedia dalam pelan percuma, naik taraf sekarang untuk mendapatkan akses kepada pembantu, copilot dan lain-lain.",
       "REFRESH_CREDITS": "Segarkan"
     },
+    "CHAT_WITH_US": {
+      "TITLE": "Need help?",
+      "DESCRIPTION": "Do you face any issues in billing? We are here to help.",
+      "BUTTON_TXT": "Chat with us"
+    },
+    "NO_BILLING_USER": "Your billing account is being configured. Please refresh the page and try again.",
     "TOPUP": {
       "BUY_CREDITS": "Beli lebih banyak kredit",
       "MODAL_TITLE": "Beli Kredit AI",
@@ -858,18 +846,6 @@
         "CERTIFICATE_ERROR": "Sijil diperlukan",
         "IDP_ENTITY_ID_ERROR": "ID Entiti Penyedia Identiti diperlukan"
       },
-      "ENTERPRISE_PAYWALL": {
-        "AVAILABLE_ON": "Ciri SAML SSO hanya tersedia dalam pelan Enterprise.",
-        "UPGRADE_PROMPT": "Tingkatkan ke pelan Enterprise untuk mengakses SAML single sign-on dan ciri keselamatan lanjutan lain.",
-        "ASK_ADMIN": "Sila hubungi pentadbir anda untuk peningkatan."
-      },
-      "PAYWALL": {
-        "TITLE": "Tingkatkan untuk mengaktifkan SAML SSO",
-        "AVAILABLE_ON": "Ciri SAML SSO hanya tersedia dalam pelan Enterprise.",
-        "UPGRADE_PROMPT": "Tingkatkan pelan anda untuk mendapatkan akses kepada SAML single sign-on dan ciri lanjutan lain.",
-        "UPGRADE_NOW": "Tingkatkan sekarang",
-        "CANCEL_ANYTIME": "Anda boleh menukar atau membatalkan pelan anda bila-bila masa"
-      },
       "ATTRIBUTE_MAPPING": {
         "TITLE": "Tetapan Atribut SAML",
         "DESCRIPTION": "Pemetaan atribut berikut mesti dikonfigurasikan dalam penyedia identiti anda"
@@ -917,18 +893,6 @@
           "YES": "Ya",
           "NO": "Tidak"
         }
-      },
-      "PAYWALL": {
-        "TITLE": "Tingkatkan untuk menggunakan atribut wajib",
-        "AVAILABLE_ON": "Ciri atribut perbualan wajib tersedia pada pelan Perniagaan dan Perusahaan.",
-        "UPGRADE_PROMPT": "Tingkatkan pelan anda untuk menggesa ejen mengisi atribut wajib sebelum penyelesaian perbualan.",
-        "UPGRADE_NOW": "Tingkatkan sekarang",
-        "CANCEL_ANYTIME": "Anda boleh menukar atau membatalkan pelan anda bila-bila masa"
-      },
-      "ENTERPRISE_PAYWALL": {
-        "AVAILABLE_ON": "Ciri atribut perbualan wajib tersedia pada pelan berbayar.",
-        "UPGRADE_PROMPT": "Tingkatkan ke pelan berbayar untuk menguatkuasakan atribut wajib sebelum penyelesaian perbualan.",
-        "ASK_ADMIN": "Sila hubungi pentadbir anda untuk peningkatan."
       }
     }
   }

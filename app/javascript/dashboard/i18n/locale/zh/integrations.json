@@ -452,18 +452,6 @@
       "DESCRIPTION": "使用此试验场向您的助手发送消息，并检查其是否能够准确、快速地以您期望的语气做出回应。",
       "CREDIT_NOTE": "这里发送的消息将计入您的 Cosmos 积分。"
     },
-    "PAYWALL": {
-      "TITLE": "升级以使用 Cosmos AI",
-      "AVAILABLE_ON": "Cosmos 在免费计划中不可用。",
-      "UPGRADE_PROMPT": "升级您的计划以获取我们的助手、副驾驶等功能。",
-      "UPGRADE_NOW": "立即升级",
-      "CANCEL_ANYTIME": "您可以随时更改或取消您的计划"
-    },
-    "ENTERPRISE_PAYWALL": {
-      "AVAILABLE_ON": "Cosmos AI is only available in the Enterprise plans.",
-      "UPGRADE_PROMPT": "升级您的计划以获取我们的助手、副驾驶等功能。",
-      "ASK_ADMIN": "请联系您的管理员进行升级。"
-    },
     "BANNER": {
       "RESPONSES": "您已使用超过 80% 的回复限制。要继续使用 Cosmos AI，请升级。",
       "DOCUMENTS": "文档限制已满。升级以继续使用 Cosmos AI。"

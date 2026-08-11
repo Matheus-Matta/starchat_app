@@ -1147,8 +1147,6 @@
         "ROUND_ROBIN": "Naizmjenično",
         "BALANCED": "Uravnotežena dodjela"
       },
-      "UPGRADE_PROMPT": "Custom assignment policies are available on the Business plan",
-      "UPGRADE_TO_BUSINESS": "Upgrade to Business",
       "DEFAULT_POLICY_LINKED": "Zadana politika povezana",
       "DEFAULT_POLICY_DESCRIPTION": "Povežite prilagođenu politiku dodjele za prilagodbu načina na koji se razgovori dodjeljuju agentima u ovom inboxu.",
       "LINK_EXISTING_POLICY": "Poveži postojeću politiku",

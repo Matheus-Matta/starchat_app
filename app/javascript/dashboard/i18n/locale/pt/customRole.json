@@ -6,18 +6,6 @@
     "HEADER_BTN_TXT": "Adicionar função personalizada",
     "LOADING": "Buscando funções personalizadas...",
     "SEARCH_404": "Não há itens correspondentes a esta consulta.",
-    "PAYWALL": {
-      "TITLE": "Atualize para criar funções personalizadas",
-      "AVAILABLE_ON": "O recurso de função personalizada está disponível apenas nos planos \"Business\" e \"Starchats\".",
-      "UPGRADE_PROMPT": "Faça upgrade do seu plano para obter acesso a recursos avançados, como gestão de equipas, automações, atributos personalizados e muito mais.",
-      "UPGRADE_NOW": "Fazer upgrade agora",
-      "CANCEL_ANYTIME": "Pode alterar ou cancelar o plano a qualquer momento"
-    },
-    "STARCHAT_PAYWALL": {
-      "AVAILABLE_ON": "O recurso de função personalizada está disponível apenas nos planos pagos.",
-      "UPGRADE_PROMPT": "Faça upgrade para um plano pago para obter recursos avançados, como logs de auditoria, capacidade de agentes e muito mais.",
-      "ASK_ADMIN": "Por favor, entre em contato com o administrador para atualização."
-    },
     "LIST": {
       "404": "There are no custom roles available in this account.",
       "TITLE": "Gerir funções personalizadas",
@@ -91,11 +79,6 @@
     },
     "COUNT": "{n} custom role | {n} custom roles",
     "SEARCH_PLACEHOLDER": "Search custom roles...",
-    "NO_RESULTS": "No custom roles found matching your search",
-    "ENTERPRISE_PAYWALL": {
-      "AVAILABLE_ON": "O recurso de função personalizada está disponível apenas nos planos pagos.",
-      "UPGRADE_PROMPT": "Faça upgrade para um plano pago para obter recursos avançados, como logs de auditoria, capacidade de agentes e muito mais.",
-      "ASK_ADMIN": "Por favor, entre em contato com o administrador para atualização."
-    }
+    "NO_RESULTS": "No custom roles found matching your search"
   }
 }

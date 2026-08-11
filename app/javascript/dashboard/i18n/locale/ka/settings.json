@@ -375,10 +375,6 @@
     "AGENT_ASSIGNMENT": "Agent Assignment",
     "COMPANIES": "Companies",
     "ALL_COMPANIES": "All Companies",
-    "COSMOS": "Cosmos",
-    "COSMOS_ASSISTANTS": "Assistants",
-    "COSMOS_DOCUMENTS": "Documents",
-    "COSMOS_RESPONSES": "FAQs",
     "COSMOS_TOOLS": "ინსტრუმენტები",
     "COSMOS_SCENARIOS": "Scenarios",
     "COSMOS_PLAYGROUND": "Playground",
@@ -409,7 +405,8 @@
       "BUTTON_TXT": "Buy more credits",
       "DOCUMENTS": "Documents",
       "RESPONSES": "Responses",
-      "UPGRADE": "Cosmos is not available on the free plan, upgrade now to get access to assistants, copilot and more."
+      "UPGRADE": "Cosmos is not available on the free plan, upgrade now to get access to assistants, copilot and more.",
+      "REFRESH_CREDITS": "Refresh"
     },
     "CHAT_WITH_US": {
       "TITLE": "Need help?",
@@ -417,15 +414,6 @@
       "BUTTON_TXT": "Chat with us"
     },
     "NO_BILLING_USER": "Your billing account is being configured. Please refresh the page and try again.",
-    "COSMOS": {
-      "TITLE": "Cosmos",
-      "DESCRIPTION": "Manage usage and credits for Cosmos AI.",
-      "BUTTON_TXT": "Buy more credits",
-      "DOCUMENTS": "Documents",
-      "RESPONSES": "Responses",
-      "UPGRADE": "Cosmos is not available on the free plan, upgrade now to get access to assistants, copilot and more.",
-      "REFRESH_CREDITS": "Refresh"
-    },
     "TOPUP": {
       "BUY_CREDITS": "Buy more credits",
       "MODAL_TITLE": "Buy AI Credits",
@@ -858,18 +846,6 @@
         "CERTIFICATE_ERROR": "სერტიფიკატი სავალდებულოა",
         "IDP_ENTITY_ID_ERROR": "Identity Provider Entity ID სავალდებულოა"
       },
-      "ENTERPRISE_PAYWALL": {
-        "AVAILABLE_ON": "SAML SSO ფუნქცია ხელმისაწვდომია მხოლოდ Enterprise გეგმებში.",
-        "UPGRADE_PROMPT": "გადადით Enterprise გეგმაზე, რათა მიიღოთ წვდომა SAML-ის ერთჯერად შესვლასა და სხვა გაფართოებულ უსაფრთხოების ფუნქციებზე.",
-        "ASK_ADMIN": "Please reach out to your administrator for the upgrade."
-      },
-      "PAYWALL": {
-        "TITLE": "განაახლეთ გეგმა SAML SSO-ს ჩასართავად",
-        "AVAILABLE_ON": "SAML SSO ფუნქცია ხელმისაწვდომია მხოლოდ Enterprise გეგმებში.",
-        "UPGRADE_PROMPT": "განაახლეთ თქვენი გეგმა, რათა მიიღოთ წვდომა SAML-ის ერთჯერად შესვლასა და სხვა გაფართოებულ ფუნქციებზე.",
-        "UPGRADE_NOW": "Upgrade now",
-        "CANCEL_ANYTIME": "You can change or cancel your plan anytime"
-      },
       "ATTRIBUTE_MAPPING": {
         "TITLE": "SAML-ის ატრიბუტების კონფიგურაცია",
         "DESCRIPTION": "ქვემოთ ჩამოთვლილი ატრიბუტების ასახვა უნდა დააკონფიგურიროთ თქვენს იდენტობის პროვაიდერში"
@@ -917,18 +893,6 @@
           "YES": "Yes",
           "NO": "No"
         }
-      },
-      "PAYWALL": {
-        "TITLE": "Upgrade to use required attributes",
-        "AVAILABLE_ON": "The required conversation attributes feature is available on the Business and Enterprise plans.",
-        "UPGRADE_PROMPT": "Upgrade your plan to prompt agents to fill required attributes before conversation resolution.",
-        "UPGRADE_NOW": "Upgrade now",
-        "CANCEL_ANYTIME": "You can change or cancel your plan anytime"
-      },
-      "ENTERPRISE_PAYWALL": {
-        "AVAILABLE_ON": "The required conversation attributes feature is available on the paid plans.",
-        "UPGRADE_PROMPT": "Upgrade to a paid plan to enforce required attributes before conversation resolution.",
-        "ASK_ADMIN": "Please reach out to your administrator for the upgrade."
       }
     }
   }

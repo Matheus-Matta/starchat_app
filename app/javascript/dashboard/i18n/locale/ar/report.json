@@ -493,14 +493,7 @@
       "SAVED": "تم حفظ الملاحظات بنجاح",
       "SAVE_ERROR": "فشل في حفظ الملاحظات",
       "UPDATED_BY": "تم التحديث بواسطة {name} {time}",
-      "UPDATED_BY_LABEL": "تم التحديث بواسطة",
-      "PAYWALL": {
-        "TITLE": "قم بالترقية لإضافة ملاحظات المراجعة",
-        "AVAILABLE_ON": "ميزة مراجعة الملاحظات متاحة فقط في الخطط Business و Enterprise.",
-        "UPGRADE_PROMPT": "Add internal context to every CSAT response with review notes. Capture what really happened, spot patterns faster, and make better decisions from your feedback.",
-        "UPGRADE_NOW": "الترقية الآن",
-        "CANCEL_ANYTIME": "You can change or cancel your plan anytime"
-      }
+      "UPDATED_BY_LABEL": "تم التحديث بواسطة"
     }
   },
   "BOT_REPORTS": {

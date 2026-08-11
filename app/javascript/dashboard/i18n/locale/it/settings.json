@@ -310,9 +310,9 @@
     "CONTACTS": "Contatti",
     "ACTIVE": "Attivo",
     "COSMOS": "Cosmos",
-    "COSMOS_ASSISTANTS": "Assistants",
-    "COSMOS_DOCUMENTS": "Documents",
-    "COSMOS_RESPONSES": "FAQs",
+    "COSMOS_ASSISTANTS": "Assistenti",
+    "COSMOS_DOCUMENTS": "Documenti",
+    "COSMOS_RESPONSES": "FAQ",
     "HOME": "Home",
     "AGENTS": "Agenti",
     "AGENT_BOTS": "Bots",
@@ -375,10 +375,6 @@
     "AGENT_ASSIGNMENT": "Agent Assignment",
     "COMPANIES": "Aziende",
     "ALL_COMPANIES": "Tutte le Aziende",
-    "COSMOS": "Cosmos",
-    "COSMOS_ASSISTANTS": "Assistenti",
-    "COSMOS_DOCUMENTS": "Documenti",
-    "COSMOS_RESPONSES": "FAQ",
     "COSMOS_TOOLS": "Strumenti",
     "COSMOS_SCENARIOS": "Scenari",
     "COSMOS_PLAYGROUND": "Playground",
@@ -405,20 +401,6 @@
     },
     "COSMOS": {
       "TITLE": "Cosmos",
-      "DESCRIPTION": "Manage usage and credits for Cosmos AI.",
-      "BUTTON_TXT": "Buy more credits",
-      "DOCUMENTS": "Documents",
-      "RESPONSES": "Responses",
-      "UPGRADE": "Cosmos is not available on the free plan, upgrade now to get access to assistants, copilot and more."
-    },
-    "CHAT_WITH_US": {
-      "TITLE": "Hai bisogno di aiuto?",
-      "DESCRIPTION": "Hai qualche problema di fatturazione? Siamo qui per aiutarti.",
-      "BUTTON_TXT": "Chatta con noi"
-    },
-    "NO_BILLING_USER": "Il tuo account di fatturazione è in fase di configurazione. Per favore aggiorna la pagina e riprova.",
-    "COSMOS": {
-      "TITLE": "Cosmos",
       "DESCRIPTION": "Gestisci utilizzo e crediti per Cosmos AI.",
       "BUTTON_TXT": "Acquista più crediti",
       "DOCUMENTS": "Documenti",
@@ -426,6 +408,12 @@
       "UPGRADE": "Cosmos non è disponibile sul piano gratuito, aggiorna ora per ottenere l'accesso agli assistenti, copilot e altro ancora.",
       "REFRESH_CREDITS": "Aggiorna"
     },
+    "CHAT_WITH_US": {
+      "TITLE": "Hai bisogno di aiuto?",
+      "DESCRIPTION": "Hai qualche problema di fatturazione? Siamo qui per aiutarti.",
+      "BUTTON_TXT": "Chatta con noi"
+    },
+    "NO_BILLING_USER": "Il tuo account di fatturazione è in fase di configurazione. Per favore aggiorna la pagina e riprova.",
     "TOPUP": {
       "BUY_CREDITS": "Acquista più crediti",
       "MODAL_TITLE": "Acquista Crediti AI",
@@ -858,18 +846,6 @@
         "CERTIFICATE_ERROR": "Certificato richiesto",
         "IDP_ENTITY_ID_ERROR": "Identity Provider Entity ID è richiesto"
       },
-      "ENTERPRISE_PAYWALL": {
-        "AVAILABLE_ON": "La funzionalità SAML SSO è disponibile solo nei piani Enterprise.",
-        "UPGRADE_PROMPT": "Passa a un piano Enterprise per accedere a SAML single sign-on e ad altre funzionalità di sicurezza avanzate.",
-        "ASK_ADMIN": "Contatta il tuo amministratore per l'aggiornamento."
-      },
-      "PAYWALL": {
-        "TITLE": "Aggiorna per abilitare SAML SSO",
-        "AVAILABLE_ON": "La funzionalità SAML SSO è disponibile solo nei piani Enterprise.",
-        "UPGRADE_PROMPT": "Aggiorna il tuo piano per ottenere l'accesso a SAML single sign-on e altre funzionalità avanzate.",
-        "UPGRADE_NOW": "Aggiorna ora",
-        "CANCEL_ANYTIME": "Puoi modificare o annullare il tuo piano in qualsiasi momento"
-      },
       "ATTRIBUTE_MAPPING": {
         "TITLE": "Impostazioni Attributi SAML",
         "DESCRIPTION": "I seguenti mapping degli attributi devono essere configurati nel tuo Identity Provider"
@@ -917,18 +893,6 @@
           "YES": "Sì",
           "NO": "No"
         }
-      },
-      "PAYWALL": {
-        "TITLE": "Aggiorna per utilizzare gli attributi richiesti",
-        "AVAILABLE_ON": "La funzionalità Attributi di Conversazione Richiesti è disponibile solo nei piani Business e Enterprise.",
-        "UPGRADE_PROMPT": "Aggiorna il tuo piano per chiedere agli operatori di compilare gli attributi richiesti prima della risoluzione della conversazione.",
-        "UPGRADE_NOW": "Aggiorna ora",
-        "CANCEL_ANYTIME": "Puoi modificare o annullare il tuo piano in qualsiasi momento"
-      },
-      "ENTERPRISE_PAYWALL": {
-        "AVAILABLE_ON": "La funzionalità Attributi di Conversazione Richiesti è disponibile solo nei piani a pagamento.",
-        "UPGRADE_PROMPT": "Passa a un piano a pagamento per imporre gli attributi richiesti prima della risoluzione della conversazione.",
-        "ASK_ADMIN": "Contatta il tuo amministratore per l'aggiornamento."
       }
     }
   }

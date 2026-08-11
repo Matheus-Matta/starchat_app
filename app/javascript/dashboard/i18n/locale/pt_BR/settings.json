@@ -388,13 +388,6 @@
     "SECURITY": "Segurança",
     "COMPANIES": "Empresas",
     "ALL_COMPANIES": "Todas as Empresas",
-    "COSMOS": "Capitão",
-    "COSMOS_ASSISTANTS": "Assistentes",
-    "COSMOS_DOCUMENTS": "Documentos",
-    "COSMOS_RESPONSES": "FAQs",
-    "COSMOS_TOOLS": "Ferramentas",
-    "COSMOS_SCENARIOS": "Cenários",
-    "COSMOS_PLAYGROUND": "Playground",
     "COSMOS_INBOXES": "Caixas de Entrada",
     "COSMOS_SETTINGS": "Configurações",
     "COSMOS_AI": "Capitão"
@@ -420,7 +413,8 @@
       "BUTTON_TXT": "Comprar mais créditos",
       "DOCUMENTS": "Documentos",
       "RESPONSES": "Respostas",
-      "UPGRADE": "O capitão não está disponível no plano gratuito, faça o upgrade para ter acesso aos assistentes, co-piloto e muito mais."
+      "UPGRADE": "O capitão não está disponível no plano gratuito, faça o upgrade para ter acesso aos assistentes, co-piloto e muito mais.",
+      "REFRESH_CREDITS": "Atualizar"
     },
     "CHAT_WITH_US": {
       "TITLE": "Precisa de ajuda?",
@@ -428,15 +422,6 @@
       "BUTTON_TXT": "Fale conosco no chat"
     },
     "NO_BILLING_USER": "A sua conta de cobrança está sendo configurada. Atualize a página e tente novamente.",
-    "COSMOS": {
-      "TITLE": "Capitão",
-      "DESCRIPTION": "Gerenciar uso e créditos para o Cosmos AI.",
-      "BUTTON_TXT": "Comprar mais créditos",
-      "DOCUMENTS": "Documentos",
-      "RESPONSES": "Respostas",
-      "UPGRADE": "O capitão não está disponível no plano gratuito, faça o upgrade para ter acesso aos assistentes, co-piloto e muito mais.",
-      "REFRESH_CREDITS": "Atualizar"
-    },
     "TOPUP": {
       "BUY_CREDITS": "Comprar mais créditos",
       "MODAL_TITLE": "Comprar Créditos de IA",
@@ -847,18 +832,6 @@
         "CERTIFICATE_ERROR": "O certificado é obrigatório",
         "IDP_ENTITY_ID_ERROR": "O ID da Entidade do Provedor de Identidade é obrigatório"
       },
-      "STARCHAT_PAYWALL": {
-        "AVAILABLE_ON": "O recurso SAML SSO está disponível apenas nos planos Enterprise.",
-        "UPGRADE_PROMPT": "Faça upgrade para um plano Enterprise para acessar o login único SAML e outros recursos de segurança avançados.",
-        "ASK_ADMIN": "Entre em contato com seu administrador para o upgrade."
-      },
-      "PAYWALL": {
-        "TITLE": "Faça upgrade para ativar o SAML SSO",
-        "AVAILABLE_ON": "O recurso SAML SSO está disponível apenas nos planos Enterprise.",
-        "UPGRADE_PROMPT": "Faça upgrade do seu plano para obter acesso ao login único SAML e outros recursos avançados.",
-        "UPGRADE_NOW": "Fazer upgrade agora",
-        "CANCEL_ANYTIME": "Você pode alterar ou cancelar seu plano a qualquer momento"
-      },
       "INFO_SECTION": {
         "TITLE": "Informações de configuração do SP",
         "TOOLTIP": "Use estas informações para configurar o Starchats como um provedor de serviços no seu IdP"
@@ -866,11 +839,6 @@
       "ATTRIBUTE_MAPPING": {
         "TITLE": "Mapeamento de atributos",
         "DESCRIPTION": "Mapeie os atributos SAML do seu IdP para os campos de perfil do Starchats"
-      },
-      "ENTERPRISE_PAYWALL": {
-        "AVAILABLE_ON": "O recurso de SSO via SAML está disponível apenas nos planos Enterprise.",
-        "UPGRADE_PROMPT": "Atualize para um plano Enterprise para ter acesso ao login único via SAML e outros recursos avançados de segurança.",
-        "ASK_ADMIN": "Entre em contato com seu administrador para fazer a atualização."
       }
     },
     "SAML_DISABLED_MESSAGE": "O SSO via SAML está desativado no momento. Entre em contato com o administrador para habilitar esse recurso."
@@ -906,18 +874,6 @@
       "SAVE": {
         "SUCCESS": "Atributos obrigatórios atualizados",
         "ERROR": "Não foi possível atualizar os atributos obrigatórios. Por favor, tente novamente"
-      },
-      "PAYWALL": {
-        "TITLE": "Atualize para usar os atributos obrigatórios",
-        "AVAILABLE_ON": "O recurso de atributos obrigatórios da conversa está disponível nos planos Business e Enterprise.",
-        "UPGRADE_PROMPT": "Atualize seu plano para solicitar que os agentes preencham os atributos obrigatórios antes da resolução da conversa.",
-        "UPGRADE_NOW": "Atualizar agora",
-        "CANCEL_ANYTIME": "Você pode alterar ou cancelar seu plano a qualquer momento"
-      },
-      "ENTERPRISE_PAYWALL": {
-        "AVAILABLE_ON": "O recurso de atributos obrigatórios de conversa está disponível nos planos pagos.",
-        "UPGRADE_PROMPT": "Atualize para um plano pago para exigir atributos obrigatórios antes da resolução da conversa.",
-        "ASK_ADMIN": "Entre em contato com seu administrador para fazer a atualização."
       }
     },
     "INDEX": {

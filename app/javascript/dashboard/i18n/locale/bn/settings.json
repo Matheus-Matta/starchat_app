@@ -309,15 +309,15 @@
     "SETTINGS": "Settings",
     "CONTACTS": "Contacts",
     "ACTIVE": "Active",
-    "COSMOS": "Cosmos",
-    "COSMOS_ASSISTANTS": "Assistants",
-    "COSMOS_DOCUMENTS": "Documents",
-    "COSMOS_RESPONSES": "FAQs",
-    "COSMOS_TOOLS": "Tools",
-    "COSMOS_SCENARIOS": "Scenarios",
-    "COSMOS_PLAYGROUND": "Playground",
-    "COSMOS_INBOXES": "Inboxes",
-    "COSMOS_SETTINGS": "Settings",
+    "COSMOS": "ক্যাপ্টেন",
+    "COSMOS_ASSISTANTS": "সহকারী",
+    "COSMOS_DOCUMENTS": "ডকুমেন্ট",
+    "COSMOS_RESPONSES": "প্রশ্নাবলী",
+    "COSMOS_TOOLS": "টুলস",
+    "COSMOS_SCENARIOS": "পরিস্থিতি",
+    "COSMOS_PLAYGROUND": "খেলার মাঠ",
+    "COSMOS_INBOXES": "ইনবক্স",
+    "COSMOS_SETTINGS": "সেটিংস",
     "HOME": "Home",
     "AGENTS": "Agents",
     "AGENT_BOTS": "Bots",
@@ -381,15 +381,6 @@
     "SECURITY": "Security",
     "COMPANIES": "কোম্পানি",
     "ALL_COMPANIES": "সমস্ত কোম্পানি",
-    "COSMOS": "ক্যাপ্টেন",
-    "COSMOS_ASSISTANTS": "সহকারী",
-    "COSMOS_DOCUMENTS": "ডকুমেন্ট",
-    "COSMOS_RESPONSES": "প্রশ্নাবলী",
-    "COSMOS_TOOLS": "টুলস",
-    "COSMOS_SCENARIOS": "পরিস্থিতি",
-    "COSMOS_PLAYGROUND": "খেলার মাঠ",
-    "COSMOS_INBOXES": "ইনবক্স",
-    "COSMOS_SETTINGS": "সেটিংস",
     "COSMOS_AI": "ক্যাপ্টেন",
     "CONVERSATION_WORKFLOW": "কথোপকথন ওয়ার্কফ্লো"
   },
@@ -409,20 +400,6 @@
       "BUTTON_TXT": "Go to the billing portal"
     },
     "COSMOS": {
-      "TITLE": "Cosmos",
-      "DESCRIPTION": "Manage usage and credits for Cosmos AI.",
-      "BUTTON_TXT": "Buy more credits",
-      "DOCUMENTS": "Documents",
-      "RESPONSES": "Responses",
-      "UPGRADE": "Cosmos is not available on the free plan, upgrade now to get access to assistants, copilot and more."
-    },
-    "CHAT_WITH_US": {
-      "TITLE": "Need help?",
-      "DESCRIPTION": "Do you face any issues in billing? We are here to help.",
-      "BUTTON_TXT": "Chat with us"
-    },
-    "NO_BILLING_USER": "Your billing account is being configured. Please refresh the page and try again.",
-    "COSMOS": {
       "TITLE": "ক্যাপ্টেন",
       "DESCRIPTION": "Cosmos AI-এর জন্য ব্যবহার এবং ক্রেডিট পরিচালনা করুন।.",
       "BUTTON_TXT": "আরও ক্রেডিট কিনুন",
@@ -431,6 +408,12 @@
       "UPGRADE": "Cosmos ফ্রি প্ল্যানে উপলব্ধ নয়, সহকারী, কপাইলট এবং আরও অনেক কিছু অ্যাক্সেস পেতে এখনই আপগ্রেড করুন.",
       "REFRESH_CREDITS": "রিফ্রেশ"
     },
+    "CHAT_WITH_US": {
+      "TITLE": "Need help?",
+      "DESCRIPTION": "Do you face any issues in billing? We are here to help.",
+      "BUTTON_TXT": "Chat with us"
+    },
+    "NO_BILLING_USER": "Your billing account is being configured. Please refresh the page and try again.",
     "TOPUP": {
       "BUY_CREDITS": "আরও ক্রেডিট কিনুন",
       "MODAL_TITLE": "AI ক্রেডিট কিনুন",
@@ -504,18 +487,6 @@
         "CERTIFICATE_ERROR": "Certificate is required",
         "IDP_ENTITY_ID_ERROR": "Identity Provider Entity ID is required"
       },
-      "STARCHAT_PAYWALL": {
-        "AVAILABLE_ON": "The SAML SSO feature is only available in the Enterprise plans.",
-        "UPGRADE_PROMPT": "Upgrade to an Enterprise plan to access SAML single sign-on and other advanced security features.",
-        "ASK_ADMIN": "Please reach out to your administrator for the upgrade."
-      },
-      "PAYWALL": {
-        "TITLE": "Upgrade to enable SAML SSO",
-        "AVAILABLE_ON": "The SAML SSO feature is only available in the Enterprise plans.",
-        "UPGRADE_PROMPT": "Upgrade your plan to get access to SAML single sign-on and other advanced features.",
-        "UPGRADE_NOW": "Upgrade now",
-        "CANCEL_ANYTIME": "You can change or cancel your plan anytime"
-      },
       "ATTRIBUTE_MAPPING": {
         "TITLE": "SAML Attribute Setup",
         "DESCRIPTION": "The following attribute mappings must be configured in your identity provider"
@@ -523,11 +494,6 @@
       "INFO_SECTION": {
         "TITLE": "Service Provider Information",
         "TOOLTIP": "Copy these values and configure them in your Identity Provider to establish the SAML connection"
-      },
-      "ENTERPRISE_PAYWALL": {
-        "AVAILABLE_ON": "SAML SSO ফিচার শুধুমাত্র এন্টারপ্রাইজ প্ল্যানগুলিতে উপলব্ধ।.",
-        "UPGRADE_PROMPT": "SAML সিঙ্গেল সাইন-অন এবং অন্যান্য উন্নত নিরাপত্তা বৈশিষ্ট্যগুলিতে অ্যাক্সেস পেতে একটি এন্টারপ্রাইজ প্ল্যানে আপগ্রেড করুন।.",
-        "ASK_ADMIN": "আপগ্রেডের জন্য অনুগ্রহ করে আপনার প্রশাসকের সাথে যোগাযোগ করুন।."
       }
     },
     "SAML_DISABLED_MESSAGE": "SAML SSO বর্তমানে নিষ্ক্রিয়। এই ফিচারটি সক্রিয় করতে আপনার প্রশাসকের সাথে যোগাযোগ করুন।."
@@ -927,18 +893,6 @@
           "YES": "হ্যাঁ",
           "NO": "না"
         }
-      },
-      "PAYWALL": {
-        "TITLE": "প্রয়োজনীয় অ্যাট্রিবিউট ব্যবহার করতে আপগ্রেড করুন",
-        "AVAILABLE_ON": "প্রয়োজনীয় কথোপকথন অ্যাট্রিবিউট ফিচারটি বিজনেস এবং এন্টারপ্রাইজ প্ল্যানে উপলব্ধ.",
-        "UPGRADE_PROMPT": "কথোপকথন সমাধানের আগে এজেন্টদের প্রয়োজনীয় অ্যাট্রিবিউট পূরণ করতে প্রম্পট করার জন্য আপনার প্ল্যান আপগ্রেড করুন.",
-        "UPGRADE_NOW": "এখনই আপগ্রেড করুন",
-        "CANCEL_ANYTIME": "আপনি যেকোনো সময় আপনার পরিকল্পনা পরিবর্তন বা বাতিল করতে পারেন"
-      },
-      "ENTERPRISE_PAYWALL": {
-        "AVAILABLE_ON": "প্রয়োজনীয় কথোপকথন বৈশিষ্ট্যগুলি পেইড প্ল্যানে উপলব্ধ.",
-        "UPGRADE_PROMPT": "কথোপকথন সমাধানের আগে প্রয়োজনীয় বৈশিষ্ট্যগুলি কার্যকর করতে একটি পেইড প্ল্যানে আপগ্রেড করুন.",
-        "ASK_ADMIN": "আপগ্রেডের জন্য অনুগ্রহ করে আপনার প্রশাসকের সাথে যোগাযোগ করুন."
       }
     }
   }

@@ -558,18 +558,6 @@
         "CERTIFICATE_ERROR": "Certificate is required",
         "IDP_ENTITY_ID_ERROR": "Identity Provider Entity ID is required"
       },
-      "ENTERPRISE_PAYWALL": {
-        "AVAILABLE_ON": "The SAML SSO feature is only available in the Enterprise plans.",
-        "UPGRADE_PROMPT": "Upgrade to an Enterprise plan to access SAML single sign-on and other advanced security features.",
-        "ASK_ADMIN": "请联系您的管理员进行升级。"
-      },
-      "PAYWALL": {
-        "TITLE": "Upgrade to enable SAML SSO",
-        "AVAILABLE_ON": "The SAML SSO feature is only available in the Enterprise plans.",
-        "UPGRADE_PROMPT": "Upgrade your plan to get access to SAML single sign-on and other advanced features.",
-        "UPGRADE_NOW": "立即升级",
-        "CANCEL_ANYTIME": "您可以随时更改或取消您的计划"
-      },
       "ATTRIBUTE_MAPPING": {
         "TITLE": "SAML Attribute Setup",
         "DESCRIPTION": "The following attribute mappings must be configured in your identity provider"
@@ -617,18 +605,6 @@
           "YES": "是",
           "NO": "否"
         }
-      },
-      "PAYWALL": {
-        "TITLE": "Upgrade to use required attributes",
-        "AVAILABLE_ON": "The required conversation attributes feature is available on the Business and Enterprise plans.",
-        "UPGRADE_PROMPT": "Upgrade your plan to prompt agents to fill required attributes before conversation resolution.",
-        "UPGRADE_NOW": "立即升级",
-        "CANCEL_ANYTIME": "您可以随时更改或取消您的计划"
-      },
-      "ENTERPRISE_PAYWALL": {
-        "AVAILABLE_ON": "The required conversation attributes feature is available on the paid plans.",
-        "UPGRADE_PROMPT": "Upgrade to a paid plan to enforce required attributes before conversation resolution.",
-        "ASK_ADMIN": "请联系您的管理员进行升级。"
       }
     }
   },

@@ -493,14 +493,7 @@
       "SAVED": "Notes saved successfully",
       "SAVE_ERROR": "Failed to save notes",
       "UPDATED_BY": "Updated by {name} {time}",
-      "UPDATED_BY_LABEL": "Updated by",
-      "PAYWALL": {
-        "TITLE": "Upgrade to add review notes",
-        "AVAILABLE_ON": "The review notes feature is only available in the Business and Enterprise plans.",
-        "UPGRADE_PROMPT": "Add internal context to every CSAT response with review notes. Capture what really happened, spot patterns faster, and make better decisions from your feedback.",
-        "UPGRADE_NOW": "Обновить сейчас",
-        "CANCEL_ANYTIME": "Вы можете изменить или отменить ваш тарифный план в любое время"
-      }
+      "UPDATED_BY_LABEL": "Updated by"
     }
   },
   "BOT_REPORTS": {

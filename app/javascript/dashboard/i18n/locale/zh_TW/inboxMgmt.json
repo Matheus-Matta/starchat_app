@@ -1147,8 +1147,6 @@
         "ROUND_ROBIN": "輪流分配",
         "BALANCED": "均衡分配"
       },
-      "UPGRADE_PROMPT": "自訂分配策略適用於 Business 方案",
-      "UPGRADE_TO_BUSINESS": "升級至 Business",
       "DEFAULT_POLICY_LINKED": "已連結預設策略",
       "DEFAULT_POLICY_DESCRIPTION": "連結自訂分配策略，以自訂此收件匣中對話分配給客服人員的方式。",
       "LINK_EXISTING_POLICY": "連結現有策略",

@@ -493,14 +493,7 @@
       "SAVED": "Note salvate correttamente",
       "SAVE_ERROR": "Impossibile salvare le note",
       "UPDATED_BY": "Aggiornato da {name} {time}",
-      "UPDATED_BY_LABEL": "Aggiornato da",
-      "PAYWALL": {
-        "TITLE": "Aggiorna per aggiungere note revisione",
-        "AVAILABLE_ON": "La funzionalità note revisione è disponibile solo nei piani Business e Enterprise.",
-        "UPGRADE_PROMPT": "Aggiungi note di revisione interne a ogni risposta CSAT. Comprendi meglio cosa è successo davvero, individua i pattern più rapidamente e prendi decisioni migliori a partire dal feedback.",
-        "UPGRADE_NOW": "Aggiorna ora",
-        "CANCEL_ANYTIME": "Puoi modificare o annullare il tuo piano in qualsiasi momento"
-      }
+      "UPDATED_BY_LABEL": "Aggiornato da"
     }
   },
   "BOT_REPORTS": {

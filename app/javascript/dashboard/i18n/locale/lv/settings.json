@@ -375,10 +375,6 @@
     "AGENT_ASSIGNMENT": "Agent Assignment",
     "COMPANIES": "Companies",
     "ALL_COMPANIES": "All Companies",
-    "COSMOS": "Cosmos",
-    "COSMOS_ASSISTANTS": "Asistenti",
-    "COSMOS_DOCUMENTS": "Dokumenti",
-    "COSMOS_RESPONSES": "Bieži uzdotie jautājumi",
     "COSMOS_TOOLS": "Tools",
     "COSMOS_SCENARIOS": "Scenarios",
     "COSMOS_PLAYGROUND": "Playground",
@@ -409,7 +405,8 @@
       "BUTTON_TXT": "Iegādāties vairāk kredītu",
       "DOCUMENTS": "Dokumenti",
       "RESPONSES": "Atbildes",
-      "UPGRADE": "Cosmos nav pieejams bezmaksas abonementā. Modernizējiet abonementu tūlīt, lai piekļūtu asistentiem un copilot."
+      "UPGRADE": "Cosmos nav pieejams bezmaksas abonementā. Modernizējiet abonementu tūlīt, lai piekļūtu asistentiem un copilot.",
+      "REFRESH_CREDITS": "Atjaunot"
     },
     "CHAT_WITH_US": {
       "TITLE": "Nepieciešama palīdzība?",
@@ -417,15 +414,6 @@
       "BUTTON_TXT": "Tērzēt ar mums"
     },
     "NO_BILLING_USER": "Jūsu norēķinu konts tiek konfigurēts. Lūdzu, atsvaidziniet lapu un mēģiniet vēlreiz.",
-    "COSMOS": {
-      "TITLE": "Cosmos",
-      "DESCRIPTION": "Pārvaldīt Cosmos AI lietošanu un kredītus.",
-      "BUTTON_TXT": "Iegādāties vairāk kredītu",
-      "DOCUMENTS": "Dokumenti",
-      "RESPONSES": "Atbildes",
-      "UPGRADE": "Cosmos nav pieejams bezmaksas abonementā. Modernizējiet abonementu tūlīt, lai piekļūtu asistentiem un copilot.",
-      "REFRESH_CREDITS": "Atjaunot"
-    },
     "TOPUP": {
       "BUY_CREDITS": "Iegādāties vairāk kredītu",
       "MODAL_TITLE": "Buy AI Credits",
@@ -858,18 +846,6 @@
         "CERTIFICATE_ERROR": "Certificate is required",
         "IDP_ENTITY_ID_ERROR": "Identity Provider Entity ID is required"
       },
-      "ENTERPRISE_PAYWALL": {
-        "AVAILABLE_ON": "The SAML SSO feature is only available in the Enterprise plans.",
-        "UPGRADE_PROMPT": "Upgrade to an Enterprise plan to access SAML single sign-on and other advanced security features.",
-        "ASK_ADMIN": "Lai pārietu uz maksas versiju, lūdzu sazinieties ar savu administratoru."
-      },
-      "PAYWALL": {
-        "TITLE": "Upgrade to enable SAML SSO",
-        "AVAILABLE_ON": "The SAML SSO feature is only available in the Enterprise plans.",
-        "UPGRADE_PROMPT": "Upgrade your plan to get access to SAML single sign-on and other advanced features.",
-        "UPGRADE_NOW": "Pāriet uz maksas versiju tagad",
-        "CANCEL_ANYTIME": "Jūs varat jebkurā laikā mainīt vai atcelt savu versiju"
-      },
       "ATTRIBUTE_MAPPING": {
         "TITLE": "SAML Attribute Setup",
         "DESCRIPTION": "The following attribute mappings must be configured in your identity provider"
@@ -917,18 +893,6 @@
           "YES": "Jā",
           "NO": "Nē"
         }
-      },
-      "PAYWALL": {
-        "TITLE": "Upgrade to use required attributes",
-        "AVAILABLE_ON": "The required conversation attributes feature is available on the Business and Enterprise plans.",
-        "UPGRADE_PROMPT": "Upgrade your plan to prompt agents to fill required attributes before conversation resolution.",
-        "UPGRADE_NOW": "Pāriet uz maksas versiju tagad",
-        "CANCEL_ANYTIME": "Jūs varat jebkurā laikā mainīt vai atcelt savu versiju"
-      },
-      "ENTERPRISE_PAYWALL": {
-        "AVAILABLE_ON": "The required conversation attributes feature is available on the paid plans.",
-        "UPGRADE_PROMPT": "Upgrade to a paid plan to enforce required attributes before conversation resolution.",
-        "ASK_ADMIN": "Lai pārietu uz maksas versiju, lūdzu sazinieties ar savu administratoru."
       }
     }
   }

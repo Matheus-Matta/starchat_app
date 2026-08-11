@@ -375,10 +375,6 @@
     "AGENT_ASSIGNMENT": "Agent Assignment",
     "COMPANIES": "Companies",
     "ALL_COMPANIES": "All Companies",
-    "COSMOS": "Cosmos",
-    "COSMOS_ASSISTANTS": "Assistants",
-    "COSMOS_DOCUMENTS": "Documents",
-    "COSMOS_RESPONSES": "FAQs",
     "COSMOS_TOOLS": "Tools",
     "COSMOS_SCENARIOS": "Scenarios",
     "COSMOS_PLAYGROUND": "Playground",
@@ -409,7 +405,8 @@
       "BUTTON_TXT": "Buy more credits",
       "DOCUMENTS": "Documents",
       "RESPONSES": "Responses",
-      "UPGRADE": "Cosmos is not available on the free plan, upgrade now to get access to assistants, copilot and more."
+      "UPGRADE": "Cosmos is not available on the free plan, upgrade now to get access to assistants, copilot and more.",
+      "REFRESH_CREDITS": "Reîmprospătare"
     },
     "CHAT_WITH_US": {
       "TITLE": "Aveţi nevoie de ajutor?",
@@ -417,15 +414,6 @@
       "BUTTON_TXT": "Discută cu noi"
     },
     "NO_BILLING_USER": "Contul de facturare este configurat. Vă rugăm să reîmprospătați pagina și încercați din nou.",
-    "COSMOS": {
-      "TITLE": "Cosmos",
-      "DESCRIPTION": "Manage usage and credits for Cosmos AI.",
-      "BUTTON_TXT": "Buy more credits",
-      "DOCUMENTS": "Documents",
-      "RESPONSES": "Responses",
-      "UPGRADE": "Cosmos is not available on the free plan, upgrade now to get access to assistants, copilot and more.",
-      "REFRESH_CREDITS": "Reîmprospătare"
-    },
     "TOPUP": {
       "BUY_CREDITS": "Buy more credits",
       "MODAL_TITLE": "Buy AI Credits",
@@ -858,18 +846,6 @@
         "CERTIFICATE_ERROR": "Certificate is required",
         "IDP_ENTITY_ID_ERROR": "Identity Provider Entity ID is required"
       },
-      "ENTERPRISE_PAYWALL": {
-        "AVAILABLE_ON": "The SAML SSO feature is only available in the Enterprise plans.",
-        "UPGRADE_PROMPT": "Upgrade to an Enterprise plan to access SAML single sign-on and other advanced security features.",
-        "ASK_ADMIN": "Please reach out to your administrator for the upgrade."
-      },
-      "PAYWALL": {
-        "TITLE": "Upgrade to enable SAML SSO",
-        "AVAILABLE_ON": "The SAML SSO feature is only available in the Enterprise plans.",
-        "UPGRADE_PROMPT": "Upgrade your plan to get access to SAML single sign-on and other advanced features.",
-        "UPGRADE_NOW": "Upgrade now",
-        "CANCEL_ANYTIME": "You can change or cancel your plan anytime"
-      },
       "ATTRIBUTE_MAPPING": {
         "TITLE": "SAML Attribute Setup",
         "DESCRIPTION": "The following attribute mappings must be configured in your identity provider"
@@ -917,18 +893,6 @@
           "YES": "Da",
           "NO": "Nu"
         }
-      },
-      "PAYWALL": {
-        "TITLE": "Upgrade to use required attributes",
-        "AVAILABLE_ON": "The required conversation attributes feature is available on the Business and Enterprise plans.",
-        "UPGRADE_PROMPT": "Upgrade your plan to prompt agents to fill required attributes before conversation resolution.",
-        "UPGRADE_NOW": "Upgrade now",
-        "CANCEL_ANYTIME": "You can change or cancel your plan anytime"
-      },
-      "ENTERPRISE_PAYWALL": {
-        "AVAILABLE_ON": "The required conversation attributes feature is available on the paid plans.",
-        "UPGRADE_PROMPT": "Upgrade to a paid plan to enforce required attributes before conversation resolution.",
-        "ASK_ADMIN": "Please reach out to your administrator for the upgrade."
       }
     }
   }

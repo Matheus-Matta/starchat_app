@@ -6,18 +6,6 @@
     "HEADER_BTN_TXT": "カスタムロールを追加",
     "LOADING": "カスタムロールを取得中...",
     "SEARCH_404": "検索内容（クエリ）に一致する項目はありませんでした。",
-    "PAYWALL": {
-      "TITLE": "アップグレードしてカスタムロールを作成",
-      "AVAILABLE_ON": "カスタムロール機能はビジネスプランおよびエンタープライズプランでのみ利用可能です。",
-      "UPGRADE_PROMPT": "チーム管理、自動化、カスタム属性などの高度な機能にアクセスするためにプランをアップグレードしてください。",
-      "UPGRADE_NOW": "今すぐアップグレード",
-      "CANCEL_ANYTIME": "プランはいつでも変更またはキャンセルできます"
-    },
-    "STARCHAT_PAYWALL": {
-      "AVAILABLE_ON": "カスタムロール機能は有料プランでのみ利用可能です。",
-      "UPGRADE_PROMPT": "監査ログ、担当者キャパシティなどの高度な機能にアクセスするために有料プランにアップグレードしてください。",
-      "ASK_ADMIN": "アップグレードについては管理者にお問い合わせください。"
-    },
     "LIST": {
       "404": "このアカウントでは利用可能なカスタムロールはありません。",
       "TITLE": "カスタムロールの管理",
@@ -90,11 +78,6 @@
     },
     "COUNT": "{n} custom role | {n} custom roles",
     "SEARCH_PLACEHOLDER": "Search custom roles...",
-    "NO_RESULTS": "No custom roles found matching your search",
-    "ENTERPRISE_PAYWALL": {
-      "AVAILABLE_ON": "カスタムロール機能は有料プランでのみ利用可能です。",
-      "UPGRADE_PROMPT": "監査ログ、担当者キャパシティなどの高度な機能にアクセスするために有料プランにアップグレードしてください。",
-      "ASK_ADMIN": "アップグレードについては管理者にお問い合わせください。"
-    }
+    "NO_RESULTS": "No custom roles found matching your search"
   }
 }

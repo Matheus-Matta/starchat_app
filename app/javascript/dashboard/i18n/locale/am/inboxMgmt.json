@@ -1147,8 +1147,6 @@
         "ROUND_ROBIN": "ሩንድ ሮቢን",
         "BALANCED": "ተመጣጣኝ ስራ መሰጠት"
       },
-      "UPGRADE_PROMPT": "በቢዝነስ እቅድ ላይ የተለየ የስራ መሰጠት ፖሊሲዎች አሉ",
-      "UPGRADE_TO_BUSINESS": "ወደ ቢዝነስ ይዘው ይሻሽሉ",
       "DEFAULT_POLICY_LINKED": "ነባሪ ፖሊሲ ተገናኝቷል",
       "DEFAULT_POLICY_DESCRIPTION": "ለዚህ ኢንቦክስ ውይይቶች እንዴት እንደሚሰጡ ለማስተካከል በተለየ የማዋል ፖሊሲ ያገናኙ።.",
       "LINK_EXISTING_POLICY": "ያለውን ፖሊሲ ይገናኙ",
