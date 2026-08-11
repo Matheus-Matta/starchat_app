@@ -195,7 +195,7 @@ NAO ERA DANO DO PORT (bug pre-existente do fork, deixado como estava):
 
 DECISOES DE PRODUTO APLICADAS (regra "tudo enterprise"):
   - api_and_webhooks_enabled? perdeu o gate de cloud (sempre true).
-  - message_reports perdeu o gate de cloud (StarchatsApp.chatwoot_cloud? e fixo em
+  - message_reports perdeu o gate de cloud (StarchatsApp.starchats_cloud? e fixo em
     true no fork, entao o gate nunca negava nada de qualquer forma).
   - Internal::ReconcilePlanConfigService e seu spec apagados (perform ja era `true`).
 

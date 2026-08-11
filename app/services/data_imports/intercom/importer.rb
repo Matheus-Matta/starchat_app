@@ -176,7 +176,7 @@ class DataImports::Intercom::Importer
     inbox = @placeholder_inboxes.inbox_for(source_type)
     contact_inbox = contact_inbox_for(contact, inbox)
 
-    mapped_conversation = mapping&.chatwoot_record
+    mapped_conversation = mapping&.starchats_record
     if mapped_conversation && mapping.data_import_id != @data_import.id
       skip_already_imported_item(item, mapping, already_handled: already_handled)
       reconcile_item_stats('conversation') if already_handled
@@ -190,7 +190,7 @@ class DataImports::Intercom::Importer
     if mapped_conversation
       record_mapping('conversation', source_id, chatwoot_conversation, metadata: conversation_metadata(conversation, inbox, source_type))
     end
-    item.update!(status: :imported, chatwoot_record_type: 'Conversation', chatwoot_record_id: chatwoot_conversation.id)
+    item.update!(status: :imported, starchats_record_type: 'Conversation', starchats_record_id: chatwoot_conversation.id)
     if already_handled
       reconcile_item_stats('conversation')
     else
@@ -232,7 +232,7 @@ class DataImports::Intercom::Importer
     item = nil
     with_query_timeout_retry do
       source_id = source_id_for(contact_payload)
-      if source_id.present? && (mapping = find_mapping('contact', source_id)) && (mapped_contact = mapping.chatwoot_record)
+      if source_id.present? && (mapping = find_mapping('contact', source_id)) && (mapped_contact = mapping.starchats_record)
         return reuse_mapped_contact(contact_payload, source_id, mapping, mapped_contact)
       end
 
@@ -242,7 +242,7 @@ class DataImports::Intercom::Importer
       item = import_item('contact', source_id, contact_payload)
       mapping = find_mapping('contact', source_id)
 
-      mapped_contact = mapping&.chatwoot_record
+      mapped_contact = mapping&.starchats_record
       if mapped_contact && mapping.data_import_id != @data_import.id
         skip_already_imported_item(item, mapping, already_handled: already_handled)
         return mapped_contact
@@ -252,7 +252,7 @@ class DataImports::Intercom::Importer
         imported_contact = mapped_contact || find_existing_contact(contact_payload) || create_contact(contact_payload)
         update_existing_contact(imported_contact, contact_payload)
         record_mapping('contact', source_id, imported_contact, metadata: contact_metadata(contact_payload))
-        item.update!(status: :imported, chatwoot_record_type: 'Contact', chatwoot_record_id: imported_contact.id)
+        item.update!(status: :imported, starchats_record_type: 'Contact', starchats_record_id: imported_contact.id)
         imported_contact
       end
       increment_stat('contacts', 'imported') unless already_handled
@@ -609,7 +609,7 @@ class DataImports::Intercom::Importer
     DataImportMapping.upsert_all(
       mapping_attributes,
       unique_by: MESSAGE_MAPPING_UNIQUE_INDEX,
-      update_only: %i[data_import_id chatwoot_record_type chatwoot_record_id metadata updated_at],
+      update_only: %i[data_import_id starchats_record_type starchats_record_id metadata updated_at],
       record_timestamps: false
     )
   end
@@ -621,8 +621,8 @@ class DataImports::Intercom::Importer
       source_provider: PROVIDER,
       source_object_type: 'message',
       source_object_id: entry.source_id,
-      chatwoot_record_type: record_type,
-      chatwoot_record_id: record_id,
+      starchats_record_type: record_type,
+      starchats_record_id: record_id,
       metadata: metadata,
       created_at: entry.mapping&.created_at || now,
       updated_at: now
@@ -731,8 +731,8 @@ class DataImports::Intercom::Importer
       source_provider: PROVIDER,
       source_object_type: 'message',
       source_object_id: entry.source_id,
-      chatwoot_record_type: 'Conversation',
-      chatwoot_record_id: conversation.id,
+      starchats_record_type: 'Conversation',
+      starchats_record_id: conversation.id,
       metadata: message_metadata(entry.part).merge(skipped: true, reason: 'blank_or_unsupported_intercom_part')
     )
     record_skipped_message_log(conversation, entry.source_id, entry.part)
@@ -747,8 +747,8 @@ class DataImports::Intercom::Importer
       source_object_id: entry.source_id
     )).tap do |mapping|
       mapping.data_import = @data_import
-      mapping.chatwoot_record_type = 'Message'
-      mapping.chatwoot_record_id = message.id
+      mapping.starchats_record_type = 'Message'
+      mapping.starchats_record_id = message.id
       mapping.metadata = message_metadata(entry.part)
       mapping.save!
     end
@@ -904,8 +904,8 @@ class DataImports::Intercom::Importer
       source_object_id: source_id
     ).tap do |mapping|
       mapping.data_import = @data_import
-      mapping.chatwoot_record_type = record.class.name
-      mapping.chatwoot_record_id = record.id
+      mapping.starchats_record_type = record.class.name
+      mapping.starchats_record_id = record.id
       mapping.metadata = metadata
       mapping.save!
     end
@@ -918,7 +918,7 @@ class DataImports::Intercom::Importer
       source_object_id: source_id
     )
     item = import_item('contact', source_id, contact_payload) unless item&.imported?
-    item.update!(status: :imported, chatwoot_record_type: 'Contact', chatwoot_record_id: mapped_contact.id)
+    item.update!(status: :imported, starchats_record_type: 'Contact', starchats_record_id: mapped_contact.id)
     mark_stat_group_dirty('contacts')
   end
 
@@ -946,8 +946,8 @@ class DataImports::Intercom::Importer
     DataImportItem.transaction do
       item.update!(
         status: :skipped,
-        chatwoot_record_type: mapping.chatwoot_record_type,
-        chatwoot_record_id: mapping.chatwoot_record_id,
+        starchats_record_type: mapping.starchats_record_type,
+        starchats_record_id: mapping.starchats_record_id,
         last_error_code: ALREADY_IMPORTED_ERROR_CODE,
         last_error_message: 'Already imported in a previous import.'
       )
@@ -1032,8 +1032,8 @@ class DataImports::Intercom::Importer
         reason: 'already_imported',
         source_provider: PROVIDER,
         previous_data_import_id: mapping.data_import_id,
-        chatwoot_record_type: mapping.chatwoot_record_type,
-        chatwoot_record_id: mapping.chatwoot_record_id
+        starchats_record_type: mapping.starchats_record_type,
+        starchats_record_id: mapping.starchats_record_id
       }
     )
   end

@@ -314,8 +314,8 @@ RSpec.describe DataImports::Intercom::Importer do
           source_provider: 'intercom',
           source_object_type: 'message',
           source_object_id: source_entry.source_id,
-          chatwoot_record_type: 'Message',
-          chatwoot_record_id: message.id,
+          starchats_record_type: 'Message',
+          starchats_record_id: message.id,
           metadata: {}
         )
         method.call(conversation, contact, batch_builder, entries)
@@ -530,7 +530,7 @@ RSpec.describe DataImports::Intercom::Importer do
 
   it 'indexes imported messages for advanced search' do
     allow(StarchatsApp).to receive(:advanced_search_allowed?).and_return(true)
-    allow(StarchatsApp).to receive(:chatwoot_cloud?).and_return(false)
+    allow(StarchatsApp).to receive(:starchats_cloud?).and_return(false)
     reindexed_message_ids = []
     reindex_transaction_depths = []
     transaction_depth_before_import = Message.connection.open_transactions
@@ -552,7 +552,7 @@ RSpec.describe DataImports::Intercom::Importer do
 
   it 'keeps imported messages successful when search reindexing fails', :aggregate_failures do
     allow(StarchatsApp).to receive(:advanced_search_allowed?).and_return(true)
-    allow(StarchatsApp).to receive(:chatwoot_cloud?).and_return(false)
+    allow(StarchatsApp).to receive(:starchats_cloud?).and_return(false)
     # rubocop:disable RSpec/AnyInstance
     allow_any_instance_of(Message).to receive(:reindex_for_search).and_raise(StandardError, 'search unavailable')
     # rubocop:enable RSpec/AnyInstance
@@ -561,7 +561,7 @@ RSpec.describe DataImports::Intercom::Importer do
 
     message = account.messages.find_by!(source_id: 'intercom:conversation:conversation_1:source:source_1')
     mapping = data_import.mappings.find_by!(source_object_type: 'message', source_object_id: 'conversation:conversation_1:source:source_1')
-    expect(mapping.chatwoot_record).to eq(message)
+    expect(mapping.starchats_record).to eq(message)
     expect(data_import.reload).to be_completed
     expect(data_import.import_errors.exists?).to be(false)
     expect(data_import.stats.dig('messages', 'imported')).to eq(3)
@@ -1119,7 +1119,7 @@ RSpec.describe DataImports::Intercom::Importer do
       )
       expect(next_data_import.import_errors.skip_logs.where(source_object_type: 'message')).to be_empty
       message_mappings = DataImportMapping.where(account: account, source_provider: 'intercom', source_object_type: 'message')
-      expect(message_mappings.filter_map(&:chatwoot_record).count).to eq(3)
+      expect(message_mappings.filter_map(&:starchats_record).count).to eq(3)
       expect(message_mappings.distinct.pluck(:data_import_id)).to eq([next_data_import.id])
     end
 
@@ -1145,7 +1145,7 @@ RSpec.describe DataImports::Intercom::Importer do
         source_object_id: 'conversation:conversation_1:part:part_1'
       )
       expect(conversation.messages.where(source_id: message.source_id).count).to eq(1)
-      expect(repaired_mapping.chatwoot_record).to eq(message)
+      expect(repaired_mapping.starchats_record).to eq(message)
       expect(importer).not_to have_received(:find_mapping).with('message', anything)
       expect(data_import.reload.stats.dig('messages', 'imported')).to eq(3)
     end
@@ -1198,8 +1198,8 @@ RSpec.describe DataImports::Intercom::Importer do
         source_provider: 'intercom',
         source_object_type: 'contact',
         source_object_id: 'contact_1',
-        chatwoot_record_type: 'Contact',
-        chatwoot_record_id: mapped_contact.id,
+        starchats_record_type: 'Contact',
+        starchats_record_id: mapped_contact.id,
         metadata: {}
       )
       data_import.items.create!(
@@ -1220,7 +1220,7 @@ RSpec.describe DataImports::Intercom::Importer do
 
       item = data_import.items.find_by!(source_object_type: 'contact', source_object_id: 'contact_1')
       expect(item).to be_imported
-      expect(item).to have_attributes(chatwoot_record_type: 'Contact', chatwoot_record_id: mapped_contact.id)
+      expect(item).to have_attributes(starchats_record_type: 'Contact', starchats_record_id: mapped_contact.id)
       expect(data_import.reload.stats.dig('contacts', 'imported')).to eq(1)
     end
   end
@@ -1238,7 +1238,7 @@ RSpec.describe DataImports::Intercom::Importer do
       expect(existing_contact.last_activity_at).to eq(Time.zone.at(1_700_000_090))
       expect(account.contacts.where(email: 'customer@example.com').count).to eq(1)
       item = data_import.items.imported.find_by!(source_object_type: 'contact', source_object_id: 'contact_1')
-      expect(item).to have_attributes(chatwoot_record_type: 'Contact', chatwoot_record_id: existing_contact.id)
+      expect(item).to have_attributes(starchats_record_type: 'Contact', starchats_record_id: existing_contact.id)
     end
   end
 
@@ -1254,7 +1254,7 @@ RSpec.describe DataImports::Intercom::Importer do
       expect(existing_contact.reload.identifier).to eq('external_1')
       expect(account.contacts.where(phone_number: '+15551234567').count).to eq(1)
       item = data_import.items.imported.find_by!(source_object_type: 'contact', source_object_id: 'contact_1')
-      expect(item).to have_attributes(chatwoot_record_type: 'Contact', chatwoot_record_id: existing_contact.id)
+      expect(item).to have_attributes(starchats_record_type: 'Contact', starchats_record_id: existing_contact.id)
     end
   end
 
@@ -1268,7 +1268,7 @@ RSpec.describe DataImports::Intercom::Importer do
       expect(existing_contact.identifier).to eq('external_1')
       expect(account.contacts.where(phone_number: '+15551234567').count).to eq(1)
       item = data_import.items.imported.find_by!(source_object_type: 'contact', source_object_id: 'contact_1')
-      expect(item).to have_attributes(chatwoot_record_type: 'Contact', chatwoot_record_id: existing_contact.id)
+      expect(item).to have_attributes(starchats_record_type: 'Contact', starchats_record_id: existing_contact.id)
     end
   end
 
@@ -1303,7 +1303,7 @@ RSpec.describe DataImports::Intercom::Importer do
       expect(account.contacts.where(phone_number: '+15551234567').count).to eq(1)
 
       item = data_import.items.imported.find_by!(source_object_type: 'contact', source_object_id: 'contact_1')
-      expect(item).to have_attributes(chatwoot_record_type: 'Contact', chatwoot_record_id: existing_contact.id)
+      expect(item).to have_attributes(starchats_record_type: 'Contact', starchats_record_id: existing_contact.id)
     end
   end
 
@@ -1554,7 +1554,7 @@ RSpec.describe DataImports::Intercom::Importer do
       )
       expect(activity).to be_activity
       expect(activity.content).to eq('Intercom teammate assigned the conversation to Support')
-      expect(mapping.chatwoot_record).to eq(activity)
+      expect(mapping.starchats_record).to eq(activity)
       expect(data_import.import_errors.skip_logs).to include(previous_skip_log)
       expect(next_data_import.import_errors.skip_logs.where(source_object_id: mapping.source_object_id)).to be_empty
     end

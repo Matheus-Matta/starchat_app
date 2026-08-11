@@ -21,7 +21,7 @@ class Internal::Accounts::MarketingConversionTrackingService
   pattr_initialize [:account!, :event_name!, :occurred_at, :conversion_value, :currency_code]
 
   def perform
-    return unless StarchatsApp.chatwoot_cloud?
+    return unless StarchatsApp.starchats_cloud?
     return if click_attributes.blank?
 
     response = HTTParty.post(

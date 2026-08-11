@@ -72,7 +72,7 @@ module Starchat::Account
     super
     if StarchatsApp.self_hosted_enterprise?
       enable_features('cosmos_integration', 'cosmos_integration_v2')
-    elsif StarchatsApp.chatwoot_cloud?
+    elsif StarchatsApp.starchats_cloud?
       internal_attributes[COSMOS_V2_DEFAULT_ELIGIBLE] = true
     end
   end

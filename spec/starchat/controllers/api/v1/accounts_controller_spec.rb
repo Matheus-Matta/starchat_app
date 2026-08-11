@@ -17,7 +17,7 @@ RSpec.describe 'Enterprise Accounts API', type: :request do
     end
 
     before do
-      allow(StarchatsApp).to receive(:chatwoot_cloud?).and_return(true)
+      allow(StarchatsApp).to receive(:starchats_cloud?).and_return(true)
     end
 
     it 'records marketing attribution for unauthenticated signup requests' do

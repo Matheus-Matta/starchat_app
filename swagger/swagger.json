@@ -10964,7 +10964,7 @@
           {
             "type": "object",
             "properties": {
-              "latest_chatwoot_version": {
+              "latest_starchats_version": {
                 "type": [
                   "string",
                   "null"

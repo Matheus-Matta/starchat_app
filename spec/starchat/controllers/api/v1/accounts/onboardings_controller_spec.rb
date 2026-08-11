@@ -9,7 +9,7 @@ RSpec.describe 'Enterprise Onboarding API', type: :request do
       # Inbox/help-center setup is a cloud-only step; off cloud the flow finishes at account_details.
       before do
         account.update!(custom_attributes: { 'onboarding_step' => 'account_details' })
-        allow(StarchatsApp).to receive(:chatwoot_cloud?).and_return(true)
+        allow(StarchatsApp).to receive(:starchats_cloud?).and_return(true)
       end
 
       it 'invokes HelpCenterCreationService when website is present' do

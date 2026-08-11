@@ -39,7 +39,7 @@ RSpec.describe Account, type: :model do
     # honour here: the API and webhooks are on regardless of the stored flag.
     it 'is always enabled, on cloud or self-hosted' do
       [true, false].each do |on_cloud|
-        allow(StarchatsApp).to receive(:chatwoot_cloud?).and_return(on_cloud)
+        allow(StarchatsApp).to receive(:starchats_cloud?).and_return(on_cloud)
         account.disable_features!('api_and_webhooks')
 
         expect(account.api_and_webhooks_enabled?).to be true
@@ -239,7 +239,7 @@ RSpec.describe Account, type: :model do
 
     it 'marks new cloud accounts as eligible for the Cosmos V2 paid-plan default' do
       allow(StarchatsApp).to receive(:self_hosted_enterprise?).and_return(false)
-      allow(StarchatsApp).to receive(:chatwoot_cloud?).and_return(true)
+      allow(StarchatsApp).to receive(:starchats_cloud?).and_return(true)
 
       account = create(:account)
 

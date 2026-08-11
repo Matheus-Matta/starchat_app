@@ -132,7 +132,7 @@ RSpec.describe '', type: :request do
 
   describe 'API token access' do
     before do
-      allow(StarchatsApp).to receive(:chatwoot_cloud?).and_return(true)
+      allow(StarchatsApp).to receive(:starchats_cloud?).and_return(true)
       account.disable_features!('api_and_webhooks')
     end
 

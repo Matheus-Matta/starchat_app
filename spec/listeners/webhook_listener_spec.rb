@@ -75,7 +75,7 @@ describe WebhookListener do
 
     context 'when api_and_webhooks feature is disabled on self-hosted' do
       it 'still triggers account webhooks' do
-        allow(StarchatsApp).to receive(:chatwoot_cloud?).and_return(false)
+        allow(StarchatsApp).to receive(:starchats_cloud?).and_return(false)
         account.disable_features!('api_and_webhooks')
         webhook = create(:webhook, inbox: inbox, account: account)
 

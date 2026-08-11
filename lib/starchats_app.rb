@@ -15,7 +15,7 @@ module StarchatsApp
     return true
   end
 
-  def self.chatwoot_cloud?
+  def self.starchats_cloud?
     true
   end
 

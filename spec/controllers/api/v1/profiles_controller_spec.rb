@@ -62,7 +62,7 @@ RSpec.describe 'Profile API', type: :request do
       end
 
       it 'returns the access token for self-hosted accounts even when the stored feature flag is disabled' do
-        allow(StarchatsApp).to receive(:chatwoot_cloud?).and_return(false)
+        allow(StarchatsApp).to receive(:starchats_cloud?).and_return(false)
         account.disable_features!('api_and_webhooks')
 
         get '/api/v1/profile',

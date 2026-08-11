@@ -56,7 +56,7 @@ RSpec.describe 'API Base', type: :request do
       let!(:conversation) { create(:conversation, account: account) }
 
       before do
-        allow(StarchatsApp).to receive(:chatwoot_cloud?).and_return(false)
+        allow(StarchatsApp).to receive(:starchats_cloud?).and_return(false)
         account.disable_features!('api_and_webhooks')
       end
 

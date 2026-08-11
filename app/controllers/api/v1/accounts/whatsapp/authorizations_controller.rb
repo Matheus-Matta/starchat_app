@@ -20,7 +20,7 @@ class Api::V1::Accounts::Whatsapp::AuthorizationsController < Api::V1::Accounts:
   private
 
   def ensure_embedded_signup_enabled
-    return unless StarchatsApp.chatwoot_cloud?
+    return unless StarchatsApp.starchats_cloud?
     return if Current.account.feature_enabled?('whatsapp_embedded_signup_inbox_creation')
 
     raise Pundit::NotAuthorizedError
@@ -52,7 +52,7 @@ class Api::V1::Accounts::Whatsapp::AuthorizationsController < Api::V1::Accounts:
   def can_reconfigure_channel?
     channel = @inbox.channel
     return false unless channel.provider == 'whatsapp_cloud'
-    return true if StarchatsApp.chatwoot_cloud?
+    return true if StarchatsApp.starchats_cloud?
     return Current.account.feature_enabled?('whatsapp_reconfigure') if channel.provider_config['source'] == 'embedded_signup'
 
     true

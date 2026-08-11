@@ -1,15 +1,15 @@
 class SuperAdmin::InstanceStatusesController < SuperAdmin::ApplicationController
   def show
     @metrics = {}
-    chatwoot_version
+    starchats_version
     sha
     postgres_status
     redis_metrics
-    chatwoot_edition
+    starchats_edition
     instance_meta
   end
 
-  def chatwoot_edition
+  def starchats_edition
     if StarchatsApp.enterprise?
     elsif StarchatsApp.custom?
     end
@@ -20,7 +20,7 @@ class SuperAdmin::InstanceStatusesController < SuperAdmin::ApplicationController
     @metrics['Database Migrations'] = ActiveRecord::Base.connection.migration_context.needs_migration? ? 'pending' : 'completed'
   end
 
-  def chatwoot_version
+  def starchats_version
     @metrics['Chatwoot version'] = Starchats.config[:version]
   end
 

@@ -2,7 +2,7 @@ allOf:
   - $ref: '#/components/schemas/account_detail'
   - type: object
     properties:
-      latest_chatwoot_version:
+      latest_starchats_version:
         type: string
         description: Latest version of Chatwoot available
         example: "3.0.0"

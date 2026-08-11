@@ -4,7 +4,7 @@
 #
 #  id                   :bigint           not null, primary key
 #  attempt_count        :integer          default(0), not null
-#  chatwoot_record_type :string
+#  starchats_record_type :string
 #  last_error_code      :string
 #  last_error_message   :text
 #  metadata             :jsonb            not null
@@ -13,14 +13,14 @@
 #  status               :integer          default("pending"), not null
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
-#  chatwoot_record_id   :bigint
+#  starchats_record_id   :bigint
 #  data_import_id       :bigint           not null
 #  source_object_id     :string           not null
 #
 # Indexes
 #
 #  idx_data_import_items_on_import_and_source  (data_import_id,source_object_type,source_object_id) UNIQUE
-#  idx_data_import_items_on_record             (chatwoot_record_type,chatwoot_record_id)
+#  idx_data_import_items_on_record             (starchats_record_type,starchats_record_id)
 #  idx_data_import_items_on_source             (source_provider,source_object_type,source_object_id)
 #  index_data_import_items_on_data_import_id   (data_import_id)
 #
