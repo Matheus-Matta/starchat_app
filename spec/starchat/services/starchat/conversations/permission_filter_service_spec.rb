@@ -90,7 +90,7 @@ RSpec.describe Starchat::Conversations::PermissionFilterService do
         create(:team_member, team: test_team, user: test_agent)
 
         # Disable auto_assignment so conversations assigned to non-inbox-members
-        # don't have their assignee cleared by Chatwoot's AutoAssignmentHandler.
+        # don't have their assignee cleared by Starchats's AutoAssignmentHandler.
         test_inbox  = create(:inbox, account: test_account, enable_auto_assignment: false)
         test_inbox2 = create(:inbox, account: test_account, enable_auto_assignment: false)
 
@@ -129,7 +129,7 @@ RSpec.describe Starchat::Conversations::PermissionFilterService do
     context 'when user has conversation_unassigned_manage permission' do
       it 'returns unassigned conversations from accessible inboxes and mine, but NOT from inaccessible inboxes' do
         test_account = create(:account)
-        # Disable auto_assignment to prevent Chatwoot from reassigning conversations
+        # Disable auto_assignment to prevent Starchats from reassigning conversations
         # with non-inbox-member assignees to the test agent.
         test_inbox   = create(:inbox, account: test_account, enable_auto_assignment: false)
         test_inbox2  = create(:inbox, account: test_account, enable_auto_assignment: false)
@@ -226,7 +226,7 @@ RSpec.describe Starchat::Conversations::PermissionFilterService do
     context 'when user has both participating and unassigned permissions (hierarchical test)' do
       it 'gives higher priority to unassigned_manage over participating_manage' do
         test_account = create(:account)
-        # Disable auto_assignment to prevent Chatwoot from reassigning conversations
+        # Disable auto_assignment to prevent Starchats from reassigning conversations
         # with non-inbox-member assignees to the test agent.
         test_inbox   = create(:inbox, account: test_account, enable_auto_assignment: false)
         test_inbox2  = create(:inbox, account: test_account, enable_auto_assignment: false)

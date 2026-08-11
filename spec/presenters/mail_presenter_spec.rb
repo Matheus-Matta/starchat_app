@@ -226,7 +226,7 @@ RSpec.describe MailPresenter do
 
         expect(presenter.original_sender).to be_nil
         expect(presenter.sender_name).to be_nil
-        expect(presenter.notification_email_from_chatwoot?).to be(false)
+        expect(presenter.notification_email_from_starchats?).to be(false)
       end
 
       it 'falls back to from header when reply_to is malformed' do
@@ -246,15 +246,15 @@ RSpec.describe MailPresenter do
 
       it 'matches notification sender emails case-insensitively' do
         mail_with_uppercase_sender = Mail.new do
-          from 'Chatwoot <ACCOUNTS@CHATWOOT.COM>'
+          from 'Starchats <ACCOUNTS@STARCHATS.COM>'
           to 'Inbox <inbox@example.com>'
           subject :header
           body 'Hi'
         end
 
-        with_modified_env MAILER_SENDER_EMAIL: 'Chatwoot <accounts@chatwoot.com>' do
+        with_modified_env MAILER_SENDER_EMAIL: 'Starchats <accounts@starchats.com>' do
           presenter = described_class.new(mail_with_uppercase_sender)
-          expect(presenter.notification_email_from_chatwoot?).to be(true)
+          expect(presenter.notification_email_from_starchats?).to be(true)
         end
       end
     end

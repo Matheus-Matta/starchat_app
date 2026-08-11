@@ -49,12 +49,12 @@ const runSDK = ({ baseUrl, websiteToken }) => {
 
   // Settings come from the host page, so accept the former name too: embeds installed
   // before the rename still declare window.chatwootSettings.
-  const chatwootSettings =
+  const starchatsSettings =
     window.starchatsSettings || window.chatwootSettings || {};
-  let locale = chatwootSettings.locale;
-  let baseDomain = chatwootSettings.baseDomain;
+  let locale = starchatsSettings.locale;
+  let baseDomain = starchatsSettings.baseDomain;
 
-  if (chatwootSettings.useBrowserLanguage) {
+  if (starchatsSettings.useBrowserLanguage) {
     locale = window.navigator.language.replace('-', '_');
   }
 
@@ -62,26 +62,27 @@ const runSDK = ({ baseUrl, websiteToken }) => {
     baseUrl,
     baseDomain,
     hasLoaded: false,
-    hideMessageBubble: chatwootSettings.hideMessageBubble || false,
+    hideMessageBubble: starchatsSettings.hideMessageBubble || false,
     isOpen: false,
-    position: chatwootSettings.position === 'left' ? 'left' : 'right',
+    position: starchatsSettings.position === 'left' ? 'left' : 'right',
     websiteToken,
     locale,
-    useBrowserLanguage: chatwootSettings.useBrowserLanguage || false,
-    type: getBubbleView(chatwootSettings.type),
-    launcherTitle: chatwootSettings.launcherTitle || '',
-    showPopoutButton: chatwootSettings.showPopoutButton || false,
-    showUnreadMessagesDialog: chatwootSettings.showUnreadMessagesDialog ?? true,
-    widgetStyle: getWidgetStyle(chatwootSettings.widgetStyle) || 'standard',
+    useBrowserLanguage: starchatsSettings.useBrowserLanguage || false,
+    type: getBubbleView(starchatsSettings.type),
+    launcherTitle: starchatsSettings.launcherTitle || '',
+    showPopoutButton: starchatsSettings.showPopoutButton || false,
+    showUnreadMessagesDialog:
+      starchatsSettings.showUnreadMessagesDialog ?? true,
+    widgetStyle: getWidgetStyle(starchatsSettings.widgetStyle) || 'standard',
     resetTriggered: false,
-    darkMode: getDarkMode(chatwootSettings.darkMode),
-    welcomeTitle: chatwootSettings.welcomeTitle || '',
-    welcomeDescription: chatwootSettings.welcomeDescription || '',
-    availableMessage: chatwootSettings.availableMessage || '',
-    unavailableMessage: chatwootSettings.unavailableMessage || '',
-    enableFileUpload: chatwootSettings.enableFileUpload,
-    enableEmojiPicker: chatwootSettings.enableEmojiPicker ?? true,
-    enableEndConversation: chatwootSettings.enableEndConversation ?? true,
+    darkMode: getDarkMode(starchatsSettings.darkMode),
+    welcomeTitle: starchatsSettings.welcomeTitle || '',
+    welcomeDescription: starchatsSettings.welcomeDescription || '',
+    availableMessage: starchatsSettings.availableMessage || '',
+    unavailableMessage: starchatsSettings.unavailableMessage || '',
+    enableFileUpload: starchatsSettings.enableFileUpload,
+    enableEmojiPicker: starchatsSettings.enableEmojiPicker ?? true,
+    enableEndConversation: starchatsSettings.enableEndConversation ?? true,
 
     toggle(state) {
       IFrameHelper.events.toggleBubble(state);
@@ -227,5 +228,5 @@ window.starchatsSDK = {
   run: runSDK,
 };
 
-// The install snippet on pages set up before the rename calls window.chatwootSDK.run.
+// The install snippet on pages set up before the rename calls window.starchatsSDK.run.
 window.chatwootSDK = window.starchatsSDK;

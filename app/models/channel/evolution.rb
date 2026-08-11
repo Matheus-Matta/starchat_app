@@ -56,7 +56,7 @@ class Channel::Evolution < ApplicationRecord
   after_destroy_commit       :cleanup_evolution_instance
   before_save                :touch_state_timestamp, if: :will_save_change_to_state?
 
-  # API esperada pelo Chatwoot
+  # API esperada pelo Starchats
   def name = 'Evolution'
 
   def monitoring_status

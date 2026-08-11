@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe DataImports::Intercom::SourceBucket do
   describe '.for' do
-    it 'maps Intercom source types to Chatwoot inbox buckets' do
+    it 'maps Intercom source types to Starchats inbox buckets' do
       expect(described_class.for('email')).to eq({ key: 'email', name: 'Email' })
       expect(described_class.for('phone_switch')).to eq({ key: 'phone', name: 'Phone' })
       expect(described_class.for('inapp')).to eq({ key: 'messenger', name: 'Messenger' })

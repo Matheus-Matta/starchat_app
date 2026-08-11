@@ -43,7 +43,7 @@ module UserAttributeHelpers
     current_account_user&.role
   end
 
-  # Used internally for Chatwoot in Chatwoot
+  # Used internally for Starchats in Starchats
   def hmac_identifier
     hmac_key = GlobalConfig.get('STARCHATS_INBOX_HMAC_KEY')['STARCHATS_INBOX_HMAC_KEY']
     return OpenSSL::HMAC.hexdigest('sha256', hmac_key, email) if hmac_key.present?

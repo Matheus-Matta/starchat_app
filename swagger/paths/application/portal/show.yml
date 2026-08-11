@@ -25,7 +25,7 @@ responses:
                 - code: "en"
                   articles_count: 32
                   categories_count: 9
-            custom_domain: "chatwoot.help"
+            custom_domain: "starchats.help"
             header_text: "Handbook"
             homepage_link: "https://www.starchats.com.br"
             name: "Handbook"
@@ -34,7 +34,7 @@ responses:
             account_id: 123
             inbox:
               id: 123
-              name: "Chatwoot"
+              name: "Starchats"
               website_url: "starchats.com.br"
               channel_type: "Channel::WebWidget"
               avatar_url: "https://example.com/avatar.png"
@@ -51,7 +51,7 @@ responses:
               enable_email_collect: true
               csat_survey_enabled: true
               timezone: "America/Los_Angeles"
-              business_name: "Chatwoot"
+              business_name: "Starchats"
               hmac_mandatory: true
             logo:
               id: 123

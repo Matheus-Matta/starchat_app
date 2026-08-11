@@ -66,7 +66,7 @@ RSpec.describe 'Api::V1::Accounts::Cosmos::Assistants', type: :request do
           response_guidelines: ['Be helpful', 'Be concise'],
           guardrails: ['No harmful content', 'Stay on topic'],
           config: {
-            product_name: 'Chatwoot',
+            product_name: 'Starchats',
             feature_faq: true,
             feature_memory: false,
             feature_citation: true
@@ -106,7 +106,7 @@ RSpec.describe 'Api::V1::Accounts::Cosmos::Assistants', type: :request do
         expect(json_response[:name]).to eq('New Assistant')
         expect(json_response[:response_guidelines]).to eq(['Be helpful', 'Be concise'])
         expect(json_response[:guardrails]).to eq(['No harmful content', 'Stay on topic'])
-        expect(json_response[:config][:product_name]).to eq('Chatwoot')
+        expect(json_response[:config][:product_name]).to eq('Starchats')
         expect(json_response[:config][:feature_citation]).to be(true)
         expect(response).to have_http_status(:success)
       end

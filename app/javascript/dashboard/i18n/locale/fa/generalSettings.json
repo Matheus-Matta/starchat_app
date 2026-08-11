@@ -123,7 +123,7 @@
         "CUSTOM_EMAIL_DOMAIN_ENABLED": "اکنون می‌توانید ایمیل‌ها را در دامنه سفارشی خود دریافت کنید."
       }
     },
-    "UPDATE_STARCHATS": "به روزرسانی{latestChatwootVersion} برای Starchats در دسترس است. لطفا نمونه خود را به روز کنید.",
+    "UPDATE_STARCHATS": "به روزرسانی{latestStarchatsVersion} برای Starchats در دسترس است. لطفا نمونه خود را به روز کنید.",
     "LEARN_MORE": "بیشتر بدانید",
     "PAYMENT_PENDING": "پرداخت شما در حال پردازش است. لطفاً اطلاعات پرداخت خود را برای ادامه استفاده از Starchats به روز کنید",
     "UPGRADE": "Upgrade to continue using Starchats",

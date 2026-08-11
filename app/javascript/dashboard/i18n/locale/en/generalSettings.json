@@ -141,7 +141,7 @@
         "UPDATE_BUTTON": "Save Changes"
       }
     },
-    "UPDATE_STARCHATS": "An update {latestChatwootVersion} for Starchats is available. Please update your instance.",
+    "UPDATE_STARCHATS": "An update {latestStarchatsVersion} for Starchats is available. Please update your instance.",
     "LEARN_MORE": "Learn more",
     "PAYMENT_PENDING": "Your payment is pending. Please update your payment information to continue using Starchats",
     "UPGRADE": "Upgrade to continue using Starchats",

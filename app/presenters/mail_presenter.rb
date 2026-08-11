@@ -173,9 +173,9 @@ class MailPresenter < SimpleDelegator
     @mail.bounced? || @mail['X-Failed-Recipients'].try(:value).present?
   end
 
-  def notification_email_from_chatwoot?
+  def notification_email_from_starchats?
     # notification emails are send via mailer sender email address. so it should match
-    original_sender.to_s.downcase == Mail::Address.new(ENV.fetch('MAILER_SENDER_EMAIL', 'Chatwoot <accounts@starchats.com.br>')).address.to_s.downcase
+    original_sender.to_s.downcase == Mail::Address.new(ENV.fetch('MAILER_SENDER_EMAIL', 'Starchats <accounts@starchats.com.br>')).address.to_s.downcase
   end
 
   private

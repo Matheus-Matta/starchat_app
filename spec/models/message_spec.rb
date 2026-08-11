@@ -789,7 +789,7 @@ RSpec.describe Message do
       end
     end
 
-    context 'when advanced search feature is not enabled for account on chatwoot cloud' do
+    context 'when advanced search feature is not enabled for account on starchats cloud' do
       before do
         allow(StarchatsApp).to receive(:starchats_cloud?).and_return(true)
         account.disable_features('advanced_search_indexing')

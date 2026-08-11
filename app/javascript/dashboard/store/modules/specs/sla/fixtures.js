@@ -3,7 +3,7 @@ export default [
     id: 1,
     name: 'Premium SLA',
     description:
-      'SLA for chatwoot cloud premium and self-hosted premium customers.  SLA for chatwoot cloud premium and self-hosted premium customers',
+      'SLA for starchats cloud premium and self-hosted premium customers.  SLA for starchats cloud premium and self-hosted premium customers',
     first_response_time_threshold: 14400,
     next_response_time_threshold: 18000,
     resolution_time_threshold: 86400,
@@ -13,7 +13,7 @@ export default [
     id: 2,
     name: 'Enterprise SLA',
     description:
-      'SLA for chatwoot enterprise and self-hosted enterprise customers.',
+      'SLA for starchats enterprise and self-hosted enterprise customers.',
     first_response_time_threshold: 600,
     next_response_time_threshold: 2400,
     resolution_time_threshold: 3600,
@@ -23,7 +23,7 @@ export default [
     id: 3,
     name: 'Business SLA',
     description:
-      'Chatwoot cloud Business and self-hosted Business customers SLA',
+      'Starchats cloud Business and self-hosted Business customers SLA',
     first_response_time_threshold: null,
     next_response_time_threshold: null,
     resolution_time_threshold: null,

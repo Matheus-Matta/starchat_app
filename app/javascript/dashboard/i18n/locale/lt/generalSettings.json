@@ -123,7 +123,7 @@
         "CUSTOM_EMAIL_DOMAIN_ENABLED": "Dabar galite gauti el. laiškus pasirinktame domene."
       }
     },
-    "UPDATE_STARCHATS": "Yra Starchats naujinimas {latestChatwootVersion}. Atnaujinkite savo versiją.",
+    "UPDATE_STARCHATS": "Yra Starchats naujinimas {latestStarchatsVersion}. Atnaujinkite savo versiją.",
     "LEARN_MORE": "Sužinoti daugiau",
     "PAYMENT_PENDING": "Laukiama jūsų mokėjimo. Atnaujinkite savo mokėjimo informaciją, kad galėtumėte toliau naudoti Starchats",
     "UPGRADE": "Upgrade to continue using Starchats",

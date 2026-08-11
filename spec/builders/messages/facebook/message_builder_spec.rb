@@ -20,7 +20,7 @@ describe Messages::Facebook::MessageBuilder do
           first_name: 'Jane',
           last_name: 'Dae',
           account_id: facebook_channel.inbox.account_id,
-          profile_pic: 'https://chatwoot-assets.local/sample.png'
+          profile_pic: 'https://starchats-assets.local/sample.png'
         }.with_indifferent_access
       )
       message_builder
@@ -66,7 +66,7 @@ describe Messages::Facebook::MessageBuilder do
           first_name: 'Jane',
           last_name: 'Dae',
           account_id: facebook_channel.inbox.account_id,
-          profile_pic: 'https://chatwoot-assets.local/sample.png'
+          profile_pic: 'https://starchats-assets.local/sample.png'
         }.with_indifferent_access
       )
 
@@ -117,7 +117,7 @@ describe Messages::Facebook::MessageBuilder do
       before do
         allow(Koala::Facebook::API).to receive(:new).and_return(fb_object)
         allow(fb_object).to receive(:get_object).and_return(
-          { first_name: 'Jane', last_name: 'Dae', profile_pic: 'https://chatwoot-assets.local/sample.png' }.with_indifferent_access
+          { first_name: 'Jane', last_name: 'Dae', profile_pic: 'https://starchats-assets.local/sample.png' }.with_indifferent_access
         )
       end
 
@@ -163,7 +163,7 @@ describe Messages::Facebook::MessageBuilder do
       before do
         allow(Koala::Facebook::API).to receive(:new).and_return(fb_object)
         allow(fb_object).to receive(:get_object).and_return(
-          { first_name: 'Jane', last_name: 'Dae', profile_pic: 'https://chatwoot-assets.local/sample.png' }.with_indifferent_access
+          { first_name: 'Jane', last_name: 'Dae', profile_pic: 'https://starchats-assets.local/sample.png' }.with_indifferent_access
         )
         stub_request(:get, sticker_url).to_return(status: 200, body: 'sticker_data', headers: { 'Content-Type' => 'image/png' })
       end
@@ -223,7 +223,7 @@ describe Messages::Facebook::MessageBuilder do
       it "stores #{message_data[:attachment][:type]} attachments as fallback links" do
         allow(Koala::Facebook::API).to receive(:new).and_return(fb_object)
         allow(fb_object).to receive(:get_object).and_return(
-          { first_name: 'Jane', last_name: 'Dae', profile_pic: 'https://chatwoot-assets.local/sample.png' }.with_indifferent_access
+          { first_name: 'Jane', last_name: 'Dae', profile_pic: 'https://starchats-assets.local/sample.png' }.with_indifferent_access
         )
         expect(Down).not_to receive(:download)
 

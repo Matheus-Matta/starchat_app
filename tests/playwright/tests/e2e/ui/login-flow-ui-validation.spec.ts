@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { Login } from '@components/ui';
 
-const TEST_EMAIL = process.env.TEST_USER_EMAIL || 'admin@chatwoot.com';
+const TEST_EMAIL = process.env.TEST_USER_EMAIL || 'admin@starchats.com';
 const TEST_PASSWORD = process.env.TEST_USER_PASSWORD || 'Password123@#';
 const INVALID_PASSWORD = 'Password';
 
@@ -21,7 +21,7 @@ test.describe('Login page', () => {
   });
 
   test('renders all critical components', async ({ page }) => {
-    await expect(page).toHaveTitle('Chatwoot');
+    await expect(page).toHaveTitle('Starchats');
     await expect(loginComponent.getLoginHeading()).toBeVisible();
 
     const emailInput = loginComponent.getEmailInput();

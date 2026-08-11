@@ -3,7 +3,7 @@ class Internal::Accounts::InternalAttributesService
 
   # List of keys that can be managed through this service
   # TODO: Add account_notes field in future
-  # This field can be used to store notes about account on Chatwoot cloud
+  # This field can be used to store notes about account on Starchats cloud
   VALID_KEYS = %w[manually_managed_features marketing_attribution].freeze
 
   def initialize(account)

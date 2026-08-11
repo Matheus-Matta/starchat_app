@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-namespace :chatwoot do
+namespace :starchats do
   namespace :dev do
-    desc 'Toggle between Chatwoot variants with interactive menu'
+    desc 'Toggle between Starchats variants with interactive menu'
     task toggle_variant: :environment do
       # Only allow in development environment
       return unless Rails.env.development?
@@ -12,7 +12,7 @@ namespace :chatwoot do
       handle_user_selection
     end
 
-    desc 'Show current Chatwoot variant status'
+    desc 'Show current Starchats variant status'
     task show_variant: :environment do
       return unless Rails.env.development?
 
@@ -23,7 +23,7 @@ namespace :chatwoot do
 
     def show_current_variant
       puts "\n#{('=' * 50)}"
-      puts '🚀 CHATWOOT VARIANT MANAGER'
+      puts '🚀 STARCHATS VARIANT MANAGER'
       puts '=' * 50
 
       # Check InstallationConfig

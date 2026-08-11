@@ -13,7 +13,7 @@ module IncomingEmailValidityHelper
 
   def valid_external_email_for_active_account?
     return false unless @account.active?
-    return false if @processed_mail.notification_email_from_chatwoot?
+    return false if @processed_mail.notification_email_from_starchats?
 
     true
   end

@@ -25,7 +25,7 @@ sudo apt install -y nodejs
 corepack enable
 corepack prepare pnpm@10.2.0 --activate
 
-# 6. Clonar repositório Chatwoot
+# 6. Clonar repositório Starchats
 git clone https://github.com/chatwoot/chatwoot.git starchat_app
 cd starchat_app
 
@@ -33,7 +33,7 @@ cd starchat_app
 cp .env.example .env
 # Editar .env:
 # RAILS_ENV=production
-# DATABASE_URL=postgresql://chatwoot:senha@localhost:5432/chatwoot_production
+# DATABASE_URL=postgresql://starchats:senha@localhost:5432/chatwoot_production
 # REDIS_URL=redis://localhost:6379/0
 # STRIPE_* (deixar vazio)
 # SIGNUP_ENABLED=true
@@ -45,8 +45,8 @@ bundle install --jobs 4 --without development test
 pnpm install --prod --frozen-lockfile
 
 # 9. Configurar PostgreSQL
-sudo -u postgres createuser chatwoot --pwprompt
-sudo -u postgres createdb chatwoot_production -O chatwoot
+sudo -u postgres createuser starchats --pwprompt
+sudo -u postgres createdb chatwoot_production -O starchats
 
 # 10. Rodar migrations e seeds
 DISABLE_DATABASE_ENVIRONMENT_CHECK=1 RAILS_ENV=production bundle exec rails db:drop
@@ -54,7 +54,7 @@ DISABLE_DATABASE_ENVIRONMENT_CHECK=1 RAILS_ENV=production bundle exec rails db:s
 
 # 11. Iniciar Redis usando Docker
 docker pull redis:latest
-docker run -d --name chatwoot-redis --restart unless-stopped -p 6379:6379 redis:latest
+docker run -d --name starchats-redis --restart unless-stopped -p 6379:6379 redis:latest
 
 # 12. Iniciar o servidor Rails (Puma)
 RAILS_ENV=production bundle exec rails server -b 0.0.0.0 -p 3001

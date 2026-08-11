@@ -22,7 +22,7 @@ class SafeFetch::Fetcher
   attr_reader :options
 
   def with_tempfile
-    tempfile = Tempfile.new('chatwoot-safe-fetch', binmode: true)
+    tempfile = Tempfile.new('starchats-safe-fetch', binmode: true)
     yield tempfile
   ensure
     tempfile&.close!

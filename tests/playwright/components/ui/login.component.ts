@@ -42,7 +42,7 @@ export class Login {
   }
 
   getLoginHeading() {
-    return this.page.getByRole('heading', { name: 'Login to Chatwoot' });
+    return this.page.getByRole('heading', { name: 'Login to Starchats' });
   }
 
   getSSOLink() {

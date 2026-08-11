@@ -123,7 +123,7 @@
         "CUSTOM_EMAIL_DOMAIN_ENABLED": "Teraz môžete prijímať e-maily vo vlastnej doméne."
       }
     },
-    "UPDATE_STARCHATS": "K dispozícii je aktualizácia {latestChatwootVersion} pre Starchats. Prosím, aktualizujte svoju inštanciu.",
+    "UPDATE_STARCHATS": "K dispozícii je aktualizácia {latestStarchatsVersion} pre Starchats. Prosím, aktualizujte svoju inštanciu.",
     "LEARN_MORE": "Learn more",
     "PAYMENT_PENDING": "Your payment is pending. Please update your payment information to continue using Starchats",
     "UPGRADE": "Upgrade to continue using Starchats",

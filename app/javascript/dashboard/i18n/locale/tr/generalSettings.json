@@ -123,7 +123,7 @@
         "CUSTOM_EMAIL_DOMAIN_ENABLED": "Artık özel alan adınızda e-postalar alabilirsiniz."
       }
     },
-    "UPDATE_STARCHATS": "{latestChatwootVersion} starchats sürümü indirilebilir. Lütfen sürümü güncelleyin.",
+    "UPDATE_STARCHATS": "{latestStarchatsVersion} starchats sürümü indirilebilir. Lütfen sürümü güncelleyin.",
     "LEARN_MORE": "Daha Fazla",
     "PAYMENT_PENDING": "Ödemeniz bekliyor. Devam etmek için ödeme bilgilerinizi güncelleyin.",
     "UPGRADE": "Starchats'u kullanmaya devam etmek için yükseltin",

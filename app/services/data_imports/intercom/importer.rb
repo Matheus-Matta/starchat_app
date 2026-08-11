@@ -186,20 +186,20 @@ class DataImports::Intercom::Importer
       return
     end
 
-    chatwoot_conversation = mapped_conversation || create_conversation(conversation, contact, contact_inbox, inbox, source_type)
+    starchats_conversation = mapped_conversation || create_conversation(conversation, contact, contact_inbox, inbox, source_type)
     if mapped_conversation
-      record_mapping('conversation', source_id, chatwoot_conversation, metadata: conversation_metadata(conversation, inbox, source_type))
+      record_mapping('conversation', source_id, starchats_conversation, metadata: conversation_metadata(conversation, inbox, source_type))
     end
-    item.update!(status: :imported, starchats_record_type: 'Conversation', starchats_record_id: chatwoot_conversation.id)
+    item.update!(status: :imported, starchats_record_type: 'Conversation', starchats_record_id: starchats_conversation.id)
     if already_handled
       reconcile_item_stats('conversation')
     else
       increment_stat('conversations', 'imported')
     end
 
-    return unless import_conversation_messages(conversation, chatwoot_conversation, contact)
+    return unless import_conversation_messages(conversation, starchats_conversation, contact)
 
-    update_conversation_activity(chatwoot_conversation)
+    update_conversation_activity(starchats_conversation)
   rescue StandardError => e
     raise if e.is_a?(DataImports::Intercom::Client::Error)
 
@@ -401,22 +401,22 @@ class DataImports::Intercom::Importer
 
     Conversation.transaction do
       result = Conversation.insert_all!([attrs], returning: %w[id])
-      chatwoot_conversation = Conversation.find(result.rows.first.first)
-      record_mapping('conversation', source_id, chatwoot_conversation, metadata: metadata)
-      chatwoot_conversation
+      starchats_conversation = Conversation.find(result.rows.first.first)
+      record_mapping('conversation', source_id, starchats_conversation, metadata: metadata)
+      starchats_conversation
     end
   rescue ActiveRecord::RecordNotUnique
-    @account.conversations.find_by!(identifier: conversation_identifier(conversation)).tap do |chatwoot_conversation|
-      record_mapping('conversation', source_id, chatwoot_conversation, metadata: metadata)
+    @account.conversations.find_by!(identifier: conversation_identifier(conversation)).tap do |starchats_conversation|
+      record_mapping('conversation', source_id, starchats_conversation, metadata: metadata)
     end
   end
 
-  def import_conversation_messages(conversation, chatwoot_conversation, contact)
+  def import_conversation_messages(conversation, starchats_conversation, contact)
     parts_payload = conversation['conversation_parts'].to_h
     parts = Array(parts_payload['conversation_parts'])
     batch_builder = DataImports::Intercom::MessageBatchBuilder.new(
       data_import: @data_import,
-      conversation: chatwoot_conversation,
+      conversation: starchats_conversation,
       source_conversation: conversation
     )
     batch = begin
@@ -424,14 +424,14 @@ class DataImports::Intercom::Importer
     rescue ActiveRecord::QueryCanceled
       nil
     end
-    return import_conversation_messages_individually(conversation, chatwoot_conversation, contact, batch_builder, parts.size) if batch.nil?
+    return import_conversation_messages_individually(conversation, starchats_conversation, contact, batch_builder, parts.size) if batch.nil?
 
     record_truncated_conversation_parts(conversation, parts.size)
 
     batch.entries.each_slice(MESSAGES_PER_BATCH) do |entries|
       return false unless continue_import_with_heartbeat?
 
-      import_message_batch(chatwoot_conversation, contact, batch_builder, entries)
+      import_message_batch(starchats_conversation, contact, batch_builder, entries)
       return false if @import_stopped
     end
     return false if import_stopped?
@@ -641,15 +641,15 @@ class DataImports::Intercom::Importer
     fail_message(conversation, entry.source_id, entry.part, e)
   end
 
-  def import_conversation_messages_individually(conversation, chatwoot_conversation, contact, batch_builder, parts_count)
+  def import_conversation_messages_individually(conversation, starchats_conversation, contact, batch_builder, parts_count)
     source_entries, part_entries = batch_builder.unprepared_entries.partition { |entry| entry[:part]['part_type'] == 'source' }
-    source_entries.each { |entry| import_unprepared_message(chatwoot_conversation, contact, batch_builder, entry) }
+    source_entries.each { |entry| import_unprepared_message(starchats_conversation, contact, batch_builder, entry) }
     record_truncated_conversation_parts(conversation, parts_count)
 
     part_entries.each do |entry|
       return false unless continue_import_with_heartbeat?
 
-      import_unprepared_message(chatwoot_conversation, contact, batch_builder, entry)
+      import_unprepared_message(starchats_conversation, contact, batch_builder, entry)
     end
     return false if import_stopped?
 

@@ -2,8 +2,8 @@ import { addClasses, removeClasses, toggleClass } from './DOMHelpers';
 import { IFrameHelper } from './IFrameHelper';
 import { isExpandedView } from './settingsHelper';
 import {
-  CHATWOOT_CLOSED,
-  CHATWOOT_OPENED,
+  STARCHATS_CLOSED,
+  STARCHATS_OPENED,
 } from '../widget/constants/sdkEvents';
 import { dispatchWindowEvent } from 'shared/helpers/CustomEventHelper';
 
@@ -75,9 +75,9 @@ const handleBubbleToggle = newIsOpen => {
   IFrameHelper.events.onBubbleToggle(newIsOpen);
 
   if (newIsOpen) {
-    dispatchWindowEvent({ eventName: CHATWOOT_OPENED });
+    dispatchWindowEvent({ eventName: STARCHATS_OPENED });
   } else {
-    dispatchWindowEvent({ eventName: CHATWOOT_CLOSED });
+    dispatchWindowEvent({ eventName: STARCHATS_CLOSED });
     chatBubble.focus();
   }
 };

@@ -5,7 +5,7 @@ Add a responsible agent field to contacts and prioritize auto-assignment to that
 **Steps**
 1. Schema and model: add `responsible_agent_id` column on contacts with FK to users, allow nulls, and add association/validation to ensure agent belongs to the same account. *Depends on migration.*
 2. API and builders: permit `responsible_agent_id` in contact params; update contact JSON view to include `responsible_agent_id` and nested `responsible_agent` summary; ensure contact creation paths accept the new field.
-3. Auto-assignment: in the Starchat/Chatwoot auto-assignment service, look up `conversation.contact.responsible_agent`, validate eligibility (exists, same account, can be assigned), then assign; otherwise fallback to existing policy. *Depends on steps 1-2.*
+3. Auto-assignment: in the Starchat/Starchats auto-assignment service, look up `conversation.contact.responsible_agent`, validate eligibility (exists, same account, can be assigned), then assign; otherwise fallback to existing policy. *Depends on steps 1-2.*
 4. Frontend UI: add responsible agent select to contact form and contact details view, using agents list; allow clear; show current responsible agent display; wire to API update flow. *Parallel with step 3.*
 5. Backend tests: controller/model/service specs for create/update/remove, cross-account restriction, and assignment behavior with valid/invalid responsible agent.
 6. Frontend tests: component rendering, load existing responsible agent, save changes, clear value, and error handling.

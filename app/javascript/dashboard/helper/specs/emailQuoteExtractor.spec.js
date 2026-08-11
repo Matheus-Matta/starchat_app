@@ -16,10 +16,10 @@ const SAMPLE_EMAIL_HTML = `
 <p>This is another quoted quoted text reply</p>
 <p>This is nice</p>
 <p>On Mon, Sep 29, 2025 at 4:21 PM John from Shaneforwoot &lt; &gt; shaneforwoot@gmail.com&gt; wrote:</p>
-<p>Hey there, this is a reply from Chatwoot, notice the quoted text</p>
+<p>Hey there, this is a reply from Starchats, notice the quoted text</p>
 <p>Hey there</p>
 <p>This is an email text, enjoy reading this</p>
-<p>-- Shivam Mishra, Chatwoot</p>
+<p>-- Shivam Mishra, Starchats</p>
 </blockquote>
 </blockquote>
 </blockquote>

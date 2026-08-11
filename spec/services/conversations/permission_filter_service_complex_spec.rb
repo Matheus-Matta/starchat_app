@@ -7,7 +7,7 @@ describe Conversations::PermissionFilterService do
   let!(:user) { create(:user, account: account) }
   let!(:team) { create(:team, account: account) }
   # Inbox 1 is used for team conversations; disable auto_assignment to keep the
-  # assignee stable during the test (otherwise Chatwoot clears the assignee when
+  # assignee stable during the test (otherwise Starchats clears the assignee when
   # the agent is not an inbox member).
   let!(:inbox_1) { create(:inbox, account: account, enable_auto_assignment: false) }
   let!(:inbox_2) { create(:inbox, account: account, enable_auto_assignment: false) }

@@ -115,7 +115,7 @@ RSpec.describe Email::FromBuilder do
         end
       end
 
-      context 'with IMAP enabled and Chatwoot SMTP and channel is verified_for_sending' do
+      context 'with IMAP enabled and Starchats SMTP and channel is verified_for_sending' do
         before do
           channel.update!(verified_for_sending: true, imap_enabled: true, smtp_enabled: false)
         end
@@ -128,7 +128,7 @@ RSpec.describe Email::FromBuilder do
         end
       end
 
-      context 'with IMAP enabled and Chatwoot SMTP and channel is not verified_for_sending' do
+      context 'with IMAP enabled and Starchats SMTP and channel is not verified_for_sending' do
         before do
           channel.update!(verified_for_sending: false, imap_enabled: true, smtp_enabled: false)
         end
@@ -141,7 +141,7 @@ RSpec.describe Email::FromBuilder do
         end
       end
 
-      context 'with forwarding and Chatwoot SMTP and channel is verified_for_sending' do
+      context 'with forwarding and Starchats SMTP and channel is verified_for_sending' do
         before do
           channel.update!(verified_for_sending: true, imap_enabled: false, smtp_enabled: false)
         end
@@ -154,7 +154,7 @@ RSpec.describe Email::FromBuilder do
         end
       end
 
-      context 'with forwarding and Chatwoot SMTP and channel is not verified_for_sending' do
+      context 'with forwarding and Starchats SMTP and channel is not verified_for_sending' do
         before { channel.update!(verified_for_sending: false, imap_enabled: false, smtp_enabled: false) }
 
         it 'returns account support email with sender name formatting' do

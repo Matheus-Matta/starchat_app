@@ -60,14 +60,14 @@ describe Instagram::SendOnInstagramService do
           InstallationConfig.where(name: 'ENABLE_INSTAGRAM_CHANNEL_HUMAN_AGENT').first_or_create(value: false)
         end
 
-        it 'if message is sent from chatwoot and is outgoing' do
+        it 'if message is sent from starchats and is outgoing' do
           message = create(:message, message_type: 'outgoing', inbox: instagram_inbox, account: account, conversation: conversation)
 
           response = described_class.new(message: message).perform
           expect(response['message_id']).to eq('random_message_id')
         end
 
-        it 'if message is sent from chatwoot and is outgoing with multiple attachments' do
+        it 'if message is sent from starchats and is outgoing with multiple attachments' do
           message = build(:message, content: nil, message_type: 'outgoing', inbox: instagram_inbox, account: account,
                                     conversation: conversation)
           avatar = message.attachments.new(account_id: message.account_id, file_type: :image)
@@ -86,7 +86,7 @@ describe Instagram::SendOnInstagramService do
           expect(service).to have_received(:send_message).exactly(:twice)
         end
 
-        it 'if message with attachment is sent from chatwoot and is outgoing' do
+        it 'if message with attachment is sent from starchats and is outgoing' do
           message = build(:message, message_type: 'outgoing', inbox: instagram_inbox, account: account, conversation: conversation)
           attachment = message.attachments.new(account_id: message.account_id, file_type: :image)
           attachment.file.attach(io: Rails.root.join('spec/assets/avatar.png').open, filename: 'avatar.png', content_type: 'image/png')
@@ -96,7 +96,7 @@ describe Instagram::SendOnInstagramService do
           expect(response['message_id']).to eq('random_message_id')
         end
 
-        it 'if message sent from chatwoot is failed' do
+        it 'if message sent from starchats is failed' do
           message = create(:message, message_type: 'outgoing', inbox: instagram_inbox, account: account, conversation: conversation)
 
           allow(HTTParty).to receive(:post).and_return(response_with_error)
@@ -112,7 +112,7 @@ describe Instagram::SendOnInstagramService do
           InstallationConfig.where(name: 'ENABLE_MESSENGER_CHANNEL_HUMAN_AGENT').first_or_create(value: true)
         end
 
-        it 'if message is sent from chatwoot and is outgoing' do
+        it 'if message is sent from starchats and is outgoing' do
           message = create(:message, message_type: 'outgoing', inbox: instagram_inbox, account: account, conversation: conversation)
 
           allow(HTTParty).to receive(:post).with(

@@ -81,25 +81,25 @@ module Concerns::Toolable
   end
 
   def add_base_headers(headers, state)
-    headers['X-Chatwoot-Account-Id'] = state[:account_id].to_s if state[:account_id]
-    headers['X-Chatwoot-Assistant-Id'] = state[:assistant_id].to_s if state[:assistant_id]
-    headers['X-Chatwoot-Tool-Slug'] = slug if slug.present?
+    headers['X-Starchats-Account-Id'] = state[:account_id].to_s if state[:account_id]
+    headers['X-Starchats-Assistant-Id'] = state[:assistant_id].to_s if state[:assistant_id]
+    headers['X-Starchats-Tool-Slug'] = slug if slug.present?
   end
 
   def add_conversation_headers(headers, conversation)
-    headers['X-Chatwoot-Conversation-Id'] = conversation[:id].to_s if conversation[:id]
-    headers['X-Chatwoot-Conversation-Display-Id'] = conversation[:display_id].to_s if conversation[:display_id]
+    headers['X-Starchats-Conversation-Id'] = conversation[:id].to_s if conversation[:id]
+    headers['X-Starchats-Conversation-Display-Id'] = conversation[:display_id].to_s if conversation[:display_id]
   end
 
   def add_contact_headers(headers, contact)
-    headers['X-Chatwoot-Contact-Id'] = contact[:id].to_s if contact[:id]
-    headers['X-Chatwoot-Contact-Email'] = contact[:email].to_s if contact[:email].present?
-    headers['X-Chatwoot-Contact-Phone'] = contact[:phone_number].to_s if contact[:phone_number].present?
+    headers['X-Starchats-Contact-Id'] = contact[:id].to_s if contact[:id]
+    headers['X-Starchats-Contact-Email'] = contact[:email].to_s if contact[:email].present?
+    headers['X-Starchats-Contact-Phone'] = contact[:phone_number].to_s if contact[:phone_number].present?
   end
 
   def add_contact_inbox_headers(headers, contact_inbox)
-    headers['X-Chatwoot-Contact-Inbox-Id'] = contact_inbox[:id].to_s if contact_inbox&.[](:id)
-    headers['X-Chatwoot-Contact-Inbox-Verified'] = (contact_inbox&.[](:hmac_verified) || false).to_s
+    headers['X-Starchats-Contact-Inbox-Id'] = contact_inbox[:id].to_s if contact_inbox&.[](:id)
+    headers['X-Starchats-Contact-Inbox-Verified'] = (contact_inbox&.[](:hmac_verified) || false).to_s
   end
 
   def format_response(raw_response_body)

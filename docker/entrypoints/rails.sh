@@ -26,6 +26,6 @@ until pg_isready -h "$DB_HOST" -p "$DB_PORT" -U "$DB_USER" >/dev/null 2>&1; do
   sleep 2
 done
 
-bundle exec rails db:chatwoot_prepare
+bundle exec rails db:starchats_prepare
 
 exec "$@"

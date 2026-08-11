@@ -123,7 +123,7 @@
         "CUSTOM_EMAIL_DOMAIN_ENABLED": "Τώρα μπορείτε να λαμβάνετε emails στον τομέα (domain) σας."
       }
     },
-    "UPDATE_STARCHATS": "Μια ενημέρωση {latestChatwootVersion} για το Starchats είναι διαθέσιμη. Ενημερώστε την εφαρμογή σας.",
+    "UPDATE_STARCHATS": "Μια ενημέρωση {latestStarchatsVersion} για το Starchats είναι διαθέσιμη. Ενημερώστε την εφαρμογή σας.",
     "LEARN_MORE": "Μάθετε περισσότερα",
     "PAYMENT_PENDING": "Your payment is pending. Please update your payment information to continue using Starchats",
     "UPGRADE": "Upgrade to continue using Starchats",

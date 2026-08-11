@@ -81,7 +81,7 @@ RSpec.describe Cosmos::Tools::FaqLookupTool, type: :model do
         tool.perform(tool_context, query: 'password reset')
       end
 
-      it 'records retrieved faq ids and document ids into Chatwoot metadata' do
+      it 'records retrieved faq ids and document ids into Starchats metadata' do
         tool.perform(tool_context, query: 'password reset')
 
         expect(tool_context.state.dig(:cw_metadata, :faq_ids)).to contain_exactly(response1.id, response2.id)

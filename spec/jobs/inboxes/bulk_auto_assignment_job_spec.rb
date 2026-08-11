@@ -70,7 +70,7 @@ RSpec.describe Inboxes::BulkAutoAssignmentJob do
       described_class.perform_now
     end
 
-    context 'quando conta está no chatwoot cloud' do
+    context 'quando conta está no starchats cloud' do
       before do
         account.update!(custom_attributes: {})
         allow(StarchatsApp).to receive(:starchats_cloud?).and_return(true)

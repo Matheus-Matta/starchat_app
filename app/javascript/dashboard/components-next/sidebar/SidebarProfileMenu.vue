@@ -40,7 +40,7 @@ const showChatSupport = computed(() => {
   return (
     isFeatureEnabledonAccount.value(
       accountId.value,
-      FEATURE_FLAGS.CONTACT_CHATWOOT_SUPPORT_TEAM
+      FEATURE_FLAGS.CONTACT_STARCHATS_SUPPORT_TEAM
     ) && globalConfig.value.starchatsInboxToken
   );
 });

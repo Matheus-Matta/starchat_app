@@ -123,7 +123,7 @@
         "CUSTOM_EMAIL_DOMAIN_ENABLED": "Most már goadhatsz e-maileket az egyedi domaineden."
       }
     },
-    "UPDATE_STARCHATS": "Egy frissítés elérhető a Starchatshoz {latestChatwootVersion}. Kérjük frissítsd a telepítésed.",
+    "UPDATE_STARCHATS": "Egy frissítés elérhető a Starchatshoz {latestStarchatsVersion}. Kérjük frissítsd a telepítésed.",
     "LEARN_MORE": "Tudj meg többet",
     "PAYMENT_PENDING": "A fizetésed folyamatban van. Kérlek, frissítsd fizetési adataitat a Starchats használatának folytatásához",
     "UPGRADE": "Upgrade to continue using Starchats",

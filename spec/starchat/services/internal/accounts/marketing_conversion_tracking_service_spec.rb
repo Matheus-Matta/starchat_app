@@ -15,7 +15,7 @@ RSpec.describe Internal::Accounts::MarketingConversionTrackingService do
       'customer_id' => '852-320-2898',
       'login_customer_id' => '742-202-9198',
       'service_account_credentials' => {
-        'client_email' => 'marketing-conversions@chatwoot-production.iam.gserviceaccount.com',
+        'client_email' => 'marketing-conversions@starchats-production.iam.gserviceaccount.com',
         'private_key' => private_key
       },
       'events' => {
@@ -40,7 +40,7 @@ RSpec.describe Internal::Accounts::MarketingConversionTrackingService do
     allow(Google::Auth::ServiceAccountCredentials).to receive(:make_creds).and_return(credentials)
   end
 
-  it 'does nothing outside Chatwoot Cloud' do
+  it 'does nothing outside Starchats Cloud' do
     allow(StarchatsApp).to receive(:starchats_cloud?).and_return(false)
 
     expect(HTTParty).not_to receive(:post)

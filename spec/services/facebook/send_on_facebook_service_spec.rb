@@ -46,7 +46,7 @@ describe Facebook::SendOnFacebookService do
     end
 
     context 'with reply' do
-      it 'if message is sent from chatwoot and is outgoing' do
+      it 'if message is sent from starchats and is outgoing' do
         message = create(:message, message_type: 'outgoing', inbox: facebook_inbox, account: account, conversation: conversation)
         described_class.new(message: message).perform
         expect(bot).to have_received(:deliver)
@@ -62,7 +62,7 @@ describe Facebook::SendOnFacebookService do
         expect(message.reload.external_error).to eq('Error validating access token')
       end
 
-      it 'if message with attachment is sent from chatwoot and is outgoing' do
+      it 'if message with attachment is sent from starchats and is outgoing' do
         message = build(:message, message_type: 'outgoing', inbox: facebook_inbox, account: account, conversation: conversation)
         attachment = message.attachments.new(account_id: message.account_id, file_type: :image)
         attachment.file.attach(io: Rails.root.join('spec/assets/avatar.png').open, filename: 'avatar.png', content_type: 'image/png')
@@ -108,7 +108,7 @@ describe Facebook::SendOnFacebookService do
         expect(service).to have_received(:send_message_to_facebook).exactly(:twice)
       end
 
-      it 'if message sent from chatwoot is failed' do
+      it 'if message sent from starchats is failed' do
         message = create(:message, message_type: 'outgoing', inbox: facebook_inbox, account: account, conversation: conversation)
         allow(bot).to receive(:deliver).and_return({ error: { message: 'Invalid OAuth access token.', type: 'OAuthException', code: 190,
                                                               fbtrace_id: 'BLBz/WZt8dN' } }.to_json)
@@ -168,7 +168,7 @@ describe Facebook::SendOnFacebookService do
     end
 
     context 'with input_select' do
-      it 'if message with input_select is sent from chatwoot and is outgoing' do
+      it 'if message with input_select is sent from starchats and is outgoing' do
         message = build(
           :message,
           message_type: 'outgoing',

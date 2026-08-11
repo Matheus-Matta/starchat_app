@@ -66,25 +66,25 @@ describe('PublicArticleSearch', () => {
     ArticlesAPI.searchArticles.mockResolvedValue({ data: { payload: [] } });
     const wrapper = buildWrapper();
 
-    wrapper.vm.onUpdateSearchTerm('  chatwoot  ');
+    wrapper.vm.onUpdateSearchTerm('  starchats  ');
     vi.runAllTimers();
     await flushPromises();
 
     expect(ArticlesAPI.searchArticles).toHaveBeenCalledWith(
       'test-portal',
       'en',
-      'chatwoot'
+      'starchats'
     );
   });
 
   it('passes the trimmed search term to suggestions for highlighting', async () => {
     const wrapper = buildWrapper();
 
-    wrapper.vm.onUpdateSearchTerm('  chatwoot  ');
+    wrapper.vm.onUpdateSearchTerm('  starchats  ');
     await wrapper.vm.$nextTick();
 
     expect(
       wrapper.findComponent(SearchSuggestionsStub).props('searchTerm')
-    ).toBe('chatwoot');
+    ).toBe('starchats');
   });
 });

@@ -54,8 +54,8 @@ const state = {
 export const getters = {
   get: $state => $state,
   isOnStarchatsCloud: () => true,
-  isACustomBrandedInstance: $state => $state.installationName !== 'Chatwoot',
-  isAStarchatsInstance: $state => $state.installationName === 'Chatwoot',
+  isACustomBrandedInstance: $state => $state.installationName !== 'Starchats',
+  isAStarchatsInstance: $state => $state.installationName === 'Starchats',
 };
 
 export const actions = {};

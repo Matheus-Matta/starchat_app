@@ -123,7 +123,7 @@
         "CUSTOM_EMAIL_DOMAIN_ENABLED": "Tagad Jūs varat saņemt e-pasta ziņojumus savā pielāgotajā domēnā."
       }
     },
-    "UPDATE_STARCHATS": "Ir pieejams Starchats {latestChatwootVersion} jauninājums. Lūdzu, atjauniniet savu programmatūru.",
+    "UPDATE_STARCHATS": "Ir pieejams Starchats {latestStarchatsVersion} jauninājums. Lūdzu, atjauniniet savu programmatūru.",
     "LEARN_MORE": "Uzzināt vairāk",
     "PAYMENT_PENDING": "Jūsu maksājums tiek gaidīts. Lūdzu, atjauniniet savu maksājumu informāciju, lai turpinātu lietot Starchats",
     "UPGRADE": "Modernizējieties, lai turpinātu lietot Starchats",

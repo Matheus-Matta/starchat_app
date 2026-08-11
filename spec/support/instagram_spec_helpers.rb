@@ -13,7 +13,7 @@ module InstagramSpecHelpers
       name: 'Jane',
       id: sender_id,
       account_id: account_id,
-      profile_pic: 'https://chatwoot-assets.local/sample.png',
+      profile_pic: 'https://starchats-assets.local/sample.png',
       username: 'some_user_name'
     }
   end

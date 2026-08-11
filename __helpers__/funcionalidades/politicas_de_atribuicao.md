@@ -235,7 +235,7 @@ Nova conversa chega ao inbox
 ╔════════════════════════════════╗
 ║ Inbox tem política vinculada?  ║
 ╚════════════════════════════════╝
-     Sim ↓                   Não → Round Robin (padrão Chatwoot)
+     Sim ↓                   Não → Round Robin (padrão Starchats)
          ↓
 ╔═══════════════════════════════════════╗
 ║ policy.equal_distribution? (modo ED) ║

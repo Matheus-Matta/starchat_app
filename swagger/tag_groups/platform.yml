@@ -1,7 +1,7 @@
 openapi: '3.0.4'
 info:
-  title: Chatwoot - Platform API
-  description: Platform API endpoints for Chatwoot
+  title: Starchats - Platform API
+  description: Platform API endpoints for Starchats
   version: 1.1.0
   termsOfService: https://www.starchats.com.br/terms-of-service/
   contact:

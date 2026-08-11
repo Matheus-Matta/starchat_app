@@ -1,6 +1,6 @@
-# Chatwoot E2E Testing
+# Starchats E2E Testing
 
-End-to-end testing framework for Chatwoot using Component Object Model pattern.
+End-to-end testing framework for Starchats using Component Object Model pattern.
 
 ## Setup
 
@@ -15,7 +15,7 @@ npx playwright install
 cp .env.example .env
 ```
 
-Edit `.env` with your Chatwoot instance URL and credentials.
+Edit `.env` with your Starchats instance URL and credentials.
 
 ## Usage
 

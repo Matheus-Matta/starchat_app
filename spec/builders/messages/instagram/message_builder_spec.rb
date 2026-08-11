@@ -10,7 +10,7 @@ describe Messages::Instagram::MessageBuilder do
   end
 
   let!(:account) { create(:account) }
-  let!(:instagram_channel) { create(:channel_instagram, account: account, instagram_id: 'chatwoot-app-user-id-1') }
+  let!(:instagram_channel) { create(:channel_instagram, account: account, instagram_id: 'starchats-app-user-id-1') }
   let!(:instagram_inbox) { create(:inbox, channel: instagram_channel, account: account, greeting_enabled: false) }
   let!(:dm_params) { build(:instagram_message_create_event).with_indifferent_access }
   let!(:story_mention_params) { build(:instagram_story_mention_event).with_indifferent_access }
@@ -30,7 +30,7 @@ describe Messages::Instagram::MessageBuilder do
             {
               name: 'Jane',
               username: 'some_user_name',
-              profile_pic: 'https://chatwoot-assets.local/sample.png',
+              profile_pic: 'https://starchats-assets.local/sample.png',
               id: sender_id,
               follower_count: 100,
               is_user_follow_business: true,
@@ -56,7 +56,7 @@ describe Messages::Instagram::MessageBuilder do
       expect(message.content).to eq('This is the first message from the customer')
     end
 
-    it 'discard echo message already sent by chatwoot' do
+    it 'discard echo message already sent by starchats' do
       messaging = dm_params[:entry][0]['messaging'][0]
       contact = create_instagram_contact_for_sender(messaging['sender']['id'], instagram_inbox)
       conversation = create(:conversation, account_id: account.id, inbox_id: instagram_inbox.id, contact_id: contact.id)
@@ -114,7 +114,7 @@ describe Messages::Instagram::MessageBuilder do
 
       expect(message.content).to eq('This is the story reply')
       expect(message.content_attributes[:story_sender]).to eq(instagram_inbox.channel.instagram_id)
-      expect(message.content_attributes[:story_id]).to eq('chatwoot-app-user-id-1')
+      expect(message.content_attributes[:story_id]).to eq('starchats-app-user-id-1')
       expect(message.content_attributes[:image_type]).to eq('ig_story_reply')
       expect(message.attachments.first.file_type).to eq('ig_story')
       expect(message.attachments.first.external_url).to eq(story_url)

@@ -5,7 +5,7 @@ module Evolution
     module_function
 
     # ==== Public ==============================================================
-    # Ajusta a mensagem para ser uma reply padrão do Chatwoot.
+    # Ajusta a mensagem para ser uma reply padrão do Starchats.
     # - Localiza o parent via stanzaId/quotedStanzaId
     # - Seta `message.in_reply_to` (ou `in_reply_to_external_id` se não achar)
     # - NÃO altera o conteúdo da mensagem (nada de "> quoted")

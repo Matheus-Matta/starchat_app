@@ -4,20 +4,20 @@ RSpec.describe 'Installation::Onboarding API', type: :request do
   let(:super_admin) { create(:super_admin) }
 
   describe 'GET /installation/onboarding' do
-    context 'when CHATWOOT_INSTALLATION_ONBOARDING redis key is not set' do
+    context 'when STARCHATS_INSTALLATION_ONBOARDING redis key is not set' do
       it 'redirects back' do
-        expect(Redis::Alfred.get(Redis::Alfred::CHATWOOT_INSTALLATION_ONBOARDING)).to be_nil
+        expect(Redis::Alfred.get(Redis::Alfred::STARCHATS_INSTALLATION_ONBOARDING)).to be_nil
         get '/installation/onboarding'
         expect(response).to have_http_status(:redirect)
       end
     end
 
-    context 'when CHATWOOT_INSTALLATION_ONBOARDING redis key is set' do
+    context 'when STARCHATS_INSTALLATION_ONBOARDING redis key is set' do
       it 'returns onboarding page' do
-        Redis::Alfred.set(Redis::Alfred::CHATWOOT_INSTALLATION_ONBOARDING, true)
+        Redis::Alfred.set(Redis::Alfred::STARCHATS_INSTALLATION_ONBOARDING, true)
         get '/installation/onboarding'
         expect(response).to have_http_status(:success)
-        Redis::Alfred.delete(Redis::Alfred::CHATWOOT_INSTALLATION_ONBOARDING)
+        Redis::Alfred.delete(Redis::Alfred::STARCHATS_INSTALLATION_ONBOARDING)
       end
     end
   end
@@ -28,17 +28,17 @@ RSpec.describe 'Installation::Onboarding API', type: :request do
     before do
       allow(AccountBuilder).to receive(:new).and_return(account_builder)
       allow(account_builder).to receive(:perform).and_return(true)
-      Redis::Alfred.set(Redis::Alfred::CHATWOOT_INSTALLATION_ONBOARDING, true)
+      Redis::Alfred.set(Redis::Alfred::STARCHATS_INSTALLATION_ONBOARDING, true)
     end
 
     after do
-      Redis::Alfred.delete(Redis::Alfred::CHATWOOT_INSTALLATION_ONBOARDING)
+      Redis::Alfred.delete(Redis::Alfred::STARCHATS_INSTALLATION_ONBOARDING)
     end
 
     context 'when onboarding successfull' do
       it 'deletes the redis key' do
         post '/installation/onboarding', params: { user: {} }
-        expect(Redis::Alfred.get(Redis::Alfred::CHATWOOT_INSTALLATION_ONBOARDING)).to be_nil
+        expect(Redis::Alfred.get(Redis::Alfred::STARCHATS_INSTALLATION_ONBOARDING)).to be_nil
       end
     end
 
@@ -46,7 +46,7 @@ RSpec.describe 'Installation::Onboarding API', type: :request do
       it 'does not deletes the redis key' do
         allow(AccountBuilder).to receive(:new).and_raise('error')
         post '/installation/onboarding', params: { user: {} }
-        expect(Redis::Alfred.get(Redis::Alfred::CHATWOOT_INSTALLATION_ONBOARDING)).not_to be_nil
+        expect(Redis::Alfred.get(Redis::Alfred::STARCHATS_INSTALLATION_ONBOARDING)).not_to be_nil
       end
     end
   end

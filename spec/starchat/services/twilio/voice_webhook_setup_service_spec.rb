@@ -8,7 +8,7 @@ RSpec.describe Twilio::VoiceWebhookSetupService do
   let(:api_key_sid) { 'SKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa' }
   let(:api_key_secret) { 'api_key_secret_123' }
   let(:phone_number) { '+15551230001' }
-  let(:frontend_url) { 'https://app.chatwoot.test' }
+  let(:frontend_url) { 'https://app.starchats.test' }
   let(:account) { create(:account) }
 
   let(:channel) do

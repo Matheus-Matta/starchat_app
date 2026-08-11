@@ -1,7 +1,7 @@
 GIT
   remote: https://github.com/chatwoot/azure-storage-ruby
   revision: 9957cf899d33a285b5dfe15bdb875292398e392b
-  branch: chatwoot
+  branch: starchats
   specs:
     azure-storage-blob (2.0.3)
       azure-storage-common (~> 2.0)
@@ -16,7 +16,7 @@ GIT
 GIT
   remote: https://github.com/chatwoot/devise-secure_password
   revision: adcc85fe1babfe40feae73dbcae64d14fff86e69
-  branch: chatwoot
+  branch: starchats
   specs:
     devise-secure_password (2.0.1)
       devise (>= 4.0.0, < 5.0.0)

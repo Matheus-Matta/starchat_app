@@ -6,7 +6,7 @@ RSpec.describe Crm::Leadsquared::SetupService do
   let(:service) { described_class.new(hook) }
   let(:base_client) { instance_double(Crm::Leadsquared::Api::BaseClient) }
   let(:activity_client) { instance_double(Crm::Leadsquared::Api::ActivityClient) }
-  let(:brand_name) { ::GlobalConfig.get('BRAND_NAME')['BRAND_NAME'].presence || 'Chatwoot' }
+  let(:brand_name) { ::GlobalConfig.get('BRAND_NAME')['BRAND_NAME'].presence || 'Starchats' }
   let(:endpoint_response) do
     {
       'TimeZone' => 'Asia/Kolkata',

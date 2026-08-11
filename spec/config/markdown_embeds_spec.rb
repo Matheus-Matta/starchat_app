@@ -56,7 +56,7 @@ describe 'Markdown Embeds Configuration' do
             expected: { 'video_id' => 'demo-with-query' } }
         ],
         'wistia' => [
-          { url: 'https://chatwoot.wistia.com/medias/kjwjeq6f9i', expected: { 'video_id' => 'kjwjeq6f9i' } },
+          { url: 'https://starchats.wistia.com/medias/kjwjeq6f9i', expected: { 'video_id' => 'kjwjeq6f9i' } },
           { url: 'https://www.company.wistia.com/medias/abc123def', expected: { 'video_id' => 'abc123def' } }
         ],
         'bunny' => [

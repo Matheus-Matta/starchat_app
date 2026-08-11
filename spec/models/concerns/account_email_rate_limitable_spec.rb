@@ -49,7 +49,7 @@ RSpec.describe AccountEmailRateLimitable do
       end
     end
 
-    context 'when chatwoot cloud' do
+    context 'when starchats cloud' do
       before do
         allow(StarchatsApp).to receive(:starchats_cloud?).and_return(true)
         2.times { account.increment_email_sent_count }
@@ -87,7 +87,7 @@ RSpec.describe AccountEmailRateLimitable do
   end
 
   describe '#reserve_email_send_capacity' do
-    context 'when chatwoot cloud' do
+    context 'when starchats cloud' do
       before do
         allow(StarchatsApp).to receive(:starchats_cloud?).and_return(true)
         account.update!(limits: { 'emails' => 2 })

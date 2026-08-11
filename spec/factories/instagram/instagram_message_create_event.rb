@@ -15,7 +15,7 @@ FactoryBot.define do
                 'id': sender_id
               },
               'recipient': {
-                'id': 'chatwoot-app-user-id-1'
+                'id': 'starchats-app-user-id-1'
               },
               'timestamp': '2021-09-08T06:34:04+0000',
               'message': {
@@ -46,7 +46,7 @@ FactoryBot.define do
                 'id': sender_id
               },
               'recipient': {
-                'id': 'chatwoot-app-user-id-1'
+                'id': 'starchats-app-user-id-1'
               },
               'timestamp': '2021-09-08T06:34:04+0000',
               'message': {
@@ -77,7 +77,7 @@ FactoryBot.define do
                 'id': sender_id
               },
               'recipient': {
-                'id': 'chatwoot-app-user-id-1'
+                'id': 'starchats-app-user-id-1'
               },
               'timestamp': '2021-09-08T06:34:04+0000',
               'message': {
@@ -85,8 +85,8 @@ FactoryBot.define do
                 'text': 'This is the story reply',
                 'reply_to': {
                   'story': {
-                    'id': 'chatwoot-app-user-id-1',
-                    'url': 'https://chatwoot-assets.local/sample.png'
+                    'id': 'starchats-app-user-id-1',
+                    'url': 'https://starchats-assets.local/sample.png'
                   }
                 }
               }
@@ -114,7 +114,7 @@ FactoryBot.define do
                 'id': sender_id
               },
               'recipient': {
-                'id': 'chatwoot-app-user-id-1'
+                'id': 'starchats-app-user-id-1'
               },
               'timestamp': '2021-09-08T06:34:04+0000',
               'message': {
@@ -178,7 +178,7 @@ FactoryBot.define do
                 'id': sender_id
               },
               'recipient': {
-                'id': 'chatwoot-app-user-id-1'
+                'id': 'starchats-app-user-id-1'
               },
               'timestamp': '2021-09-08T06:34:04+0000',
               'message': {
@@ -209,7 +209,7 @@ FactoryBot.define do
                 'id': sender_id
               },
               'recipient': {
-                'id': 'chatwoot-app-user-id-1'
+                'id': 'starchats-app-user-id-1'
               },
               'timestamp': '2021-09-08T06:34:04+0000',
               'message': {
@@ -247,7 +247,7 @@ FactoryBot.define do
                 'id': sender_id
               },
               'recipient': {
-                'id': 'chatwoot-app-user-id-1'
+                'id': 'starchats-app-user-id-1'
               },
               'timestamp': '2021-09-08T06:34:04+0000',
               'message': {
@@ -287,7 +287,7 @@ FactoryBot.define do
                 'id': sender_id
               },
               'recipient': {
-                'id': 'chatwoot-app-user-id-1'
+                'id': 'starchats-app-user-id-1'
               },
               'timestamp': '2021-09-08T06:34:04+0000',
               'message': {
@@ -325,7 +325,7 @@ FactoryBot.define do
                 'id': sender_id
               },
               'recipient': {
-                'id': 'chatwoot-app-user-id-1'
+                'id': 'starchats-app-user-id-1'
               },
               'timestamp': '2021-09-08T06:34:04+0000',
               'message': {
@@ -364,7 +364,7 @@ FactoryBot.define do
                 'id': sender_id
               },
               'recipient': {
-                'id': 'chatwoot-app-user-id-1'
+                'id': 'starchats-app-user-id-1'
               },
               'timestamp': '2021-09-08T06:34:04+0000',
               'message': {
@@ -403,7 +403,7 @@ FactoryBot.define do
                 'id': sender_id
               },
               'recipient': {
-                'id': 'chatwoot-app-user-id-1'
+                'id': 'starchats-app-user-id-1'
               },
               'timestamp': '2021-09-08T06:34:04+0000',
               'message': {
@@ -443,7 +443,7 @@ FactoryBot.define do
                 'id': sender_id
               },
               'recipient': {
-                'id': 'chatwoot-app-user-id-1'
+                'id': 'starchats-app-user-id-1'
               },
               'timestamp': '2021-09-08T06:34:04+0000',
               'message': {
@@ -474,7 +474,7 @@ FactoryBot.define do
                 'id': sender_id
               },
               'recipient': {
-                'id': 'chatwoot-app-user-id-1'
+                'id': 'starchats-app-user-id-1'
               },
               'timestamp': '2021-09-08T06:34:04+0000',
               'read': {

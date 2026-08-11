@@ -1,9 +1,9 @@
 A forma mais “cirúrgica” de deixar o envio instantâneo (principalmente Webhook/WhatsApp/SendReply) é tirar esses jobs do “bolo” e rodar Sidekiq em processos separados por filas (roles). Isso evita que jobs pesados (tipo seus SLAs) “segurem” a fila do que é tempo-real.
 
 Links (oficiais / referência) que você pediu
-Chatwoot (Docker produção): https://developers.starchats.com.br/self-hosted/deployment/docker
-Chatwoot (Performance / tuning): https://developers.starchats.com.br/self-hosted/deployment/performance/optimizing-configurations
-Chatwoot (Env vars): https://developers.starchats.com.br/self-hosted/configuration/environment-variables
+Starchats (Docker produção): https://developers.starchats.com.br/self-hosted/deployment/docker
+Starchats (Performance / tuning): https://developers.starchats.com.br/self-hosted/deployment/performance/optimizing-configurations
+Starchats (Env vars): https://developers.starchats.com.br/self-hosted/configuration/environment-variables
 
 Sidekiq (Queues/weights/roles): https://github.com/sidekiq/sidekiq/wiki/Advanced-Options
 Sidekiq (Best practices): https://github.com/sidekiq/sidekiq/wiki/Best-Practices
@@ -12,13 +12,13 @@ Sidekiq (Deployment): https://github.com/sidekiq/sidekiq/wiki/Deployment
 Evolution API (docs): https://doc.evolution-api.com/
 
 
-O guia oficial do Chatwoot já mostra como baixar o .env e o docker-compose.production.yaml via wget. 
-Chatwoot Docs
+O guia oficial do Starchats já mostra como baixar o .env e o docker-compose.production.yaml via wget. 
+Starchats Docs
 
-O que mexer no Chatwoot (.env) para aguentar carga
+O que mexer no Starchats (.env) para aguentar carga
 
-No Chatwoot, os 3 knobs que mais importam são: WEB_CONCURRENCY, RAILS_MAX_THREADS e SIDEKIQ_CONCURRENCY (e o pool de conexão do banco precisa acompanhar). 
-Chatwoot Docs
+No Starchats, os 3 knobs que mais importam são: WEB_CONCURRENCY, RAILS_MAX_THREADS e SIDEKIQ_CONCURRENCY (e o pool de conexão do banco precisa acompanhar). 
+Starchats Docs
 
 Exemplo de base (ajuste conforme CPU/DB):
 
@@ -34,8 +34,8 @@ REDIS_URL=redis://redis:6379
 DATABASE_URL=postgresql://postgres:senha@postgres:5432/chatwoot_production
 
 
-Referência de DATABASE_URL/REDIS_URL e padrão do .env no Chatwoot. 
-Chatwoot Docs
+Referência de DATABASE_URL/REDIS_URL e padrão do .env no Starchats. 
+Starchats Docs
 
 Como “separar os Sidekiq” (do jeito certo) no Docker
 1) Conceito
@@ -62,7 +62,7 @@ services:
   # ... rails/postgres/redis etc
 
   sidekiq_realtime:
-    image: chatwoot/chatwoot:latest
+    image: starchats/starchats:latest
     env_file: .env
     depends_on: [postgres, redis]
     environment:
@@ -71,7 +71,7 @@ services:
     command: ["bundle","exec","sidekiq","-c","30","-q","critical,4","-q","default,2"]
 
   sidekiq_sla:
-    image: chatwoot/chatwoot:latest
+    image: starchats/starchats:latest
     env_file: .env
     depends_on: [postgres, redis]
     environment:
@@ -91,7 +91,7 @@ GitHub
 Evite “dezenas de filas” no mesmo processo (vira pancadaria no Redis). 
 GitHub
 
-O compose padrão do Chatwoot roda Sidekiq apontando para config/sidekiq.yml (você pode manter isso e ainda assim criar processos adicionais com -q). 
+O compose padrão do Starchats roda Sidekiq apontando para config/sidekiq.yml (você pode manter isso e ainda assim criar processos adicionais com -q). 
 GitHub
 
 3) Mapeando com suas métricas (onde você ganha “instantâneo”)
@@ -103,16 +103,16 @@ O ideal é ele rodar em fila/worker separado (ex: sidekiq_sla) e deixar Webhook/
 
 Checklist rápido “entre outros componentes”
 
-Banco (Postgres): seu pool precisa bater com threads/processos (senão vira gargalo e dá latência). O próprio Chatwoot fala do ajuste de pool vs threads/processos. 
-Chatwoot Docs
+Banco (Postgres): seu pool precisa bater com threads/processos (senão vira gargalo e dá latência). O próprio Starchats fala do ajuste de pool vs threads/processos. 
+Starchats Docs
 
-Redis: mantenha Redis “saudável” (latência baixa) porque Sidekiq depende dele e o Chatwoot usa REDIS_URL. 
-Chatwoot Docs
+Redis: mantenha Redis “saudável” (latência baixa) porque Sidekiq depende dele e o Starchats usa REDIS_URL. 
+Starchats Docs
 
 Proxy (Nginx): o guia oficial lembra que, por padrão, os containers ficam no localhost e você deve colocar Nginx na frente. 
-Chatwoot Docs
+Starchats Docs
 
 Evolution / WhatsApp: 100 msg/s é carga alta; dependendo do canal, existe limite/throughput do próprio provedor. (Como referência, a própria Meta cita números de throughput em cenários de on-premises da plataforma do WhatsApp.) 
 Desenvolvedores do Facebook
 
-Se você colar aqui o seu docker-compose.yaml atual (Chatwoot + Evolution) e quais filas/jobs você quer priorizar (ex: Webhook/WhatsApp/SendReply em “tempo real”), eu te devolvo uma versão pronta do compose com os Sidekiq “fatiados” certinho pro seu hardware e sem estourar pool do Postgres.
+Se você colar aqui o seu docker-compose.yaml atual (Starchats + Evolution) e quais filas/jobs você quer priorizar (ex: Webhook/WhatsApp/SendReply em “tempo real”), eu te devolvo uma versão pronta do compose com os Sidekiq “fatiados” certinho pro seu hardware e sem estourar pool do Postgres.

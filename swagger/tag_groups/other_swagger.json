@@ -1,8 +1,8 @@
 {
   "openapi": "3.1.0",
   "info": {
-    "title": "Chatwoot",
-    "description": "This is the API documentation for Chatwoot server.",
+    "title": "Starchats",
+    "description": "This is the API documentation for Starchats server.",
     "version": "1.1.0",
     "termsOfService": "https://www.starchats.com.br/terms-of-service/",
     "contact": {
@@ -1533,7 +1533,7 @@
           "secret": {
             "type": "string",
             "nullable": true,
-            "description": "Secret used to sign webhook requests. Signed webhook deliveries include `X-Chatwoot-Timestamp` and `X-Chatwoot-Signature`; the signature is `sha256=` followed by the HMAC-SHA256 of `{timestamp}.{raw_request_body}` using this secret. Deliveries also include `X-Chatwoot-Delivery` when a delivery id is available."
+            "description": "Secret used to sign webhook requests. Signed webhook deliveries include `X-Starchats-Timestamp` and `X-Starchats-Signature`; the signature is `sha256=` followed by the HMAC-SHA256 of `{timestamp}.{raw_request_body}` using this secret. Deliveries also include `X-Starchats-Delivery` when a delivery id is available."
           },
           "account_id": {
             "type": "number",
@@ -1699,7 +1699,7 @@
                   "string",
                   "null"
                 ],
-                "description": "Latest version of Chatwoot available",
+                "description": "Latest version of Starchats available",
                 "example": "3.0.0"
               },
               "subscribed_features": {
@@ -1987,7 +1987,7 @@
           },
           "pubsub_token": {
             "type": "string",
-            "description": "The token to be used to connect to chatwoot websocket"
+            "description": "The token to be used to connect to starchats websocket"
           }
         }
       },
@@ -3073,7 +3073,7 @@
                     "type": "object",
                     "description": "The processed param values for template variables in template",
                     "example": {
-                      "1": "Chatwoot"
+                      "1": "Starchats"
                     }
                   }
                 }
@@ -4571,7 +4571,7 @@
           "custom_domain": {
             "type": "string",
             "description": "Custom domain to display help center.",
-            "example": "chatwoot.help"
+            "example": "starchats.help"
           },
           "header_text": {
             "type": "string",
@@ -6655,7 +6655,7 @@
         "schema": {
           "type": "string"
         },
-        "description": "Id of the session for which the conversation is created.\n\n\n\n Source Ids can be obtained through contactable inboxes API or via generated.<br/><br/>Website: Chatwoot generated string which can be obtained from webhook events. <br/> Phone Channels(Twilio): Phone number in e164 format <br/> Email Channels: Contact Email address <br/> API Channel: Any Random String"
+        "description": "Id of the session for which the conversation is created.\n\n\n\n Source Ids can be obtained through contactable inboxes API or via generated.<br/><br/>Website: Starchats generated string which can be obtained from webhook events. <br/> Phone Channels(Twilio): Phone number in e164 format <br/> Email Channels: Contact Email address <br/> API Channel: Any Random String"
       },
       "contact_sort_param": {
         "in": "query",

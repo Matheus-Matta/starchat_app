@@ -35,7 +35,7 @@ module Evolution
       end
 
       attrs = {
-        content: emoji,        # só o emoji; renderiza como reply no Chatwoot
+        content: emoji,        # só o emoji; renderiza como reply no Starchats
         content_type: 'text',
         private: false,
         account_id: parent.account_id,

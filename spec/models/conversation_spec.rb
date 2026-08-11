@@ -230,7 +230,7 @@ RSpec.describe Conversation do
 
     it 'invalidates filtered counts when filterable additional_attributes are removed' do
       account.enable_features!(:unread_count_for_filters)
-      conversation.update!(additional_attributes: { 'referer' => 'https://www.chatwoot.com/' })
+      conversation.update!(additional_attributes: { 'referer' => 'https://www.starchats.com/' })
 
       expect do
         conversation.update!(additional_attributes: {})

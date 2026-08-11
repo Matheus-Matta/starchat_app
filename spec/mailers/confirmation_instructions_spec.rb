@@ -10,10 +10,10 @@ RSpec.describe 'Devise::Mailer' do
     let(:mail) { Devise::Mailer.confirmation_instructions(confirmable_user.reload, nil, {}) }
     let(:mail_body) { CGI.unescapeHTML(mail.body.to_s) }
     # Read from config so a rebrand does not silently break these expectations.
-    let(:brand_name) { GlobalConfig.get('BRAND_NAME')['BRAND_NAME'] || 'Chatwoot' }
+    let(:brand_name) { GlobalConfig.get('BRAND_NAME')['BRAND_NAME'] || 'Starchats' }
     # Devise derives reply_to from config.mailer_sender, which reads this env var.
     let(:reply_to_address) do
-      Mail::Address.new(ENV.fetch('MAILER_SENDER_EMAIL', 'Chatwoot <accounts@starchats.com.br>')).address
+      Mail::Address.new(ENV.fetch('MAILER_SENDER_EMAIL', 'Starchats <accounts@starchats.com.br>')).address
     end
 
     before do

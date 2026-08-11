@@ -143,7 +143,7 @@ describe Integrations::Slack::UpdateSlackMessageService do
       end
     end
 
-    context 'when the message was not originated from Chatwoot' do
+    context 'when the message was not originated from Starchats' do
       it 'skips the update' do
         message = create(
           :message,

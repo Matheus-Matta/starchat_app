@@ -20,13 +20,13 @@ describe('SearchSuggestions', () => {
         items: [
           {
             id: 1,
-            title: 'Chatwoot Glossary',
+            title: 'Starchats Glossary',
             content: 'Access Token',
             link: '/hc/user-guide/articles/1677141565-starchats-glossary',
           },
         ],
         isLoading: false,
-        searchTerm: 'chatwoot',
+        searchTerm: 'starchats',
       },
       global: {
         directives: {

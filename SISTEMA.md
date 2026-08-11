@@ -139,7 +139,7 @@ Gestão via super admin: `/super_admin/accounts/{id}/edit` → campo **All Featu
 | `saml` | Login via SAML SSO |
 | `conversation_required_attributes` | Atributos obrigatórios antes de fechar conversa |
 | `sla` | Políticas de SLA (tempo de resposta) |
-| `disable_branding` | Remove branding Chatwoot da UI |
+| `disable_branding` | Remove branding Starchats da UI |
 
 #### Email
 | Feature | O que habilita |
@@ -153,7 +153,7 @@ Gestão via super admin: `/super_admin/accounts/{id}/edit` → campo **All Featu
 | Feature | O que habilita |
 |---|---|
 | `chatwoot_v4` | Interface v4 |
-| `contact_chatwoot_support_team` | Contato com suporte |
+| `contact_starchats_support_team` | Contato com suporte |
 
 ---
 
@@ -243,7 +243,7 @@ Push notifications para app mobile.
 ### Langfuse / OpenTelemetry
 Observabilidade de chamadas LLM do Cosmos.
 - **Config**: `OTEL_PROVIDER`, `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, `LANGFUSE_BASE_URL`
-- **Verificação**: `StarchatsApp.otel_enabled?` em `lib/chatwoot_app.rb`
+- **Verificação**: `StarchatsApp.otel_enabled?` em `lib/starchats_app.rb`
 
 ---
 
@@ -732,7 +732,7 @@ Ou diretamente no `.env` (o `.env` tem precedência).
 ### Branding
 | Config | O que faz | Padrão |
 |---|---|---|
-| `INSTALLATION_NAME` | Nome da instalação | `Chatwoot` |
+| `INSTALLATION_NAME` | Nome da instalação | `Starchats` |
 | `BRAND_NAME` | Nome da marca | — |
 | `BRAND_URL` | URL da marca | — |
 | `LOGO` | Caminho do logo | — |

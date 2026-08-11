@@ -5,7 +5,7 @@ class EnableCompaniesFeatureForAllAccounts < ActiveRecord::Migration[7.1]
     if config&.value.present?
       features = config.value.map do |f|
         if f['name'] == 'companies'
-          f.merge('enabled' => true, 'premium' => false, 'chatwoot_internal' => false)
+          f.merge('enabled' => true, 'premium' => false, 'starchats_internal' => false)
         else
           f
         end

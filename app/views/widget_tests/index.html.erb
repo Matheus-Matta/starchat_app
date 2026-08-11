@@ -58,9 +58,9 @@ window.addEventListener('starchats:error', function(e) {
 
 // Backwards compatibility check: an embed installed before the rename listens for the
 // old event name and reads the old global. Both must still work.
-window.addEventListener('chatwoot:ready', function() {
-  console.log('legacy chatwoot:ready fired; $chatwoot === $starchats?',
-    window.$chatwoot === window.$starchats)
+window.addEventListener('starchats:ready', function() {
+  console.log('legacy starchats:ready fired; $starchats === $starchats?',
+    window.$starchats === window.$starchats)
 })
 
 

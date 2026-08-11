@@ -41,7 +41,7 @@ describe Integrations::Slack::IncomingMessageBuilder do
   let!(:conversation) { create(:conversation, identifier: message_params[:event][:thread_ts]) }
 
   before do
-    stub_request(:get, 'https://chatwoot-assets.local/sample.png').to_return(
+    stub_request(:get, 'https://starchats-assets.local/sample.png').to_return(
       status: 200,
       body: File.read('spec/assets/sample.png'),
       headers: {}
@@ -179,7 +179,7 @@ describe Integrations::Slack::IncomingMessageBuilder do
         allow(builder).to receive(:slack_client).and_return(slack_client)
       end
 
-      context 'when slack user email matches a chatwoot agent' do
+      context 'when slack user email matches a starchats agent' do
         before do
           create(:user, account: conversation.account, email: 'agent@example.com')
           slack_response = {
@@ -205,7 +205,7 @@ describe Integrations::Slack::IncomingMessageBuilder do
         end
       end
 
-      context 'when slack user email does not match any chatwoot agent' do
+      context 'when slack user email does not match any starchats agent' do
         before do
           slack_response = {
             user: {

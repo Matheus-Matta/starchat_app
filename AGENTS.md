@@ -1,4 +1,4 @@
-# Chatwoot Development Guidelines
+# Starchats Development Guidelines
 
 ## Build / Test / Lint
 
@@ -97,10 +97,10 @@
 
 ## Enterprise Edition Notes
 
-- Chatwoot has an Enterprise overlay under `enterprise/` that extends/overrides OSS code.
+- Starchats has an Enterprise overlay under `enterprise/` that extends/overrides OSS code.
 - When you add or modify core functionality, always check for corresponding files in `enterprise/` and keep behavior compatible.
 - Follow the Enterprise development practices documented here:
-  - https://chatwoot.help/hc/handbook/articles/developing-enterprise-edition-features-38
+  - https://starchats.help/hc/handbook/articles/developing-enterprise-edition-features-38
 
 Practical checklist for any change impacting core logic or public APIs
 - Search for related files in both trees before editing (e.g., `rg -n "FooService|ControllerName|ModelName" app enterprise`).
@@ -115,4 +115,4 @@ Practical checklist for any change impacting core logic or public APIs
 
 ## Branding / White-labeling note
 
-- For user-facing strings that currently contain "Chatwoot" but should adapt to branded/self-hosted installs, prefer applying `replaceInstallationName` from `shared/composables/useBranding` in the UI layer (for example tooltip and suggestion labels) instead of adding hardcoded brand-specific copy.
+- For user-facing strings that currently contain "Starchats" but should adapt to branded/self-hosted installs, prefer applying `replaceInstallationName` from `shared/composables/useBranding` in the UI layer (for example tooltip and suggestion labels) instead of adding hardcoded brand-specific copy.

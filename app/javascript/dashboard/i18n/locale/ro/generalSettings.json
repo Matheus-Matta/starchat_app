@@ -123,7 +123,7 @@
         "CUSTOM_EMAIL_DOMAIN_ENABLED": "Puteți primi e-mailuri în domeniul dvs. personalizat acum."
       }
     },
-    "UPDATE_STARCHATS": "Este disponibilă o actualizare {latestChatwootVersion} pentru Starchats. Vă rugăm să actualizați instanța.",
+    "UPDATE_STARCHATS": "Este disponibilă o actualizare {latestStarchatsVersion} pentru Starchats. Vă rugăm să actualizați instanța.",
     "LEARN_MORE": "Află mai mult",
     "PAYMENT_PENDING": "Plata dvs. este în așteptare. Vă rugăm să actualizați informațiile de plată pentru a continua să utilizați Starchats",
     "UPGRADE": "Upgrade to continue using Starchats",

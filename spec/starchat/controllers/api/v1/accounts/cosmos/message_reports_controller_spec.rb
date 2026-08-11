@@ -33,7 +33,7 @@ RSpec.describe 'Api::V1::Accounts::Cosmos::MessageReports', type: :request do
       end
     end
 
-    context 'when on Chatwoot cloud' do
+    context 'when on Starchats cloud' do
       before { InstallationConfig.where(name: 'DEPLOYMENT_ENV').first_or_initialize.update!(value: 'cloud') }
 
       it 'creates a message report for the reporting agent' do

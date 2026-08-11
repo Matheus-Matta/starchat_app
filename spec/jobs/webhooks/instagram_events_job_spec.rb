@@ -19,13 +19,13 @@ describe Webhooks::InstagramEventsJob do
     { name: 'Jane',
       id: sender_id,
       account_id: instagram_messenger_inbox.account_id,
-      profile_pic: 'https://chatwoot-assets.local/sample.png',
+      profile_pic: 'https://starchats-assets.local/sample.png',
       username: 'some_user_name' }
   end
 
   describe '#perform' do
     context 'when handling messaging events for Instagram via Facebook page' do
-      let!(:instagram_messenger_channel) { create(:channel_instagram_fb_page, account: account, instagram_id: 'chatwoot-app-user-id-1') }
+      let!(:instagram_messenger_channel) { create(:channel_instagram_fb_page, account: account, instagram_id: 'starchats-app-user-id-1') }
       let!(:instagram_messenger_inbox) { create(:inbox, channel: instagram_messenger_channel, account: account, greeting_enabled: false) }
       let(:fb_object) { double }
 
@@ -76,7 +76,7 @@ describe Webhooks::InstagramEventsJob do
             name: 'Jane',
             id: sender_id,
             account_id: instagram_messenger_inbox.account_id,
-            profile_pic: 'https://chatwoot-assets.local/sample.png'
+            profile_pic: 'https://starchats-assets.local/sample.png'
           }.with_indifferent_access
         )
         message.attachments.new(file_type: :image, external_url: 'https://www.example.com/test.jpeg')
@@ -221,7 +221,7 @@ describe Webhooks::InstagramEventsJob do
     end
 
     context 'when handling messaging events for Instagram via Instagram login' do
-      let!(:instagram_channel) { create(:channel_instagram, account: account, instagram_id: 'chatwoot-app-user-id-1') }
+      let!(:instagram_channel) { create(:channel_instagram, account: account, instagram_id: 'starchats-app-user-id-1') }
       let!(:instagram_inbox) { instagram_channel.inbox }
 
       before do
@@ -235,7 +235,7 @@ describe Webhooks::InstagramEventsJob do
               {
                 name: 'Jane',
                 username: 'some_user_name',
-                profile_pic: 'https://chatwoot-assets.local/sample.png',
+                profile_pic: 'https://starchats-assets.local/sample.png',
                 id: sender_id,
                 follower_count: 100,
                 is_user_follow_business: true,

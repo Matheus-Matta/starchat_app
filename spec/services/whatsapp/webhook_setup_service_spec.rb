@@ -302,7 +302,7 @@ describe Whatsapp::WebhookSetupService do
       end
 
       it 'uses the existing webhook verify token during reauthorization' do
-        with_modified_env FRONTEND_URL: 'https://app.chatwoot.com' do
+        with_modified_env FRONTEND_URL: 'https://app.starchats.com' do
           expect(api_client).to receive(:subscribe_phone_number_webhook)
             .with(waba_id, '123456789', anything, 'existing_verify_token',
                   subscribed_fields: %w[messages smb_message_echoes])

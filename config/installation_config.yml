@@ -1,6 +1,6 @@
-# This file contains all the installation wide configuration which controls various settings in Chatwoot
+# This file contains all the installation wide configuration which controls various settings in Starchats
 # This is internal config and should not be modified by the user directly in database
-# Chatwoot might override and modify these values during the upgrade process
+# Starchats might override and modify these values during the upgrade process
 # Configs which can be modified by the user are available in the dashboard under appropriate UI
 #
 # name: the name of the config referenced in the code
@@ -82,7 +82,7 @@
 - name: WEBHOOK_TIMEOUT
   value: 5
   display_title: 'Webhook request timeout (seconds)'
-  description: 'Maximum time Chatwoot waits for a webhook response before failing the request'
+  description: 'Maximum time Starchats waits for a webhook response before failing the request'
   locked: false
 - name: DIRECT_UPLOADS_ENABLED
   type: boolean
@@ -226,17 +226,17 @@
   type: secret
 # ------- End of Context.dev Config ------- #
 
-# ------- Chatwoot Internal Config for Cloud ----#
+# ------- Starchats Internal Config for Cloud ----#
 - name: STARCHATS_INBOX_TOKEN
   value:
   display_title: 'Inbox Token'
-  description: 'The Chatwoot Inbox Token for Contact Support in Cloud'
+  description: 'The Starchats Inbox Token for Contact Support in Cloud'
   locked: false
   type: secret
 - name: STARCHATS_INBOX_HMAC_KEY
   value:
   display_title: 'Inbox HMAC Key'
-  description: 'The Chatwoot Inbox HMAC Key for Contact Support in Cloud'
+  description: 'The Starchats Inbox HMAC Key for Contact Support in Cloud'
   locked: false
   type: secret
 - name: COSMOS_TOPUP_OPTIONS
@@ -253,20 +253,20 @@
 - name: MARKETING_CONVERSION_TRACKING_CONFIG
   value:
   display_title: 'Marketing Conversion Tracking Config'
-  description: 'JSON config for Chatwoot Cloud signup and plan activation conversion tracking'
+  description: 'JSON config for Starchats Cloud signup and plan activation conversion tracking'
   locked: true
   type: code
-- name: CHATWOOT_CLOUD_PLAN_FEATURES
+- name: STARCHATS_CLOUD_PLAN_FEATURES
   display_title: 'Planwise Features List'
   value:
   description: 'Config to features and their associated plans'
 - name: DEPLOYMENT_ENV
   value: self-hosted
-  description: 'The deployment environment of the installation, to differentiate between Chatwoot cloud and self-hosted'
+  description: 'The deployment environment of the installation, to differentiate between Starchats cloud and self-hosted'
 - name: CLOUD_ANALYTICS_TOKEN
   value:
   display_title: 'Analytics Token'
-  description: 'The Amplitude analytics API key for Chatwoot cloud'
+  description: 'The Amplitude analytics API key for Starchats cloud'
   type: secret
 - name: CLEARBIT_API_KEY
   value:
@@ -292,14 +292,14 @@
   display_title: 'Inactive WhatsApp Numbers'
   description: 'Comma-separated list of WhatsApp numbers that should be rejected with a 422 error'
   type: code
-# ------- End of Chatwoot Internal Config for Cloud ----#
+# ------- End of Starchats Internal Config for Cloud ----#
 
-# ------- Chatwoot Internal Config for Self Hosted ----#
+# ------- Starchats Internal Config for Self Hosted ----#
 - name: ACCOUNT_SECURITY_NOTIFICATION_WEBHOOK_URL
   display_title: Webhook URL to post security analysis
   value:
-  description: Used to notify Chatwoot about account abuses, potential threads (Should be a Discord Webhook URL)
-# ------- End of Chatwoot Internal Config for Self Hosted ----#
+  description: Used to notify Starchats about account abuses, potential threads (Should be a Discord Webhook URL)
+# ------- End of Starchats Internal Config for Self Hosted ----#
 
 # ------- Compliance Related Config ----#
 - name: STARCHATS_INSTANCE_ADMIN_EMAIL

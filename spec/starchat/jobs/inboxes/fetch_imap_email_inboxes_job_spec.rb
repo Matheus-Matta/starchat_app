@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Inboxes::FetchImapEmailInboxesJob do
-  context 'when chatwoot_cloud is enabled' do
+  context 'when starchats_cloud is enabled' do
     let(:account) { create(:account) }
     let(:premium_account) { create(:account) }
     let(:imap_email_channel) { create(:channel_email, imap_enabled: true, account: account) }

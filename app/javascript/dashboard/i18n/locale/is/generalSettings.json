@@ -123,7 +123,7 @@
         "CUSTOM_EMAIL_DOMAIN_ENABLED": "Þú getur fengið tölvupóst á þitt lén núna."
       }
     },
-    "UPDATE_STARCHATS": "Uppfærsla {latestChatwootVersion} fyrir Starchats er fáanleg. Vinsamlegast uppfærðu tilvikið þitt.",
+    "UPDATE_STARCHATS": "Uppfærsla {latestStarchatsVersion} fyrir Starchats er fáanleg. Vinsamlegast uppfærðu tilvikið þitt.",
     "LEARN_MORE": "Læra meira",
     "PAYMENT_PENDING": "Your payment is pending. Please update your payment information to continue using Starchats",
     "UPGRADE": "Upgrade to continue using Starchats",

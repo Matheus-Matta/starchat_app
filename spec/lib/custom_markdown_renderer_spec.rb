@@ -165,7 +165,7 @@ describe CustomMarkdownRenderer do
     end
 
     context 'when link is a wistia URL' do
-      let(:wistia_url) { 'https://chatwoot.wistia.com/medias/kjwjeq6f9i' }
+      let(:wistia_url) { 'https://starchats.wistia.com/medias/kjwjeq6f9i' }
 
       it 'renders a custom element with Wistia embed code' do
         output = render_markdown_link(wistia_url)

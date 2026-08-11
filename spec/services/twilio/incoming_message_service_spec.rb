@@ -172,7 +172,7 @@ describe Twilio::IncomingMessageService do
 
     context 'when a message with an attachment is received' do
       before do
-        stub_request(:get, 'https://chatwoot-assets.local/sample.png')
+        stub_request(:get, 'https://starchats-assets.local/sample.png')
           .to_return(status: 200, body: 'image data', headers: { 'Content-Type' => 'image/png' })
       end
 
@@ -185,7 +185,7 @@ describe Twilio::IncomingMessageService do
           Body: 'testing3',
           NumMedia: '1',
           MediaContentType0: 'image/jpeg',
-          MediaUrl0: 'https://chatwoot-assets.local/sample.png'
+          MediaUrl0: 'https://starchats-assets.local/sample.png'
         }
       end
 
@@ -199,10 +199,10 @@ describe Twilio::IncomingMessageService do
 
     context 'when there is an error downloading the attachment' do
       before do
-        stub_request(:get, 'https://chatwoot-assets.local/sample.png')
+        stub_request(:get, 'https://starchats-assets.local/sample.png')
           .to_raise(Down::Error.new('Download error'))
 
-        stub_request(:get, 'https://chatwoot-assets.local/sample.png')
+        stub_request(:get, 'https://starchats-assets.local/sample.png')
           .to_return(status: 200, body: 'image data', headers: { 'Content-Type' => 'image/png' })
       end
 
@@ -215,7 +215,7 @@ describe Twilio::IncomingMessageService do
           Body: 'testing3',
           NumMedia: '1',
           MediaContentType0: 'image/jpeg',
-          MediaUrl0: 'https://chatwoot-assets.local/sample.png'
+          MediaUrl0: 'https://starchats-assets.local/sample.png'
         }
       end
 
@@ -232,9 +232,9 @@ describe Twilio::IncomingMessageService do
 
     context 'when a message with multiple attachments is received' do
       before do
-        stub_request(:get, 'https://chatwoot-assets.local/sample.png')
+        stub_request(:get, 'https://starchats-assets.local/sample.png')
           .to_return(status: 200, body: 'image data 1', headers: { 'Content-Type' => 'image/png' })
-        stub_request(:get, 'https://chatwoot-assets.local/sample.jpg')
+        stub_request(:get, 'https://starchats-assets.local/sample.jpg')
           .to_return(status: 200, body: 'image data 2', headers: { 'Content-Type' => 'image/jpeg' })
       end
 
@@ -247,9 +247,9 @@ describe Twilio::IncomingMessageService do
           Body: 'testing multiple media',
           NumMedia: '2',
           MediaContentType0: 'image/png',
-          MediaUrl0: 'https://chatwoot-assets.local/sample.png',
+          MediaUrl0: 'https://starchats-assets.local/sample.png',
           MediaContentType1: 'image/jpeg',
-          MediaUrl1: 'https://chatwoot-assets.local/sample.jpg'
+          MediaUrl1: 'https://starchats-assets.local/sample.jpg'
         }
       end
 

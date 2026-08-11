@@ -1,12 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe Onboarding::HelpCenterCurator do
-  let(:account) { create(:account, custom_attributes: { 'website' => 'chatwoot.com' }) }
+  let(:account) { create(:account, custom_attributes: { 'website' => 'starchats.com' }) }
   let(:links) do
     [
-      { 'url' => 'https://chatwoot.com/docs/a', 'title' => 'A' },
-      { url: 'https://chatwoot.com/docs/b', title: 'B' },
-      'https://chatwoot.com/docs/c'
+      { 'url' => 'https://starchats.com/docs/a', 'title' => 'A' },
+      { url: 'https://starchats.com/docs/b', title: 'B' },
+      'https://starchats.com/docs/c'
     ]
   end
   let(:llm_response) do
@@ -14,9 +14,9 @@ RSpec.describe Onboarding::HelpCenterCurator do
       message: {
         categories: [{ name: 'Docs', description: 'Docs' }],
         articles: [
-          { title: 'A', urls: ['https://chatwoot.com/docs/a'], category_name: 'Docs' },
-          { title: 'B', urls: ['https://chatwoot.com/docs/b'], category_name: 'Docs' },
-          { title: 'C', urls: ['https://chatwoot.com/docs/c'], category_name: 'Docs' }
+          { title: 'A', urls: ['https://starchats.com/docs/a'], category_name: 'Docs' },
+          { title: 'B', urls: ['https://starchats.com/docs/b'], category_name: 'Docs' },
+          { title: 'C', urls: ['https://starchats.com/docs/c'], category_name: 'Docs' }
         ]
       }
     }
@@ -36,6 +36,6 @@ RSpec.describe Onboarding::HelpCenterCurator do
   it 'extracts allowed urls from Firecrawl string-keyed link hashes' do
     result = described_class.new(account: account).perform
 
-    expect(result['allowed_urls']).to eq(['https://chatwoot.com/docs/a'])
+    expect(result['allowed_urls']).to eq(['https://starchats.com/docs/a'])
   end
 end

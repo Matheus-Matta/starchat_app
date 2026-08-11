@@ -123,7 +123,7 @@
         "CUSTOM_EMAIL_DOMAIN_ENABLED": "Тепер ви можете отримувати електронні листи на власний домен."
       }
     },
-    "UPDATE_STARCHATS": "Доступне оновлення {latestChatwootVersion} для Starchats. Будь ласка, оновіть вашу копію.",
+    "UPDATE_STARCHATS": "Доступне оновлення {latestStarchatsVersion} для Starchats. Будь ласка, оновіть вашу копію.",
     "LEARN_MORE": "Детальніше",
     "PAYMENT_PENDING": "Очікується ваш платіж. Будь ласка, оновіть вашу платіжну інформацію, щоб продовжити використовувати Starchats",
     "UPGRADE": "Upgrade to continue using Starchats",

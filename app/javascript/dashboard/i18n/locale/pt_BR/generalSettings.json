@@ -141,7 +141,7 @@
         "CUSTOM_EMAIL_DOMAIN_ENABLED": "Você pode receber e-mails em seu domínio personalizado agora."
       }
     },
-    "UPDATE_STARCHATS": "Uma atualização {latestChatwootVersion} para o Starchats está disponível. Por favor, atualize sua instância.",
+    "UPDATE_STARCHATS": "Uma atualização {latestStarchatsVersion} para o Starchats está disponível. Por favor, atualize sua instância.",
     "LEARN_MORE": "Saiba mais",
     "PAYMENT_PENDING": "Seu pagamento está pendente. Por favor, atualize suas informações de pagamento para continuar usando o Starchat",
     "UPGRADE": "Atualize para continuar usando o Starchat",

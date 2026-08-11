@@ -59,7 +59,7 @@ services:
     environment:
       - DB_HOST=postgres
       - DB_PORT=5432
-      - DB_NAME=${DB_NAME:-chatwoot}
+      - DB_NAME=${DB_NAME:-starchats}
       - DB_USER=${POSTGRES_USERNAME}
       - DB_PASSWORD=${POSTGRES_PASSWORD}
       - REDIS_URL=redis://:${REDIS_PASSWORD}@redis:6379
@@ -81,7 +81,7 @@ services:
     environment:
       - DB_HOST=postgres
       - DB_PORT=5432
-      - DB_NAME=${DB_NAME:-chatwoot}
+      - DB_NAME=${DB_NAME:-starchats}
       - DB_USER=${POSTGRES_USERNAME}
       - DB_PASSWORD=${POSTGRES_PASSWORD}
       - REDIS_URL=redis://:${REDIS_PASSWORD}@redis:6379

@@ -23,9 +23,9 @@ import {
 import { isWidgetColorLighter } from 'shared/helpers/colorHelper';
 import { dispatchWindowEvent } from 'shared/helpers/CustomEventHelper';
 import {
-  CHATWOOT_ERROR,
-  CHATWOOT_POSTBACK,
-  CHATWOOT_READY,
+  STARCHATS_ERROR,
+  STARCHATS_POSTBACK,
+  STARCHATS_READY,
 } from '../widget/constants/sdkEvents';
 import { SET_USER_ERROR } from '../widget/constants/errorTypes';
 import { getUserCookieName, setCookieWithDomain } from './cookieHelpers';
@@ -193,11 +193,11 @@ export const IFrameHelper = {
       });
 
       if (!window.$starchats.resetTriggered) {
-        dispatchWindowEvent({ eventName: CHATWOOT_READY });
+        dispatchWindowEvent({ eventName: STARCHATS_READY });
       }
     },
     error: ({ errorType, data }) => {
-      dispatchWindowEvent({ eventName: CHATWOOT_ERROR, data: data });
+      dispatchWindowEvent({ eventName: STARCHATS_ERROR, data: data });
 
       if (errorType === SET_USER_ERROR) {
         Cookies.remove(getUserCookieName());
@@ -220,7 +220,7 @@ export const IFrameHelper = {
 
     postback(data) {
       dispatchWindowEvent({
-        eventName: CHATWOOT_POSTBACK,
+        eventName: STARCHATS_POSTBACK,
         data,
       });
     },

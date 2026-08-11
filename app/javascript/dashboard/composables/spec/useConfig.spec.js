@@ -1,7 +1,7 @@
 import { useConfig } from '../useConfig';
 
 describe('useConfig', () => {
-  const originalChatwootConfig = window.starchatsConfig;
+  const originalStarchatsConfig = window.starchatsConfig;
 
   beforeEach(() => {
     window.starchatsConfig = {
@@ -12,7 +12,7 @@ describe('useConfig', () => {
   });
 
   afterEach(() => {
-    window.starchatsConfig = originalChatwootConfig;
+    window.starchatsConfig = originalStarchatsConfig;
   });
 
   it('returns the correct configuration values', () => {

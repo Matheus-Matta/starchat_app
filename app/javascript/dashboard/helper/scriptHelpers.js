@@ -1,7 +1,7 @@
 import {
   ANALYTICS_IDENTITY,
-  CHATWOOT_RESET,
-  CHATWOOT_SET_USER,
+  STARCHATS_RESET,
+  STARCHATS_SET_USER,
 } from '../constants/appEvents';
 import AnalyticsHelper from './AnalyticsHelper';
 import DashboardAudioNotificationHelper from './AudioAlerts/DashboardAudioNotificationHelper';
@@ -36,10 +36,10 @@ export const initializeAudioAlerts = user => {
 };
 
 export const initializeStarchatsEvents = () => {
-  emitter.on(CHATWOOT_RESET, () => {
+  emitter.on(STARCHATS_RESET, () => {
     getSupportWidget()?.reset();
   });
-  emitter.on(CHATWOOT_SET_USER, ({ user }) => {
+  emitter.on(STARCHATS_SET_USER, ({ user }) => {
     const supportWidget = getSupportWidget();
     if (supportWidget) {
       supportWidget.setUser(user.email, {

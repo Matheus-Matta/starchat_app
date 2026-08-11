@@ -102,9 +102,9 @@ class DataImports::Intercom::MessageBatchBuilder
     mapped_message_ids = mappings.values.filter_map do |mapping|
       mapping.starchats_record_id if mapping.starchats_record_type == 'Message'
     end
-    chatwoot_source_ids = source_entries.map { |entry| "intercom:#{entry[:source_id]}" }
+    starchats_source_ids = source_entries.map { |entry| "intercom:#{entry[:source_id]}" }
     messages = Message.where(id: mapped_message_ids).or(
-      Message.where(conversation_id: @conversation.id, source_id: chatwoot_source_ids)
+      Message.where(conversation_id: @conversation.id, source_id: starchats_source_ids)
     ).to_a
 
     {

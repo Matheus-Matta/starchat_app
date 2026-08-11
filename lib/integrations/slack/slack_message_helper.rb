@@ -90,8 +90,8 @@ module Integrations::Slack::SlackMessageHelper
     return [nil, nil, nil] unless params[:event][:user]
 
     slack_user = slack_client.users_info(user: params[:event][:user])[:user]
-    chatwoot_user = conversation.account.users.from_email(slack_user[:profile][:email])
-    return [chatwoot_user, nil, nil] if chatwoot_user
+    starchats_user = conversation.account.users.from_email(slack_user[:profile][:email])
+    return [starchats_user, nil, nil] if starchats_user
 
     sender_name = slack_user.dig(:profile, :display_name).presence ||
                   slack_user[:real_name].presence ||

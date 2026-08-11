@@ -1,7 +1,7 @@
 # Post-Mortem: Realtime Message Updates & Status Bugs
 
 **Date:** 2025-12-19
-**Context:** Chatwoot / Evolution API Integration
+**Context:** Starchats / Evolution API Integration
 
 ## Symptoms
 
@@ -32,7 +32,7 @@
 ### 1. Unified Redis Channel
 
 - **Action:** Modified `config/cable.yml` to remove the environment dependency from `channel_prefix`.
-- **Code:** Changed `<%= "chatwoot_#{Rails.env}_action_cable" %>` to `chatwoot_action_cable`.
+- **Code:** Changed `<%= "starchats_#{Rails.env}_action_cable" %>` to `starchats_action_cable`.
 - **Effect:** Rails and Sidekiq now communicate on the same channel regardless of their individual `Rails.env` settings.
 
 ### 2. Precise Payload Serialization

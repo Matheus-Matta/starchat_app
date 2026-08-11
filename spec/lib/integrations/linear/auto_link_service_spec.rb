@@ -8,12 +8,12 @@ describe Integrations::Linear::AutoLinkService do
   let(:processor) { instance_double(Integrations::Linear::ProcessorService) }
   let(:activity_service) { instance_double(Linear::ActivityMessageService, perform: true) }
 
-  let(:linear_url) { 'https://linear.app/chatwoot/issue/CW-1234/some-slug' }
+  let(:linear_url) { 'https://linear.app/starchats/issue/CW-1234/some-slug' }
   let(:identifier) { 'CW-1234' }
   let(:node_id) { 'linear-node-id-1' }
   let(:search_response) do
     { data: [{ 'id' => node_id, 'identifier' => identifier, 'title' => 'Issue title',
-               'url' => 'https://linear.app/chatwoot/issue/CW-1234/issue-title' }] }
+               'url' => 'https://linear.app/starchats/issue/CW-1234/issue-title' }] }
   end
 
   before do
@@ -95,7 +95,7 @@ describe Integrations::Linear::AutoLinkService do
       it 'does not link' do
         message = build_private_note("see #{linear_url}")
         allow(processor).to receive(:search_issue).with(identifier).and_return(
-          { data: [{ 'id' => 'other', 'identifier' => 'OTHER-1', 'url' => 'https://linear.app/chatwoot/issue/OTHER-1' }] }
+          { data: [{ 'id' => 'other', 'identifier' => 'OTHER-1', 'url' => 'https://linear.app/starchats/issue/OTHER-1' }] }
         )
 
         described_class.new(account: account, message: message).perform
@@ -165,7 +165,7 @@ describe Integrations::Linear::AutoLinkService do
       end
 
       it 'links only the first Linear URL when multiple are present' do
-        second_url = 'https://linear.app/chatwoot/issue/CW-9999'
+        second_url = 'https://linear.app/starchats/issue/CW-9999'
         message = build_private_note("see #{linear_url} and #{second_url}")
 
         described_class.new(account: account, message: message).perform

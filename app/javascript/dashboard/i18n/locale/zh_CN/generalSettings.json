@@ -123,7 +123,7 @@
         "CUSTOM_EMAIL_DOMAIN_ENABLED": "您现在可以在您的自定义域名的电子邮件中接收消息。"
       }
     },
-    "UPDATE_STARCHATS": "Starchats 有可用更新{latestChatwootVersion}，请更新您的应用。",
+    "UPDATE_STARCHATS": "Starchats 有可用更新{latestStarchatsVersion}，请更新您的应用。",
     "LEARN_MORE": "了解更多",
     "PAYMENT_PENDING": "您的付款尚未完成。请更新您的付款信息以继续使用Starchats",
     "UPGRADE": "升级以继续使用 Starchats",

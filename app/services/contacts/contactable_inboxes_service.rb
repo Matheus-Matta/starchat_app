@@ -36,7 +36,7 @@ class Contacts::ContactableInboxesService
   # Retorna todas as inboxes onde é possível contactar (mesmo sem vínculo existente)
   def get_all_contactable_inboxes
     # Se a conta exige vínculo para enviar mensagem, talvez devêssemos filtrar aqui?
-    # Por enquanto mantemos o padrão de Chatwoot: todas as compatíveis
+    # Por enquanto mantemos o padrão de Starchats: todas as compatíveis
     account = contact.account
     account.inboxes.filter_map { |inbox| get_contactable_inbox(inbox) }
   end
@@ -72,7 +72,7 @@ class Contacts::ContactableInboxesService
   def website_contactable_inbox(inbox)
     latest_contact_inbox = inbox.contact_inboxes.where(contact: @contact).last
     return unless latest_contact_inbox
-    # Para WebWidget,Chatwoot geralmente impede iniciar nova conversa se já existe uma ativa
+    # Para WebWidget,Starchats geralmente impede iniciar nova conversa se já existe uma ativa
     return if latest_contact_inbox.conversations.present?
 
     { source_id: latest_contact_inbox.source_id, inbox: inbox }

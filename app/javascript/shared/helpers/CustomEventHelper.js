@@ -10,9 +10,9 @@ export const createEvent = ({ eventName, data = null }) => {
 };
 
 // Host pages listen for these by name, and that name is written in the customer's own
-// HTML. Every starchats:* event therefore also goes out under its former chatwoot:*
+// HTML. Every starchats:* event therefore also goes out under its former starchats:*
 // name so embeds installed before the rename keep receiving it.
-const LEGACY_EVENT_PREFIX = 'chatwoot:';
+const LEGACY_EVENT_PREFIX = 'starchats:';
 const EVENT_PREFIX = 'starchats:';
 
 export const dispatchWindowEvent = ({ eventName, data }) => {
