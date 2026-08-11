@@ -29,7 +29,7 @@ const getMessage = overrides => {
 
   return {
     id: 5272,
-    content: 'Hey, how are ya, I had a few questions about Chatwoot?',
+    content: 'Hey, how are ya, I had a few questions about Starchats?',
     inboxId: 475,
     conversationId: 43,
     messageType: 0,
@@ -87,7 +87,7 @@ const audioMessage = computed(() =>
 const brokenImageMessage = computed(() =>
   getMessage({
     content: null,
-    attachments: [getAttachment('image', 'https://chatwoot.dev/broken.png')],
+    attachments: [getAttachment('image', 'https://starchats.dev/broken.png')],
     ...baseSenderData.value,
   })
 );
@@ -122,7 +122,7 @@ const attachmentsOnly = computed(() =>
   getMessage({
     content: null,
     attachments: [
-      getAttachment('image', 'https://chatwoot.dev/broken.png'),
+      getAttachment('image', 'https://starchats.dev/broken.png'),
       getAttachment(
         'video',
         'https://videos.pexels.com/video-files/1739010/1739010-hd_1920_1080_30fps.mp4'
@@ -131,13 +131,13 @@ const attachmentsOnly = computed(() =>
         'image',
         'https://images.pexels.com/photos/28506417/pexels-photo-28506417/free-photo-of-motorbike-on-scenic-road-in-surat-thani-thailand.jpeg'
       ),
-      getAttachment('file', 'https://chatwoot.dev/invoice.pdf'),
-      getAttachment('file', 'https://chatwoot.dev/logs.txt'),
-      getAttachment('file', 'https://chatwoot.dev/contacts.xls'),
-      getAttachment('file', 'https://chatwoot.dev/customers.csv'),
-      getAttachment('file', 'https://chatwoot.dev/warehousing-policy.docx'),
-      getAttachment('file', 'https://chatwoot.dev/pitch-deck.ppt'),
-      getAttachment('file', 'https://chatwoot.dev/all-files.tar'),
+      getAttachment('file', 'https://starchats.dev/invoice.pdf'),
+      getAttachment('file', 'https://starchats.dev/logs.txt'),
+      getAttachment('file', 'https://starchats.dev/contacts.xls'),
+      getAttachment('file', 'https://starchats.dev/customers.csv'),
+      getAttachment('file', 'https://starchats.dev/warehousing-policy.docx'),
+      getAttachment('file', 'https://starchats.dev/pitch-deck.ppt'),
+      getAttachment('file', 'https://starchats.dev/all-files.tar'),
       getAttachment(
         'audio',
         'https://cdn.freesound.org/previews/769/769025_16085454-lq.mp3'
@@ -150,7 +150,7 @@ const attachmentsOnly = computed(() =>
 const singleFile = computed(() =>
   getMessage({
     content: null,
-    attachments: [getAttachment('file', 'https://chatwoot.dev/all-files.tar')],
+    attachments: [getAttachment('file', 'https://starchats.dev/all-files.tar')],
     ...baseSenderData.value,
   })
 );
@@ -174,7 +174,7 @@ const location = computed(() =>
       getAttachment('location', null, {
         coordinatesLat: 37.7937545,
         coordinatesLong: -122.3997472,
-        fallbackTitle: 'Chatwoot Inc',
+        fallbackTitle: 'Starchats Inc',
       }),
     ],
     ...baseSenderData.value,

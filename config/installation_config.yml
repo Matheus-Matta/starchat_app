@@ -227,13 +227,13 @@
 # ------- End of Context.dev Config ------- #
 
 # ------- Chatwoot Internal Config for Cloud ----#
-- name: CHATWOOT_INBOX_TOKEN
+- name: STARCHATS_INBOX_TOKEN
   value:
   display_title: 'Inbox Token'
   description: 'The Chatwoot Inbox Token for Contact Support in Cloud'
   locked: false
   type: secret
-- name: CHATWOOT_INBOX_HMAC_KEY
+- name: STARCHATS_INBOX_HMAC_KEY
   value:
   display_title: 'Inbox HMAC Key'
   description: 'The Chatwoot Inbox HMAC Key for Contact Support in Cloud'
@@ -302,7 +302,7 @@
 # ------- End of Chatwoot Internal Config for Self Hosted ----#
 
 # ------- Compliance Related Config ----#
-- name: CHATWOOT_INSTANCE_ADMIN_EMAIL
+- name: STARCHATS_INSTANCE_ADMIN_EMAIL
   display_title: 'Instance Admin Email'
   value:
   description: 'The email of the instance administrator to receive compliance-related notifications'

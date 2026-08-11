@@ -129,18 +129,18 @@ export const twilioTemplates = [
     template_type: 'quick_reply',
   },
   {
-    body: 'What type of Chatwoot installation are you using? Select "Chatwoot Cloud" if you are using app.chatwoot.com, otherwise select "Self-hosted Chatwoot".',
+    body: 'What type of Starchats installation are you using? Select "Starchats Cloud" if you are using app.starchats.com, otherwise select "Self-hosted Starchats".',
     types: {
       'twilio/quick-reply': {
-        body: 'What type of Chatwoot installation are you using? Select "Chatwoot Cloud" if you are using app.chatwoot.com, otherwise select "Self-hosted Chatwoot".',
+        body: 'What type of Starchats installation are you using? Select "Starchats Cloud" if you are using app.starchats.com, otherwise select "Self-hosted Starchats".',
         actions: [
           {
-            id: 'Chatwoot Cloud_payload',
-            title: 'Chatwoot Cloud',
+            id: 'Starchats Cloud_payload',
+            title: 'Starchats Cloud',
           },
           {
-            id: 'Self-hosted Chatwoot_payload',
-            title: 'Self-hosted Chatwoot',
+            id: 'Self-hosted Starchats_payload',
+            title: 'Self-hosted Starchats',
           },
         ],
       },

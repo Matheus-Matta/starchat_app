@@ -36,7 +36,7 @@ vi.mock('dashboard/composables/useImpersonation', () => ({
 }));
 
 global.starchatsConfig = {
-  websocketURL: 'wss://test.chatwoot.com',
+  websocketURL: 'wss://test.starchats.com',
 };
 
 describe('ActionCableConnector - Copilot Tests', () => {

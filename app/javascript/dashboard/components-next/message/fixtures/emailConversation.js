@@ -104,7 +104,7 @@ export default camelcaseKeys(
       private: false,
       status: 'sent',
       source_id:
-        'conversation/758d1f24-dc76-4abc-9c41-255ed8974f8e/messages/60914@reply.chatwoot.dev',
+        'conversation/758d1f24-dc76-4abc-9c41-255ed8974f8e/messages/60914@reply.starchats.dev',
       content_type: 'text',
       content_attributes: {
         cc_emails: [],
@@ -184,7 +184,7 @@ export default camelcaseKeys(
               'Dear Sam,\n\nThank you for the quotation. Could you share images or samples of the fabric for us to review before proceeding?\n\nBest,\nAlex',
           },
           in_reply_to:
-            'conversation/758d1f24-dc76-4abc-9c41-255ed8974f8e/messages/60914@reply.chatwoot.dev',
+            'conversation/758d1f24-dc76-4abc-9c41-255ed8974f8e/messages/60914@reply.starchats.dev',
           message_id:
             'CAM_Qp+_70EiYJ_nKMgJ6MZaD58Tq3E57QERcZgnd10g@mail.gmail.com',
           multipart: true,
@@ -235,7 +235,7 @@ export default camelcaseKeys(
       message_type: 1,
       content_type: 'text',
       source_id:
-        'conversation/758d1f24-dc76-4abc-9c41-255ed8974f8e/messages/60916@reply.chatwoot.dev',
+        'conversation/758d1f24-dc76-4abc-9c41-255ed8974f8e/messages/60916@reply.starchats.dev',
       processed_message_content:
         "Dear Alex,\r\n\r\nPlease find attached images of our cotton fabric samples. Let us know if you'd like physical samples sent to you. \r\n\r\nWarm regards,  \r\nSam",
       id: 60916,
@@ -297,7 +297,7 @@ export default camelcaseKeys(
         updated_at: ['2024-12-04T11:47:46.879Z', '2024-12-04T11:47:53.564Z'],
         source_id: [
           null,
-          'conversation/758d1f24-dc76-4abc-9c41-255ed8974f8e/messages/60916@reply.chatwoot.dev',
+          'conversation/758d1f24-dc76-4abc-9c41-255ed8974f8e/messages/60916@reply.starchats.dev',
         ],
       },
     },
@@ -331,7 +331,7 @@ export default camelcaseKeys(
               'Great we were looking for something in a different finish see image attached\n\n[image.png]\n\nLet me know if you have different finish options?\n\nBest Regards',
           },
           in_reply_to:
-            'conversation/758d1f24-dc76-4abc-9c41-255ed8974f8e/messages/60916@reply.chatwoot.dev',
+            'conversation/758d1f24-dc76-4abc-9c41-255ed8974f8e/messages/60916@reply.starchats.dev',
           message_id: 'CAM_Qp+8LuzLTWZXkecjzJAgmb9RAQGm+qTmg@mail.gmail.com',
           multipart: true,
           number_of_attachments: 1,

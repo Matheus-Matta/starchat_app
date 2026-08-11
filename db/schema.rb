@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_07_19_000000) do
+ActiveRecord::Schema[7.1].define(version: 2026_07_20_000000) do
   # These extensions should be enabled to support this database
   enable_extension "pg_stat_statements"
   enable_extension "pg_trgm"
@@ -1005,10 +1005,10 @@ ActiveRecord::Schema[7.1].define(version: 2026_07_19_000000) do
     t.jsonb "metadata", default: {}, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["starchats_record_type", "starchats_record_id"], name: "idx_data_import_items_on_record"
     t.index ["data_import_id", "source_object_type", "source_object_id"], name: "idx_data_import_items_on_import_and_source", unique: true
     t.index ["data_import_id"], name: "index_data_import_items_on_data_import_id"
     t.index ["source_provider", "source_object_type", "source_object_id"], name: "idx_data_import_items_on_source"
+    t.index ["starchats_record_type", "starchats_record_id"], name: "idx_data_import_items_on_record"
   end
 
   create_table "data_import_mappings", force: :cascade do |t|
@@ -1023,8 +1023,8 @@ ActiveRecord::Schema[7.1].define(version: 2026_07_19_000000) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["account_id", "source_provider", "source_object_type", "source_object_id"], name: "idx_data_import_mappings_on_account_and_source", unique: true
-    t.index ["starchats_record_type", "starchats_record_id"], name: "idx_data_import_mappings_on_record"
     t.index ["data_import_id"], name: "index_data_import_mappings_on_data_import_id"
+    t.index ["starchats_record_type", "starchats_record_id"], name: "idx_data_import_mappings_on_record"
   end
 
   create_table "data_imports", force: :cascade do |t|

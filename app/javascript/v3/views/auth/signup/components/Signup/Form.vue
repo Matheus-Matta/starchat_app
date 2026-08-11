@@ -52,14 +52,24 @@ const v$ = useVuelidate(rules, { credentials });
 
 const globalConfig = computed(() => store.getters['globalConfig/get']);
 
-const termsLink = computed(() =>
-  t('REGISTER.TERMS_ACCEPT')
-    .replace('https://www.chatwoot.com/terms', globalConfig.value.termsURL)
-    .replace(
-      'https://www.chatwoot.com/privacy-policy',
-      globalConfig.value.privacyURL
-    )
-);
+// The translated string carries two links, and their literal URLs differ per locale —
+// some say /terms, others /terms-of-service, and the domain has changed over time.
+// Matching on a hardcoded URL silently left the configured TERMS_URL and PRIVACY_URL
+// unapplied, so rewrite by position instead: first href is the terms, second the
+// privacy policy.
+const termsLink = computed(() => {
+  const configuredUrls = [
+    globalConfig.value.termsURL,
+    globalConfig.value.privacyURL,
+  ];
+  let index = 0;
+
+  return t('REGISTER.TERMS_ACCEPT').replace(/href="[^"]*"/g, match => {
+    const url = configuredUrls[index];
+    index += 1;
+    return url ? `href="${url}"` : match;
+  });
+});
 
 const allowedLoginMethods = computed(
   () => window.starchatsConfig.allowedLoginMethods || ['email']

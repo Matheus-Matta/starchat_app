@@ -51,13 +51,13 @@ RSpec.describe User do
   end
 
   describe 'hmac_identifier' do
-    it 'return nil if CHATWOOT_INBOX_HMAC_KEY is not set' do
+    it 'return nil if STARCHATS_INBOX_HMAC_KEY is not set' do
       expect(user.hmac_identifier).to eq('')
     end
 
-    it 'return value if CHATWOOT_INBOX_HMAC_KEY is set' do
+    it 'return value if STARCHATS_INBOX_HMAC_KEY is set' do
       ConfigLoader.new.process
-      i = InstallationConfig.find_by(name: 'CHATWOOT_INBOX_HMAC_KEY')
+      i = InstallationConfig.find_by(name: 'STARCHATS_INBOX_HMAC_KEY')
       i.value = 'random_secret_key'
       i.save!
       GlobalConfig.clear_cache
