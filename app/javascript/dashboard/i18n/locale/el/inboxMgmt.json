@@ -1007,8 +1007,8 @@
         "USER_MESSAGE": "Γειά",
         "AGENT_MESSAGE": "Γειά σας"
       },
-      "BRANDING_TEXT": "με την δύναμη του Chatwoot",
-      "SCRIPT_SETTINGS": "\n      window.chatwootSettings = {options};"
+      "BRANDING_TEXT": "με την δύναμη του Starchats",
+      "SCRIPT_SETTINGS": "\n      window.starchatsSettings = {options};"
     },
     "EMAIL_PROVIDERS": {
       "MICROSOFT": {

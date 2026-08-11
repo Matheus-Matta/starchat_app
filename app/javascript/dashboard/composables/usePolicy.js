@@ -90,25 +90,10 @@ export function usePolicy() {
     return true;
   };
 
-  const shouldShowPaywall = featureFlag => {
-    const flag = unref(featureFlag);
-    if (!flag) return false;
-
-    if (isACustomBrandedInstance.value) {
-      // custom branded instances never show paywall
-      return false;
-    }
-
-    if (isPremiumFeature(flag)) {
-      if (isOnChatwootCloud.value) {
-        return !isFeatureFlagEnabled(flag);
-      }
-
-      if (isEnterprise) {
-        return !hasPremiumEnterprise.value;
-      }
-    }
-
+  // There are no plan tiers here: every account is enterprise and every feature ships
+  // with it. Showing a paywall would tell users to upgrade to a plan that does not
+  // exist, so it never renders. Kept as a function so the call sites stay untouched.
+  const shouldShowPaywall = () => {
     return false;
   };
 

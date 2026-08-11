@@ -293,7 +293,7 @@
     "UNSUPPORTED_MESSAGE_TIKTOK": "Mesej ini tidak disokong. Anda boleh melihat mesej ini di aplikasi TikTok.",
     "FILE_TYPE_NOT_SUPPORTED": "This {fileName} file type is not supported in this conversation",
     "NATIVE_APP": "Aplikasi asli",
-    "NATIVE_APP_ADVISORY": "Mesej ini dihantar dari aplikasi asli. Balas dari Chatwoot untuk mengekalkan tetingkap mesej.",
+    "NATIVE_APP_ADVISORY": "Mesej ini dihantar dari aplikasi asli. Balas dari Starchats untuk mengekalkan tetingkap mesej.",
     "VOICE_WIDGET": {
       "INCOMING_CALL": "Panggilan masuk",
       "OUTGOING_CALL": "Panggilan keluar",

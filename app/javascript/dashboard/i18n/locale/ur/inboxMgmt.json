@@ -1007,8 +1007,8 @@
         "USER_MESSAGE": "Hi",
         "AGENT_MESSAGE": "Hello"
       },
-      "BRANDING_TEXT": "Powered by Chatwoot",
-      "SCRIPT_SETTINGS": "\n      window.chatwootSettings = {options};"
+      "BRANDING_TEXT": "Powered by Starchats",
+      "SCRIPT_SETTINGS": "\n      window.starchatsSettings = {options};"
     },
     "EMAIL_PROVIDERS": {
       "MICROSOFT": {

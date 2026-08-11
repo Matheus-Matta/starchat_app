@@ -293,7 +293,7 @@
     "UNSUPPORTED_MESSAGE_TIKTOK": "This message is unsupported. You can view this message on the TikTok app.",
     "FILE_TYPE_NOT_SUPPORTED": "This {fileName} file type is not supported in this conversation",
     "NATIVE_APP": "Native app",
-    "NATIVE_APP_ADVISORY": "This message was sent from the native app. Reply from Chatwoot to maintain the message window.",
+    "NATIVE_APP_ADVISORY": "This message was sent from the native app. Reply from Starchats to maintain the message window.",
     "VOICE_WIDGET": {
       "INCOMING_CALL": "Appel entrant",
       "OUTGOING_CALL": "Appel sortant",

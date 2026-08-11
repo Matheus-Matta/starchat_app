@@ -987,8 +987,8 @@
         "IN_A_FEW_HOURS": "Typically replies in a few hours",
         "IN_A_FEW_MINUTES": "Typically replies in a few minutes"
       },
-      "BRANDING_TEXT": "Powered by Chatwoot",
-      "SCRIPT_SETTINGS": "\n      window.chatwootSettings = {options};",
+      "BRANDING_TEXT": "Powered by Starchats",
+      "SCRIPT_SETTINGS": "\n      window.starchatsSettings = {options};",
       "WIDGET_SCREEN": {
         "CHAT": "Chat",
         "DEFAULT": "Default"

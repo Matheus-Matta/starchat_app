@@ -1007,8 +1007,8 @@
         "USER_MESSAGE": "Hola",
         "AGENT_MESSAGE": "Hola"
       },
-      "BRANDING_TEXT": "Desarrollado por Chatwoot",
-      "SCRIPT_SETTINGS": "\n      window.chatwootSettings = {options};"
+      "BRANDING_TEXT": "Desarrollado por Starchats",
+      "SCRIPT_SETTINGS": "\n      window.starchatsSettings = {options};"
     },
     "EMAIL_PROVIDERS": {
       "MICROSOFT": {
