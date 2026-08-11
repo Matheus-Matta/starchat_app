@@ -18,7 +18,6 @@ export function usePolicy() {
     'globalConfig/isACustomBrandedInstance'
   );
 
-  const { isEnterprise } = useConfig();
   const { accountId } = useAccount();
 
   const getUserPermissionsForAccount = () => {
@@ -39,7 +38,8 @@ export function usePolicy() {
   const checkInstallationType = config => {
     if (Array.isArray(config) && config.length > 0) {
       const installationCheck = {
-        [INSTALLATION_TYPES.ENTERPRISE]: isEnterprise,
+        // This build is always the enterprise installation.
+        [INSTALLATION_TYPES.ENTERPRISE]: true,
         [INSTALLATION_TYPES.CLOUD]: isOnChatwootCloud.value,
       };
 
@@ -79,15 +79,10 @@ export function usePolicy() {
       return isFeatureFlagEnabled(flag) || isPremiumFeature(flag);
     }
 
-    if (isEnterprise) {
-      return (
-        isFeatureFlagEnabled(flag) ||
-        (isPremiumFeature(flag) && !hasPremiumEnterprise.value)
-      );
-    }
-
-    // default to true
-    return true;
+    return (
+      isFeatureFlagEnabled(flag) ||
+      (isPremiumFeature(flag) && !hasPremiumEnterprise.value)
+    );
   };
 
   // There are no plan tiers here: every account is enterprise and every feature ships

@@ -20,7 +20,6 @@ defineProps({
 
 const store = useStore();
 const { uiSettings, updateUISettings } = useUISettings();
-const { isEnterprise } = useConfig();
 const { width: windowWidth } = useWindowSize();
 
 const currentUser = useMapGetter('getCurrentUser');
@@ -85,9 +84,6 @@ const setAssistant = async assistant => {
 };
 
 const shouldShowCopilotPanel = computed(() => {
-  if (!isEnterprise) {
-    return false;
-  }
   const isCosmosEnabled = isFeatureEnabledonAccount.value(
     currentAccountId.value,
     FEATURE_FLAGS.COSMOS
@@ -123,9 +119,7 @@ const sendMessage = async message => {
 };
 
 onMounted(() => {
-  if (isEnterprise) {
-    store.dispatch('cosmosAssistants/get');
-  }
+  store.dispatch('cosmosAssistants/get');
 });
 </script>
 

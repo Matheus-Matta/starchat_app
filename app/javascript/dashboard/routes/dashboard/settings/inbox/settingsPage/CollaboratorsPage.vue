@@ -28,7 +28,6 @@ const store = useStore();
 const route = useRoute();
 const router = useRouter();
 const { t } = useI18n();
-const { isEnterprise } = useConfig();
 
 const selectedAgentIds = ref([]);
 const isAgentListUpdating = ref(false);
@@ -398,10 +397,7 @@ onMounted(() => {
         :description="assignmentDescription"
         @update:model-value="handleToggleAutoAssignment"
       >
-        <template
-          v-if="enableAutoAssignment && (isEnterprise || hasAssignmentV2)"
-          #editor
-        >
+        <template v-if="enableAutoAssignment" #editor>
           <!-- assignment_v2 UI -->
           <template v-if="hasAssignmentV2">
             <!-- Policy Card - When policy is attached -->
@@ -615,7 +611,7 @@ onMounted(() => {
           </template>
 
           <!-- Old UI for non-assignment_v2 -->
-          <template v-else-if="isEnterprise">
+          <template v-else>
             <div class="p-4">
               <woot-input
                 v-model="maxAssignmentLimit"

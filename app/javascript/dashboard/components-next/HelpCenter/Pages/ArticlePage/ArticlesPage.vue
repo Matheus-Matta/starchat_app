@@ -66,15 +66,11 @@ const selectedArticleIds = ref(new Set());
 const deleteConfirmDialogRef = ref(null);
 const isCategoryMenuOpen = ref(false);
 
-const { isEnterprise } = useConfig();
-
-const isTranslationAvailable = computed(
-  () =>
-    isEnterprise &&
-    isFeatureEnabledonAccount.value(
-      currentAccountId.value,
-      FEATURE_FLAGS.COSMOS_TASKS
-    )
+const isTranslationAvailable = computed(() =>
+  isFeatureEnabledonAccount.value(
+    currentAccountId.value,
+    FEATURE_FLAGS.COSMOS_TASKS
+  )
 );
 
 const allItems = computed(() => props.articles.map(a => ({ id: a.id })));
