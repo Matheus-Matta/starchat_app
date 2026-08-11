@@ -29,6 +29,8 @@
 #  index_cosmos_documents_on_status                            (status)
 #
 class Cosmos::Document < ApplicationRecord
+  include Rails.application.routes.url_helpers
+
   class LimitExceededError < StandardError; end
   self.table_name = 'cosmos_documents'
   SYNC_STALE_TIMEOUT = 2.hours
@@ -83,10 +85,12 @@ class Cosmos::Document < ApplicationRecord
     'text/html'
   end
 
+  # For uploaded PDFs external_link only holds a "PDF: <filename>" placeholder, so
+  # resolve the blob itself — callers linking to a document need a real URL.
   def display_url
     return external_link unless pdf_file.attached?
 
-    external_link.presence || pdf_file.filename.to_s
+    url_for(pdf_file)
   end
 
   def file_size
