@@ -293,7 +293,7 @@
     "UNSUPPORTED_MESSAGE_TIKTOK": "هذه الرسالة غير مدعومة. يمكنك مشاهدة هذه الرسالة على تطبيق TikTok.",
     "FILE_TYPE_NOT_SUPPORTED": "هذا النوع من الملفات {fileName} غير مدعوم في هذه المحادثة",
     "NATIVE_APP": "تطبيق الجوال",
-    "NATIVE_APP_ADVISORY": "تم إرسال هذه الرسالة من تطبيق الجوال. رد من Chatwoot للحفاظ على نافذة الرسالة.",
+    "NATIVE_APP_ADVISORY": "تم إرسال هذه الرسالة من تطبيق الجوال. رد من Starchats للحفاظ على نافذة الرسالة.",
     "VOICE_WIDGET": {
       "INCOMING_CALL": "مكالمة واردة",
       "OUTGOING_CALL": "مكالمة صادرة",

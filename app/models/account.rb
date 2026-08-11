@@ -7,6 +7,7 @@
 #  custom_attributes     :jsonb
 #  domain                :string(100)
 #  feature_flags         :bigint           default(0), not null
+#  feature_flags_ext_1   :bigint           default(0), not null
 #  internal_attributes   :jsonb            not null
 #  limits                :jsonb
 #  locale                :integer          default("en")
@@ -23,7 +24,7 @@
 #
 
 class Account < ApplicationRecord
-  # used for single column multi flags
+  # used for multi-flag bitset columns
   include FlagShihTzu
   include Reportable
   include Featurable
@@ -51,6 +52,9 @@ class Account < ApplicationRecord
     flag_query_mode: :bit_operator,
     check_for_column: false
   }.freeze
+  SUSPENSION_CATEGORIES = %w[spam non_payment other].freeze
+
+  attr_accessor :suspension_category, :suspension_reason
 
   validates :name, presence: true
   # `domain` is the inbound email domain used to construct reply addresses
@@ -67,6 +71,14 @@ class Account < ApplicationRecord
   store_accessor :settings, :audio_transcriptions, :audio_transcription_provider, :auto_resolve_label,
                  :require_contact_inbox_messaging, :prioritize_responsible_agent, :reporting_timezone,
                  :keep_pending_on_bot_failure
+
+  store_accessor :settings, :audio_transcriptions, :auto_resolve_label
+  store_accessor :settings, :cosmos_models, :cosmos_features
+  store_accessor :settings, :reporting_timezone
+  store_accessor :settings, :keep_pending_on_bot_failure
+  store_accessor :settings, :cosmos_auto_resolve_mode, :cosmos_false_promise_harness_enabled
+  # Cosmos auto-resolve lives in Starchat::Concerns::Account here, so upstream's
+  # AccountCosmosAutoResolve concern is not included.
 
   has_many :account_users, dependent: :destroy_async
   has_many :agent_bot_inboxes, dependent: :destroy_async
@@ -154,6 +166,10 @@ class Account < ApplicationRecord
     }
   end
 
+  def suspension_history
+    internal_attributes['suspensions'] || []
+  end
+
   def inbound_email_domain
     domain.presence || GlobalConfig.get('MAILER_INBOUND_EMAIL_DOMAIN')['MAILER_INBOUND_EMAIL_DOMAIN'] || ENV.fetch('MAILER_INBOUND_EMAIL_DOMAIN',
                                                                                                                    false)
@@ -168,6 +184,10 @@ class Account < ApplicationRecord
       agents: ChatwootApp.max_limit.to_i,
       inboxes: ChatwootApp.max_limit.to_i
     }
+  end
+
+  def api_and_webhooks_enabled?
+    true
   end
 
   def locale_english_name

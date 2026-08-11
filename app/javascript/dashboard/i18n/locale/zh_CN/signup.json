@@ -45,7 +45,7 @@
     },
     "SUBMIT": "创建新账户",
     "HAVE_AN_ACCOUNT": "已经有帐号？",
-    "GET_STARTED": "开始使用Chatwoot",
+    "GET_STARTED": "开始使用Starchats",
     "VERIFY_EMAIL": {
       "TITLE": "Check your inbox",
       "DESCRIPTION": "We sent a verification link to {email}. Click the link to verify your email and get started.",

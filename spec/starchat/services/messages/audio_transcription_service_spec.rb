@@ -6,6 +6,23 @@ RSpec.describe Messages::AudioTranscriptionService, type: :service do
   let(:message) { create(:message, conversation: conversation, account: account) }
   let(:attachment) { message.attachments.create!(account: account, file_type: :audio) }
   let(:service) { described_class.new(attachment) }
+  let(:message) { create(:message, account: account, conversation: conversation) }
+  let(:attachment) { message.attachments.create!(account: account, file_type: :audio) }
+
+  before do
+    # Create required installation configs
+    InstallationConfig.find_or_create_by!(name: 'COSMOS_OPEN_AI_API_KEY') { |config| config.value = 'test-api-key' }
+    InstallationConfig.find_or_create_by!(name: 'COSMOS_OPEN_AI_MODEL') { |config| config.value = 'gpt-4o-mini' }
+
+    # Mock usage limits for transcription to be available
+    allow(account).to receive(:usage_limits).and_return(
+      {
+        agents: ChatwootApp.max_limit,
+        inboxes: ChatwootApp.max_limit,
+        cosmos: { responses: { current_available: 100 } }
+      }
+    )
+  end
 
   describe '#perform' do
     context 'when the account has no provider configured' do
@@ -40,4 +57,5 @@ RSpec.describe Messages::AudioTranscriptionService, type: :service do
       end
     end
   end
+
 end

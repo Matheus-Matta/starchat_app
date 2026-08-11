@@ -4,7 +4,7 @@
 #
 #  id                  :bigint           not null, primary key
 #  config              :jsonb            not null
-#  description         :string
+#  description         :text
 #  guardrails          :jsonb
 #  name                :string           not null
 #  response_guidelines :jsonb
@@ -17,6 +17,8 @@
 #  index_cosmos_assistants_on_account_id  (account_id)
 #
 class Cosmos::Assistant < ApplicationRecord
+  DESCRIPTION_LENGTH_LIMIT = 500
+
   include Avatarable
   include Concerns::CosmosToolsHelpers
   include Concerns::Agentable
@@ -26,6 +28,7 @@ class Cosmos::Assistant < ApplicationRecord
   belongs_to :account
   has_many :documents, class_name: 'Cosmos::Document', dependent: :destroy_async
   has_many :responses, class_name: 'Cosmos::AssistantResponse', dependent: :destroy_async
+  has_many :faq_suggestions, class_name: 'Cosmos::FaqSuggestion', dependent: :destroy_async
   has_many :cosmos_inboxes,
            class_name: 'CosmosInbox',
            foreign_key: :cosmos_assistant_id,
@@ -35,11 +38,12 @@ class Cosmos::Assistant < ApplicationRecord
   has_many :messages, as: :sender, dependent: :nullify
   has_many :copilot_threads, dependent: :destroy_async
   has_many :scenarios, class_name: 'Cosmos::Scenario', dependent: :destroy_async
+  has_many :agent_sessions, class_name: 'Cosmos::AgentSession', dependent: :destroy_async
 
   store_accessor :config, :temperature, :feature_faq, :feature_memory, :feature_contact_attributes, :product_name
 
   validates :name, presence: true
-  validates :description, presence: true
+  validates :description, presence: true, length: { maximum: DESCRIPTION_LENGTH_LIMIT }
   validates :account_id, presence: true
 
   scope :ordered, -> { order(created_at: :desc) }
@@ -94,7 +98,8 @@ class Cosmos::Assistant < ApplicationRecord
   def agent_tools
     [
       self.class.resolve_tool_class('faq_lookup').new(self),
-      self.class.resolve_tool_class('handoff').new(self)
+      self.class.resolve_tool_class('handoff').new(self),
+      *account.cosmos_custom_tools.enabled.map { |custom_tool| custom_tool.tool(self) }
     ]
   end
 

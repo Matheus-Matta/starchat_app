@@ -293,7 +293,7 @@
     "UNSUPPORTED_MESSAGE_TIKTOK": "此訊息不受支援。您可以在 TikTok 應用程式中檢視此訊息。",
     "FILE_TYPE_NOT_SUPPORTED": "此對話不支援 {fileName} 檔案類型",
     "NATIVE_APP": "原生應用程式",
-    "NATIVE_APP_ADVISORY": "此訊息是從原生應用程式發送的。請從 Chatwoot 回覆以維持訊息視窗。",
+    "NATIVE_APP_ADVISORY": "此訊息是從原生應用程式發送的。請從 Starchats 回覆以維持訊息視窗。",
     "VOICE_WIDGET": {
       "INCOMING_CALL": "來電",
       "OUTGOING_CALL": "撥出電話",

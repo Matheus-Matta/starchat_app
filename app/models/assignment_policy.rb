@@ -15,6 +15,18 @@
 #  created_at                           :datetime         not null
 #  updated_at                           :datetime         not null
 #  account_id                           :bigint           not null
+#  id                       :bigint           not null, primary key
+#  assignment_order         :integer          default("round_robin"), not null
+#  conversation_priority    :integer          default("earliest_created"), not null
+#  description              :text
+#  enabled                  :boolean          default(TRUE), not null
+#  exclude_older_than_hours :integer          default(168)
+#  fair_distribution_limit  :integer          default(100), not null
+#  fair_distribution_window :integer          default(3600), not null
+#  name                     :string(255)      not null
+#  created_at               :datetime         not null
+#  updated_at               :datetime         not null
+#  account_id               :bigint           not null
 #
 # Indexes
 #
@@ -23,6 +35,8 @@
 #  index_assignment_policies_on_enabled              (enabled)
 #
 class AssignmentPolicy < ApplicationRecord
+  DEFAULT_EXCLUDE_OLDER_THAN_HOURS = 168
+
   belongs_to :account
   has_many :inbox_assignment_policies, dependent: :destroy
   has_many :inboxes, through: :inbox_assignment_policies
@@ -32,6 +46,7 @@ class AssignmentPolicy < ApplicationRecord
   validates :fair_distribution_window, numericality: { greater_than: 0 }
   validates :equal_distribution_window_hours, numericality: { greater_than: 0 }
   validates :equal_distribution_balance_threshold, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 100 }
+  validates :exclude_older_than_hours, numericality: { only_integer: true, greater_than: 0 }, allow_nil: true
 
   enum conversation_priority: { earliest_created: 0, longest_waiting: 1 }
 

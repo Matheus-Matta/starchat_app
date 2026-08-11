@@ -48,10 +48,6 @@ module Chatwoot
     # Add starchat views to the view paths
     config.paths['app/views'].unshift('starchat/app/views')
 
-    # Load enterprise initializers alongside standard initializers
-    enterprise_initializers = Rails.root.join('enterprise/config/initializers')
-    Dir[enterprise_initializers.join('**/*.rb')].each { |f| require f } if enterprise_initializers.exist?
-
     # Load starchat initializers alongside standard initializers
     starchat_initializers = Rails.root.join('starchat/config/initializers')
     Dir[starchat_initializers.join('**/*.rb')].each { |f| require f } if starchat_initializers.exist?

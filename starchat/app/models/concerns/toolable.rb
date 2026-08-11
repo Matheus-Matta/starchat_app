@@ -15,7 +15,7 @@ module Concerns::Toolable
 
       # Override name to use the slug directly, avoiding the namespace prefix
       # that RubyLLM's default normalization would produce (e.g., "cosmos--tools--custom_dog_facts").
-      define_method(:name) { tool_slug }
+      define_method(:name) { custom_tool_record.slug }
 
       custom_tool_record.param_schema.each do |param_def|
         param param_def['name'].to_sym,
@@ -57,11 +57,9 @@ module Concerns::Toolable
     when 'bearer'
       { 'Authorization' => "Bearer #{auth_config['token']}" }
     when 'api_key'
-      if auth_config['location'] == 'header'
-        { auth_config['name'] => auth_config['key'] }
-      else
-        {}
-      end
+      # Header is the default placement; an api_key explicitly bound to the query string
+      # must not also be sent as a header.
+      (auth_config['location'].presence || 'header') == 'header' ? { auth_config['name'] => auth_config['key'] } : {}
     else
       {}
     end

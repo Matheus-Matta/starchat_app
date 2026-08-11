@@ -2,7 +2,6 @@
 import AddSLA from './AddSLA.vue';
 import SettingsLayout from '../SettingsLayout.vue';
 import BaseSettingsHeader from 'dashboard/routes/dashboard/settings/components/BaseSettingsHeader.vue';
-import SLAPaywallEnterprise from './SLAPaywallStarchat.vue';
 import {
   BaseTable,
   BaseTableRow,
@@ -22,7 +21,6 @@ export default {
     AddSLA,
     SettingsLayout,
     BaseSettingsHeader,
-    SLAPaywallEnterprise,
     BaseTable,
     BaseTableRow,
     BaseTableCell,
@@ -126,12 +124,6 @@ export default {
       if (!time) return '-';
       return `${time}${unit}`;
     },
-    onClickCTA() {
-      this.$router.push({
-        name: 'billing_settings_index',
-        params: { accountId: this.accountId },
-      });
-    },
   },
 };
 </script>
@@ -167,14 +159,7 @@ export default {
       </BaseSettingsHeader>
     </template>
     <template #body>
-      <SLAPaywallEnterprise
-        v-if="isBehindAPaywall"
-        :is-super-admin="isSuperAdmin"
-        :is-on-chatwoot-cloud="isOnChatwootCloud"
-        @upgrade="onClickCTA"
-      />
       <BaseTable
-        v-else
         :headers="tableHeaders"
         :items="filteredRecords"
         :no-data-message="

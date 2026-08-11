@@ -195,7 +195,7 @@ RSpec.describe 'Platform Accounts API', type: :request do
         expect(account.name).to eq('Test Account')
         # advanced_assignment is not requested here: sync_assignment_features derives
         # it from assignment_v2, which ships enabled.
-        expect(account.enabled_features.keys).to match_array(%w[inbox_management ip_lookup help_center advanced_assignment])
+        expect(account.enabled_features.keys).to match_array(%w[inbox_management ip_lookup help_center advanced_assignment api_and_webhooks])
         expect(account.enabled_features['channel_facebook']).to be_nil
         expect(account.limits['agents']).to eq(5)
         expect(account.limits['inboxes']).to eq(10)

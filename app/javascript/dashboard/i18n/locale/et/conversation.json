@@ -265,7 +265,7 @@
     "SENT_BY": "Saadetud:",
     "BOT": "Bot",
     "NATIVE_APP": "Native app",
-    "NATIVE_APP_ADVISORY": "This message was sent from the native app. Reply from Chatwoot to maintain the message window.",
+    "NATIVE_APP_ADVISORY": "This message was sent from the native app. Reply from Starchats to maintain the message window.",
     "SEND_FAILED": "Sõnumi saatmine ebaõnnestus! Proovi uuesti",
     "TRY_AGAIN": "proovi uuesti",
     "ASSIGNMENT": {

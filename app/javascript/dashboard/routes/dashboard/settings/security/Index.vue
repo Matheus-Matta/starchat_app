@@ -3,12 +3,11 @@ import { computed } from 'vue';
 import BaseSettingsHeader from '../components/BaseSettingsHeader.vue';
 import SettingsLayout from '../SettingsLayout.vue';
 import SamlSettings from './components/SamlSettings.vue';
-import SamlPaywall from './components/SamlPaywall.vue';
 
 import { usePolicy } from 'dashboard/composables/usePolicy';
 import { INSTALLATION_TYPES } from 'dashboard/constants/installationTypes';
 import { FEATURE_FLAGS } from 'dashboard/featureFlags';
-const { shouldShow, shouldShowPaywall } = usePolicy();
+const { shouldShow } = usePolicy();
 
 const allowedLoginMethods = computed(
   () => window.chatwootConfig.allowedLoginMethods || ['email']
@@ -26,8 +25,6 @@ const shouldShowSaml = computed(() => {
   );
   return hasPermission && isSamlSsoEnabled.value;
 });
-
-const showPaywall = computed(() => shouldShowPaywall('saml'));
 </script>
 
 <template>
@@ -41,8 +38,7 @@ const showPaywall = computed(() => shouldShowPaywall('saml'));
       />
     </template>
     <template #body>
-      <SamlPaywall v-if="showPaywall" />
-      <SamlSettings v-else-if="shouldShowSaml" />
+      <SamlSettings v-if="shouldShowSaml" />
       <div v-else class="mt-6 text-sm text-slate-600">
         {{ $t('SECURITY_SETTINGS.SAML_DISABLED_MESSAGE') }}
       </div>

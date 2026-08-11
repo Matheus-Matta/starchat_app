@@ -1,4 +1,9 @@
 module Starchat::Account
+  # Transitional marker for the Cosmos V1 to V2 rollout. New cloud accounts get
+  # this marker so plan reconciliation can enable V2 for them without upgrading
+  # existing paid accounts. Remove once every account is migrated to V2.
+  COSMOS_V2_DEFAULT_ELIGIBLE = 'cosmos_v2_default_eligible'.freeze
+
   class << self
     # A single interval for every account. This used to be a plan-keyed map, which
     # meant accounts with no plan_name never auto-synced at all.
@@ -62,6 +67,15 @@ module Starchat::Account
   end
 
   private
+
+  def enable_default_features
+    super
+    if ChatwootApp.self_hosted_enterprise?
+      enable_features('cosmos_integration', 'cosmos_integration_v2')
+    elsif ChatwootApp.chatwoot_cloud?
+      internal_attributes[COSMOS_V2_DEFAULT_ELIGIBLE] = true
+    end
+  end
 
   def sync_assignment_features
     if feature_enabled?('assignment_v2')

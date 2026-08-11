@@ -11,6 +11,42 @@ RSpec.describe Account, type: :model do
     it { is_expected.to have_many(:custom_roles).dependent(:destroy_async) }
   end
 
+  describe '#selected_feature_flags=' do
+    it 'keeps advanced assignment enabled when assignment v2 is selected for a business account' do
+      account = build(:account, custom_attributes: { 'plan_name' => 'Business' })
+
+      account.selected_feature_flags = [:feature_assignment_v2]
+
+      expect(account).to be_feature_assignment_v2
+      expect(account).to be_feature_advanced_assignment
+    end
+
+    it 'disables advanced assignment when assignment v2 is not selected' do
+      account = build(:account, custom_attributes: { 'plan_name' => 'Business' })
+      account.enable_features(:assignment_v2, :advanced_assignment)
+
+      account.selected_feature_flags = []
+
+      expect(account).not_to be_feature_assignment_v2
+      expect(account).not_to be_feature_advanced_assignment
+    end
+  end
+
+  describe '#api_and_webhooks_enabled?' do
+    let(:account) { create(:account) }
+
+    # Every account in this fork is enterprise, so there is no cloud plan gate left to
+    # honour here: the API and webhooks are on regardless of the stored flag.
+    it 'is always enabled, on cloud or self-hosted' do
+      [true, false].each do |on_cloud|
+        allow(ChatwootApp).to receive(:chatwoot_cloud?).and_return(on_cloud)
+        account.disable_features!('api_and_webhooks')
+
+        expect(account.api_and_webhooks_enabled?).to be true
+      end
+    end
+  end
+
   describe 'sla_policies' do
     let!(:account) { create(:account) }
     let!(:sla_policy) { create(:sla_policy, account: account) }
@@ -179,6 +215,37 @@ RSpec.describe Account, type: :model do
 
     it 'returns the default enabled features for new accounts' do
       expect(account.subscribed_features).to be_present
+    end
+  end
+
+  describe 'default features' do
+    before do
+      InstallationConfig.find_or_initialize_by(name: 'ACCOUNT_LEVEL_FEATURE_DEFAULTS').update!(
+        value: Featurable::FEATURE_LIST,
+        locked: true
+      )
+    end
+
+    it 'enables Cosmos V2 for new self-hosted enterprise accounts' do
+      allow(ChatwootApp).to receive(:self_hosted_enterprise?).and_return(true)
+
+      account = create(:account)
+
+      expect(account).to be_feature_enabled('cosmos_integration')
+      expect(account).to be_feature_enabled('cosmos_integration_v2')
+      expect(account.cosmos_preferences[:models]['assistant']).to eq('gpt-5.2')
+      expect(account.cosmos_models).to be_nil
+    end
+
+    it 'marks new cloud accounts as eligible for the Cosmos V2 paid-plan default' do
+      allow(ChatwootApp).to receive(:self_hosted_enterprise?).and_return(false)
+      allow(ChatwootApp).to receive(:chatwoot_cloud?).and_return(true)
+
+      account = create(:account)
+
+      expect(account.internal_attributes[Starchat::Account::COSMOS_V2_DEFAULT_ELIGIBLE]).to be true
+      expect(account).not_to be_feature_enabled('cosmos_integration')
+      expect(account).not_to be_feature_enabled('cosmos_integration_v2')
     end
   end
 

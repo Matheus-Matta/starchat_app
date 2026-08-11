@@ -45,7 +45,7 @@
     },
     "SUBMIT": "Create account",
     "HAVE_AN_ACCOUNT": "이미 계정이 있습니까?",
-    "GET_STARTED": "Chatwoot 시작하기",
+    "GET_STARTED": "Starchats 시작하기",
     "VERIFY_EMAIL": {
       "TITLE": "Check your inbox",
       "DESCRIPTION": "We sent a verification link to {email}. Click the link to verify your email and get started.",

@@ -28,7 +28,6 @@ const store = useStore();
 const route = useRoute();
 const router = useRouter();
 const { t } = useI18n();
-const { isEnterprise } = useConfig();
 
 const selectedAgentIds = ref([]);
 const isAgentListUpdating = ref(false);
@@ -310,14 +309,6 @@ const navigateToAssignmentPolicyEdit = () => {
   });
 };
 
-const navigateToBilling = () => {
-  const accountId = route.params.accountId;
-  router.push({
-    name: 'billing_settings_index',
-    params: { accountId },
-  });
-};
-
 const confirmDeletePolicy = () => {
   showDeleteConfirmModal.value = true;
 };
@@ -406,10 +397,7 @@ onMounted(() => {
         :description="assignmentDescription"
         @update:model-value="handleToggleAutoAssignment"
       >
-        <template
-          v-if="enableAutoAssignment && (isEnterprise || hasAssignmentV2)"
-          #editor
-        >
+        <template v-if="enableAutoAssignment" #editor>
           <!-- assignment_v2 UI -->
           <template v-if="hasAssignmentV2">
             <!-- Policy Card - When policy is attached -->
@@ -617,27 +605,13 @@ onMounted(() => {
                   </ul>
 
                   <div class="w-full h-px bg-n-weak my-4" />
-
-                  <!-- Upgrade prompt when advanced_assignment is not enabled -->
-                  <div v-if="!hasAdvancedAssignment">
-                    <p class="text-body-main text-n-slate-11 mb-1">
-                      {{ $t('INBOX_MGMT.ASSIGNMENT.UPGRADE_PROMPT') }}
-                    </p>
-                    <NextButton
-                      :label="$t('INBOX_MGMT.ASSIGNMENT.UPGRADE_TO_BUSINESS')"
-                      icon="i-lucide-arrow-right"
-                      trailing-icon
-                      link
-                      @click="navigateToBilling"
-                    />
-                  </div>
                 </div>
               </div>
             </div>
           </template>
 
           <!-- Old UI for non-assignment_v2 -->
-          <template v-else-if="isEnterprise">
+          <template v-else>
             <div class="p-4">
               <woot-input
                 v-model="maxAssignmentLimit"

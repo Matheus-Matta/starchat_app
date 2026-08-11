@@ -27,6 +27,7 @@ class InboxMember < ApplicationRecord
   after_commit :update_inbox_cache
   after_commit :dispatch_member_added_event, on: :create
   after_commit :dispatch_member_removed_event, on: :destroy
+  after_commit :invalidate_filtered_unread_count_visibility, on: [:create, :destroy]
 
   private
 
@@ -52,6 +53,10 @@ class InboxMember < ApplicationRecord
     return unless inbox.present? && user.present?
 
     Rails.configuration.dispatcher.dispatch(INBOX_MEMBER_REMOVED, Time.zone.now, inbox: inbox, user: user)
+  end
+
+  def invalidate_filtered_unread_count_visibility
+    ::Conversations::UnreadCounts::FilteredCountInvalidator.new(inbox&.account).user_visibility_changed!(user_id: user_id)
   end
 end
 

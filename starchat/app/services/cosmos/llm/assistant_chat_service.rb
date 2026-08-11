@@ -5,6 +5,10 @@ class Cosmos::Llm::AssistantChatService < Llm::BaseOpenAiService
 
   def initialize(assistant: nil)
     super()
+  end
+
+  def initialize(assistant: nil, conversation: nil, source: nil)
+    super()
 
     @assistant = assistant
     @messages = [system_message]

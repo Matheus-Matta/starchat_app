@@ -8,7 +8,6 @@ import { FEATURE_FLAGS } from 'dashboard/featureFlags';
 export function useCosmos() {
   const store = useStore();
   const { isCloudFeatureEnabled, currentAccount } = useAccount();
-  const { isEnterprise } = useConfig();
 
   const cosmosEnabled = computed(() => {
     return isCloudFeatureEnabled(FEATURE_FLAGS.COSMOS);
@@ -39,9 +38,7 @@ export function useCosmos() {
   });
 
   const fetchLimits = () => {
-    if (isEnterprise) {
-      store.dispatch('accounts/limits');
-    }
+    store.dispatch('accounts/limits');
   };
 
   return {

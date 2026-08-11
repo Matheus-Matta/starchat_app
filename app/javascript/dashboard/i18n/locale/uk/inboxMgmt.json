@@ -1007,8 +1007,8 @@
         "USER_MESSAGE": "Привіт",
         "AGENT_MESSAGE": "Доброго дня"
       },
-      "BRANDING_TEXT": "Працює на Chatwoot",
-      "SCRIPT_SETTINGS": "\n      window.chatwootSettings = {options};"
+      "BRANDING_TEXT": "Працює на Starchats",
+      "SCRIPT_SETTINGS": "\n      window.starchatsSettings = {options};"
     },
     "EMAIL_PROVIDERS": {
       "MICROSOFT": {

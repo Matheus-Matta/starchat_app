@@ -1007,8 +1007,8 @@
         "USER_MESSAGE": "Hello",
         "AGENT_MESSAGE": "Hello"
       },
-      "BRANDING_TEXT": "Chatwoot",
-      "SCRIPT_SETTINGS": "\nwindow.chatwootSettings = {options};"
+      "BRANDING_TEXT": "Starchats",
+      "SCRIPT_SETTINGS": "\nwindow.starchatsSettings = {options};"
     },
     "EMAIL_PROVIDERS": {
       "MICROSOFT": {

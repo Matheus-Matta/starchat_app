@@ -188,6 +188,36 @@ RSpec.describe Starchat::Conversations::PermissionFilterService do
         expect(result).not_to include(other_conversation)
         expect(result).not_to include(other_inbox_conv)
       end
+
+      it 'returns conversations assigned to the agent or where the agent is a participant' do
+        # Create a new isolated test environment
+        test_account = create(:account)
+        test_inbox   = create(:inbox, account: test_account)
+        test_inbox2  = create(:inbox, account: test_account)
+        test_agent   = create(:user, account: test_account, role: :agent)
+        create(:inbox_member, user: test_agent, inbox: test_inbox)
+
+        test_custom_role = create(:custom_role, account: test_account, permissions: %w[conversation_participating_manage])
+        AccountUser.find_by(user: test_agent, account: test_account)
+                   .update!(role: :agent, custom_role: test_custom_role)
+
+        other_conversation = create(:conversation, account: test_account, inbox: test_inbox)
+        assigned_conversation = create(:conversation, account: test_account, inbox: test_inbox, assignee: test_agent)
+        participating_conversation = create(:conversation, account: test_account, inbox: test_inbox, assignee: create(:user, account: test_account))
+        other_inbox_conversation = create(:conversation, account: test_account, inbox: test_inbox2, assignee: nil)
+        create(:conversation_participant, account: test_account, conversation: participating_conversation, user: test_agent)
+
+        result = Conversations::PermissionFilterService.new(
+          test_account.conversations, test_agent, test_account
+        ).perform
+
+        # Should only see conversations assigned to this agent or where the agent participates
+        expect(result.count).to eq(2)
+        expect(result).to include(assigned_conversation)
+        expect(result).to include(participating_conversation)
+        expect(result).not_to include(other_conversation)
+        expect(result).not_to include(other_inbox_conversation)
+      end
     end
 
     # -------------------------------------------------------------------------

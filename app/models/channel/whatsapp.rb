@@ -6,6 +6,9 @@
 #  message_templates              :jsonb
 #  message_templates_last_updated :datetime
 #  phone_number                   :string           not null
+#  phone_number_health            :jsonb            not null
+#  phone_number_health_checked_at :datetime
+#  phone_number_health_error      :string
 #  provider                       :string           default("default")
 #  provider_config                :jsonb
 #  created_at                     :datetime         not null
@@ -14,7 +17,8 @@
 #
 # Indexes
 #
-#  index_channel_whatsapp_on_phone_number  (phone_number) UNIQUE
+#  index_channel_whatsapp_on_phone_number                    (phone_number) UNIQUE
+#  index_channel_whatsapp_on_phone_number_health_checked_at  (phone_number_health_checked_at)
 #
 
 class Channel::Whatsapp < ApplicationRecord
@@ -33,6 +37,7 @@ class Channel::Whatsapp < ApplicationRecord
   validate :validate_ycloud_feature
   validate :validate_provider_config
 
+  after_update_commit :log_credentials_transfer, if: :saved_change_to_provider_config?
   before_destroy :teardown_webhooks
   # rubocop:disable Rails/ActiveRecordCallbacksOrder
   after_create :sync_templates
@@ -111,6 +116,13 @@ class Channel::Whatsapp < ApplicationRecord
     end
   end
 
+  # Whether the pending (unsaved) provider_config change drops the embedded_signup
+  # source marker, i.e. this save is an embedded signup → manual setup transfer.
+  def embedded_to_manual_transfer_pending?
+    before, after = provider_config_change
+    before&.dig('source') == 'embedded_signup' && after['source'] != 'embedded_signup'
+  end
+
   def mark_message_templates_updated
     update_column(:message_templates_last_updated, Time.zone.now)
     # rubocop:enable Rails/SkipsModelValidations
@@ -145,6 +157,16 @@ class Channel::Whatsapp < ApplicationRecord
     return unless provider == 'ycloud' && !ycloud_feature_enabled?
 
     errors.add(:provider, 'YCloud is not enabled for this account')
+  end
+
+  # Logs only the embedded signup → manual migration (the save drops the
+  # embedded_signup source marker), so credential rotations on inboxes that are
+  # already manual stay silent.
+  def log_credentials_transfer
+    before, after = saved_change_to_provider_config
+    return unless before&.dig('source') == 'embedded_signup' && after['source'] != 'embedded_signup'
+
+    Rails.logger.info("[WHATSAPP_EMBEDDED_TO_MANUAL] success account_id=#{account_id} channel_id=#{id}")
   end
 
   def perform_webhook_setup

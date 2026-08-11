@@ -130,6 +130,37 @@ RSpec.describe '', type: :request do
     end
   end
 
+  describe 'API token access' do
+    before do
+      allow(ChatwootApp).to receive(:chatwoot_cloud?).and_return(true)
+      account.disable_features!('api_and_webhooks')
+    end
+
+    # api_and_webhooks_enabled? is unconditionally true here — every account is
+    # enterprise, so there is no plan left that could withhold API access. The stored
+    # flag is deliberately ignored.
+    it 'allows token access even with the api_and_webhooks flag disabled' do
+      get "/starchat/api/v1/accounts/#{account.id}/limits",
+          headers: { api_access_token: admin.access_token.token },
+          as: :json
+
+      expect(response).to have_http_status(:success)
+    end
+
+    it 'allows session-authenticated requests' do
+      get "/starchat/api/v1/accounts/#{account.id}/limits",
+          headers: admin.create_new_auth_token,
+          as: :json
+
+      expect(response).to have_http_status(:ok)
+    end
+  end
+
+
+  describe 'POST /starchat/api/v1/accounts/{account.id}/toggle_deletion' do
+end
+
+
   describe 'POST /starchat/api/v1/accounts/{account.id}/toggle_deletion' do
     context 'when it is an unauthenticated user' do
       it 'returns unauthorized' do

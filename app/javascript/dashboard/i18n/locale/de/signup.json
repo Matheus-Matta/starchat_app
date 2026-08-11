@@ -45,7 +45,7 @@
     },
     "SUBMIT": "Konto erstellen",
     "HAVE_AN_ACCOUNT": "Haben Sie bereits ein Konto?",
-    "GET_STARTED": "Mit Chatwoot loslegen",
+    "GET_STARTED": "Mit Starchats loslegen",
     "VERIFY_EMAIL": {
       "TITLE": "Check your inbox",
       "DESCRIPTION": "We sent a verification link to {email}. Click the link to verify your email and get started.",

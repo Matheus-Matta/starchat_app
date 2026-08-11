@@ -31,7 +31,8 @@ class Api::V1::Accounts::AssignmentPoliciesController < Api::V1::Accounts::BaseC
     params.require(:assignment_policy).permit(
       :name, :description, :assignment_order, :conversation_priority,
       :fair_distribution_limit, :fair_distribution_window, :enabled,
-      :equal_distribution_window_hours, :equal_distribution_balance_threshold
+      :equal_distribution_window_hours, :equal_distribution_balance_threshold,
+      :exclude_older_than_hours
     )
   end
 end

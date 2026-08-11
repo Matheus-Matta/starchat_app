@@ -13,7 +13,7 @@
 %>
 <script>
 
-window.chatwootSettings = {
+window.starchatsSettings = {
   hideMessageBubble: false,
   // showUnreadMessagesDialog: false,
   // baseDomain: '.loca.lt',
@@ -33,17 +33,17 @@ window.chatwootSettings = {
   g.async = true;
   s.parentNode.insertBefore(g,s);
   g.onload=function(){
-    window.chatwootSDK.run({
+    window.starchatsSDK.run({
       websiteToken: '<%= @web_widget.website_token %>',
       baseUrl: BASE_URL
     })
   }
 })(document,"script");
 
-window.addEventListener('chatwoot:ready', function() {
-  console.log('chatwoot:ready', window.$chatwoot);
+window.addEventListener('starchats:ready', function() {
+  console.log('starchats:ready', window.$starchats);
   if (window.location.search.includes('setUser')) {
-    window.$chatwoot.setUser('<%= user_id %>', {
+    window.$starchats.setUser('<%= user_id %>', {
       identifier_hash: '<%= user_hash %>',
       email: 'jane@example.com',
       name: 'Jane Doe',
@@ -52,28 +52,35 @@ window.addEventListener('chatwoot:ready', function() {
   }
 })
 
-window.addEventListener('chatwoot:error', function(e) {
-  console.log('chatwoot:error', e.detail)
+window.addEventListener('starchats:error', function(e) {
+  console.log('starchats:error', e.detail)
+})
+
+// Backwards compatibility check: an embed installed before the rename listens for the
+// old event name and reads the old global. Both must still work.
+window.addEventListener('chatwoot:ready', function() {
+  console.log('legacy chatwoot:ready fired; $chatwoot === $starchats?',
+    window.$chatwoot === window.$starchats)
 })
 
 
-window.addEventListener('chatwoot:on-message', function(e) {
-  console.log('chatwoot:on-message', e.detail)
+window.addEventListener('starchats:on-message', function(e) {
+  console.log('starchats:on-message', e.detail)
 })
 
-window.addEventListener('chatwoot:postback', function(e) {
-  console.log('chatwoot:postback', e.detail)
+window.addEventListener('starchats:postback', function(e) {
+  console.log('starchats:postback', e.detail)
 })
 
-window.addEventListener('chatwoot:opened', function() {
-  console.log('chatwoot:opened')
+window.addEventListener('starchats:opened', function() {
+  console.log('starchats:opened')
 })
 
-window.addEventListener('chatwoot:closed', function() {
-  console.log('chatwoot:closed')
+window.addEventListener('starchats:closed', function() {
+  console.log('starchats:closed')
 })
 
-window.addEventListener('chatwoot:on-start-conversation', function(e) {
-  console.log('chatwoot:on-start-conversation', e.detail)
+window.addEventListener('starchats:on-start-conversation', function(e) {
+  console.log('starchats:on-start-conversation', e.detail)
 })
 </script>

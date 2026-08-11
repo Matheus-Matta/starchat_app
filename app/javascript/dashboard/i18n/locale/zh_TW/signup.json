@@ -45,7 +45,7 @@
     },
     "SUBMIT": "Create account",
     "HAVE_AN_ACCOUNT": "已經有帳號了嗎？",
-    "GET_STARTED": "開始使用 Chatwoot",
+    "GET_STARTED": "開始使用 Starchats",
     "VERIFY_EMAIL": {
       "TITLE": "請查看您的收件匣",
       "DESCRIPTION": "我們已將驗證連結寄送至 {email}。請點擊連結驗證您的電子郵件並開始使用。",

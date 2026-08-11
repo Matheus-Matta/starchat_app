@@ -1,5 +1,4 @@
 class Api::V1::Accounts::Cosmos::BulkActionsController < Api::V1::Accounts::BaseController
-  before_action :current_account
   before_action -> { check_authorization(Cosmos::Assistant) }
   before_action :validate_params
   before_action :type_matches?
@@ -40,14 +39,10 @@ class Api::V1::Accounts::Cosmos::BulkActionsController < Api::V1::Accounts::Base
     responses = Current.account.cosmos_assistant_responses.where(id: params[:ids])
     return unless responses.exists?
 
-    case params[:fields][:status]
-    when 'approve'
-      responses.pending.update(status: 'approved')
-      responses
-    when 'delete'
-      responses.destroy_all
-      []
-    end
+    return render json: { success: false }, status: :unprocessable_content unless params[:fields][:status] == 'delete'
+
+    responses.destroy_all
+    []
   end
 
   def handle_documents

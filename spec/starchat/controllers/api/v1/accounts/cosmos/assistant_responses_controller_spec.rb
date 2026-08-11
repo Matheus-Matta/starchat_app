@@ -130,6 +130,19 @@ RSpec.describe 'Api::V1::Accounts::Cosmos::AssistantResponses', type: :request d
 
       expect(json_response[:question]).to eq('Test question?')
       expect(json_response[:answer]).to eq('Test answer')
+      expect(json_response[:status]).to eq('approved')
+    end
+
+    it 'does not accept the removed pending status' do
+      params = valid_params.deep_merge(assistant_response: { status: 'pending' })
+
+      post "/api/v1/accounts/#{account.id}/cosmos/assistant_responses",
+           params: params,
+           headers: admin.create_new_auth_token,
+           as: :json
+
+      expect(response).to have_http_status(:success)
+      expect(Cosmos::AssistantResponse.last).to be_approved
     end
 
     context 'with invalid params' do

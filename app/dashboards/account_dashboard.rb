@@ -17,6 +17,7 @@ class AccountDashboard < Administrate::BaseDashboard
 
                                  # Add all_features last so it appears after manually_managed_features
                                  attributes[:all_features] = AccountFeaturesField
+                                 attributes[:cosmos_models] = CosmosModelOverridesField
 
                                  attributes
                                else
@@ -31,7 +32,8 @@ class AccountDashboard < Administrate::BaseDashboard
     users: CountField,
     conversations: CountField,
     locale: Field::Select.with_options(collection: LANGUAGES_CONFIG.map { |_x, y| y[:iso_639_1_code] }),
-    status: Field::Select.with_options(collection: [%w[Active active], %w[Suspended suspended]]),
+    status: AccountStatusField.with_options(collection: [%w[Active active], %w[Suspended suspended]]),
+    suspension_history: SuspensionHistoryField,
     account_users: Field::HasMany,
     custom_attributes: Field::String
   }.merge(premium_attribute_types).freeze
@@ -56,6 +58,7 @@ class AccountDashboard < Administrate::BaseDashboard
                                       attrs = %i[custom_attributes limits]
                                       attrs << :manually_managed_features
                                       attrs << :all_features
+                                      attrs << :cosmos_models
                                       attrs
                                     else
                                       []
@@ -67,6 +70,7 @@ class AccountDashboard < Administrate::BaseDashboard
     updated_at
     locale
     status
+    suspension_history
     conversations
     account_users
   ] + premium_show_page_attributes).freeze
@@ -78,6 +82,7 @@ class AccountDashboard < Administrate::BaseDashboard
                                  attrs = %i[limits]
                                  attrs << :manually_managed_features
                                  attrs << :all_features
+                                 attrs << :cosmos_models
                                  attrs
                                else
                                  []
@@ -116,7 +121,8 @@ class AccountDashboard < Administrate::BaseDashboard
   # to prevent an error from being raised (wrong number of arguments)
   # Reference: https://github.com/thoughtbot/administrate/pull/2356/files#diff-4e220b661b88f9a19ac527c50d6f1577ef6ab7b0bed2bfdf048e22e6bfa74a05R204
   def permitted_attributes(action)
-    attrs = super + [limits: {}]
+    attrs = super + [limits: {}, cosmos_models: {}]
+    attrs += %i[suspension_category suspension_reason] if action == 'update'
 
     attrs << { manually_managed_features: [] }
 

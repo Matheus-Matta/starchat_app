@@ -8,6 +8,6 @@ class CosmosListener < BaseListener
     return unless conversation.inbox.cosmos_active?
 
     Cosmos::Llm::ContactNotesService.new(assistant, conversation).generate_and_update_notes if assistant.config['feature_memory'].present?
-    Cosmos::Llm::ConversationFaqService.new(assistant, conversation).generate_and_deduplicate if assistant.config['feature_faq'].present?
+    Cosmos::Llm::ConversationFaqJob.perform_later(conversation, assistant) if assistant.config['feature_faq'].present?
   end
 end

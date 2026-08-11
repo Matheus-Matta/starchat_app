@@ -126,7 +126,7 @@
       },
       "ERROR": "There was an error connecting to Shopify. Please try again or contact support if the issue persists."
     },
-    "DESCRIPTION": "Chatwoot 集成了多种工具和服务，以提高团队效率。浏览以下列表以配置您喜欢的应用程序。",
+    "DESCRIPTION": "Starchats 集成了多种工具和服务，以提高团队效率。浏览以下列表以配置您喜欢的应用程序。",
     "LEARN_MORE": "了解更多关于集成的信息",
     "LOADING": "正在获取集成",
     "SEARCH_PLACEHOLDER": "Search integrations...",
@@ -146,7 +146,7 @@
       },
       "HELP_TEXT": {
         "TITLE": "使用 Slack 集成？",
-        "BODY": "通过此集成，所有传入的对话将同步到您的 Slack 工作区中的 ***{selectedChannelName}*** 频道。您可以直接在频道中管理所有客户对话，再也不会错过任何消息。\n\n以下是该集成的主要功能：\n\n**从 Slack 回复对话：** 要在 ***{selectedChannelName}*** Slack 频道中回复对话，只需输入您的消息并将其作为线程发送。这将通过 Chatwoot 创建对客户的回复。就是这么简单！\n\n**创建私密笔记：** 如果您想创建私密笔记而不是回复，请在消息开头加上 ***`note:`***。这将确保您的消息保持私密，不会对客户可见。\n\n**关联客服资料：** 如果在 Slack 上回复的人拥有与 Chatwoot 中相同电子邮件的客服资料，回复将自动与该客服资料关联。这意味着您可以轻松跟踪谁在何时说了什么。另一方面，如果回复者没有关联的客服资料，回复将显示为机器人资料。",
+        "BODY": "通过此集成，所有传入的对话将同步到您的 Slack 工作区中的 ***{selectedChannelName}*** 频道。您可以直接在频道中管理所有客户对话，再也不会错过任何消息。\n\n以下是该集成的主要功能：\n\n**从 Slack 回复对话：** 要在 ***{selectedChannelName}*** Slack 频道中回复对话，只需输入您的消息并将其作为线程发送。这将通过 Starchats 创建对客户的回复。就是这么简单！\n\n**创建私密笔记：** 如果您想创建私密笔记而不是回复，请在消息开头加上 ***`note:`***。这将确保您的消息保持私密，不会对客户可见。\n\n**关联客服资料：** 如果在 Slack 上回复的人拥有与 Starchats 中相同电子邮件的客服资料，回复将自动与该客服资料关联。这意味着您可以轻松跟踪谁在何时说了什么。另一方面，如果回复者没有关联的客服资料，回复将显示为机器人资料。",
         "SELECTED": "已选择"
       },
       "SELECT_CHANNEL": {

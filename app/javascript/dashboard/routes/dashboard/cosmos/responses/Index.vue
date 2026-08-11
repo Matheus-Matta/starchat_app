@@ -13,12 +13,10 @@ import BulkSelectBar from 'dashboard/components-next/cosmos/assistant/BulkSelect
 import DeleteDialog from 'dashboard/components-next/cosmos/pageComponents/DeleteDialog.vue';
 import BulkDeleteDialog from 'dashboard/components-next/cosmos/pageComponents/BulkDeleteDialog.vue';
 import PageLayout from 'dashboard/components-next/cosmos/PageLayout.vue';
-import CosmosPaywall from 'dashboard/components-next/cosmos/pageComponents/Paywall.vue';
 import ResponseCard from 'dashboard/components-next/cosmos/assistant/ResponseCard.vue';
 import CreateResponseDialog from 'dashboard/components-next/cosmos/pageComponents/response/CreateResponseDialog.vue';
 import ResponsePageEmptyState from 'dashboard/components-next/cosmos/pageComponents/emptyStates/ResponsePageEmptyState.vue';
 import FeatureSpotlightPopover from 'dashboard/components-next/feature-spotlight/FeatureSpotlightPopover.vue';
-import LimitBanner from 'dashboard/components-next/cosmos/pageComponents/response/LimitBanner.vue';
 
 const router = useRouter();
 const route = useRoute();
@@ -264,12 +262,7 @@ onMounted(() => {
       <ResponsePageEmptyState @click="handleCreate" />
     </template>
 
-    <template #paywall>
-      <CosmosPaywall />
-    </template>
-
     <template #body>
-      <LimitBanner class="mb-5" />
       <Banner
         v-if="pendingCount > 0"
         color="blue"

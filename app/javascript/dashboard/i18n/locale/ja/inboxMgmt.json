@@ -1007,8 +1007,8 @@
         "USER_MESSAGE": "こんにちは",
         "AGENT_MESSAGE": "こんにちは"
       },
-      "BRANDING_TEXT": "提供：Chatwoot",
-      "SCRIPT_SETTINGS": "\n      window.chatwootSettings = {options};"
+      "BRANDING_TEXT": "提供：Starchats",
+      "SCRIPT_SETTINGS": "\n      window.starchatsSettings = {options};"
     },
     "EMAIL_PROVIDERS": {
       "MICROSOFT": {

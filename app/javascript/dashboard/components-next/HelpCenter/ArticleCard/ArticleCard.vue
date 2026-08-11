@@ -77,15 +77,12 @@ const currentAccountId = useMapGetter('getCurrentAccountId');
 const isFeatureEnabledonAccount = useMapGetter(
   'accounts/isFeatureEnabledonAccount'
 );
-const { isEnterprise } = useConfig();
 
-const isTranslationAvailable = computed(
-  () =>
-    isEnterprise &&
-    isFeatureEnabledonAccount.value(
-      currentAccountId.value,
-      FEATURE_FLAGS.COSMOS_TASKS
-    )
+const isTranslationAvailable = computed(() =>
+  isFeatureEnabledonAccount.value(
+    currentAccountId.value,
+    FEATURE_FLAGS.COSMOS_TASKS
+  )
 );
 
 const articleMenuItems = computed(() => {

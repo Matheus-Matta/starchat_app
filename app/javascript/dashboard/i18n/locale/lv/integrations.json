@@ -17,7 +17,7 @@
       "HEADER": "Shopify"
     },
     "HEADER": "Integrācijas",
-    "DESCRIPTION": "Chatwoot integrējas ar vairākiem rīkiem un pakalpojumiem, lai uzlabotu jūsu komandas efektivitāti. Izpētiet tālāk esošo sarakstu, lai konfigurētu savas iecienītākās lietotnes.",
+    "DESCRIPTION": "Starchats integrējas ar vairākiem rīkiem un pakalpojumiem, lai uzlabotu jūsu komandas efektivitāti. Izpētiet tālāk esošo sarakstu, lai konfigurētu savas iecienītākās lietotnes.",
     "LEARN_MORE": "Uzzināt vairāk par integrācijām",
     "LOADING": "Integrāciju iegūšana",
     "COSMOS": {
@@ -65,7 +65,7 @@
       "HEADER_BTN_TXT": "Pievienot jaunu webhook",
       "LOADING": "Notiek pievienoto webhook iegūšana",
       "SEARCH_404": "Šim vaicājumam nav atbilstošu vienumu",
-      "SIDEBAR_TXT": "<p><b>Webhook</b> </p> <p>Webhook ir HTTP atzvani, kurus var definēt katram kontam. Tos aktivizē tādi notikumi kā ziņojumu izveide pakalpojumā Chatwoot. Šim kontam varat izveidot vairāk nekā vienu webhook. <br /><br /> Lai izveidotu <b>webhook</b>, noklikšķiniet uz <b>Pievienot jaunu webhook</b> pogas. Jūs varat arī noņemt jebkuru esošo webhook, noklikšķinot uz pogas Dzēst.</p>",
+      "SIDEBAR_TXT": "<p><b>Webhook</b> </p> <p>Webhook ir HTTP atzvani, kurus var definēt katram kontam. Tos aktivizē tādi notikumi kā ziņojumu izveide pakalpojumā Starchats. Šim kontam varat izveidot vairāk nekā vienu webhook. <br /><br /> Lai izveidotu <b>webhook</b>, noklikšķiniet uz <b>Pievienot jaunu webhook</b> pogas. Jūs varat arī noņemt jebkuru esošo webhook, noklikšķinot uz pogas Dzēst.</p>",
       "LIST": {
         "404": "Šim kontam nav nokonfigurēts neviens webhook.",
         "TITLE": "Pārvaldīt webhook",
@@ -123,7 +123,7 @@
       },
       "HELP_TEXT": {
         "TITLE": "Kā izmantot Slack integrāciju?",
-        "BODY": "Izmantojot šo integrāciju, visas jūsu ienākošās sarunas tiks sinhronizētas ar kanālu ***{selectedChannelName}*** jūsu Slack darbvietā. Jūs varat pārvaldīt visas savas klientu sarunas tieši kanālā un nekad nepalaist garām nevienu ziņojumu.\n\nŠādas ir galvenās integrācijas īpašības:\n\n**Atbldēt uz sarunām no Slack:** Lai atbildētu uz sarunu ***{selectedChannelName}*** Slack kanālā, uzrakstiet savu ziņojumu un nosūtiet to kā pavedienu. Šādi tiks izveidota atbilde klientam, izmantojot Chatwoot.\n\n**Izveidot privātas piezīmes:** ja vēlaties izveidot privātas piezīmes, nevis atbildes, sāciet ziņojumu ar ***`note:`***. Tas nodrošina, ka jūsu ziņojums ir privāts un nebūs redzams klientam.\n\n**Saistīt aģenta profilu:** ja personai, kas atbildēja Slack, ir Chatwoot aģenta profils ar to pašu e-pasta adresi, atbildes tiks automātiski saistītas ar šo aģenta profilu. Tas nozīmē, ka varat viegli izsekot kurš ko teica un kad. No otras puses, ja atbildētājam nav saistīta aģenta profila, atbildes klientam tiks rādītas no robotprogrammatūras profila.",
+        "BODY": "Izmantojot šo integrāciju, visas jūsu ienākošās sarunas tiks sinhronizētas ar kanālu ***{selectedChannelName}*** jūsu Slack darbvietā. Jūs varat pārvaldīt visas savas klientu sarunas tieši kanālā un nekad nepalaist garām nevienu ziņojumu.\n\nŠādas ir galvenās integrācijas īpašības:\n\n**Atbldēt uz sarunām no Slack:** Lai atbildētu uz sarunu ***{selectedChannelName}*** Slack kanālā, uzrakstiet savu ziņojumu un nosūtiet to kā pavedienu. Šādi tiks izveidota atbilde klientam, izmantojot Starchats.\n\n**Izveidot privātas piezīmes:** ja vēlaties izveidot privātas piezīmes, nevis atbildes, sāciet ziņojumu ar ***`note:`***. Tas nodrošina, ka jūsu ziņojums ir privāts un nebūs redzams klientam.\n\n**Saistīt aģenta profilu:** ja personai, kas atbildēja Slack, ir Starchats aģenta profils ar to pašu e-pasta adresi, atbildes tiks automātiski saistītas ar šo aģenta profilu. Tas nozīmē, ka varat viegli izsekot kurš ko teica un kad. No otras puses, ja atbildētājam nav saistīta aģenta profila, atbildes klientam tiks rādītas no robotprogrammatūras profila.",
         "SELECTED": "izvēlēts"
       },
       "SELECT_CHANNEL": {

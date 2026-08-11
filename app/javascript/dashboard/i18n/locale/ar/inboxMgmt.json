@@ -1007,8 +1007,8 @@
         "USER_MESSAGE": "مرحبا",
         "AGENT_MESSAGE": "مرحبا"
       },
-      "BRANDING_TEXT": "مدعوم بواسطة Chatwoot",
-      "SCRIPT_SETTINGS": "\n      window.chatwootSettings = {options};"
+      "BRANDING_TEXT": "مدعوم بواسطة Starchats",
+      "SCRIPT_SETTINGS": "\n      window.starchatsSettings = {options};"
     },
     "EMAIL_PROVIDERS": {
       "MICROSOFT": {

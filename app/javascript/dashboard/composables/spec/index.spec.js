@@ -8,12 +8,16 @@ vi.mock('shared/helpers/mitt', () => ({
   },
 }));
 
+// Spread into a fresh object: a module namespace is read-only, so assigning to
+// actual.default throws instead of overriding the export.
 vi.mock('dashboard/helper/AnalyticsHelper/index', async importOriginal => {
   const actual = await importOriginal();
-  actual.default = {
-    track: vi.fn(),
+  return {
+    ...actual,
+    default: {
+      track: vi.fn(),
+    },
   };
-  return actual;
 });
 
 describe('useTrack', () => {

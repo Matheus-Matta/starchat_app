@@ -7,7 +7,6 @@ import { useAccount } from 'dashboard/composables/useAccount';
 import { useMessageFormatter } from 'shared/composables/useMessageFormatter';
 import Button from 'dashboard/components-next/button/Button.vue';
 import Editor from 'dashboard/components-next/Editor/Editor.vue';
-import CsatReviewNotesPaywall from './CsatReviewNotesPaywall.vue';
 import { dynamicTime } from 'shared/helpers/timeHelper';
 
 const props = defineProps({
@@ -71,8 +70,7 @@ const saveReviewNotes = async () => {
 
 <template>
   <div class="py-4 px-5 border-t border-n-container bg-n-background">
-    <CsatReviewNotesPaywall v-if="showPaywall" />
-    <div v-else-if="isFeatureEnabled" class="flex flex-col gap-3">
+    <div v-if="isFeatureEnabled" class="flex flex-col gap-3">
       <div class="flex items-start gap-4">
         <div
           class="flex items-center gap-1.5 text-n-slate-11 shrink-0 w-36 pt-3"

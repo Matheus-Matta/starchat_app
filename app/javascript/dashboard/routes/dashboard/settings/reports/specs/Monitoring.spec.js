@@ -59,6 +59,16 @@ const store = createStore({
         fetchSnapshot: mockFetchSnapshot,
       },
     },
+    // The team filter reads teams/getTeams and dispatches teams/get on mount.
+    teams: {
+      namespaced: true,
+      getters: {
+        getTeams: () => [],
+      },
+      actions: {
+        get: vi.fn(),
+      },
+    },
   },
 });
 

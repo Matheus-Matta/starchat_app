@@ -5,14 +5,13 @@ import { FEATURE_FLAGS } from 'dashboard/featureFlags';
 import { usePolicy } from 'dashboard/composables/usePolicy';
 
 import PageLayout from 'dashboard/components-next/cosmos/PageLayout.vue';
-import CosmosPaywall from 'dashboard/components-next/cosmos/pageComponents/Paywall.vue';
 import CustomToolsPageEmptyState from 'dashboard/components-next/cosmos/pageComponents/emptyStates/CustomToolsPageEmptyState.vue';
 import CreateCustomToolDialog from 'dashboard/components-next/cosmos/pageComponents/customTool/CreateCustomToolDialog.vue';
 import CustomToolCard from 'dashboard/components-next/cosmos/pageComponents/customTool/CustomToolCard.vue';
 import DeleteDialog from 'dashboard/components-next/cosmos/pageComponents/DeleteDialog.vue';
 
 const store = useStore();
-const { isFeatureFlagEnabled, shouldShowPaywall } = usePolicy();
+const { isFeatureFlagEnabled } = usePolicy();
 
 const SOFT_LIMIT = 10;
 const isV2 = computed(() => isFeatureFlagEnabled(FEATURE_FLAGS.COSMOS_V2));
@@ -81,9 +80,7 @@ const onDeleteSuccess = () => {
 };
 
 onMounted(() => {
-  if (!shouldShowPaywall(FEATURE_FLAGS.COSMOS_CUSTOM_TOOLS)) {
-    fetchCustomTools();
-  }
+  fetchCustomTools();
 });
 </script>
 
@@ -102,10 +99,6 @@ onMounted(() => {
     @update:current-page="onPageChange"
     @click="openCreateDialog"
   >
-    <template #paywall>
-      <CosmosPaywall />
-    </template>
-
     <template #emptyState>
       <CustomToolsPageEmptyState @click="openCreateDialog" />
     </template>

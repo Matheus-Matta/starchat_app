@@ -300,7 +300,10 @@ describe('#actions', () => {
       axios.post.mockResolvedValue({
         data: { id: 1, agent_last_seen_at: lastSeen },
       });
-      await actions.markMessagesRead({ commit }, { id: 1 });
+      await actions.markMessagesRead(
+        { commit, rootGetters: { getCurrentUserAvailability: 'online' } },
+        { id: 1 }
+      );
       vi.runAllTimers();
       expect(commit).toHaveBeenCalledTimes(1);
       expect(commit.mock.calls).toEqual([
@@ -309,7 +312,10 @@ describe('#actions', () => {
     });
     it('sends correct mutations if api is unsuccessful', async () => {
       axios.post.mockRejectedValue({ message: 'Incorrect header' });
-      await actions.markMessagesRead({ commit }, { id: 1 });
+      await actions.markMessagesRead(
+        { commit, rootGetters: { getCurrentUserAvailability: 'online' } },
+        { id: 1 }
+      );
       expect(commit.mock.calls).toEqual([]);
     });
   });

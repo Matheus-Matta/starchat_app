@@ -32,6 +32,12 @@ RSpec.describe Evolution::MigrateToWhatsappService do
       stub_request(:get, 'https://graph.facebook.com/v14.0/222/message_templates?access_token=test_key')
         .to_return(status: 200, body: { data: [] }.to_json)
 
+      # Validation also checks that phone_number_id belongs to the WABA, so this has to
+      # answer with the id under test rather than the generic support stub's.
+      stub_request(:get, %r{graph\.facebook\.com/.+/222/phone_numbers})
+        .to_return(status: 200, body: { data: [{ id: '111' }] }.to_json,
+                   headers: { 'Content-Type' => 'application/json' })
+
       setup_service = instance_double(Whatsapp::WebhookSetupService)
       allow(Whatsapp::WebhookSetupService).to receive(:new).and_return(setup_service)
       allow(setup_service).to receive(:perform)
@@ -131,6 +137,12 @@ RSpec.describe Evolution::MigrateToWhatsappService do
     before do
       stub_request(:get, 'https://graph.facebook.com/v14.0/222/message_templates?access_token=test_key')
         .to_return(status: 200, body: { data: [] }.to_json)
+
+      # Validation also checks that phone_number_id belongs to the WABA, so this has to
+      # answer with the id under test rather than the generic support stub's.
+      stub_request(:get, %r{graph\.facebook\.com/.+/222/phone_numbers})
+        .to_return(status: 200, body: { data: [{ id: '111' }] }.to_json,
+                   headers: { 'Content-Type' => 'application/json' })
 
       # `after_commit :setup_webhooks` is disabled in test env (Channel::Whatsapp#should_auto_setup_webhooks?),
       # so we simulate a failed webhook registration directly via reauthorization_required?.

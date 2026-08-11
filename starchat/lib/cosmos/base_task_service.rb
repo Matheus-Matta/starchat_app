@@ -30,9 +30,15 @@ class Cosmos::BaseTaskService
   end
 
   def make_api_call(model:, messages:, schema: nil, tools: [])
+  end
+
+  def make_api_call(messages:, model: nil, feature: nil, schema: nil, tools: [])
+    # Community edition prerequisite checks
+    # Enterprise module handles these with more specific error messages (cloud vs self-hosted)
     return { error: I18n.t('cosmos.disabled'), error_code: 403 } unless cosmos_tasks_enabled?
     return { error: I18n.t('cosmos.api_key_missing'), error_code: 401 } unless api_key_configured?
 
+    model = resolved_model(model: model, feature: feature)
     instrumentation_params = build_instrumentation_params(model, messages)
     instrumentation_method = tools.any? ? :instrument_tool_session : :instrument_llm_call
 
@@ -43,6 +49,15 @@ class Cosmos::BaseTaskService
     return response unless build_follow_up_context? && response[:message].present?
 
     response.merge(follow_up_context: build_follow_up_context(messages, response))
+  end
+
+  def resolved_model(model:, feature:)
+    return model if feature.blank?
+
+    route = Llm::FeatureRouter.resolve(feature: feature, account: account)
+    return model if model.present? && route[:source] == :default
+
+    route[:model]
   end
 
   def execute_ruby_llm_request(model:, messages:, schema: nil, tools: [])

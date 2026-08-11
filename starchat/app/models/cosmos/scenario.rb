@@ -21,6 +21,8 @@
 #  index_cosmos_scenarios_on_enabled                   (enabled)
 #
 class Cosmos::Scenario < ApplicationRecord
+  DESCRIPTION_LENGTH_LIMIT = 500
+
   include Concerns::CosmosToolsHelpers
   include Concerns::Agentable
 
@@ -37,7 +39,7 @@ class Cosmos::Scenario < ApplicationRecord
   belongs_to :account
 
   validates :title, presence: true
-  validates :description, presence: true
+  validates :description, presence: true, length: { maximum: DESCRIPTION_LENGTH_LIMIT }
   validates :instruction, presence: true
   validates :assistant_id, presence: true
   validates :account_id, presence: true

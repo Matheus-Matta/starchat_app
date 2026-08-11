@@ -16,12 +16,10 @@ import DocumentBulkActions from 'dashboard/components-next/cosmos/assistant/Docu
 import Input from 'dashboard/components-next/input/Input.vue';
 import Policy from 'dashboard/components/policy.vue';
 import PageLayout from 'dashboard/components-next/cosmos/PageLayout.vue';
-import CosmosPaywall from 'dashboard/components-next/cosmos/pageComponents/Paywall.vue';
 import RelatedResponses from 'dashboard/components-next/cosmos/pageComponents/document/RelatedResponses.vue';
 import CreateDocumentDialog from 'dashboard/components-next/cosmos/pageComponents/document/CreateDocumentDialog.vue';
 import DocumentPageEmptyState from 'dashboard/components-next/cosmos/pageComponents/emptyStates/DocumentPageEmptyState.vue';
 import FeatureSpotlightPopover from 'dashboard/components-next/feature-spotlight/FeatureSpotlightPopover.vue';
-import LimitBanner from 'dashboard/components-next/cosmos/pageComponents/document/LimitBanner.vue';
 import CosmosDocumentAPI from 'dashboard/api/cosmos/document';
 import { useI18n } from 'vue-i18n';
 
@@ -381,12 +379,7 @@ onUnmounted(() => {
       <DocumentPageEmptyState @click="handleCreateDocument" />
     </template>
 
-    <template #paywall>
-      <CosmosPaywall />
-    </template>
-
     <template #body>
-      <LimitBanner class="mb-5" />
 
       <div
         v-if="!documents.length && hasActiveDocumentFilters"

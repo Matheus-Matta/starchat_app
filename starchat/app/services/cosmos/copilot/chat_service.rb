@@ -6,8 +6,11 @@ class Cosmos::Copilot::ChatService < Llm::BaseOpenAiService
 
   attr_reader :assistant, :account, :user, :copilot_thread, :previous_history, :messages
 
+  LLM_FEATURE = 'copilot'.freeze
+
   def initialize(assistant, config)
-    super()
+    # Routed through the copilot feature so account-level model overrides apply.
+    super(feature: LLM_FEATURE, account: assistant.account)
 
     @assistant = assistant
     @account = assistant.account

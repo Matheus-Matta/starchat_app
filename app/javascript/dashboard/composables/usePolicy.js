@@ -18,7 +18,6 @@ export function usePolicy() {
     'globalConfig/isACustomBrandedInstance'
   );
 
-  const { isEnterprise } = useConfig();
   const { accountId } = useAccount();
 
   const getUserPermissionsForAccount = () => {
@@ -39,7 +38,8 @@ export function usePolicy() {
   const checkInstallationType = config => {
     if (Array.isArray(config) && config.length > 0) {
       const installationCheck = {
-        [INSTALLATION_TYPES.ENTERPRISE]: isEnterprise,
+        // This build is always the enterprise installation.
+        [INSTALLATION_TYPES.ENTERPRISE]: true,
         [INSTALLATION_TYPES.CLOUD]: isOnChatwootCloud.value,
       };
 
@@ -79,36 +79,16 @@ export function usePolicy() {
       return isFeatureFlagEnabled(flag) || isPremiumFeature(flag);
     }
 
-    if (isEnterprise) {
-      return (
-        isFeatureFlagEnabled(flag) ||
-        (isPremiumFeature(flag) && !hasPremiumEnterprise.value)
-      );
-    }
-
-    // default to true
-    return true;
+    return (
+      isFeatureFlagEnabled(flag) ||
+      (isPremiumFeature(flag) && !hasPremiumEnterprise.value)
+    );
   };
 
-  const shouldShowPaywall = featureFlag => {
-    const flag = unref(featureFlag);
-    if (!flag) return false;
-
-    if (isACustomBrandedInstance.value) {
-      // custom branded instances never show paywall
-      return false;
-    }
-
-    if (isPremiumFeature(flag)) {
-      if (isOnChatwootCloud.value) {
-        return !isFeatureFlagEnabled(flag);
-      }
-
-      if (isEnterprise) {
-        return !hasPremiumEnterprise.value;
-      }
-    }
-
+  // There are no plan tiers here: every account is enterprise and every feature ships
+  // with it. Showing a paywall would tell users to upgrade to a plan that does not
+  // exist, so it never renders. Kept as a function so the call sites stay untouched.
+  const shouldShowPaywall = () => {
     return false;
   };
 

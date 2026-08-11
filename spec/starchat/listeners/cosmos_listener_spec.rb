@@ -29,7 +29,7 @@ describe CosmosListener do
           .to receive(:new)
           .with(assistant, conversation)
           .and_return(instance_double(Cosmos::Llm::ContactNotesService, generate_and_update_notes: nil))
-        expect(Cosmos::Llm::ConversationFaqService).not_to receive(:new)
+        expect(Cosmos::Llm::ConversationFaqJob).not_to receive(:perform_later)
 
         listener.conversation_resolved(event)
       end
@@ -42,11 +42,8 @@ describe CosmosListener do
         assistant.save!
       end
 
-      it 'generates and deduplicates FAQs' do
-        expect(Cosmos::Llm::ConversationFaqService)
-          .to receive(:new)
-          .with(assistant, conversation)
-          .and_return(instance_double(Cosmos::Llm::ConversationFaqService, generate_and_deduplicate: false))
+      it 'enqueues FAQ suggestion generation' do
+        expect(Cosmos::Llm::ConversationFaqJob).to receive(:perform_later).with(conversation, assistant)
         expect(Cosmos::Llm::ContactNotesService).not_to receive(:new)
 
         listener.conversation_resolved(event)

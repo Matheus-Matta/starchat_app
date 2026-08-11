@@ -6,7 +6,7 @@ class Cosmos::Llm::ArticleTranslationService < Cosmos::BaseTaskService
   def perform
     raise ArgumentError, "Invalid type: #{type}" unless TYPES.include?(type)
 
-    response = make_api_call(model: translation_model, messages: messages)
+    response = make_api_call(feature: 'help_center_article_generation', model: translation_model, messages: messages)
     return response if response[:error]
 
     response.merge(message: response[:message].strip)

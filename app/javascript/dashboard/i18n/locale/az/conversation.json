@@ -293,7 +293,7 @@
     "UNSUPPORTED_MESSAGE_TIKTOK": "Bu mesaj dəstəklənmir. Bu mesajı TikTok tətbiqində görə bilərsiniz.",
     "FILE_TYPE_NOT_SUPPORTED": "Bu {fileName} fayl növü bu söhbətdə dəstəklənmir",
     "NATIVE_APP": "Yerli tətbiq",
-    "NATIVE_APP_ADVISORY": "Bu mesaj yerli tətbiqdən göndərilib. Mesaj pəncərəsini saxlamaq üçün Chatwoot-dan cavab verin.",
+    "NATIVE_APP_ADVISORY": "Bu mesaj yerli tətbiqdən göndərilib. Mesaj pəncərəsini saxlamaq üçün Starchats-dan cavab verin.",
     "VOICE_WIDGET": {
       "INCOMING_CALL": "Gələn zəng",
       "OUTGOING_CALL": "Gedən zəng",
