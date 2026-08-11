@@ -94,19 +94,22 @@ export const IFrameHelper = {
   sendMessage: (key, value) => {
     const element = IFrameHelper.getAppFrame();
     element.contentWindow.postMessage(
-      `chatwoot-widget:${JSON.stringify({ event: key, ...value })}`,
+      `starchats-widget:${JSON.stringify({ event: key, ...value })}`,
       '*'
     );
   },
   initPostMessageCommunication: () => {
     window.onmessage = e => {
-      if (
-        typeof e.data !== 'string' ||
-        e.data.indexOf('chatwoot-widget:') !== 0
-      ) {
+      // Accept the former prefix too: a widget iframe served before the rename still
+      // answers under it.
+      const prefix = ['starchats-widget:', 'chatwoot-widget:'].find(
+        candidate =>
+          typeof e.data === 'string' && e.data.indexOf(candidate) === 0
+      );
+      if (!prefix) {
         return;
       }
-      const message = JSON.parse(e.data.replace('chatwoot-widget:', ''));
+      const message = JSON.parse(e.data.replace(prefix, ''));
       if (typeof IFrameHelper.events[message.event] === 'function') {
         IFrameHelper.events[message.event](message);
       }

@@ -4,12 +4,12 @@ import GroupedStackedChangelogCard from './GroupedStackedChangelogCard.vue';
 
 const sampleCards = [
   {
-    id: 'chatwoot-cosmos',
+    id: 'starchats-cosmos',
     title: 'Chatwoot Cosmos',
     meta_title: 'Chatwoot Cosmos',
     meta_description:
       'Watch how our latest feature can transform your workflow with powerful automation tools.',
-    slug: 'chatwoot-cosmos',
+    slug: 'starchats-cosmos',
     feature_image:
       'https://www.starchats.com.br/images/cosmos/cosmos_thumbnail.jpg',
   },

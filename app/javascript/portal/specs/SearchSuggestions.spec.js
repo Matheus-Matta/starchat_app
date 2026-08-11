@@ -22,7 +22,7 @@ describe('SearchSuggestions', () => {
             id: 1,
             title: 'Chatwoot Glossary',
             content: 'Access Token',
-            link: '/hc/user-guide/articles/1677141565-chatwoot-glossary',
+            link: '/hc/user-guide/articles/1677141565-starchats-glossary',
           },
         ],
         isLoading: false,
@@ -38,7 +38,7 @@ describe('SearchSuggestions', () => {
     });
 
     expect(wrapper.find('a').attributes('href')).toBe(
-      '/hc/user-guide/articles/1677141565-chatwoot-glossary'
+      '/hc/user-guide/articles/1677141565-starchats-glossary'
     );
   });
 });

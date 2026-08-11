@@ -76,20 +76,20 @@ describe('#MessageFormatter', () => {
 
     it('should add links to @mentions', () => {
       const message =
-        '@chatwootapp is an opensource tool thanks @longnonexistenttwitterusername';
+        '@starchatsapp is an opensource tool thanks @longnonexistenttwitterusername';
       expect(
         new MessageFormatter(message, true, false).formattedMessage
       ).toMatch(
-        '<p><a href="http://twitter.com/chatwootapp" class="link" rel="noreferrer noopener nofollow" target="_blank">@chatwootapp</a> is an opensource tool thanks @longnonexistenttwitterusername</p>'
+        '<p><a href="http://twitter.com/starchatsapp" class="link" rel="noreferrer noopener nofollow" target="_blank">@starchatsapp</a> is an opensource tool thanks @longnonexistenttwitterusername</p>'
       );
     });
 
     it('should add links to #tags', () => {
-      const message = '#chatwootapp is an opensource tool';
+      const message = '#starchatsapp is an opensource tool';
       expect(
         new MessageFormatter(message, true, false).formattedMessage
       ).toMatch(
-        '<p><a href="https://twitter.com/hashtag/chatwootapp" class="link" rel="noreferrer noopener nofollow" target="_blank">#chatwootapp</a> is an opensource tool</p>'
+        '<p><a href="https://twitter.com/hashtag/starchatsapp" class="link" rel="noreferrer noopener nofollow" target="_blank">#starchatsapp</a> is an opensource tool</p>'
       );
     });
   });
@@ -102,14 +102,14 @@ describe('#MessageFormatter', () => {
 
     it('should add links to @mentions', () => {
       const message =
-        '@chatwootapp is an opensource tool thanks @longnonexistenttwitterusername';
+        '@starchatsapp is an opensource tool thanks @longnonexistenttwitterusername';
       expect(
         new MessageFormatter(message, false, true).formattedMessage
       ).toMatch(message);
     });
 
     it('should add links to #tags', () => {
-      const message = '#chatwootapp is an opensource tool';
+      const message = '#starchatsapp is an opensource tool';
       expect(
         new MessageFormatter(message, false, true).formattedMessage
       ).toMatch(message);

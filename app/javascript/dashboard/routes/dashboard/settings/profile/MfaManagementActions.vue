@@ -48,7 +48,7 @@ const downloadBackupCodes = () => {
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = 'chatwoot-backup-codes.txt';
+  a.download = 'starchats-backup-codes.txt';
   a.click();
   URL.revokeObjectURL(url);
 };

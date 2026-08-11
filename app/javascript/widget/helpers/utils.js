@@ -1,4 +1,4 @@
-import { WOOT_PREFIX } from './constants';
+import { WOOT_PREFIX, LEGACY_WOOT_PREFIX } from './constants';
 
 export const isEmptyObject = obj => {
   if (!obj) return true;
@@ -17,9 +17,14 @@ export const IFrameHelper = {
   sendMessage,
   isAValidEvent: e => {
     const isDataAString = typeof e.data === 'string';
-    return isDataAString && e.data.indexOf(WOOT_PREFIX) === 0;
+    return (
+      isDataAString &&
+      (e.data.indexOf(WOOT_PREFIX) === 0 ||
+        e.data.indexOf(LEGACY_WOOT_PREFIX) === 0)
+    );
   },
-  getMessage: e => JSON.parse(e.data.replace(WOOT_PREFIX, '')),
+  getMessage: e =>
+    JSON.parse(e.data.replace(WOOT_PREFIX, '').replace(LEGACY_WOOT_PREFIX, '')),
 };
 export const RNHelper = {
   isRNWebView: () => window.ReactNativeWebView,
