@@ -34,7 +34,7 @@ class Api::V1::Accounts::OnboardingsController < Api::V1::Accounts::BaseControll
 
     # inbox_setup is a cloud-only step (DEPLOYMENT_ENV config, not a hardcoded
     # environment check); self-hosted finishes onboarding here.
-    if ChatwootApp.chatwoot_cloud?
+    if StarchatsApp.chatwoot_cloud?
       move_to_step(STEP_INBOX_SETUP)
       create_onboarding_inboxes
     else

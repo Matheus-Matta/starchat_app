@@ -34,7 +34,7 @@ class Api::V1::Profile::MFAController < Api::BaseController
   end
 
   def check_mfa_feature_available
-    return if Chatwoot.mfa_enabled?
+    return if Starchats.mfa_enabled?
 
     render json: {
       error: I18n.t('errors.mfa.feature_unavailable')

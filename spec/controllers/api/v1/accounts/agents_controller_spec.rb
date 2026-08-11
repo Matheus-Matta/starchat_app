@@ -249,7 +249,7 @@ RSpec.describe 'Agents API', type: :request do
 
       context 'when the account email limit is exhausted' do
         before do
-          allow(ChatwootApp).to receive(:chatwoot_cloud?).and_return(true)
+          allow(StarchatsApp).to receive(:chatwoot_cloud?).and_return(true)
           account.update!(limits: { 'emails' => 0 })
         end
 
@@ -299,7 +299,7 @@ RSpec.describe 'Agents API', type: :request do
 
       context 'when the account email limit is exhausted' do
         before do
-          allow(ChatwootApp).to receive(:chatwoot_cloud?).and_return(true)
+          allow(StarchatsApp).to receive(:chatwoot_cloud?).and_return(true)
           account.update!(limits: { 'emails' => 0 })
         end
 
@@ -345,7 +345,7 @@ RSpec.describe 'Agents API', type: :request do
 
       context 'when the account has capacity for only part of the batch' do
         before do
-          allow(ChatwootApp).to receive(:chatwoot_cloud?).and_return(true)
+          allow(StarchatsApp).to receive(:chatwoot_cloud?).and_return(true)
           account.update!(limits: { 'emails' => 1 })
         end
 

@@ -16,7 +16,7 @@ module Cosmos::Conversation::V1ActionClassifier
 
     apply_v1_action_classification(classification)
   rescue StandardError => e
-    ChatwootExceptionTracker.new(e, account: account).capture_exception
+    StarchatsExceptionTracker.new(e, account: account).capture_exception
     Rails.logger.warn(
       "[COSMOS][ResponseBuilderJob] V1 action classifier failed for account=#{account.id} " \
       "conversation=#{@conversation.display_id}: #{e.class.name}: #{e.message}"

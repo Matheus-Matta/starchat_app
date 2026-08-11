@@ -17,7 +17,7 @@ RSpec.describe 'Enterprise SAML OmniAuth Callbacks', type: :request do
   end
 
   before do
-    allow(ChatwootApp).to receive(:enterprise?).and_return(true)
+    allow(StarchatsApp).to receive(:enterprise?).and_return(true)
     account.enable_features!('saml')
     saml_settings
   end

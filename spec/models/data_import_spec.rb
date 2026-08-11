@@ -13,7 +13,7 @@ RSpec.describe DataImport do
 
   describe 'access token encryption' do
     it 'encrypts the Intercom access token at rest' do
-      skip('encryption keys missing; see run_mfa_spec workflow') unless Chatwoot.encryption_configured?
+      skip('encryption keys missing; see run_mfa_spec workflow') unless Starchats.encryption_configured?
 
       data_import = create(:data_import, :intercom, access_token: 'intercom-secret')
       stored_value = data_import.reload.read_attribute_before_type_cast(:access_token).to_s

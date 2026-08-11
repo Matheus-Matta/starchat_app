@@ -77,10 +77,10 @@ RSpec.describe Cosmos::Assistant::SessionCaptureService do
 
     it 'reports failures without raising' do
       allow(Cosmos::AgentSession).to receive(:create!).and_raise(StandardError, 'capture failed')
-      allow(ChatwootExceptionTracker).to receive(:new).and_call_original
+      allow(StarchatsExceptionTracker).to receive(:new).and_call_original
 
       expect { service.capture }.not_to raise_error
-      expect(ChatwootExceptionTracker).to have_received(:new)
+      expect(StarchatsExceptionTracker).to have_received(:new)
     end
   end
 

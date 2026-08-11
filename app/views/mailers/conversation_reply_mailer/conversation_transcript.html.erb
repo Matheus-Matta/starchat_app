@@ -61,7 +61,7 @@
   <tr>
     <td style="padding-bottom: 32px;">
       <% if message.content %>
-        <%= ChatwootMarkdownRenderer.new(message.content).render_message %>
+        <%= StarchatsMarkdownRenderer.new(message.content).render_message %>
       <% end %>
       <% if message.attachments.present? %>
         <p>Attachments:</p>

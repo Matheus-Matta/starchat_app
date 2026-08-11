@@ -65,7 +65,7 @@ Style/SymbolArray:
 Style/OpenStructUse:
   Enabled: false
 
-Chatwoot/AttachmentDownload:
+Starchats/AttachmentDownload:
   Enabled: true
   Exclude:
     - 'spec/**/*'

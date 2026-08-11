@@ -2,7 +2,7 @@ class BackfillFeatureContactAttributesForAssistants < ActiveRecord::Migration[7.
   # Only backfill assistants on accounts with cosmos_integration_v2 enabled.
   # V1 assistants never had contact attributes, so limit to v2.
   def up
-    return unless ChatwootApp.enterprise?
+    return unless StarchatsApp.enterprise?
 
     Account.feature_cosmos_integration_v2.find_each do |account|
       account.cosmos_assistants.each do |assistant|
@@ -14,7 +14,7 @@ class BackfillFeatureContactAttributesForAssistants < ActiveRecord::Migration[7.
   end
 
   def down
-    return unless ChatwootApp.enterprise?
+    return unless StarchatsApp.enterprise?
 
     Account.feature_cosmos_integration_v2.find_each do |account|
       account.cosmos_assistants.each do |assistant|

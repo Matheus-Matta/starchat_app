@@ -68,7 +68,7 @@ module InjectStarchatEditionModule
   end
 
   def each_extension_for(constant_name, namespace)
-    ChatwootApp.extensions.each do |extension_name|
+    StarchatsApp.extensions.each do |extension_name|
       extension_namespace =
         const_get_maybe_false(namespace, extension_name.camelize)
 

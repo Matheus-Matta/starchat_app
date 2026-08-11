@@ -70,10 +70,10 @@ class Crm::Leadsquared::ProcessorService < Crm::BaseProcessorService
       store_external_id(contact, new_lead_id)
     end
   rescue Crm::Leadsquared::Api::BaseClient::ApiError => e
-    ChatwootExceptionTracker.new(e, account: @account).capture_exception
+    StarchatsExceptionTracker.new(e, account: @account).capture_exception
     Rails.logger.error "LeadSquared API error processing contact: #{e.message}"
   rescue StandardError => e
-    ChatwootExceptionTracker.new(e, account: @account).capture_exception
+    StarchatsExceptionTracker.new(e, account: @account).capture_exception
     Rails.logger.error "Error processing contact in LeadSquared: #{e.message}"
   end
 
@@ -122,7 +122,7 @@ class Crm::Leadsquared::ProcessorService < Crm::BaseProcessorService
   end
 
   def log_activity_error(error, activity_type, conversation, payload: nil)
-    ChatwootExceptionTracker.new(error, account: @account).capture_exception
+    StarchatsExceptionTracker.new(error, account: @account).capture_exception
     context = "account_id=#{conversation.account_id}, conversation_display_id=#{conversation.display_id}"
     if payload
       context += ", http_status=#{error.code}, prospect_id=#{payload[:lead_id]}, " \

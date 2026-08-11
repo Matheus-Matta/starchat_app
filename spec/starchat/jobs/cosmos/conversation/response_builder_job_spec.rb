@@ -145,7 +145,7 @@ RSpec.describe Cosmos::Conversation::ResponseBuilderJob, type: :job do
           allow(mock_message_builder).to receive(:generate_content)
             .and_raise(StandardError, 'Max retries exceeded')
 
-          expect(ChatwootExceptionTracker).to receive(:new).and_call_original
+          expect(StarchatsExceptionTracker).to receive(:new).and_call_original
 
           described_class.perform_now(conversation, assistant)
 
@@ -161,7 +161,7 @@ RSpec.describe Cosmos::Conversation::ResponseBuilderJob, type: :job do
         end
 
         it 'handles error and triggers handoff' do
-          expect(ChatwootExceptionTracker).to receive(:new)
+          expect(StarchatsExceptionTracker).to receive(:new)
             .with(standard_error, account: account)
             .and_call_original
 

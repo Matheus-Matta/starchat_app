@@ -23,7 +23,7 @@ module Cosmos::Conversation::V1FalsePromiseHandler
     inspect_v1_response_after_false_promise_repair(message_history)
   rescue StandardError => e
     mark_v1_false_promise_handoff_fallback if false_promise_detected
-    ChatwootExceptionTracker.new(e, account: account).capture_exception
+    StarchatsExceptionTracker.new(e, account: account).capture_exception
     Rails.logger.warn(
       "[COSMOS][ResponseBuilderJob] V1 false promise harness failed for account=#{account.id} " \
       "conversation=#{@conversation.display_id}: #{e.class.name}: #{e.message}"

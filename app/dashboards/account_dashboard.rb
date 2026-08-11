@@ -8,7 +8,7 @@ class AccountDashboard < Administrate::BaseDashboard
   # which determines how the attribute is displayed
   # on pages throughout the dashboard.
 
-  premium_attribute_types = if ChatwootApp.enterprise?
+  premium_attribute_types = if StarchatsApp.enterprise?
                                  attributes = {
                                    limits: AccountLimitsField
                                  }
@@ -54,7 +54,7 @@ class AccountDashboard < Administrate::BaseDashboard
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
-  premium_show_page_attributes = if ChatwootApp.enterprise?
+  premium_show_page_attributes = if StarchatsApp.enterprise?
                                       attrs = %i[custom_attributes limits]
                                       attrs << :manually_managed_features
                                       attrs << :all_features
@@ -78,7 +78,7 @@ class AccountDashboard < Administrate::BaseDashboard
   # FORM_ATTRIBUTES
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
-  premium_form_attributes = if ChatwootApp.enterprise?
+  premium_form_attributes = if StarchatsApp.enterprise?
                                  attrs = %i[limits]
                                  attrs << :manually_managed_features
                                  attrs << :all_features

@@ -5,7 +5,7 @@ module Cosmos::ToolInstrumentation
   private
 
   def instrument_tool_session(params)
-    return yield unless ChatwootApp.otel_enabled?
+    return yield unless StarchatsApp.otel_enabled?
 
     response = nil
     executed = false
@@ -20,7 +20,7 @@ module Cosmos::ToolInstrumentation
     end
     response
   rescue StandardError => e
-    ChatwootExceptionTracker.new(e, account: account).capture_exception
+    StarchatsExceptionTracker.new(e, account: account).capture_exception
     executed ? response : yield
   end
 
@@ -38,7 +38,7 @@ module Cosmos::ToolInstrumentation
   end
 
   def record_generation(chat, message, model)
-    return unless ChatwootApp.otel_enabled?
+    return unless StarchatsApp.otel_enabled?
     return unless message.respond_to?(:role) && message.role.to_s == 'assistant'
 
     tracer.in_span("llm.#{event_name}.generation") do |span|

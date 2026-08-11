@@ -2,7 +2,7 @@ class ConvertDocumentToPolymorphicAssociation < ActiveRecord::Migration[7.0]
   def up
     add_column :cosmos_assistant_responses, :documentable_type, :string
 
-    if ChatwootApp.enterprise?
+    if StarchatsApp.enterprise?
       Cosmos::AssistantResponse
         .where
         .not(document_id: nil)

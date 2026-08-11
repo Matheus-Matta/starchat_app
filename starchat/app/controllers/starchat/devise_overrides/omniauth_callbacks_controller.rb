@@ -39,7 +39,7 @@ module Starchat::DeviseOverrides::OmniauthCallbacksController
 
     Internal::Accounts::MarketingAttributionService.new(account: @account, cookies: cookies).perform
   rescue StandardError => e
-    ChatwootExceptionTracker.new(e).capture_exception
+    StarchatsExceptionTracker.new(e).capture_exception
   end
 
   def handle_saml_auth

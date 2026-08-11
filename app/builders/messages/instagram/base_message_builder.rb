@@ -169,7 +169,7 @@ class Messages::Instagram::BaseMessageBuilder < Messages::Messenger::MessageBuil
   end
 
   def handle_error(error)
-    ChatwootExceptionTracker.new(error, account: @inbox.account).capture_exception
+    StarchatsExceptionTracker.new(error, account: @inbox.account).capture_exception
     true
   end
 

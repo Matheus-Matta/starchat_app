@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe MFA::TokenService do
   before do
-    skip('Skipping since MFA is not configured in this environment') unless Chatwoot.encryption_configured?
+    skip('Skipping since MFA is not configured in this environment') unless Starchats.encryption_configured?
   end
 
   let(:user) { create(:user) }

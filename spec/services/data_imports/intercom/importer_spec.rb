@@ -529,8 +529,8 @@ RSpec.describe DataImports::Intercom::Importer do
   end
 
   it 'indexes imported messages for advanced search' do
-    allow(ChatwootApp).to receive(:advanced_search_allowed?).and_return(true)
-    allow(ChatwootApp).to receive(:chatwoot_cloud?).and_return(false)
+    allow(StarchatsApp).to receive(:advanced_search_allowed?).and_return(true)
+    allow(StarchatsApp).to receive(:chatwoot_cloud?).and_return(false)
     reindexed_message_ids = []
     reindex_transaction_depths = []
     transaction_depth_before_import = Message.connection.open_transactions
@@ -551,8 +551,8 @@ RSpec.describe DataImports::Intercom::Importer do
   end
 
   it 'keeps imported messages successful when search reindexing fails', :aggregate_failures do
-    allow(ChatwootApp).to receive(:advanced_search_allowed?).and_return(true)
-    allow(ChatwootApp).to receive(:chatwoot_cloud?).and_return(false)
+    allow(StarchatsApp).to receive(:advanced_search_allowed?).and_return(true)
+    allow(StarchatsApp).to receive(:chatwoot_cloud?).and_return(false)
     # rubocop:disable RSpec/AnyInstance
     allow_any_instance_of(Message).to receive(:reindex_for_search).and_raise(StandardError, 'search unavailable')
     # rubocop:enable RSpec/AnyInstance

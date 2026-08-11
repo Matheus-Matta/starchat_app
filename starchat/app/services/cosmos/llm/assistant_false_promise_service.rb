@@ -28,7 +28,7 @@ class Cosmos::Llm::AssistantFalsePromiseService < Llm::BaseAiService
     parsed = parse_response(response.content)
     normalize_response(parsed, response.content)
   rescue StandardError => e
-    ChatwootExceptionTracker.new(e, account: @conversation.account).capture_exception
+    StarchatsExceptionTracker.new(e, account: @conversation.account).capture_exception
     Rails.logger.warn(
       "[COSMOS][AssistantFalsePromise] Failed for conversation #{@conversation.display_id}: #{e.class.name}: #{e.message}"
     )

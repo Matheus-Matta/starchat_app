@@ -157,7 +157,7 @@ class Cosmos::Conversation::ResponseBuilderJob < ApplicationJob
   end
 
   def log_error(error)
-    ChatwootExceptionTracker.new(error, account: account).capture_exception
+    StarchatsExceptionTracker.new(error, account: account).capture_exception
   end
 
   def error_action_reason(error)
@@ -170,7 +170,7 @@ class Cosmos::Conversation::ResponseBuilderJob < ApplicationJob
 
   def report_v1_handoff_not_executed
     error = StandardError.new("Cosmos V1 handoff requested but conversation #{@conversation.display_id} is still pending")
-    ChatwootExceptionTracker.new(error, account: account).capture_exception
+    StarchatsExceptionTracker.new(error, account: account).capture_exception
     Rails.logger.error(
       "[COSMOS][ResponseBuilderJob] V1 handoff requested but not executed for account=#{account.id} " \
       "conversation=#{@conversation.display_id}"

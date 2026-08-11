@@ -123,7 +123,7 @@ class Messages::AudioTranscriptionOpenaiService < Llm::BaseOpenAiService
     message.reload.send_update_event
     message.account.increment_response_usage
 
-    return unless ChatwootApp.advanced_search_allowed?
+    return unless StarchatsApp.advanced_search_allowed?
 
     message.reindex
   end

@@ -28,7 +28,7 @@ class Cosmos::Assistant::AgentRunnerService
     process_agent_result(@last_run_result)
   rescue StandardError => e
     # In rake/local runs, conversation may not be present, so account is optional here.
-    ChatwootExceptionTracker.new(e, account: @conversation&.account).capture_exception
+    StarchatsExceptionTracker.new(e, account: @conversation&.account).capture_exception
     Rails.logger.error "[Cosmos V2] AgentRunnerService error: #{e.message}"
     Rails.logger.error e.backtrace.join("\n")
 
@@ -117,7 +117,7 @@ class Cosmos::Assistant::AgentRunnerService
   end
 
   def install_instrumentation(runner)
-    return unless ChatwootApp.otel_enabled?
+    return unless StarchatsApp.otel_enabled?
 
     Agents::Instrumentation.install(
       runner,
@@ -156,7 +156,7 @@ class Cosmos::Assistant::AgentRunnerService
       track_handoff_usage(tool_name, handoff_tool_name, context_wrapper)
     end
 
-    if ChatwootApp.otel_enabled?
+    if StarchatsApp.otel_enabled?
       runner.on_run_complete do |_agent_name, _result, context_wrapper|
         write_credits_used_metadata(context_wrapper)
       end

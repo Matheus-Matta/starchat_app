@@ -16,7 +16,7 @@ class Cosmos::Assistant::SessionCaptureService
 
     capture!
   rescue StandardError => e
-    ChatwootExceptionTracker.new(e, account: @assistant.account).capture_exception
+    StarchatsExceptionTracker.new(e, account: @assistant.account).capture_exception
     Rails.logger.error("[COSMOS][SessionCaptureService] Capture failed for conversation=#{@conversation.display_id}: #{e.message}")
   end
 

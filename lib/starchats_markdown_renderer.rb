@@ -1,4 +1,4 @@
-class ChatwootMarkdownRenderer
+class StarchatsMarkdownRenderer
   def initialize(content)
     @content = content
   end

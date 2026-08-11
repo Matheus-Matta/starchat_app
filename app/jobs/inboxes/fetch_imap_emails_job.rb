@@ -19,7 +19,7 @@ class Inboxes::FetchImapEmailsJob < MutexApplicationJob
   rescue LockAcquisitionError
     Rails.logger.error "Lock failed for #{channel.inbox.id}"
   rescue StandardError => e
-    ChatwootExceptionTracker.new(e, account: channel.account).capture_exception
+    StarchatsExceptionTracker.new(e, account: channel.account).capture_exception
   end
 
   private
@@ -72,7 +72,7 @@ class Inboxes::FetchImapEmailsJob < MutexApplicationJob
     rescue StandardError => e
       mark_email_as_failed(inbound_mail.message_id)
       Rails.logger.error "[IMAP] Failed to process email #{inbound_mail.message_id}: #{e.message}"
-      ChatwootExceptionTracker.new(e, account: channel.account).capture_exception
+      StarchatsExceptionTracker.new(e, account: channel.account).capture_exception
     end
   end
 

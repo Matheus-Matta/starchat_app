@@ -14,7 +14,7 @@ class Cosmos::Documents::PerformSyncJob < MutexApplicationJob
   # Goes first because retry_on handlers dispatch bottom-to-top.
   retry_on StandardError, wait: 5.seconds, attempts: 3 do |job, error|
     document = job.arguments.first
-    ChatwootExceptionTracker.new(error, account: document.account).capture_exception
+    StarchatsExceptionTracker.new(error, account: document.account).capture_exception
     job.send(:log_sync_outcome, document, result: :unexpected_retry_exhausted,
                                           error_code: 'sync_error',
                                           exception_class: error.class.name)

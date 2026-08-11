@@ -10,7 +10,7 @@ class Api::V1::WebhooksController < ApplicationController
     twitter_consumer.consume
     head :ok
   rescue StandardError => e
-    ChatwootExceptionTracker.new(e).capture_exception
+    StarchatsExceptionTracker.new(e).capture_exception
     head :ok
   end
 

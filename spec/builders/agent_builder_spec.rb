@@ -45,7 +45,7 @@ RSpec.describe AgentBuilder, type: :model do
       end
 
       it 'reserves email capacity and enqueues the invitation' do
-        allow(ChatwootApp).to receive(:chatwoot_cloud?).and_return(true)
+        allow(StarchatsApp).to receive(:chatwoot_cloud?).and_return(true)
         # The counter lives in Redis, keyed by account id and date, and nothing rolls it
         # back between examples — assert the delta rather than an absolute count.
         emails_before = account.emails_sent_today
@@ -56,7 +56,7 @@ RSpec.describe AgentBuilder, type: :model do
 
       context 'when the account email limit is exhausted' do
         before do
-          allow(ChatwootApp).to receive(:chatwoot_cloud?).and_return(true)
+          allow(StarchatsApp).to receive(:chatwoot_cloud?).and_return(true)
           account.update!(limits: { 'emails' => 0 })
         end
 

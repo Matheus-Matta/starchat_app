@@ -63,7 +63,7 @@ class Instagram::MessageText < Instagram::BaseMessageText
     Rails.logger.warn("[InstagramUserFetchError]: #{error_message} #{error_code}")
 
     exception = StandardError.new("#{error_message} (Code: #{error_code}, IG Scope ID: #{ig_scope_id})")
-    ChatwootExceptionTracker.new(exception, account: @inbox.account).capture_exception
+    StarchatsExceptionTracker.new(exception, account: @inbox.account).capture_exception
   end
 
   def base_uri

@@ -46,7 +46,7 @@ Upstream code is translated on the way in:
 | `lib/captain/`, `spec/lib/captain/` | `starchat/lib/cosmos/`, `spec/starchat/lib/cosmos/` |
 | `Enterprise::` namespace | `Starchat::` |
 
-`Enterprise::` is anchored on `::` and on `mod_with('...')` so `ChatwootApp.enterprise?` and
+`Enterprise::` is anchored on `::` and on `mod_with('...')` so `StarchatsApp.enterprise?` and
 `EnterpriseAccountsController`, which this fork keeps, are left alone.
 
 Build a `xlat` branch holding one commit per upstream tag (each tag's tree with the
@@ -122,7 +122,7 @@ development lazy-loads and hides them, production eager-loads and fails to boot.
 
 All of it is gone from the backend: telemetry, instance registration, the support widget,
 pricing plans, Stripe leftovers, `BillingHelper`, and the `hub.2.chatwoot.com` push relay.
-`ChatwootApp.enterprise?` already returned `true` unconditionally, so every account is
+`StarchatsApp.enterprise?` already returned `true` unconditionally, so every account is
 treated as enterprise.
 
 **Push notifications now require your own Firebase.** The relay was the fallback when

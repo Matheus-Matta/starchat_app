@@ -34,7 +34,7 @@ class Internal::Accounts::MarketingAttributionService
   pattr_initialize [:account!, :cookies!]
 
   def perform
-    return unless ChatwootApp.chatwoot_cloud?
+    return unless StarchatsApp.chatwoot_cloud?
 
     first_touch = attribution_cookie(FIRST_TOUCH_COOKIE)
     last_touch = attribution_cookie(LAST_TOUCH_COOKIE)

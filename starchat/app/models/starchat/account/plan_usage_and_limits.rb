@@ -69,7 +69,7 @@ module Starchat::Account::PlanUsageAndLimits
 
 
   def default_cosmos_limits
-    max_limits = { documents: ChatwootApp.max_limit, responses: ChatwootApp.max_limit }.with_indifferent_access
+    max_limits = { documents: StarchatsApp.max_limit, responses: StarchatsApp.max_limit }.with_indifferent_access
 
     max_limits
   end
@@ -85,7 +85,7 @@ module Starchat::Account::PlanUsageAndLimits
 
     return GlobalConfig.get(config_name)[config_name] if GlobalConfig.get(config_name)[config_name].present?
 
-    ChatwootApp.max_limit
+    StarchatsApp.max_limit
   end
 
   # Atomic jsonb_set to avoid clobbering concurrent writes to other custom_attributes keys.

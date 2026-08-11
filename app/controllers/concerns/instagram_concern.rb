@@ -62,7 +62,7 @@ module InstagramConcern
     begin
       JSON.parse(response.body)
     rescue JSON::ParserError => e
-      ChatwootExceptionTracker.new(e).capture_exception
+      StarchatsExceptionTracker.new(e).capture_exception
       Rails.logger.error "Invalid JSON response: #{response.body}"
       raise e
     end

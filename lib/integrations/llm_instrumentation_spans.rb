@@ -10,7 +10,7 @@ module Integrations::LlmInstrumentationSpans
   end
 
   def start_llm_turn_span(params)
-    return unless ChatwootApp.otel_enabled?
+    return unless StarchatsApp.otel_enabled?
 
     span = tracer.start_span(params[:span_name])
     set_llm_turn_request_attributes(span, params)
@@ -23,7 +23,7 @@ module Integrations::LlmInstrumentationSpans
   end
 
   def end_llm_turn_span(message)
-    return unless ChatwootApp.otel_enabled?
+    return unless StarchatsApp.otel_enabled?
 
     span = @pending_llm_turn_spans&.pop
     return unless span
@@ -35,7 +35,7 @@ module Integrations::LlmInstrumentationSpans
   end
 
   def start_tool_span(tool_call)
-    return unless ChatwootApp.otel_enabled?
+    return unless StarchatsApp.otel_enabled?
 
     tool_name = tool_call.name.to_s
     span = tracer.start_span(format(TOOL_SPAN_NAME, tool_name))
@@ -50,7 +50,7 @@ module Integrations::LlmInstrumentationSpans
   end
 
   def end_tool_span(result)
-    return unless ChatwootApp.otel_enabled?
+    return unless StarchatsApp.otel_enabled?
 
     span = @pending_tool_spans&.pop
     return unless span
@@ -74,7 +74,7 @@ module Integrations::LlmInstrumentationSpans
       yield(span, track_result)
     end
   rescue StandardError => e
-    ChatwootExceptionTracker.new(e, account: resolve_account(params)).capture_exception
+    StarchatsExceptionTracker.new(e, account: resolve_account(params)).capture_exception
     raise unless executed
 
     result

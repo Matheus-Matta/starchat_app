@@ -17,7 +17,7 @@ module AccountEmailRateLimitable
   end
 
   def within_email_rate_limit?
-    return true unless ChatwootApp.chatwoot_cloud?
+    return true unless StarchatsApp.chatwoot_cloud?
     return true if emails_sent_today < email_rate_limit
 
     log_email_limit_reached
@@ -31,7 +31,7 @@ module AccountEmailRateLimitable
   end
 
   def reserve_email_send_capacity(count = 1)
-    return true unless ChatwootApp.chatwoot_cloud?
+    return true unless StarchatsApp.chatwoot_cloud?
 
     loop do
       reservation = attempt_email_capacity_reservation(count)
@@ -83,6 +83,6 @@ module AccountEmailRateLimitable
   end
 
   def default_limit
-    ChatwootApp.max_limit.to_i
+    StarchatsApp.max_limit.to_i
   end
 end

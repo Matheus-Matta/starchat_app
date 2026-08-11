@@ -37,8 +37,8 @@ RSpec.describe '', type: :request do
                 'consumed' => 2
               },
               'cosmos' => {
-                'documents' => { 'consumed' => 0, 'current_available' => ChatwootApp.max_limit, 'total_count' => ChatwootApp.max_limit },
-                'responses' => { 'consumed' => 0, 'current_available' => ChatwootApp.max_limit, 'total_count' => ChatwootApp.max_limit }
+                'documents' => { 'consumed' => 0, 'current_available' => StarchatsApp.max_limit, 'total_count' => StarchatsApp.max_limit },
+                'responses' => { 'consumed' => 0, 'current_available' => StarchatsApp.max_limit, 'total_count' => StarchatsApp.max_limit }
               }
             }
           )
@@ -67,8 +67,8 @@ RSpec.describe '', type: :request do
                 'consumed' => 2
               },
               'cosmos' => {
-                'documents' => { 'consumed' => 0, 'current_available' => ChatwootApp.max_limit, 'total_count' => ChatwootApp.max_limit },
-                'responses' => { 'consumed' => 0, 'current_available' => ChatwootApp.max_limit, 'total_count' => ChatwootApp.max_limit }
+                'documents' => { 'consumed' => 0, 'current_available' => StarchatsApp.max_limit, 'total_count' => StarchatsApp.max_limit },
+                'responses' => { 'consumed' => 0, 'current_available' => StarchatsApp.max_limit, 'total_count' => StarchatsApp.max_limit }
               }
             }
           }
@@ -92,8 +92,8 @@ RSpec.describe '', type: :request do
               },
               'conversation' => {},
               'cosmos' => {
-                'documents' => { 'consumed' => 0, 'current_available' => ChatwootApp.max_limit, 'total_count' => ChatwootApp.max_limit },
-                'responses' => { 'consumed' => 0, 'current_available' => ChatwootApp.max_limit, 'total_count' => ChatwootApp.max_limit }
+                'documents' => { 'consumed' => 0, 'current_available' => StarchatsApp.max_limit, 'total_count' => StarchatsApp.max_limit },
+                'responses' => { 'consumed' => 0, 'current_available' => StarchatsApp.max_limit, 'total_count' => StarchatsApp.max_limit }
               },
               'non_web_inboxes' => {}
             }
@@ -118,8 +118,8 @@ RSpec.describe '', type: :request do
                 'consumed' => 2
               },
               'cosmos' => {
-                'documents' => { 'consumed' => 0, 'current_available' => ChatwootApp.max_limit, 'total_count' => ChatwootApp.max_limit },
-                'responses' => { 'consumed' => 0, 'current_available' => ChatwootApp.max_limit, 'total_count' => ChatwootApp.max_limit }
+                'documents' => { 'consumed' => 0, 'current_available' => StarchatsApp.max_limit, 'total_count' => StarchatsApp.max_limit },
+                'responses' => { 'consumed' => 0, 'current_available' => StarchatsApp.max_limit, 'total_count' => StarchatsApp.max_limit }
               }
             }
           }
@@ -132,7 +132,7 @@ RSpec.describe '', type: :request do
 
   describe 'API token access' do
     before do
-      allow(ChatwootApp).to receive(:chatwoot_cloud?).and_return(true)
+      allow(StarchatsApp).to receive(:chatwoot_cloud?).and_return(true)
       account.disable_features!('api_and_webhooks')
     end
 

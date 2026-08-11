@@ -243,7 +243,7 @@ Push notifications para app mobile.
 ### Langfuse / OpenTelemetry
 Observabilidade de chamadas LLM do Cosmos.
 - **Config**: `OTEL_PROVIDER`, `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, `LANGFUSE_BASE_URL`
-- **Verificação**: `ChatwootApp.otel_enabled?` em `lib/chatwoot_app.rb`
+- **Verificação**: `StarchatsApp.otel_enabled?` em `lib/chatwoot_app.rb`
 
 ---
 

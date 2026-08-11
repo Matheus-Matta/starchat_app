@@ -106,7 +106,7 @@ class Notification::PushNotificationService
     when Errno::ECONNRESET, Net::OpenTimeout, Net::ReadTimeout, Socket::ResolutionError
       Rails.logger.error "WebPush operation error: #{error.message}"
     else
-      ChatwootExceptionTracker.new(error, account: notification.account).capture_exception
+      StarchatsExceptionTracker.new(error, account: notification.account).capture_exception
       true
     end
   end

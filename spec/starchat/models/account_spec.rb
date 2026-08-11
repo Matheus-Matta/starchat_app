@@ -39,7 +39,7 @@ RSpec.describe Account, type: :model do
     # honour here: the API and webhooks are on regardless of the stored flag.
     it 'is always enabled, on cloud or self-hosted' do
       [true, false].each do |on_cloud|
-        allow(ChatwootApp).to receive(:chatwoot_cloud?).and_return(on_cloud)
+        allow(StarchatsApp).to receive(:chatwoot_cloud?).and_return(on_cloud)
         account.disable_features!('api_and_webhooks')
 
         expect(account.api_and_webhooks_enabled?).to be true
@@ -64,7 +64,7 @@ RSpec.describe Account, type: :model do
   end
 
   context 'with usage_limits' do
-    let(:cosmos_limits) { { documents: ChatwootApp.max_limit, responses: ChatwootApp.max_limit }.with_indifferent_access }
+    let(:cosmos_limits) { { documents: StarchatsApp.max_limit, responses: StarchatsApp.max_limit }.with_indifferent_access }
     let(:account) { create(:account) }
     let(:assistant) { create(:cosmos_assistant, account: account) }
 
@@ -148,7 +148,7 @@ RSpec.describe Account, type: :model do
     describe 'when cosmos limits are not configured' do
       it 'returns default values' do
         expect(account.cosmos_monthly_limit).to eq(
-          { documents: ChatwootApp.max_limit, responses: ChatwootApp.max_limit }.with_indifferent_access
+          { documents: StarchatsApp.max_limit, responses: StarchatsApp.max_limit }.with_indifferent_access
         )
       end
     end
@@ -200,7 +200,7 @@ RSpec.describe Account, type: :model do
       account.update(limits: { agents: '' })
       InstallationConfig.where(name: 'ACCOUNT_AGENTS_LIMIT').update(value: '')
 
-      expect(account.usage_limits[:agents]).to eq(ChatwootApp.max_limit)
+      expect(account.usage_limits[:agents]).to eq(StarchatsApp.max_limit)
     end
   end
 
@@ -227,7 +227,7 @@ RSpec.describe Account, type: :model do
     end
 
     it 'enables Cosmos V2 for new self-hosted enterprise accounts' do
-      allow(ChatwootApp).to receive(:self_hosted_enterprise?).and_return(true)
+      allow(StarchatsApp).to receive(:self_hosted_enterprise?).and_return(true)
 
       account = create(:account)
 
@@ -238,8 +238,8 @@ RSpec.describe Account, type: :model do
     end
 
     it 'marks new cloud accounts as eligible for the Cosmos V2 paid-plan default' do
-      allow(ChatwootApp).to receive(:self_hosted_enterprise?).and_return(false)
-      allow(ChatwootApp).to receive(:chatwoot_cloud?).and_return(true)
+      allow(StarchatsApp).to receive(:self_hosted_enterprise?).and_return(false)
+      allow(StarchatsApp).to receive(:chatwoot_cloud?).and_return(true)
 
       account = create(:account)
 
@@ -276,7 +276,7 @@ RSpec.describe Account, type: :model do
     end
 
     it 'uses the enterprise cadence for self-hosted enterprise installs without a plan_name' do
-      allow(ChatwootApp).to receive(:self_hosted_enterprise?).and_return(true)
+      allow(StarchatsApp).to receive(:self_hosted_enterprise?).and_return(true)
       create(:installation_config, name: 'COSMOS_DOCUMENT_AUTO_SYNC_INTERVALS', value: { enterprise: 6 }.to_json)
       account.update!(custom_attributes: {})
 

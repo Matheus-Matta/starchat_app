@@ -70,9 +70,9 @@ module Starchat::Account
 
   def enable_default_features
     super
-    if ChatwootApp.self_hosted_enterprise?
+    if StarchatsApp.self_hosted_enterprise?
       enable_features('cosmos_integration', 'cosmos_integration_v2')
-    elsif ChatwootApp.chatwoot_cloud?
+    elsif StarchatsApp.chatwoot_cloud?
       internal_attributes[COSMOS_V2_DEFAULT_ELIGIBLE] = true
     end
   end

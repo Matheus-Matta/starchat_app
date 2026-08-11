@@ -36,12 +36,12 @@ RSpec.describe Internal::Accounts::MarketingConversionTrackingService do
     create(:installation_config, name: described_class::CONFIG_KEY, value: config.to_json)
     account.update!(internal_attributes: { 'marketing_attribution' => marketing_attribution })
 
-    allow(ChatwootApp).to receive(:chatwoot_cloud?).and_return(true)
+    allow(StarchatsApp).to receive(:chatwoot_cloud?).and_return(true)
     allow(Google::Auth::ServiceAccountCredentials).to receive(:make_creds).and_return(credentials)
   end
 
   it 'does nothing outside Chatwoot Cloud' do
-    allow(ChatwootApp).to receive(:chatwoot_cloud?).and_return(false)
+    allow(StarchatsApp).to receive(:chatwoot_cloud?).and_return(false)
 
     expect(HTTParty).not_to receive(:post)
 

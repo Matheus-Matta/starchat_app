@@ -5,7 +5,7 @@ RSpec.describe Internal::ProcessStaleContactsJob do
 
   context 'when in cloud environment' do
     before do
-      allow(ChatwootApp).to receive(:chatwoot_cloud?).and_return(true)
+      allow(StarchatsApp).to receive(:chatwoot_cloud?).and_return(true)
     end
 
     it 'processes accounts based on the day of month' do

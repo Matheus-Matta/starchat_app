@@ -1,6 +1,6 @@
 class BackfillEditedOnCosmosAssistantResponses < ActiveRecord::Migration[7.0]
   def up
-    return unless ChatwootApp.enterprise?
+    return unless StarchatsApp.enterprise?
 
     # rubocop:disable Rails/SkipsModelValidations
     # NOTE: Since there is no way of knowing currently which FAQs were edited by a human

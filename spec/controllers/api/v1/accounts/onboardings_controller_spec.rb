@@ -60,7 +60,7 @@ RSpec.describe 'Onboarding API', type: :request do
       end
 
       context 'when on cloud (inbox setup is a cloud-only step)' do
-        before { allow(ChatwootApp).to receive(:chatwoot_cloud?).and_return(true) }
+        before { allow(StarchatsApp).to receive(:chatwoot_cloud?).and_return(true) }
 
         it 'advances onboarding_step to inbox_setup' do
           patch "/api/v1/accounts/#{account.id}/onboarding",
@@ -91,7 +91,7 @@ RSpec.describe 'Onboarding API', type: :request do
       end
 
       context 'when off cloud (inbox setup is skipped)' do
-        before { allow(ChatwootApp).to receive(:chatwoot_cloud?).and_return(false) }
+        before { allow(StarchatsApp).to receive(:chatwoot_cloud?).and_return(false) }
 
         it 'finishes onboarding instead of advancing to inbox_setup' do
           patch "/api/v1/accounts/#{account.id}/onboarding",
