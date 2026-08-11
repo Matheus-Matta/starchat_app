@@ -21,7 +21,7 @@ const shouldShowSaml = computed(() => {
   const hasPermission = shouldShow(
     FEATURE_FLAGS.SAML,
     ['administrator'],
-    [INSTALLATION_TYPES.CLOUD, INSTALLATION_TYPES.ENTERPRISE]
+    [INSTALLATION_TYPES.CLOUD, INSTALLATION_TYPES.STARCHAT]
   );
   return hasPermission && isSamlSsoEnabled.value;
 });

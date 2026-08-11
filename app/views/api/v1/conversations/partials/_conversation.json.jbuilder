@@ -69,4 +69,4 @@ json.sla_policy_id sla_applicable ? conversation.sla_policy_id : nil
 json.protocol_code conversation.protocol_code
 json.protocol_id conversation.protocol_id
 json.protocol_policy_id conversation.protocol_policy_id
-json.partial! 'starchat/api/v1/conversations/partials/conversation', conversation: conversation if StarchatsApp.enterprise?
+json.partial! 'starchat/api/v1/conversations/partials/conversation', conversation: conversation

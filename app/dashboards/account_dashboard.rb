@@ -8,21 +8,19 @@ class AccountDashboard < Administrate::BaseDashboard
   # which determines how the attribute is displayed
   # on pages throughout the dashboard.
 
-  premium_attribute_types = if StarchatsApp.enterprise?
-                                 attributes = {
-                                   limits: AccountLimitsField
-                                 }
+  premium_attribute_types = begin
+  attributes = {
+    limits: AccountLimitsField
+  }
 
-                                 attributes[:manually_managed_features] = ManuallyManagedFeaturesField
+  attributes[:manually_managed_features] = ManuallyManagedFeaturesField
 
-                                 # Add all_features last so it appears after manually_managed_features
-                                 attributes[:all_features] = AccountFeaturesField
-                                 attributes[:cosmos_models] = CosmosModelOverridesField
+  # Add all_features last so it appears after manually_managed_features
+  attributes[:all_features] = AccountFeaturesField
+  attributes[:cosmos_models] = CosmosModelOverridesField
 
-                                 attributes
-                               else
-                                 {}
-                               end
+  attributes
+  end
 
   ATTRIBUTE_TYPES = {
     id: Field::Number.with_options(searchable: true),
@@ -54,15 +52,13 @@ class AccountDashboard < Administrate::BaseDashboard
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
-  premium_show_page_attributes = if StarchatsApp.enterprise?
-                                      attrs = %i[custom_attributes limits]
-                                      attrs << :manually_managed_features
-                                      attrs << :all_features
-                                      attrs << :cosmos_models
-                                      attrs
-                                    else
-                                      []
-                                    end
+  premium_show_page_attributes = begin
+  attrs = %i[custom_attributes limits]
+  attrs << :manually_managed_features
+  attrs << :all_features
+  attrs << :cosmos_models
+  attrs
+  end
   SHOW_PAGE_ATTRIBUTES = (%i[
     id
     name
@@ -78,15 +74,13 @@ class AccountDashboard < Administrate::BaseDashboard
   # FORM_ATTRIBUTES
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
-  premium_form_attributes = if StarchatsApp.enterprise?
-                                 attrs = %i[limits]
-                                 attrs << :manually_managed_features
-                                 attrs << :all_features
-                                 attrs << :cosmos_models
-                                 attrs
-                               else
-                                 []
-                               end
+  premium_form_attributes = begin
+  attrs = %i[limits]
+  attrs << :manually_managed_features
+  attrs << :all_features
+  attrs << :cosmos_models
+  attrs
+  end
   FORM_ATTRIBUTES = (%i[
     name
     locale

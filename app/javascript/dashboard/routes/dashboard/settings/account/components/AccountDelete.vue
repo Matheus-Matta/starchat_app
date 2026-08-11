@@ -70,7 +70,7 @@ function handleDeletionError(error) {
 async function markAccountForDeletion() {
   toggleDeletePopup(false);
   try {
-    // Use the enterprise API to toggle deletion with delete action
+    // Use the starchat API to toggle deletion with delete action
     await store.dispatch('accounts/toggleDeletion', {
       action_type: 'delete',
     });
@@ -85,7 +85,7 @@ async function markAccountForDeletion() {
 
 async function clearDeletionMark() {
   try {
-    // Use the enterprise API to toggle deletion with undelete action
+    // Use the starchat API to toggle deletion with undelete action
     await store.dispatch('accounts/toggleDeletion', {
       action_type: 'undelete',
     });

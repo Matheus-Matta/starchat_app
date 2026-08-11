@@ -2,7 +2,7 @@ import * as MutationHelpers from 'shared/helpers/vuex/mutationHelpers';
 import * as types from '../mutation-types';
 import AccountAPI from '../../api/account';
 import { differenceInDays } from 'date-fns';
-import EnterpriseAccountAPI from '../../api/starchat/account';
+import StarchatAccountAPI from '../../api/starchat/account';
 import { throwErrorMessage } from '../utils/api';
 import { getLanguageDirection } from 'dashboard/components/widgets/conversation/advancedFilterItems/languages';
 
@@ -99,7 +99,7 @@ export const actions = {
   ) => {
     commit(types.default.SET_ACCOUNT_UI_FLAG, { isUpdating: true });
     try {
-      await EnterpriseAccountAPI.toggleDeletion(action_type);
+      await StarchatAccountAPI.toggleDeletion(action_type);
       commit(types.default.SET_ACCOUNT_UI_FLAG, { isUpdating: false });
     } catch (error) {
       commit(types.default.SET_ACCOUNT_UI_FLAG, { isUpdating: false });
@@ -122,7 +122,7 @@ export const actions = {
   checkout: async ({ commit }) => {
     commit(types.default.SET_ACCOUNT_UI_FLAG, { isCheckoutInProcess: true });
     try {
-      const response = await EnterpriseAccountAPI.checkout();
+      const response = await StarchatAccountAPI.checkout();
       window.location = response.data.redirect_url;
     } catch (error) {
       throwErrorMessage(error);
@@ -134,7 +134,7 @@ export const actions = {
   subscription: async ({ commit }) => {
     commit(types.default.SET_ACCOUNT_UI_FLAG, { isCheckoutInProcess: true });
     try {
-      await EnterpriseAccountAPI.subscription();
+      await StarchatAccountAPI.subscription();
     } catch (error) {
       throwErrorMessage(error);
     } finally {
@@ -145,7 +145,7 @@ export const actions = {
   limits: async ({ commit }) => {
     commit(types.default.SET_ACCOUNT_UI_FLAG, { isFetchingLimits: true });
     try {
-      const response = await EnterpriseAccountAPI.getLimits();
+      const response = await StarchatAccountAPI.getLimits();
       commit(types.default.SET_ACCOUNT_LIMITS, response.data);
     } catch (error) {
       // silent error

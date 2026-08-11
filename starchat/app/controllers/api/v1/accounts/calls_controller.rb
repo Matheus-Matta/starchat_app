@@ -1,4 +1,4 @@
-class Api::V1::Accounts::CallsController < Api::V1::Accounts::EnterpriseAccountsController
+class Api::V1::Accounts::CallsController < Api::V1::Accounts::StarchatAccountsController
   def index
     result = CallFinder.new(Current.user, Current.account, params).perform
     @calls = result[:calls]

@@ -47,7 +47,7 @@ Upstream code is translated on the way in:
 | `Enterprise::` namespace | `Starchat::` |
 
 `Enterprise::` is anchored on `::` and on `mod_with('...')` so `StarchatsApp.enterprise?` and
-`EnterpriseAccountsController`, which this fork keeps, are left alone.
+`StarchatAccountsController`, which this fork keeps, are left alone.
 
 Build a `xlat` branch holding one commit per upstream tag (each tag's tree with the
 translation applied), then **cherry-pick** — never merge. Cherry-pick uses the commit's

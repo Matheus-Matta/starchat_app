@@ -20,19 +20,19 @@ import CustomToolsIndex from './tools/Index.vue';
 const meta = {
   permissions: ['administrator', 'agent'],
   featureFlag: FEATURE_FLAGS.COSMOS,
-  installationTypes: [INSTALLATION_TYPES.CLOUD, INSTALLATION_TYPES.ENTERPRISE],
+  installationTypes: [INSTALLATION_TYPES.CLOUD, INSTALLATION_TYPES.STARCHAT],
 };
 
 const metaCustomTools = {
   permissions: ['administrator', 'agent'],
   featureFlag: FEATURE_FLAGS.COSMOS_CUSTOM_TOOLS,
-  installationTypes: [INSTALLATION_TYPES.CLOUD, INSTALLATION_TYPES.ENTERPRISE],
+  installationTypes: [INSTALLATION_TYPES.CLOUD, INSTALLATION_TYPES.STARCHAT],
 };
 
 const metaV2 = {
   permissions: ['administrator', 'agent'],
   featureFlag: FEATURE_FLAGS.COSMOS_V2,
-  installationTypes: [INSTALLATION_TYPES.CLOUD, INSTALLATION_TYPES.ENTERPRISE],
+  installationTypes: [INSTALLATION_TYPES.CLOUD, INSTALLATION_TYPES.STARCHAT],
 };
 
 const assistantRoutes = [
@@ -109,7 +109,7 @@ const assistantRoutes = [
       permissions: ['administrator', 'agent'],
       installationTypes: [
         INSTALLATION_TYPES.CLOUD,
-        INSTALLATION_TYPES.ENTERPRISE,
+        INSTALLATION_TYPES.STARCHAT,
       ],
     },
   },

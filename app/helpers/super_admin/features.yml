@@ -12,14 +12,14 @@ cosmos:
 saml:
   name: 'SAML SSO'
   description: 'Configuration for controlling SAML Single Sign-On availability'
-  enabled: <%= StarchatsApp.enterprise? %>
+  enabled: true
   icon: 'icon-lock-line'
   config_key: 'saml'
   premium: true
 saml:
   name: 'SAML SSO'
   description: 'Configuration for controlling SAML Single Sign-On availability'
-  enabled: <%= StarchatsApp.enterprise? %>
+  enabled: true
   icon: 'icon-lock-line'
   config_key: 'saml'
   premium: true

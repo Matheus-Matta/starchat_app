@@ -53,7 +53,7 @@ watch(
       <Policy
         :permissions="ROLES"
         :installation-types="[
-          INSTALLATION_TYPES.ENTERPRISE,
+          INSTALLATION_TYPES.STARCHAT,
           INSTALLATION_TYPES.CLOUD,
         ]"
         :feature-flag="FEATURE_FLAGS.ADVANCED_SEARCH"

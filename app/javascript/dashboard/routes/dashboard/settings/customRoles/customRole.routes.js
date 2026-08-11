@@ -22,7 +22,7 @@ export default {
             featureFlag: FEATURE_FLAGS.CUSTOM_ROLES,
             installationTypes: [
               INSTALLATION_TYPES.CLOUD,
-              INSTALLATION_TYPES.ENTERPRISE,
+              INSTALLATION_TYPES.STARCHAT,
             ],
             permissions: ['administrator'],
           },

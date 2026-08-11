@@ -38,8 +38,8 @@ export function usePolicy() {
   const checkInstallationType = config => {
     if (Array.isArray(config) && config.length > 0) {
       const installationCheck = {
-        // This build is always the enterprise installation.
-        [INSTALLATION_TYPES.ENTERPRISE]: true,
+        // This build is always the starchat installation.
+        [INSTALLATION_TYPES.STARCHAT]: true,
         [INSTALLATION_TYPES.CLOUD]: isOnStarchatsCloud.value,
       };
 
@@ -54,7 +54,7 @@ export function usePolicy() {
     return PREMIUM_FEATURES.includes(featureFlag);
   };
 
-  const hasPremiumEnterprise = computed(() => true);
+  const hasPremiumStarchat = computed(() => true);
 
   const shouldShow = (featureFlag, permissions, installationTypes) => {
     const flag = unref(featureFlag);
@@ -81,7 +81,7 @@ export function usePolicy() {
 
     return (
       isFeatureFlagEnabled(flag) ||
-      (isPremiumFeature(flag) && !hasPremiumEnterprise.value)
+      (isPremiumFeature(flag) && !hasPremiumStarchat.value)
     );
   };
 

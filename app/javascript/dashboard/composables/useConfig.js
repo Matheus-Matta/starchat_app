@@ -24,13 +24,13 @@ export function useConfig() {
   const enabledLanguages = config.enabledLanguages;
 
   /**
-   * Indicates whether the current instance is an enterprise version.
+   * Indicates whether the current instance is a starchat version.
    * @type {boolean}
    */
 
   /**
-   * The name of the enterprise plan, if applicable.
-   * Returns "community" or "enterprise"
+   * The name of the starchat plan, if applicable.
+   * Returns "community" or "starchat"
    * @type {string|undefined}
    */
   const enterprisePlanName = config.enterprisePlanName;

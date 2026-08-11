@@ -10,9 +10,6 @@ class SuperAdmin::InstanceStatusesController < SuperAdmin::ApplicationController
   end
 
   def starchats_edition
-    if StarchatsApp.enterprise?
-    elsif StarchatsApp.custom?
-    end
     @metrics['Starchats edition'] = 'Starchat'
   end
 

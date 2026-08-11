@@ -1,4 +1,4 @@
-class Api::V1::Accounts::AuditLogsController < Api::V1::Accounts::EnterpriseAccountsController
+class Api::V1::Accounts::AuditLogsController < Api::V1::Accounts::StarchatAccountsController
   before_action :check_admin_authorization?
   before_action :fetch_audit
 

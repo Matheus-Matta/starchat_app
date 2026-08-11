@@ -12,7 +12,7 @@ export default {
         permissions: ['administrator'],
         installationTypes: [
           INSTALLATION_TYPES.CLOUD,
-          INSTALLATION_TYPES.ENTERPRISE,
+          INSTALLATION_TYPES.STARCHAT,
         ],
       },
       component: SettingsWrapper,
@@ -31,7 +31,7 @@ export default {
             featureFlag: FEATURE_FLAGS.SAML,
             installationTypes: [
               INSTALLATION_TYPES.CLOUD,
-              INSTALLATION_TYPES.ENTERPRISE,
+              INSTALLATION_TYPES.STARCHAT,
             ],
           },
         },

@@ -24,7 +24,7 @@ export default {
             featureFlag: FEATURE_FLAGS.AUDIT_LOGS,
             installationTypes: [
               INSTALLATION_TYPES.CLOUD,
-              INSTALLATION_TYPES.ENTERPRISE,
+              INSTALLATION_TYPES.STARCHAT,
             ],
             permissions: ['administrator'],
           },

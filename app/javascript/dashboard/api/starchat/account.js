@@ -3,7 +3,7 @@ import ApiClient from '../ApiClient';
 
 class StarchatAccountAPI extends ApiClient {
   constructor() {
-    super('', { accountScoped: true, enterprise: true });
+    super('', { accountScoped: true });
     this.apiVersion = '/starchat/api/v1';
   }
 
