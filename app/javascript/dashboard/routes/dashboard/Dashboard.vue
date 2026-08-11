@@ -4,7 +4,6 @@ import { defineAsyncComponent, ref, computed } from 'vue';
 import NextSidebar from 'next/sidebar/Sidebar.vue';
 import WootKeyShortcutModal from 'dashboard/components/widgets/modal/WootKeyShortcutModal.vue';
 import AddAccountModal from 'dashboard/components/app/AddAccountModal.vue';
-import UpgradePage from 'dashboard/routes/dashboard/upgrade/UpgradePage.vue';
 
 import { useUISettings } from 'dashboard/composables/useUISettings';
 import { useAccount } from 'dashboard/composables/useAccount';
@@ -32,14 +31,12 @@ export default {
     CommandBar,
     WootKeyShortcutModal,
     AddAccountModal,
-    UpgradePage,
     CopilotLauncher,
     CopilotContainer,
     FloatingCallWidget,
     MobileSidebarLauncher,
   },
   setup() {
-    const upgradePageRef = ref(null);
     const { uiSettings, updateUISettings } = useUISettings();
     const { accountId } = useAccount();
     const { width: windowWidth } = useWindowSize();
@@ -49,7 +46,6 @@ export default {
       uiSettings,
       updateUISettings,
       accountId,
-      upgradePageRef,
       windowWidth,
       hasActiveCall: computed(() => callsStore.hasActiveCall),
       hasIncomingCall: computed(() => callsStore.hasIncomingCall),
@@ -66,17 +62,6 @@ export default {
   computed: {
     isSmallScreen() {
       return this.windowWidth < wootConstants.SMALL_SCREEN_BREAKPOINT;
-    },
-    showUpgradePage() {
-      return this.upgradePageRef?.shouldShowUpgradePage;
-    },
-    bypassUpgradePage() {
-      return [
-        'billing_settings_index',
-        'settings_inbox_list',
-        'general_settings_index',
-        'agent_list',
-      ].includes(this.$route.name);
     },
     previouslyUsedDisplayType() {
       const {
@@ -143,27 +128,15 @@ export default {
     <main
       class="flex flex-1 h-full w-full min-h-0 px-0 overflow-hidden bg-n-surface-1"
     >
-      <UpgradePage
-        v-show="showUpgradePage"
-        ref="upgradePageRef"
-        :bypass-upgrade-page="bypassUpgradePage"
-      >
-        <MobileSidebarLauncher
-          :is-mobile-sidebar-open="isMobileSidebarOpen"
-          @toggle="toggleMobileSidebar"
-        />
-      </UpgradePage>
-      <template v-if="!showUpgradePage">
-        <router-view />
-        <CommandBar />
-        <CopilotLauncher />
-        <MobileSidebarLauncher
-          :is-mobile-sidebar-open="isMobileSidebarOpen"
-          @toggle="toggleMobileSidebar"
-        />
-        <CopilotContainer />
-        <FloatingCallWidget v-if="hasActiveCall || hasIncomingCall" />
-      </template>
+      <router-view />
+      <CommandBar />
+      <CopilotLauncher />
+      <MobileSidebarLauncher
+        :is-mobile-sidebar-open="isMobileSidebarOpen"
+        @toggle="toggleMobileSidebar"
+      />
+      <CopilotContainer />
+      <FloatingCallWidget v-if="hasActiveCall || hasIncomingCall" />
       <AddAccountModal
         :show="showCreateAccountModal"
         @close-account-create-modal="closeCreateAccountModal"

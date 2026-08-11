@@ -3,7 +3,6 @@ import { mapGetters } from 'vuex';
 import LoadingState from './components/widgets/LoadingState.vue';
 import NetworkNotification from './components/NetworkNotification.vue';
 import StatusBanner from './components/app/StatusBanner.vue';
-import PaymentPendingBanner from './components/app/PaymentPendingBanner.vue';
 import PendingEmailVerificationBanner from './components/app/PendingEmailVerificationBanner.vue';
 import vueActionCable from './helper/actionCable';
 import { useRouter } from 'vue-router';
@@ -27,7 +26,6 @@ export default {
     LoadingState,
     NetworkNotification,
     StatusBanner,
-    PaymentPendingBanner,
     WootSnackbarBox,
     PendingEmailVerificationBanner,
   },
@@ -136,7 +134,6 @@ export default {
     <StatusBanner />
     <template v-if="currentAccountId">
       <PendingEmailVerificationBanner v-if="hideOnOnboardingView" />
-      <PaymentPendingBanner v-if="hideOnOnboardingView" />
     </template>
     <router-view v-slot="{ Component, route }">
       <transition name="fade" mode="out-in">

@@ -10,7 +10,6 @@ import Button from 'dashboard/components-next/button/Button.vue';
 import DropdownMenu from 'dashboard/components-next/dropdown-menu/DropdownMenu.vue';
 import ConversationRequiredAttributeItem from 'dashboard/components-next/ConversationWorkflow/ConversationRequiredAttributeItem.vue';
 import ConversationRequiredEmpty from 'dashboard/components-next/Conversation/ConversationRequiredEmpty.vue';
-import BasePaywallModal from 'dashboard/routes/dashboard/settings/components/BasePaywallModal.vue';
 
 const props = defineProps({
   isEnabled: {
@@ -36,13 +35,6 @@ const showPaywall = computed(() => !props.isEnabled && isOnChatwootCloud.value);
 const i18nKey = computed(() =>
   isOnChatwootCloud.value ? 'PAYWALL' : 'STARCHAT_PAYWALL'
 );
-
-const goToBillingSettings = () => {
-  router.push({
-    name: 'billing_settings_index',
-    params: { accountId: accountId.value },
-  });
-};
 
 const handleClick = () => {
   emit('click');
@@ -172,15 +164,5 @@ const handleDelete = attribute => {
         @delete="handleDelete"
       />
     </template>
-
-    <BasePaywallModal
-      v-else
-      class="mx-auto my-8"
-      feature-prefix="CONVERSATION_WORKFLOW.REQUIRED_ATTRIBUTES"
-      :i18n-key="i18nKey"
-      :is-on-chatwoot-cloud="isOnChatwootCloud"
-      :is-super-admin="isSuperAdmin"
-      @upgrade="goToBillingSettings"
-    />
   </div>
 </template>
