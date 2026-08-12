@@ -19,8 +19,18 @@ namespace :db do
       exit 1
     end
 
-    seeder = FullSeeder.new(legacy_state: ENV['SEED_LEGACY_STATE'] == 'true')
-    seeder.perform
+    # Every record created here dispatches events, which enqueue EventDispatcherJob and
+    # ActionCableBroadcastJob. Sidekiq's Redis is shared across databases — POSTGRES_DATABASE
+    # selects the database, not the queue — so seeding a scratch database would flood the
+    # queue a running worker consumes, and every job would resolve its GlobalID against a
+    # different database. Swap in the test adapter so nothing reaches Redis.
+    previous_adapter = ActiveJob::Base.queue_adapter
+    ActiveJob::Base.queue_adapter = :test
+    begin
+      FullSeeder.new(legacy_state: ENV['SEED_LEGACY_STATE'] == 'true').perform
+    ensure
+      ActiveJob::Base.queue_adapter = previous_adapter
+    end
   end
 end
 
