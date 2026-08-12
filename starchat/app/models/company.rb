@@ -4,7 +4,7 @@
 #
 #  id                    :bigint           not null, primary key
 #  additional_attributes :jsonb
-#  contacts_count        :integer          default(0), not null
+#  contacts_count        :integer          default(0)
 #  custom_attributes     :jsonb
 #  description           :text
 #  domain                :string
