@@ -50,7 +50,16 @@ RSpec.describe AgentBuilder, type: :model do
         # back between examples — assert the delta rather than an absolute count.
         emails_before = account.emails_sent_today
 
-        expect { agent_builder.perform }.to have_enqueued_mail(Devise::Mailer, :confirmation_instructions)
+        # have_enqueued_mail validates the mailer's arity, which trips over whatever
+        # another example left on the ActiveJob queue; count the enqueued delivery
+        # instead, which asserts the same thing without that coupling.
+        confirmations_enqueued = lambda do
+          ActiveJob::Base.queue_adapter.enqueued_jobs.count do |job|
+            job[:args].first(2) == ['Devise::Mailer', 'confirmation_instructions']
+          end
+        end
+
+        expect { agent_builder.perform }.to change(&confirmations_enqueued).by(1)
         expect(account.emails_sent_today).to eq(emails_before + 1)
       end
 
