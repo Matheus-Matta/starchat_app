@@ -13,6 +13,13 @@
 #  conversation_id    :bigint           not null
 #  faq_suggestion_id  :bigint
 #
+# Indexes
+#
+#  idx_cosmos_faq_observations_on_conversation_and_suggestion  (conversation_id,faq_suggestion_id) UNIQUE WHERE (faq_suggestion_id IS NOT NULL)
+#  index_cosmos_faq_observations_on_account_id                 (account_id)
+#  index_cosmos_faq_observations_on_conversation_id            (conversation_id)
+#  index_cosmos_faq_observations_on_faq_suggestion_id          (faq_suggestion_id)
+#
 class Cosmos::FaqObservation < ApplicationRecord
   self.table_name = 'cosmos_faq_observations'
 

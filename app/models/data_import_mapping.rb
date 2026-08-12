@@ -2,17 +2,17 @@
 #
 # Table name: data_import_mappings
 #
-#  id                   :bigint           not null, primary key
+#  id                    :bigint           not null, primary key
+#  metadata              :jsonb            not null
+#  source_object_type    :string           not null
+#  source_provider       :string           not null
 #  starchats_record_type :string           not null
-#  metadata             :jsonb            not null
-#  source_object_type   :string           not null
-#  source_provider      :string           not null
-#  created_at           :datetime         not null
-#  updated_at           :datetime         not null
-#  account_id           :integer          not null
+#  created_at            :datetime         not null
+#  updated_at            :datetime         not null
+#  account_id            :integer          not null
+#  data_import_id        :bigint           not null
+#  source_object_id      :string           not null
 #  starchats_record_id   :bigint           not null
-#  data_import_id       :bigint           not null
-#  source_object_id     :string           not null
 #
 # Indexes
 #

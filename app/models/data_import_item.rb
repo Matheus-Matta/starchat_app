@@ -2,20 +2,20 @@
 #
 # Table name: data_import_items
 #
-#  id                   :bigint           not null, primary key
-#  attempt_count        :integer          default(0), not null
+#  id                    :bigint           not null, primary key
+#  attempt_count         :integer          default(0), not null
+#  last_error_code       :string
+#  last_error_message    :text
+#  metadata              :jsonb            not null
+#  source_object_type    :string           not null
+#  source_provider       :string           not null
 #  starchats_record_type :string
-#  last_error_code      :string
-#  last_error_message   :text
-#  metadata             :jsonb            not null
-#  source_object_type   :string           not null
-#  source_provider      :string           not null
-#  status               :integer          default("pending"), not null
-#  created_at           :datetime         not null
-#  updated_at           :datetime         not null
+#  status                :integer          default("pending"), not null
+#  created_at            :datetime         not null
+#  updated_at            :datetime         not null
+#  data_import_id        :bigint           not null
+#  source_object_id      :string           not null
 #  starchats_record_id   :bigint
-#  data_import_id       :bigint           not null
-#  source_object_id     :string           not null
 #
 # Indexes
 #
