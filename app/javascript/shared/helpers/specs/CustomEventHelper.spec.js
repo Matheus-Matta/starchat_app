@@ -14,12 +14,13 @@ describe('dispatchWindowEvent', () => {
     expect(dispatchedNames()).toContain('starchats:ready');
   });
 
-  // Embeds installed before the rename listen for starchats:* on their own pages, so
-  // dropping the twin would silently break every one of them.
-  it('also dispatches the legacy starchats event for backwards compatibility', () => {
+  // Embeds installed before the rename listen for chatwoot:* on their own pages, so
+  // dropping the twin — or collapsing both prefixes to the same value — would silently
+  // break every one of them.
+  it('also dispatches the legacy chatwoot event for backwards compatibility', () => {
     dispatchWindowEvent({ eventName: 'starchats:ready' });
 
-    expect(dispatchedNames()).toEqual(['starchats:ready', 'starchats:ready']);
+    expect(dispatchedNames()).toEqual(['starchats:ready', 'chatwoot:ready']);
   });
 
   it('passes the same payload to both names', () => {
